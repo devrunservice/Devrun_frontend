@@ -1,11 +1,13 @@
-import {Routes,BrowserRouter,Route} from "react-router-dom"
+import SearchBar from './components/SearchBar/SearchBar';
+import {Outlet} from 'react-router-dom';
 
 function App() {
   return (
-    <div>
-      
-    </div>
-  )
+    <>
+      <SearchBar />
+      <Outlet />
+    </>
+  );
 }
 
-export default App
+export default App;
