@@ -1,26 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
-import {Provider} from 'react-redux';
-import store from './redux/store';
+import { ThemeProvider } from 'styled-components';
+import { GlobalStyle, defaultTheme } from "style/Theme";
+import App from './App'
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Signup from './pages/Signup/Signup';
 import NotFound from './pages/NotFound/NotFound';
+import Basket from 'pages/Basket/Basket';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <App />,
     errorElement: <NotFound />,
     children: [
-      {index: true, element: <Home />},
-      {path: 'home', element: <Home />},
-      {path: 'login', element: <Login />},
-      {path: 'signup', element: <Signup />},
+      { index: true, element: <Home /> },
+      { path: "home", element: <Home /> },
+      { path: "login", element: <Login /> },
+      { path: "signup", element: <Signup /> },
+      { path: "basket", element: <Basket /> },
     ],
   },
 ]);
@@ -30,9 +31,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
+    <ThemeProvider theme={defaultTheme}>
+      <GlobalStyle />
       <RouterProvider router={router} />
-    </Provider>
+    </ThemeProvider>
   </React.StrictMode>
 );
 
