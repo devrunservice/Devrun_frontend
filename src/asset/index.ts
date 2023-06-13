@@ -1,0 +1,1 @@
+export { ReactComponent as Delet} from "./Delet.svg";
