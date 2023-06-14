@@ -1,4 +1,4 @@
-import { NoticeCom } from "components";
+import NoticeCom from 'components/Notice/index';
 
 const Notice = () => {
   return <NoticeCom />;
