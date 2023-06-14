@@ -25,7 +25,11 @@ export const GlobalStyle = createGlobalStyle`
         src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff");
         font-weight: 700;
     }
-
+    *{
+        box-sizing: border-box;
+        margin: 0;
+        font-family: 'Pretendard';
+    }
     body {
         color: ${({theme}) => theme.textColor};
         background-color: ${({theme}) => theme.bgColor};
@@ -40,12 +44,20 @@ export const GlobalStyle = createGlobalStyle`
     #root {
         width: 100%;
     }
+    button{
+        cursor: pointer;
+        font-size:${({theme}) => theme.fontSize14px};
+        color: ${({theme}) => theme.textBlack};
+        border: 0;
+    }
 `;
 
 export const defaultTheme: DefaultTheme = {
   brandColor: '#5F4B8B',
   bgColor: '#fff',
   bgGrayColor: '#f7f7f7',
+  bgBlack: '#333',
+  mainColor: '#604B8E',
   fontRegular: '400',
   fontMedium: '500',
   fontSemiBold: '600',
@@ -55,9 +67,13 @@ export const defaultTheme: DefaultTheme = {
   fontSize18px: '18px',
   fontSize20px: '20px',
   textBlack: '#171717',
-  textWhite: '#fff',
   textColor: '#676767',
+  textRed: '#F03B43',
   textPoint: '#5F4B8B',
+  textWhite: '#fff',
+  textGrayC: '#ccc',
   borderBlack: '#171717',
+  border83: '#838383',
+  border49: '#494949',
   borderGray: '#ddd',
 };
