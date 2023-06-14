@@ -36,13 +36,13 @@ export const GlobalStyle = createGlobalStyle`
         font-size:${({ theme }) => theme.fontSize14px};
         font-weight:${({ theme }) => theme.fontRegular};
         font-family: 'SUIT';
-        
     }
 `;
 
 export const defaultTheme: DefaultTheme = {
   bgColor: "#fff",
   bgGrayColor: "#f7f7f7",
+  mainColor: '#604B8E',
   fontRegular: "400",
   fontMedium: "500",
   fontSemiBold: "600",
@@ -52,4 +52,5 @@ export const defaultTheme: DefaultTheme = {
   fontSize18px: "18px",
   textBlack: "#171717",
   textColor: "#676767",
+
 };
