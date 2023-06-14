@@ -1,9 +1,5 @@
-const Notice = ()=>{
-    return(
-        <div>
-            
-        </div>
-    )
-}
+const NoticeCom = () => {
+  return <div>Notice</div>;
+};
 
-export default Notice;
+export default NoticeCom;
