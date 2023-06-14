@@ -1,6 +1,7 @@
-import * as St from "./style";
-import Noimg from "asset/Noimg.jpg";
-const Basket = () => {
+import * as St from './style';
+import Noimg from 'asset/Noimg.jpg';
+
+const ShoppingBasket = () => {
   return (
     <St.GaryBg>
       <St.WhiteBg>
@@ -139,4 +140,4 @@ const Basket = () => {
     </St.GaryBg>
   );
 };
-export default Basket;
+export default ShoppingBasket;
