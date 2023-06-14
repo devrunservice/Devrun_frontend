@@ -6,7 +6,7 @@ export const StyledContainer = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
   background: ${(props) => props.theme.bgGrayColor};
   overflow: auto;
 `;
@@ -39,7 +39,7 @@ export const StyledP = styled.p`
 
 // input 태그
 export const StyledInput = styled.input`
-  text-indent: 0.4rem;
+  text-indent: 0.5rem;
   border-radius: 5px;
   padding: 0.8rem 0;
   /* margin-bottom: 0.6rem; */
@@ -82,10 +82,15 @@ export const StyledPhoneField = styled.div`
 `;
 
 // 약관 동의
+export const StyledUl = styled.ul`
+  margin-bottom: 1.5rem;
+`;
+
 export const StyledLi = styled.li`
   margin-bottom: 0.5rem;
 `;
 
+// 간편 회원가입
 export const StyledSocialLogin = styled.div`
   margin-bottom: 1.25rem;
 `;
