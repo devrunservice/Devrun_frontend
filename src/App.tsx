@@ -1,3 +1,4 @@
+import Footer from 'components/Footer';
 import SearchBar from './components/SearchBar/SearchBar';
 import { Outlet } from "react-router-dom";
 import Main from 'pages/Main/Main';
@@ -8,6 +9,7 @@ function App() {
       {/* <SearchBar /> */}
       {/* <Outlet /> */}
       <Main />
+      {/* <Footer/> */}
     </>
   );
 }
