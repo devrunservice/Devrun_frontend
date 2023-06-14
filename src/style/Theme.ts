@@ -50,6 +50,7 @@ export const defaultTheme: DefaultTheme = {
   bgColor: "#fff",
   bgGrayColor: "#f7f7f7",
   bgBlack: "#333",
+  mainColor: '#604B8E',
   fontRegular: "400",
   fontMedium: "500",
   fontSemiBold: "600",
