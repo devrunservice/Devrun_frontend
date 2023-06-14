@@ -84,6 +84,10 @@ export const StyledPhoneField = styled.div`
 // 약관 동의
 export const StyledUl = styled.ul`
   margin-bottom: 1.5rem;
+
+  & hr {
+    margin-bottom: 0.5rem;
+  }
 `;
 
 export const StyledLi = styled.li`
