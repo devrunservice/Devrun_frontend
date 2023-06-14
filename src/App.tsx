@@ -1,10 +1,13 @@
 import SearchBar from './components/SearchBar/SearchBar';
-import { Outlet } from "react-router-dom";
+import {Outlet, useLocation} from 'react-router-dom';
 
 function App() {
+  const location = useLocation();
+  const hideSearchBar = location.pathname === '/signup';
+
   return (
     <>
-      <SearchBar />
+      {!hideSearchBar && <SearchBar />}
       <Outlet />
     </>
   );
