@@ -1,21 +1,21 @@
 import { styled } from "styled-components";
-import { Delet } from "asset";
+import { Delete, Check } from "asset";
 const ShoppingBasket = () => {
   return (
     <StGaryBg>
       <StWhiteBg>
         <StTitle>수강바구니</StTitle>
-        <StSeletWarp>
+        <StSelectWarp >
           <StLeft>
-            <StCheckBox type="checkbox"/>
-            <StCheckNum>
-              <StCheckAll>2</StCheckAll> / 2
-            </StCheckNum>
+            <StCheckBox type="checkbox" id="allCheck" name="allCheck" />
+            <StCheckLabel htmlFor="allCheck">
+              전체선택 <StCheckAll>2</StCheckAll> / 2
+            </StCheckLabel>
           </StLeft>
           <StRight>
-            선택삭제 <Delet/>
+            선택삭제 <Delete />
           </StRight>
-        </StSeletWarp>
+        </StSelectWarp>
       </StWhiteBg>
     </StGaryBg>
   );
@@ -37,14 +37,43 @@ const StWhiteBg = styled.div`
   margin: 0 auto;
 `;
 const StTitle = styled.h4`
-  font-size: ${(props) => props.theme.fontSize18px};
+  font-size: ${(props) => props.theme.fontSize20px};
   color: ${(props) => props.theme.textBlack};
   font-weight: ${(props) => props.theme.fontSemiBold};
   margin-bottom: 25px;
 `;
-const StSeletWarp = styled.div``;
-const StLeft = styled.div``;
-const StCheckBox = styled.input``;
-const StCheckNum = styled.p``;
-const StCheckAll = styled.span``;
+const StSelectWarp = styled.div`
+  border-bottom: 1px solid ${(props) => props.theme.borderBlack};
+  padding-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+const StLeft = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const StCheckBox = styled.input`
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  cursor: pointer;
+  border: 1px solid ${(props) => props.theme.borderGray};
+  &:checked {
+    background-color: ${(props) => props.theme.textPoint};
+    border: 1px solid ${(props) => props.theme.textPoint};
+    
+  }
+`;
+
+const StCheckLabel = styled.label`
+  color: ${(props) => props.theme.textBlack};
+  padding-left: 5px;
+  cursor: pointer;
+`;
+const StCheckAll = styled.span`
+  color: ${(props) => props.theme.textPoint};
+`;
+
 const StRight = styled.button``
