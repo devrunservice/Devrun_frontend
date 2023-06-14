@@ -16,6 +16,7 @@ import {
   StyledSocialLogin,
   StyledSocialLoginBtn,
   StyledSocialLoginTitle,
+  StyledUl,
 } from './styles';
 
 const SignupForm = () => {
@@ -58,7 +59,7 @@ const SignupForm = () => {
               <StyledButton>확인</StyledButton>
             </StyledPhoneField>
           </StyledInputField>
-          <ul>
+          <StyledUl>
             <StyledLi>
               <StyledInput type="checkbox" id="all-agree" />
               <label htmlFor="all-agree">전체동의</label>
@@ -74,7 +75,7 @@ const SignupForm = () => {
                 개인정보 수집 및 이용 동의 (필수)
               </label>
             </StyledLi>
-          </ul>
+          </StyledUl>
         </form>
         <StyledSocialLogin>
           <StyledSocialLoginTitle>간편 회원가입</StyledSocialLoginTitle>
