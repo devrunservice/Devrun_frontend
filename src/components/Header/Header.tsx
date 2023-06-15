@@ -1,6 +1,5 @@
-import * as St from "./style";
-
 import { Logo } from "asset";
+import * as St from "./style";
 
 const Header = () => {
   return (

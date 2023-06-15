@@ -10,3 +10,7 @@ export { ReactComponent as PageNext } from "./images/PageNext.svg";
 export { ReactComponent as PagePrev } from "./images/PagePrev.svg";
 export { ReactComponent as Logo } from "./images/Logo.svg";
 export { ReactComponent as Category } from "./images/Category.svg";
+export { ReactComponent as Kakao } from "./images/kakao.svg";
+export { ReactComponent as Google } from "./images/google.svg";
+export { ReactComponent as Naver } from "./images/naver.svg";
+export { ReactComponent as BrandLogo } from "./images/brandlogo.svg";
