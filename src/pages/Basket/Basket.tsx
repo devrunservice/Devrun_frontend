@@ -1,5 +1,5 @@
 import * as St from "style/Theme";
-import ShoppingBasket from "components/Basket/Basket";
+import { ShoppingBasket } from "components";
 
 const Basket = () => {
   return(
