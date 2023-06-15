@@ -1,99 +1,82 @@
 import React from 'react';
-import kakaoImg from '../../asset/images/kakao.png';
-import naverImg from '../../asset/images/naver.png';
-import googleImg from '../../asset/images/google.png';
-import {
-  StyledButton,
-  StyledContainer,
-  StyledContent,
-  StyledH1,
-  StyledInput,
-  StyledInputField,
-  StyledLi,
-  StyledP,
-  StyledPhoneField,
-  StyledSignupBtn,
-  StyledSocialLogin,
-  StyledSocialLoginBtn,
-  StyledSocialLoginTitle,
-  StyledUl,
-} from './styles';
+import {Kakao, Naver, Google} from 'asset';
+import * as St from './styles';
 
 const SignupForm = () => {
   return (
-    <StyledContainer>
-      <StyledContent>
-        <StyledH1>회원가입</StyledH1>
+    <St.Container>
+      <St.Content>
+        <St.H1>회원가입</St.H1>
         <form>
-          <StyledInputField>
-            <StyledP>아이디</StyledP>
-            <StyledInput type="text" placeholder="영문, 숫자 5-11자" />
-          </StyledInputField>
-          <StyledInputField>
-            <StyledP>비밀번호</StyledP>
-            <StyledInput
+          <St.InputField>
+            <St.P>아이디</St.P>
+            <St.Input type="text" placeholder="영문, 숫자 5-11자" />
+          </St.InputField>
+          <St.InputField>
+            <St.P>비밀번호</St.P>
+            <St.Input
               type="password"
               placeholder="숫자, 영문, 특수문자 조합 최소 8자"
             />
-            <StyledInput type="password" placeholder="비밀번호 재입력" />
-          </StyledInputField>
-          <StyledInputField>
-            <StyledP>이름</StyledP>
-            <StyledInput type="text" placeholder="홍길동" />
-          </StyledInputField>
-          <StyledInputField>
-            <StyledP>이메일</StyledP>
-            <StyledInput type="email" placeholder="이메일" />
-          </StyledInputField>
-          <StyledInputField>
-            <StyledP>휴대폰 번호</StyledP>
-            <StyledPhoneField>
-              <StyledInput
+            <St.Input type="password" placeholder="비밀번호 재입력" />
+          </St.InputField>
+          <St.InputField>
+            <St.P>이름</St.P>
+            <St.Input type="text" placeholder="홍길동" />
+          </St.InputField>
+          <St.InputField>
+            <St.P>이메일</St.P>
+            <St.Input type="email" placeholder="이메일" />
+          </St.InputField>
+          <St.InputField>
+            <St.P>휴대폰 번호</St.P>
+            <St.PhoneField>
+              <St.Input
                 type="text"
                 placeholder="휴대폰 번호 '-' 제외하고 입력"
               />
-              <StyledButton>인증번호</StyledButton>
-            </StyledPhoneField>
-            <StyledPhoneField>
-              <StyledInput type="text" placeholder="인증번호 입력" />
-              <StyledButton>확인</StyledButton>
-            </StyledPhoneField>
-          </StyledInputField>
-          <StyledUl>
-            <StyledLi>
-              <StyledInput type="checkbox" id="all-agree" />
+              <St.Button>인증번호</St.Button>
+            </St.PhoneField>
+            <St.PhoneField>
+              <St.Input type="text" placeholder="인증번호 입력" />
+              <St.Button>확인</St.Button>
+            </St.PhoneField>
+          </St.InputField>
+          <St.Ul>
+            <St.Li>
+              <St.Input type="checkbox" id="all-agree" />
               <label htmlFor="all-agree">전체동의</label>
-            </StyledLi>
+            </St.Li>
             <hr />
-            <StyledLi>
-              <StyledInput type="checkbox" id="terms-of-service" />
+            <St.Li>
+              <St.Input type="checkbox" id="terms-of-service" />
               <label htmlFor="all-agree">서비스 이용약관 동의 (필수)</label>
-            </StyledLi>
-            <StyledLi>
-              <StyledInput type="checkbox" id="privacy-consent" />
+            </St.Li>
+            <St.Li>
+              <St.Input type="checkbox" id="privacy-consent" />
               <label htmlFor="all-agree">
                 개인정보 수집 및 이용 동의 (필수)
               </label>
-            </StyledLi>
-          </StyledUl>
+            </St.Li>
+          </St.Ul>
         </form>
-        <StyledSocialLogin>
-          <StyledSocialLoginTitle>간편 회원가입</StyledSocialLoginTitle>
-          <StyledSocialLoginBtn>
-            <StyledButton>
-              <img src={kakaoImg} alt="kakao signup" />
-            </StyledButton>
-            <StyledButton>
-              <img src={naverImg} alt="naver signup" />
-            </StyledButton>
-            <StyledButton>
-              <img src={googleImg} alt="google signup" />
-            </StyledButton>
-          </StyledSocialLoginBtn>
-        </StyledSocialLogin>
-        <StyledSignupBtn>회원가입</StyledSignupBtn>
-      </StyledContent>
-    </StyledContainer>
+        {/* <St.SocialLogin>
+          <St.SocialLoginTitle>간편 회원가입</St.SocialLoginTitle>
+          <St.SocialLoginBtn>
+            <St.Button>
+              <Kakao />
+            </St.Button>
+            <St.Button>
+              <Naver />
+            </St.Button>
+            <St.Button>
+              <Google />
+            </St.Button>
+          </St.SocialLoginBtn>
+        </St.SocialLogin> */}
+        <St.SignupBtn>회원가입</St.SignupBtn>
+      </St.Content>
+    </St.Container>
   );
 };
 
