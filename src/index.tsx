@@ -7,7 +7,7 @@ import {GlobalStyle, defaultTheme} from 'style/Theme';
 import store from "./redux/store";
 import {Provider} from 'react-redux';
 import App from './App';
-import { Notice, Basket, Home, Login, SignUp, NotFound } from "pages";
+import { Notice, Basket, HomePage, Login, SignUp, NotFound } from "pages";
 
 const router = createBrowserRouter([
   {
@@ -15,8 +15,8 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <NotFound />,
     children: [
-      { index: true, element: <Home /> },
-      { path: "home", element: <Home /> },
+      { index: true, element: <HomePage /> },
+      { path: "home", element: <HomePage /> },
       { path: "login", element: <Login /> },
       { path: "signUp", element: <SignUp /> },
       { path: "basket", element: <Basket /> },
