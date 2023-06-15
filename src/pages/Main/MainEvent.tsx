@@ -1,6 +1,5 @@
-import React from 'react'
 import styled from 'styled-components'
-import MainVisual from '../../asset/MainVisual.svg'
+import { MainVisual } from 'asset'
 
 const MainEvent = () => {
   return (

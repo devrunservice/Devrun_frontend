@@ -1,21 +1,15 @@
 import { styled } from "styled-components";
 import { Delete, Arrow, Coupon } from "asset";
-import Checked from "asset/Checked.png"
+import Checked from "asset/images/Checked.png";
 
-
-export const GaryBg = styled.div`
-  background: ${(props) => props.theme.bgGrayColor};
-  width: 100%;
-  padding: 40px 0 100px;
-`;
-export const WhiteBg = styled.div`
+export const WhiteSmallBg = styled.div`
   background: ${(props) => props.theme.bgColor};
   border-radius: 5px;
   padding: 30px 30px;
   width: 800px;
   margin: 20px auto 0;
-  &:first-child{
-    margin-top:0;
+  &:first-child {
+    margin-top: 0;
   }
 `;
 export const Title = styled.h4`

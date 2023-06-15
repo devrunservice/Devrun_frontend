@@ -1,14 +1,12 @@
-import React, {useState} from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import styled from 'styled-components'
-import MainEvent from './MainEvent'
-import LectureCard from 'components/LectureCard/LectureCard'
-import {SubAdv1} from 'asset'
-
+import styled from "styled-components";
+import React, { useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import { SubAdv1 } from "asset";
+import MainEvent from "./MainEvent";
+import LectureCard from "components/LectureCard/LectureCard";
 const Main = () => {
-  
-  const [num, setNum] = useState([1,2,34,1,2,3,4,5,6,77,8,8])
+  const [num, setNum] = useState([1, 2, 34, 1, 2, 3, 4, 5, 6, 77, 8, 8]);
   return (
     <>
       <MainEvent />
@@ -19,40 +17,40 @@ const Main = () => {
             <Swiper
               spaceBetween={20}
               slidesPerView={4}
-              onSlideChange={() => console.log('slide change')}
+              onSlideChange={() => console.log("slide change")}
               onSwiper={(swiper) => console.log(swiper)}
             >
               <ListWrap>
-                {
-                  num.map((list, index) => {
-                    return <SwiperSlide key={index}>
-                      <LectureCard/>
+                {num.map((list, index) => {
+                  return (
+                    <SwiperSlide key={index}>
+                      <LectureCard />
                     </SwiperSlide>
-                  })
-                }
+                  );
+                })}
               </ListWrap>
             </Swiper>
           </SwiperBox>
         </ListEachArea>
-        <SubAdv1 style={{margin: '60px 0'}}/>
-        
+        <SubAdv1 style={{ margin: "60px 0" }} />
+
         <ListEachArea>
           <ListTitle>추천 클래스</ListTitle>
           <SwiperBox>
             <Swiper
               spaceBetween={20}
               slidesPerView={4}
-              onSlideChange={() => console.log('slide change')}
+              onSlideChange={() => console.log("slide change")}
               onSwiper={(swiper) => console.log(swiper)}
             >
               <ListWrap>
-                {
-                  num.map((list, index) => {
-                    return <SwiperSlide key={index}>
-                      <LectureCard/>
+                {num.map((list, index) => {
+                  return (
+                    <SwiperSlide key={index}>
+                      <LectureCard />
                     </SwiperSlide>
-                  })
-                }
+                  );
+                })}
               </ListWrap>
             </Swiper>
           </SwiperBox>
@@ -77,50 +75,50 @@ const Main = () => {
         </ListEachArea>
       </MainBg>
     </>
-  )
-}
+  );
+};
 
 const MainBg = styled.div`
   max-width: 1280px;
   min-height: 100vh;
   margin: 0 auto;
   padding: 0 20px;
-  background: ${props => props.color}
-`
+  background: ${(props) => props.color};
+`;
 const SwiperBox = styled.div`
-border: 1px solid yellow
-`
+  border: 1px solid yellow;
+`;
 const ListWrap = styled.div`
-display: grid;
-align-items: center;
-`
+  display: grid;
+  align-items: center;
+`;
 const ListTitle = styled.h3`
-  color: ${props=>props.theme.textBlack};
-  font-weight: ${props=>props.theme.fontSemiBold};
-  font-size: ${props=>props.theme.fontSize18px};
+  color: ${(props) => props.theme.textBlack};
+  font-weight: ${(props) => props.theme.fontSemiBold};
+  font-size: ${(props) => props.theme.fontSize18px};
   margin-bottom: 20px;
-`
+`;
 const ListEachArea = styled.div`
   margin-bottom: 30px;
-`
+`;
 const RecommendClassWrap = styled.div`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-gap: 18px;
-`
+`;
 const RecommendClass = styled.li`
-  background: ${props=>props.theme.bgGrayColor};
-  color: ${porps=>porps.theme.textBlack};
+  background: ${(props) => props.theme.bgGrayColor};
+  color: ${(props) => props.theme.textBlack};
   list-style: none;
-  font-size: ${props=>props.theme.fontSize16px};
-  font-weight: ${props=> props.theme.fontSemiBold};
+  font-size: ${(props) => props.theme.fontSize16px};
+  font-weight: ${(props) => props.theme.fontSemiBold};
   text-align: center;
   border-radius: 10px;
   padding: 18px 0;
   &:hover {
-    background: ${props=>props.theme.mainColor};
+    background: ${(props) => props.theme.mainColor};
     color: #fff;
   }
-` 
+`;
 
-export default Main
+export default Main;

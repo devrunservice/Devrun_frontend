@@ -1,7 +1,6 @@
-import React from 'react';
-import kakaoImg from '../../asset/images/kakao.png';
-import naverImg from '../../asset/images/naver.png';
-import googleImg from '../../asset/images/google.png';
+import kakaoImg from 'asset/images/kakao.png';
+import naverImg from 'asset/images/naver.png';
+import googleImg from 'asset/images/google.png';
 import {
   StyledButton,
   StyledContainer,
