@@ -1,4 +1,4 @@
-import Footer from 'components/Footer';
+import Footer from 'components/Footer/index';
 import SearchBar from './components/SearchBar/SearchBar';
 import {Outlet, useLocation} from 'react-router-dom';
 
