@@ -1,13 +1,13 @@
 import SearchBar from './components/SearchBar/SearchBar';
 import { Outlet } from "react-router-dom";
-import Main from 'pages/Main/Main';
+// import HomePage from 'components/Homes/Home';
 
 function App() {
   return (
     <>
       {/* <SearchBar /> */}
-      {/* <Outlet /> */}
-      <Main />
+      <Outlet />
+      {/* <HomePage /> */}
     </>
   );
 }

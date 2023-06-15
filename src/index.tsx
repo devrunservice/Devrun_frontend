@@ -6,7 +6,7 @@ import {ThemeProvider} from 'styled-components';
 import {GlobalStyle, defaultTheme} from 'style/Theme';
 import {Provider} from 'react-redux';
 import App from './App';
-import Home from 'pages/Home/Home';
+import HomePage from 'pages/HomePage/HomePage';
 import Login from 'pages/Login/Login';
 import Signup from 'pages/Signup/Signup';
 import NotFound from 'pages/NotFound/NotFound';
@@ -19,8 +19,8 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <NotFound />,
     children: [
-      {index: true, element: <Home />},
-      {path: 'home', element: <Home />},
+      {index: true, element: <HomePage />},
+      {path: 'home', element: <HomePage />},
       {path: 'login', element: <Login />},
       {path: 'signup', element: <Signup />},
       {path: 'basket', element: <Basket />},
