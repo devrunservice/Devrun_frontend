@@ -1,10 +1,10 @@
 import * as St from './style';
-import Noimg from 'asset/Noimg.jpg';
+import NoImg from "asset/images/NoImg.jpg";
 
 const ShoppingBasket = () => {
   return (
-    <St.GaryBg>
-      <St.WhiteBg>
+    <>
+      <St.WhiteSmallBg>
         <St.Title>수강바구니</St.Title>
         <St.SelectWarp>
           <St.Left>
@@ -24,35 +24,7 @@ const ShoppingBasket = () => {
             <St.ContentBox>
               <St.ImgWrap>
                 <St.ImgBox>
-                  <St.Img src={Noimg} alt="" />
-                </St.ImgBox>
-              </St.ImgWrap>
-              <St.TextBox>
-                <St.TextLeft>
-                  <St.TitleText>
-                    제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다
-                  </St.TitleText>
-                  <St.SubText>
-                    제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다
-                  </St.SubText>
-                  <St.Writer>
-                    강사명 · <St.Hours>무제한 수강</St.Hours>
-                  </St.Writer>
-                </St.TextLeft>
-                <St.TextRight>
-                  <St.Discount>25%</St.Discount>
-                  <St.DiscountNum>88,000원</St.DiscountNum>
-                  <St.Money>66,000원</St.Money>
-                </St.TextRight>
-              </St.TextBox>
-            </St.ContentBox>
-          </St.ProductLi>
-          <St.ProductLi>
-            <St.CheckBox type="checkbox" id="listCheck" name="listCheck" />
-            <St.ContentBox>
-              <St.ImgWrap>
-                <St.ImgBox>
-                  <St.Img src={Noimg} alt="" />
+                  <St.Img src={NoImg} alt="" />
                 </St.ImgBox>
               </St.ImgWrap>
               <St.TextBox>
@@ -76,8 +48,8 @@ const ShoppingBasket = () => {
             </St.ContentBox>
           </St.ProductLi>
         </St.Product>
-      </St.WhiteBg>
-      <St.WhiteBg>
+      </St.WhiteSmallBg>
+      <St.WhiteSmallBg>
         <St.Title>구매자 정보</St.Title>
         <St.InfoWrap>
           이름 <St.Info>123123</St.Info>
@@ -88,8 +60,8 @@ const ShoppingBasket = () => {
         <St.InfoWrap>
           휴대폰 번호 <St.Info>123123</St.Info>
         </St.InfoWrap>
-      </St.WhiteBg>
-      <St.WhiteBg>
+      </St.WhiteSmallBg>
+      <St.WhiteSmallBg>
         <St.Title>할인정보</St.Title>
         <St.SelectWarp>
           <St.SubTitle>쿠폰</St.SubTitle>
@@ -135,9 +107,9 @@ const ShoppingBasket = () => {
           회원 본인은 주문내용을 확인했으며,
           <span>구매조건 및 개인정보처리방침</span>과 결제에 동의합니다.
         </St.Privacy>
-      </St.WhiteBg>
+      </St.WhiteSmallBg>
       <St.Button>결제하기</St.Button>
-    </St.GaryBg>
+    </>
   );
 };
 export default ShoppingBasket;

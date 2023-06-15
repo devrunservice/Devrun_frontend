@@ -18,7 +18,6 @@
     "jsx": "react-jsx",
     "typeRoots": ["./@types", "./node_modules/@types"]
   },
-  "include": ["**/*.ts", "**/*.tsx", "src", "src/asset/custom.d.ts"],
-  "use": ["@svgr/webpack"],
-  
+  "include": ["**/*.ts", "**/*.tsx", "src", "asset/custom.d.ts"],
+  "use": ["@svg/webpack"]
 }
