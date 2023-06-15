@@ -1,7 +1,7 @@
 import {styled} from 'styled-components';
 
 // Gray 배경 컴포넌트
-export const Container = styled.section`
+export const Section = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -12,7 +12,7 @@ export const Container = styled.section`
 `;
 
 // white 배경 컴포넌트
-export const Content = styled.div`
+export const Container = styled.div`
   width: 30%;
   display: flex;
   flex-direction: column;
@@ -51,6 +51,7 @@ export const Button = styled.button`
   /* width: 100%; */
   border: none;
   border-radius: 5px;
+  cursor: pointer;
 `;
 
 // 아이디, 비밀번호, 이름, 이메일, 휴대폰 번호

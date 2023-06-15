@@ -1,11 +1,10 @@
-import React from 'react';
 import {Kakao, Naver, Google} from 'asset';
 import * as St from './styles';
 
 const SignupForm = () => {
   return (
-    <St.Container>
-      <St.Content>
+    <St.Section>
+      <St.Container>
         <St.H1>회원가입</St.H1>
         <form>
           <St.InputField>
@@ -75,8 +74,8 @@ const SignupForm = () => {
           </St.SocialLoginBtn>
         </St.SocialLogin> */}
         <St.SignupBtn>회원가입</St.SignupBtn>
-      </St.Content>
-    </St.Container>
+      </St.Container>
+    </St.Section>
   );
 };
 
