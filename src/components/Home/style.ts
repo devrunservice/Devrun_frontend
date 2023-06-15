@@ -1,5 +1,5 @@
 import {styled} from 'styled-components'
-import MainVisual from 'asset/MainVisual.svg'
+import MainVisual from "asset/images/MainVisual.jpg";
 
 
 export const MainBg = styled.div`
@@ -7,7 +7,7 @@ export const MainBg = styled.div`
   min-height: 100vh;
   margin: 0 auto 100px;
   padding: 0 20px;
-  background: ${props => props.color}
+  background: ${props => props.theme.color}
 `
 export const SwiperBox = styled.div`
 `
@@ -30,28 +30,30 @@ export const RecommendClassWrap = styled.div`
   grid-gap: 18px;
 `
 export const RecommendClass = styled.li`
-  background: ${props=>props.theme.bgGrayColor};
-  color: ${porps=>porps.theme.textBlack};
+  background: ${(props) => props.theme.bgGrayColor};
+  color: ${(props) => props.theme.textBlack};
   list-style: none;
-  font-size: ${props=>props.theme.fontSize16px};
-  font-weight: ${props=> props.theme.fontSemiBold};
+  font-size: ${(props) => props.theme.fontSize16px};
+  font-weight: ${(props) => props.theme.fontSemiBold};
   text-align: center;
   border-radius: 10px;
   padding: 18px 0;
   &:hover {
-    background: ${props=>props.theme.mainColor};
+    background: ${(props) => props.theme.mainColor};
     color: #fff;
   }
-` 
+`; 
 //main evnt
 export const EventBanner = styled.div`
   margin-bottom: 50px;
 `
+
+
 export const FullWidthImg = styled.div`
   width: 100vw;
   height: 300px;
-  background-image: url(${MainVisual});
+  background: url(${MainVisual});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-`
+`;

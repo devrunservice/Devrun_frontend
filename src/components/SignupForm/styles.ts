@@ -1,7 +1,7 @@
 import {styled} from 'styled-components';
 
 // Gray 배경 컴포넌트
-export const StyledContainer = styled.section`
+export const Section = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -12,7 +12,7 @@ export const StyledContainer = styled.section`
 `;
 
 // white 배경 컴포넌트
-export const StyledContent = styled.div`
+export const Container = styled.div`
   width: 30%;
   display: flex;
   flex-direction: column;
@@ -25,20 +25,20 @@ export const StyledContent = styled.div`
 `;
 
 // 회원가입
-export const StyledH1 = styled.h1`
+export const H1 = styled.h1`
   color: ${(props) => props.theme.textBlack};
   text-align: center;
   padding-bottom: 1.5rem;
 `;
 
 // p 태그
-export const StyledP = styled.p`
+export const P = styled.p`
   color: ${(props) => props.theme.textBlack};
   margin-bottom: 0.6rem;
 `;
 
 // input 태그
-export const StyledInput = styled.input`
+export const Input = styled.input`
   text-indent: 0.5rem;
   border-radius: 5px;
   padding: 0.8rem 0;
@@ -47,34 +47,35 @@ export const StyledInput = styled.input`
 `;
 
 // 버튼 태그
-export const StyledButton = styled.button`
+export const Button = styled.button`
   /* width: 100%; */
   border: none;
   border-radius: 5px;
+  cursor: pointer;
 `;
 
 // 아이디, 비밀번호, 이름, 이메일, 휴대폰 번호
-export const StyledInputField = styled.div`
+export const InputField = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 0.6rem;
 
-  &:nth-child(2) ${StyledInput} {
+  &:nth-child(2) ${Input} {
     margin-bottom: 0.6rem;
   }
 `;
 
 // 휴대폰 번호 input, button
-export const StyledPhoneField = styled.div`
+export const PhoneField = styled.div`
   display: flex;
   margin-bottom: 0.6rem;
 
-  & > ${StyledInput} {
+  & > ${Input} {
     width: 75%;
     margin: 0 1.5rem 0 0;
   }
 
-  & > ${StyledButton} {
+  & > ${Button} {
     width: 25%;
     color: ${(props) => props.theme.textWhite};
     background-color: ${(props) => props.theme.brandColor};
@@ -82,65 +83,69 @@ export const StyledPhoneField = styled.div`
 `;
 
 // 약관 동의
-export const StyledUl = styled.ul`
+export const Ul = styled.ul`
   margin-bottom: 1.5rem;
+
+  & hr {
+    margin-bottom: 0.5rem;
+  }
 `;
 
-export const StyledLi = styled.li`
+export const Li = styled.li`
   margin-bottom: 0.5rem;
 `;
 
 // 간편 회원가입
-export const StyledSocialLogin = styled.div`
-  margin-bottom: 1.25rem;
-`;
+// export const SocialLogin = styled.div`
+//   margin-bottom: 1.25rem;
+// `;
 
-// 간편 회원가입 카카오, 네이버, 구글 버튼
-export const StyledSocialLoginBtn = styled.div`
-  display: flex;
-  justify-content: center;
+// // 간편 회원가입 카카오, 네이버, 구글 버튼
+// export const SocialLoginBtn = styled.div`
+//   display: flex;
+//   justify-content: center;
 
-  & > ${StyledButton}:nth-child(-n+3) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.3rem 0.4rem;
-    margin: 0 0.25rem;
-  }
+//   & > ${Button}:nth-child(-n+3) {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     padding: 0.3rem 0.4rem;
+//     margin: 0 0.25rem;
+//   }
 
-  & > ${StyledButton}:nth-child(1) {
-    background-color: #fee500;
-  }
+//   & > ${Button}:nth-child(1) {
+//     background-color: #fee500;
+//   }
 
-  & > ${StyledButton}:nth-child(2) {
-    background-color: #1ec800;
-  }
+//   & > ${Button}:nth-child(2) {
+//     background-color: #1ec800;
+//   }
 
-  & > ${StyledButton}:nth-child(3) {
-    background-color: #f8f8f8;
-  }
-`;
+//   & > ${Button}:nth-child(3) {
+//     background-color: #f8f8f8;
+//   }
+// `;
 
-export const StyledSocialLoginTitle = styled.div`
-  display: flex;
-  flex-basis: 100%;
-  align-items: center;
-  text-align: center;
-  margin: 0.5rem 0;
+// export const SocialLoginTitle = styled.div`
+//   display: flex;
+//   flex-basis: 100%;
+//   align-items: center;
+//   text-align: center;
+//   margin: 0.5rem 0;
 
-  &::after,
-  &::before {
-    content: '';
-    flex-grow: 1;
-    background: rgba(103, 103, 103, 0.8);
-    height: 1px;
-    font-size: 0px;
-    line-height: 0px;
-    margin: 0px 1rem;
-  }
-`;
+//   &::after,
+//   &::before {
+//     content: '';
+//     flex-grow: 1;
+//     background: rgba(103, 103, 103, 0.8);
+//     height: 1px;
+//     font-size: 0px;
+//     line-height: 0px;
+//     margin: 0px 1rem;
+//   }
+// `;
 
-export const StyledSignupBtn = styled(StyledButton)`
+export const SignupBtn = styled(Button)`
   color: ${(props) => props.theme.textWhite};
   background-color: ${(props) => props.theme.brandColor};
   padding: 0.8rem 0;

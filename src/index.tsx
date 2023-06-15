@@ -4,26 +4,22 @@ import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import {ThemeProvider} from 'styled-components';
 import {GlobalStyle, defaultTheme} from 'style/Theme';
+import store from "./redux/store";
 import {Provider} from 'react-redux';
 import App from './App';
-import HomePage from 'pages/HomePage/HomePage';
-import Login from 'pages/Login/Login';
-import Signup from 'pages/Signup/Signup';
-import NotFound from 'pages/NotFound/NotFound';
-import Basket from 'pages/Basket/Basket';
-import store from './redux/store';
-import Notice from "pages/Notice/Notice";
+import { Notice, Basket, HomePage, Login, SignUp, NotFound } from "pages";
+
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <App />,
     errorElement: <NotFound />,
     children: [
-      {index: true, element: <HomePage />},
-      {path: 'home', element: <HomePage />},
-      {path: 'login', element: <Login />},
-      {path: 'signup', element: <Signup />},
-      {path: 'basket', element: <Basket />},
+      { index: true, element: <HomePage /> },
+      { path: "home", element: <HomePage /> },
+      { path: "login", element: <Login /> },
+      { path: "signUp", element: <SignUp /> },
+      { path: "basket", element: <Basket /> },
       { path: "notice", element: <Notice /> },
     ],
   },
