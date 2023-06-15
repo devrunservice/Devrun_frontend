@@ -1,4 +1,5 @@
 import {DefaultTheme, createGlobalStyle} from 'styled-components';
+import styled from 'styled-components';
 import reset from 'styled-reset';
 
 export const GlobalStyle = createGlobalStyle`
@@ -53,27 +54,42 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 export const defaultTheme: DefaultTheme = {
-  brandColor: '#5F4B8B',
-  bgColor: '#fff',
-  bgGrayColor: '#f7f7f7',
-  bgBlack: '#333',
-  mainColor: '#604B8E',
-  fontRegular: '400',
-  fontMedium: '500',
-  fontSemiBold: '600',
-  fontBold: '700',
-  fontSize14px: '14px',
-  fontSize16px: '16px',
-  fontSize18px: '18px',
-  fontSize20px: '20px',
-  textBlack: '#171717',
-  textColor: '#676767',
-  textRed: '#F03B43',
-  textPoint: '#5F4B8B',
-  textWhite: '#fff',
-  textGrayC: '#ccc',
-  borderBlack: '#171717',
-  border83: '#838383',
-  border49: '#494949',
-  borderGray: '#ddd',
+  fontRegular: "400",
+  fontMedium: "500",
+  fontSemiBold: "600",
+  fontBold: "700",
+  fontSize12px: "12px",
+  fontSize14px: "14px",
+  fontSize16px: "16px",
+  fontSize18px: "18px",
+  fontSize20px: "20px",
+  brandColor: "#5F4B8B",
+  bgColor: "#fff",
+  bgGrayColor: "#f7f7f7",
+  bgBlack: "#333",
+  mainColor: "#604B8E",
+  textBlack: "#171717",
+  textColor: "#676767",
+  textRed: "#F03B43",
+  textPoint: "#5F4B8B",
+  textWhite: "#fff",
+  textGrayC: "#ccc",
+  borderBlack: "#171717",
+  border83: "#838383",
+  border49: "#494949",
+  borderGray: "#ddd",
 };
+
+export const WhiteBg = styled.div`
+  padding: 40px 0 100px;
+  background: ${(props) => props.theme.WhiteBg};
+`;
+export const GaryBg = styled.div`
+  background: ${(props) => props.theme.bgGrayColor};
+  padding: 40px 0 100px;
+`;
+
+export const Inner = styled.div`
+  width: 1200px;
+  margin: 0 auto;
+`;
