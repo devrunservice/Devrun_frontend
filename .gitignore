@@ -22,4 +22,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Ignore the .yarn/install-state.gz file
 .yarn/install-state.gz
