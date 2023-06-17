@@ -4,9 +4,9 @@ import { ShoppingBasket } from "components";
 const Basket = () => {
   return(
     <St.GaryBg>
-      <St.Inner>
+      <St.Inner80>
         <ShoppingBasket />
-      </St.Inner>
+      </St.Inner80>
     </St.GaryBg>
   )
   
