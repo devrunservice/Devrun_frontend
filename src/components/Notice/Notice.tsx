@@ -1,5 +1,5 @@
 import * as St from "./style"
-
+import { Button } from "components";
 const Notice = () => {
   return (
     <>
@@ -34,6 +34,7 @@ const Notice = () => {
           <St.View>123</St.View>
         </St.TableLi>
       </St.Table>
+      <Button text={"글쓰기"}  />
     </>
   );
 };

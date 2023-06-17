@@ -83,27 +83,7 @@ export const ImgWrap = styled.div`
   width: 171px;
   margin: 0 20px 0 5px;
 `;
-export const ImgBox = styled.div`
-  
-  width: 100%;
-  height: 0;
-  position: relative;
-  padding-bottom: 56.25%;
-  overflow: hidden;
-  border-radius: 5px;
-`;
-export const Img = styled.img`
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-`;
+
 export const TextBox = styled.div`
   width: calc(100% - 212px);
   display: flex;
@@ -293,15 +273,4 @@ export const Privacy = styled.p`
   > span {
     text-decoration: underline;
   }
-`;
-export const Button = styled.button`
-  width: 800px;
-  font-size: ${(props) => props.theme.fontSize14px};
-  border-radius: 5px;
-  color: ${(props) => props.theme.textWhite};
-  line-height: 45px;
-  height: 45px;
-  margin: 20px auto 0;
-  display: block;
-  background: ${(props) => props.theme.textPoint};
 `;

@@ -14,3 +14,6 @@ export { ReactComponent as Kakao } from "./images/kakao.svg";
 export { ReactComponent as Google } from "./images/google.svg";
 export { ReactComponent as Naver } from "./images/naver.svg";
 export { ReactComponent as BrandLogo } from "./images/brandlogo.svg";
+export { ReactComponent as Cart } from "./images/Cart.svg";
+export { ReactComponent as Person } from "./images/Person.svg";
+export { ReactComponent as Search } from "./images/Search.svg";

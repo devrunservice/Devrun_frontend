@@ -4,3 +4,5 @@ export { default as NoticeCom } from "./Notice/Notice";
 export { default as Pagination } from "./Pagination/Pagination";
 export { default as Footer } from "./Footer/Footer";
 export { default as Header } from "./Header/Header";
+export { default as CartLecture } from "./CartLecture/CartLecture";
+export { default as Button } from "./Button/Button";
