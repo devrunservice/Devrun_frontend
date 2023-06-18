@@ -12,19 +12,22 @@ import Signup from 'pages/Signup/Signup';
 import NotFound from 'pages/NotFound/NotFound';
 import Basket from 'pages/Basket/Basket';
 import store from './redux/store';
-import Notice from "pages/Notice/Notice";
+import Notice from 'pages/Notice/Notice';
+import FindId from 'pages/FindId/FindId';
+
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     errorElement: <NotFound />,
     children: [
-      { index: true, element: <Home /> },
-      { path: "home", element: <Home /> },
-      { path: "login", element: <Login /> },
-      { path: "signup", element: <Signup /> },
-      { path: "basket", element: <Basket /> },
-      { path: "notice", element: <Notice /> },
+      {index: true, element: <Home />},
+      {path: 'home', element: <Home />},
+      {path: 'login', element: <Login />},
+      {path: 'signup', element: <Signup />},
+      {path: 'basket', element: <Basket />},
+      {path: 'notice', element: <Notice />},
+      {path: 'findid', element: <FindId />},
     ],
   },
 ]);
