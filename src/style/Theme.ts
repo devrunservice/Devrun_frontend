@@ -76,4 +76,5 @@ export const defaultTheme: DefaultTheme = {
   border83: '#838383',
   border49: '#494949',
   borderGray: '#ddd',
+  buttonColor: '#f0f0f0',
 };
