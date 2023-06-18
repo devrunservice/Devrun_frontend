@@ -6,9 +6,13 @@ import Main from 'pages/Main/Main';
 function App() {
   const location = useLocation();
   const hideSearchBar =
-    location.pathname === '/signup' || location.pathname === '/login';
+    location.pathname === '/signup' ||
+    location.pathname === '/login' ||
+    location.pathname === '/findid';
   const hideFooter =
-    location.pathname === '/signup' || location.pathname === '/login';
+    location.pathname === '/signup' ||
+    location.pathname === '/login' ||
+    location.pathname === '/findid';
 
   return (
     <>
