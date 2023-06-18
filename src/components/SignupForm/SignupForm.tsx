@@ -1,4 +1,3 @@
-import {Kakao, Naver, Google} from 'asset';
 import * as St from './styles';
 import {Input} from 'style/Common';
 import PasswordInput from 'components/Login/PasswordInput/PasswordInput';
@@ -57,20 +56,6 @@ const SignupForm = () => {
             </St.Li>
           </St.Ul>
         </form>
-        {/* <St.SocialLogin>
-          <St.SocialLoginTitle>간편 회원가입</St.SocialLoginTitle>
-          <St.SocialLoginBtn>
-            <St.Button>
-              <Kakao />
-            </St.Button>
-            <St.Button>
-              <Naver />
-            </St.Button>
-            <St.Button>
-              <Google />
-            </St.Button>
-          </St.SocialLoginBtn>
-        </St.SocialLogin> */}
         <St.SignupBtn>회원가입</St.SignupBtn>
       </St.Container>
     </St.Section>

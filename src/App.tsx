@@ -1,11 +1,9 @@
-import Footer from 'components/Footer/index';
-import SearchBar from './components/SearchBar/SearchBar';
+import { Footer,Header } from 'components';
 import {Outlet, useLocation} from 'react-router-dom';
-import Main from 'pages/Main/Main';
 
 function App() {
   const location = useLocation();
-  const hideSearchBar =
+  const hideHeader =
     location.pathname === '/signup' ||
     location.pathname === '/login' ||
     location.pathname === '/findid';
@@ -16,7 +14,7 @@ function App() {
 
   return (
     <>
-      {!hideSearchBar && <SearchBar />}
+      {!hideHeader && <Header />}
       <Outlet />
       {!hideFooter && <Footer />}
     </>
