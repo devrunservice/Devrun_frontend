@@ -1,4 +1,5 @@
 import {DefaultTheme, createGlobalStyle} from 'styled-components';
+import styled from 'styled-components';
 import reset from 'styled-reset';
 
 export const GlobalStyle = createGlobalStyle`
@@ -78,3 +79,17 @@ export const defaultTheme: DefaultTheme = {
   borderGray: '#ddd',
   buttonColor: '#f0f0f0',
 };
+
+export const WhiteBg = styled.div`
+  padding: 40px 0 100px;
+  background: ${(props) => props.theme.WhiteBg};
+`;
+export const GaryBg = styled.div`
+  background: ${(props) => props.theme.bgGrayColor};
+  padding: 40px 0 100px;
+`;
+
+export const Inner = styled.div`
+  width: 1200px;
+  margin: 0 auto;
+`;
