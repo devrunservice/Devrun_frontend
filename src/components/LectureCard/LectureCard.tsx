@@ -17,7 +17,7 @@ const LectureCard = () => {
         <St.ListUtils>
           <StarFill />
           <St.ListViewCount>
-            2.8 550명 수강
+            2.8 · 550명 수강
           </St.ListViewCount>
         </St.ListUtils>
       </St.ListTextArea>
