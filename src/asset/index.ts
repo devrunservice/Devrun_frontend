@@ -18,3 +18,5 @@ export { ReactComponent as HeartFill } from "./images/heart-fill.svg";
 export { ReactComponent as Link } from "./images/link.svg";
 export { ReactComponent as ArrowBottom } from "./images/arrow-bottom.svg";
 export { ReactComponent as Play } from "./images/play.svg";
+export { ReactComponent as Circle } from "./images/circle.svg";
+export { ReactComponent as MoreBtn } from "./images/more-btn.svg";
