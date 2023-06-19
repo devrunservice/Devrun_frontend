@@ -146,6 +146,7 @@ export const ReviewCreateBtnArea = styled.div`
   align-items: center;
   justify-content: flex-end;
   margin-left: auto;
+  margin-bottom: 45px;
   button {
     border: 1px solid ${props=>props.theme.mainColor};
     border-radius: 5px;
@@ -160,4 +161,69 @@ export const ReviewCreateBtn = styled.button`
   background-color: ${props=>props.theme.mainColor};
   color: ${props=>props.theme.textWhite};
   margin-left: 10px;
+`
+export const CommentList = styled.li`
+  border-top: 1px solid #ddd;
+  padding-bottom: 30px;
+`
+export const CommentInfoWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 30px;
+  div {
+    display: flex;
+    align-items: center;
+    span {
+      margin-left: 10px;
+    }
+  }
+  span {
+    display: block;
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+`
+export const CommentArea = styled.div`
+  margin: 15px 0;
+`
+export const CommentUtils = styled.div`
+display: flex;
+align-items: center;
+svg {
+    path {
+      stroke: #000;
+    }
+  }
+  span {
+    margin-left: 5px;
+  }
+`
+export const CommentTime = styled.div`
+  margin-left: 15px;
+`
+export const RecommentBtb = styled.button`
+  color: ${props=>props.theme.mainColor};
+  background: ${props=>props.theme.textWhite};
+  margin: 0;
+  padding: 0;
+`
+export const RecommentList = styled.li`
+  background: ${props=>props.theme.bgGrayColor};
+  padding: 20px;
+  margin-top: 30px;
+  > div {
+    padding: 0;
+  }
+`
+export const MoreLectureBtn = styled.button`
+  width: 100%;
+  border: 1px solid #ddd;
+  padding: 18px 0;
+  background: #fff;
+`
+export const MoreLectureArea = styled.section`
+
 `

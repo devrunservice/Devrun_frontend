@@ -1,9 +1,14 @@
 import * as St from './style'
-import { HeartFill, Link } from 'asset'
+import { useState } from 'react';
+import LectureCard from 'components/LectureCard/LectureCard';
+import { ListWrap } from 'components/Home/style';
+import { HeartFill, Link, Circle, MoreBtn } from 'asset'
 import Curriculum from 'components/Curriculum/Curriculum'
-// import { Link } from 'asset'
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 
 const Detail = () => {
+  const [test, setTest] = useState([1,2,34,1,2,3,4])
   return (
     <St.DetailWrap>
       <St.PreviewArea>
@@ -66,7 +71,156 @@ const Detail = () => {
               <St.ReviewCancelBtn>취소</St.ReviewCancelBtn>
               <St.ReviewCreateBtn>등록</St.ReviewCreateBtn>
             </St.ReviewCreateBtnArea>
+
+            <St.CommentList>
+              <St.CommentInfoWrap>
+                <div>
+                  <Circle/>
+                  <span>작성자명</span>
+                </div>
+                <span>
+                  <MoreBtn/>
+                </span>
+              </St.CommentInfoWrap>
+              <St.CommentArea>
+                댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성
+              </St.CommentArea>
+              <St.CommentUtils>
+                <div>
+                  <HeartFill/>
+                  <span>2</span>
+                </div>
+                <St.CommentTime>2023.05.15 · <St.RecommentBtb>답글 작성</St.RecommentBtb></St.CommentTime>
+              </St.CommentUtils>
+
+              <St.RecommentList>
+                <St.CommentInfoWrap>
+                  <div>
+                    <Circle/>
+                    <span>작성자명</span>
+                  </div>
+                  <span>
+                    <MoreBtn/>
+                  </span>
+                </St.CommentInfoWrap>
+                <St.CommentArea>
+                  댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성
+                </St.CommentArea>
+                <St.CommentUtils>
+                  <div>
+                    <HeartFill/>
+                    <span>2</span>
+                  </div>
+                  <St.CommentTime>2023.05.15</St.CommentTime>
+                </St.CommentUtils>
+              </St.RecommentList>
+            </St.CommentList>
+            <St.CommentList>
+              <St.CommentInfoWrap>
+                <div>
+                  <Circle/>
+                  <span>작성자명</span>
+                </div>
+                <span>
+                  <MoreBtn/>
+                </span>
+              </St.CommentInfoWrap>
+              <St.CommentArea>
+                댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성
+              </St.CommentArea>
+              <St.CommentUtils>
+                <div>
+                  <HeartFill/>
+                  <span>2</span>
+                </div>
+                <St.CommentTime>2023.05.15 · <St.RecommentBtb>답글 작성</St.RecommentBtb></St.CommentTime>
+              </St.CommentUtils>
+
+              <St.RecommentList>
+                <St.CommentInfoWrap>
+                  <div>
+                    <Circle/>
+                    <span>작성자명</span>
+                  </div>
+                  <span>
+                    <MoreBtn/>
+                  </span>
+                </St.CommentInfoWrap>
+                <St.CommentArea>
+                  댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성
+                </St.CommentArea>
+                <St.CommentUtils>
+                  <div>
+                    <HeartFill/>
+                    <span>2</span>
+                  </div>
+                  <St.CommentTime>2023.05.15</St.CommentTime>
+                </St.CommentUtils>
+              </St.RecommentList>
+            </St.CommentList>
+            <St.CommentList>
+              <St.CommentInfoWrap>
+                <div>
+                  <Circle/>
+                  <span>작성자명</span>
+                </div>
+                <span>
+                  <MoreBtn/>
+                </span>
+              </St.CommentInfoWrap>
+              <St.CommentArea>
+                댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성
+              </St.CommentArea>
+              <St.CommentUtils>
+                <div>
+                  <HeartFill/>
+                  <span>2</span>
+                </div>
+                <St.CommentTime>2023.05.15 · <St.RecommentBtb>답글 작성</St.RecommentBtb></St.CommentTime>
+              </St.CommentUtils>
+
+              <St.RecommentList>
+                <St.CommentInfoWrap>
+                  <div>
+                    <Circle/>
+                    <span>작성자명</span>
+                  </div>
+                  <span>
+                    <MoreBtn/>
+                  </span>
+                </St.CommentInfoWrap>
+                <St.CommentArea>
+                  댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성
+                </St.CommentArea>
+                <St.CommentUtils>
+                  <div>
+                    <HeartFill/>
+                    <span>2</span>
+                  </div>
+                  <St.CommentTime>2023.05.15</St.CommentTime>
+                </St.CommentUtils>
+              </St.RecommentList>
+            </St.CommentList>
+            <St.MoreLectureBtn>수강평 더보기</St.MoreLectureBtn>
           </St.ReviewCreateArea>
+
+        </St.SectionAreaWrap>
+        <St.SectionAreaWrap>
+          <St.SectionTitle>다른 강의 함께 보기</St.SectionTitle>
+          <Swiper
+              spaceBetween={20}
+              slidesPerView={4}
+            >
+              <ListWrap>
+                {
+                  test.map((list, index) => {
+                    return <SwiperSlide key={index}>
+                      <LectureCard/>
+                    </SwiperSlide>
+                  })
+                }
+              </ListWrap>
+            </Swiper>
         </St.SectionAreaWrap>
       </St.DetailMainWrap>
 
