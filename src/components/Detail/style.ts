@@ -87,7 +87,7 @@ export const DetailHash = styled.span`
 
 //main content & info
 export const DetailMainWrap = styled.section`
-  width: 1280px;
+  width: 1200px;
   margin: 0 auto;
 
 `
