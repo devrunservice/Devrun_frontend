@@ -6,4 +6,5 @@ export { default as NotFound } from "./NotFound/NotFound";
 export { default as Notice } from "./Notice/Notice";
 export { default as SignUp } from "./Signup/Signup";
 export {default as DetailPage} from "./DetailPage/DetailPage"
+export {default as CreateVideo} from "./CreateVideo/CreateVideo"
 
