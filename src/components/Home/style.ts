@@ -43,7 +43,7 @@ export const RecommendClass = styled.li`
     color: #fff;
   }
 `
-//main event
+// main event
 export const EventBanner = styled.div`
   margin-bottom: 50px;
 `

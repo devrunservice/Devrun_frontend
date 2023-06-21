@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import ReactQuill from "react-quill";
+
 export const EditorWrap = styled.div`
   
 `;

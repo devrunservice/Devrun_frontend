@@ -1,11 +1,10 @@
-import * as St from './style'
+import React from 'react';
 import { StarFill } from 'asset';
+import * as St from './style'
 
-const LectureCard = () => {
-
-  return (
+const LectureCard = () => (
     <St.List>
-      <St.ListThumbnail></St.ListThumbnail>
+      <St.ListThumbnail />
       <St.ListTextArea>
         <St.ListTitle>
           제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다
@@ -22,7 +21,6 @@ const LectureCard = () => {
         </St.ListUtils>
       </St.ListTextArea>
     </St.List>
-  );
-};
+  )
 
 export default LectureCard;

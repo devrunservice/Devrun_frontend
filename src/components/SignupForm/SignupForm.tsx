@@ -1,15 +1,15 @@
+import React, { useCallback, useState } from "react";
 import axios from "axios";
-import * as St from "./styles";
 import { Input } from "style/Common";
 import PasswordInput from "components/Login/PasswordInput/PasswordInput";
-import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import DaumPostcodeEmbed from "react-daum-postcode";
 import { Address } from "react-daum-postcode";
+import * as St from "./styles";
 
 const SignupForm = () => {
   const navigate = useNavigate();
-
+  
   // 아이디, 비밀번호, 이름, 이메일, 생년월일, 휴대폰 번호 확인
   const [id, setId] = useState<string>("");
   const [pwd, setPwd] = useState<string>("");
@@ -23,19 +23,19 @@ const SignupForm = () => {
   const [isId, setIsId] = useState<boolean>(false);
   const [isPwd, setIsPwd] = useState<boolean>(false);
   const [isPwdConfirm, setIsPwdConfirm] = useState<boolean>(false);
-  const [isName, setIsName] = useState<boolean>(false);
+  const [isName, setIsName] = useState<boolean>(false); // eslint-disable-line @typescript-eslint/no-unused-vars
   const [isEmail, setIsEmail] = useState<boolean>(false);
-  const [isBday, setIsBday] = useState<boolean>(false);
-  const [isPhoneNumber, setIsPhoneNumber] = useState<boolean>(false);
+  const [isBday, setIsBday] = useState<boolean>(false); // eslint-disable-line @typescript-eslint/no-unused-vars
+  const [isPhoneNumber, setIsPhoneNumber] = useState<boolean>(false); // eslint-disable-line @typescript-eslint/no-unused-vars
 
   // 오류 메세지
   const [idMessage, setIdMessage] = useState<string>("");
   const [pwdMessage, setPwdMessage] = useState<string>("");
   const [pwdConfirmMessage, setPwdConfirmMessage] = useState<string>("");
-  const [nameMessage, setNameMessage] = useState<string>("");
+  const [nameMessage, setNameMessage] = useState<string>(""); // eslint-disable-line @typescript-eslint/no-unused-vars
   const [emailMessage, setEmailMessage] = useState<string>("");
-  const [bdayMessage, setBdayMessage] = useState<string>("");
-  const [phoneNumberMessage, setPhoneNumberMessage] = useState<string>("");
+  const [bdayMessage, setBdayMessage] = useState<string>(""); // eslint-disable-line @typescript-eslint/no-unused-vars
+  const [phoneNumberMessage, setPhoneNumberMessage] = useState<string>(""); // eslint-disable-line @typescript-eslint/no-unused-vars
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -60,10 +60,21 @@ const SignupForm = () => {
     }
   };
 
+  try {
+  axios.post('signup/auth', {
+    phoneNumber
+  }).then(res => {
+    console.log("response: ", res)
+  });
+  
+  }catch(error) {
+    console.log(error) 
+}
+
   // 아이디 유효성 검사
   const handleChangeId = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const value = event.target.value;
+      const {value} = event.target;
       const regex = /^[a-zA-Z0-9]{5,13}$/;
 
       setId(value);
@@ -84,7 +95,7 @@ const SignupForm = () => {
   // 비밀번호 유효성 검사
   const handleChangePwd = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const value = event.target.value;
+      const {value} = event.target;
       const regex = /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*]).{8,}$/;
 
       setPwd(value);
@@ -105,7 +116,7 @@ const SignupForm = () => {
   // 비밀번호 확인
   const handleChangePwdConfirm = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const value = event.target.value;
+      const {value} = event.target;
       setPwdConfirm(value);
       // console.log(value);
       console.log(pwd);
@@ -159,7 +170,7 @@ const SignupForm = () => {
   // 이메일 유효성 검사
   const handleChangeEmail = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const value = event.target.value;
+      const {value} = event.target;
       const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
       setEmail(value);
@@ -198,7 +209,7 @@ const SignupForm = () => {
   );
 
   // 주소
-  const handleComplete = (data: Address) => {
+  const handleComplete = (data: Address) => { // eslint-disable-line @typescript-eslint/no-unused-vars
     let fullAddress = data.address;
     let extraAddress = "";
     if (data.addressType === "R") {
@@ -317,6 +328,6 @@ const SignupForm = () => {
       </St.Container>
     </St.Section>
   );
-};
+}
 
 export default SignupForm;
