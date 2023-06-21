@@ -21,6 +21,7 @@ const LectureCard = () => (
         </St.ListUtils>
       </St.ListTextArea>
     </St.List>
-  )
+)
+
 
 export default LectureCard;
