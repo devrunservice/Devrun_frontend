@@ -1,12 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import reportWebVitals from './reportWebVitals';
-import {createBrowserRouter, RouterProvider} from 'react-router-dom';
-import {ThemeProvider} from 'styled-components';
-import {GlobalStyle, defaultTheme} from 'style/Theme';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import reportWebVitals from "./reportWebVitals";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
+import { GlobalStyle, defaultTheme } from "style/Theme";
 import store from "./redux/store";
-import {Provider} from 'react-redux';
-import App from './App';
+import { Provider } from "react-redux";
+import App from "./App";
 import {
   Notice,
   Basket,
@@ -30,9 +30,11 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: "home", element: <HomePage /> },
       { path: "login", element: <Login /> },
-      { path: "signUp", element: <SignUp /> },
+      { path: "signup", element: <Signup /> },
+      { path: "signup/:id", element: <SignupSuccess /> },
       { path: "basket", element: <Basket /> },
       { path: "notice", element: <Notice /> },
+      { path: "findid", element: <FindId /> },
       { path: "noticeWrite", element: <NoticeWrite /> },
       { path: "noticeDetail", element: <NoticeDetail /> },
       { path: "lecture", element: <Lecture /> },
@@ -43,7 +45,7 @@ const router = createBrowserRouter([
 ]);
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement,
 );
 root.render(
   <React.StrictMode>
@@ -53,7 +55,7 @@ root.render(
         <RouterProvider router={router} />
       </Provider>
     </ThemeProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function
