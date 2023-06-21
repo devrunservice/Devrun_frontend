@@ -1,7 +1,8 @@
+import React from 'react';
 import { Footer, Header } from 'components';
 import {Outlet, useLocation} from 'react-router-dom';
 
-function App() {
+const App = () => {
   const location = useLocation();
   const hideHeader =
     location.pathname === '/signup' ||

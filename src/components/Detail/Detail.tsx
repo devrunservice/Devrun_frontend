@@ -1,14 +1,15 @@
-import * as St from './style'
-import { useState } from 'react';
+import React, { useState } from 'react';
+
 import LectureCard from 'components/LectureCard/LectureCard';
 import { ListWrap } from 'components/Home/style';
 import { HeartFill, Link, Circle, MoreBtn } from 'asset'
 import Curriculum from 'components/Curriculum/Curriculum'
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
+import * as St from './style'
+import 'swiper/swiper.css';
 
 const Detail = () => {
-  const [test, setTest] = useState([1,2,34,1,2,3,4])
+  const [test, setTest] = useState([1,2,34,1,2,3,4]) // eslint-disable-line @typescript-eslint/no-unused-vars
   return (
     <St.DetailWrap>
       <St.PreviewArea>
@@ -24,7 +25,7 @@ const Detail = () => {
               <HeartFill /> 2
             </St.DetailUtilsItem>
             <St.DetailUtilsItem>
-              <Link />
+              <Link href="/"/>
               공유하기
             </St.DetailUtilsItem>
           </St.DetailUtils>
@@ -63,7 +64,7 @@ const Detail = () => {
         <St.SectionAreaWrap>
           <St.SectionTitle>수강평</St.SectionTitle>
           <St.ReviewCreateArea>
-            <textarea placeholder='수강평을 작성해 주세요.'></textarea>
+            <textarea placeholder='수강평을 작성해 주세요.' />
             <St.ReviewCreateBtnArea>
               <span>
                 0 / 300
@@ -213,11 +214,9 @@ const Detail = () => {
             >
               <ListWrap>
                 {
-                  test.map((list, index) => {
-                    return <SwiperSlide key={index}>
+                  test.map((list, index) => <SwiperSlide key={index}>
                       <LectureCard/>
-                    </SwiperSlide>
-                  })
+                    </SwiperSlide>)
                 }
               </ListWrap>
             </Swiper>

@@ -1,9 +1,9 @@
 import React from "react";
-import * as St from "./styles";
 import { BrandLogo, Kakao, Naver, Google } from "asset";
 import { useNavigate } from "react-router-dom";
 import { Input } from "style/Common";
-import PasswordInput from "components/Login/PasswordInput/PasswordInput";
+import PasswordInput from "components/Login/PasswordInput/PasswordInput"; // eslint-disable-line @typescript-eslint/no-unused-vars
+import * as St from "./styles";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -61,6 +61,6 @@ const LoginForm = () => {
       </St.Container>
     </St.Section>
   );
-};
+}
 
 export default LoginForm;

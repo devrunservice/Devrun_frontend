@@ -1,7 +1,8 @@
+import React from 'react';
 import { Exclamation } from 'asset';
 import * as St from './style'
-const CreateNewVideo = () => {
-  return (
+
+const CreateNewVideo = () => (
     <St.CreateVideoWrap>
       <St.CreateVideoArticle>
         <St.ArticleTitle>강좌명</St.ArticleTitle>
@@ -26,7 +27,7 @@ const CreateNewVideo = () => {
       <St.CreateVideoArticle>
         <St.ArticleTitle>강좌 이미지</St.ArticleTitle>
         <St.UploadArea>
-          <St.LectureImageWrap></St.LectureImageWrap>
+          <St.LectureImageWrap />
           <St.UploadVideoWrap>
             <div>
               <St.ShortInput id='uploader' type='file' placeholder='선택된 이미지 없음' />
@@ -79,7 +80,6 @@ const CreateNewVideo = () => {
       </St.CreateVideoArticle>
 
     </St.CreateVideoWrap>
-  );
-};
+  )
 
 export default CreateNewVideo;

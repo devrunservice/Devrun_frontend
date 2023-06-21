@@ -1,10 +1,9 @@
+import React from 'react';
 import { Logo, Cart, Person } from "asset";
 import { CartLecture } from "components";
 import * as St from "./style";
 
-const Header = () => {
-  
-  return (
+const Header = () => (
     <St.Header>
       <St.InnerHeader>
         <St.Left>
@@ -60,7 +59,6 @@ const Header = () => {
         </St.Right>
       </St.InnerHeader>
     </St.Header>
-  );
-};
+  )
 
 export default Header;

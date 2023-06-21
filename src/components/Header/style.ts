@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { Inner } from "style/Theme";
 import { Category, Search } from "asset";
+
 export const Header = styled.div`
   border-bottom: 1px solid ${(props:any) => props.theme.borderGray};
 `;

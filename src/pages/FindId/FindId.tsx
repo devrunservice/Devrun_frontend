@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
+import {Input} from 'style/Common';
 import * as St from './styles';
 // import Input from 'components/Login/Input/Input';
-import {Input} from 'style/Common';
 
 const FindId = () => {
   //   const [name, setName] = useState('');
@@ -72,5 +72,5 @@ const FindId = () => {
       </St.Container>
     </St.Section>
   );
-};
+}
 export default FindId;
