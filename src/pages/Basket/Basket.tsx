@@ -9,5 +9,6 @@ const Basket = () => (
         <ShoppingBasket />
       </S.Inner800>
     </St.GaryBg>
-  )
+)
+
 export default Basket;

@@ -110,5 +110,6 @@ const ShoppingBasket = () => (
       </St.WhiteSmallBg>
       <St.Button>결제하기</St.Button>
     </>
-  )
+)
+    
 export default ShoppingBasket;
