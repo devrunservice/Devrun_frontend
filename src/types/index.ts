@@ -5,3 +5,8 @@ export interface IPagination {
   count?: number;
 }
 
+export interface IReactSlice {
+  data: string[];
+  loading: boolean;
+  error: null | string;
+}
