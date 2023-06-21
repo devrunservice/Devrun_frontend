@@ -1,6 +1,5 @@
 import * as St from './style';
-import NoImg from "asset/images/NoImg.jpg";
-
+import { CartLecture } from "components";
 const ShoppingBasket = () => {
   return (
     <>
@@ -23,9 +22,7 @@ const ShoppingBasket = () => {
             <St.CheckBox type="checkbox" id="listCheck" name="listCheck" />
             <St.ContentBox>
               <St.ImgWrap>
-                <St.ImgBox>
-                  <St.Img src={NoImg} alt="" />
-                </St.ImgBox>
+                <CartLecture />
               </St.ImgWrap>
               <St.TextBox>
                 <St.TextLeft>
@@ -108,7 +105,7 @@ const ShoppingBasket = () => {
           <span>구매조건 및 개인정보처리방침</span>과 결제에 동의합니다.
         </St.Privacy>
       </St.WhiteSmallBg>
-      <St.Button>결제하기</St.Button>
+      <St.Btn text={"결제하기"} size={"lg"} color={"point"} />
     </>
   );
 };

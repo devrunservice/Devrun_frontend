@@ -3,10 +3,10 @@ import MainVisual from "asset/images/MainVisual.jpg";
 
 
 export const MainBg = styled.div`
-  max-width: 1280px;
+  max-width: 1200px;
   min-height: 100vh;
   margin: 0 auto 100px;
-  padding: 0 20px;
+  /* padding: 0 20px; */
   background: ${props => props.theme.color}
 `
 export const SwiperBox = styled.div`
@@ -42,8 +42,8 @@ export const RecommendClass = styled.li`
     background: ${(props) => props.theme.mainColor};
     color: #fff;
   }
-`; 
-//main evnt
+`
+//main event
 export const EventBanner = styled.div`
   margin-bottom: 50px;
 `

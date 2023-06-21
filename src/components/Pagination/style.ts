@@ -1,13 +1,11 @@
 import { styled } from "styled-components";
-
-
 export const PagingWrap = styled.div`
-    margin:0 auto;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    gap:10px;
-`
+  margin: 40px auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+`;
 export const Paging = styled.button`
   width: 40px;
   height: 40px;
