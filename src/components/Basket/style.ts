@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { Delete, Arrow, Coupon } from "asset";
 import Checked from "asset/images/Checked.png";
-
+import { Button } from "components";
 export const WhiteSmallBg = styled.div`
   background: ${(props) => props.theme.bgColor};
   border-radius: 5px;
@@ -216,7 +216,6 @@ export const SelectBoxLi = styled.li`
 export const PointInput = styled.input`
   margin: 15px 0 20px;
   width: 100%;
-  line-height: 45px;
   height: 45px;
   border: 1px solid ${(props) => props.theme.borderGray};
   font-size: ${(props) => props.theme.fontSize14px};
@@ -274,3 +273,8 @@ export const Privacy = styled.p`
     text-decoration: underline;
   }
 `;
+
+export const Btn = styled(Button)`
+  display: block;
+  margin: 20px auto 0;
+`

@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { Logo, Cart, Person } from "asset";
-import { CartLecture,Button } from "components";
+import { CartLecture } from "components";
 import * as St from "./style";
 
 const Header = () => {
@@ -53,7 +52,11 @@ const Header = () => {
                 </St.CartLi>
               </St.CartUl>
 
-              <Button text={"장바구니에서 전체보기"} />
+              <St.Btn
+                text={"장바구니에서 전체보기"}
+                size={"lg"}
+                color={"point"}
+              />
             </St.CartHover>
           </St.HeaderIcon>
           <St.HeaderIcon>

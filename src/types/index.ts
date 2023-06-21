@@ -1,15 +1,7 @@
-
-export interface Ipagination {
-  startPage?: number;
+export interface IPagination {
   activePage?: number;
+  startPage?: number;
   lastPage?: number;
-  count?:number
-}
-
-export interface IButton {
-  text?: string | number;
-  width?: string;
-  color?: string;
-  background?: string;
+  count?: number;
 }
 
