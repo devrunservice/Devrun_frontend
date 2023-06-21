@@ -51,12 +51,7 @@ const Header = () => {
                   </St.TextWrap>
                 </St.CartLi>
               </St.CartUl>
-
-              <St.Btn
-                text={"장바구니에서 전체보기"}
-                size={"lg"}
-                color={"point"}
-              />
+              <St.Button>장바구니에서 전체보기</St.Button>
             </St.CartHover>
           </St.HeaderIcon>
           <St.HeaderIcon>
