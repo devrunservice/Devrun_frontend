@@ -1,28 +1,23 @@
-import {useState} from 'react'
-import styled from 'styled-components'
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-
-import LectureCard from 'components/LectureCard/LectureCard'
-import {SubAdv1} from 'asset'
-import * as St from './style'
+import { useState } from "react";
+import { LectureCard } from "components";
+import { SildeImg } from "asset";
+import * as St from "./style";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 
 const Home = () => {
-  
-  const [test, setTest] = useState([1,2,34,1,2,3,4])
+  const [test, setTest] = useState([1, 2, 34, 1, 2, 3, 4]);
   return (
     <>
       <St.EventBanner>
-        <Swiper
-          slidesPerView={1}
-        >
-          {
-            test.map((list, index) => {
-              return <SwiperSlide key={index}>
-                <St.FullWidthImg/>
+        <Swiper slidesPerView={1}>
+          {test.map((list, index) => {
+            return (
+              <SwiperSlide key={index}>
+                <St.FullWidthImg />
               </SwiperSlide>
-            })
-          }
+            );
+          })}
         </Swiper>
       </St.EventBanner>
       <St.MainBg>
@@ -32,17 +27,17 @@ const Home = () => {
             <Swiper
               spaceBetween={20}
               slidesPerView={4}
-              onSlideChange={() => console.log('slide change')}
+              onSlideChange={() => console.log("slide change")}
               onSwiper={(swiper) => console.log(swiper)}
             >
               <St.ListWrap>
-                {
-                  test.map((list, index) => {
-                    return <SwiperSlide key={index}>
-                      <LectureCard/>
+                {test.map((list, index) => {
+                  return (
+                    <SwiperSlide key={index}>
+                      <LectureCard />
                     </SwiperSlide>
-                  })
-                }
+                  );
+                })}
               </St.ListWrap>
             </Swiper>
           </St.SwiperBox>
@@ -50,35 +45,33 @@ const Home = () => {
 
         {/* onSlideChange={() => console.log('slide change')} */}
         {/* onSwiper={(swiper) => console.log(swiper)} */}
-        <Swiper
-          slidesPerView={1}
-        >
-          {
-            test.map((list, index) => {
-              return <SwiperSlide key={index}>
-                <SubAdv1 style={{margin: '60px 0'}}/>
+        <Swiper slidesPerView={1}>
+          {test.map((list, index) => {
+            return (
+              <SwiperSlide key={index}>
+                <SildeImg style={{ margin: "30px 0 60px" }} />
               </SwiperSlide>
-            })
-          }
+            );
+          })}
         </Swiper>
-        
+
         <St.ListEachArea>
           <St.ListTitle>추천 클래스</St.ListTitle>
           <St.SwiperBox>
             <Swiper
               spaceBetween={20}
               slidesPerView={4}
-              onSlideChange={() => console.log('slide change')}
+              onSlideChange={() => console.log("slide change")}
               onSwiper={(swiper) => console.log(swiper)}
             >
               <St.ListWrap>
-                {
-                  test.map((list, index) => {
-                    return <SwiperSlide key={index}>
-                      <LectureCard/>
+                {test.map((list, index) => {
+                  return (
+                    <SwiperSlide key={index}>
+                      <LectureCard />
                     </SwiperSlide>
-                  })
-                }
+                  );
+                })}
               </St.ListWrap>
             </Swiper>
           </St.SwiperBox>
@@ -103,6 +96,6 @@ const Home = () => {
         </St.ListEachArea>
       </St.MainBg>
     </>
-  )
-}
-export default Home
+  );
+};
+export default Home;

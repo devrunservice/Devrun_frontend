@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 
 
 export const PagingWrap = styled.div`
-    margin:0 auto;
+    margin:40px auto 0;
     display:flex;
     justify-content: center;
     align-items: center;
@@ -12,20 +12,20 @@ export const Paging = styled.button`
   width: 40px;
   height: 40px;
   border-radius: 3px;
-  background: ${(props) => props.theme.bgGrayColor};
+  background: ${(props:any) => props.theme.bgGrayColor};
   text-align: center;
   line-height: 40px;
-  font-size: ${(props) => props.theme.fontSize12px};
+  font-size: ${(props:any) => props.theme.fontSize12px};
 
   cursor: pointer;
   &:hover {
-    background: ${(props) => props.theme.textPoint};
-    color: ${(props) => props.theme.textWhite};
+    background: ${(props:any) => props.theme.textPoint};
+    color: ${(props:any) => props.theme.textWhite};
   }
   > svg {
-    fill: ${(props) => props.theme.textColor};
+    fill: ${(props:any) => props.theme.textColor};
   }
   &:hover svg {
-    fill: ${(props) => props.theme.textWhite};
+    fill: ${(props:any) => props.theme.textWhite};
   }
 `;

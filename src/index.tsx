@@ -12,10 +12,13 @@ import {
   Basket,
   HomePage,
   Login,
-  Signup,
+  SignUp,
   NotFound,
-  FindId,
-  SignupSuccess,
+  Lecture,
+  DetailPage,
+  CreateVideo,
+  NoticeWrite,
+  NoticeDetail,
 } from "pages";
 
 const router = createBrowserRouter([
@@ -32,6 +35,11 @@ const router = createBrowserRouter([
       { path: "basket", element: <Basket /> },
       { path: "notice", element: <Notice /> },
       { path: "findid", element: <FindId /> },
+      { path: "noticeWrite", element: <NoticeWrite /> },
+      { path: "noticeDetail", element: <NoticeDetail /> },
+      { path: "lecture", element: <Lecture /> },
+      { path: "detail", element: <DetailPage /> },
+      { path: "createVideo", element: <CreateVideo /> },
     ],
   },
 ]);

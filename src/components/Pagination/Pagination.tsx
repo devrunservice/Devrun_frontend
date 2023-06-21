@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Ipagination } from "types";
+import { IPagination } from "types";
 import { PageNext, PagePrev } from "asset";
 import * as St from "./style";
 
 
 
-const Pagination = (props:Ipagination) => {
+const Pagination = (props:IPagination) => {
   const [startPage, setStartPage] = useState(1);
   const [activePage, setActivePage] = useState(1);
   const lastPage = props.count !=null ? Math.ceil(props.count / 5) : 0
