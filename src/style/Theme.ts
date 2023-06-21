@@ -63,6 +63,9 @@ export const defaultTheme: DefaultTheme = {
   fontSize16px: "16px",
   fontSize18px: "18px",
   fontSize20px: "20px",
+  fontSize25px: "25px",
+  width85: "85px",
+  width100: "100%",
   brandColor: "#5F4B8B",
   bgColor: "#fff",
   bgGrayColor: "#f7f7f7",
@@ -73,7 +76,6 @@ export const defaultTheme: DefaultTheme = {
   textRed: "#F03B43",
   textPoint: "#5F4B8B",
   textWhite: "#fff",
-  textGrayB0: "#B0B0B0",
   textGrayC: "#ccc",
   borderBlack: "#171717",
   border83: "#838383",
@@ -82,19 +84,15 @@ export const defaultTheme: DefaultTheme = {
 };
 
 export const WhiteBg = styled.div`
-  padding: 40px 0 100px;
-  background: ${(props) => props.theme.WhiteBg};
+  padding: 60px 0 100px;
+  background: ${(props: any) => props.theme.WhiteBg};
 `;
 export const GaryBg = styled.div`
-  background: ${(props) => props.theme.bgGrayColor};
-  padding: 40px 0 100px;
+  background: ${(props: any) => props.theme.bgGrayColor};
+  padding: 60px 0 100px;
 `;
 
 export const Inner = styled.div`
   width: 1200px;
-  margin: 0 auto;
-`;
-export const Inner80 = styled.div`
-  width: 800px;
   margin: 0 auto;
 `;

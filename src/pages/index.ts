@@ -7,4 +7,6 @@ export { default as Notice } from "./Notice/Notice";
 export { default as SignUp } from "./Signup/Signup";
 export {default as DetailPage} from "./DetailPage/DetailPage"
 export {default as CreateVideo} from "./CreateVideo/CreateVideo"
+export { default as NoticeWrite } from "./NoticeWrite/NoticeWrite";
+export { default as NoticeDetail } from "./NoticeDetail/NoticeDetail";
 

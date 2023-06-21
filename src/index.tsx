@@ -7,7 +7,19 @@ import {GlobalStyle, defaultTheme} from 'style/Theme';
 import store from "./redux/store";
 import {Provider} from 'react-redux';
 import App from './App';
-import { Notice, Basket, HomePage, Login, SignUp, NotFound, Lecture, DetailPage, CreateVideo } from "pages";
+import {
+  Notice,
+  Basket,
+  HomePage,
+  Login,
+  SignUp,
+  NotFound,
+  Lecture,
+  DetailPage,
+  CreateVideo,
+  NoticeWrite,
+  NoticeDetail,
+} from "pages";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +33,8 @@ const router = createBrowserRouter([
       { path: "signUp", element: <SignUp /> },
       { path: "basket", element: <Basket /> },
       { path: "notice", element: <Notice /> },
+      { path: "noticeWrite", element: <NoticeWrite /> },
+      { path: "noticeDetail", element: <NoticeDetail /> },
       { path: "lecture", element: <Lecture /> },
       { path: "detail", element: <DetailPage /> },
       { path: "createVideo", element: <CreateVideo /> },
