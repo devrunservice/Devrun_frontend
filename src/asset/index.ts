@@ -14,6 +14,16 @@ export { ReactComponent as Kakao } from "./images/kakao.svg";
 export { ReactComponent as Google } from "./images/google.svg";
 export { ReactComponent as Naver } from "./images/naver.svg";
 export { ReactComponent as BrandLogo } from "./images/brandlogo.svg";
+<<<<<<< HEAD
 export { ReactComponent as Cart } from "./images/Cart.svg";
 export { ReactComponent as Person } from "./images/Person.svg";
 export { ReactComponent as Search } from "./images/Search.svg";
+=======
+export { ReactComponent as HeartFill } from "./images/heart-fill.svg";
+export { ReactComponent as Link } from "./images/link.svg";
+export { ReactComponent as ArrowBottom } from "./images/arrow-bottom.svg";
+export { ReactComponent as Play } from "./images/play.svg";
+export { ReactComponent as Circle } from "./images/circle.svg";
+export { ReactComponent as MoreBtn } from "./images/more-btn.svg";
+export { ReactComponent as Exclamation } from "./images/exclamation-circle.svg";
+>>>>>>> e60c3bc9121c96264dbd4ec278dd7fd221a8c5aa
