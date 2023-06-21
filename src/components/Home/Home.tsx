@@ -1,23 +1,21 @@
-import { useState } from "react";
+import React, { useState } from 'react';
 import { LectureCard } from "components";
 import { SildeImg } from "asset";
-import * as St from "./style";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
+import * as St from "./style";
+import 'swiper/swiper.css';
 
 const Home = () => {
-  const [test, setTest] = useState([1, 2, 34, 1, 2, 3, 4]);
+  const [test, setTest] = useState([1, 2, 34, 1, 2, 3, 4]); // eslint-disable-line @typescript-eslint/no-unused-vars
   return (
     <>
       <St.EventBanner>
         <Swiper slidesPerView={1}>
-          {test.map((list, index) => {
-            return (
+          {test.map((list, index) => (
               <SwiperSlide key={index}>
                 <St.FullWidthImg />
               </SwiperSlide>
-            );
-          })}
+            ))}
         </Swiper>
       </St.EventBanner>
       <St.MainBg>
@@ -31,13 +29,11 @@ const Home = () => {
               onSwiper={(swiper) => console.log(swiper)}
             >
               <St.ListWrap>
-                {test.map((list, index) => {
-                  return (
+                {test.map((list, index) => (
                     <SwiperSlide key={index}>
                       <LectureCard />
                     </SwiperSlide>
-                  );
-                })}
+                  ))}
               </St.ListWrap>
             </Swiper>
           </St.SwiperBox>
@@ -46,13 +42,11 @@ const Home = () => {
         {/* onSlideChange={() => console.log('slide change')} */}
         {/* onSwiper={(swiper) => console.log(swiper)} */}
         <Swiper slidesPerView={1}>
-          {test.map((list, index) => {
-            return (
+          {test.map((list, index) => (
               <SwiperSlide key={index}>
                 <SildeImg style={{ margin: "30px 0 60px" }} />
               </SwiperSlide>
-            );
-          })}
+            ))}
         </Swiper>
 
         <St.ListEachArea>
@@ -65,13 +59,11 @@ const Home = () => {
               onSwiper={(swiper) => console.log(swiper)}
             >
               <St.ListWrap>
-                {test.map((list, index) => {
-                  return (
+                {test.map((list, index) => (
                     <SwiperSlide key={index}>
                       <LectureCard />
                     </SwiperSlide>
-                  );
-                })}
+                  ))}
               </St.ListWrap>
             </Swiper>
           </St.SwiperBox>
@@ -97,5 +89,5 @@ const Home = () => {
       </St.MainBg>
     </>
   );
-};
+}
 export default Home;

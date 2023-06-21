@@ -1,21 +1,22 @@
-import { useEffect } from "react";
-import { useDispatch,useSelector } from "react-redux";
-import { RootState, AppDispatch } from "redux/store";
-import {  __getReact } from "api/dataSlice";
+import React from 'react';
+
+// import { useDispatch,useSelector } from "react-redux";
+// import { RootState, AppDispatch } from "redux/store";
+// import { getReact } from "api/dataSlice"; 
 
 
 import * as St from "./style";
 
 
-const Comment = () => {
-    const data = useSelector((state: RootState) => state.dataSlice.data);
-    const dispatch = useDispatch<AppDispatch>();
-    useEffect(() => {
-      dispatch(__getReact());
-    }, [dispatch]);
-    console.log(data)
+const Comment = () => 
+    // const data = useSelector((state: RootState) => state.dataSlice.data);
+    // const dispatch = useDispatch<AppDispatch>();
+    // useEffect(() => {
+    //   dispatch(getReact());
+    // }, [dispatch]);
+    // console.log(data)
 
-    return (
+     (
       <St.CommentWrap>
         <St.CommentTitle>
           댓글
@@ -24,7 +25,7 @@ const Comment = () => {
           </St.CommentCount>
         </St.CommentTitle>
       </St.CommentWrap>
-    );
+    )
 
-};
+
 export default Comment;
