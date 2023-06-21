@@ -1,12 +1,13 @@
 import * as St from "style/Theme";
+import * as S from "./style";
 import { ShoppingBasket } from "components";
 
 const Basket = () => {
   return(
     <St.GaryBg>
-      <St.Inner>
+      <S.Inner800>
         <ShoppingBasket />
-      </St.Inner>
+      </S.Inner800>
     </St.GaryBg>
   )
   
