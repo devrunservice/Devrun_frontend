@@ -1,9 +1,9 @@
-import React from 'react';
-import * as St from './styles';
-import {BrandLogo, Kakao, Naver, Google} from 'asset';
-import {useNavigate} from 'react-router-dom';
-import {Input} from 'style/Common';
-import PasswordInput from 'components/Login/PasswordInput/PasswordInput';
+import React from "react";
+import * as St from "./styles";
+import { BrandLogo, Kakao, Naver, Google } from "asset";
+import { useNavigate } from "react-router-dom";
+import { Input } from "style/Common";
+import PasswordInput from "components/Login/PasswordInput/PasswordInput";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -16,13 +16,13 @@ const LoginForm = () => {
         </St.LogoWrapper>
         <St.InputField>
           <Input type="text" placeholder="아이디" />
-          <PasswordInput placeholder="비밀번호" />
+          {/* <PasswordInput placeholder="비밀번호" /> */}
         </St.InputField>
         <St.LoginBtn>로그인</St.LoginBtn>
         <St.Finder>
           <St.Button
             onClick={() => {
-              navigate('/findId');
+              navigate("/findId");
             }}
           >
             아이디 찾기
@@ -30,7 +30,7 @@ const LoginForm = () => {
           <p>|</p>
           <St.Button
             onClick={() => {
-              navigate('/findPwd');
+              navigate("/findPwd");
             }}
           >
             비밀번호 찾기
@@ -38,7 +38,7 @@ const LoginForm = () => {
           <p>|</p>
           <St.Button
             onClick={() => {
-              navigate('/signup');
+              navigate("/signup");
             }}
           >
             회원가입

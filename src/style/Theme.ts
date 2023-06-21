@@ -1,4 +1,4 @@
-import {DefaultTheme, createGlobalStyle} from 'styled-components';
+import { DefaultTheme, createGlobalStyle } from 'styled-components';
 import styled from 'styled-components';
 import reset from 'styled-reset';
 
@@ -77,7 +77,7 @@ export const defaultTheme: DefaultTheme = {
   border83: '#838383',
   border49: '#494949',
   borderGray: '#ddd',
-  buttonColor: '#f0f0f0',
+  buttonColor: '#cccccc',
 };
 
 export const WhiteBg = styled.div`

@@ -1,5 +1,5 @@
-import {styled} from 'styled-components';
-import {DefaultWidth, Input} from 'style/Common';
+import { styled } from "styled-components";
+import { Input } from "style/Common";
 
 // Gray 배경 컴포넌트
 export const Section = styled.div`
@@ -46,7 +46,7 @@ export const Button = styled.button`
   cursor: pointer;
 `;
 
-// 아이디, 비밀번호, 이름, 이메일, 휴대폰 번호
+// 아이디, 비밀번호, 이름, 이메일, 생년월일, 휴대폰 번호
 export const InputField = styled.div`
   display: flex;
   flex-direction: column;
@@ -70,6 +70,22 @@ export const PhoneField = styled.div`
   }
 `;
 
+export const Birthday = styled(Input)`
+  text-indent: 0.2rem;
+  color: ${(props) => props.theme.textColor};
+
+  &::-webkit-calendar-picker-indicator {
+    color: ${(props) => props.theme.textWhite};
+  }
+`;
+
+// 에러메세지
+export const ErrorMessage = styled.p`
+  font-size: ${(props) => props.theme.fontSize14px};
+  color: ${(props) => props.theme.textRed};
+  margin: 0.25rem 0;
+`;
+
 // 약관 동의
 export const Ul = styled.ul`
   margin-bottom: 1.5rem;
@@ -85,11 +101,12 @@ export const Li = styled.li`
 `;
 
 export const Checkbox = styled.input`
-margin-right: 0.5rem;
-`
+  margin-right: 0.5rem;
+`;
 
 export const SignupBtn = styled(Button)`
   color: ${(props) => props.theme.textWhite};
   background-color: ${(props) => props.theme.brandColor};
   padding: 0.8rem 0;
+  width: 100%;
 `;
