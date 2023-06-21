@@ -1,22 +1,21 @@
 import { styled } from "styled-components";
 import { Delete, Arrow, Coupon } from "asset";
 import Checked from "asset/images/Checked.png";
-import { Button } from "components";
+
 export const WhiteSmallBg = styled.div`
-  background: ${(props) => props.theme.bgColor};
+  background: ${(props:any) => props.theme.bgColor};
   border-radius: 5px;
   padding: 30px 30px;
-  width: 800px;
   margin: 20px auto 0;
   &:first-child {
     margin-top: 0;
   }
 `;
 export const Title = styled.h4`
-  font-size: ${(props) => props.theme.fontSize20px};
-  color: ${(props) => props.theme.textBlack};
-  font-weight: ${(props) => props.theme.fontSemiBold};
-  margin-bottom: 25px;
+  font-size: ${(props:any) => props.theme.fontSize25px};
+  color: ${(props:any) => props.theme.textBlack};
+  font-weight: ${(props:any) => props.theme.fontSemiBold};
+  margin-bottom: 30px;
 `;
 export const SelectWarp = styled.div`
   display: flex;
@@ -33,37 +32,37 @@ export const CheckBox = styled.input`
   height: 16px;
   border-radius: 3px;
   cursor: pointer;
-  border: 1px solid ${(props) => props.theme.borderGray};
+  border: 1px solid ${(props:any) => props.theme.borderGray};
   &:checked {
-    background: ${(props) => props.theme.textPoint} url("${Checked}") center
+    background: ${(props:any) => props.theme.textPoint} url("${Checked}") center
       center no-repeat;
-    border: 1px solid ${(props) => props.theme.textPoint};
+    border: 1px solid ${(props:any) => props.theme.textPoint};
   }
 `;
 
 export const CheckLabel = styled.label`
-  color: ${(props) => props.theme.textBlack};
+  color: ${(props:any) => props.theme.textBlack};
   padding-left: 5px;
   cursor: pointer;
 `;
 export const CheckAll = styled.span`
-  color: ${(props) => props.theme.textPoint};
+  color: ${(props:any) => props.theme.textPoint};
 `;
 
 export const Right = styled.button`
   width: 95px;
   height: 40px;
   border-radius: 5px;
-  background: ${(props) => props.theme.bgColor};
-  border: 1px solid ${(props) => props.theme.borderGray};
-  color: ${(props) => props.theme.textBlack};
+  background: ${(props:any) => props.theme.bgColor};
+  border: 1px solid ${(props:any) => props.theme.borderGray};
+  color: ${(props:any) => props.theme.textBlack};
   
 `;
 export const Deletes = styled(Delete)`
   margin-left: 5px;
 `;
 export const Product = styled.ul`
-  border-top: 1px solid ${(props) => props.theme.borderBlack};
+  border-top: 1px solid ${(props:any) => props.theme.borderBlack};
   margin-top: 15px;
 `;
 export const ProductLi = styled.li`
@@ -83,7 +82,27 @@ export const ImgWrap = styled.div`
   width: 171px;
   margin: 0 20px 0 5px;
 `;
-
+export const ImgBox = styled.div`
+  
+  width: 100%;
+  height: 0;
+  position: relative;
+  padding-bottom: 56.25%;
+  overflow: hidden;
+  border-radius: 5px;
+`;
+export const Img = styled.img`
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+`;
 export const TextBox = styled.div`
   width: calc(100% - 212px);
   display: flex;
@@ -97,8 +116,8 @@ export const TitleText = styled.em`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  color: ${(props) => props.theme.textBlack};
-  font-weight: ${(props) => props.theme.fontMedium};
+  color: ${(props:any) => props.theme.textBlack};
+  font-weight: ${(props:any) => props.theme.fontMedium};
   margin-bottom: 10px;
 `;
 export const SubText = styled.p`
@@ -110,10 +129,10 @@ export const SubText = styled.p`
   margin-bottom: 18px;
 `;
 export const Writer = styled.p`
-  font-size: ${(props) => props.theme.fontSize14px};
+  font-size: ${(props:any) => props.theme.fontSize14px};
 `;
 export const Hours = styled.span`
-  color: ${(props) => props.theme.textPoint};
+  color: ${(props:any) => props.theme.textPoint};
 `;
 export const TextRight = styled.div`
   width:calc(100% - 65%);
@@ -121,18 +140,18 @@ export const TextRight = styled.div`
 `
 export const Discount = styled.span`
   margin-right: 8px;
-  color: ${(props) => props.theme.textRed};
-  font-weight: ${(props) => props.theme.fontSemiBold};
-  font-size: ${(props) => props.theme.fontSize14px};
+  color: ${(props:any) => props.theme.textRed};
+  font-weight: ${(props:any) => props.theme.fontSemiBold};
+  font-size: ${(props:any) => props.theme.fontSize14px};
 `;
 export const DiscountNum = styled.span`
   position: relative;
-  font-size: ${(props) => props.theme.fontSize14px};
+  font-size: ${(props:any) => props.theme.fontSize14px};
   &::after {
     position: absolute;
     width: 100%;
     height: 1px;
-    background: ${(props) => props.theme.textColor};
+    background: ${(props:any) => props.theme.textColor};
     content: "";
     top: 0;
     bottom: 0;
@@ -141,9 +160,9 @@ export const DiscountNum = styled.span`
   }
 `;
 export const Money = styled.p`
-  font-size: ${(props) => props.theme.fontSize18px};
-  color: ${(props) => props.theme.textBlack};
-  font-weight: ${(props) => props.theme.fontBold};
+  font-size: ${(props:any) => props.theme.fontSize18px};
+  color: ${(props:any) => props.theme.textBlack};
+  font-weight: ${(props:any) => props.theme.fontBold};
   margin-top:10px;
 `;
 
@@ -164,12 +183,12 @@ export const Info = styled.p`
   top: 0;
 `;
 export const SubTitle = styled.em`
-  color: ${(props) => props.theme.textBlack};
-  font-weight: ${(props) => props.theme.fontMedium};
+  color: ${(props:any) => props.theme.textBlack};
+  font-weight: ${(props:any) => props.theme.fontMedium};
 `;
 export const Count = styled.p``;
 export const CountSpan = styled.span`
-  color: ${(props) => props.theme.textPoint};
+  color: ${(props:any) => props.theme.textPoint};
 `;
 export const SelectBox = styled.div`
   margin: 15px 0 20px;
@@ -177,8 +196,8 @@ export const SelectBox = styled.div`
 `;
 export const SelectLabel = styled.label`
   width: 100%;
-  border: 1px solid ${(props) => props.theme.borderGray};
-  font-size: ${(props) => props.theme.fontSize14px};
+  border: 1px solid ${(props:any) => props.theme.borderGray};
+  font-size: ${(props:any) => props.theme.fontSize14px};
   border-radius: 5px;
   display: block;
   padding: 0 10px;
@@ -194,10 +213,10 @@ export const Arr = styled(Arrow)`
   margin: auto 0;
 `
 export const SelectBoxUi = styled.ul`
-  border: 1px solid ${(props) => props.theme.borderGray};
-  font-size: ${(props) => props.theme.fontSize14px};
-  background: ${(props) => props.theme.bgColor};
-  color: ${(props) => props.theme.textBlack};
+  border: 1px solid ${(props:any) => props.theme.borderGray};
+  font-size: ${(props:any) => props.theme.fontSize14px};
+  background: ${(props:any) => props.theme.bgColor};
+  color: ${(props:any) => props.theme.textBlack};
   position: absolute;
   width: 100%;
   padding: 15px 15px;
@@ -206,9 +225,9 @@ export const SelectBoxUi = styled.ul`
 
 export const SelectBoxLi = styled.li`
   margin-bottom: 13px;
-  font-size: ${(props) => props.theme.fontSize14px};
+  font-size: ${(props:any) => props.theme.fontSize14px};
   cursor: pointer;
-  color: ${(props) => props.theme.textBlack};
+  color: ${(props:any) => props.theme.textBlack};
   &:last-child {
     margin-bottom: 0px;
   }
@@ -216,18 +235,19 @@ export const SelectBoxLi = styled.li`
 export const PointInput = styled.input`
   margin: 15px 0 20px;
   width: 100%;
+  line-height: 45px;
   height: 45px;
-  border: 1px solid ${(props) => props.theme.borderGray};
-  font-size: ${(props) => props.theme.fontSize14px};
+  border: 1px solid ${(props:any) => props.theme.borderGray};
+  font-size: ${(props:any) => props.theme.fontSize14px};
   border-radius: 5px;
   padding: 0 10px;
-  color: ${(props) => props.theme.textBlack};
+  color: ${(props:any) => props.theme.textBlack};
   outline: 0;
   &:focus {
-    border: 1px solid ${(props) => props.theme.textPoint};
+    border: 1px solid ${(props:any) => props.theme.textPoint};
   }
   &::placeholder {
-    color: ${(props) => props.theme.textColor};
+    color: ${(props:any) => props.theme.textColor};
   }
 `;
 export const DisCountInfo = styled.div`
@@ -240,8 +260,8 @@ export const DisCountInfo = styled.div`
   }
 `;
 export const DisCountInfoLeft = styled.p`
-  color: ${(props) => props.theme.textRed};
-  font-size: ${(props) => props.theme.fontSize14px};
+  color: ${(props:any) => props.theme.textRed};
+  font-size: ${(props:any) => props.theme.fontSize14px};
   display: flex;
   align-items: center;
 `;
@@ -250,31 +270,36 @@ export const CouponDisCount = styled(Coupon)`
 `;
 
 export const DisCountInfoRight = styled.p`
-  color: ${(props) => props.theme.textRed};
-  font-size: ${(props) => props.theme.fontSize14px};
+  color: ${(props:any) => props.theme.textRed};
+  font-size: ${(props:any) => props.theme.fontSize14px};
 `;
 export const TotalWrap = styled.div`
   margin-top: 20px;
   padding-top: 20px;
-  border-top: 1px solid ${(props) => props.theme.borderGray};
+  border-top: 1px solid ${(props:any) => props.theme.borderGray};
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
 export const Total = styled.p`
-  color: ${(props) => props.theme.textBlack};
-  font-weight: ${(props) => props.theme.fontBold};
-  font-size: ${(props) => props.theme.fontSize18px};
+  color: ${(props:any) => props.theme.textBlack};
+  font-weight: ${(props:any) => props.theme.fontBold};
+  font-size: ${(props:any) => props.theme.fontSize18px};
 `;
 export const Privacy = styled.p`
   margin-top: 10px;
-  font-size: ${(props) => props.theme.fontSize14px};
+  font-size: ${(props:any) => props.theme.fontSize14px};
   > span {
     text-decoration: underline;
   }
 `;
-
-export const Btn = styled(Button)`
-  display: block;
+export const Button = styled.button`
+  width: ${(props:any) => props.theme.width100};
+  border-radius: 5px;
+  height: 40px;
   margin: 20px auto 0;
-`
+  display: block;
+  font-size: ${(props:any) => props.theme.fontSize14px};
+  color: ${(props:any) => props.theme.textWhite};
+  background: ${(props:any) => props.theme.textPoint};
+`;
