@@ -6,6 +6,7 @@ const CartLecture = () => (
     <St.ImgBox>
       <St.Img src={NoImg} alt="" />
     </St.ImgBox>
-  )
+)
+
 
 export default CartLecture;
