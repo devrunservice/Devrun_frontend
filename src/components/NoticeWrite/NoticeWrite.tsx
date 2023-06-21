@@ -1,4 +1,5 @@
-import { ChangeEvent, useMemo, useRef, useState } from "react";
+import React, { ChangeEvent, useMemo, useRef, useState } from 'react';
+
 import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -9,7 +10,7 @@ import * as St from "./style";
 const NoticeWrite = () => {
   const quillRef = useRef<ReactQuill>(null);
   const [content, setContent] = useState<string>("");
-  const [title,setTitle] = useState<string>("")
+  const [title,setTitle] = useState<string>("") // eslint-disable-line @typescript-eslint/no-unused-vars
   const titleChange = (e: ChangeEvent<HTMLInputElement>) =>setTitle(e.target.value)
   const Navigate = useNavigate();
   const WriteBtn = () => Navigate("");
@@ -61,6 +62,6 @@ const NoticeWrite = () => {
       </St.ButtonWrap>
     </St.EditorWrap>
   );
-};
+}
 
 export default NoticeWrite;

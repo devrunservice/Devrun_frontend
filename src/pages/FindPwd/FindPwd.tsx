@@ -1,7 +1,5 @@
 import React from 'react';
 
-const FindPwd = () => {
-  return <div>FindPwd</div>;
-};
+const FindPwd = () => <div>FindPwd</div>
 
 export default FindPwd;
