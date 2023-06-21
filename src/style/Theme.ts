@@ -73,6 +73,7 @@ export const defaultTheme: DefaultTheme = {
   textRed: "#F03B43",
   textPoint: "#5F4B8B",
   textWhite: "#fff",
+  textGrayB0: "#B0B0B0",
   textGrayC: "#ccc",
   borderBlack: "#171717",
   border83: "#838383",
@@ -91,5 +92,9 @@ export const GaryBg = styled.div`
 
 export const Inner = styled.div`
   width: 1200px;
+  margin: 0 auto;
+`;
+export const Inner80 = styled.div`
+  width: 800px;
   margin: 0 auto;
 `;

@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { Delete, Arrow, Coupon } from "asset";
 import Checked from "asset/images/Checked.png";
-
+import { Button } from "components";
 export const WhiteSmallBg = styled.div`
   background: ${(props) => props.theme.bgColor};
   border-radius: 5px;
@@ -83,27 +83,7 @@ export const ImgWrap = styled.div`
   width: 171px;
   margin: 0 20px 0 5px;
 `;
-export const ImgBox = styled.div`
-  
-  width: 100%;
-  height: 0;
-  position: relative;
-  padding-bottom: 56.25%;
-  overflow: hidden;
-  border-radius: 5px;
-`;
-export const Img = styled.img`
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-`;
+
 export const TextBox = styled.div`
   width: calc(100% - 212px);
   display: flex;
@@ -236,7 +216,6 @@ export const SelectBoxLi = styled.li`
 export const PointInput = styled.input`
   margin: 15px 0 20px;
   width: 100%;
-  line-height: 45px;
   height: 45px;
   border: 1px solid ${(props) => props.theme.borderGray};
   font-size: ${(props) => props.theme.fontSize14px};
@@ -294,14 +273,8 @@ export const Privacy = styled.p`
     text-decoration: underline;
   }
 `;
-export const Button = styled.button`
-  width: 800px;
-  font-size: ${(props) => props.theme.fontSize14px};
-  border-radius: 5px;
-  color: ${(props) => props.theme.textWhite};
-  line-height: 45px;
-  height: 45px;
-  margin: 20px auto 0;
+
+export const Btn = styled(Button)`
   display: block;
-  background: ${(props) => props.theme.textPoint};
-`;
+  margin: 20px auto 0;
+`
