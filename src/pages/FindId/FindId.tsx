@@ -35,15 +35,14 @@ const FindId = () => {
         </St.Menu>
         <St.OptionWrapper>
           <St.Option>
-            <input type="radio" />
+            <St.Radio type="radio" />
             <p>휴대폰 번호</p>
           </St.Option>
           <St.Option>
-            <input type="radio" />
+            <St.Radio type="radio" />
             <p>이메일</p>
           </St.Option>
         </St.OptionWrapper>
-
         {/* <Input
           type="text"
           placeholder="이름"
@@ -52,7 +51,7 @@ const FindId = () => {
           handleChange={onNameHandler}
         /> */}
         <Input type="text" placeholder="이름" />
-        <div className="phone">
+        <St.Phone>
           <div>
             {/* <Input
               type="text"
@@ -68,7 +67,7 @@ const FindId = () => {
             <Input type="text" placeholder="인증번호 입력" />
             <button>확인</button>
           </div>
-        </div>
+        </St.Phone>
         <button>확인</button>
       </St.Container>
     </St.Section>

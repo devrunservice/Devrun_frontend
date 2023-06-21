@@ -16,7 +16,7 @@ export const Section = styled.section`
 
 // white 배경 컴포넌트
 export const Container = styled.div`
-  width: 30%;
+  width: 400px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -66,3 +66,11 @@ export const Option = styled.div`
   display: flex;
   margin-right: 1rem;
 `;
+
+export const Radio = styled.input`
+margin-right: 0.5rem;
+`
+
+export const Phone = styled.div`
+margin-top: 0.5rem;
+`

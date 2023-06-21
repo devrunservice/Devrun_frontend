@@ -1,4 +1,4 @@
-import { Footer,Header } from 'components';
+import { Footer, Header } from 'components';
 import {Outlet, useLocation} from 'react-router-dom';
 
 function App() {
