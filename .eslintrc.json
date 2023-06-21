@@ -32,6 +32,7 @@
     "react/require-default-props": 0,
     // import 의 종속성 에러 제거
     "import/no-cycle": "off"
+    // "arrow-body-style": "off"
   },
 
   "settings": {
