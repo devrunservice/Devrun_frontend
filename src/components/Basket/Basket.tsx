@@ -1,5 +1,5 @@
 import * as St from './style';
-import { CartLecture,Button } from "components";
+import { CartLecture } from "components";
 const ShoppingBasket = () => {
   return (
     <>
@@ -105,7 +105,7 @@ const ShoppingBasket = () => {
           <span>구매조건 및 개인정보처리방침</span>과 결제에 동의합니다.
         </St.Privacy>
       </St.WhiteSmallBg>
-      <Button text={"결제하기"} />
+      <St.Btn text={"결제하기"} size={"lg"} color={"point"} />
     </>
   );
 };

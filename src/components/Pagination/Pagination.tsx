@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { Ipagination } from "types";
+import { IPagination } from "types";
 import { PageNext, PagePrev } from "asset";
 import * as St from "./style";
 
 
 
-const Pagination = (props:Ipagination) => {
-  const [startPage, setStartPage] = useState(1);
-  const [activePage, setActivePage] = useState(1);
-  const lastPage = props.count !=null ? Math.ceil(props.count / 5) : 0
+const Pagination = (props: IPagination) => {
+  const [startPage, setStartPage] = useState<number>(1);
+  const [activePage, setActivePage] = useState<number>(1);
+  const lastPage = props.count != null ? Math.ceil(props.count / 5) : 0;
   //이전 페이지 클릭시
   const onClickPrev = () => {
     if (startPage === 1) return;

@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 import { Inner } from "style/Theme";
 import { Category, Search } from "asset";
+import { Button } from "components";
 export const Header = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.borderGray};
 `;
@@ -135,4 +136,8 @@ export const LectureSub = styled.p`
 export const LecturePrice = styled.p`
   color: ${(props) => props.theme.textBlack};
   font-weight: ${(props) => props.theme.fontMedium};
+`;
+export const Btn = styled(Button)`
+  display: block;
+  margin: 20px auto 0;
 `;
