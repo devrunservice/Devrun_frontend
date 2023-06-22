@@ -3,33 +3,37 @@ import axios from "axios";
 import { Input } from "style/Common";
 import PasswordInput from "components/Login/PasswordInput/PasswordInput";
 import { useNavigate } from "react-router-dom";
-// import DaumPostcodeEmbed from "react-daum-postcode";
-import { Address } from "react-daum-postcode";
 import * as St from "./styles";
 
 const SignupForm = () => {
   const navigate = useNavigate();
-  
+
   // 아이디, 비밀번호, 이름, 이메일, 생년월일, 휴대폰 번호 확인
-  const [id, setId] = useState<string>("");
+  const [userId, setUserId] = useState<string>("");
   const [pwd, setPwd] = useState<string>("");
   const [pwdConfirm, setPwdConfirm] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [bday, setBday] = useState<string>("");
   const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [verifiedCode, setVerifiedCode] = useState<number>();
 
   // 유효성 검사
-  const [isId, setIsId] = useState<boolean>(false);
+  const [isUserId, setIsUserId] = useState<boolean>(false);
   const [isPwd, setIsPwd] = useState<boolean>(false);
   const [isPwdConfirm, setIsPwdConfirm] = useState<boolean>(false);
   const [isName, setIsName] = useState<boolean>(false); // eslint-disable-line @typescript-eslint/no-unused-vars
   const [isEmail, setIsEmail] = useState<boolean>(false);
   const [isBday, setIsBday] = useState<boolean>(false); // eslint-disable-line @typescript-eslint/no-unused-vars
   const [isPhoneNumber, setIsPhoneNumber] = useState<boolean>(false); // eslint-disable-line @typescript-eslint/no-unused-vars
+  const [isVerifiedCode, setIsVerifiedCode] = useState<boolean>(false); // eslint-disable-line @typescript-eslint/no-unused-vars
+  const [isAllAgreed, setIsAllAgreed] = useState<boolean>(false); // eslint-disable-line @typescript-eslint/no-unused-vars
+  const [isTosAgreed, setIsTosAgreed] = useState<boolean>(false); // eslint-disable-line @typescript-eslint/no-unused-vars
+  const [isPrivacyConsentAgreed, setIsPrivacyConsentAgreed] = // eslint-disable-line @typescript-eslint/no-unused-vars
+    useState<boolean>(false);
 
   // 오류 메세지
-  const [idMessage, setIdMessage] = useState<string>("");
+  const [userIdMessage, setUserIdMessage] = useState<string>("");
   const [pwdMessage, setPwdMessage] = useState<string>("");
   const [pwdConfirmMessage, setPwdConfirmMessage] = useState<string>("");
   const [nameMessage, setNameMessage] = useState<string>(""); // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -37,56 +41,46 @@ const SignupForm = () => {
   const [bdayMessage, setBdayMessage] = useState<string>(""); // eslint-disable-line @typescript-eslint/no-unused-vars
   const [phoneNumberMessage, setPhoneNumberMessage] = useState<string>(""); // eslint-disable-line @typescript-eslint/no-unused-vars
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      axios
-        .post(`${process.env.REACT_APP_SERVER_URL}/signup/okay`, {
-          id,
+      const response = await axios.post(
+        `${process.env.REACT_APP_SERVER_URL}/signup/okay`,
+        {
+          id: userId,
           password: pwd,
           name,
           email,
           birthday: bday,
           phonenumber: phoneNumber,
-        })
-        .then((res) => {
-          console.log("response: ", res);
-          if (res.status === 200) {
-            navigate(`/signup/${id}`);
-          }
-        });
+        },
+      );
+      console.log("response: ", response);
+
+      if (response.status === 200) {
+        // navigate(`/signup/${id}`);
+        navigate(`/login`);
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
-  try {
-  axios.post('signup/auth', {
-    phoneNumber
-  }).then(res => {
-    console.log("response: ", res)
-  });
-  
-  }catch(error) {
-    console.log(error) 
-}
-
   // 아이디 유효성 검사
-  const handleChangeId = useCallback(
+  const handleChangeUserId = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const {value} = event.target;
+      const { value } = event.target;
       const regex = /^[a-zA-Z0-9]{5,13}$/;
 
-      setId(value);
-      console.log(value);
+      setUserId(value);
 
       if (!regex.test(value)) {
-        setIdMessage(
+        setUserIdMessage(
           "영어, 숫자를 포함한 5자 이상 13자 미만으로 입력해주세요.",
         );
-        setIsId(false);
+        setIsUserId(false);
       } else {
-        setIsId(true);
+        setIsUserId(true);
       }
     },
     [],
@@ -95,11 +89,10 @@ const SignupForm = () => {
   // 비밀번호 유효성 검사
   const handleChangePwd = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const {value} = event.target;
+      const { value } = event.target;
       const regex = /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*]).{8,}$/;
 
       setPwd(value);
-      // console.log(value);
 
       if (!regex.test(value)) {
         setPwdMessage(
@@ -116,12 +109,9 @@ const SignupForm = () => {
   // 비밀번호 확인
   const handleChangePwdConfirm = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const {value} = event.target;
+      const { value } = event.target;
       setPwdConfirm(value);
-      // console.log(value);
-      console.log(pwd);
-      console.log(pwd === pwdConfirm);
-      if (pwd === pwdConfirm) {
+      if (pwd === value) {
         setPwdConfirmMessage("비밀번호가 일치합니다.");
         setIsPwdConfirm(true);
       } else {
@@ -131,32 +121,6 @@ const SignupForm = () => {
     },
     [pwd],
   );
-
-  // const handleChangePwd = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const passwordValue = e.target.value;
-  //   const passwordRegex = /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*]).{8,}$/;
-  //   setPwd(passwordValue);
-  //   const isValidPassword = passwordRegex.test(passwordValue);
-  //   setIsPwd(!isValidPassword);
-  //   setPwdMessage(
-  //     isValidPassword
-  //       ? "사용 가능한 비밀번호입니다"
-  //       : "비밀번호는 대소문자, 숫자, 특수문자를 포함하여 8-32자 이내로 입력해주세요",
-  //   );
-  // };
-
-  // //비밀번호 확인 유효성검사
-  // const handleChangePwdConfirm = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const passwordCheckValue = e.target.value;
-  //   setPwdConfirm(passwordCheckValue);
-  //   const isPasswordCheck = pwd === passwordCheckValue;
-  //   setIsPwdConfirm(!isPasswordCheck);
-  //   setPwdConfirmMessage(
-  //     isPasswordCheck
-  //       ? "비밀번호가 일치합니다."
-  //       : "비밀번호가 일치하지 않습니다!",
-  //   );
-  // };
 
   // 이름
   const handleChangeName = useCallback(
@@ -170,7 +134,7 @@ const SignupForm = () => {
   // 이메일 유효성 검사
   const handleChangeEmail = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const {value} = event.target;
+      const { value } = event.target;
       const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
       setEmail(value);
@@ -188,10 +152,11 @@ const SignupForm = () => {
   // 생년월일
   const handleChangeBday = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const value = new Date(event.target.value);
-      const year = value.getFullYear();
-      const month = String(value.getMonth() + 1).padStart(2, "0");
-      const day = String(value.getDate()).padStart(2, "0");
+      const { value } = event.target;
+      const date = new Date(value);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
 
       setBday(`${year}-${month}-${day}`);
       setIsBday(true);
@@ -208,21 +173,36 @@ const SignupForm = () => {
     [],
   );
 
-  // 주소
-  const handleComplete = (data: Address) => { // eslint-disable-line @typescript-eslint/no-unused-vars
-    let fullAddress = data.address;
-    let extraAddress = "";
-    if (data.addressType === "R") {
-      if (data.bname !== "") {
-        extraAddress += data.bname;
-      }
-      if (data.buildingName !== "") {
-        extraAddress +=
-          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
-      }
-      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+  // 인증번호
+  const handleVerifiedCodeChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const value = parseInt(event.target.value, 10);
+    setVerifiedCode(value);
+    setIsVerifiedCode(true);
+  };
+
+  // 휴대폰 인증번호
+  const handlePhoneNumberClick = async () => {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_SERVER_URL}/signup/auth/?phonenumber=${phoneNumber}`,
+      );
+      console.log("response: ", response);
+    } catch (error) {
+      console.log(error);
     }
-    console.log(fullAddress); // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
+  };
+
+  const handleVerifyNumberClick = async () => {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_SERVER_URL}/verify?phonenumber=${phoneNumber}&code=${verifiedCode}`,
+      );
+      console.log("response: ", response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -235,20 +215,25 @@ const SignupForm = () => {
             <St.P>아이디</St.P>
             <Input
               type="text"
+              value={userId}
               placeholder="영문, 숫자 5-13자"
-              onChange={handleChangeId}
+              onChange={handleChangeUserId}
             />
-            {isId === false && <St.ErrorMessage>{idMessage}</St.ErrorMessage>}
+            {isUserId === false && (
+              <St.ErrorMessage>{userIdMessage}</St.ErrorMessage>
+            )}
           </St.InputField>
           {/* 비밀번호 input */}
           <St.InputField>
             <St.P>비밀번호</St.P>
             <PasswordInput
+              value={pwd}
               placeholder="숫자, 영문, 특수문자 조합 최소 8자"
               onChange={handleChangePwd}
             />
             {isPwd === false && <St.ErrorMessage>{pwdMessage}</St.ErrorMessage>}
             <PasswordInput
+              value={pwdConfirm}
               placeholder="비밀번호 재입력"
               onChange={handleChangePwdConfirm}
             />
@@ -261,6 +246,7 @@ const SignupForm = () => {
             <St.P>이름</St.P>
             <Input
               type="text"
+              value={name}
               placeholder="홍길동"
               onChange={handleChangeName}
             />
@@ -270,6 +256,7 @@ const SignupForm = () => {
             <St.P>이메일</St.P>
             <Input
               type="email"
+              value={email}
               placeholder="이메일"
               onChange={handleChangeEmail}
             />
@@ -280,11 +267,7 @@ const SignupForm = () => {
           {/* 생년월일 input */}
           <St.InputField>
             <St.P>생년월일</St.P>
-            <St.Birthday type="date" onChange={handleChangeBday} />
-          </St.InputField>
-          <St.InputField>
-            <St.P>주소</St.P>
-            {/* <DaumPostcodeEmbed OnComplete={handleComplete} autoClose /> */}
+            <St.Birthday type="date" value={bday} onChange={handleChangeBday} />
           </St.InputField>
           {/* 휴대폰 번호 input */}
           <St.InputField>
@@ -292,14 +275,24 @@ const SignupForm = () => {
             <St.PhoneField>
               <Input
                 type="text"
+                value={phoneNumber}
                 placeholder="휴대폰 번호 '-' 제외하고 입력"
                 onChange={handleChangePhoneNumber}
               />
-              <St.Button>인증번호</St.Button>
+              <St.Button type="button" onClick={handlePhoneNumberClick}>
+                인증번호
+              </St.Button>
             </St.PhoneField>
             <St.PhoneField>
-              <Input type="text" placeholder="인증번호 입력" />
-              <St.Button>확인</St.Button>
+              <Input
+                type="text"
+                value={verifiedCode}
+                placeholder="인증번호 입력"
+                onChange={handleVerifiedCodeChange}
+              />
+              <St.Button type="button" onClick={handleVerifyNumberClick}>
+                확인
+              </St.Button>
             </St.PhoneField>
           </St.InputField>
           {/* 약관 동의 */}
@@ -328,6 +321,6 @@ const SignupForm = () => {
       </St.Container>
     </St.Section>
   );
-}
+};
 
 export default SignupForm;

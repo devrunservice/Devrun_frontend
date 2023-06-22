@@ -4,11 +4,15 @@ import { Input } from "style/Common";
 import * as St from "./styles";
 
 interface PasswordInputProps {
+  name?: string;
+  value?: string;
   placeholder: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const PasswordInput: React.FC<PasswordInputProps> = ({
+  name,
+  value,
   placeholder,
   onChange,
 }) => {
@@ -22,6 +26,8 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
     <St.PwdWrapper>
       <Input
         type={showPwd ? "text" : "password"}
+        name={name}
+        value={value}
         placeholder={placeholder}
         onChange={onChange}
       />

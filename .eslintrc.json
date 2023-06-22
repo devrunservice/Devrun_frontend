@@ -23,7 +23,10 @@
     // 콘솔 예외 처리
     "no-console": "off",
     // 함수형 컴포넌트 정의하는 방식 지정
-    "react/function-component-definition": [2, { "namedComponents": "arrow-function"}],
+    "react/function-component-definition": [
+      2,
+      { "namedComponents": "arrow-function" }
+    ],
     // 파일에서 export가 하나인 경우 export default 사용 권장 제거
     "import/prefer-default-export": "off",
     // array에 index를 key로 사용 지양 제거
@@ -31,8 +34,9 @@
     // 부모 컴포넌트에서 데이터를 받지 못할 경우 props에서 에러 발생
     "react/require-default-props": 0,
     // import 의 종속성 에러 제거
-    "import/no-cycle": "off"
-    // "arrow-body-style": "off"
+    "import/no-cycle": "off",
+    // props를 사용하지 않을 경우 에러 발생 off
+    "react/no-unused-prop-types": "off"
   },
 
   "settings": {
