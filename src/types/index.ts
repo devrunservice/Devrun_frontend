@@ -10,3 +10,11 @@ export interface IReactSlice {
   loading: boolean;
   error: null | string;
 }
+export interface IComment {
+  comment: string;
+  
+}
+
+export interface IPhone {
+  phonenumber:string
+}

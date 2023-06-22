@@ -4,6 +4,7 @@ import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import {ThemeProvider} from 'styled-components';
 import {GlobalStyle, defaultTheme} from 'style/Theme';
+import { QueryClientProvider, QueryClient } from "react-query";
 import store from "./redux/store";
 import {Provider} from 'react-redux';
 import App from './App';
@@ -49,9 +50,11 @@ root.render(
   <React.StrictMode>
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyle />
-      <Provider store={store}>
-        <RouterProvider router={router} />
-      </Provider>
+      <QueryClientProvider client={new QueryClient()}>
+        {/* <Provider store={store}> */}
+          <RouterProvider router={router} />
+        {/* </Provider> */}
+      </QueryClientProvider>
     </ThemeProvider>
   </React.StrictMode>
 );

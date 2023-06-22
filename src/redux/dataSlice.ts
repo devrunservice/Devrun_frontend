@@ -1,4 +1,4 @@
-import { baseAxios } from "./instance";
+import { baseAxios } from "api/instance";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { IReactSlice } from "types";
 
