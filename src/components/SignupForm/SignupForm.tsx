@@ -4,12 +4,12 @@ import { Input } from "style/Common";
 import PasswordInput from "components/Login/PasswordInput/PasswordInput";
 import { useNavigate } from "react-router-dom";
 // import DaumPostcodeEmbed from "react-daum-postcode";
-import { Address } from "react-daum-postcode";
+// import { Address } from "react-daum-postcode";
 import * as St from "./styles";
 
 const SignupForm = () => {
   const navigate = useNavigate();
-  
+
   // 아이디, 비밀번호, 이름, 이메일, 생년월일, 휴대폰 번호 확인
   const [id, setId] = useState<string>("");
   const [pwd, setPwd] = useState<string>("");
@@ -18,6 +18,7 @@ const SignupForm = () => {
   const [email, setEmail] = useState<string>("");
   const [bday, setBday] = useState<string>("");
   const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [verifiedCode, setVerifiedCode] = useState<number>(0);
 
   // 유효성 검사
   const [isId, setIsId] = useState<boolean>(false);
@@ -37,44 +38,44 @@ const SignupForm = () => {
   const [bdayMessage, setBdayMessage] = useState<string>(""); // eslint-disable-line @typescript-eslint/no-unused-vars
   const [phoneNumberMessage, setPhoneNumberMessage] = useState<string>(""); // eslint-disable-line @typescript-eslint/no-unused-vars
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    try {
-      axios
-        .post(`${process.env.REACT_APP_SERVER_URL}/signup/okay`, {
-          id,
-          password: pwd,
-          name,
-          email,
-          birthday: bday,
-          phonenumber: phoneNumber,
-        })
-        .then((res) => {
-          console.log("response: ", res);
-          if (res.status === 200) {
-            navigate(`/signup/${id}`);
-          }
-        });
-    } catch (error) {
-      console.log(error);
+    if (
+      isId &&
+      isPwd &&
+      isPwdConfirm &&
+      isName &&
+      isEmail &&
+      isBday &&
+      isPhoneNumber
+    ) {
+      try {
+        const response = await axios.post(
+          `${process.env.REACT_APP_SERVER_URL}signup/okay`,
+          {
+            id,
+            password: pwd,
+            name,
+            email,
+            birthday: bday,
+            phonenumber: phoneNumber,
+          },
+        );
+        console.log("response: ", response);
+
+        if (response.status === 200) {
+          navigate(`/signup/${id}`);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
-
-  try {
-  axios.post('signup/auth', {
-    phoneNumber
-  }).then(res => {
-    console.log("response: ", res)
-  });
-  
-  }catch(error) {
-    console.log(error) 
-}
 
   // 아이디 유효성 검사
   const handleChangeId = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const {value} = event.target;
+      const { value } = event.target;
       const regex = /^[a-zA-Z0-9]{5,13}$/;
 
       setId(value);
@@ -95,7 +96,7 @@ const SignupForm = () => {
   // 비밀번호 유효성 검사
   const handleChangePwd = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const {value} = event.target;
+      const { value } = event.target;
       const regex = /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*]).{8,}$/;
 
       setPwd(value);
@@ -116,7 +117,7 @@ const SignupForm = () => {
   // 비밀번호 확인
   const handleChangePwdConfirm = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const {value} = event.target;
+      const { value } = event.target;
       setPwdConfirm(value);
       // console.log(value);
       console.log(pwd);
@@ -132,32 +133,6 @@ const SignupForm = () => {
     [pwd],
   );
 
-  // const handleChangePwd = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const passwordValue = e.target.value;
-  //   const passwordRegex = /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*]).{8,}$/;
-  //   setPwd(passwordValue);
-  //   const isValidPassword = passwordRegex.test(passwordValue);
-  //   setIsPwd(!isValidPassword);
-  //   setPwdMessage(
-  //     isValidPassword
-  //       ? "사용 가능한 비밀번호입니다"
-  //       : "비밀번호는 대소문자, 숫자, 특수문자를 포함하여 8-32자 이내로 입력해주세요",
-  //   );
-  // };
-
-  // //비밀번호 확인 유효성검사
-  // const handleChangePwdConfirm = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const passwordCheckValue = e.target.value;
-  //   setPwdConfirm(passwordCheckValue);
-  //   const isPasswordCheck = pwd === passwordCheckValue;
-  //   setIsPwdConfirm(!isPasswordCheck);
-  //   setPwdConfirmMessage(
-  //     isPasswordCheck
-  //       ? "비밀번호가 일치합니다."
-  //       : "비밀번호가 일치하지 않습니다!",
-  //   );
-  // };
-
   // 이름
   const handleChangeName = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -170,7 +145,7 @@ const SignupForm = () => {
   // 이메일 유효성 검사
   const handleChangeEmail = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const {value} = event.target;
+      const { value } = event.target;
       const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
       setEmail(value);
@@ -208,21 +183,55 @@ const SignupForm = () => {
     [],
   );
 
+  const handleVerifiedCodeChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const value = parseInt(event.target.value, 10);
+    setVerifiedCode(value);
+
+    console.log(verifiedCode);
+  };
+
   // 주소
-  const handleComplete = (data: Address) => { // eslint-disable-line @typescript-eslint/no-unused-vars
-    let fullAddress = data.address;
-    let extraAddress = "";
-    if (data.addressType === "R") {
-      if (data.bname !== "") {
-        extraAddress += data.bname;
-      }
-      if (data.buildingName !== "") {
-        extraAddress +=
-          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
-      }
-      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+  // const handleComplete = (data: Address) => {
+  //   let fullAddress = data.address;
+  //   let extraAddress = "";
+  //   if (data.addressType === "R") {
+  //     if (data.bname !== "") {
+  //       extraAddress += data.bname;
+  //     }
+  //     if (data.buildingName !== "") {
+  //       extraAddress +=
+  //         extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+  //     }
+  //     fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+  //   }
+  //   console.log(fullAddress); // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
+  // };
+
+  // 휴대폰 인증번호
+  const handlePhoneNumberClick = async () => {
+    try {
+      const response = await axios.post(
+        `${
+          process.env.REACT_APP_SERVER_URL
+        }signup/auth/?phonenumber=${encodeURIComponent(phoneNumber)}`,
+      );
+      console.log("response: ", response);
+    } catch (error) {
+      console.log(error);
     }
-    console.log(fullAddress); // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
+  };
+
+  const handleVerifyNumberClick = async () => {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_SERVER_URL}verify?phonenumber=${phoneNumber}&code=${verifiedCode}`,
+      );
+      console.log("response: ", response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -295,11 +304,15 @@ const SignupForm = () => {
                 placeholder="휴대폰 번호 '-' 제외하고 입력"
                 onChange={handleChangePhoneNumber}
               />
-              <St.Button>인증번호</St.Button>
+              <St.Button onClick={handlePhoneNumberClick}>인증번호</St.Button>
             </St.PhoneField>
             <St.PhoneField>
-              <Input type="text" placeholder="인증번호 입력" />
-              <St.Button>확인</St.Button>
+              <Input
+                type="text"
+                placeholder="인증번호 입력"
+                onChange={handleVerifiedCodeChange}
+              />
+              <St.Button onClick={handleVerifyNumberClick}>확인</St.Button>
             </St.PhoneField>
           </St.InputField>
           {/* 약관 동의 */}
@@ -328,6 +341,6 @@ const SignupForm = () => {
       </St.Container>
     </St.Section>
   );
-}
+};
 
 export default SignupForm;

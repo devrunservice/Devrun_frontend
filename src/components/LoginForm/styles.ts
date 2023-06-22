@@ -49,6 +49,7 @@ export const InputField = styled.div`
 
 // 로그인 버튼
 export const LoginBtn = styled(Button)`
+  width: 100%;
   padding: 0.8rem 0;
   margin-bottom: 1.25rem;
   color: ${(props) => props.theme.textWhite};
