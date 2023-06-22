@@ -1,8 +1,8 @@
-import * as St from './style';
+import React from 'react';
 import NoImg from "asset/images/NoImg.jpg";
+import * as St from './style';
 
-const ShoppingBasket = () => {
-  return (
+const ShoppingBasket = () => (
     <>
       <St.WhiteSmallBg>
         <St.Title>수강바구니</St.Title>
@@ -110,6 +110,6 @@ const ShoppingBasket = () => {
       </St.WhiteSmallBg>
       <St.Button>결제하기</St.Button>
     </>
-  );
-};
+)
+    
 export default ShoppingBasket;

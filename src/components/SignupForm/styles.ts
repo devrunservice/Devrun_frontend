@@ -1,7 +1,8 @@
-import {styled} from 'styled-components';
+import { styled } from "styled-components";
+import { Input } from "style/Common";
 
 // Gray 배경 컴포넌트
-export const Section = styled.section`
+export const Section = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -13,7 +14,7 @@ export const Section = styled.section`
 
 // white 배경 컴포넌트
 export const Container = styled.div`
-  width: 30%;
+  width: 400px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,15 +38,6 @@ export const P = styled.p`
   margin-bottom: 0.6rem;
 `;
 
-// input 태그
-export const Input = styled.input`
-  text-indent: 0.5rem;
-  border-radius: 5px;
-  padding: 0.8rem 0;
-  /* margin-bottom: 0.6rem; */
-  border: ${(props) => props.theme.borderGray} 1px solid;
-`;
-
 // 버튼 태그
 export const Button = styled.button`
   /* width: 100%; */
@@ -54,15 +46,11 @@ export const Button = styled.button`
   cursor: pointer;
 `;
 
-// 아이디, 비밀번호, 이름, 이메일, 휴대폰 번호
+// 아이디, 비밀번호, 이름, 이메일, 생년월일, 휴대폰 번호
 export const InputField = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 0.6rem;
-
-  &:nth-child(2) ${Input} {
-    margin-bottom: 0.6rem;
-  }
 `;
 
 // 휴대폰 번호 input, button
@@ -82,6 +70,22 @@ export const PhoneField = styled.div`
   }
 `;
 
+export const Birthday = styled(Input)`
+  text-indent: 0.2rem;
+  color: ${(props) => props.theme.textColor};
+
+  &::-webkit-calendar-picker-indicator {
+    color: ${(props) => props.theme.textWhite};
+  }
+`;
+
+// 에러메세지
+export const ErrorMessage = styled.p`
+  font-size: ${(props) => props.theme.fontSize14px};
+  color: ${(props) => props.theme.textRed};
+  margin: 0.25rem 0;
+`;
+
 // 약관 동의
 export const Ul = styled.ul`
   margin-bottom: 1.5rem;
@@ -93,60 +97,16 @@ export const Ul = styled.ul`
 
 export const Li = styled.li`
   margin-bottom: 0.5rem;
+  display: flex;
 `;
 
-// 간편 회원가입
-// export const SocialLogin = styled.div`
-//   margin-bottom: 1.25rem;
-// `;
-
-// // 간편 회원가입 카카오, 네이버, 구글 버튼
-// export const SocialLoginBtn = styled.div`
-//   display: flex;
-//   justify-content: center;
-
-//   & > ${Button}:nth-child(-n+3) {
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     padding: 0.3rem 0.4rem;
-//     margin: 0 0.25rem;
-//   }
-
-//   & > ${Button}:nth-child(1) {
-//     background-color: #fee500;
-//   }
-
-//   & > ${Button}:nth-child(2) {
-//     background-color: #1ec800;
-//   }
-
-//   & > ${Button}:nth-child(3) {
-//     background-color: #f8f8f8;
-//   }
-// `;
-
-// export const SocialLoginTitle = styled.div`
-//   display: flex;
-//   flex-basis: 100%;
-//   align-items: center;
-//   text-align: center;
-//   margin: 0.5rem 0;
-
-//   &::after,
-//   &::before {
-//     content: '';
-//     flex-grow: 1;
-//     background: rgba(103, 103, 103, 0.8);
-//     height: 1px;
-//     font-size: 0px;
-//     line-height: 0px;
-//     margin: 0px 1rem;
-//   }
-// `;
+export const Checkbox = styled.input`
+  margin-right: 0.5rem;
+`;
 
 export const SignupBtn = styled(Button)`
   color: ${(props) => props.theme.textWhite};
   background-color: ${(props) => props.theme.brandColor};
   padding: 0.8rem 0;
+  width: 100%;
 `;

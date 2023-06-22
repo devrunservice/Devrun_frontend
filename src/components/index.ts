@@ -5,7 +5,6 @@ export { default as Pagination } from "./Pagination/Pagination";
 export { default as Footer } from "./Footer/Footer";
 export { default as Header } from "./Header/Header";
 export { default as LectureCard } from "./LectureCard/LectureCard";
-export { default as CartLecture } from "./CartLecture/CartLecture";
 export { default as NoticeWriter } from "./NoticeWrite/NoticeWrite";
 export { default as NoticeList } from "./NoticeDetail/NoticeDetail";
 export { default as Comment } from "./Comment/Comment";

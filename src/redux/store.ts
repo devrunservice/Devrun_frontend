@@ -1,7 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { postAuthSlice } from "api/signupSlice";
+// import { dataSlice } from "api/dataSlice"; // eslint-disable-line @typescript-eslint/no-unused-vars
+
 const store = configureStore({
-  reducer: { postAuthSlice: postAuthSlice.reducer },
+  reducer: { 
+    // dataSlice: dataSlice.reducer // eslint-disable-line @typescript-eslint/no-unused-vars
+  },
 });
 
 

@@ -1,5 +1,7 @@
-import * as St from "./style"
+import React from 'react';
 import { useNavigate } from "react-router-dom";
+import * as St from "./style"
+
 const Notice = () => {
   const navigate = useNavigate()
   const writeBtn = () => navigate("/noticeWrite");
@@ -21,6 +23,6 @@ const Notice = () => {
       </St.ButtonWrap>
     </>
   );
-};
+}
 
 export default Notice;

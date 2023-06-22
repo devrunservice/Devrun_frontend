@@ -12,12 +12,10 @@ export const accAxios = axios.create({
 });
 
 baseAxios.interceptors.response.use(
-    (Response) =>{
-        return Response
-    },
+    (Response) =>Response,
     (error)=>{
         const errorMessage = error.response.data.message;
-        const errorStatus = error.response.data.message;
+        const errorStatus = error.response.data.message; // eslint-disable-line @typescript-eslint/no-unused-vars
         return errorMessage;
     }
 )
