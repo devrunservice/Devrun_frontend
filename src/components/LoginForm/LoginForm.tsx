@@ -1,12 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrandLogo, Kakao, Naver, Google } from "asset";
 import { useNavigate } from "react-router-dom";
 import { Input } from "style/Common";
 import PasswordInput from "components/Login/PasswordInput/PasswordInput"; // eslint-disable-line @typescript-eslint/no-unused-vars
 import * as St from "./styles";
 
+interface LoginFormType {
+  id: string;
+  pwd: string;
+}
+
 const LoginForm = () => {
   const navigate = useNavigate();
+
+  const [login, setLogin] = useState<LoginFormType>({
+    id: "",
+    pwd: "",
+  });
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    console.log(event.target);
+
+    setLogin((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  useEffect(() => {
+    console.log(login);
+  }, [login]);
 
   return (
     <St.Section>
@@ -14,11 +43,24 @@ const LoginForm = () => {
         <St.LogoWrapper>
           <BrandLogo />
         </St.LogoWrapper>
-        <St.InputField>
-          <Input type="text" placeholder="아이디" />
-          {/* <PasswordInput placeholder="비밀번호" /> */}
-        </St.InputField>
-        <St.LoginBtn>로그인</St.LoginBtn>
+        {/* 로그인 */}
+        <form onSubmit={handleSubmit}>
+          <St.InputField>
+            <Input
+              type="text"
+              value={login.id}
+              placeholder="아이디"
+              onChange={handleChange}
+            />
+            <PasswordInput
+              value={login.pwd}
+              placeholder="비밀번호"
+              onChange={handleChange}
+            />
+          </St.InputField>
+          <St.LoginBtn>로그인</St.LoginBtn>
+        </form>
+        {/* 아이디, 비밀번호 찾기 및 회원가입 */}
         <St.Finder>
           <St.Button
             onClick={() => {
@@ -44,8 +86,9 @@ const LoginForm = () => {
             회원가입
           </St.Button>
         </St.Finder>
+        {/* 간편 로그인 */}
         <St.SocialLogin>
-          <St.SocialLoginTitle>간편 회원가입</St.SocialLoginTitle>
+          <St.SocialLoginTitle>간편 로그인</St.SocialLoginTitle>
           <St.SocialLoginBtn>
             <St.Button>
               <Kakao />
@@ -61,6 +104,6 @@ const LoginForm = () => {
       </St.Container>
     </St.Section>
   );
-}
+};
 
 export default LoginForm;
