@@ -1,8 +1,8 @@
-import * as St from './style'
+import React from 'react';
 import { ArrowBottom, Play } from 'asset'
+import * as St from './style'
 
-const Curriculum = () => {
-  return (
+const Curriculum = () => (
     <St.CurriculumItem>
       <St.CurriculumItemHeader>
         <span>섹션</span>
@@ -24,7 +24,6 @@ const Curriculum = () => {
         </ul>
       </St.CurriculumHidden>
     </St.CurriculumItem>
-  );
-};
+  )
 
 export default Curriculum;

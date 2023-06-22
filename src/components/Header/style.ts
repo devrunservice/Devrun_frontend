@@ -1,8 +1,9 @@
 import styled from "styled-components"
 import { Inner } from "style/Theme";
 import { Category, Search } from "asset";
-export const Header = styled.div`
-  border-bottom: 1px solid ${(props:any) => props.theme.borderGray};
+
+export const HeaderWrap = styled.div`
+  border-bottom: 1px solid ${(props: any) => props.theme.borderGray};
 `;
 export const InnerHeader = styled(Inner)`
   display: flex;
@@ -55,13 +56,11 @@ export const SearchIcon = styled(Search)`
   cursor: pointer;
 `;
 export const HeaderIcon = styled.div`
-  margin-right: 20px;
+  width: 50px;
+  justify-content: center;
   display: flex;
   align-items: center;
   position: relative;
-  &:last-child {
-    margin-right: 0px;
-  }
   > svg {
     cursor: pointer;
   }
@@ -145,4 +144,24 @@ export const Button = styled.button`
   width: ${(props:any) => props.theme.width100};
   border-radius: 5px;
   height: 40px;
+`;
+export const ImgBox = styled.div`
+  width: 100%;
+  height: 0;
+  position: relative;
+  padding-bottom: 56.25%;
+  overflow: hidden;
+  border-radius: 5px;
+`;
+export const Img = styled.img`
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
 `;

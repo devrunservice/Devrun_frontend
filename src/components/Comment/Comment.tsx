@@ -7,24 +7,26 @@ import * as St from "./style";
 
 const Comment = () => {
   
-  //좋아요버튼
-   const [love, setLove] = useState<boolean>(false);
-   const loveBtn = () => setLove(!love);
-  //댓글쓰기 버튼
-  const [write, setWrite] = useState<boolean>(false);
-  const writeBtn = () => {
-    setWrite(!write);
-    setComment("");
-  };
-  //맨위에 댓글 처음 쓰는거
+  
+   
+  
   const [comments, setComments] = useState<string>("");
   const commentsChange = (e: ChangeEvent<HTMLTextAreaElement>) => setComments(e.target.value);
   const commentsCancel = () => setComments("")
-  //대댓글
+  
   const [comment, setComment] = useState<string>("");
   const commentChange = (e: ChangeEvent<HTMLTextAreaElement>) => setComment(e.target.value);
   const commentCancel = () => setComment("");
-  //댓글 댓글창 전환
+  
+  const [love, setLove] = useState<boolean>(false);
+  const loveBtn = () => setLove(!love);
+
+  const [write, setWrite] = useState<boolean>(false);
+  const writeBtn = () => {
+    setWrite(!write);
+    setComment(""); 
+  };
+
   const commentRegBtn = () => {
     setWrite(!write);
     setComment("")

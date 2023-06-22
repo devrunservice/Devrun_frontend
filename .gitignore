@@ -24,3 +24,6 @@ yarn-error.log*
 
 # Ignore the .yarn/install-state.gz file
 .yarn/install-state.gz
+
+# SERVER URL
+.env
