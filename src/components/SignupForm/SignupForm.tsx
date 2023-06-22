@@ -1,7 +1,10 @@
-import {Kakao, Naver, Google} from 'asset';
-import * as St from './styles';
+import React, {useState} from "react";
+import * as St from "./styles";
+import { Kakao, Naver, Google } from "asset"
 
 const SignupForm = () => {
+  
+
   return (
     <St.Section>
       <St.Container>
@@ -33,8 +36,11 @@ const SignupForm = () => {
               <St.Input
                 type="text"
                 placeholder="휴대폰 번호 '-' 제외하고 입력"
+
               />
-              <St.Button>인증번호</St.Button>
+              <St.Button >
+                인증번호
+              </St.Button>
             </St.PhoneField>
             <St.PhoneField>
               <St.Input type="text" placeholder="인증번호 입력" />
