@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { BrandLogo, Kakao, Naver, Google } from "asset";
 import { useNavigate } from "react-router-dom";
 import { Input } from "style/Common";
@@ -6,7 +7,7 @@ import PasswordInput from "components/Login/PasswordInput/PasswordInput"; // esl
 import * as St from "./styles";
 
 interface LoginFormType {
-  id: string;
+  userId: string;
   pwd: string;
 }
 
@@ -14,12 +15,28 @@ const LoginForm = () => {
   const navigate = useNavigate();
 
   const [login, setLogin] = useState<LoginFormType>({
-    id: "",
+    userId: "",
     pwd: "",
   });
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_SERVER_URL}/login`,
+        {
+          id: login.userId,
+          password: login.pwd,
+        },
+      );
+      console.log("response: ", response);
+
+      if (response.status === 200) {
+        navigate(`/home`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,11 +65,13 @@ const LoginForm = () => {
           <St.InputField>
             <Input
               type="text"
-              value={login.id}
+              name="userId"
+              value={login.userId}
               placeholder="아이디"
               onChange={handleChange}
             />
             <PasswordInput
+              name="pwd"
               value={login.pwd}
               placeholder="비밀번호"
               onChange={handleChange}
@@ -63,6 +82,7 @@ const LoginForm = () => {
         {/* 아이디, 비밀번호 찾기 및 회원가입 */}
         <St.Finder>
           <St.Button
+            type="button"
             onClick={() => {
               navigate("/findId");
             }}
@@ -71,6 +91,7 @@ const LoginForm = () => {
           </St.Button>
           <p>|</p>
           <St.Button
+            type="button"
             onClick={() => {
               navigate("/findPwd");
             }}
@@ -79,6 +100,7 @@ const LoginForm = () => {
           </St.Button>
           <p>|</p>
           <St.Button
+            type="button"
             onClick={() => {
               navigate("/signup");
             }}
