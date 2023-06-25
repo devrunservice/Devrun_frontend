@@ -1,5 +1,5 @@
-import {styled} from 'styled-components';
-import {Input} from 'style/Common';
+import { styled } from "styled-components";
+import { Input } from "style/Common";
 
 // Gray 배경 컴포넌트
 export const Section = styled.section`
@@ -103,7 +103,7 @@ export const SocialLoginTitle = styled.div`
 
   &::after,
   &::before {
-    content: '';
+    content: "";
     flex-grow: 1;
     background: rgba(103, 103, 103, 0.8);
     height: 1px;
