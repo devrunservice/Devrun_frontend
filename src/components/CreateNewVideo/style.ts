@@ -1,6 +1,5 @@
 import { styled } from "styled-components";
-import { StyledButtonProps } from "./CreateNewVideo";
-import { ButtonProps } from "pages/CreateVideo/CreateVideo";
+import { IPriceButton } from "types";
 
 export const CreateVideoWrap = styled.section`
   width: 1200px;
@@ -68,22 +67,14 @@ export const InputNotice = styled.p`
 export const SelectPriceBtn = styled.div`
   margin-right: 20px;
 `
-export const FreeBtn = styled.button<StyledButtonProps>`
+export const PriceBtn = styled.button<IPriceButton>`
   padding: 12px 15px;
-  background: ${props=>props.active ? '#fff' : '#604B8E'};
-  color: ${props=>props.active ? '#000' : '#fff'};
-  border: 1px solid ${props=>props.theme.mainColor};
-  border-radius: 5px 0 0 5px;
-  border-right: none;
-`
-export const PayBtn = styled.button<StyledButtonProps>`
-  padding: 12px 15px;
-  background: ${props=>props.active ? '#604B8E' : '#fff'};
-  color: ${props=>props.active ? '#fff' : '#000'};
-  border: 1px solid ${props=>props.theme.mainColor};
-  border-left: none;
-  border-radius: 0 5px 5px 0;
-`
+  background: ${(props) => (props.active ? "#fff" : "#604B8E")};
+  color: ${(props) => (props.active ? "#000" : "#fff")};
+  border: 1px solid ${(props) => props.theme.mainColor};
+  border-radius: ${(props) => (props.active ? "5px 0 0 5px" : "0px 5px 5px 0px")};
+`;
+
 export const UploadArea = styled.div`
   display: flex;
   align-items: center;
@@ -149,7 +140,7 @@ export const NextCreateBtn = styled.button`
 export const Curriculum = styled.div`
   
 `
-export const tagItemWarp = styled.div`
+export const TagItemWarp = styled.div`
   margin-top: 10px;
   svg {
     margin-left: 5px;
@@ -159,7 +150,7 @@ export const tagItemWarp = styled.div`
     }
   }
 `
-export const tagItem = styled.span`
+export const TagItem = styled.span`
   border: 1px solid #ddd;
   padding: 10px;
   box-sizing: border-box;

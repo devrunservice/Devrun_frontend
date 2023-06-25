@@ -1,11 +1,11 @@
+// import { baseAxios } from "api/instance";
 // import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 // import { IReactSlice } from "types";
-// import { baseAxios } from "./instance";
 
-// /* eslint no-underscore-dangle: 0 */
-// export const getReact = createAsyncThunk("getReact", async () => {
+
+// export const __postAuth = createAsyncThunk("postAuth", async () => {
 //   try {
-//     const response = await baseAxios.get("/react5");
+//     const response = await baseAxios.post("/signup/auth");
 //     const data = await response.data;
 //     return data;
 //   } catch (error: any) {
@@ -18,26 +18,25 @@
 //   error: null,
 //   loading: false,
 // };
-// export const dataSlice = createSlice({
-//   name: "data",
+// export const postAuthSlice = createSlice({
+//   name: "sign",
 //   initialState,
 //   reducers: {},
 //   extraReducers: (builder) => {
 //     builder
-//       .addCase(getReact.pending, (state) => {
+//       .addCase(__postAuth.pending, (state) => {
 //         state.loading = true;
 //       })
-//       .addCase(getReact.fulfilled, (state, action) => {
+//       .addCase(__postAuth.fulfilled, (state, action) => {
 //         state.loading = false;
 //         state.data = action.payload;
 //       })
-//       .addCase(getReact.rejected, (state, action) => {
+//       .addCase(__postAuth.rejected, (state, action) => {
 //         state.loading = false;
 //         state.error = action.error.message as string;
 //       });
 //   },
 // });
 
-// export default dataSlice.reducer;
-
-export {}
+// export default postAuthSlice.reducer;
+export {};

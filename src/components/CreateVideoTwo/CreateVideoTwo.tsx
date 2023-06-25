@@ -1,8 +1,9 @@
+import React from 'react';
 import CurriculumSection from 'components/CurriculumSection/CurriculumSection';
-import * as St from '../CreateNewVideo/style'
 import { PlusCircle } from 'asset';
-const CreateVideoTwo = () => {
-  return (
+import * as St from '../CreateNewVideo/style'
+
+const CreateVideoTwo = () => (
     <St.CreateVideoWrap>
       <St.CreateVideoArticle>
         <St.ArticleTitle>
@@ -17,6 +18,5 @@ const CreateVideoTwo = () => {
       </St.CreateVideoArticle>
     </St.CreateVideoWrap>
   );
-};
 
 export default CreateVideoTwo;
