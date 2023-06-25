@@ -8,3 +8,5 @@ export { default as LectureCard } from "./LectureCard/LectureCard";
 export { default as NoticeWriter } from "./NoticeWrite/NoticeWrite";
 export { default as NoticeList } from "./NoticeDetail/NoticeDetail";
 export { default as Comment } from "./Comment/Comment";
+export { default as CreateNewVideo } from "./CreateNewVideo/CreateNewVideo";
+export { default as CreateVideoTwo } from "./CreateVideoTwo/CreateVideoTwo";
