@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { Close, Exclamation } from 'asset';
+import { useDispatch, useSelector } from 'react-redux';
+import { CreateLectureType } from 'types';
 import * as St from './style'
-import { useSelector, useDispatch } from 'react-redux';
 
 export interface StyledButtonProps {
   active: boolean;
@@ -9,8 +10,9 @@ export interface StyledButtonProps {
 
 const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
   const dispatch = useDispatch()
-  const test = useSelector(state => state.createVideo)
-  console.log('test',test)
+  const test = useSelector((state: {createVideo: CreateLectureType}) => state.createVideo)
+  console.log('test',test, dispatch)
+  
   /* 가격 무료 유료 선택 */
   const [isActive, setIsActive] = useState<boolean>(false)
   const [priceState, setPriceState] = useState<boolean>(false)
@@ -30,36 +32,38 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
   }
 
   /* 가격 */
-  const [price, setPrice] = useState('')
-  const priceInput = (e: any) => {
-    let value = e.target.value;
-    value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
-    value = Number(value.replaceAll(',',''))
-    if(isNaN(value)) {         
-      value = 0;   
-    }else {                   
-      const formatValue = value.toLocaleString('ko-KR');
-      value = formatValue;
-      setPrice(value)
+  const [price, setPrice] = useState<number>(0)
+  const priceInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const {value} = e.target;
+    const regex = value.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");
+    let comma = Number(regex.replaceAll(",", ""));
+    if (comma === 0) {
+      comma = 0;
+    } else {
+      setPrice(price)
     }
   }
 
   /* 이미지업로드 */
   const [imgUrl, setImgUrl] = useState('')
-  const uploadImg = (e: any) => {
-    let files = e.target.files
-    if(files.size > 1024 * 1024 * 2) {
-      return alert('이미지 용량을 초과하였습니다.')
+  const uploadImg = (e: ChangeEvent<HTMLInputElement>) => {
+    const {files} = e.target
+    if(!files) {
+      return
     }
-    if (files && files.length > 0) {
-      let file = files[0];
-      let url = URL.createObjectURL(file);
+    if (files.length > 0) {
+      const file = files[0];
+      if (file.size > 1024 * 1024 * 2) {
+        alert('이미지 용량을 초과하였습니다.');
+        return;
+      }
+      const url = URL.createObjectURL(file);
       setImgUrl(url);
     }
   }
 
   /* 카테고리 */
-  const [category, setCategory] = useState('')
+  // const [category, setCategory] = useState([])
 
   /* 태그 */
   const [tags, setTags] = useState<string[]>([])
@@ -73,15 +77,17 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
     }
     if(tags.some(tag=>tag === tagInput)) {
       alert('해당 태그는 이미 추가하셨습니다.')
-      return setTagInput('')
+      setTagInput('')
     }
-    if(tags.length > 10) {
-      return alert('태그는 10개까지 작성 가능합니다.')
+    
+    if(tags.length > 10){  
+      alert('태그는 10개까지 작성 가능합니다.') 
+      return;
     }
     if(e.key === 'Enter') {
       setTags([...tags, tagInput])
       setTagInput('')
-      console.log(tags)
+      
     }
   }
   const deleteTag =(index: number | string) => {
@@ -103,9 +109,14 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
     <St.CreateVideoWrap>
       <St.CreateVideoArticle>
         <St.ArticleTitle>강좌명</St.ArticleTitle>
-        <St.BasicInput onChange={nameInput} value={lectureName} type="text" placeholder='영문, 숫자 5-11자'/>
+        <St.BasicInput
+          onChange={nameInput}
+          value={lectureName}
+          type="text"
+          placeholder="영문, 숫자 5-11자"
+        />
         <St.InputNotice>
-          <Exclamation/>
+          <Exclamation />
           수업 내용이 무엇인지 알 수 있는 과목명으로 설정하는 것을 권장합니다.
         </St.InputNotice>
       </St.CreateVideoArticle>
@@ -114,12 +125,24 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
         <St.ArticleTitle>가격</St.ArticleTitle>
         <div>
           <St.SelectPriceBtn>
-            <St.FreeBtn type='button' active={isActive} onClick={freePayment}>무료</St.FreeBtn>
-            <St.PayBtn type='button' active={isActive} onClick={pricePayment}>유료</St.PayBtn>
+            <St.PriceBtn
+              type="button"
+              active={isActive === true}
+              onClick={freePayment}
+            >
+              무료
+            </St.PriceBtn>
+            <St.PriceBtn
+              type="button"
+              active={isActive === false}
+              onClick={pricePayment}
+            >
+              유료
+            </St.PriceBtn>
           </St.SelectPriceBtn>
-          {
-            priceState && <St.ShortInput onChange={priceInput} value={price} type="text" placeholder='0'/>
-          }
+          {priceState && (
+            <St.ShortInput onChange={priceInput} type="text" placeholder="0" />
+          )}
           {/* <St.ShortInput type="number" placeholder='0'/> */}
         </div>
       </St.CreateVideoArticle>
@@ -128,24 +151,34 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
         <St.ArticleTitle>강좌 이미지</St.ArticleTitle>
         <St.UploadArea>
           <St.LectureImageWrap>
-            {
-              imgUrl && <img src={imgUrl} alt="" />
-            }
+            {imgUrl && <img src={imgUrl} alt="" />}
             {/* <img src={URL.createObjectURL(imgUrl)} alt="" /> */}
           </St.LectureImageWrap>
           <St.UploadVideoWrap>
             <div>
-              <St.ShortInput onChange={uploadImg} accept="image/*" id='uploader' type='file' placeholder='선택된 이미지 없음' />
+              <St.ShortInput
+                onChange={uploadImg}
+                accept="image/*"
+                id="uploader"
+                type="file"
+                placeholder="선택된 이미지 없음"
+              />
               <label htmlFor="uploader">파일선택</label>
             </div>
-            <St.InputNotice><Exclamation/>최대 2MB까지 업로드 가능합니다.</St.InputNotice>
-            <St.InputNotice><Exclamation/>528 X 297 픽셀 이미지 사용</St.InputNotice>
+            <St.InputNotice>
+              <Exclamation />
+              최대 2MB까지 업로드 가능합니다.
+            </St.InputNotice>
+            <St.InputNotice>
+              <Exclamation />
+              528 X 297 픽셀 이미지 사용
+            </St.InputNotice>
           </St.UploadVideoWrap>
         </St.UploadArea>
       </St.CreateVideoArticle>
 
       <St.CreateVideoArticle>
-          <St.ArticleTitle>강좌 카테고리</St.ArticleTitle>
+        <St.ArticleTitle>강좌 카테고리</St.ArticleTitle>
         <div>
           <St.CategorySelect>
             <option value="">프론트엔드</option>
@@ -162,34 +195,57 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
       <St.CreateVideoArticle>
         <St.MBThirty>
           <St.ArticleTitle>태그</St.ArticleTitle>
-          <St.BasicInput onChange={tagChangeInput} onKeyDown={tagKeyPressEvent} value={tagInput} placeholder='텍스트 입력 후 엔터를 눌러 태그를 추가하세요' />
-          <St.InputNotice><Exclamation/>공백없이 작성해 주십시오.</St.InputNotice>
-          <St.InputNotice><Exclamation/>최대 10개까지 입력할 수 있습니다.</St.InputNotice>
-          <St.tagItemWarp>
-            {
-              tags.map((tag, index)=>(<St.tagItem key={index}>{tag}<Close onClick={()=>deleteTag(index)}/></St.tagItem>)
-            )}
-          </St.tagItemWarp>
+          <St.BasicInput
+            onChange={tagChangeInput}
+            onKeyDown={tagKeyPressEvent}
+            value={tagInput}
+            placeholder="텍스트 입력 후 엔터를 눌러 태그를 추가하세요"
+          />
+          <St.InputNotice>
+            <Exclamation />
+            공백없이 작성해 주십시오.
+          </St.InputNotice>
+          <St.InputNotice>
+            <Exclamation />
+            최대 10개까지 입력할 수 있습니다.
+          </St.InputNotice>
+          <St.TagItemWarp>
+            {tags.map((tag, index) => (
+              <St.TagItem key={index}>
+                {tag}
+                <Close onClick={() => deleteTag(index)} />
+              </St.TagItem>
+            ))}
+          </St.TagItemWarp>
         </St.MBThirty>
 
         <St.MBThirty>
           <St.ArticleTitle>한줄설명</St.ArticleTitle>
-          <St.BasicInput onChange={explanationInput} value={explanation} placeholder='예: 프로그래밍 강의입니다.' />
+          <St.BasicInput
+            onChange={explanationInput}
+            value={explanation}
+            placeholder="예: 프로그래밍 강의입니다."
+          />
         </St.MBThirty>
 
         <St.MBThirty>
           <St.ArticleTitle>소개 영상</St.ArticleTitle>
-          <St.BasicInput onChange={introduceInput} value={introduce} placeholder='Youtube동영상 URL을 넣어주세요.' />
+          <St.BasicInput
+            onChange={introduceInput}
+            value={introduce}
+            placeholder="Youtube동영상 URL을 넣어주세요."
+          />
         </St.MBThirty>
 
         <St.MBThirty>
           <St.ArticleTitle>강좌 소개</St.ArticleTitle>
           <h1>에디터 들어갈부분</h1>
         </St.MBThirty>
-        <St.NextCreateBtn type='button' onClick={()=>ChangePage()}>다음</St.NextCreateBtn>
+        <St.NextCreateBtn type="button" onClick={() => ChangePage()}>
+          다음
+        </St.NextCreateBtn>
       </St.CreateVideoArticle>
-
     </St.CreateVideoWrap>
-  )
-
-export default CreateNewVideo;
+  );
+}
+export default CreateNewVideo

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import CreateNewVideo from 'components/CreateNewVideo/CreateNewVideo';
-import CreateVideoTwo from 'components/CreateVideoTwo/CreateVideoTwo';
+import { CreateNewVideo,CreateVideoTwo } from 'components';
 
 export interface ButtonProps {
   ChangePage: React.ButtonHTMLAttributes<HTMLButtonElement>

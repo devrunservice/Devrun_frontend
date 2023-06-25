@@ -1,16 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, /* PayloadAction */ } from "@reduxjs/toolkit";
+import { CreateLectureType } from "types";
 
-interface createLectureType {
-  lectureName: string,
-  lecturePrice: string,
-  imageUrl: string,
-  lectureCategory: string,
-  lectureTag: Array<string>,
-  lectureExplane: string,
-  lectureIntroduce: string
-}
-
-const initialState:createLectureType = {
+const initialState:CreateLectureType = {
   lectureName: '',
   lecturePrice: '',
   imageUrl: '',
@@ -24,10 +15,13 @@ const createVideoSlice = createSlice({
   name: 'createVideo',
   initialState,
   reducers: {
-    createLecture:(state, action) => {
-      
-    }
+    // createVideo: (state: CreateLectureType, action: PayloadAction<string>) => {
+    //   ...state,
+    //   retu
+    //   // state.lectureName = action.payload
+    // }
   }
 })
 
-export default createVideoSlice 
+// export const {createVideo} = createVideoSlice.actions
+export const createVideoReducer = createVideoSlice.reducer
