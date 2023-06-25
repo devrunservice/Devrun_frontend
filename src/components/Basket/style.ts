@@ -2,6 +2,9 @@ import { styled } from "styled-components";
 import { Delete, Arrow, Coupon } from "asset";
 import Checked from "asset/images/Checked.png";
 
+
+export const BasketForm = styled.form``
+
 export const WhiteSmallBg = styled.div`
   background: ${(props:any) => props.theme.bgColor};
   border-radius: 5px;
@@ -12,15 +15,17 @@ export const WhiteSmallBg = styled.div`
   }
 `;
 export const Title = styled.h4`
-  font-size: ${(props:any) => props.theme.fontSize25px};
+  font-size: ${(props:any) => props.theme.fontSize20px};
   color: ${(props:any) => props.theme.textBlack};
-  font-weight: ${(props:any) => props.theme.fontSemiBold};
-  margin-bottom: 30px;
+  font-weight: ${(props:any) => props.theme.fontBold};
+  margin-bottom: 25px;
+  line-height:1;
 `;
 export const SelectWarp = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  line-height:1;
 `;
 export const Left = styled.div`
   display: flex;
@@ -73,7 +78,7 @@ export const ProductLi = styled.li`
     border-bottom: 1px solid #ddd;
   }
 `;
-export const ContentBox = styled.div`
+export const ContentBox = styled.label`
   display: flex;
   align-items: center;
   width:calc(100% - 16px)
@@ -116,9 +121,10 @@ export const TitleText = styled.em`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  color: ${(props:any) => props.theme.textBlack};
-  font-weight: ${(props:any) => props.theme.fontMedium};
+  color: ${(props: any) => props.theme.textBlack};
+  font-weight: ${(props: any) => props.theme.fontMedium};
   margin-bottom: 10px;
+  line-height: 1;
 `;
 export const SubText = styled.p`
   display: block;
@@ -127,9 +133,11 @@ export const SubText = styled.p`
   overflow: hidden;
   white-space: nowrap;
   margin-bottom: 18px;
+  line-height: 1;
 `;
 export const Writer = styled.p`
-  font-size: ${(props:any) => props.theme.fontSize14px};
+  font-size: ${(props: any) => props.theme.fontSize14px};
+  line-height: 1;
 `;
 export const Hours = styled.span`
   color: ${(props:any) => props.theme.textPoint};
@@ -140,18 +148,20 @@ export const TextRight = styled.div`
 `
 export const Discount = styled.span`
   margin-right: 8px;
-  color: ${(props:any) => props.theme.textRed};
-  font-weight: ${(props:any) => props.theme.fontSemiBold};
-  font-size: ${(props:any) => props.theme.fontSize14px};
+  color: ${(props: any) => props.theme.textRed};
+  font-weight: ${(props: any) => props.theme.fontSemiBold};
+  font-size: ${(props: any) => props.theme.fontSize14px};
+  line-height: 1;
 `;
 export const DiscountNum = styled.span`
   position: relative;
-  font-size: ${(props:any) => props.theme.fontSize14px};
+  font-size: ${(props: any) => props.theme.fontSize14px};
+  line-height: 1;
   &::after {
     position: absolute;
     width: 100%;
     height: 1px;
-    background: ${(props:any) => props.theme.textColor};
+    background: ${(props: any) => props.theme.textColor};
     content: "";
     top: 0;
     bottom: 0;
@@ -160,15 +170,19 @@ export const DiscountNum = styled.span`
   }
 `;
 export const Money = styled.p`
-  font-size: ${(props:any) => props.theme.fontSize18px};
-  color: ${(props:any) => props.theme.textBlack};
-  font-weight: ${(props:any) => props.theme.fontBold};
-  margin-top:10px;
+  font-size: ${(props: any) => props.theme.fontSize18px};
+  color: ${(props: any) => props.theme.textBlack};
+  font-weight: ${(props: any) => props.theme.fontBold};
+  margin-top: 10px;
+  line-height: 1;
 `;
 
 export const InfoWrap = styled.p`
   position: relative;
   margin-bottom: 15px;
+  line-height: 1;
+  color:${(props: any) => props.theme.textBlack};
+
   &:last-child {
     margin-bottom: 0px;
   }
@@ -183,12 +197,14 @@ export const Info = styled.p`
   top: 0;
 `;
 export const SubTitle = styled.em`
-  color: ${(props:any) => props.theme.textBlack};
-  font-weight: ${(props:any) => props.theme.fontMedium};
+  color: ${(props: any) => props.theme.textBlack};
+  font-weight: ${(props: any) => props.theme.fontMedium};
+  line-height: 1;
 `;
 export const Count = styled.p``;
 export const CountSpan = styled.span`
-  color: ${(props:any) => props.theme.textPoint};
+  color: ${(props: any) => props.theme.textPoint};
+  line-height: 1;
 `;
 export const SelectBox = styled.div`
   margin: 15px 0 20px;
@@ -255,6 +271,7 @@ export const DisCountInfo = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 10px;
+      line-height: 1;
   &:last-child {
     margin-bottom: 0;
   }

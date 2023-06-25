@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { Inner } from "style/Theme";
-import { Category, Search } from "asset";
+import { Category, Search ,Logo} from "asset";
 
 export const HeaderWrap = styled.div`
   border-bottom: 1px solid ${(props: any) => props.theme.borderGray};
@@ -13,6 +13,10 @@ export const InnerHeader = styled(Inner)`
 export const Left = styled.div`
   display:flex; 
   align-items: center;
+`
+export const LogoIcon = styled(Logo)`
+  cursor: pointer;
+
 `
 export const Right = styled.div`
   display: flex;
@@ -107,11 +111,11 @@ export const CartLi = styled.li`
 
 `;
 export const ImgWrap = styled.div`
-  width: 144px;
+  width: 170px;
   
 `;
 export const TextWrap = styled.div`
-  width: calc(100% - 144px);
+  width: calc(100% - 170px);
   padding-left: 20px;
 `;
 export const LectureTitle = styled.em`
@@ -120,9 +124,10 @@ export const LectureTitle = styled.em`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  color: ${(props:any) => props.theme.textBlack};
-  font-weight: ${(props:any) => props.theme.fontMedium};
+  color: ${(props: any) => props.theme.textBlack};
+  font-weight: ${(props: any) => props.theme.fontMedium};
   margin-bottom: 10px;
+  line-height: 1;
 `;
 export const LectureSub = styled.p`
   width: 100%;
@@ -130,10 +135,12 @@ export const LectureSub = styled.p`
   overflow: hidden;
   white-space: nowrap;
   margin-bottom: 18px;
+  line-height: 1;
 `;
 export const LecturePrice = styled.p`
-  color: ${(props:any) => props.theme.textBlack};
-  font-weight: ${(props:any) => props.theme.fontMedium};
+  color: ${(props: any) => props.theme.textBlack};
+  font-weight: ${(props: any) => props.theme.fontMedium};
+  line-height: 1;
 `;
 export const Button = styled.button`
   display: block;

@@ -31,7 +31,7 @@ const Comment = () => {
     setWrite(!write);
     setComment("")
   }
-  console.log(write);
+ 
   return (
     <St.CommentWrap>
       <St.Top>
