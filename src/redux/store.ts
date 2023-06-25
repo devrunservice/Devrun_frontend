@@ -1,14 +1,13 @@
+import createSagaMiddleware from "redux-saga";
 import { configureStore } from "@reduxjs/toolkit";
-// import authReducer from "/auth/auth";
-// import { dataSlice } from "api/dataSlice"; // eslint-disable-line @typescript-eslint/no-unused-vars
+import rootReducer, { rootSaga } from "./index";
+
+const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
-  reducer: {
-    // authReducer,
-    // dataSlice: dataSlice.reducer // eslint-disable-line @typescript-eslint/no-unused-vars
-  },
+  reducer: rootReducer,
+  middleware: [sagaMiddleware],
 });
+sagaMiddleware.run(rootSaga);
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
 export default store;
