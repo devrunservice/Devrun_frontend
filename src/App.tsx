@@ -1,12 +1,17 @@
-import { Footer,Header } from 'components';
+import React from 'react';
+import { Footer, Header } from 'components';
 import {Outlet, useLocation} from 'react-router-dom';
 
-function App() {
+const App = () => {
   const location = useLocation();
   const hideHeader =
-    location.pathname === "/signUp" || location.pathname === "/login";
+    location.pathname === '/signup' ||
+    location.pathname === '/login' ||
+    location.pathname === '/findid';
   const hideFooter =
-    location.pathname === "/signUp" || location.pathname === "/login";
+    location.pathname === '/signup' ||
+    location.pathname === '/login' ||
+    location.pathname === '/findid';
 
   return (
     <>

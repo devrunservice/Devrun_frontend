@@ -190,7 +190,6 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
       </St.CreateVideoArticle>
 
     </St.CreateVideoWrap>
-  );
-};
+  )
 
 export default CreateNewVideo;

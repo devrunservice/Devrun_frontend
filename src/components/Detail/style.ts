@@ -1,6 +1,6 @@
 import {styled} from 'styled-components'
 
-//preview
+// preview
 export const DetailWrap = styled.div`
 `
 export const PreviewArea = styled.section`
@@ -85,7 +85,7 @@ export const DetailHash = styled.span`
   margin: 5px;
 `
 
-//main content & info
+// main content & info
 export const DetailMainWrap = styled.section`
   width: 1200px;
   margin: 0 auto;
