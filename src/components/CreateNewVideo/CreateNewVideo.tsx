@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { Close, Exclamation } from 'asset';
 import * as St from './style'
+import { useSelector, useDispatch } from 'react-redux';
 
 export interface StyledButtonProps {
   active: boolean;
 }
 
 const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
-
+  const dispatch = useDispatch()
+  const test = useSelector(state => state.createVideo)
+  console.log('test',test)
   /* 가격 무료 유료 선택 */
   const [isActive, setIsActive] = useState<boolean>(false)
   const [priceState, setPriceState] = useState<boolean>(false)
@@ -45,6 +48,9 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
   const [imgUrl, setImgUrl] = useState('')
   const uploadImg = (e: any) => {
     let files = e.target.files
+    if(files.size > 1024 * 1024 * 2) {
+      return alert('이미지 용량을 초과하였습니다.')
+    }
     if (files && files.length > 0) {
       let file = files[0];
       let url = URL.createObjectURL(file);
@@ -53,7 +59,7 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
   }
 
   /* 카테고리 */
-  const [category, setCategory] = useState([])
+  const [category, setCategory] = useState('')
 
   /* 태그 */
   const [tags, setTags] = useState<string[]>([])
@@ -142,9 +148,8 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
           <St.ArticleTitle>강좌 카테고리</St.ArticleTitle>
         <div>
           <St.CategorySelect>
-            <option value="">프로그래밍</option>
-            <option value="">프로그래밍</option>
-            <option value="">프로그래밍</option>
+            <option value="">프론트엔드</option>
+            <option value="">백엔드</option>
           </St.CategorySelect>
           <St.CategorySelect>
             <option value="">프로그래밍</option>
@@ -162,7 +167,7 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
           <St.InputNotice><Exclamation/>최대 10개까지 입력할 수 있습니다.</St.InputNotice>
           <St.tagItemWarp>
             {
-              tags.map((tags, index)=>(<St.tagItem key={index}>{tags}{index}<Close onClick={()=>deleteTag(index)}/></St.tagItem>)
+              tags.map((tag, index)=>(<St.tagItem key={index}>{tag}<Close onClick={()=>deleteTag(index)}/></St.tagItem>)
             )}
           </St.tagItemWarp>
         </St.MBThirty>

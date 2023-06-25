@@ -1,7 +1,8 @@
 import {configureStore} from '@reduxjs/toolkit';
+import createSlice from './slices/createVideoSlice'
 const store = configureStore({
   reducer: {
-    
+    createVideo: createSlice.reducer,
   },
 });
 
