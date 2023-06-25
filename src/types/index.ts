@@ -92,7 +92,9 @@ export interface IComment {
   
 }
 
-
+export interface IPriceButton {
+  active: boolean;
+}
 
 // export interface IReactSlice {
 //   data: string[];
