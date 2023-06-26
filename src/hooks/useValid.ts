@@ -131,8 +131,8 @@ const useValid = (form: FormType) => {
   }, [form.phonenumber]);
 
   // 아이디 중복확인
-  const checkDuplicatedUserId = async (userId: string) => {
-    const response = await signup.getDuplicatedUserId({ userId });
+  const checkDuplicatedUserId = async (id: string) => {
+    const response = await signup.getDuplicatedUserId({ id });
     console.log("response: ", response);
     if (response.data === 0) {
       setValidMessage((prev) => ({
@@ -196,26 +196,25 @@ const useValid = (form: FormType) => {
     phonenumber: string,
     code: string,
   ) => {
-    const response = await signup.checkAuthenticationNumber({
-      phonenumber,
-      code,
-    });
-    console.log(response);
-    if (response.data === "Verification successful") {
+    try {
+      await signup.checkAuthenticationNumber({
+        phonenumber,
+        code,
+      });
       setValidMessage((prev) => ({
         ...prev,
         codeMessage: "인증 완료 되었습니다.",
       }));
       setIsValid((prev) => ({ ...prev, code: true }));
-    } else {
+    } catch (error) {
       setValidMessage((prev) => ({
         ...prev,
         codeMessage: "올바르지 않은 인증번호 입니다.",
       }));
+      console.log("올바르지 않은 인증번호 입니다.");
       setIsValid((prev) => ({ ...prev, code: false }));
     }
   };
-
   return {
     validMessage,
     setValidMessage,
