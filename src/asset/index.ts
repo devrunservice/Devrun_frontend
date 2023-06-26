@@ -1,5 +1,4 @@
 export { ReactComponent as SildeImg } from "./images/SildeImg.svg";
-export { ReactComponent as MainVisual } from "./images/MainVisual.svg";
 export { ReactComponent as Delete } from "./images/Delete.svg";
 export { ReactComponent as Arrow } from "./images/Arrow.svg";
 export { ReactComponent as Coupon } from "./images/Coupon.svg";
@@ -24,3 +23,7 @@ export { ReactComponent as Play } from "./images/play.svg";
 export { ReactComponent as Circle } from "./images/circle.svg";
 export { ReactComponent as MoreBtn } from "./images/more-btn.svg";
 export { ReactComponent as Exclamation } from "./images/exclamation-circle.svg";
+export { ReactComponent as PlusCircle } from "./images/plus-circle.svg";
+export { ReactComponent as Pencil } from "./images/pencil.svg";
+export { ReactComponent as Trash } from "./images/trash.svg";
+export { ReactComponent as Close } from "./images/close.svg";

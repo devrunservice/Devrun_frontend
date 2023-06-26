@@ -33,6 +33,8 @@ const Signup = () => {
 
   const isvalid = Object.values(isValid).some((value) => value === false);
 
+  console.log(isValid);
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const response = await signup.createUser({
@@ -256,7 +258,7 @@ const Signup = () => {
                 확인
               </St.Button>
             </St.Field>
-            {isValid.code ? (
+            {isValid.checkCodeBtn && isValid.code ? (
               <SuccessMessage>{validMessage.codeMessage}</SuccessMessage>
             ) : (
               <ErrorMessage>{validMessage.codeMessage}</ErrorMessage>

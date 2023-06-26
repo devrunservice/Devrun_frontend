@@ -30,16 +30,18 @@ export const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
         margin: 0;
         font-family: 'Pretendard';
+        line-height: 1.5;
     }
     body {
-        color: ${({theme}) => theme.textColor};
-        background-color: ${({theme}) => theme.bgColor};
-        font-size:${({theme}) => theme.fontSize16px};
-        font-weight:${({theme}) => theme.fontRegular};
+        color: ${({ theme }) => theme.textColor};
+        background-color: ${({ theme }) => theme.bgColor};
+        font-size:${({ theme }) => theme.fontSize16px};
+        font-weight:${({ theme }) => theme.fontRegular};
         font-family: 'Pretendard';
         display: flex;
         flex-direction: column;
         list-style: none;
+        line-height: 1.5;
     }
 
     #root {
@@ -47,8 +49,8 @@ export const GlobalStyle = createGlobalStyle`
     }
     button{
         cursor: pointer;
-        font-size:${({theme}) => theme.fontSize14px};
-        color: ${({theme}) => theme.textBlack};
+        font-size:${({ theme }) => theme.fontSize14px};
+        color: ${({ theme }) => theme.textBlack};
         border: 0;
     }
 `;

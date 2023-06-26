@@ -1,8 +1,8 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { ThemeProvider } from "styled-components";
-import { GlobalStyle, defaultTheme } from "style/Theme";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import {createBrowserRouter, RouterProvider} from 'react-router-dom';
+import {ThemeProvider} from 'styled-components';
+import {GlobalStyle, defaultTheme} from 'style/Theme';
 import { Provider } from "react-redux";
 import {
   Notice,
@@ -20,8 +20,8 @@ import {
   FindId,
 } from "pages";
 import store from "./redux/store";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 
 const router = createBrowserRouter([
   {
@@ -53,9 +53,11 @@ root.render(
   <React.StrictMode>
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyle />
-      <Provider store={store}>
-        <RouterProvider router={router} />
-      </Provider>
+      
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
+      
     </ThemeProvider>
   </React.StrictMode>,
 );
