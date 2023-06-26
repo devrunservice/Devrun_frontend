@@ -2,16 +2,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useValid from "hooks/useValid";
-import { baseAxios } from "api/instance";
+import { signup } from "api/index";
 import PasswordInput from "components/Login/PasswordInput/PasswordInput";
-import { ErrorMessage, Input } from "style/Common";
 import { FormType } from "types";
-import {
-  createUser,
-  getAuthenticationNumber,
-  checkAuthenticationNumber,
-  getDuplicatedUserId,
-} from "api";
+import { ErrorMessage, Input, SuccessMessage } from "style/Common";
 import * as St from "./styles";
 
 
@@ -19,111 +13,61 @@ const Signup = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState<FormType>({
     userId: "",
-    pwd: "",
-    pwdConfirm: "",
+    password: "",
+    passwordConfirm: "",
     name: "",
     email: "",
-    bday: "",
-    phoneNumber: "",
-    verifiedCode: "",
+    birthday: "",
+    phonenumber: "",
+    code: "",
   });
 
-  const { validMessage, isValid, setIsValid, checkDuplicatedUserId } = useValid(form);
+  const {
+    validMessage,
+    isValid,
+    setIsValid,
+    checkDuplicatedUserId,
+    checkDuplicatedEmail,
+    requestAuthenticationNumber,
+    verifyAuthenticationNumber,
+  } = useValid(form);
 
-  const isFormValid =
-    form.userId !== "" &&
-    form.userId.length >= 5 &&
-    form.userId.length <= 13 &&
-    form.pwd !== "" &&
-    form.pwd.length >= 8 &&
-    form.pwd.length <= 15 &&
-    form.pwdConfirm !== "" &&
-    form.pwdConfirm.length < 5 &&
-    form.name !== "" &&
-    form.email !== "" &&
-    form.bday !== "" &&
-    form.phoneNumber !== "" &&
-    form.verifiedCode !== "" &&
-    isValid.userId === true &&
-    isValid.email === true &&
-    isValid.verifiedCode === true;
+  const isvalid = Object.values(isValid).some((value) => value === false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    try {
-      await createUser({
-        userId: form.userId,
-        password: form.pwd,
-        name: form.name,
-        email: form.email,
-        birthday: form.bday,
-        phonenumber: form.phoneNumber,
-      });
-
+    const response = await signup.createUser({
+      userId: form.userId,
+      password: form.password,
+      name: form.name,
+      email: form.email,
+      birthday: form.birthday,
+      phonenumber: form.phonenumber,
+    });
+    console.log(response);
+    if (response.status === 200) {
       navigate(`/login`);
-    } catch (error) {
-      console.log(error);
     }
   };
 
-  // 아이디 중복 확인
-  const handleClickDuplicatedId = async () => {
-    // const response = await getDuplicatedUserId({ id: form.userId });
-    // console.log("response: ", response);
-    // if (response.data === 0) {
-    //   alert("사용 가능한 아이디 입니다.");
-    //   setIsValid((prev) => ({ ...prev, userId: true }));
-    // } else if (response.data === 1) {
-    //   alert("사용중인 아이디 입니다.");
-    //   setIsValid((prev) => ({ ...prev, userId: false }));
-    // }
-    checkDuplicatedUserId({userId:form.userId})
+  // 아이디 중복
+  const handleClickDuplicatedId = () => {
+    checkDuplicatedUserId(form.userId);
   };
 
   // 이메일 중복 확인
-  const handleClickDuplicatedEmail = async () => {
-    const response = await baseAxios.post(
-      `${process.env.REACT_APP_SERVER_URL}/checkEmail`,
-      {
-        email: form.email,
-      },
-    );
-    console.log("response: ", response);
-    if (response.data === 0) {
-      alert("사용 가능한 이메일 입니다.");
-      setIsValid((prev) => ({ ...prev, email: true }));
-    } else if (response.data === 1) {
-      alert("이미 사용중인 이메일 입니다.");
-      setIsValid((prev) => ({ ...prev, email: false }));
-    }
+  const handleClickDuplicatedEmail = () => {
+    checkDuplicatedEmail(form.email);
   };
 
   // 휴대폰 인증번호
-  const handleGetAuthenticationNumber = async () => {
-    try {
-      await getAuthenticationNumber({ phonenumber: form.phoneNumber });
-      setIsValid((prev) => ({ ...prev, phone: true }));
-    } catch (error) {
-      console.log(error);
-    }
+  const handleGetAuthenticationNumber = () => {
+    requestAuthenticationNumber(form.phonenumber);
   };
 
   // 인증번호 확인
-  const handleCheckAuthenticationNumber = async () => {
-    try {
-      const response = await checkAuthenticationNumber({
-        phonenumber: form.phoneNumber,
-        code: form.verifiedCode,
-      });
-      if (response.status === 200) {
-        setIsValid((prev) => ({ ...prev, verifiedCode: true }));
-      } else {
-        console.log("인증번호가 틀렸습니다.");
-        setIsValid((prev) => ({ ...prev, verifiedCode: false }));
-      }
-    } catch (error) {
-      console.log(error);
-    }
+  const handleCheckAuthenticationNumber = () => {
+    verifyAuthenticationNumber(form.phonenumber, form.code);
   };
 
   // 생년월일 값 가져오기
@@ -133,8 +77,8 @@ const Signup = () => {
     const month = String(value.getMonth() + 1).padStart(2, "0");
     const day = String(value.getDate()).padStart(2, "0");
 
-    setForm({ ...form, bday: `${year}-${month}-${day}` });
-    setIsValid((prev) => ({ ...prev, bday: true }));
+    setForm({ ...form, birthday: `${year}-${month}-${day}` });
+    setIsValid((prev) => ({ ...prev, birthday: true }));
   };
 
   return (
@@ -148,6 +92,7 @@ const Signup = () => {
             <St.Field>
               <Input
                 type="text"
+                name="userId"
                 value={form.userId}
                 placeholder="영문, 숫자 5-13자"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -165,7 +110,11 @@ const Signup = () => {
             {form.userId && isValid.userId === false && (
               <ErrorMessage>{validMessage.userIdMessage}</ErrorMessage>
             )}
-            {form.userId && isValid.userIdDuplication === false && (
+            {isValid.userIdDuplication ? (
+              <SuccessMessage>
+                {validMessage.userIdDuplicationMessage}
+              </SuccessMessage>
+            ) : (
               <ErrorMessage>
                 {validMessage.userIdDuplicationMessage}
               </ErrorMessage>
@@ -176,24 +125,26 @@ const Signup = () => {
           <St.InputField>
             <St.P>비밀번호</St.P>
             <PasswordInput
-              value={form.pwd}
+              name="password"
+              value={form.password}
               placeholder="숫자, 영문, 특수문자 조합 최소 8자"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setForm({ ...form, pwd: e.target.value })
+                setForm({ ...form, password: e.target.value })
               }
             />
-            {form.pwd && isValid.pwd === false && (
-              <ErrorMessage>{validMessage.pwdMessage}</ErrorMessage>
+            {form.password && isValid.password === false && (
+              <ErrorMessage>{validMessage.passwordMessage}</ErrorMessage>
             )}
             <PasswordInput
-              value={form.pwdConfirm}
+              name="passwordConfirm"
+              value={form.passwordConfirm}
               placeholder="비밀번호 재입력"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setForm({ ...form, pwdConfirm: e.target.value })
+                setForm({ ...form, passwordConfirm: e.target.value })
               }
             />
-            {isValid.pwdConfirm === false && (
-              <ErrorMessage>{validMessage.pwdConfirmMessage}</ErrorMessage>
+            {isValid.passwordConfirm === false && (
+              <ErrorMessage>{validMessage.passwordConfirmMessage}</ErrorMessage>
             )}
           </St.InputField>
 
@@ -202,6 +153,7 @@ const Signup = () => {
             <St.P>이름</St.P>
             <Input
               type="text"
+              name="name"
               value={form.name}
               placeholder="홍길동"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -217,6 +169,7 @@ const Signup = () => {
             <St.Field>
               <Input
                 type="email"
+                name="email"
                 value={form.email}
                 placeholder="이메일"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -234,6 +187,15 @@ const Signup = () => {
             {form.email && isValid.email === false && (
               <ErrorMessage>{validMessage.emailMessage}</ErrorMessage>
             )}
+            {isValid.emailDuplication ? (
+              <SuccessMessage>
+                {validMessage.emailDuplicationMessage}
+              </SuccessMessage>
+            ) : (
+              <ErrorMessage>
+                {validMessage.emailDuplicationMessage}
+              </ErrorMessage>
+            )}
           </St.InputField>
 
           {/* 생년월일 input */}
@@ -241,7 +203,8 @@ const Signup = () => {
             <St.P>생년월일</St.P>
             <St.Birthday
               type="date"
-              value={form.bday}
+              name="birthday"
+              value={form.birthday}
               onChange={handleChangeBday}
             />
           </St.InputField>
@@ -252,35 +215,53 @@ const Signup = () => {
             <St.Field>
               <Input
                 type="text"
-                value={form.phoneNumber}
+                name="phonenumber"
+                value={form.phonenumber}
                 placeholder="휴대폰 번호 '-' 제외하고 입력"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setForm({ ...form, phoneNumber: e.target.value })
-                }
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  setForm({ ...form, phonenumber: e.target.value });
+                  setIsValid((prev) => ({ ...prev, phonenumber: true }));
+                }}
               />
-              <St.Button type="button" onClick={handleGetAuthenticationNumber}>
+              <St.Button
+                type="button"
+                onClick={handleGetAuthenticationNumber}
+                disabled={!isValid.phonenumber}
+              >
                 인증번호
               </St.Button>
             </St.Field>
+            {isValid.codeBtn && isValid.phonenumber ? (
+              // 인증번호가 요청되었습니다
+              <SuccessMessage>{validMessage.phonenumberMessage}</SuccessMessage>
+            ) : (
+              // 인증번호가 실패했습니다, 인증번호를 다시 받아주세요
+              <ErrorMessage>{validMessage.phonenumberMessage}</ErrorMessage>
+            )}
             <St.Field>
               <Input
                 type="text"
-                value={form.verifiedCode}
+                name="code"
+                value={form.code}
                 placeholder="인증번호 입력"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setForm({ ...form, verifiedCode: e.target.value })
-                }
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  setForm({ ...form, code: e.target.value });
+                  setIsValid((prev) => ({ ...prev, code: true }));
+                }}
               />
               <St.Button
                 type="button"
                 onClick={handleCheckAuthenticationNumber}
+                disabled={!isValid.code}
               >
                 확인
               </St.Button>
             </St.Field>
-            <ErrorMessage>
-              {validMessage.authenticationNumberMessage}
-            </ErrorMessage>
+            {isValid.code ? (
+              <SuccessMessage>{validMessage.codeMessage}</SuccessMessage>
+            ) : (
+              <ErrorMessage>{validMessage.codeMessage}</ErrorMessage>
+            )}
           </St.InputField>
 
           {/* 약관 동의 */}
@@ -305,7 +286,7 @@ const Signup = () => {
           </St.Ul>
 
           {/* 회원가입 버튼 */}
-          <St.SignupBtn disabled={!isFormValid}>회원가입</St.SignupBtn>
+          <St.SignupBtn disabled={isvalid}>회원가입</St.SignupBtn>
         </form>
       </St.Container>
     </St.Section>
