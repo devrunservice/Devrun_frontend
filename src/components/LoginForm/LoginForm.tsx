@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useState } from "react";
 import axios from "axios";
 import { BrandLogo, Kakao, Naver, Google } from "asset";
 import { useNavigate } from "react-router-dom";
-import { Input } from "style/Common";
+import { ErrorMessage, Input } from "style/Common";
 import PasswordInput from "components/Login/PasswordInput/PasswordInput"; // eslint-disable-line @typescript-eslint/no-unused-vars
 import * as St from "./styles";
 
@@ -19,8 +20,14 @@ const LoginForm = () => {
     pwd: "",
   });
 
+  const isFormValid = login.userId !== "" && login.pwd !== "";
+
+  const [userIdMessage, setUserIdMessage] = useState("");
+  const [pwdMessage, setPwdMessage] = useState("");
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_SERVER_URL}/login`,
@@ -30,6 +37,15 @@ const LoginForm = () => {
         },
       );
       console.log("response: ", response);
+
+      // const code = response.data.code;
+      // if (code === 400) {
+      //   alert("내용이 비어있습니다.");
+      // } else if (code === 401) {
+      //   alert("존재하지 않는 id 입니다.");
+      // } else if (code === 402) {
+      //   alert("비밀번호가 일치하지 않습니다.");
+      // }
 
       if (response.status === 200) {
         navigate(`/home`);
@@ -47,10 +63,6 @@ const LoginForm = () => {
     }));
   };
 
-  useEffect(() => {
-    console.log(login);
-  }, [login]);
-
   return (
     <St.Section>
       <St.Container>
@@ -67,14 +79,16 @@ const LoginForm = () => {
               placeholder="아이디"
               onChange={handleChange}
             />
+            {!(isFormValid && <ErrorMessage>{userIdMessage}</ErrorMessage>)}
             <PasswordInput
               name="pwd"
               value={login.pwd}
               placeholder="비밀번호"
               onChange={handleChange}
             />
+            {!(isFormValid && <ErrorMessage>{pwdMessage}</ErrorMessage>)}
           </St.InputField>
-          <St.LoginBtn>로그인</St.LoginBtn>
+          <St.LoginBtn disabled={!isFormValid}>로그인</St.LoginBtn>
         </form>
         {/* 아이디, 비밀번호 찾기 및 회원가입 */}
         <St.Finder>
@@ -126,3 +140,4 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+/* eslint-disable @typescript-eslint/no-unused-vars */
