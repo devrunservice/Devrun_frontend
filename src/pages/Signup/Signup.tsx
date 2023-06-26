@@ -36,7 +36,7 @@ const Signup = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const response = await signup.createUser({
-      userId: form.userId,
+      id: form.userId,
       password: form.password,
       name: form.name,
       email: form.email,
