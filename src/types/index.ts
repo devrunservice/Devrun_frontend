@@ -97,13 +97,13 @@ export interface IPriceButton {
 // 회원가입 타입
 export interface FormType {
   userId: string;
-  pwd: string;
-  pwdConfirm: string;
+  password: string;
+  passwordConfirm: string;
   name: string;
   email: string;
-  bday: string;
-  phoneNumber: string;
-  verifiedCode: string;
+  birthday: string;
+  phonenumber: string;
+  code: string;
 }
 
 // 회원가입 데이터 전송 시 타입
