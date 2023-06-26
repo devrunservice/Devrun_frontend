@@ -2,15 +2,15 @@ import { takeLatest, put, call } from "redux-saga/effects";
 import { userData } from "api";
 import tmiSlice from "redux/slices/tmiSlice";
 
-function* tmiSaga(action:any):Generator<any,void,any>{
-    try {
-        const response = yield call(userData.data);
-        console.log(response)
-        yield put(tmiSlice.success(response));
-    } catch (error) {
-        yield put(tmiSlice.fail(error));
-    }
-}
+// function* tmiSaga(action:any):Generator<any,void,any>{
+//     try {
+//         const response = yield call(userData.data);
+//         console.log(response)
+//         yield put(tmiSlice.success(response));
+//     } catch (error) {
+//         yield put(tmiSlice.fail(error));
+//     }
+// }
 
 // function* SignupSaga(action: any): Generator<any, void, any> {
 //   try {
@@ -31,12 +31,9 @@ function* tmiSaga(action:any):Generator<any,void,any>{
 //   yield all([fork(watchSignup)]);
 // }
 
-
-
-
 // function TmiDataSaga(action:any):Generator<any,void,any> {
 //   try {
-//     const response = yield call(userData.data, action.payload); 
+//     const response = yield call(userData.data, action.payload);
 //     yield put(signupReducerActions.success(response));
 //   } catch (error) {
 //     yield put(tmiDataFailure(error.message));
@@ -46,3 +43,5 @@ function* tmiSaga(action:any):Generator<any,void,any>{
 // export const dataSaga = () =>{
 //   yield takeLatest("data/fetchData", fetchDataSaga);
 // }
+
+export {};

@@ -108,7 +108,7 @@ export interface FormType {
 
 // 회원가입 데이터 전송 시 타입
 export interface CreateUser {
-  userId?: string;
+  id?: string;
   password?: string;
   name?: string;
   email?: string;
