@@ -1,22 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { takeLatest, put, call } from "redux-saga/effects";
-import { userData } from "api";
 import { ITmi } from "types";
-
-
-// function TmiDataSaga(action:any):Generator<any,void,any> {
-//   try {
-//     const response = yield call(userData.data, action.payload); 
-//     yield put(signupReducerActions.success(response));
-//   } catch (error) {
-//     yield put(tmiDataFailure(error.message));
-//   }
-// }
-
-// export const dataSaga = () =>{
-//   yield takeLatest("data/fetchData", fetchDataSaga);
-// }
-
 
 
 const initialState: ITmi = {
