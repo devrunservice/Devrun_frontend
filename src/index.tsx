@@ -1,13 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import {ThemeProvider} from 'styled-components';
 import {GlobalStyle, defaultTheme} from 'style/Theme';
+import { Provider } from "react-redux";
+import {
+  Notice,
+  Basket,
+  HomePage,
+  Login,
+  Signup,
+  NotFound,
+  Lecture,
+  DetailPage,
+  CreateVideo,
+  NoticeWrite,
+  NoticeDetail,
+  SignupSuccess,
+  FindId,
+} from "pages";
 import store from "./redux/store";
-import {Provider} from 'react-redux';
 import App from './App';
-import { Notice, Basket, HomePage, Login, SignUp, NotFound, Lecture, DetailPage, CreateVideo } from "pages";
+import reportWebVitals from './reportWebVitals';
 
 const router = createBrowserRouter([
   {
@@ -18,9 +32,13 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: "home", element: <HomePage /> },
       { path: "login", element: <Login /> },
-      { path: "signUp", element: <SignUp /> },
+      { path: "signup", element: <Signup /> },
+      { path: "signup/:id", element: <SignupSuccess /> },
       { path: "basket", element: <Basket /> },
       { path: "notice", element: <Notice /> },
+      { path: "findid", element: <FindId /> },
+      { path: "noticeWrite", element: <NoticeWrite /> },
+      { path: "noticeDetail", element: <NoticeDetail /> },
       { path: "lecture", element: <Lecture /> },
       { path: "detail", element: <DetailPage /> },
       { path: "createVideo", element: <CreateVideo /> },
@@ -29,17 +47,19 @@ const router = createBrowserRouter([
 ]);
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement,
 );
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyle />
-      <Provider store={store}>
-        <RouterProvider router={router} />
-      </Provider>
+      
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
+      
     </ThemeProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function

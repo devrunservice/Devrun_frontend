@@ -1,14 +1,16 @@
+import React from 'react';
 import * as St from "style/Theme";
-import { NoticeCom } from "components";
+import { NoticeCom, Pagination } from "components";
 
-const Notice = () => {
-  return (
-    <St.WhiteBg>
-      <St.Inner>
-        <NoticeCom />
-        
-      </St.Inner>
-    </St.WhiteBg>
-  );
-};
+const Notice = () => (
+    
+    
+      <St.WhiteBg>
+        <St.Inner>
+          <NoticeCom />
+          <Pagination />
+        </St.Inner>
+      </St.WhiteBg>
+    
+)
 export default Notice;
