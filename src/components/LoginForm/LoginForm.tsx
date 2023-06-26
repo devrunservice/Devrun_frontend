@@ -95,7 +95,7 @@ const LoginForm = () => {
           <St.Button
             type="button"
             onClick={() => {
-              navigate("/findId");
+              navigate("/findid");
             }}
           >
             아이디 찾기
@@ -104,7 +104,7 @@ const LoginForm = () => {
           <St.Button
             type="button"
             onClick={() => {
-              navigate("/findPwd");
+              navigate("/findpwd");
             }}
           >
             비밀번호 찾기

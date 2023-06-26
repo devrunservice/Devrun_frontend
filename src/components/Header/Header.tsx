@@ -8,7 +8,7 @@ import * as St from "./style";
 const Header = () => {
   const navigate = useNavigate()
   const basketBtn = () => navigate("/basket");
-  const mainBtn = () => navigate("/home");
+  const mainBtn = () => navigate("/");
   return (
     <St.HeaderWrap>
       <St.InnerHeader>
@@ -17,7 +17,7 @@ const Header = () => {
           <St.CategoryWrap>
             <St.CategoryLi>
               <St.CategoryIcon />
-              카테고리1
+              카테고리
             </St.CategoryLi>
             <St.CategoryLi>DEVRUN 깜짝특가</St.CategoryLi>
             <St.CategoryLi>BEST</St.CategoryLi>
