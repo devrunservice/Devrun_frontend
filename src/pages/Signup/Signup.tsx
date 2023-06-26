@@ -8,7 +8,6 @@ import { FormType } from "types";
 import { ErrorMessage, Input, SuccessMessage } from "style/Common";
 import * as St from "./styles";
 
-
 const Signup = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState<FormType>({
@@ -34,10 +33,12 @@ const Signup = () => {
 
   const isvalid = Object.values(isValid).some((value) => value === false);
 
+  console.log(isValid);
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const response = await signup.createUser({
-      userId: form.userId,
+      id: form.userId,
       password: form.password,
       name: form.name,
       email: form.email,
@@ -257,7 +258,7 @@ const Signup = () => {
                 확인
               </St.Button>
             </St.Field>
-            {isValid.code ? (
+            {isValid.checkCodeBtn && isValid.code ? (
               <SuccessMessage>{validMessage.codeMessage}</SuccessMessage>
             ) : (
               <ErrorMessage>{validMessage.codeMessage}</ErrorMessage>
