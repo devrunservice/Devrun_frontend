@@ -12,20 +12,20 @@ export interface IReactSlice {
 }
 
 // 회원가입 타입
-export type FormType = {
+export interface FormType {
   userId: string;
-  pwd: string;
-  pwdConfirm: string;
+  password: string;
+  passwordConfirm: string;
   name: string;
   email: string;
-  bday: string;
-  phoneNumber: string;
-  verifiedCode: string;
-};
+  birthday: string;
+  phonenumber: string;
+  code: string;
+}
 
 // 회원가입 데이터 전송 시 타입
 export interface CreateUser {
-  id?: string;
+  userId?: string;
   password?: string;
   name?: string;
   email?: string;
@@ -33,8 +33,3 @@ export interface CreateUser {
   phonenumber?: string;
   code?: string;
 }
-
-// export interface VerifiedCode {
-//   phonenumber: string;
-//   code?: string;
-// }

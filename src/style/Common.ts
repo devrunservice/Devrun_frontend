@@ -14,9 +14,14 @@ export const Input = styled.input`
   border: ${(props) => props.theme.borderGray} 1px solid;
 `;
 
-// 회원가입, 로그인 에러메세지
+// 에러 메세지
 export const ErrorMessage = styled.p`
   font-size: ${(props) => props.theme.fontSize14px};
   color: ${(props) => props.theme.textRed};
   margin: 0.25rem 0;
+`;
+
+// 성공 메세지
+export const SuccessMessage = styled(ErrorMessage)`
+  color: ${(props) => props.theme.brandColor};
 `;
