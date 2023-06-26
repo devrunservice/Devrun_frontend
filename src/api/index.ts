@@ -1,46 +1,32 @@
 import { CreateUser } from "types";
 import { baseAxios } from "./instance";
 
-// 회원가입
-export const createUser = async (params: CreateUser) => {
-  try {
-    const response = await baseAxios.post(`/signup/okay`, params);
-    console.log(response);
+export const signup = {
+  // 회원가입
+  createUser: (params: CreateUser) => {
+    const response = baseAxios.post(`/signup/okay`, params);
     return response;
-  } catch (error) {
-    throw new Error("회원가입에 실패했습니다.");
-  }
+  },
+  // 인증번호 받기
+  getAuthenticationNumber: (params: CreateUser) => {
+    const response = baseAxios.post(`/signup/auth/`, params);
+    return response;
+  },
+  // 인증번호 확인
+  checkAuthenticationNumber: (params: CreateUser) => {
+    const response = baseAxios.post(`/verify`, params);
+    return response;
+  },
+  // 아이디 중복확인
+  getDuplicatedUserId: (params: CreateUser) => {
+    const response = baseAxios.post(`/checkID`, params);
+    return response;
+  },
+  // 이메일 중복확인
+  getDuplicatedEmail: (params: CreateUser) => {
+    const response = baseAxios.post(`/checkEmail`, params);
+    return response;
+  },
 };
 
-// 인증번호 받기
-export const getAuthenticationNumber = async (params: CreateUser) => {
-  try {
-    const response = await baseAxios.post(`/signup/auth/`, params);
-    console.log(response);
-    return response;
-  } catch (error) {
-    throw new Error("인증번호 받기에 실패했습니다.");
-  }
-};
-
-// 인증번호 확인
-export const checkAuthenticationNumber = async (params: CreateUser) => {
-  try {
-    const response = await baseAxios.post(`/verify`, params);
-    console.log(response);
-    return response;
-  } catch (error) {
-    throw new Error("인증번호가 일치하지 않습니다.");
-  }
-};
-
-// 아이디 중복 확인
-export const getDuplicatedUserId = async (params: CreateUser) => {
-  try {
-    const response = await baseAxios.post(`/checkID`, params);
-    console.log(response);
-    return response;
-  } catch (error) {
-    throw new Error("아이디 중복 확인에 실패했습니다.");
-  }
-};
+export const login = {};

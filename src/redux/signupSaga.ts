@@ -1,10 +1,10 @@
 import { all, call, fork, put, takeEvery } from "redux-saga/effects";
-import { createUser } from "api";
+import { signup } from "api";
 import { signupReducerActions } from "./signupReducer";
 
 function* SignupSaga(action: any): Generator<any, void, any> {
   try {
-    const response = yield call(createUser, action.payload);
+    const response = yield call(signup.createUser, action.payload);
     console.log(response);
     yield put(signupReducerActions.success(response));
   } catch (error) {
