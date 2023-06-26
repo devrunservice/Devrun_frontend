@@ -1,9 +1,46 @@
 import React from 'react';
 import NoImg from "asset/images/NoImg.jpg";
+import { IRequestPayParams, RequestPayResponse } from "types";
 import * as St from './style';
 
-const ShoppingBasket = () => (
-    <>
+
+const Basket = () => {
+
+  const callback = (response: RequestPayResponse) => {
+    const { success, errorMsg } = response;
+    if (success) {
+      // 여기에 페이지 이동시킬것
+      alert("결제 성공");
+    } else {
+      // 여기에 페이지 이동시킬것
+      alert(`결제 실패: ${errorMsg}`);
+    }
+  };
+  const basketBtn =(e:React.FormEvent<HTMLFormElement>)=>{
+    e.preventDefault();
+    // 가맹점 식별코드
+    if (!window.IMP) return
+    const { IMP } = window;
+    IMP.init("imp75220550");
+    /* 2. 결제 데이터 정의하기 */
+    const data: IRequestPayParams = {
+      pg: "html5_inicis", // PG사
+      pay_method: "card", // 결제수단
+      merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
+      amount: 0, // 결제금액
+      name: "아임포트 결제", // 주문명
+      buyer_name: "홍길동", // 구매자 이름
+      buyer_tel: "01012341234", // 구매자 전화번호
+      buyer_email: "example@example", // 구매자 이메일
+    };
+
+    /* 4. 결제 창 호출하기 */
+    IMP.request_pay(data, callback);
+  }
+  
+ 
+  return (
+    <St.BasketForm onSubmit={basketBtn}>
       <St.WhiteSmallBg>
         <St.Title>수강바구니</St.Title>
         <St.SelectWarp>
@@ -108,8 +145,11 @@ const ShoppingBasket = () => (
           <span>구매조건 및 개인정보처리방침</span>과 결제에 동의합니다.
         </St.Privacy>
       </St.WhiteSmallBg>
-      <St.Button>결제하기</St.Button>
-    </>
-)
+      <St.Button >
+        결제하기
+      </St.Button>
+    </St.BasketForm>
+  );
+};
     
-export default ShoppingBasket;
+export default Basket

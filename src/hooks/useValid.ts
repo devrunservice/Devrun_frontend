@@ -23,6 +23,7 @@ const useValid = (form: FormType) => {
     phonenumber: false,
     code: false,
     codeBtn: false,
+    checkCodeBtn: false,
     userIdDuplication: false,
     emailDuplication: false,
   });
@@ -110,7 +111,7 @@ const useValid = (form: FormType) => {
 
   // 휴대폰 유효성 검사
   useEffect(() => {
-    const regex = /^01([0|1|6|7|8|9])(?:\d{3}|\d{4})\d{4}$/;
+    const regex = /^01([016789])(?:\d{3}|\d{4})\d{4}$/;
 
     if (!regex.test(form.phonenumber)) {
       setIsValid({ ...isValid, phonenumber: false });
@@ -124,11 +125,21 @@ const useValid = (form: FormType) => {
     ) {
       setValidMessage((prev) => ({
         ...prev,
-        phonenumberMessage: "인증번호를 다시 받아주세요",
+        phonenumberMessage: "인증번호를 다시 받아주세요.",
       }));
       setIsValid((prev) => ({ ...prev, codeBtn: false }));
     }
   }, [form.phonenumber]);
+
+  // 인증번호
+  useEffect(() => {
+    if (!isValid.code && isValid.checkCodeBtn) {
+      setValidMessage((prev) => ({
+        ...prev,
+        codeMessage: "올바른 인증번호를 입력해주세요.",
+      }));
+    }
+  }, [form.code]);
 
   // 아이디 중복확인
   const checkDuplicatedUserId = async (id: string) => {
@@ -170,18 +181,20 @@ const useValid = (form: FormType) => {
 
   // 휴대폰 인증번호
   const requestAuthenticationNumber = async (phonenumber: string) => {
-    const response = await signup.getAuthenticationNumber({
-      phonenumber,
-    });
-    console.log(response);
-    if (response.status === 200) {
-      setValidMessage((prev) => ({
-        ...prev,
-        phonenumberMessage: "인증번호가 요청되었습니다.",
-      }));
-      setIsValid((prev) => ({ ...prev, phonenumber: true }));
-      setIsValid((prev) => ({ ...prev, codeBtn: true }));
-    } else {
+    try {
+      const response = await signup.getAuthenticationNumber({
+        phonenumber,
+      });
+
+      if (response.status === 200) {
+        setValidMessage((prev) => ({
+          ...prev,
+          phonenumberMessage: "인증번호가 요청되었습니다.",
+        }));
+        setIsValid((prev) => ({ ...prev, phonenumber: true }));
+        setIsValid((prev) => ({ ...prev, codeBtn: true }));
+      }
+    } catch (error) {
       setValidMessage((prev) => ({
         ...prev,
         phonenumberMessage: "인증번호 요청에 실패했습니다.",
@@ -197,22 +210,25 @@ const useValid = (form: FormType) => {
     code: string,
   ) => {
     try {
-      await signup.checkAuthenticationNumber({
+      const response = await signup.checkAuthenticationNumber({
         phonenumber,
         code,
       });
-      setValidMessage((prev) => ({
-        ...prev,
-        codeMessage: "인증 완료 되었습니다.",
-      }));
-      setIsValid((prev) => ({ ...prev, code: true }));
+      if (response.status === 200) {
+        setValidMessage((prev) => ({
+          ...prev,
+          codeMessage: "인증 완료 되었습니다.",
+        }));
+        setIsValid((prev) => ({ ...prev, code: true }));
+        setIsValid((prev) => ({ ...prev, checkCodeBtn: true }));
+      }
     } catch (error) {
       setValidMessage((prev) => ({
         ...prev,
         codeMessage: "올바르지 않은 인증번호 입니다.",
       }));
-      console.log("올바르지 않은 인증번호 입니다.");
       setIsValid((prev) => ({ ...prev, code: false }));
+      setIsValid((prev) => ({ ...prev, checkCodeBtn: false }));
     }
   };
   return {

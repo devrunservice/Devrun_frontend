@@ -14,8 +14,9 @@ export const signup = {
   },
   // 인증번호 확인
   checkAuthenticationNumber: (params: CreateUser) => {
-    const response = baseAxios.post(`/verify`, params);
-    return response;
+   const response = baseAxios.post(`/verify`, params);
+   return response;
+    
   },
   // 아이디 중복확인
   getDuplicatedUserId: (params: CreateUser) => {
@@ -29,4 +30,8 @@ export const signup = {
   },
 };
 
+// 로그인한 유저정보
+export const userData = {
+  data:() => baseAxios.get("/tmi")
+} 
 export const login = {};

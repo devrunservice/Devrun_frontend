@@ -1,9 +1,9 @@
 import styled from "styled-components"
 import { Inner } from "style/Theme";
-import { Category, Search } from "asset";
+import { Category, Search ,Logo} from "asset";
 
-export const Header = styled.div`
-  border-bottom: 1px solid ${(props:any) => props.theme.borderGray};
+export const HeaderWrap = styled.div`
+  border-bottom: 1px solid ${(props: any) => props.theme.borderGray};
 `;
 export const InnerHeader = styled(Inner)`
   display: flex;
@@ -13,6 +13,10 @@ export const InnerHeader = styled(Inner)`
 export const Left = styled.div`
   display:flex; 
   align-items: center;
+`
+export const LogoIcon = styled(Logo)`
+  cursor: pointer;
+
 `
 export const Right = styled.div`
   display: flex;
@@ -56,13 +60,11 @@ export const SearchIcon = styled(Search)`
   cursor: pointer;
 `;
 export const HeaderIcon = styled.div`
-  margin-right: 20px;
+  width: 50px;
+  justify-content: center;
   display: flex;
   align-items: center;
   position: relative;
-  &:last-child {
-    margin-right: 0px;
-  }
   > svg {
     cursor: pointer;
   }
@@ -109,11 +111,11 @@ export const CartLi = styled.li`
 
 `;
 export const ImgWrap = styled.div`
-  width: 144px;
+  width: 170px;
   
 `;
 export const TextWrap = styled.div`
-  width: calc(100% - 144px);
+  width: calc(100% - 170px);
   padding-left: 20px;
 `;
 export const LectureTitle = styled.em`
@@ -122,9 +124,10 @@ export const LectureTitle = styled.em`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  color: ${(props:any) => props.theme.textBlack};
-  font-weight: ${(props:any) => props.theme.fontMedium};
+  color: ${(props: any) => props.theme.textBlack};
+  font-weight: ${(props: any) => props.theme.fontMedium};
   margin-bottom: 10px;
+  line-height: 1;
 `;
 export const LectureSub = styled.p`
   width: 100%;
@@ -132,10 +135,12 @@ export const LectureSub = styled.p`
   overflow: hidden;
   white-space: nowrap;
   margin-bottom: 18px;
+  line-height: 1;
 `;
 export const LecturePrice = styled.p`
-  color: ${(props:any) => props.theme.textBlack};
-  font-weight: ${(props:any) => props.theme.fontMedium};
+  color: ${(props: any) => props.theme.textBlack};
+  font-weight: ${(props: any) => props.theme.fontMedium};
+  line-height: 1;
 `;
 export const Button = styled.button`
   display: block;
@@ -146,4 +151,24 @@ export const Button = styled.button`
   width: ${(props:any) => props.theme.width100};
   border-radius: 5px;
   height: 40px;
+`;
+export const ImgBox = styled.div`
+  width: 100%;
+  height: 0;
+  position: relative;
+  padding-bottom: 56.25%;
+  overflow: hidden;
+  border-radius: 5px;
+`;
+export const Img = styled.img`
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
 `;
