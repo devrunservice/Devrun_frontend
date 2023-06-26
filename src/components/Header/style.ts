@@ -1,9 +1,9 @@
-import { styled } from "styled-components";
+import styled from "styled-components"
 import { Inner } from "style/Theme";
-import { Category, Search } from "asset";
-import { Button } from "components";
-export const Header = styled.div`
-  border-bottom: 1px solid ${(props) => props.theme.borderGray};
+import { Category, Search ,Logo} from "asset";
+
+export const HeaderWrap = styled.div`
+  border-bottom: 1px solid ${(props: any) => props.theme.borderGray};
 `;
 export const InnerHeader = styled(Inner)`
   display: flex;
@@ -14,6 +14,10 @@ export const Left = styled.div`
   display:flex; 
   align-items: center;
 `
+export const LogoIcon = styled(Logo)`
+  cursor: pointer;
+
+`
 export const Right = styled.div`
   display: flex;
 `;
@@ -23,8 +27,8 @@ export const CategoryWrap = styled.div`
   gap:40px;
 `;
 export const CategoryLi = styled.p`
-  font-weight: ${(props) => props.theme.fontSemiBold};
-  color: ${(props) => props.theme.textBlack};
+  font-weight: ${(props:any) => props.theme.fontSemiBold};
+  color: ${(props:any) => props.theme.textBlack};
 `;
 export const CategoryIcon = styled(Category)`
     margin-right:8px
@@ -37,9 +41,9 @@ export const SearchBox = styled.div`
   align-items: center;
 `;
 export const SearchInput = styled.input`
-  border: 1px solid ${(props) => props.theme.borderGray};
+  border: 1px solid ${(props:any) => props.theme.borderGray};
   &::placeholder {
-    ${(props) => props.theme.textGrayB0};
+    ${(props:any) => props.theme.textGrayB0};
   }
   border-radius: 50px;
   height: 45px;
@@ -56,13 +60,11 @@ export const SearchIcon = styled(Search)`
   cursor: pointer;
 `;
 export const HeaderIcon = styled.div`
-  margin-right: 20px;
+  width: 50px;
+  justify-content: center;
   display: flex;
   align-items: center;
   position: relative;
-  &:last-child {
-    margin-right: 0px;
-  }
   > svg {
     cursor: pointer;
   }
@@ -77,8 +79,8 @@ export const CartHover = styled.div`
   top: 70px;
   right: 0;
   border-radius: 8px;
-  background: ${(props) => props.theme.bgColor};
-  border: 1px solid ${(props) => props.theme.borderGray};
+  background: ${(props:any) => props.theme.bgColor};
+  border: 1px solid ${(props:any) => props.theme.borderGray};
   z-index: 99;
   padding: 25px;
 `;
@@ -86,16 +88,16 @@ export const CartTop = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid ${(props) => props.theme.borderGray};
+  border-bottom: 1px solid ${(props:any) => props.theme.borderGray};
   padding-bottom:20px;
 `;
 export const CartTitle = styled.em`
-  font-weight: ${(props) => props.theme.fontSemiBold};
-  color: ${(props) => props.theme.textBlack};
+  font-weight: ${(props:any) => props.theme.fontSemiBold};
+  color: ${(props:any) => props.theme.textBlack};
 `;
 export const CartNum = styled.span`
-  color: ${(props) => props.theme.textPoint};
-  font-weight: ${(props) => props.theme.fontSemiBold};
+  color: ${(props:any) => props.theme.textPoint};
+  font-weight: ${(props:any) => props.theme.fontSemiBold};
 `;
 export const CartPrice = styled.em``;
 export const CartUl = styled.ul`
@@ -109,11 +111,11 @@ export const CartLi = styled.li`
 
 `;
 export const ImgWrap = styled.div`
-  width: 144px;
+  width: 170px;
   
 `;
 export const TextWrap = styled.div`
-  width: calc(100% - 144px);
+  width: calc(100% - 170px);
   padding-left: 20px;
 `;
 export const LectureTitle = styled.em`
@@ -122,9 +124,10 @@ export const LectureTitle = styled.em`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  color: ${(props) => props.theme.textBlack};
-  font-weight: ${(props) => props.theme.fontMedium};
+  color: ${(props: any) => props.theme.textBlack};
+  font-weight: ${(props: any) => props.theme.fontMedium};
   margin-bottom: 10px;
+  line-height: 1;
 `;
 export const LectureSub = styled.p`
   width: 100%;
@@ -132,12 +135,40 @@ export const LectureSub = styled.p`
   overflow: hidden;
   white-space: nowrap;
   margin-bottom: 18px;
+  line-height: 1;
 `;
 export const LecturePrice = styled.p`
-  color: ${(props) => props.theme.textBlack};
-  font-weight: ${(props) => props.theme.fontMedium};
+  color: ${(props: any) => props.theme.textBlack};
+  font-weight: ${(props: any) => props.theme.fontMedium};
+  line-height: 1;
 `;
-export const Btn = styled(Button)`
+export const Button = styled.button`
   display: block;
   margin: 20px auto 0;
+  background: ${(props: any) => props.theme.textPoint};
+  color: ${(props: any) => props.theme.textWhite};
+  font-size: ${(props:any) => props.theme.fontSize14px};
+  width: ${(props:any) => props.theme.width100};
+  border-radius: 5px;
+  height: 40px;
+`;
+export const ImgBox = styled.div`
+  width: 100%;
+  height: 0;
+  position: relative;
+  padding-bottom: 56.25%;
+  overflow: hidden;
+  border-radius: 5px;
+`;
+export const Img = styled.img`
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
 `;

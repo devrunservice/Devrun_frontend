@@ -1,18 +1,23 @@
-import { Logo, Cart, Person } from "asset";
-import { CartLecture } from "components";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import {Cart, Person } from "asset";
+import NoImg from "asset/images/NoImg.jpg";
+
 import * as St from "./style";
 
 const Header = () => {
-  
+  const navigate = useNavigate()
+  const basketBtn = () => navigate("/basket");
+  const mainBtn = () => navigate("/home");
   return (
-    <St.Header>
+    <St.HeaderWrap>
       <St.InnerHeader>
         <St.Left>
-          <Logo />
+          <St.LogoIcon onClick={() => mainBtn()} />
           <St.CategoryWrap>
             <St.CategoryLi>
               <St.CategoryIcon />
-              카테고리
+              카테고리1
             </St.CategoryLi>
             <St.CategoryLi>DEVRUN 깜짝특가</St.CategoryLi>
             <St.CategoryLi>BEST</St.CategoryLi>
@@ -22,7 +27,7 @@ const Header = () => {
         <St.Right>
           <St.SearchBox>
             <St.SearchInput
-              type="type"
+              type="text"
               placeholder="찾고 싶은 강의 주제를 입력해주세요"
             />
             <St.SearchIcon />
@@ -42,7 +47,9 @@ const Header = () => {
               <St.CartUl>
                 <St.CartLi>
                   <St.ImgWrap>
-                    <CartLecture />
+                    <St.ImgBox>
+                      <St.Img src={NoImg} alt="" />
+                    </St.ImgBox>
                   </St.ImgWrap>
                   <St.TextWrap>
                     <St.LectureTitle>제목입니다 제목입니다잇</St.LectureTitle>
@@ -51,12 +58,9 @@ const Header = () => {
                   </St.TextWrap>
                 </St.CartLi>
               </St.CartUl>
-
-              <St.Btn
-                text={"장바구니에서 전체보기"}
-                size={"lg"}
-                color={"point"}
-              />
+              <St.Button onClick={() => basketBtn()}>
+                장바구니에서 전체보기
+              </St.Button>
             </St.CartHover>
           </St.HeaderIcon>
           <St.HeaderIcon>
@@ -64,8 +68,8 @@ const Header = () => {
           </St.HeaderIcon>
         </St.Right>
       </St.InnerHeader>
-    </St.Header>
+    </St.HeaderWrap>
   );
-};
+}
 
 export default Header;
