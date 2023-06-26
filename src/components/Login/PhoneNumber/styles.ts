@@ -1,6 +1,12 @@
 import { styled } from "styled-components";
 import { Input } from "style/Common";
 
+// p 태그
+export const P = styled.p`
+  color: ${(props) => props.theme.textBlack};
+  margin-bottom: 0.6rem;
+`;
+
 export const Button = styled.button`
   /* width: 100%; */
   border: none;

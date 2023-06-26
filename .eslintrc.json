@@ -38,8 +38,9 @@
     // props를 사용하지 않을 경우 에러 발생 off
     "react/no-unused-prop-types": "off",
     "import/no-named-as-default": 0,
-    //return 관련 
-    "consistent-return":"off"
+    "object-shorthand": 0,
+    //return 관련
+    "consistent-return": "off"
   },
 
   "settings": {

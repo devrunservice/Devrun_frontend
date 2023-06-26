@@ -1,5 +1,4 @@
 export { ReactComponent as SildeImg } from "./images/SildeImg.svg";
-export { ReactComponent as MainVisual } from "./images/MainVisual.svg";
 export { ReactComponent as Delete } from "./images/Delete.svg";
 export { ReactComponent as Arrow } from "./images/Arrow.svg";
 export { ReactComponent as Coupon } from "./images/Coupon.svg";
