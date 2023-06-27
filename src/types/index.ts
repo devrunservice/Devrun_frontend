@@ -124,6 +124,10 @@ export interface CreateUser {
 
 export interface ITmi {
   loading: boolean;
-  data: string[] | null;
-  error: AxiosError | null;
+  data: string[] | any;
+  error: string | any;
+}
+
+export interface IUser {
+  userId: string;
 }
