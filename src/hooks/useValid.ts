@@ -68,6 +68,16 @@ const useValid = (form: FormType) => {
     } else {
       setIsValid({ ...isValid, password: true });
     }
+
+    if (form.password !== form.passwordConfirm) {
+      setValidMessage((prev) => ({
+        ...prev,
+        passwordConfirmMessage: "비밀번호가 일치하지 않습니다.",
+      }));
+      setIsValid({ ...isValid, passwordConfirm: false });
+    } else {
+      setIsValid({ ...isValid, passwordConfirm: true });
+    }
   }, [form.password]);
 
   // 비밀번호 확인
@@ -75,7 +85,7 @@ const useValid = (form: FormType) => {
     if (form.password !== form.passwordConfirm) {
       setValidMessage((prev) => ({
         ...prev,
-        pwdConfirmMessage: "비밀번호가 일치하지 않습니다.",
+        passwordConfirmMessage: "비밀번호가 일치하지 않습니다.",
       }));
       setIsValid({ ...isValid, passwordConfirm: false });
     } else {

@@ -1,15 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import useValid from "hooks/useValid";
 import { signup } from "api/index";
 import PasswordInput from "components/Login/PasswordInput/PasswordInput";
+import Modal from "components/Login/Modal/Modal";
 import { FormType } from "types";
 import { ErrorMessage, Input, SuccessMessage } from "style/Common";
 import * as St from "./styles";
 
 const Signup = () => {
-  const navigate = useNavigate();
   const [form, setForm] = useState<FormType>({
     userId: "",
     password: "",
@@ -20,6 +19,7 @@ const Signup = () => {
     phonenumber: "",
     code: "",
   });
+  const [modalOpen, setModalOpen] = useState(false);
 
   const {
     validMessage,
@@ -33,8 +33,6 @@ const Signup = () => {
 
   const isvalid = Object.values(isValid).some((value) => value === false);
 
-  console.log(isValid);
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const response = await signup.createUser({
@@ -47,7 +45,7 @@ const Signup = () => {
     });
     console.log(response);
     if (response.status === 200) {
-      navigate(`/login`);
+      setModalOpen(true);
     }
   };
 
@@ -133,7 +131,7 @@ const Signup = () => {
                 setForm({ ...form, password: e.target.value })
               }
             />
-            {form.password && isValid.password === false && (
+            {form.password && !isValid.password && (
               <ErrorMessage>{validMessage.passwordMessage}</ErrorMessage>
             )}
             <PasswordInput
@@ -144,7 +142,7 @@ const Signup = () => {
                 setForm({ ...form, passwordConfirm: e.target.value })
               }
             />
-            {isValid.passwordConfirm === false && (
+            {!isValid.passwordConfirm && (
               <ErrorMessage>{validMessage.passwordConfirmMessage}</ErrorMessage>
             )}
           </St.InputField>
@@ -289,6 +287,7 @@ const Signup = () => {
           {/* 회원가입 버튼 */}
           <St.SignupBtn disabled={isvalid}>회원가입</St.SignupBtn>
         </form>
+        <Modal modalOpen={modalOpen} />
       </St.Container>
     </St.Section>
   );
