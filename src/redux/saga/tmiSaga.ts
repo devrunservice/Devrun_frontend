@@ -1,6 +1,6 @@
 import { takeLatest, put, call } from "redux-saga/effects";
 import { userData } from "api";
-import tmiSlice from "redux/slices/tmiSlice";
+import tmiSlice from "redux/reducer/tmiSlice";
 
 // function* tmiSaga(action:any):Generator<any,void,any>{
 //     try {
