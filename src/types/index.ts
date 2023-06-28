@@ -95,8 +95,8 @@ export interface IPriceButton {
 }
 
 // 회원가입 타입
-export interface FormType {
-  userId: string;
+export interface SignupFormType {
+  id: string;
   password: string;
   passwordConfirm: string;
   name: string;
@@ -117,10 +117,11 @@ export interface CreateUser {
   code?: string;
 }
 
-// export interface VerifiedCode {
-//   phonenumber: string;
-//   code?: string;
-// }
+// 로그인 타입
+export interface LoginFormType {
+  id: string;
+  password: string;
+}
 
 export interface ITmi {
   loading: boolean;

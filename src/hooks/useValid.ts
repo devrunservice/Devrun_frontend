@@ -1,20 +1,28 @@
-import { signup } from "api";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
-import { FormType } from "types";
+import { signup } from "api";
+import { SignupFormType } from "types";
+import { useDispatch } from "react-redux";
+import {
+  setDuplicatedId,
+  setValidId,
+} from "../redux/reducer/checkValidationReducer";
 
-const useValid = (form: FormType) => {
+const useValid = (signupForm: SignupFormType) => {
+  const dispatch = useDispatch();
   const [validMessage, setValidMessage] = useState({
-    userIdMessage: "",
+    idMessage: "",
     passwordMessage: "",
     passwordConfirmMessage: "",
     emailMessage: "",
     phonenumberMessage: "",
     codeMessage: "",
-    userIdDuplicationMessage: "",
+    idDuplicationMessage: "",
     emailDuplicationMessage: "",
   });
   const [isValid, setIsValid] = useState({
-    userId: false,
+    id: false,
     password: false,
     passwordConfirm: false,
     email: false,
@@ -24,7 +32,7 @@ const useValid = (form: FormType) => {
     code: false,
     codeBtn: false,
     checkCodeBtn: false,
-    userIdDuplication: false,
+    idDuplication: false,
     emailDuplication: false,
   });
 
@@ -32,72 +40,98 @@ const useValid = (form: FormType) => {
   useEffect(() => {
     const regex = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{5,13}$/;
 
-    if (!regex.test(form.userId)) {
+    if (!regex.test(signupForm.id)) {
       setValidMessage((prev) => ({
         ...prev,
-        userIdMessage: "영어, 숫자를 포함한 5자 이상 13자 이하로 입력해주세요.",
+        idMessage: "영어, 숫자를 포함한 5 ~ 13자로 입력해주세요.",
       }));
-      setIsValid({ ...isValid, userId: false });
+      setIsValid({ ...isValid, id: false });
     } else {
-      setIsValid({ ...isValid, userId: true });
+      setIsValid({ ...isValid, id: true });
     }
 
-    if (
-      (isValid.userIdDuplication && isValid.userId) ||
-      (isValid.userIdDuplication && !isValid.userId)
-    ) {
+    if (isValid.idDuplication || !isValid.idDuplication) {
       setValidMessage((prev) => ({
         ...prev,
-        userIdDuplicationMessage: "중복확인을 다시 해주세요",
+        idDuplicationMessage: "중복확인을 해주세요",
       }));
-      setIsValid((prev) => ({ ...prev, userIdDuplication: false }));
+      setIsValid((prev) => ({ ...prev, idDuplication: false }));
     }
-  }, [form.userId]);
+  }, [signupForm.id]);
 
-  // 비밀번호 유효성 검사
+  // useEffect(() => {
+  //   const regex = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{5,13}$/;
+
+  //   if (!regex.test(signupForm.id)) {
+  //     dispatch(
+  //       setValidId({
+  //         id: false,
+  //         idMessage: "영어, 숫자를 포함한 5 ~ 13자로 입력해주세요.",
+  //       }),
+  //     );
+  //   } else {
+  //     dispatch(
+  //       setValidId({
+  //         id: true,
+  //         idMessage: "",
+  //       }),
+  //     );
+  //   }
+  // }, [signupForm.id]);
+
+  // 아이디 중복확인
+  const checkDuplicatedId = async (id: string) => {
+    const response = await signup.getDuplicatedId({ id });
+    console.log("response: ", response);
+    if (response.data === 0) {
+      setValidMessage((prev) => ({
+        ...prev,
+        idDuplicationMessage: "사용 가능한 아이디입니다.",
+      }));
+      setIsValid((prev) => ({ ...prev, idDuplication: true }));
+    } else if (response.data === 1) {
+      setValidMessage((prev) => ({
+        ...prev,
+        idDuplicationMessage: "이미 사용중인 아이디입니다.",
+      }));
+      setIsValid((prev) => ({ ...prev, idDuplication: false }));
+    }
+  };
+  // const checkDuplicatedId = (id: string) => {
+  //   dispatch(setDuplicatedId(id));
+  // };
+
+  // 비밀번호
   useEffect(() => {
     const regex = /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*]).{8,15}$/;
 
-    if (!regex.test(form.password)) {
+    if (!regex.test(signupForm.password)) {
       setValidMessage((prev) => ({
         ...prev,
-        passwordMessage:
-          "숫자, 영문, 특수문자를 포함하여 최소 8자를 입력해주세요",
+        passwordMessage: "숫자, 영문, 특수문자 포함한 8 ~ 15자로 입력해주세요",
       }));
       setIsValid({ ...isValid, password: false });
     } else {
       setIsValid({ ...isValid, password: true });
     }
 
-    if (form.password !== form.passwordConfirm) {
+    // 비밀번호 확인 유효성 검사
+    if (signupForm.password !== signupForm.passwordConfirm) {
       setValidMessage((prev) => ({
         ...prev,
         passwordConfirmMessage: "비밀번호가 일치하지 않습니다.",
       }));
-      setIsValid({ ...isValid, passwordConfirm: false });
-    } else {
-      setIsValid({ ...isValid, passwordConfirm: true });
+      setIsValid((prev) => ({ ...prev, passwordConfirm: false }));
+    } else if (!isValid.passwordConfirm) {
+      setIsValid((prev) => ({ ...prev, passwordConfirm: true }));
     }
-  }, [form.password]);
-
-  // 비밀번호 확인
-  useEffect(() => {
-    if (form.password !== form.passwordConfirm) {
-      setValidMessage((prev) => ({
-        ...prev,
-        passwordConfirmMessage: "비밀번호가 일치하지 않습니다.",
-      }));
-      setIsValid({ ...isValid, passwordConfirm: false });
-    } else {
-      setIsValid({ ...isValid, passwordConfirm: true });
-    }
-  }, [form.passwordConfirm]);
+  }, [signupForm.password, signupForm.passwordConfirm]);
 
   // 이메일 유효성 검사
   useEffect(() => {
     const regex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
 
-    if (!regex.test(form.email)) {
+    if (!regex.test(signupForm.email)) {
       setValidMessage((prev) => ({
         ...prev,
         emailMessage: "올바른 이메일 형식이 아닙니다.",
@@ -107,23 +141,20 @@ const useValid = (form: FormType) => {
       setIsValid({ ...isValid, email: true });
     }
 
-    if (
-      (isValid.emailDuplication && isValid.email) ||
-      (isValid.emailDuplication && !isValid.email)
-    ) {
+    if (isValid.emailDuplication || !isValid.emailDuplication) {
       setValidMessage((prev) => ({
         ...prev,
-        emailDuplicationMessage: "중복확인을 다시 해주세요",
+        emailDuplicationMessage: "중복확인을 해주세요",
       }));
       setIsValid((prev) => ({ ...prev, emailDuplication: false }));
     }
-  }, [form.email]);
+  }, [signupForm.email]);
 
   // 휴대폰 유효성 검사
   useEffect(() => {
     const regex = /^01([016789])(?:\d{3}|\d{4})\d{4}$/;
 
-    if (!regex.test(form.phonenumber)) {
+    if (!regex.test(signupForm.phonenumber)) {
       setIsValid({ ...isValid, phonenumber: false });
     } else {
       setIsValid({ ...isValid, phonenumber: true });
@@ -139,7 +170,7 @@ const useValid = (form: FormType) => {
       }));
       setIsValid((prev) => ({ ...prev, codeBtn: false }));
     }
-  }, [form.phonenumber]);
+  }, [signupForm.phonenumber]);
 
   // 인증번호
   useEffect(() => {
@@ -149,26 +180,7 @@ const useValid = (form: FormType) => {
         codeMessage: "올바른 인증번호를 입력해주세요.",
       }));
     }
-  }, [form.code]);
-
-  // 아이디 중복확인
-  const checkDuplicatedUserId = async (id: string) => {
-    const response = await signup.getDuplicatedUserId({ id });
-    console.log("response: ", response);
-    if (response.data === 0) {
-      setValidMessage((prev) => ({
-        ...prev,
-        userIdDuplicationMessage: "사용 가능한 아이디입니다.",
-      }));
-      setIsValid((prev) => ({ ...prev, userIdDuplication: true }));
-    } else if (response.data === 1) {
-      setValidMessage((prev) => ({
-        ...prev,
-        userIdDuplicationMessage: "이미 사용중인 아이디입니다.",
-      }));
-      setIsValid((prev) => ({ ...prev, userIdDuplication: false }));
-    }
-  };
+  }, [signupForm.code]);
 
   // 이메일 중복확인
   const checkDuplicatedEmail = async (email: string) => {
@@ -246,7 +258,7 @@ const useValid = (form: FormType) => {
     setValidMessage,
     isValid,
     setIsValid,
-    checkDuplicatedUserId,
+    checkDuplicatedId,
     checkDuplicatedEmail,
     requestAuthenticationNumber,
     verifyAuthenticationNumber,
@@ -254,3 +266,4 @@ const useValid = (form: FormType) => {
 };
 
 export default useValid;
+/* eslint-disable @typescript-eslint/no-unused-vars */

@@ -1,19 +1,21 @@
 import createSagaMiddleware from "redux-saga";
 import { all } from "redux-saga/effects";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import signupReducer from "./signupReducer";
-import signupSaga from "./signupSaga";
+import checkValidationReducer from "./reducer/checkValidationReducer";
+import modalReducer from "./reducer/modalReducer";
+import { watchCheckValidationSaga } from "./saga/checkValidationSaga";
 
 const sagaMiddleware = createSagaMiddleware();
 
 const rootReducer = combineReducers({
-  signupReducer,
+  checkValidationReducer,
+  modalReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
 
 export function* rootSaga() {
-  yield all([signupSaga()]);
+  yield all([watchCheckValidationSaga()]);
 }
 
 const store = configureStore({
@@ -23,5 +25,3 @@ const store = configureStore({
 sagaMiddleware.run(rootSaga);
 
 export default store;
-
-
