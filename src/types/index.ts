@@ -1,4 +1,4 @@
-import { AxiosError } from "axios";
+
 // 페이지네이션
 export interface IPagination {
   activePage?: number;
@@ -108,7 +108,7 @@ export interface FormType {
 
 // 회원가입 데이터 전송 시 타입
 export interface CreateUser {
-  userId?: string;
+  id?: string;
   password?: string;
   name?: string;
   email?: string;
@@ -125,9 +125,12 @@ export interface CreateUser {
 export interface ITmi {
   loading: boolean;
   data: string[] | any;
-  error: string | any;
+  error: string | null | undefined;
+
 }
 
-export interface IUser {
-  userId: string;
+export interface LoginFormType {
+  userId?: string;
+  id?: string;
+  pwd?: string;
 }
