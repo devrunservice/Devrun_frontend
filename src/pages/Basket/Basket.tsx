@@ -1,5 +1,5 @@
 import React from 'react';
-import * as St from "style/Theme";
+import * as St from "style/Common";
 import { ShoppingBasket } from "components";
 import * as S from "./style";
 

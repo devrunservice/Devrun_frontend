@@ -33,7 +33,7 @@ const Signup = () => {
 
   const isvalid = Object.values(isValid).some((value) => value === false);
 
-  console.log(isValid);
+  // console.log(isValid);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
