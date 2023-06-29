@@ -3,21 +3,16 @@ import React, { useState } from "react";
 import axios from "axios";
 import { BrandLogo, Kakao, Naver, Google } from "asset";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-
 import { ErrorMessage, Input } from "style/Common";
-import PasswordInput from "components/Login/PasswordInput/PasswordInput"; 
-import { tmiDataStart } from "../../redux/slices/tmiSlice";
+import { LoginFormType } from "types";
+import { PasswordInput } from "components";
+import { useDispatch } from "react-redux";
+import { fetchUserTmi } from "../../redux/saga/userSaga";
 import * as St from "./styles";
-
-interface LoginFormType {
-  userId: string;
-  pwd: string;
-}
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  
   const [login, setLogin] = useState<LoginFormType>({
     userId: "",
     pwd: "",
@@ -27,7 +22,7 @@ const LoginForm = () => {
 
   const [userIdMessage, setUserIdMessage] = useState("");
   const [pwdMessage, setPwdMessage] = useState("");
-
+  const dispatch= useDispatch();
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -39,13 +34,8 @@ const LoginForm = () => {
           password: login.pwd,
         },
       );
-      console.log("response: ", response);
-      
-      
-      
-      // if (response.status === 200) {
-      //   navigate(`/home`);
-      // }
+      await dispatch(fetchUserTmi({ id: login.userId })); 
+      navigate(`/home`);
     } catch (error) {
       console.log(error);
     }
@@ -84,7 +74,7 @@ const LoginForm = () => {
             />
             {!(isFormValid && <ErrorMessage>{pwdMessage}</ErrorMessage>)}
           </St.InputField>
-          <St.LoginBtn disabled={!isFormValid}>로그인</St.LoginBtn>
+          <St.LoginBtn>로그인</St.LoginBtn>
         </form>
         {/* 아이디, 비밀번호 찾기 및 회원가입 */}
         <St.Finder>

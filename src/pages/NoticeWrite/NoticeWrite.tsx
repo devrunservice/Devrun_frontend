@@ -1,5 +1,5 @@
 import React from 'react';
-import * as St from "style/Theme";
+import * as St from "style/Common";
 import { NoticeWriter } from "components";
 
 const NoticeWrite = () => (
