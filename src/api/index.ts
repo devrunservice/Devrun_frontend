@@ -1,4 +1,4 @@
-import { CreateUser } from "types";
+import { CreateUser, LoginFormType } from "types";
 import { baseAxios } from "./instance";
 
 export const signup = {
@@ -32,6 +32,9 @@ export const signup = {
 
 // 로그인한 유저정보
 export const userData = {
-  data:() => baseAxios.get("/tmi")
-} 
+  data: (params: LoginFormType) => {
+    const response = baseAxios.get(`/tmi`, { params: { id: params.id } });
+    return response;
+  }
+}; 
 export const login = {};
