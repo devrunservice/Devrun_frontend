@@ -4,6 +4,7 @@ const initialState = {
   modalOpen: false,
   modalMessage: "",
   currentPage: "",
+  signupSuccess: false,
 };
 
 const modalReducer = createSlice({
@@ -21,9 +22,13 @@ const modalReducer = createSlice({
     setCurrentPage: (state, action) => {
       state.currentPage = action.payload;
     },
+    setSignupSuccess: (state, action) => {
+      state.signupSuccess = action.payload;
+    },
   },
 });
 
-export const { openModal, closeModal, setCurrentPage } = modalReducer.actions;
+export const { openModal, closeModal, setCurrentPage, setSignupSuccess } =
+  modalReducer.actions;
 
 export default modalReducer.reducer;

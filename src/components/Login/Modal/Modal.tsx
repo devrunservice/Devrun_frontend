@@ -18,10 +18,13 @@ const Modal = () => {
   const currentPage = useSelector(
     (state: RootState) => state.modalReducer.currentPage,
   );
+  const signupSuccess = useSelector(
+    (state: RootState) => state.modalReducer.signupSuccess,
+  );
 
   const handleClick = () => {
     dispatch(closeModal());
-    if (currentPage === "signup") {
+    if (signupSuccess === true) {
       navigate("/login");
     }
   };

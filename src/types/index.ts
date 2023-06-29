@@ -96,14 +96,19 @@ export interface IPriceButton {
 
 // 회원가입 타입
 export interface SignupFormType {
-  id: string;
-  password: string;
-  passwordConfirm: string;
-  name: string;
-  email: string;
-  birthday: string;
+  id?: string | undefined;
+  password?: string;
+  passwordConfirm?: string;
+  name?: string;
+  email?: string;
+  birthday?: string;
   phonenumber: string;
   code: string;
+  allChecked?: boolean;
+  acChecked?: boolean;
+  tosChecked?: boolean;
+  pcChecked?: boolean;
+  mcChecked?: boolean;
 }
 
 // 회원가입 데이터 전송 시 타입
@@ -115,6 +120,26 @@ export interface CreateUser {
   birthday?: string;
   phonenumber?: string;
   code?: string;
+}
+
+export interface IsValidType {
+  id: boolean;
+  password: boolean;
+  passwordConfirm: boolean;
+  email: boolean;
+  name: boolean;
+  birthday: boolean;
+  phonenumber: boolean;
+  code: boolean;
+  codeBtn: boolean;
+  checkCodeBtn: boolean;
+  idDuplication: boolean;
+  emailDuplication: boolean;
+  allChecked: boolean;
+  acChecked: boolean;
+  tosChecked: boolean;
+  pcChecked: boolean;
+  mcChecked: boolean;
 }
 
 // 로그인 타입

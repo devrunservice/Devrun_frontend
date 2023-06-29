@@ -39,3 +39,17 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
 };
 
 export default PasswordInput;
+
+interface subtitleType {
+  num: number;
+  className: string;
+  url: string;
+  isReadonly: boolean;
+}
+
+interface listType {
+  name: number;
+  title: string;
+  isReadOnly: boolean;
+  subTitle: subtitleType;
+}

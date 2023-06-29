@@ -6,22 +6,26 @@ import { RootState } from "redux/store";
 import useValid from "hooks/useValid";
 import { signup } from "api/index";
 import PasswordInput from "components/Login/PasswordInput/PasswordInput";
+// import PhoneNumber from "components/Login/PhoneNumber/PhoneNumber";
 import Modal from "components/Login/Modal/Modal";
 import { SignupFormType } from "types";
 import { ErrorMessage, Input, SuccessMessage } from "style/Common";
 import * as St from "./styles";
 import { setUser } from "../../redux/reducer/checkValidationReducer";
-import { openModal } from "../../redux/reducer/modalReducer";
+import { openModal, setSignupSuccess } from "../../redux/reducer/modalReducer";
 
 const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const message = useSelector(
-    (state: RootState) => state.checkValidationReducer.message,
+  const signupSuccess = useSelector(
+    (state: RootState) => state.modalReducer.signupSuccess,
   );
-  const valid = useSelector(
-    (state: RootState) => state.checkValidationReducer.valid,
-  );
+  // const message = useSelector(
+  //   (state: RootState) => state.checkValidationReducer.message,
+  // );
+  // const valid = useSelector(
+  //   (state: RootState) => state.checkValidationReducer.valid,
+  // );
   const [signupForm, setSignupForm] = useState<SignupFormType>({
     id: "",
     password: "",
@@ -31,6 +35,11 @@ const Signup = () => {
     birthday: "",
     phonenumber: "",
     code: "",
+    allChecked: false,
+    acChecked: false,
+    tosChecked: false,
+    pcChecked: false,
+    mcChecked: false,
   });
 
   const {
@@ -41,10 +50,24 @@ const Signup = () => {
     checkDuplicatedEmail,
     requestAuthenticationNumber,
     verifyAuthenticationNumber,
+    checkAllChecked,
+    checkConsent,
   } = useValid(signupForm);
 
-  const isvalid = Object.values(isValid).some((value) => value === false);
+  const disabledBtn = Object.values(isValid)
+    .filter((value) => value !== "mcChecked") // mcChecked 제외
+    .every((value) => value === false);
   // console.log(isValid);
+
+  // 만 19세 이상 가입
+  const currentDate = new Date();
+  const minDate = new Date(
+    currentDate.getFullYear() - 19,
+    currentDate.getMonth(),
+    currentDate.getDate(),
+  )
+    .toISOString()
+    .split("T")[0];
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -72,18 +95,24 @@ const Signup = () => {
     // if (signupForm.code === "") {
     //   return dispatch(openModal("인증번호를 입력해주세요."));
     // }
-    const response = await signup.createUser({
-      id: signupForm.id,
-      password: signupForm.password,
-      name: signupForm.name,
-      email: signupForm.email,
-      birthday: signupForm.birthday,
-      phonenumber: signupForm.phonenumber,
-    });
-    console.log(response);
-    if (response.status === 200) {
-      dispatch(dispatch(openModal("회원가입이 완료되었습니다.")));
-      navigate("/login");
+    try {
+      const response = await signup.createUser({
+        id: signupForm.id,
+        password: signupForm.password,
+        name: signupForm.name,
+        email: signupForm.email,
+        birthday: signupForm.birthday,
+        phonenumber: signupForm.phonenumber,
+      });
+      console.log(response);
+      if (response.status === 200) {
+        dispatch(openModal("회원가입이 완료되었습니다."));
+        dispatch(setSignupSuccess(true));
+        navigate("/login");
+      }
+    } catch (error: any) {
+      console.error(error.message);
+      // dispatch(openModal(error));
     }
 
     // try {
@@ -105,12 +134,12 @@ const Signup = () => {
 
   // 아이디 중복
   const handleClickDuplicatedId = () => {
-    checkDuplicatedId(signupForm.id);
+    checkDuplicatedId(signupForm.id || "");
   };
 
   // 이메일 중복 확인
   const handleClickDuplicatedEmail = () => {
-    checkDuplicatedEmail(signupForm.email);
+    checkDuplicatedEmail(signupForm.email || "");
   };
 
   // 휴대폰 인증번호
@@ -121,6 +150,17 @@ const Signup = () => {
   // 인증번호 확인
   const handleCheckAuthenticationNumber = () => {
     verifyAuthenticationNumber(signupForm.phonenumber, signupForm.code);
+  };
+
+  // 약관 동의
+  const handleAllChecked = () => {
+    checkAllChecked();
+  };
+
+  const handleCheckBoxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, checked } = e.target;
+
+    checkConsent(id, checked);
   };
 
   // 생년월일 값 가져오기
@@ -270,6 +310,7 @@ const Signup = () => {
               type="date"
               name="birthday"
               value={signupForm.birthday}
+              max={minDate}
               onChange={handleChangeBday}
             />
           </St.InputField>
@@ -297,10 +338,8 @@ const Signup = () => {
               </St.Button>
             </St.Field>
             {isValid.codeBtn && isValid.phonenumber ? (
-              // 인증번호가 요청되었습니다
               <SuccessMessage>{validMessage.phonenumberMessage}</SuccessMessage>
             ) : (
-              // 인증번호가 실패했습니다, 인증번호를 다시 받아주세요
               <ErrorMessage>{validMessage.phonenumberMessage}</ErrorMessage>
             )}
             <St.Field>
@@ -328,30 +367,70 @@ const Signup = () => {
               <ErrorMessage>{validMessage.codeMessage}</ErrorMessage>
             )}
           </St.InputField>
+          {/* <PhoneNumber
+            phonenumber={signupForm.phonenumber}
+            code={signupForm.code}
+            onChange={}
+          /> */}
 
           {/* 약관 동의 */}
           <St.Ul>
             <St.Li>
-              <St.Checkbox type="checkbox" id="all-agree" />
+              <St.Checkbox
+                type="checkbox"
+                id="all-agree"
+                checked={isValid.allChecked}
+                onChange={handleAllChecked}
+              />
               <label htmlFor="all-agree">전체동의</label>
             </St.Li>
             <hr />
             <St.Li>
-              <St.Checkbox type="checkbox" id="terms-of-service" />
+              <St.Checkbox
+                type="checkbox"
+                id="age-consent"
+                checked={isValid.acChecked}
+                onChange={handleCheckBoxChange}
+              />
+              <label htmlFor="age-consent">만 19세 이상입니다. (필수)</label>
+            </St.Li>
+            <St.Li>
+              <St.Checkbox
+                type="checkbox"
+                id="terms-of-service"
+                checked={isValid.tosChecked}
+                onChange={handleCheckBoxChange}
+              />
               <label htmlFor="terms-of-service">
                 서비스 이용약관 동의 (필수)
               </label>
             </St.Li>
             <St.Li>
-              <St.Checkbox type="checkbox" id="privacy-consent" />
+              <St.Checkbox
+                type="checkbox"
+                id="privacy-consent"
+                checked={isValid.pcChecked}
+                onChange={handleCheckBoxChange}
+              />
               <label htmlFor="privacy-consente">
                 개인정보 수집 및 이용 동의 (필수)
+              </label>
+            </St.Li>
+            <St.Li>
+              <St.Checkbox
+                type="checkbox"
+                id="marketing-consent"
+                checked={isValid.mcChecked}
+                onChange={handleCheckBoxChange}
+              />
+              <label htmlFor="marketing-consent">
+                마케팅 활용 동의 및 광고 수신 동의 (선택)
               </label>
             </St.Li>
           </St.Ul>
 
           {/* 회원가입 버튼 */}
-          <St.SignupBtn disabled={!isValid}>회원가입</St.SignupBtn>
+          <St.SignupBtn disabled={disabledBtn}>회원가입</St.SignupBtn>
         </form>
         <Modal />
       </St.Container>

@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
 import { signup } from "api";
-import { SignupFormType } from "types";
+import { IsValidType, SignupFormType } from "types";
 import { useDispatch } from "react-redux";
 import {
   setDuplicatedId,
@@ -21,7 +21,7 @@ const useValid = (signupForm: SignupFormType) => {
     idDuplicationMessage: "",
     emailDuplicationMessage: "",
   });
-  const [isValid, setIsValid] = useState({
+  const [isValid, setIsValid] = useState<IsValidType>({
     id: false,
     password: false,
     passwordConfirm: false,
@@ -34,13 +34,18 @@ const useValid = (signupForm: SignupFormType) => {
     checkCodeBtn: false,
     idDuplication: false,
     emailDuplication: false,
+    allChecked: false,
+    acChecked: false,
+    tosChecked: false,
+    pcChecked: false,
+    mcChecked: false,
   });
 
   // 아이디 유효성 검사
   useEffect(() => {
     const regex = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{5,13}$/;
 
-    if (!regex.test(signupForm.id)) {
+    if (!regex.test(signupForm.id || "")) {
       setValidMessage((prev) => ({
         ...prev,
         idMessage: "영어, 숫자를 포함한 5 ~ 13자로 입력해주세요.",
@@ -105,7 +110,7 @@ const useValid = (signupForm: SignupFormType) => {
   useEffect(() => {
     const regex = /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*]).{8,15}$/;
 
-    if (!regex.test(signupForm.password)) {
+    if (!regex.test(signupForm.password || "")) {
       setValidMessage((prev) => ({
         ...prev,
         passwordMessage: "숫자, 영문, 특수문자 포함한 8 ~ 15자로 입력해주세요",
@@ -131,7 +136,7 @@ const useValid = (signupForm: SignupFormType) => {
   useEffect(() => {
     const regex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
 
-    if (!regex.test(signupForm.email)) {
+    if (!regex.test(signupForm.email || "")) {
       setValidMessage((prev) => ({
         ...prev,
         emailMessage: "올바른 이메일 형식이 아닙니다.",
@@ -203,6 +208,38 @@ const useValid = (signupForm: SignupFormType) => {
 
   // 휴대폰 인증번호
   const requestAuthenticationNumber = async (phonenumber: string) => {
+    // 휴대폰 중복확인
+    // const response = await signup.getDuplicatedPhonnumber({
+    //   phonenumber,
+    // });
+    // console.log(response);
+    // if (response.data === 0) {
+    //   try {
+    //     await signup.getAuthenticationNumber({
+    //       phonenumber,
+    //     });
+    //     setValidMessage((prev) => ({
+    //       ...prev,
+    //       phonenumberMessage: "인증번호가 요청되었습니다.",
+    //     }));
+    //     setIsValid((prev) => ({ ...prev, phonenumber: true }));
+    //     setIsValid((prev) => ({ ...prev, codeBtn: true }));
+    //   } catch (error) {
+    //     setValidMessage((prev) => ({
+    //       ...prev,
+    //       phonenumberMessage: "인증번호 요청에 실패했습니다.",
+    //     }));
+    //     setIsValid((prev) => ({ ...prev, phonenumber: false }));
+    //     setIsValid((prev) => ({ ...prev, codeBtn: false }));
+    //   }
+    // } else {
+    //   setValidMessage((prev) => ({
+    //     ...prev,
+    //     phonenumberMessage: "현재 가입된 번호입니다.",
+    //   }));
+    //   setIsValid((prev) => ({ ...prev, phonenumber: false }));
+    //   setIsValid((prev) => ({ ...prev, codeBtn: false }));
+    // }
     try {
       const response = await signup.getAuthenticationNumber({
         phonenumber,
@@ -253,6 +290,51 @@ const useValid = (signupForm: SignupFormType) => {
       setIsValid((prev) => ({ ...prev, checkCodeBtn: false }));
     }
   };
+
+  // 약관동의
+  const checkAllChecked = () => {
+    setIsValid((prev) => ({
+      ...prev,
+      allChecked: !prev.allChecked,
+      acChecked: !prev.allChecked,
+      tosChecked: !prev.allChecked,
+      pcChecked: !prev.allChecked,
+      mcChecked: !prev.allChecked,
+    }));
+  };
+
+  const checkConsent = (id: string, checked: boolean) => {
+    console.log(id, checked);
+    if (id === "age-consent") {
+      setIsValid((prev) => ({
+        ...prev,
+        acChecked: checked,
+        allChecked:
+          prev.tosChecked && prev.pcChecked && prev.mcChecked && checked,
+      }));
+    } else if (id === "terms-of-service") {
+      setIsValid((prev) => ({
+        ...prev,
+        tosChecked: checked,
+        allChecked:
+          prev.pcChecked && prev.acChecked && prev.mcChecked && checked,
+      }));
+    } else if (id === "privacy-consent") {
+      setIsValid((prev) => ({
+        ...prev,
+        pcChecked: checked,
+        allChecked:
+          prev.tosChecked && prev.acChecked && prev.mcChecked && checked,
+      }));
+    } else if (id === "marketing-consent") {
+      setIsValid((prev) => ({
+        ...prev,
+        mcChecked: checked,
+        allChecked:
+          prev.pcChecked && prev.tosChecked && prev.acChecked && checked,
+      }));
+    }
+  };
   return {
     validMessage,
     setValidMessage,
@@ -262,6 +344,8 @@ const useValid = (signupForm: SignupFormType) => {
     checkDuplicatedEmail,
     requestAuthenticationNumber,
     verifyAuthenticationNumber,
+    checkAllChecked,
+    checkConsent,
   };
 };
 
