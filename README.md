@@ -1,6 +1,6 @@
 # DEVRUN 🏃‍♀️🏃‍♂️
 
-> [🔗 DEVRUN 사이트 바로가기]("")
+> [🔗 DEVRUN 사이트 바로가기]("http://devrun.s3-website.ap-northeast-2.amazonaws.com/")
 
 <br/>
 
