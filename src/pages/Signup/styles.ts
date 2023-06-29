@@ -8,7 +8,7 @@ export const Section = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
-  background: ${(props) => props.theme.bgGrayColor};
+  background-color: ${(props) => props.theme.bgGrayColor};
   overflow: auto;
 `;
 
@@ -20,7 +20,7 @@ export const Container = styled.div`
   justify-content: center;
   padding: 3rem 2rem;
   margin: 3rem 0;
-  background: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.bgColor};
   border-radius: 10px;
   border: ${(props) => props.theme.borderGray} 1px solid;
 `;
