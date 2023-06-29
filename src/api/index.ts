@@ -27,11 +27,18 @@ export const signup = {
     const response = authAxios.post(`/checkEmail`, params);
     return response;
   },
+  getDuplicatedPhonnumber: (params: CreateUser) => {
+    const response = authAxios.post("/checkPhone", params);
+    return response;
+  },
 };
 
 export const login = {
-  checkLoginUser: (params: LoginFormType) => {
-    const response = authAxios.post("/login", params);
+  checkLoginUser: async (params: LoginFormType) => {
+    const response = await authAxios.post("/login", params);
+    console.log(response);
+    const accessToken = response.headers.authorization;
+    console.log(accessToken);
     return response;
   },
 };

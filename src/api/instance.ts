@@ -25,6 +25,23 @@ authAxios.interceptors.response.use(
     const errorMessage = error.response.data.message;
     const errorStatus = error.response.status;
     switch (errorStatus) {
+      case 400:
+        switch (errorMessage) {
+          case "Invalid input data":
+            console.log("회원가입 폼을 작성해주세요.");
+            return Promise.reject(new Error("회원가입 폼을 작성해주세요."));
+          case "Username already taken":
+            return Promise.reject(new Error("아이디가 중복되었습니다."));
+          case "Email already registered":
+            return Promise.reject(new Error("이메일이 중복되었습니다."));
+          case "Phone number already registered":
+            return Promise.reject(new Error("핸드폰번호가 중복되었습니다."));
+          case "An unexpected error occurred":
+            return Promise.reject(new Error("알 수 없는 오류가 발생했습니다."));
+          default:
+            break;
+        }
+        break;
       case 401:
         switch (errorMessage) {
           case "User not found":

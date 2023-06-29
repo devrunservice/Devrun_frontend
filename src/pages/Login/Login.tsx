@@ -10,6 +10,7 @@ import Modal from "components/Login/Modal/Modal";
 import PasswordInput from "components/Login/PasswordInput/PasswordInput"; // eslint-disable-line @typescript-eslint/no-unused-vars
 import * as St from "./styles";
 import { openModal } from "../../redux/reducer/modalReducer";
+import { setLogin } from "../../redux/reducer/loginReducer";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -40,6 +41,12 @@ const LoginForm = () => {
     } catch (error: any) {
       dispatch(openModal(error.message));
     }
+    // dispatch(
+    //   setLogin({
+    //     id: loginForm.id,
+    //     password: loginForm.password,
+    //   }),
+    // );
   };
 
   const handleClickLogo = () => {
