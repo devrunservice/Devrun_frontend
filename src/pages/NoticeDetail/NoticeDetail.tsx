@@ -1,6 +1,6 @@
 import React from 'react';
 import { NoticeList, Comment } from "components";
-import * as St from "style/Theme";
+import * as St from "style/Common";
 
 const NoticeDetail = () => (
       <St.WhiteBg>

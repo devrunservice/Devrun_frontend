@@ -1,20 +1,6 @@
 /* eslint-disable no-param-reassign */
-import { baseAxios } from "api/instance";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { ITmi, LoginFormType } from "types";
-
-
-export const userTmi = createAsyncThunk(
-  "userTmi",
-  async (payload: LoginFormType, thunkAPI) => {
-    try {
-      const response = await baseAxios.get(`/tmi/${payload.id}`);
-      return thunkAPI.fulfillWithValue(response.data)
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  },
-);
+import { createSlice } from "@reduxjs/toolkit";
+import { ITmi } from "types";
 
 const initialState: ITmi = {
   data: [],
@@ -35,9 +21,9 @@ const userTmiSlice = createSlice({
     },
     userTmiRejected: (state, action) => {
       state.loading = false;
-      state.error = action.payload 
+      state.error = action.payload;
     },
-  }
+  },
 });
 
 export const { userTmiPending, userTmiFulfilled, userTmiRejected } =
