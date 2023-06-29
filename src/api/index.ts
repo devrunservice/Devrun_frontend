@@ -1,5 +1,5 @@
 import { CreateUser, LoginFormType } from "types";
-import { authAxios } from "./instance";
+import { authAxios, baseAxios } from "./instance";
 
 export const signup = {
   // 회원가입
@@ -45,5 +45,8 @@ export const login = {
 
 // 로그인한 유저정보
 export const userData = {
-  data: () => authAxios.get("/tmi"),
+  data: (params: LoginFormType) => {
+    const response = baseAxios.get(`/tmi`, { params: { id: params.id } });
+    return response;
+  },
 };
