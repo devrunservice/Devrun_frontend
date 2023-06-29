@@ -40,7 +40,14 @@
     "import/no-named-as-default": 0,
     "object-shorthand": 0,
     //return 관련
-    "consistent-return": "off"
+    "consistent-return": "off",
+    "no-param-reassign": [
+      "error",
+      {
+        "props": true,
+        "ignorePropertyModificationsFor": ["state"]
+      }
+    ]
   },
 
   "settings": {
