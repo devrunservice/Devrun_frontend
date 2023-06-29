@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { Inner } from "style/Theme";
+import { Inner } from "style/Common";
 import { Category, Search ,Logo} from "asset";
 
 export const HeaderWrap = styled.div`

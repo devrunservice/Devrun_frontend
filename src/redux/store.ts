@@ -1,19 +1,22 @@
 import createSagaMiddleware from "redux-saga";
 import { all } from "redux-saga/effects";
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import signupReducer from "./signupReducer";
 import signupSaga from "./signupSaga";
+import userTmiSlice from "./reducer/userReducer";
+import userSaga from "./saga/userSaga";
 
 const sagaMiddleware = createSagaMiddleware();
 
 const rootReducer = combineReducers({
   signupReducer,
+  userTmiSlice,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
 
 export function* rootSaga() {
-  yield all([signupSaga()]);
+  yield all([signupSaga(), userSaga()]);
 }
 
 const store = configureStore({
