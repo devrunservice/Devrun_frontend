@@ -9,7 +9,7 @@ const Pagination = () => {
   const lastPage = 0 != null ? Math.ceil(5 / 5) : 0;
 
   const onClickPage = () => {
-    // const activePage = Number(e.currentTarget.id); // eslint-disable-line @typescript-eslint/no-unused-vars
+    // const activePage = Number(e.currentTarget.id); 
     setActivePage(startPage);
   };
   // 이전 페이지 클릭시
@@ -24,7 +24,7 @@ const Pagination = () => {
     setStartPage((prev) => prev + 5);
     setActivePage((prev) => prev + 5);
   };
-  console.log(activePage);
+  // console.log(activePage);
   return (
     <St.PagingWrap>
       <St.Paging onClick={() => onClickPrev()}>

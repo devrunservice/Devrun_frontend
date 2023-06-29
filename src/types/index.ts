@@ -1,4 +1,4 @@
-import { AxiosError } from "axios";
+
 // 페이지네이션
 export interface IPagination {
   activePage?: number;
@@ -150,6 +150,13 @@ export interface LoginFormType {
 
 export interface ITmi {
   loading: boolean;
-  data: string[] | null;
-  error: AxiosError | null;
+  data: string[] | any;
+  error: string | null | undefined;
+
+}
+
+export interface LoginFormType {
+  userId?: string;
+  id?: string;
+  pwd?: string;
 }

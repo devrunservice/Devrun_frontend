@@ -7,9 +7,6 @@ import * as St from "./style";
 
 const Comment = () => {
   
-  
-   
-  
   const [comments, setComments] = useState<string>("");
   const commentsChange = (e: ChangeEvent<HTMLTextAreaElement>) => setComments(e.target.value);
   const commentsCancel = () => setComments("")
