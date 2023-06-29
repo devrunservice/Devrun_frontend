@@ -1,4 +1,3 @@
-
 // 페이지네이션
 export interface IPagination {
   activePage?: number;
@@ -95,15 +94,20 @@ export interface IPriceButton {
 }
 
 // 회원가입 타입
-export interface FormType {
-  userId: string;
-  password: string;
-  passwordConfirm: string;
-  name: string;
-  email: string;
-  birthday: string;
+export interface SignupFormType {
+  id?: string | undefined;
+  password?: string;
+  passwordConfirm?: string;
+  name?: string;
+  email?: string;
+  birthday?: string;
   phonenumber: string;
   code: string;
+  allChecked?: boolean;
+  acChecked?: boolean;
+  tosChecked?: boolean;
+  pcChecked?: boolean;
+  mcChecked?: boolean;
 }
 
 // 회원가입 데이터 전송 시 타입
@@ -117,20 +121,34 @@ export interface CreateUser {
   code?: string;
 }
 
-// export interface VerifiedCode {
-//   phonenumber: string;
-//   code?: string;
-// }
+export interface IsValidType {
+  id: boolean;
+  password: boolean;
+  passwordConfirm: boolean;
+  email: boolean;
+  name: boolean;
+  birthday: boolean;
+  phonenumber: boolean;
+  code: boolean;
+  codeBtn: boolean;
+  checkCodeBtn: boolean;
+  idDuplication: boolean;
+  emailDuplication: boolean;
+  allChecked: boolean;
+  acChecked: boolean;
+  tosChecked: boolean;
+  pcChecked: boolean;
+  mcChecked: boolean;
+}
+
+// 로그인 타입
+export interface LoginFormType {
+  id: string;
+  password: string;
+}
 
 export interface ITmi {
   loading: boolean;
   data: string[] | any;
   error: string | null | undefined;
-
-}
-
-export interface LoginFormType {
-  userId?: string;
-  id?: string;
-  pwd?: string;
 }
