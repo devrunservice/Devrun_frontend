@@ -1,4 +1,5 @@
 import axios from "axios";
+// import { getCookie } from "./cookies";
 
 export const baseAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
@@ -8,6 +9,7 @@ export const authAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
   headers: {
     "Content-type": "application/json",
+    withcredentials: true,
   },
 });
 
@@ -17,6 +19,20 @@ export const accAxios = axios.create({
     "Content-type": "application/json",
   },
 });
+
+// authAxios.interceptors.request.use(
+//   (request) => {
+//     const accessToken = getCookie("accessToken");
+//     if (accessToken) {
+//       request.headers.Authorization = `Bearer ${accessToken}`;
+//     }
+//     return request;
+//   },
+//   (error) => {
+//     console.log(error);
+//     return Promise.reject(error);
+//   },
+// );
 
 authAxios.interceptors.response.use(
   (response) => response,
@@ -60,6 +76,8 @@ authAxios.interceptors.response.use(
             break;
         }
         break;
+      case 500:
+        return Promise.reject(new Error("알 수 없는 에러가 발생했습니다."));
       default:
         break;
     }

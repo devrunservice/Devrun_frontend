@@ -1,8 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import {createBrowserRouter, RouterProvider} from 'react-router-dom';
-import {ThemeProvider} from 'styled-components';
-import {GlobalStyle, defaultTheme} from 'style/Theme';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
+import { GlobalStyle, defaultTheme } from "style/Theme";
+import { CookiesProvider } from "react-cookie";
 import { Provider } from "react-redux";
 import {
   Notice,
@@ -20,8 +21,8 @@ import {
   FindId,
 } from "pages";
 import store from "./redux/store";
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 
 const router = createBrowserRouter([
   {
@@ -50,14 +51,14 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
 root.render(
-  
-    <ThemeProvider theme={defaultTheme}>
-      <GlobalStyle />
-        <Provider store={store}>
-          <RouterProvider router={router} />
-        </Provider>
-    </ThemeProvider>
-  
+  <ThemeProvider theme={defaultTheme}>
+    <GlobalStyle />
+    <CookiesProvider>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    </CookiesProvider>
+  </ThemeProvider>,
 );
 
 reportWebVitals();

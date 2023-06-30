@@ -1,16 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { RootState } from "redux/store";
 import { login } from "api";
+import { setCookie } from "api/cookies";
 import { BrandLogo, Kakao, Naver, Google } from "asset";
 import { useNavigate } from "react-router-dom";
 import { LoginFormType } from "types";
-import { ErrorMessage, Input } from "style/Common";
+import { Input } from "style/Common";
 import Modal from "components/Login/Modal/Modal";
 import PasswordInput from "components/Login/PasswordInput/PasswordInput"; // eslint-disable-line @typescript-eslint/no-unused-vars
-import * as St from "./styles";
 import { openModal } from "../../redux/reducer/modalReducer";
-import { setLogin } from "../../redux/reducer/loginReducer";
+import { loginSuccess } from "../../redux/reducer/loginReducer";
+
+import * as St from "./styles";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -23,8 +26,7 @@ const LoginForm = () => {
 
   const isFormValid = loginForm.id !== "" && loginForm.password !== "";
 
-  const [idMessage, setIdMessage] = useState("");
-  const [passwordMessage, setpasswordMessage] = useState("");
+  const handleClickLogo = () => navigate("/");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,24 +35,17 @@ const LoginForm = () => {
         id: loginForm.id,
         password: loginForm.password,
       });
-      console.log("response: ", response);
-
-      if (response.status === 200) {
-        navigate(`/home`);
-      }
+      console.log(response);
+      if (response.status === 200) navigate(`/`);
     } catch (error: any) {
       dispatch(openModal(error.message));
     }
     // dispatch(
-    //   setLogin({
+    //   loginSuccess({
     //     id: loginForm.id,
     //     password: loginForm.password,
     //   }),
     // );
-  };
-
-  const handleClickLogo = () => {
-    navigate("/home");
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,14 +72,12 @@ const LoginForm = () => {
               placeholder="아이디"
               onChange={handleChange}
             />
-            {!(isFormValid && <ErrorMessage>{idMessage}</ErrorMessage>)}
             <PasswordInput
               name="password"
               value={loginForm.password}
               placeholder="비밀번호"
               onChange={handleChange}
             />
-            {!(isFormValid && <ErrorMessage>{passwordMessage}</ErrorMessage>)}
           </St.InputField>
           <St.LoginBtn disabled={!isFormValid}>로그인</St.LoginBtn>
         </form>
