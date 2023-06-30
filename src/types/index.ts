@@ -121,6 +121,11 @@ export interface CreateUser {
   code?: string;
 }
 
+export interface PhonenumberType {
+  phonenumber: string;
+  code: string;
+}
+
 export interface IsValidType {
   id: boolean;
   password: boolean;

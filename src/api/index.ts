@@ -1,4 +1,5 @@
 import { CreateUser, LoginFormType } from "types";
+import { setCookie } from "./cookies";
 import { authAxios, baseAxios } from "./instance";
 
 export const signup = {
@@ -36,11 +37,15 @@ export const signup = {
 export const login = {
   checkLoginUser: async (params: LoginFormType) => {
     const response = await authAxios.post("/login", params);
-    console.log(response);
-    const accessToken = response.headers.authorization;
-    console.log(accessToken);
+    setCookie("accessToken", response.data.authorization.substr(7));
+    // console.log(setCookie);
     return response;
   },
+  // await authAxios.post("/login", params).then((response) => {
+  //   axios.defaults.headers.common.Authorization = `Bearer ${response.data.access_token}`;
+  //   console.log(response);
+  //   return response;
+  // });
 };
 
 // 로그인한 유저정보
