@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
-import { IPagination } from "types"; // eslint-disable-line @typescript-eslint/no-unused-vars
+import { IPagination } from "types";
 import { PageNext, PagePrev } from "asset";
 import * as St from "./style";
 // props: IPagination
@@ -9,7 +10,7 @@ const Pagination = () => {
   const lastPage = 0 != null ? Math.ceil(5 / 5) : 0;
 
   const onClickPage = () => {
-    // const activePage = Number(e.currentTarget.id); 
+    // const activePage = Number(e.currentTarget.id);
     setActivePage(startPage);
   };
   // 이전 페이지 클릭시
@@ -27,9 +28,9 @@ const Pagination = () => {
   // console.log(activePage);
   return (
     <St.PagingWrap>
-      <St.Paging onClick={() => onClickPrev()}>
+      <St.PagingArr onClick={() => onClickPrev()}>
         <PagePrev />
-      </St.Paging>
+      </St.PagingArr>
       {new Array(5).fill(1).map(
         (index) =>
           startPage + index <= lastPage && (
@@ -42,11 +43,12 @@ const Pagination = () => {
             </St.Paging>
           ),
       )}
-      <St.Paging onClick={() => onClickNext()}>
+      <St.PagingArr onClick={() => onClickNext()}>
         <PageNext />
-      </St.Paging>
+      </St.PagingArr>
     </St.PagingWrap>
   );
 };
 
 export default Pagination;
+/* eslint-disable @typescript-eslint/no-unused-vars */

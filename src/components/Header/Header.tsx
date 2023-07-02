@@ -1,19 +1,26 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import {Cart, Person } from "asset";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Cart, Person } from "asset";
+import { getCookie } from "api/cookies";
 import NoImg from "asset/images/NoImg.jpg";
-
 import * as St from "./style";
 
 const Header = () => {
-  const navigate = useNavigate()
-  const basketBtn = () => navigate("/basket");
-  const mainBtn = () => navigate("/");
+  const navigate = useNavigate();
+  const local = window.location.pathname;
+  const [cookie, setCookie] = useState<boolean>(false);
+  useEffect(() => {
+    if (getCookie("token")) {
+      setCookie(true);
+    }
+  }, []);
+
   return (
     <St.HeaderWrap>
       <St.InnerHeader>
-        <St.Left>
-          <St.LogoIcon onClick={() => mainBtn()} />
+        <St.NavWrap>
+          <St.LogoIcon onClick={() => navigate("/")} />
           <St.CategoryWrap>
             <St.CategoryLi>
               <St.CategoryIcon />
@@ -23,8 +30,8 @@ const Header = () => {
             <St.CategoryLi>BEST</St.CategoryLi>
             <St.CategoryLi>고객센터</St.CategoryLi>
           </St.CategoryWrap>
-        </St.Left>
-        <St.Right>
+        </St.NavWrap>
+        <St.NavWrap>
           <St.SearchBox>
             <St.SearchInput
               type="text"
@@ -32,44 +39,68 @@ const Header = () => {
             />
             <St.SearchIcon />
           </St.SearchBox>
-          <St.HeaderIcon>
-            <Cart />
-            <St.CartHover>
-              <St.CartTop>
-                <St.CartTitle>
-                  수강바구니 <St.CartNum>1</St.CartNum>
-                </St.CartTitle>
-                <St.CartPrice>
-                  총 결제금액 <St.CartNum>29,700</St.CartNum>원
-                </St.CartPrice>
-              </St.CartTop>
+          {cookie ? (
+            <St.NavWrap>
+              <St.HeaderIcon>
+                <Cart />
+                <St.CartHover>
+                  <St.CartTop>
+                    <St.CartTitle>
+                      수강바구니 <St.CartNum>1</St.CartNum>
+                    </St.CartTitle>
+                    <St.CartPrice>
+                      총 결제금액 <St.CartNum>29,700</St.CartNum>원
+                    </St.CartPrice>
+                  </St.CartTop>
 
-              <St.CartUl>
-                <St.CartLi>
-                  <St.ImgWrap>
-                    <St.ImgBox>
-                      <St.Img src={NoImg} alt="" />
-                    </St.ImgBox>
-                  </St.ImgWrap>
-                  <St.TextWrap>
-                    <St.LectureTitle>제목입니다 제목입니다잇</St.LectureTitle>
-                    <St.LectureSub>제목입니다 제목입니다잇</St.LectureSub>
-                    <St.LecturePrice>123</St.LecturePrice>
-                  </St.TextWrap>
-                </St.CartLi>
-              </St.CartUl>
-              <St.Button onClick={() => basketBtn()}>
-                장바구니에서 전체보기
+                  <St.CartUl>
+                    <St.CartLi>
+                      <St.ImgWrap>
+                        <St.ImgBox>
+                          <St.Img src={NoImg} alt="" />
+                        </St.ImgBox>
+                      </St.ImgWrap>
+                      <St.TextWrap>
+                        <St.LectureTitle>
+                          제목입니다 제목입니다잇
+                        </St.LectureTitle>
+                        <St.LectureSub>제목입니다 제목입니다잇</St.LectureSub>
+                        <St.LecturePrice>123</St.LecturePrice>
+                      </St.TextWrap>
+                    </St.CartLi>
+                  </St.CartUl>
+                  <St.CartButton onClick={() => navigate("/basket")}>
+                    장바구니에서 전체보기
+                  </St.CartButton>
+                </St.CartHover>
+              </St.HeaderIcon>
+              <St.HeaderIcon>
+                <Person />
+              </St.HeaderIcon>
+            </St.NavWrap>
+          ) : (
+            <St.ButtonWrap>
+              <St.Button
+                onClick={() => navigate("/login")}
+                type="button"
+                active
+              >
+                로그인
               </St.Button>
-            </St.CartHover>
-          </St.HeaderIcon>
-          <St.HeaderIcon>
-            <Person />
-          </St.HeaderIcon>
-        </St.Right>
+              <St.Button
+                onClick={() => navigate("/signup")}
+                type="button"
+                active={false}
+              >
+                회원가입
+              </St.Button>
+            </St.ButtonWrap>
+          )}
+        </St.NavWrap>
       </St.InnerHeader>
     </St.HeaderWrap>
   );
-}
+};
 
 export default Header;
+/* eslint-disable @typescript-eslint/no-unused-vars */

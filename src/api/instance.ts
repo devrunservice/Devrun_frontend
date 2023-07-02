@@ -1,34 +1,34 @@
-import axios from "axios";
 
-export const baseAxios = axios.create({
-  baseURL: `${process.env.REACT_APP_SERVER_URL}`,
-});
+import axios from "axios";
+import { getCookie } from "./cookies";
 
 export const authAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
-  headers: {
-    "Content-type": "application/json",
-  },
 });
 
 export const accAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
-  headers: {
-    "Content-type": "application/json",
-  },
 });
+
+accAxios.interceptors.request.use((config)=> {
+    const token = getCookie("token");
+    config.headers.Authorization = `Bearer ${token}`;
+    return config;
+  },
+  (error) => Promise.reject(error),
+);
 
 authAxios.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.log(error);
+    // console.log(error);
     const errorMessage = error.response.data.message;
     const errorStatus = error.response.status;
     switch (errorStatus) {
       case 400:
         switch (errorMessage) {
           case "Invalid input data":
-            console.log("회원가입 폼을 작성해주세요.");
+           // console.log("회원가입 폼을 작성해주세요.");
             return Promise.reject(new Error("회원가입 폼을 작성해주세요."));
           case "Username already taken":
             return Promise.reject(new Error("아이디가 중복되었습니다."));
