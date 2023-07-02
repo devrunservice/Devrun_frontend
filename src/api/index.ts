@@ -1,5 +1,7 @@
-import { CreateUser, LoginFormType } from "types";
-import { authAxios, baseAxios } from "./instance";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { CreateUser, LoginFormType, tmi } from "types";
+import { setCookie } from "./cookies";
+import { authAxios, accAxios } from "./instance";
 
 export const signup = {
   // 회원가입
@@ -36,17 +38,20 @@ export const signup = {
 export const login = {
   checkLoginUser: async (params: LoginFormType) => {
     const response = await authAxios.post("/login", params);
+    setCookie("accessToken", response.data.authorization.substr(7));
     console.log(response);
-    const accessToken = response.headers.authorization;
-    console.log(accessToken);
     return response;
   },
 };
 
 // 로그인한 유저정보
 export const userData = {
-  data: (params: LoginFormType) => {
-    const response = baseAxios.get(`/tmi`, { params: { id: params.id } });
+  createUser: (id: tmi) => {
+    const response = accAxios.get("/tmi", {
+      params: { id: id.id },
+    });
     return response;
   },
 };
+/* eslint-disable @typescript-eslint/no-unused-vars */
+

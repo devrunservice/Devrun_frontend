@@ -6029,6 +6029,7 @@ __metadata:
     styled-reset: ^4.4.7
     swiper: ^9.3.2
     typescript: ^4.9.3
+    universal-cookie: ^4.0.4
     web-vitals: ^2.1.0
   languageName: unknown
   linkType: soft
@@ -14123,7 +14124,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"universal-cookie@npm:^4.0.0":
+"universal-cookie@npm:^4.0.0, universal-cookie@npm:^4.0.4":
   version: 4.0.4
   resolution: "universal-cookie@npm:4.0.4"
   dependencies:

@@ -40,3 +40,6 @@ export const Inner = styled.div`
   width: 1200px;
   margin: 0 auto;
 `;
+export const InnerF = styled(Inner)`
+display:flex;
+`

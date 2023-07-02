@@ -6,9 +6,9 @@ import { RootState } from "redux/store";
 import useValid from "hooks/useValid";
 import { signup } from "api/index";
 import PasswordInput from "components/Login/PasswordInput/PasswordInput";
-// import PhoneNumber from "components/Login/PhoneNumber/PhoneNumber";
+import PhoneNumber from "components/Login/PhoneNumber/PhoneNumber";
 import Modal from "components/Login/Modal/Modal";
-import { SignupFormType } from "types";
+import { PhonenumberType, SignupFormType } from "types";
 import { ErrorMessage, Input, SuccessMessage } from "style/Common";
 import * as St from "./styles";
 import { setUser } from "../../redux/reducer/checkValidationReducer";
@@ -112,7 +112,7 @@ const Signup = () => {
       }
     } catch (error: any) {
       console.error(error.message);
-      // dispatch(openModal(error));
+      dispatch(openModal(error.message));
     }
 
     // try {
@@ -161,6 +161,13 @@ const Signup = () => {
     const { id, checked } = e.target;
 
     checkConsent(id, checked);
+  };
+
+  // 휴대폰 번호 및 인증번호 값 가져오기
+  const getPhonenumberForm = (values: PhonenumberType) => {
+    signupForm.phonenumber = values.phonenumber;
+    signupForm.code = values.code;
+    console.log(signupForm.phonenumber);
   };
 
   // 생년월일 값 가져오기
@@ -316,7 +323,7 @@ const Signup = () => {
           </St.InputField>
 
           {/* 휴대폰 번호 input */}
-          <St.InputField>
+          {/* <St.InputField>
             <St.P>휴대폰 번호</St.P>
             <St.Field>
               <Input
@@ -366,12 +373,8 @@ const Signup = () => {
             ) : (
               <ErrorMessage>{validMessage.codeMessage}</ErrorMessage>
             )}
-          </St.InputField>
-          {/* <PhoneNumber
-            phonenumber={signupForm.phonenumber}
-            code={signupForm.code}
-            onChange={}
-          /> */}
+          </St.InputField> */}
+          <PhoneNumber getPhonenumberForm={getPhonenumberForm} />
 
           {/* 약관 동의 */}
           <St.Ul>
