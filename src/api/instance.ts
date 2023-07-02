@@ -1,47 +1,41 @@
 import axios from "axios";
-
-export const baseAxios = axios.create({
-  baseURL: `${process.env.REACT_APP_SERVER_URL}`,
-});
+import { getCookie } from "./cookies";
 
 export const authAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
+});
+
+export const accAxios = axios.create({
   headers: {
     "Content-type": "application/json",
   },
 });
 
-export const accAxios = axios.create({
-  baseURL: `${process.env.REACT_APP_SERVER_URL}`,
-  headers: {
-    "Content-type": "application/json",
+accAxios.interceptors.request.use((config)=> {
+    const accessToken = getCookie("accessToken");
+    config.headers.Authorization = `Bearer ${accessToken}`;
+    return config;
+    
   },
-});
+  (error) => Promise.reject(error),
+);
 
 authAxios.interceptors.response.use(
   (response) => response,
   (error) => {
     console.log(error);
-    const errorMessage = error.response.data.message;
+    const errorMessage = error.response.data;
     const errorStatus = error.response.status;
     switch (errorStatus) {
       case 400:
         switch (errorMessage) {
           case "Invalid input data":
-            console.log("회원가입 폼을 작성해주세요.");
             return Promise.reject(new Error("회원가입 폼을 작성해주세요."));
-          case "Username already taken":
-            return Promise.reject(new Error("아이디가 중복되었습니다."));
-          case "Email already registered":
-            return Promise.reject(new Error("이메일이 중복되었습니다."));
-          case "Phone number already registered":
-            return Promise.reject(new Error("핸드폰번호가 중복되었습니다."));
-          case "An unexpected error occurred":
-            return Promise.reject(new Error("알 수 없는 오류가 발생했습니다."));
           default:
             break;
         }
         break;
+
       case 401:
         switch (errorMessage) {
           case "User not found":
@@ -56,10 +50,20 @@ authAxios.interceptors.response.use(
             return Promise.reject(new Error("로그인 횟수를 초과했습니다."));
           case "Unknown Error":
             return Promise.reject(new Error("알 수 없는 에러가 발생했습니다."));
+          case "Username already taken":
+            return Promise.reject(new Error("아이디가 중복되었습니다."));
+          case "Email already registered":
+            return Promise.reject(new Error("이메일이 중복되었습니다."));
+          case "Phone number already registered":
+            return Promise.reject(new Error("핸드폰번호가 중복되었습니다."));
+          case "An unexpected error occurred":
+            return Promise.reject(new Error("알 수 없는 오류가 발생했습니다."));
           default:
             break;
         }
         break;
+      case 500:
+        return Promise.reject(new Error("알 수 없는 에러가 발생했습니다."));
       default:
         break;
     }
