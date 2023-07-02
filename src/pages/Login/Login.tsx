@@ -1,56 +1,48 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { login } from "api";
-import { BrandLogo, Kakao, Naver, Google } from "asset";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getCookie } from "api/cookies";
+import { BrandLogo, Kakao, Naver, Google } from "asset";
 import { LoginFormType } from "types";
-import { ErrorMessage, Input } from "style/Common";
-import Modal from "components/Login/Modal/Modal";
-import PasswordInput from "components/Login/PasswordInput/PasswordInput"; // eslint-disable-line @typescript-eslint/no-unused-vars
+import { PasswordInput, Modal} from "components";
+import {Input } from "style/Common";
+
+import {loginAction} from "../../redux/reducer/loginReducer";
+
 import * as St from "./styles";
-import { openModal } from "../../redux/reducer/modalReducer";
-import { setLogin } from "../../redux/reducer/loginReducer";
+
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const ACCESS_TOKEN = getCookie("accessToken");
+
   const [loginForm, setLoginForm] = useState<LoginFormType>({
     id: "",
     password: "",
   });
-
+  
   const isFormValid = loginForm.id !== "" && loginForm.password !== "";
 
-  const [idMessage, setIdMessage] = useState("");
-  const [passwordMessage, setpasswordMessage] = useState("");
+  const handleClickLogo = () => navigate("/");
+ 
+  // 쿠키로 변경
+  useEffect(() => {
+    if (ACCESS_TOKEN) {
+      // navigate("/");
+    }
+  }, [ACCESS_TOKEN]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const response = await login.checkLoginUser({
+    await dispatch(
+      loginAction({
         id: loginForm.id,
         password: loginForm.password,
-      });
-      console.log("response: ", response);
-
-      if (response.status === 200) {
-        navigate(`/home`);
-      }
-    } catch (error: any) {
-      dispatch(openModal(error.message));
-    }
-    // dispatch(
-    //   setLogin({
-    //     id: loginForm.id,
-    //     password: loginForm.password,
-    //   }),
-    // );
-  };
-
-  const handleClickLogo = () => {
-    navigate("/home");
+      }),
+    );
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,14 +69,12 @@ const LoginForm = () => {
               placeholder="아이디"
               onChange={handleChange}
             />
-            {!(isFormValid && <ErrorMessage>{idMessage}</ErrorMessage>)}
             <PasswordInput
               name="password"
               value={loginForm.password}
               placeholder="비밀번호"
               onChange={handleChange}
             />
-            {!(isFormValid && <ErrorMessage>{passwordMessage}</ErrorMessage>)}
           </St.InputField>
           <St.LoginBtn disabled={!isFormValid}>로그인</St.LoginBtn>
         </form>

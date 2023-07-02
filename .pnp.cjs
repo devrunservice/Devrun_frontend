@@ -68,6 +68,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["styled-reset", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:4.4.7"],\
             ["swiper", "npm:9.3.2"],\
             ["typescript", "patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=289587"],\
+            ["universal-cookie", "npm:4.0.4"],\
             ["web-vitals", "npm:2.1.4"]\
           ],\
           "linkType": "SOFT"\
@@ -8802,6 +8803,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["styled-reset", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:4.4.7"],\
             ["swiper", "npm:9.3.2"],\
             ["typescript", "patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=289587"],\
+            ["universal-cookie", "npm:4.0.4"],\
             ["web-vitals", "npm:2.1.4"]\
           ],\
           "linkType": "SOFT"\

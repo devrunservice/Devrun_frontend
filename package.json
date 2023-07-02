@@ -23,6 +23,7 @@
     "styled-components": "^6.0.0-rc.3",
     "styled-reset": "^4.4.7",
     "swiper": "^9.3.2",
+    "universal-cookie": "^4.0.4",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
@@ -74,5 +75,6 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "latest",
     "typescript": "^4.9.3"
-  }
+  },
+  "proxy": "http://43.202.61.143:8080/"
 }
