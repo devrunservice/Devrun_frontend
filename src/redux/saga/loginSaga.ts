@@ -3,10 +3,13 @@ import { call, put, takeLatest } from "redux-saga/effects";
 import { createAction, PayloadAction } from "@reduxjs/toolkit";
 import { login } from "api";
 import { LoginFormType } from "types";
-import { loginLoading, loginSuccess, loginFail } from "../reducer/loginReducer";
 import { openModal } from "../reducer/modalReducer";
-
-export const loginData = createAction<LoginFormType>("loginData");
+import {
+  loginAction,
+  loginFail,
+  loginLoading,
+  loginSuccess,
+} from "../reducer/loginReducer";
 
 function* loginSaga(
   action: PayloadAction<LoginFormType>,
@@ -14,13 +17,12 @@ function* loginSaga(
   try {
     yield put(loginLoading());
     const response = yield call(login.checkLoginUser, action.payload);
-    yield put(loginSuccess(response.data));
-  } catch (error:any) {
-    // 에러 처리
+    yield put(loginSuccess(response));
+  } catch (error: any) {
     yield put(loginFail(error));
     yield put(openModal(error.message));
   }
 }
 export function* watchLoginSaga() {
-  yield takeLatest(loginData.type, loginSaga);
+  yield takeLatest(loginAction.type, loginSaga);
 }

@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getCookie } from "api/cookies";
 import { BrandLogo, Kakao, Naver, Google } from "asset";
 import { LoginFormType } from "types";
 import { PasswordInput, Modal} from "components";
-import { getCookie } from "api/cookies";
-import { ErrorMessage, Input } from "style/Common";
-import { loginData } from "../../redux/saga/loginSaga";
+import {Input } from "style/Common";
+import {loginAction} from "../../redux/reducer/loginReducer";
 
 import * as St from "./styles";
 
@@ -15,27 +15,35 @@ import * as St from "./styles";
 const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const ACCESS_TOKEN = getCookie("accessToken");
+
   const [loginForm, setLoginForm] = useState<LoginFormType>({
     id: "",
     password: "",
   });
-
   const acctoken = getCookie("token");
   
   const isFormValid = loginForm.id !== "" && loginForm.password !== "";
-  const [idMessage, setIdMessage] = useState("");
-  const [passwordMessage, setpasswordMessage] = useState("");
+
+  const handleClickLogo = () => navigate("/");
+
+  // 쿠키로 변경
+  useEffect(() => {
+    if (ACCESS_TOKEN) {
+      navigate("/");
+    }
+  }, [ACCESS_TOKEN]);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await dispatch(
-      loginData({ id: loginForm.id, password: loginForm.password }),
-    ); 
-     if (acctoken) navigate("/");
-  }
-
-  
-  const handleClickLogo = () => navigate("/home");
-
+      loginAction({
+        id: loginForm.id,
+        password: loginForm.password,
+      }),
+    );
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -61,14 +69,12 @@ const LoginForm = () => {
               placeholder="아이디"
               onChange={handleChange}
             />
-            {!(isFormValid && <ErrorMessage>{idMessage}</ErrorMessage>)}
             <PasswordInput
               name="password"
               value={loginForm.password}
               placeholder="비밀번호"
               onChange={handleChange}
             />
-            {!(isFormValid && <ErrorMessage>{passwordMessage}</ErrorMessage>)}
           </St.InputField>
           <St.LoginBtn disabled={!isFormValid}>로그인</St.LoginBtn>
         </form>
