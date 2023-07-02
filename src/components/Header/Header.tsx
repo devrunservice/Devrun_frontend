@@ -8,10 +8,9 @@ import * as St from "./style";
 
 const Header = () => {
   const navigate = useNavigate();
-  const local = window.location.pathname;
   const [cookie, setCookie] = useState<boolean>(false);
   useEffect(() => {
-    if (getCookie("token")) {
+    if (getCookie("accessToken")) {
       setCookie(true);
     }
   }, []);
@@ -75,7 +74,7 @@ const Header = () => {
                 </St.CartHover>
               </St.HeaderIcon>
               <St.HeaderIcon>
-                <Person />
+                <Person onClick={() => navigate("/notice")} />
               </St.HeaderIcon>
             </St.NavWrap>
           ) : (

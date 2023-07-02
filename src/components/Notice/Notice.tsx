@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
-import { RootState } from "redux/store";
 import { useNavigate } from "react-router-dom";
 import { userData } from "api";
 import * as St from "./style";

@@ -3,20 +3,19 @@ import { getCookie } from "./cookies";
 
 export const authAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
-  headers: {
-    "Content-type": "application/json",
-    withcredentials: true,
-  },
 });
 
 export const accAxios = axios.create({
-  baseURL: `${process.env.REACT_APP_SERVER_URL}`,
+  headers: {
+    "Content-type": "application/json",
+  },
 });
 
 accAxios.interceptors.request.use((config)=> {
-    const token = getCookie("token");
-    config.headers.Authorization = `Bearer ${token}`;
+    const accessToken = getCookie("accessToken");
+    config.headers.Authorization = `Bearer ${accessToken}`;
     return config;
+    
   },
   (error) => Promise.reject(error),
 );
