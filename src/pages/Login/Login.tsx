@@ -1,57 +1,41 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { login } from "api";
-import { BrandLogo, Kakao, Naver, Google } from "asset";
 import { useNavigate } from "react-router-dom";
+import { BrandLogo, Kakao, Naver, Google } from "asset";
 import { LoginFormType } from "types";
+import { PasswordInput, Modal} from "components";
+import { getCookie } from "api/cookies";
 import { ErrorMessage, Input } from "style/Common";
-import Modal from "components/Login/Modal/Modal";
-import PasswordInput from "components/Login/PasswordInput/PasswordInput"; // eslint-disable-line @typescript-eslint/no-unused-vars
+import { loginData } from "../../redux/saga/loginSaga";
+
 import * as St from "./styles";
-import { openModal } from "../../redux/reducer/modalReducer";
-import { setLogin } from "../../redux/reducer/loginReducer";
+
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const [loginForm, setLoginForm] = useState<LoginFormType>({
     id: "",
     password: "",
   });
 
+  const acctoken = getCookie("token");
+  
   const isFormValid = loginForm.id !== "" && loginForm.password !== "";
-
   const [idMessage, setIdMessage] = useState("");
   const [passwordMessage, setpasswordMessage] = useState("");
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const response = await login.checkLoginUser({
-        id: loginForm.id,
-        password: loginForm.password,
-      });
-      console.log("response: ", response);
+    await dispatch(
+      loginData({ id: loginForm.id, password: loginForm.password }),
+    ); 
+     if (acctoken) navigate("/");
+  }
 
-      if (response.status === 200) {
-        navigate(`/home`);
-      }
-    } catch (error: any) {
-      dispatch(openModal(error.message));
-    }
-    // dispatch(
-    //   setLogin({
-    //     id: loginForm.id,
-    //     password: loginForm.password,
-    //   }),
-    // );
-  };
+  
+  const handleClickLogo = () => navigate("/home");
 
-  const handleClickLogo = () => {
-    navigate("/home");
-  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

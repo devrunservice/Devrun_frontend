@@ -1,5 +1,6 @@
-import { CreateUser, LoginFormType } from "types";
-import { authAxios, baseAxios } from "./instance";
+import { CreateUser, LoginFormType, tmi } from "types";
+import { setCookie } from "./cookies";
+import { authAxios, accAxios } from "./instance";
 
 export const signup = {
   // 회원가입
@@ -37,16 +38,16 @@ export const login = {
   checkLoginUser: async (params: LoginFormType) => {
     const response = await authAxios.post("/login", params);
     console.log(response);
-    const accessToken = response.headers.authorization;
-    console.log(accessToken);
+    setCookie("token", response.data.authorization.substr(7));
     return response;
   },
 };
 
 // 로그인한 유저정보
 export const userData = {
-  data: (params: LoginFormType) => {
-    const response = baseAxios.get(`/tmi`, { params: { id: params.id } });
+  createUser: (params: tmi) => {
+    const response = accAxios.post(`/tmi?id=${params.id}`);
     return response;
   },
 };
+

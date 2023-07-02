@@ -74,5 +74,6 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "latest",
     "typescript": "^4.9.3"
-  }
+  },
+  "proxy": "http://43.202.61.143:8080/"
 }

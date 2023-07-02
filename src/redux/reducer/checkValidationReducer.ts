@@ -1,31 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { CheckValidationReducerType } from "types";
 
-export interface CheckValidationReducerType {
-  message: {
-    idMessage: string;
-    passwordMessage: string;
-    passwordConfirmMessage: string;
-    emailMessage: string;
-    phonenumberMessage: string;
-    codeMessage: string;
-    idDuplicationMessage: string;
-    emailDuplicationMessage: string;
-  };
-  valid: {
-    id: boolean;
-    password: boolean;
-    passwordConfirm: boolean;
-    email: boolean;
-    name: boolean;
-    birthday: boolean;
-    phonenumber: boolean;
-    code: boolean;
-    codeBtn: boolean;
-    checkCodeBtn: boolean;
-    idDuplication: boolean;
-    emailDuplication: boolean;
-  };
-}
 
 const initialState: CheckValidationReducerType = {
   message: {

@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
-import {ThemeProvider} from 'styled-components';
+import { ThemeProvider } from 'styled-components';
+import { CookiesProvider } from 'react-cookie';
 import {GlobalStyle, defaultTheme} from 'style/Theme';
 import { Provider } from "react-redux";
+
 import {
   Notice,
   Basket,
@@ -18,10 +20,13 @@ import {
   NoticeDetail,
   SignupSuccess,
   FindId,
+  Profile,
+  Certificate,
 } from "pages";
 import store from "./redux/store";
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
 
 const router = createBrowserRouter([
   {
@@ -42,6 +47,8 @@ const router = createBrowserRouter([
       { path: "lecture", element: <Lecture /> },
       { path: "detail", element: <DetailPage /> },
       { path: "createVideo", element: <CreateVideo /> },
+      { path: "Profile", element: <Profile /> },
+      { path: "Certificate", element: <Certificate /> },
     ],
   },
 ]);
@@ -50,14 +57,14 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
 root.render(
-  
+  <CookiesProvider>
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyle />
-        <Provider store={store}>
-          <RouterProvider router={router} />
-        </Provider>
+      <Provider store={store}>
+        <RouterProvider router={router}  />
+      </Provider>
     </ThemeProvider>
-  
+  </CookiesProvider>,
 );
 
 reportWebVitals();
