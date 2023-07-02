@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { login } from "api";
-import { setCookie } from "api/cookies";
+import { getCookie, setCookie } from "api/cookies";
 import { BrandLogo, Kakao, Naver, Google } from "asset";
 import { useNavigate } from "react-router-dom";
 import { LoginFormType } from "types";
@@ -11,13 +11,19 @@ import { Input } from "style/Common";
 import Modal from "components/Login/Modal/Modal";
 import PasswordInput from "components/Login/PasswordInput/PasswordInput"; // eslint-disable-line @typescript-eslint/no-unused-vars
 import { openModal } from "../../redux/reducer/modalReducer";
-import { loginSuccess } from "../../redux/reducer/loginReducer";
-
+import {
+  loginAction,
+  loginFail,
+  loginLoading,
+  loginSuccess,
+} from "../../redux/reducer/loginReducer";
 import * as St from "./styles";
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const ACCESS_TOKEN = getCookie("accessToken");
 
   const [loginForm, setLoginForm] = useState<LoginFormType>({
     id: "",
@@ -28,24 +34,36 @@ const LoginForm = () => {
 
   const handleClickLogo = () => navigate("/");
 
+  // 쿠키로 변경
+  useEffect(() => {
+    // if (loginId !== "") {
+    //   navigate("/");
+    // }
+
+    if (ACCESS_TOKEN) {
+      navigate("/");
+    }
+  }, [ACCESS_TOKEN]);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const response = await login.checkLoginUser({
-        id: loginForm.id,
-        password: loginForm.password,
-      });
-      console.log(response);
-      if (response.status === 200) navigate(`/`);
-    } catch (error: any) {
-      dispatch(openModal(error.message));
-    }
-    // dispatch(
-    //   loginSuccess({
+    // try {
+    //   const response = await login.checkLoginUser({
     //     id: loginForm.id,
     //     password: loginForm.password,
-    //   }),
-    // );
+    //   });
+    //   console.log(response);
+    //   if (response.status === 200) navigate(`/`);
+    // } catch (error: any) {
+    //   dispatch(openModal(error.message));
+    // }
+
+    await dispatch(
+      loginAction({
+        id: loginForm.id,
+        password: loginForm.password,
+      }),
+    );
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

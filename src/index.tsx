@@ -17,7 +17,6 @@ import {
   CreateVideo,
   NoticeWrite,
   NoticeDetail,
-  SignupSuccess,
   FindId,
 } from "pages";
 import store from "./redux/store";
@@ -34,10 +33,9 @@ const router = createBrowserRouter([
       { path: "home", element: <HomePage /> },
       { path: "login", element: <Login /> },
       { path: "signup", element: <Signup /> },
-      { path: "signup/:id", element: <SignupSuccess /> },
       { path: "basket", element: <Basket /> },
       { path: "notice", element: <Notice /> },
-      { path: "findid", element: <FindId /> },
+      { path: "findaccount", element: <FindId /> },
       { path: "noticeWrite", element: <NoticeWrite /> },
       { path: "noticeDetail", element: <NoticeDetail /> },
       { path: "lecture", element: <Lecture /> },

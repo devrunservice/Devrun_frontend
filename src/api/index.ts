@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { CreateUser, LoginFormType } from "types";
 import { setCookie } from "./cookies";
 import { authAxios, baseAxios } from "./instance";
@@ -38,14 +39,9 @@ export const login = {
   checkLoginUser: async (params: LoginFormType) => {
     const response = await authAxios.post("/login", params);
     setCookie("accessToken", response.data.authorization.substr(7));
-    // console.log(setCookie);
+    console.log(response);
     return response;
   },
-  // await authAxios.post("/login", params).then((response) => {
-  //   axios.defaults.headers.common.Authorization = `Bearer ${response.data.access_token}`;
-  //   console.log(response);
-  //   return response;
-  // });
 };
 
 // 로그인한 유저정보
@@ -55,3 +51,4 @@ export const userData = {
     return response;
   },
 };
+/* eslint-disable @typescript-eslint/no-unused-vars */
