@@ -5,11 +5,18 @@ export { default as Login } from "./Login/Login";
 export { default as NotFound } from "./NotFound/NotFound";
 export { default as Notice } from "./Notice";
 export { default as Signup } from "./Signup/Signup";
+<<<<<<< HEAD
 export {default as DetailPage} from "./DetailPage/DetailPage"
 export {default as CreateVideo} from "./CreateVideo/CreateVideo"
 export { default as NoticeWrite } from "./NoticeWrite";
 export { default as NoticeDetail } from "./NoticeDetail";
 export { default as SignupSuccess } from "./Signup/SignupSuccess";
+=======
+export { default as DetailPage } from "./DetailPage/DetailPage";
+export { default as CreateVideo } from "./CreateVideo/CreateVideo";
+export { default as NoticeWrite } from "./NoticeWrite/NoticeWrite";
+export { default as NoticeDetail } from "./NoticeDetail/NoticeDetail";
+>>>>>>> cb5adf4705699db3da96747b06dbf18c5914868a
 export { default as FindId } from "./FindId/FindId";
 export { default as Profile } from "./Profile";
 export { default as Certificate } from "./Certificates";

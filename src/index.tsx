@@ -1,9 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import {createBrowserRouter, RouterProvider} from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
-import { CookiesProvider } from 'react-cookie';
-import {GlobalStyle, defaultTheme} from 'style/Theme';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
+import { GlobalStyle, defaultTheme } from "style/Theme";
+import { CookiesProvider } from "react-cookie";
 import { Provider } from "react-redux";
 
 import {
@@ -18,14 +18,13 @@ import {
   CreateVideo,
   NoticeWrite,
   NoticeDetail,
-  SignupSuccess,
   FindId,
   Profile,
   Certificate,
 } from "pages";
 import store from "./redux/store";
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 
 
 const router = createBrowserRouter([
@@ -38,10 +37,9 @@ const router = createBrowserRouter([
       { path: "home", element: <HomePage /> },
       { path: "login", element: <Login /> },
       { path: "signup", element: <Signup /> },
-      { path: "signup/:id", element: <SignupSuccess /> },
       { path: "basket", element: <Basket /> },
       { path: "notice", element: <Notice /> },
-      { path: "findid", element: <FindId /> },
+      { path: "findaccount", element: <FindId /> },
       { path: "noticeWrite", element: <NoticeWrite /> },
       { path: "noticeDetail", element: <NoticeDetail /> },
       { path: "lecture", element: <Lecture /> },
