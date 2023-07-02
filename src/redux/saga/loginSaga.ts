@@ -1,21 +1,28 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { call, put, takeLatest } from "redux-saga/effects";
+import { createAction, PayloadAction } from "@reduxjs/toolkit";
 import { login } from "api";
-import { PayloadAction } from "@reduxjs/toolkit";
 import { LoginFormType } from "types";
-import { setLogin } from "../reducer/loginReducer";
+import { openModal } from "../reducer/modalReducer";
+import {
+  loginAction,
+  loginFail,
+  loginLoading,
+  loginSuccess,
+} from "../reducer/loginReducer";
 
 function* loginSaga(
   action: PayloadAction<LoginFormType>,
 ): Generator<any, void, any> {
   try {
+    yield put(loginLoading());
     const response = yield call(login.checkLoginUser, action.payload);
-    console.log(response);
-    yield put(setLogin(response.data));
-  } catch (error) {
-    // 에러 처리
+    yield put(loginSuccess(response));
+  } catch (error: any) {
+    yield put(loginFail(error));
+    yield put(openModal(error.message));
   }
 }
 export function* watchLoginSaga() {
-  yield takeLatest(setLogin, loginSaga);
+  yield takeLatest(loginAction.type, loginSaga);
 }

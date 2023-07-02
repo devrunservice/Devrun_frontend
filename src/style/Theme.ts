@@ -72,6 +72,7 @@ export const defaultTheme: DefaultTheme = {
   bgColor: "#fff",
   bgGrayColor: "#f7f7f7",
   bgBlack: "#333",
+  bgNavcolor :"#DBD3EB",
   mainColor: "#604B8E",
   textBlack: "#171717",
   textColor: "#676767",
