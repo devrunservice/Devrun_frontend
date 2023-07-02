@@ -7,6 +7,7 @@ import { BrandLogo, Kakao, Naver, Google } from "asset";
 import { LoginFormType } from "types";
 import { PasswordInput, Modal} from "components";
 import {Input } from "style/Common";
+
 import {loginAction} from "../../redux/reducer/loginReducer";
 
 import * as St from "./styles";
@@ -22,16 +23,15 @@ const LoginForm = () => {
     id: "",
     password: "",
   });
-  const acctoken = getCookie("token");
   
   const isFormValid = loginForm.id !== "" && loginForm.password !== "";
 
   const handleClickLogo = () => navigate("/");
-
+ 
   // 쿠키로 변경
   useEffect(() => {
     if (ACCESS_TOKEN) {
-      navigate("/");
+      // navigate("/");
     }
   }, [ACCESS_TOKEN]);
 

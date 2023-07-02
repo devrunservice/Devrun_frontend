@@ -46,8 +46,10 @@ export const login = {
 
 // 로그인한 유저정보
 export const userData = {
-  createUser: (params: tmi) => {
-    const response = accAxios.post(`/tmi?id=${params.id}`);
+  createUser: (id: tmi) => {
+    const response = accAxios.get("/tmi", {
+      params: { id: id.id },
+    });
     return response;
   },
 };
