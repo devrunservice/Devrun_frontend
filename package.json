@@ -76,5 +76,6 @@
     "eslint-plugin-react": "latest",
     "typescript": "^4.9.3"
   },
-  "proxy": "http://43.202.61.143:8080/"
+  "proxy": "http://43.202.61.143:8080/",
+  "homepage": "http://devrun.s3-website.ap-northeast-2.amazonaws.com/"
 }
