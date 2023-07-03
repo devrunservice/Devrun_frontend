@@ -1,13 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-<<<<<<< HEAD
-import { CreateUser, LoginFormType, SignupFormType } from "types";
-import { authAxios, baseAxios } from "./instance";
-import { setCookie } from "./cookies";
-=======
-import { CreateUser, LoginFormType, tmi } from "types";
+import { CreateUser, LoginFormType, SignupFormType, tmi } from "types";
 import { setCookie } from "./cookies";
 import { authAxios, accAxios } from "./instance";
->>>>>>> 110689be647eeb78a87b10bd7d488fb675574c90
 
 export const signup = {
   // 회원가입
@@ -78,4 +72,3 @@ export const userData = {
   },
 };
 /* eslint-disable @typescript-eslint/no-unused-vars */
-
