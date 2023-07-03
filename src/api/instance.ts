@@ -45,6 +45,8 @@ authAxios.interceptors.response.use(
         switch (errorMessage) {
           case "Invalid input data":
             return Promise.reject(new Error("회원가입 폼을 작성해주세요."));
+          case "User has not agreed to the terms":
+            return Promise.reject(new Error("약관동의를 진행해주세요."));
           default:
             break;
         }

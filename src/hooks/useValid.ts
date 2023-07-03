@@ -158,7 +158,7 @@ const useValid = (signupForm: SignupFormType) => {
   useEffect(() => {
     const regex = /^01([016789])(?:\d{3}|\d{4})\d{4}$/;
 
-    if (!regex.test(signupForm.phonenumber)) {
+    if (!regex.test(signupForm.phonenumber || "")) {
       setIsValid({ ...isValid, phonenumber: false });
     } else {
       setIsValid({ ...isValid, phonenumber: true });
