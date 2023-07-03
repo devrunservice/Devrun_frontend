@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+<<<<<<< HEAD
 import { CreateUser, LoginFormType, SignupFormType } from "types";
 import { authAxios, baseAxios } from "./instance";
 import { setCookie } from "./cookies";
+=======
+import { CreateUser, LoginFormType, tmi } from "types";
+import { setCookie } from "./cookies";
+import { authAxios, accAxios } from "./instance";
+>>>>>>> 110689be647eeb78a87b10bd7d488fb675574c90
 
 export const signup = {
   // 회원가입
@@ -64,9 +70,12 @@ export const userInfo = {
 
 // 로그인한 유저정보
 export const userData = {
-  data: (params: LoginFormType) => {
-    const response = baseAxios.get(`/tmi`, { params: { id: params.id } });
+  createUser: (id: tmi) => {
+    const response = accAxios.get("/tmi", {
+      params: { id: id.id },
+    });
     return response;
   },
 };
 /* eslint-disable @typescript-eslint/no-unused-vars */
+

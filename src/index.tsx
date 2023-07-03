@@ -10,6 +10,7 @@ import { GlobalStyle, defaultTheme } from "style/Theme";
 import { CookiesProvider } from "react-cookie";
 import { getCookie } from "api/cookies";
 import { Provider } from "react-redux";
+
 import {
   Notice,
   Basket,
@@ -24,6 +25,8 @@ import {
   NoticeDetail,
   FindId,
   FindPassword,
+  Profile,
+  Certificate,
 } from "pages";
 import store from "./redux/store";
 import App from "./App";
@@ -52,6 +55,9 @@ const router = createBrowserRouter([
       { path: "noticeDetail", element: <NoticeDetail /> },
       { path: "lecture", element: <Lecture /> },
       { path: "detail", element: <DetailPage /> },
+      { path: "createVideo", element: <CreateVideo /> },
+      { path: "Profile", element: <Profile /> },
+      { path: "Certificate", element: <Certificate /> },
       {
         path: "createVideo",
         element: ACCESS_TOKEN ? (
@@ -68,14 +74,14 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
 root.render(
-  <ThemeProvider theme={defaultTheme}>
-    <GlobalStyle />
-    <CookiesProvider>
+  <CookiesProvider>
+    <ThemeProvider theme={defaultTheme}>
+      <GlobalStyle />
       <Provider store={store}>
         <RouterProvider router={router} />
       </Provider>
-    </CookiesProvider>
-  </ThemeProvider>,
+    </ThemeProvider>
+  </CookiesProvider>,
 );
 
 reportWebVitals();

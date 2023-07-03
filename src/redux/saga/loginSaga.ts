@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { call, put, takeLatest } from "redux-saga/effects";
+import { createAction, PayloadAction } from "@reduxjs/toolkit";
 import { login } from "api";
-import { PayloadAction } from "@reduxjs/toolkit";
 import { LoginFormType } from "types";
-import { useNavigate } from "react-router-dom";
 import { openModal } from "../reducer/modalReducer";
 import {
   loginAction,
@@ -16,12 +15,10 @@ function* loginSaga(
   action: PayloadAction<LoginFormType>,
 ): Generator<any, void, any> {
   try {
-    console.log(action.payload);
+    yield put(loginLoading());
     const response = yield call(login.checkLoginUser, action.payload);
-    console.log(response);
     yield put(loginSuccess(response));
   } catch (error: any) {
-    console.log(error);
     yield put(loginFail(error));
     yield put(openModal(error.message));
   }
