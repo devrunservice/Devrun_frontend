@@ -9,4 +9,5 @@ export { default as DetailPage } from "./DetailPage/DetailPage";
 export { default as CreateVideo } from "./CreateVideo/CreateVideo";
 export { default as NoticeWrite } from "./NoticeWrite/NoticeWrite";
 export { default as NoticeDetail } from "./NoticeDetail/NoticeDetail";
-export { default as FindId } from "./FindId/FindId";
+export { default as FindId } from "./FindAccount/FindId";
+export { default as FindPassword } from "./FindAccount/FindPassword";

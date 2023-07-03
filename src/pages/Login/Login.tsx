@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { login } from "api";
@@ -23,7 +23,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const ACCESS_TOKEN = getCookie("accessToken");
+  const loginId = useSelector((state: RootState) => state.loginReducer.data.id);
 
   const [loginForm, setLoginForm] = useState<LoginFormType>({
     id: "",
@@ -34,37 +34,39 @@ const LoginForm = () => {
 
   const handleClickLogo = () => navigate("/");
 
-  // 쿠키로 변경
   useEffect(() => {
     // if (loginId !== "") {
     //   navigate("/");
     // }
-
-    if (ACCESS_TOKEN) {
+    console.log(getCookie("accessToken"));
+    if (getCookie("accessToken")) {
       navigate("/");
     }
-  }, [ACCESS_TOKEN]);
+  }, [getCookie("accessToken")]);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // try {
-    //   const response = await login.checkLoginUser({
-    //     id: loginForm.id,
-    //     password: loginForm.password,
-    //   });
-    //   console.log(response);
-    //   if (response.status === 200) navigate(`/`);
-    // } catch (error: any) {
-    //   dispatch(openModal(error.message));
-    // }
+  const handleSubmit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      // try {
+      //   const response = await login.checkLoginUser({
+      //     id: loginForm.id,
+      //     password: loginForm.password,
+      //   });
+      //   console.log(response);
+      //   if (response.status === 200) navigate(`/`);
+      // } catch (error: any) {
+      //   dispatch(openModal(error.message));
+      // }
 
-    await dispatch(
-      loginAction({
-        id: loginForm.id,
-        password: loginForm.password,
-      }),
-    );
-  };
+      dispatch(
+        loginAction({
+          id: loginForm.id,
+          password: loginForm.password,
+        }),
+      );
+    },
+    [loginForm],
+  );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
