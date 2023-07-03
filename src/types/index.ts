@@ -108,8 +108,8 @@ export interface SignupFormType {
   name?: string;
   email?: string;
   birthday?: string;
-  phonenumber: string;
-  code: string;
+  phonenumber?: string;
+  code?: string;
   allChecked?: boolean;
   acChecked?: boolean;
   tosChecked?: boolean;
@@ -128,8 +128,10 @@ export interface CreateUser {
   code?: string;
 }
 
-export interface PhonenumberType {
-  phonenumber: string;
+export interface FindAccountType {
+  name?: string;
+  phonenumber?: string;
+  email?: string;
   code: string;
 }
 
