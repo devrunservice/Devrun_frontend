@@ -2,15 +2,14 @@
 import { createAction, createSlice } from "@reduxjs/toolkit";
 import { LoginFormType } from "types";
 
-export interface TestType {
+export interface LoginReducerDataType {
   id: string;
   password: string;
-  status: number;
 }
 
 export interface LoginReducerType {
   loading: boolean;
-  data: TestType;
+  data: LoginFormType;
   error: Error | null;
 }
 
@@ -19,7 +18,6 @@ const initialState: LoginReducerType = {
   data: {
     id: "",
     password: "",
-    status: 0,
   },
   error: null,
 };
@@ -38,7 +36,6 @@ const loginReducer = createSlice({
       state.loading = true;
     },
     loginSuccess: (state, action) => {
-      console.log(action.payload);
       state.loading = false;
       state.data.id = action.payload.id;
       state.data.password = action.payload.password;
