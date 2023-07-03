@@ -8,7 +8,7 @@ import * as St from "./style";
 const Header = () => {
   const navigate = useNavigate()
   const basketBtn = () => navigate("/basket");
-  const mainBtn = () => navigate("/home");
+  const mainBtn = () => navigate("/");
   return (
     <St.HeaderWrap>
       <St.InnerHeader>
