@@ -1,4 +1,4 @@
-
+import { AxiosError } from "axios";
 // 페이지네이션
 export interface IPagination {
   activePage?: number;
@@ -86,16 +86,47 @@ declare global {
   }
 }
 
-
 export interface IComment {
   comment: string;
-  
 }
 
 export interface IPriceButton {
   active: boolean;
 }
 
+// 회원가입 타입
+export interface FormType {
+  userId: string;
+  password: string;
+  passwordConfirm: string;
+  name: string;
+  email: string;
+  birthday: string;
+  phonenumber: string;
+  code: string;
+}
+
+// 회원가입 데이터 전송 시 타입
+export interface CreateUser {
+  id?: string;
+  password?: string;
+  name?: string;
+  email?: string;
+  birthday?: string;
+  phonenumber?: string;
+  code?: string;
+}
+
+// export interface VerifiedCode {
+//   phonenumber: string;
+//   code?: string;
+// }
+
+export interface ITmi {
+  loading: boolean;
+  data: string[] | null;
+  error: AxiosError | null;
+}
 export interface CreateLectureType {
   lectureName: string,
   lecturePrice: string,
@@ -105,8 +136,3 @@ export interface CreateLectureType {
   lectureExplane: string,
   lectureIntroduce: string
 }
-// export interface IReactSlice {
-//   data: string[];
-//   loading: boolean;
-//   error: null | string;
-// }

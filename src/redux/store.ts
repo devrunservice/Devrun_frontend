@@ -1,16 +1,27 @@
-import {configureStore} from '@reduxjs/toolkit';
-// import createSlice from './slices/createVideoSlice'
-import {createVideoReducer} from './slices/createVideoSlice';
+import createSagaMiddleware from "redux-saga";
+import { all } from "redux-saga/effects";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import signupReducer from "./signupReducer";
+import signupSaga from "./signupSaga";
 
-const store = configureStore({
-  reducer: {
-    createVideo: createVideoReducer,
-  },
+const sagaMiddleware = createSagaMiddleware();
+
+const rootReducer = combineReducers({
+  signupReducer,
 });
 
+export type RootState = ReturnType<typeof rootReducer>;
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export function* rootSaga() {
+  yield all([signupSaga()]);
+}
+
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: [sagaMiddleware],
+});
+sagaMiddleware.run(rootSaga);
+
 export default store;
 
 
