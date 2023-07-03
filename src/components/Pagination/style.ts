@@ -8,14 +8,13 @@ export const PagingWrap = styled.div`
     align-items: center;
     gap:10px;
 `
-export const Paging = styled.button<IPageColor>`
+export const PagingArr = styled.button`
   width: 40px;
   height: 40px;
   border-radius: 3px;
-  background: ${(props) => (props.isActive ? "blue" : "black")}
-  text-align: center;
-  line-height: 40px;
+  height: 40px;
   font-size: ${(props: any) => props.theme.fontSize12px};
+   background: ${(props) => props.theme.bgColor}
   cursor: pointer;
 
   &:hover {
@@ -28,4 +27,10 @@ export const Paging = styled.button<IPageColor>`
   &:hover svg {
     fill: ${(props: any) => props.theme.textWhite};
   }
+`;
+export const Paging = styled.button<IPageColor>`
+  
+  background: ${(props) =>
+    props.isActive ? props.theme.textPoint : props.theme.bgColor}
+  
 `;

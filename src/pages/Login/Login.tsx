@@ -1,29 +1,22 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { login } from "api";
-import { getCookie, setCookie } from "api/cookies";
+import { getCookie } from "api/cookies";
 import { BrandLogo, Kakao, Naver, Google } from "asset";
-import { useNavigate } from "react-router-dom";
 import { LoginFormType } from "types";
+import { PasswordInput, Modal } from "components";
 import { Input } from "style/Common";
-import Modal from "components/Login/Modal/Modal";
-import PasswordInput from "components/Login/PasswordInput/PasswordInput"; // eslint-disable-line @typescript-eslint/no-unused-vars
-import { openModal } from "../../redux/reducer/modalReducer";
-import {
-  loginAction,
-  loginFail,
-  loginLoading,
-  loginSuccess,
-} from "../../redux/reducer/loginReducer";
+
+import { loginAction } from "../../redux/reducer/loginReducer";
+
 import * as St from "./styles";
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const loginId = useSelector((state: RootState) => state.loginReducer.data.id);
 
   const [loginForm, setLoginForm] = useState<LoginFormType>({
     id: "",

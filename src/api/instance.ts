@@ -1,38 +1,24 @@
 import axios from "axios";
-// import { getCookie } from "./cookies";
-
-export const baseAxios = axios.create({
-  baseURL: `${process.env.REACT_APP_SERVER_URL}`,
-});
+import { getCookie } from "./cookies";
 
 export const authAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
-  headers: {
-    "Content-type": "application/json",
-    withcredentials: true,
-  },
 });
 
 export const accAxios = axios.create({
-  baseURL: `${process.env.REACT_APP_SERVER_URL}`,
   headers: {
     "Content-type": "application/json",
   },
 });
 
-// authAxios.interceptors.request.use(
-//   (request) => {
-//     const accessToken = getCookie("accessToken");
-//     if (accessToken) {
-//       request.headers.Authorization = `Bearer ${accessToken}`;
-//     }
-//     return request;
-//   },
-//   (error) => {
-//     console.log(error);
-//     return Promise.reject(error);
-//   },
-// );
+accAxios.interceptors.request.use((config)=> {
+    const accessToken = getCookie("accessToken");
+    config.headers.Authorization = `Bearer ${accessToken}`;
+    return config;
+    
+  },
+  (error) => Promise.reject(error),
+);
 
 authAxios.interceptors.response.use(
   (response) => response,

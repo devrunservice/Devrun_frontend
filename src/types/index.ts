@@ -6,7 +6,20 @@ export interface IPagination {
   count?: number;
 }
 export interface IPageColor {
-  isActive?: boolean;
+  isActive: boolean;
+}
+export interface IButtonColor {
+  active: boolean;
+}
+export interface IBtnNav {
+  active: boolean;
+}
+export interface IComment {
+  comment: string;
+}
+
+export interface IPriceButton {
+  active: boolean;
 }
 
 // 결제창
@@ -85,13 +98,7 @@ declare global {
   }
 }
 
-export interface IComment {
-  comment: string;
-}
 
-export interface IPriceButton {
-  active: boolean;
-}
 
 // 회원가입 타입
 export interface SignupFormType {
@@ -151,11 +158,43 @@ export interface IsValidType {
 // 로그인 타입
 export interface LoginFormType {
   id: string;
-  password: string;
+  password?: string;
 }
 
-export interface ITmi {
-  loading: boolean;
-  data: string[] | any;
-  error: string | null | undefined;
+// export interface ITmi {
+//   loading: boolean;
+//   data: string[] | any;
+//   error: string | null | undefined;
+// }
+
+
+export interface tmi {
+  id: string;
+}
+
+export interface CheckValidationReducerType {
+  message: {
+    idMessage: string;
+    passwordMessage: string;
+    passwordConfirmMessage: string;
+    emailMessage: string;
+    phonenumberMessage: string;
+    codeMessage: string;
+    idDuplicationMessage: string;
+    emailDuplicationMessage: string;
+  };
+  valid: {
+    id: boolean;
+    password: boolean;
+    passwordConfirm: boolean;
+    email: boolean;
+    name: boolean;
+    birthday: boolean;
+    phonenumber: boolean;
+    code: boolean;
+    codeBtn: boolean;
+    checkCodeBtn: boolean;
+    idDuplication: boolean;
+    emailDuplication: boolean;
+  };
 }
