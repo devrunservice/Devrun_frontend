@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+<<<<<<< HEAD
+import { CreateUser, LoginFormType, SignupFormType } from "types";
+import { authAxios, baseAxios } from "./instance";
+import { setCookie } from "./cookies";
+=======
 import { CreateUser, LoginFormType, tmi } from "types";
 import { setCookie } from "./cookies";
 import { authAxios, accAxios } from "./instance";
+>>>>>>> 110689be647eeb78a87b10bd7d488fb675574c90
 
 export const signup = {
   // 회원가입
@@ -39,6 +45,24 @@ export const login = {
   checkLoginUser: async (params: LoginFormType) => {
     const response = await authAxios.post("/login", params);
     setCookie("accessToken", response.data.authorization.substr(7));
+    console.log(response);
+    return response;
+  },
+};
+
+export const userInfo = {
+  findIdByPhonenumber: async (params: SignupFormType) => {
+    const response = await authAxios.post("/find/uid", params);
+    console.log(response);
+    return response;
+  },
+  findIdByEmail: async (params: SignupFormType) => {
+    const response = await authAxios.post("/find/uid", params);
+    console.log(response);
+    return response;
+  },
+  findPassword: async (params: SignupFormType) => {
+    const response = await authAxios.post("/find/upass", params);
     console.log(response);
     return response;
   },
