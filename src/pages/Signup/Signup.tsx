@@ -8,7 +8,7 @@ import { signup } from "api/index";
 import PasswordInput from "components/Login/PasswordInput/PasswordInput";
 import PhoneNumber from "components/Login/PhoneNumber/PhoneNumber";
 import Modal from "components/Login/Modal/Modal";
-import { PhonenumberType, SignupFormType } from "types";
+import { SignupFormType } from "types";
 import { ErrorMessage, Input, SuccessMessage } from "style/Common";
 import * as St from "./styles";
 import { setUser } from "../../redux/reducer/checkValidationReducer";
@@ -69,8 +69,8 @@ const Signup = () => {
     .toISOString()
     .split("T")[0];
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     // if (signupForm.id === "") {
     //   return dispatch(openModal("아이디를 입력해주세요."));
     // }
@@ -143,14 +143,14 @@ const Signup = () => {
   };
 
   // 휴대폰 인증번호
-  const handleGetAuthenticationNumber = () => {
-    requestAuthenticationNumber(signupForm.phonenumber);
-  };
+  // const handleGetAuthenticationNumber = () => {
+  //   requestAuthenticationNumber(signupForm.phonenumber);
+  // };
 
-  // 인증번호 확인
-  const handleCheckAuthenticationNumber = () => {
-    verifyAuthenticationNumber(signupForm.phonenumber, signupForm.code);
-  };
+  // // 인증번호 확인
+  // const handleCheckAuthenticationNumber = () => {
+  //   verifyAuthenticationNumber(signupForm.phonenumber, signupForm.code);
+  // };
 
   // 약관 동의
   const handleAllChecked = () => {
@@ -164,7 +164,7 @@ const Signup = () => {
   };
 
   // 휴대폰 번호 및 인증번호 값 가져오기
-  const getPhonenumberForm = (values: PhonenumberType) => {
+  const getPhonenumberForm = (values: SignupFormType) => {
     signupForm.phonenumber = values.phonenumber;
     signupForm.code = values.code;
     console.log(signupForm.phonenumber);
@@ -374,7 +374,10 @@ const Signup = () => {
               <ErrorMessage>{validMessage.codeMessage}</ErrorMessage>
             )}
           </St.InputField> */}
-          <PhoneNumber getPhonenumberForm={getPhonenumberForm} />
+          <PhoneNumber
+            option="phonenumber"
+            getPhonenumberForm={getPhonenumberForm}
+          />
 
           {/* 약관 동의 */}
           <St.Ul>
