@@ -1,23 +1,23 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { getCookie } from "api/cookies";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "redux/store";
 import { BrandLogo, Kakao, Naver, Google } from "asset";
 import { LoginFormType } from "types";
 import { PasswordInput, Modal} from "components";
 import {Input } from "style/Common";
-
 import {loginAction} from "../../redux/reducer/loginReducer";
-
 import * as St from "./styles";
-
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const ACCESS_TOKEN = getCookie("accessToken");
+  const data = useSelector((state:RootState)=> state.loginReducer.data)
+  // 쿠키로 변경
+  useEffect(()=>{
+    if(data.status === 200) navigate("/");
+  },[data])
 
   const [loginForm, setLoginForm] = useState<LoginFormType>({
     id: "",
@@ -28,12 +28,6 @@ const LoginForm = () => {
 
   const handleClickLogo = () => navigate("/");
  
-  // 쿠키로 변경
-  useEffect(() => {
-    if (ACCESS_TOKEN) {
-      // navigate("/");
-    }
-  }, [ACCESS_TOKEN]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

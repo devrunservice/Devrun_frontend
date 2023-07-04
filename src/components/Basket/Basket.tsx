@@ -1,25 +1,50 @@
-import React from 'react';
-import NoImg from "asset/images/NoImg.jpg";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React from "react";
+import { Cart } from "api";
 import { IRequestPayParams, RequestPayResponse } from "types";
-import * as St from './style';
-
+import NoImg from "asset/images/NoImg.jpg";
+import * as St from "./style";
 
 const Basket = () => {
-
-  const callback = (response: RequestPayResponse) => {
-    const { success, errorMsg } = response;
-    if (success) {
-      // 여기에 페이지 이동시킬것
+  /* 콜백 함수 정의  */
+  const callback = async (response: RequestPayResponse) => {
+    const {
+      imp_uid,
+      paid_amount,
+      buyer_email,
+      buyer_name,
+      buyer_tel,
+      pay_method,
+      name,
+      merchant_uid,
+      pg_tid,
+      pg_provider,
+    } = response;
+    const res = await Cart.callbak({ imp_uid });
+    if (paid_amount === res.data.response.amount) {
+      // 저장에 성공했을때
+      await Cart.save({
+        buyer_email,
+        buyer_name,
+        buyer_tel,
+        pay_method,
+        name,
+        merchant_uid,
+        imp_uid,
+        paid_amount,
+        pg_provider,
+      });
       alert("결제 성공");
     } else {
-      // 여기에 페이지 이동시킬것
-      alert(`결제 실패: ${errorMsg}`);
+      // 저장에 실패했을떄
+      alert("결제를 취소했습니다.");
     }
   };
-  const basketBtn =(e:React.FormEvent<HTMLFormElement>)=>{
+
+  const basketBtn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // 가맹점 식별코드
-    if (!window.IMP) return
+    if (!window.IMP) return;
     const { IMP } = window;
     IMP.init("imp75220550");
     /* 2. 결제 데이터 정의하기 */
@@ -29,16 +54,15 @@ const Basket = () => {
       merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
       amount: 10, // 결제금액
       name: "아임포트 결제", // 주문명
-      buyer_name: "홍길동", // 구매자 이름
-      buyer_tel: "01012341234", // 구매자 전화번호
-      buyer_email: "example@example", // 구매자 이메일
+      buyer_name: "송진환", // 구매자 이름
+      buyer_tel: "01032633143", // 구매자 전화번호
+      buyer_email: "song7022556@gmail.com", // 구매자 이메일
     };
 
     /* 4. 결제 창 호출하기 */
     IMP.request_pay(data, callback);
-  }
-  
- 
+  };
+
   return (
     <St.BasketForm onSubmit={basketBtn}>
       <St.WhiteSmallBg>
@@ -145,11 +169,10 @@ const Basket = () => {
           <span>구매조건 및 개인정보처리방침</span>과 결제에 동의합니다.
         </St.Privacy>
       </St.WhiteSmallBg>
-      <St.Button >
-        결제하기
-      </St.Button>
+      <St.Button>결제하기</St.Button>
     </St.BasketForm>
   );
 };
-    
-export default Basket
+
+export default Basket;
+/* eslint-disable @typescript-eslint/no-unused-vars */

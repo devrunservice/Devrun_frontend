@@ -62,11 +62,11 @@ export interface IRequestPayResponse {
 }
 
 export interface RequestPayResponse extends IRequestPayResponse {
-  success: boolean;
-  error_code: string;
-  errorMsg: string;
-  imp_uid: string | null;
-  merchant_uid: string;
+  success?: boolean;
+  error_code?: string | boolean;
+  errorMsg?: string;
+  imp_uid?: string | null;
+  merchant_uid?: string;
   pay_method?: string;
   paid_amount?: number;
   status?: string;
@@ -159,11 +159,18 @@ export interface LoginFormType {
   password?: string;
 }
 
-// export interface ITmi {
-//   loading: boolean;
-//   data: string[] | any;
-//   error: string | null | undefined;
-// }
+export interface ITmiData {
+  id: string;
+  email: string;
+  name: string;
+  phonenumber: number;
+}
+
+export interface ITmi {
+  loading: boolean;
+  data: ITmiData;
+  error: string | null | undefined;
+}
 
 
 export interface tmi {

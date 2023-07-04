@@ -17,8 +17,8 @@ export interface LoginReducerType {
 const initialState: LoginReducerType = {
   loading: false,
   data: {
-    id: "",
-    password: "",
+    id: "" ,
+    password: "" ,
     status: 0,
   },
   error: null,
@@ -38,10 +38,10 @@ const loginReducer = createSlice({
       state.loading = true;
     },
     loginSuccess: (state, action) => {
-      console.log(action.payload);
       state.loading = false;
       state.data.id = action.payload.id;
       state.data.password = action.payload.password;
+      state.data.status = action.payload.status;
     },
     loginFail: (state, action) => {
       console.log(action);

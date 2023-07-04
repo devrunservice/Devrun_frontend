@@ -8,7 +8,6 @@
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
     "axios": "^1.4.0",
-    "dotenv": "^16.3.1",
     "react": "^18.2.0",
     "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
@@ -18,7 +17,6 @@
     "react-router-dom": "^6.12.1",
     "react-scripts": "5.0.1",
     "redux": "^4.2.1",
-    "redux-devtools-extension": "^2.13.9",
     "redux-saga": "^1.2.3",
     "styled-components": "^6.0.0-rc.3",
     "styled-reset": "^4.4.7",
@@ -28,7 +26,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "wbuild": "set \"GENERATE_SOURCEMAP=false\" && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
@@ -75,7 +74,5 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "latest",
     "typescript": "^4.9.3"
-  },
-  "proxy": "http://43.202.61.143:8080/",
-  "homepage": "http://devrun.s3-website.ap-northeast-2.amazonaws.com/"
+  }
 }
