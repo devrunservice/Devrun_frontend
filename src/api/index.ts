@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { CreateUser, LoginFormType, SignupFormType, tmi } from "types";
-import { setCookie } from "./cookies";
+import { setCookie, getCookie } from "api/cookies";
 import { authAxios, accAxios } from "./instance";
 
 export const signup = {
@@ -38,8 +38,9 @@ export const signup = {
 export const login = {
   checkLoginUser: async (params: LoginFormType) => {
     const response = await authAxios.post("/login", params);
-    setCookie("accessToken", response.data.authorization.substr(7));
     console.log(response);
+    setCookie("accessToken", response.data.Access_token.substr(7));
+    setCookie("refreshToken", response.data.Refresh_token);
     return response;
   },
 };
@@ -59,6 +60,14 @@ export const userInfo = {
     const response = await authAxios.post("/find/upass", params);
     console.log(response);
     return response;
+  },
+};
+
+export const token = {
+  refreshAccessToken: async (params: string) => {
+    const response = await accAxios.post("/token/refresh", params);
+    setCookie("accessToken", response.data.Access_token);
+    return response.data.Access_token;
   },
 };
 

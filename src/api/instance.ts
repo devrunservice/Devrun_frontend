@@ -1,5 +1,6 @@
+import { token } from "api";
 import axios from "axios";
-import { getCookie } from "./cookies";
+import { getCookie, setCookie } from "./cookies";
 
 export const authAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
@@ -11,13 +12,44 @@ export const accAxios = axios.create({
   },
 });
 
-accAxios.interceptors.request.use((config)=> {
+accAxios.interceptors.request.use(
+  (config) => {
     const accessToken = getCookie("accessToken");
     config.headers.Authorization = `Bearer ${accessToken}`;
     return config;
-    
   },
   (error) => Promise.reject(error),
+);
+
+accAxios.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+    console.log(error.config);
+    if (error.response.status === 401 && !originalRequest.retry) {
+      originalRequest.retry = true;
+      const refreshToken = getCookie("refreshToken");
+      if (refreshToken) {
+        try {
+          const newAccessToken = await token.refreshAccessToken(refreshToken);
+          setCookie("accessToken", newAccessToken);
+          originalRequest.header.Authorization = `Bearer ${newAccessToken}`;
+          return await axios(originalRequest);
+        } catch (refreshToeknError: any) {
+          const errorMessage = refreshToeknError.response.data;
+          switch (errorMessage) {
+            case "Invalid refresh token":
+            case "User not found":
+              return Promise.reject(new Error("로그인을 해주세요."));
+            default:
+              break;
+          }
+        }
+      }
+    } else if (error.response.status === 502) {
+      return Promise.reject(new Error("서버에 문제가 발생했습니다."));
+    }
+  },
 );
 
 authAxios.interceptors.response.use(

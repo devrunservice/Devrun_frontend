@@ -98,8 +98,6 @@ declare global {
   }
 }
 
-
-
 // 회원가입 타입
 export interface SignupFormType {
   id?: string | undefined;
@@ -167,7 +165,6 @@ export interface LoginFormType {
 //   error: string | null | undefined;
 // }
 
-
 export interface tmi {
   id: string;
 }
@@ -197,4 +194,9 @@ export interface CheckValidationReducerType {
     idDuplication: boolean;
     emailDuplication: boolean;
   };
+}
+
+export interface TokenType {
+  value: string;
+  expire: Date;
 }
