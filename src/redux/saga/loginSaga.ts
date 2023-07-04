@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { call, put, takeLatest } from "redux-saga/effects";
-import { createAction, PayloadAction } from "@reduxjs/toolkit";
+import { PayloadAction } from "@reduxjs/toolkit";
 import { login } from "api";
 import { LoginFormType } from "types";
 import { openModal } from "../reducer/modalReducer";

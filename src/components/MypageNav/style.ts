@@ -2,10 +2,11 @@ import { styled } from "styled-components";
 import { IBtnNav } from "types";
 
 export const Aside = styled.aside`
-  width: 175px;
+  width: 230px;
   display: flex;
   flex-direction: column;
   gap: 30px;
+  margin-right:70px;
 `;
 export const AsideTit = styled.em`
   display: block;

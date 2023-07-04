@@ -9,9 +9,7 @@ import { BrandLogo, Kakao, Naver, Google } from "asset";
 import { LoginFormType } from "types";
 import { PasswordInput, Modal } from "components";
 import { Input } from "style/Common";
-
 import { loginAction } from "../../redux/reducer/loginReducer";
-
 import * as St from "./styles";
 
 const LoginForm = () => {
