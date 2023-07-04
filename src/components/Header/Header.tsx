@@ -8,12 +8,13 @@ import * as St from "./style";
 
 const Header = () => {
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
   const [cookie, setCookie] = useState<boolean>(false);
   useEffect(() => {
     if (getCookie("accessToken")) {
       setCookie(true);
     }
-  }, []);
+  }, [cookie]);
 
   return (
     <St.HeaderWrap>
@@ -74,7 +75,10 @@ const Header = () => {
                 </St.CartHover>
               </St.HeaderIcon>
               <St.HeaderIcon>
-                <Person onClick={() => navigate("/notice")} />
+                <Person />
+                <St.Dropdown>
+                  <St.DropdownItem>로그아웃</St.DropdownItem>
+                </St.Dropdown>
               </St.HeaderIcon>
             </St.NavWrap>
           ) : (

@@ -6,7 +6,7 @@ export const Section = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 100vh;
   background-color: ${(props) => props.theme.bgGrayColor};
   overflow: auto;
 `;
