@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { Inner } from "style/Common";
 import { IButtonColor } from "types";
+import { BsCart3, BsPerson } from "react-icons/bs";
 import { Category, Search, Logo } from "asset";
 
 export const HeaderWrap = styled.div`
@@ -76,21 +77,34 @@ export const Button = styled.button<IButtonColor>`
   border-radius: 5px;
   height: 40px;
 `;
-export const IconWrap = styled.div``;
+
 export const HeaderIcon = styled.div`
   width: 50px;
-  justify-content: center;
-  display: flex;
-  align-items: center;
   position: relative;
-  > svg {
-    cursor: pointer;
-  }
   &:hover div {
     visibility: visible;
   }
 `;
-
+export const Icon = styled.div`
+  text-align: center;
+  line-height: 80px;
+  font-size: 0;
+`;
+const Icons = css`
+  fill: ${(props: any) => props.theme.textBlack};
+  cursor: pointer;
+  position: relative;
+`;
+export const Cart = styled(BsCart3)`
+  ${Icons}
+  font-size: 22px;
+  top: 11px;
+`;
+export const Person = styled(BsPerson)`
+  ${Icons}
+  font-size: 23px;
+  top: 13px;
+`;
 const common = css`
   width: 0;
   height: 0;
@@ -105,7 +119,7 @@ export const CartHover = styled.div`
   position: absolute;
   visibility: hidden;
   width: 440px;
-  top: 50px;
+  top: 75px;
   right: 0;
   border-radius: 8px;
   background: ${(props: any) => props.theme.bgColor};

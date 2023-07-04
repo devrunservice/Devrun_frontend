@@ -7,6 +7,7 @@ export const authAxios = axios.create({
 });
 
 export const accAxios = axios.create({
+  baseURL: `${process.env.REACT_APP_SERVER_URL}`,
   headers: {
     "Content-type": "application/json",
   },

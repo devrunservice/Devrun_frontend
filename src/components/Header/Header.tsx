@@ -1,20 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Cart, Person } from "asset";
 import { getCookie } from "api/cookies";
 import NoImg from "asset/images/NoImg.jpg";
 import * as St from "./style";
 
 const Header = () => {
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
   const [cookie, setCookie] = useState<boolean>(false);
   useEffect(() => {
     if (getCookie("accessToken")) {
       setCookie(true);
     }
-  }, [cookie]);
+  }, []);
 
   return (
     <St.HeaderWrap>
@@ -42,7 +40,9 @@ const Header = () => {
           {cookie ? (
             <St.NavWrap>
               <St.HeaderIcon>
-                <Cart />
+                <St.Icon>
+                  <St.Cart />
+                </St.Icon>
                 <St.CartHover>
                   <St.CartTop>
                     <St.CartTitle>
@@ -75,10 +75,9 @@ const Header = () => {
                 </St.CartHover>
               </St.HeaderIcon>
               <St.HeaderIcon>
-                <Person />
-                <St.Dropdown>
-                  <St.DropdownItem>로그아웃</St.DropdownItem>
-                </St.Dropdown>
+                <St.Icon>
+                  <St.Person />
+                </St.Icon>
               </St.HeaderIcon>
             </St.NavWrap>
           ) : (
