@@ -5,6 +5,7 @@ import checkValidationReducer from "./reducer/checkValidationReducer";
 import modalReducer from "./reducer/modalReducer";
 import { watchCheckValidationSaga } from "./saga/checkValidationSaga";
 import loginReducer from "./reducer/loginReducer";
+import userReducer from "./reducer/userReducer";
 import { watchLoginSaga } from "./saga/loginSaga";
 
 const sagaMiddleware = createSagaMiddleware();
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   checkValidationReducer,
   modalReducer,
   loginReducer,
+  userReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

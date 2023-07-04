@@ -3,13 +3,10 @@ import { Cookies } from 'react-cookie';
 const cookies = new Cookies();
 
 // 쿠키에 값을 저장할 때
-export const setCookie = (name: string, value: string, option?:{expires?:Date}) => {
-    const date = new Date();
-    // 우선 하루로 설정 
-    const time = new Date(date.setDate(date.getDate() + 1))
-    const defaultOption = {expires:new Date(time)}
-    return cookies.set(name, value, option || defaultOption);
-}
+export const setCookie = (name: string, value: string, option?:any) => (
+    cookies.set(name, value, { ...option })
+)
+
 
 // 쿠키에 있는 값을 꺼낼 때
 export const getCookie = (name:string) => (

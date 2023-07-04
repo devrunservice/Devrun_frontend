@@ -187,7 +187,7 @@ export const InfoWrap = styled.p`
     margin-bottom: 0px;
   }
 `;
-export const Info = styled.p`
+export const Info = styled.span`
   position: absolute;
   width: calc(100% - 120px);
   text-overflow: ellipsis;
