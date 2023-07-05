@@ -2,24 +2,27 @@
 import React, { ChangeEvent, useState } from "react";
 import * as St from "./style";
 
-
-export interface IProfile{
-  email:string
+export interface IProfile {
+  email: string;
+  password: string;
+  phonenumber: string;
 }
 
 const index = () => {
   const [profile, setProfile] = useState<IProfile>({
     email: "",
+    password: "",
+    phonenumber: "",
   });
-  const profileChange = ()=>{
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setProfile(profile);
-  }
+  };
   return (
     <St.Profile>
       <St.Title>프로필</St.Title>
       <St.ProfileCon>
         <St.Imgbox>{/* <img src="" /> */}</St.Imgbox>
-        <St.Rightbox>
+        {/* <St.Rightbox>
           <St.InputWrap>
             <St.Input
               accept="image/*"
@@ -37,7 +40,7 @@ const index = () => {
             <St.TextIcon />
             110 X 110 픽셀 이미지 사용
           </St.Imgtext>
-        </St.Rightbox>
+        </St.Rightbox> */}
       </St.ProfileCon>
       <St.ProfileCon>
         <St.ProfileEm>아이디</St.ProfileEm>
@@ -45,25 +48,17 @@ const index = () => {
       </St.ProfileCon>
       <St.ProfileCon>
         <St.ProfileEm>이메일</St.ProfileEm>
-        <St.InputOther value="asd" disabled />
-        <St.ChangeBtn onChange={profileChange}>수정</St.ChangeBtn>
-        {profile.email && (
-          <>
-            <St.InputOther value="asd" disabled />
-            <St.ChangeBtn>인증번호 전송</St.ChangeBtn>
-          </>
-        )}
+        <St.InputOther value="email" disabled />
       </St.ProfileCon>
       <St.ProfileCon>
         <St.ProfileEm>비밀번호</St.ProfileEm>
         <St.InputOther value="asd" disabled />
-        <St.ChangeBtn>수정</St.ChangeBtn>
       </St.ProfileCon>
       <St.ProfileCon>
-        <St.ProfileEm>전화번호</St.ProfileEm>
+        <St.ProfileEm>휴대폰 번호</St.ProfileEm>
         <St.InputOther value="asd" disabled />
-        <St.ChangeBtn>수정</St.ChangeBtn>
       </St.ProfileCon>
+      <St.ChangeBtn>수정</St.ChangeBtn>
     </St.Profile>
   );
 };

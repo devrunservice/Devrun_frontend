@@ -60,6 +60,7 @@ export const login = {
       expires: expirationDate,
     });
     setCookie("refreshToken", response.data.Refresh_token);
+    localStorage.setItem("userId", params.id);
     return response;
   },
 };
