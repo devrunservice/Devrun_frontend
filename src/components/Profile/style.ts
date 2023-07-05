@@ -25,7 +25,17 @@ export const Imgbox = styled.div`
   height: 110px;
   border-radius: 50%;
   background: ${(props: any) => props.theme.bgGrayColor};
+  overflow:hidden;
 `;
+export const Img = styled.img`
+  width: inherit;
+  height: inherit;
+  object-fit: cover;
+  padding: 0;
+  max-width:100%;
+`;
+
+
 export const Rightbox = styled.div``;
 export const InputWrap = styled.div`
   display: flex;

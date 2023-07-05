@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { CreateUser, LoginFormType, tmi, RequestPayResponse } from "types";
+import {
+  CreateUser,
+  LoginFormType,
+  tmi,
+  RequestPayResponse,
+  SignupFormType,
+} from "types";
 import { setCookie } from "./cookies";
 import { authAxios, accAxios } from "./instance";
 
@@ -38,6 +44,7 @@ export const signup = {
 export const login = {
   checkLoginUser: async (params: LoginFormType) => {
     const response = await authAxios.post("/login", params);
+    console.log(response);
     const accessToken = response.data.Access_token.substr(7);
     // 한시간
     const expirationDate = new Date();
@@ -52,7 +59,34 @@ export const login = {
       // 쿠키 만료날짜 1시간
       expires: expirationDate,
     });
+    setCookie("refreshToken", response.data.Refresh_token);
     return response;
+  },
+};
+
+export const userInfo = {
+  findIdByPhonenumber: async (params: SignupFormType) => {
+    const response = await authAxios.post("/find/uid", params);
+    console.log(response);
+    return response;
+  },
+  findIdByEmail: async (params: SignupFormType) => {
+    const response = await authAxios.post("/find/uid", params);
+    console.log(response);
+    return response;
+  },
+  findPassword: async (params: SignupFormType) => {
+    const response = await authAxios.post("/find/upass", params);
+    console.log(response);
+    return response;
+  },
+};
+
+export const token = {
+  refreshAccessToken: async (params: string) => {
+    const response = await accAxios.post("/token/refresh", params);
+    setCookie("accessToken", response.data.Access_token);
+    return response.data.Access_token;
   },
 };
 
@@ -63,6 +97,8 @@ export const userData = {
     return response;
   },
 };
+
+
 export const Cart = {
   callbak: (params: RequestPayResponse) => {
     const response = accAxios.post(`/verifyIamport/${params.imp_uid}`);
@@ -78,6 +114,4 @@ export const Cart = {
   },
 };
 
-
 /* eslint-disable @typescript-eslint/no-unused-vars */
-

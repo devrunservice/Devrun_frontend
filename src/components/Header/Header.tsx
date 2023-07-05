@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-
 import { getCookie } from "api/cookies";
 import NoImg from "asset/images/NoImg.jpg";
 import * as St from "./style";
@@ -58,9 +56,7 @@ const Header = () => {
                   <St.CartUl>
                     <St.CartLi>
                       <St.ImgWrap>
-                        <St.ImgBox>
-                          <St.Img src={NoImg} alt="" />
-                        </St.ImgBox>
+                        <St.Img src={NoImg} alt="" />
                       </St.ImgWrap>
                       <St.TextWrap>
                         <St.LectureTitle>

@@ -25,10 +25,10 @@ const userTmiSlice = createSlice({
     },
     userTmiFulfilled: (state, action) => {
       state.loading = false;
-      state.data.id = action.payload.id;
-      state.data.email = action.payload.email;
-      state.data.name = action.payload.name;
-      state.data.phonenumber = action.payload.phonenumber;
+      state.data.id = action.payload.data.id;
+      state.data.email = action.payload.data.email;
+      state.data.name = action.payload.data.name;
+      state.data.phonenumber = action.payload.data.phonenumber;
     },
     userTmiRejected: (state, action) => {
       state.loading = false;
