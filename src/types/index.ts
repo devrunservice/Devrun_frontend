@@ -8,19 +8,38 @@ export interface IPagination {
 export interface IPageColor {
   isActive: boolean;
 }
+// 헤더
 export interface IButtonColor {
   active: boolean;
 }
+
+// 마이페이지 네비게이션
 export interface IBtnNav {
   active: boolean;
 }
+
+// 프로필 
+export interface IProfileActiveBtn {
+  active: boolean;
+}
+export interface IProfileBtn {
+  email: boolean;
+  password: boolean;
+  number: boolean;
+}
+
+// 댓글
 export interface IComment {
   comment: string;
 }
 
+
+
 export interface IPriceButton {
   active: boolean;
 }
+
+
 
 // 결제창
 export interface IRequestPayAdd {
