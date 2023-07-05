@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
 import { Input } from "style/Common";
-import PhoneNumber from "components/Login/PhoneNumber/PhoneNumber";
+import AuthenticationNumber from "components/Login/AuthenticationNumber/AuthenticationNumber";
 import { SignupFormType } from "types";
 import * as St from "./styles";
 // import Input from 'components/Login/Input/Input';
@@ -65,7 +65,7 @@ const FindAccount = ({ findOption }: { findOption: string }) => {
   };
 
   // 휴대폰 번호 및 인증번호 값 가져오기
-  const getPhonenumberForm = (values: SignupFormType) => {
+  const getAuthenticationForm = (values: SignupFormType) => {
     if (option === "phonenumber") {
       findAccountForm.phonenumber = values.phonenumber;
       findAccountForm.code = values.code;
@@ -139,14 +139,14 @@ const FindAccount = ({ findOption }: { findOption: string }) => {
           </St.InputField>
         )}
         {option === "phonenumber" ? (
-          <PhoneNumber
+          <AuthenticationNumber
             option={option}
-            getPhonenumberForm={getPhonenumberForm}
+            getAuthenticationForm={getAuthenticationForm}
           />
         ) : (
-          <PhoneNumber
+          <AuthenticationNumber
             option={option}
-            getPhonenumberForm={getPhonenumberForm}
+            getAuthenticationForm={getAuthenticationForm}
           />
         )}
 

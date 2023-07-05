@@ -9,9 +9,7 @@ import { BrandLogo, Kakao, Naver, Google } from "asset";
 import { LoginFormType } from "types";
 import { PasswordInput, Modal } from "components";
 import { Input } from "style/Common";
-
 import { loginAction } from "../../redux/reducer/loginReducer";
-
 import * as St from "./styles";
 
 const LoginForm = () => {
@@ -23,6 +21,9 @@ const LoginForm = () => {
     password: "",
   });
 
+  const redirectTo = useSelector(
+    (state: RootState) => state.loginReducer.redirectTo,
+  );
   const isFormValid = loginForm.id !== "" && loginForm.password !== "";
 
   const handleClickLogo = () => navigate("/");
@@ -31,35 +32,31 @@ const LoginForm = () => {
     // if (loginId !== "") {
     //   navigate("/");
     // }
-    console.log(getCookie("accessToken"));
-    if (getCookie("accessToken")) {
+    if (redirectTo === "/") {
       navigate("/");
     }
-  }, [getCookie("accessToken")]);
+  }, [redirectTo, navigate]);
 
-  const handleSubmit = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      // try {
-      //   const response = await login.checkLoginUser({
-      //     id: loginForm.id,
-      //     password: loginForm.password,
-      //   });
-      //   console.log(response);
-      //   if (response.status === 200) navigate(`/`);
-      // } catch (error: any) {
-      //   dispatch(openModal(error.message));
-      // }
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // try {
+    //   const response = await login.checkLoginUser({
+    //     id: loginForm.id,
+    //     password: loginForm.password,
+    //   });
+    //   console.log(response);
+    //   if (response.status === 200) navigate(`/`);
+    // } catch (error: any) {
+    //   dispatch(openModal(error.message));
+    // }
 
-      dispatch(
-        loginAction({
-          id: loginForm.id,
-          password: loginForm.password,
-        }),
-      );
-    },
-    [loginForm],
-  );
+    dispatch(
+      loginAction({
+        id: loginForm.id,
+        password: loginForm.password,
+      }),
+    );
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
