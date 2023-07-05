@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import { BsExclamationCircle } from "react-icons/bs";
+import { IProfileActiveBtn } from "types";
 
 export const Profile = styled.section`
   width: calc(100% - 250px);
@@ -82,22 +83,39 @@ export const ProfileEm = styled.em`
   color: ${(props: any) => props.theme.textBlack};
   line-height: 1;
 `;
-export const InputId = styled(InputCommon)`
-  width:538px;
-`;
 export const InputOther = styled(InputCommon)`
-  width: 538px;
+  width:538px;
+  margin-bottom:10px;
+  &:last-child{
+    margin-bottom:0;
+  }
 `;
-export const ChangeBtn = styled.button`
+
+const ChangBtnCommon = styled.button`
   height: 45px;
   text-align: center;
   line-height: 43px;
   font-size: ${(props: any) => props.theme.fontSize14px};
-  width: ${(props: any) => props.theme.width85};
-  color: ${(props: any) => props.theme.textPoint};
-  border: 1px solid ${(props: any) => props.theme.textPoint};
-  background: ${(props: any) => props.theme.bgColor};
   border-radius: 5px;
   margin-left: 10px;
   cursor: pointer;
 `;
+
+export const ChangeBtn = styled(ChangBtnCommon)<IProfileActiveBtn>`
+  width: ${(props: any) => props.theme.width85};
+  color: ${(props: any) =>
+    props.active ? props.theme.textWhite : props.theme.textPoint};
+  border: 1px solid ${(props: any) => props.theme.textPoint};
+  background: ${(props: any) =>
+    props.active ? props.theme.textPoint : props.theme.textWhite};
+  &:hover {
+    background: ${(props: any) => props.theme.textPoint};
+    color: ${(props: any) => props.theme.textWhite};
+  }
+`;
+export const CertBtn = styled(ChangBtnCommon)`
+  width: ${(props: any) => props.theme.width120};
+  color: ${(props: any) => props.theme.textWhite};
+  background: ${(props: any) => props.theme.textPoint};
+`;
+export const Hidden = styled.div``
