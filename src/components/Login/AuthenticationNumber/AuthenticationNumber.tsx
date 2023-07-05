@@ -4,14 +4,14 @@ import { ErrorMessage, Input, SuccessMessage } from "style/Common";
 import { SignupFormType } from "types";
 import * as St from "./styles";
 
-const PhoneNumber = ({
+const AuthenticationNumber = ({
   option,
-  getPhonenumberForm,
+  getAuthenticationForm,
 }: {
   option: string;
-  getPhonenumberForm: (values: SignupFormType) => void;
+  getAuthenticationForm: (values: SignupFormType) => void;
 }) => {
-  const [phonenumberForm, setPhonenumberForm] = useState<SignupFormType>({
+  const [authenticationForm, setAuthenticationForm] = useState<SignupFormType>({
     phonenumber: "",
     email: "",
     code: "",
@@ -23,26 +23,26 @@ const PhoneNumber = ({
     validMessage,
     requestAuthenticationNumber,
     verifyAuthenticationNumber,
-  } = useValid(phonenumberForm);
+  } = useValid(authenticationForm);
 
   const handleInputChange = () => {
     const values: SignupFormType = {
-      phonenumber: phonenumberForm.phonenumber,
-      code: phonenumberForm.code,
+      phonenumber: authenticationForm.phonenumber,
+      code: authenticationForm.code,
     };
-    getPhonenumberForm(values);
+    getAuthenticationForm(values);
   };
 
   // 휴대폰 인증번호
   const handleGetAuthenticationNumber = () => {
-    requestAuthenticationNumber(phonenumberForm.phonenumber || "");
+    requestAuthenticationNumber(authenticationForm.phonenumber || "");
   };
 
   // 인증번호 확인
   const handleCheckAuthenticationNumber = () => {
     verifyAuthenticationNumber(
-      phonenumberForm.phonenumber || "",
-      phonenumberForm.code || "",
+      authenticationForm.phonenumber || "",
+      authenticationForm.code || "",
     );
   };
   return (
@@ -54,11 +54,11 @@ const PhoneNumber = ({
             <Input
               type="text"
               name="phonenumber"
-              value={phonenumberForm.phonenumber}
+              value={authenticationForm.phonenumber}
               placeholder="휴대폰 번호 '-' 제외하고 입력"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setPhonenumberForm({
-                  ...phonenumberForm,
+                setAuthenticationForm({
+                  ...authenticationForm,
                   phonenumber: e.target.value,
                 });
                 setIsValid((prev) => ({ ...prev, code: true }));
@@ -82,11 +82,11 @@ const PhoneNumber = ({
             <Input
               type="text"
               name="code"
-              value={phonenumberForm.code}
+              value={authenticationForm.code}
               placeholder="인증번호 입력"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setPhonenumberForm({
-                  ...phonenumberForm,
+                setAuthenticationForm({
+                  ...authenticationForm,
                   code: e.target.value,
                 });
                 setIsValid((prev) => ({ ...prev, code: true }));
@@ -114,11 +114,11 @@ const PhoneNumber = ({
             <Input
               type="text"
               name="email"
-              value={phonenumberForm.email}
+              value={authenticationForm.email}
               placeholder="이메일"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setPhonenumberForm({
-                  ...phonenumberForm,
+                setAuthenticationForm({
+                  ...authenticationForm,
                   email: e.target.value,
                 });
                 setIsValid((prev) => ({ ...prev, code: true }));
@@ -142,11 +142,11 @@ const PhoneNumber = ({
             <Input
               type="text"
               name="code"
-              value={phonenumberForm.code}
+              value={authenticationForm.code}
               placeholder="인증번호 입력"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setPhonenumberForm({
-                  ...phonenumberForm,
+                setAuthenticationForm({
+                  ...authenticationForm,
                   code: e.target.value,
                 });
                 setIsValid((prev) => ({ ...prev, code: true }));
@@ -171,4 +171,4 @@ const PhoneNumber = ({
     </St.InputField>
   );
 };
-export default PhoneNumber;
+export default AuthenticationNumber;

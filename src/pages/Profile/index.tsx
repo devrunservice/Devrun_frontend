@@ -1,5 +1,5 @@
-import React from 'react';
-import { MypageNav, Profile } from "components";
+import React from "react";
+import { Profile, MypageNav } from "components";
 import * as St from "style/Common";
 
 const index = () => (

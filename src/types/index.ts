@@ -8,19 +8,38 @@ export interface IPagination {
 export interface IPageColor {
   isActive: boolean;
 }
+// 헤더
 export interface IButtonColor {
   active: boolean;
 }
+
+// 마이페이지 네비게이션
 export interface IBtnNav {
   active: boolean;
 }
+
+// 프로필 
+export interface IProfileActiveBtn {
+  active: boolean;
+}
+export interface IProfileBtn {
+  email: boolean;
+  password: boolean;
+  number: boolean;
+}
+
+// 댓글
 export interface IComment {
   comment: string;
 }
 
+
+
 export interface IPriceButton {
   active: boolean;
 }
+
+
 
 // 결제창
 export interface IRequestPayAdd {
@@ -62,11 +81,11 @@ export interface IRequestPayResponse {
 }
 
 export interface RequestPayResponse extends IRequestPayResponse {
-  success: boolean;
-  error_code: string;
-  errorMsg: string;
-  imp_uid: string | null;
-  merchant_uid: string;
+  success?: boolean;
+  error_code?: string | boolean;
+  errorMsg?: string;
+  imp_uid?: string | null;
+  merchant_uid?: string;
   pay_method?: string;
   paid_amount?: number;
   status?: string;
@@ -97,8 +116,6 @@ declare global {
     IMP?: Iamport;
   }
 }
-
-
 
 // 회원가입 타입
 export interface SignupFormType {
@@ -161,12 +178,18 @@ export interface LoginFormType {
   password?: string;
 }
 
-// export interface ITmi {
-//   loading: boolean;
-//   data: string[] | any;
-//   error: string | null | undefined;
-// }
+export interface ITmiData {
+  id: string;
+  email: string;
+  name: string;
+  phonenumber: number;
+}
 
+export interface ITmi {
+  loading: boolean;
+  data: ITmiData;
+  error: string | null | undefined;
+}
 
 export interface tmi {
   id: string;
@@ -197,4 +220,9 @@ export interface CheckValidationReducerType {
     idDuplication: boolean;
     emailDuplication: boolean;
   };
+}
+
+export interface TokenType {
+  value: string;
+  expire: Date;
 }

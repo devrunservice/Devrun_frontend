@@ -84,29 +84,19 @@ export const ContentBox = styled.label`
   width:calc(100% - 16px)
 `;
 export const ImgWrap = styled.div`
-  width: 171px;
-  margin: 0 20px 0 5px;
-`;
-export const ImgBox = styled.div`
-  
-  width: 100%;
-  height: 0;
-  position: relative;
-  padding-bottom: 56.25%;
+  width: 170px;
+  height: 95px;
   overflow: hidden;
   border-radius: 5px;
+  margin: 0 20px 0 5px;
 `;
+
 export const Img = styled.img`
-  width: auto;
-  height: auto;
+  width: inherit;
+  height: inherit;
+  object-fit: cover;
+  padding: 0;
   max-width: 100%;
-  max-height: 100%;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
 `;
 export const TextBox = styled.div`
   width: calc(100% - 212px);
@@ -167,6 +157,7 @@ export const DiscountNum = styled.span`
     bottom: 0;
     margin: auto 0;
     left: 0;
+
   }
 `;
 export const Money = styled.p`
@@ -187,7 +178,7 @@ export const InfoWrap = styled.p`
     margin-bottom: 0px;
   }
 `;
-export const Info = styled.p`
+export const Info = styled.span`
   position: absolute;
   width: calc(100% - 120px);
   text-overflow: ellipsis;

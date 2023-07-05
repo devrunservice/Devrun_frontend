@@ -43,6 +43,7 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
     const { files } = e.target;
     if (files && files.length > 0) {
       const file = files[0];
+      console.log(file)
       const url = URL.createObjectURL(file);
       setImgUrl(url);
     }

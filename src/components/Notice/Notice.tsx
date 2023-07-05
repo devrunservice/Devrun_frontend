@@ -1,29 +1,15 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from "react";
+
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { userData } from "api";
+
 import * as St from "./style";
 
 
 const Notice = () => {
   const navigate = useNavigate();
-  const [id, setId] = useState("");
-  const idChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setId(e.target.value);
 
-  const writeBtn = async () => {
-   try {
-    const response = await userData.createUser({
-      id:id
-    })
-    console.log("response", response);
-   } catch (error) {
-    console.log(error)
-   }
-  };
   const listBtn = () => navigate("/noticeDetail");
-
-  // const writeBtn = () => navigate("/noticeWrite");
+  const writeBtn = () => navigate("/noticeWrite");
 
   return (
     <>
@@ -38,7 +24,7 @@ const Notice = () => {
         </St.TableLi>
       </St.Table>
       <St.ButtonWrap>
-        <input type="text" onChange={idChange} value={id} />
+        
         <St.Button type="button" onClick={() => writeBtn()}>
           글쓰기
         </St.Button>
@@ -48,4 +34,3 @@ const Notice = () => {
 };
 
 export default Notice;
-/* eslint-disable @typescript-eslint/no-unused-vars */

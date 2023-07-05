@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import { BsCheckAll } from "react-icons/bs";
 
 export const Title = styled.h4`
   margin-bottom: 30px;
@@ -40,3 +41,7 @@ export const Content = styled.div`
     width:100%;
     height:300px;
 `
+export const NameCheack = styled(BsCheckAll)`
+  color: ${(props: any) => props.theme.textPoint};
+  font-size: ${(props: any) => props.theme.fontSize20px};
+`;

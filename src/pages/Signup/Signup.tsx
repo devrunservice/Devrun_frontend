@@ -6,12 +6,11 @@ import { RootState } from "redux/store";
 import useValid from "hooks/useValid";
 import { signup } from "api/index";
 import PasswordInput from "components/Login/PasswordInput/PasswordInput";
-import PhoneNumber from "components/Login/PhoneNumber/PhoneNumber";
+import AuthenticationNumber from "components/Login/AuthenticationNumber/AuthenticationNumber";
 import Modal from "components/Login/Modal/Modal";
 import { SignupFormType } from "types";
 import { ErrorMessage, Input, SuccessMessage } from "style/Common";
 import * as St from "./styles";
-import { setUser } from "../../redux/reducer/checkValidationReducer";
 import { openModal, setSignupSuccess } from "../../redux/reducer/modalReducer";
 
 const Signup = () => {
@@ -164,7 +163,7 @@ const Signup = () => {
   };
 
   // 휴대폰 번호 및 인증번호 값 가져오기
-  const getPhonenumberForm = (values: SignupFormType) => {
+  const getAuthenticationForm = (values: SignupFormType) => {
     signupForm.phonenumber = values.phonenumber;
     signupForm.code = values.code;
     console.log(signupForm.phonenumber);
@@ -374,9 +373,9 @@ const Signup = () => {
               <ErrorMessage>{validMessage.codeMessage}</ErrorMessage>
             )}
           </St.InputField> */}
-          <PhoneNumber
+          <AuthenticationNumber
             option="phonenumber"
-            getPhonenumberForm={getPhonenumberForm}
+            getAuthenticationForm={getAuthenticationForm}
           />
 
           {/* 약관 동의 */}

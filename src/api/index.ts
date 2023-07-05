@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { CreateUser, LoginFormType, SignupFormType, tmi } from "types";
+import {
+  CreateUser,
+  LoginFormType,
+  tmi,
+  RequestPayResponse,
+  SignupFormType,
+} from "types";
 import { setCookie } from "./cookies";
 import { authAxios, accAxios } from "./instance";
 
@@ -38,8 +44,22 @@ export const signup = {
 export const login = {
   checkLoginUser: async (params: LoginFormType) => {
     const response = await authAxios.post("/login", params);
-    setCookie("accessToken", response.data.authorization.substr(7));
     console.log(response);
+    const accessToken = response.data.Access_token.substr(7);
+    // 한시간
+    const expirationDate = new Date();
+    expirationDate.setMinutes(expirationDate.getMinutes() * 30);
+    setCookie("accessToken", accessToken, {
+      // 모든페이지에서 쿠키 엑세스 가능
+      path: "/",
+      // https 일때 true로 바꿔줄것!
+      secure: false,
+      // 쿠키 훔쳐가는거 막음 로컬에서는 사용이 안된다함
+      // httpOnly: true,
+      // 쿠키 만료날짜 1시간
+      expires: expirationDate,
+    });
+    setCookie("refreshToken", response.data.Refresh_token);
     return response;
   },
 };
@@ -62,13 +82,36 @@ export const userInfo = {
   },
 };
 
+export const token = {
+  refreshAccessToken: async (params: string) => {
+    const response = await accAxios.post("/token/refresh", params);
+    setCookie("accessToken", response.data.Access_token);
+    return response.data.Access_token;
+  },
+};
+
 // 로그인한 유저정보
 export const userData = {
-  createUser: (id: tmi) => {
-    const response = accAxios.get("/tmi", {
-      params: { id: id.id },
-    });
+  createUser: async (id: tmi) => {
+    const response = await accAxios.get("/tmi", { params: { id } });
     return response;
   },
 };
+
+
+export const Cart = {
+  callbak: (params: RequestPayResponse) => {
+    const response = accAxios.post(`/verifyIamport/${params.imp_uid}`);
+    return response;
+  },
+  save: (params: RequestPayResponse) => {
+    const response = accAxios.post("/savePaymentInfo", params);
+    return response;
+  },
+  refund: (params: any) => {
+    const response = accAxios.post("/payment", params);
+    return response;
+  },
+};
+
 /* eslint-disable @typescript-eslint/no-unused-vars */

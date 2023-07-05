@@ -11,6 +11,7 @@ export interface LoginReducerType {
   loading: boolean;
   data: LoginFormType;
   error: Error | null;
+  redirectTo: string;
 }
 
 const initialState: LoginReducerType = {
@@ -20,6 +21,7 @@ const initialState: LoginReducerType = {
     password: "",
   },
   error: null,
+  redirectTo: "",
 };
 
 export const loginAction = createAction<LoginFormType>("LOGIN_ACTION");
@@ -39,6 +41,7 @@ const loginReducer = createSlice({
       state.loading = false;
       state.data.id = action.payload.id;
       state.data.password = action.payload.password;
+      state.redirectTo = "/";
     },
     loginFail: (state, action) => {
       console.log(action);
