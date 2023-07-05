@@ -1,18 +1,26 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getCookie } from "api/cookies";
+import { getCookie, removeCookie } from "api/cookies";
 import NoImg from "asset/images/NoImg.jpg";
 import * as St from "./style";
 
 const Header = () => {
   const navigate = useNavigate();
   const [cookie, setCookie] = useState<boolean>(false);
+
   useEffect(() => {
     if (getCookie("accessToken")) {
       setCookie(true);
     }
   }, []);
+
+  const handleLogout = () => {
+    removeCookie("accessToken");
+    removeCookie("refreshToken");
+    setCookie(false);
+    location.reload();
+  };
 
   return (
     <St.HeaderWrap>
@@ -77,6 +85,21 @@ const Header = () => {
               <St.HeaderIcon>
                 <St.Icon>
                   <St.Person />
+                  <St.Dropdown>
+                    <St.DropdownTop>
+                      <St.DropdownItemWrapper>
+                        <St.DropdownItemBtn
+                          onClick={() => navigate("/profile")}
+                        >
+                          {localStorage.getItem("userId")}
+                        </St.DropdownItemBtn>
+                        {/* <p>학생</p> */}
+                      </St.DropdownItemWrapper>
+                      <St.DropdownItemBtn onClick={handleLogout}>
+                        로그아웃
+                      </St.DropdownItemBtn>
+                    </St.DropdownTop>
+                  </St.Dropdown>
                 </St.Icon>
               </St.HeaderIcon>
             </St.NavWrap>

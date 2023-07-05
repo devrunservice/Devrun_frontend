@@ -8,10 +8,6 @@ import {
   userTmiRejected,
 } from "../reducer/userReducer";
 
-
-
-
-
 // call-데이터 부름  put - 데이터 내보냄
 // takeEvery - 여러번 반복작업을 해야할때 순서 상관없이 모두 추가해야할떄
 // takeLatest - 여러번 반복작업하는데 최종작업만 반영됨.
@@ -35,6 +31,5 @@ function* watchFetchDataSaga() {
 }
 
 export default function* userSaga() {
-  yield all([ watchFetchDataSaga() ]);
+  yield all([watchFetchDataSaga()]);
 }
-

@@ -226,7 +226,33 @@ export const Img = styled.img`
 `;
 
 export const Dropdown = styled(CartHover)`
+  /* display: flex;
+  justify-content: space-between; */
+  visibility: visible;
   width: 200px;
+
+  & button:nth-child(1) {
+    font-size: ${(props) => props.theme.fontSize18px};
+  }
+
+  & button:nth-child(1):hover {
+    text-decoration: underline;
+  }
+
+  & button:nth-child(2) {
+    color: ${(props) => props.theme.brandColor};
+  }
 `;
 
-export const DropdownItem = styled.button``;
+export const DropdownTop = styled(CartTop)`
+  justify-content: space-between;
+`;
+
+export const DropdownItemWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+export const DropdownItemBtn = styled.button`
+  background-color: transparent;
+`;

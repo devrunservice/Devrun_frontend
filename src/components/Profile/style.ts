@@ -5,18 +5,18 @@ export const Profile = styled.section`
   width: calc(100% - 250px);
   display: flex;
   flex-wrap: wrap;
-  gap:30px;
+  gap: 30px;
 `;
 export const Title = styled.h4`
-  line-height:1;
+  line-height: 1;
   font-size: ${(props: any) => props.theme.fontSize25px};
   font-weight: ${(props: any) => props.theme.fontBold};
   color: ${(props: any) => props.theme.textBlack};
 `;
 export const ProfileCon = styled.article`
   display: flex;
-  flex-wrap:wrap;
-  width:100%;
+  flex-wrap: wrap;
+  width: 100%;
 `;
 export const Imgbox = styled.div`
   margin-right: 40px;
@@ -69,10 +69,10 @@ export const Imgtext = styled.p`
   font-size: ${(props: any) => props.theme.fontSize14px};
   line-height: 1;
   display: flex;
-  margin-top:10px;
+  margin-top: 10px;
 `;
 export const TextIcon = styled(BsExclamationCircle)`
-    margin-right:5px
+  margin-right: 5px;
 `;
 export const ProfileEm = styled.em`
   display: block;
@@ -83,7 +83,7 @@ export const ProfileEm = styled.em`
   line-height: 1;
 `;
 export const InputId = styled(InputCommon)`
-  width:538px;
+  width: 538px;
 `;
 export const InputOther = styled(InputCommon)`
   width: 538px;
@@ -91,13 +91,10 @@ export const InputOther = styled(InputCommon)`
 export const ChangeBtn = styled.button`
   height: 45px;
   text-align: center;
-  line-height: 43px;
-  font-size: ${(props: any) => props.theme.fontSize14px};
   width: ${(props: any) => props.theme.width85};
   color: ${(props: any) => props.theme.textPoint};
   border: 1px solid ${(props: any) => props.theme.textPoint};
-  background: ${(props: any) => props.theme.bgColor};
+  background: transparent;
   border-radius: 5px;
-  margin-left: 10px;
   cursor: pointer;
 `;

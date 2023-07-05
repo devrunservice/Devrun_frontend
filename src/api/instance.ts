@@ -4,6 +4,9 @@ import { getCookie, setCookie } from "./cookies";
 
 export const authAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
+  headers: {
+    "Content-type": "application/json",
+  },
 });
 
 export const accAxios = axios.create({
@@ -73,10 +76,17 @@ authAxios.interceptors.response.use(
 
       case 401:
         switch (errorMessage) {
+          case "Invalid userId or password":
           case "User not found":
-            return Promise.reject(new Error("해당 유저가 존재하지 않습니다."));
           case "Incorrect password":
-            return Promise.reject(new Error("비밀번호가 일치하지 않습니다."));
+            return Promise.reject(
+              new Error("입력한 정보가 올바르지 않습니다."),
+            );
+          // case "User not found":
+          // case "Invalid userId or password":
+          //   return Promise.reject(new Error("해당 유저가 존재하지 않습니다."));
+          // case "Incorrect password":
+          //   return Promise.reject(new Error("비밀번호가 일치하지 않습니다."));
           case "Account is inactive":
             return Promise.reject(new Error("휴면 상태의 회원입니다."));
           case "Account has been withdrawn":

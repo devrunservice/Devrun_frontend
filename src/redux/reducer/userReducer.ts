@@ -1,7 +1,6 @@
 import { createSlice, createAction } from "@reduxjs/toolkit";
 import { ITmi } from "types";
 
-
 export const fetchUserTmi = createAction<string>("userReducer/fetchUserTmi");
 
 const initialState: ITmi = {
@@ -9,7 +8,7 @@ const initialState: ITmi = {
     id: "",
     email: "",
     name: "",
-    phonenumber:0,
+    phonenumber: 0,
   },
   error: null,
   loading: false,

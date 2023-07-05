@@ -39,19 +39,11 @@
     "react/no-unused-prop-types": "off",
     "import/no-named-as-default": 0,
     "object-shorthand": 0,
-
     "@typescript-eslint/naming-convention": "off",
-
     //return 관련
     "consistent-return": "off",
-    // "no-param-reassign": [
-    //   "error",
-    //   {
-    //     "props": true,
-    //     "ignorePropertyModificationsFor": ["state"]
-    //   }
-    // ],
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "no-restricted-globals": ["error", "some-other-global"]
   },
 
   "settings": {
