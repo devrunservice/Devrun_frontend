@@ -1,37 +1,56 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
+import { login } from "api";
+import { getCookie } from "api/cookies";
 import { BrandLogo, Kakao, Naver, Google } from "asset";
 import { LoginFormType } from "types";
-import { PasswordInput, Modal} from "components";
-import {Input } from "style/Common";
-import {loginAction} from "../../redux/reducer/loginReducer";
+import { PasswordInput, Modal } from "components";
+import { Input } from "style/Common";
+import { loginAction } from "../../redux/reducer/loginReducer";
 import * as St from "./styles";
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const data = useSelector((state:RootState)=> state.loginReducer.data)
-  // 쿠키로 변경
-  useEffect(()=>{
-    if(data.status === 200) navigate("/");
-  },[data])
 
   const [loginForm, setLoginForm] = useState<LoginFormType>({
     id: "",
     password: "",
   });
-  
+
+  const redirectTo = useSelector(
+    (state: RootState) => state.loginReducer.redirectTo,
+  );
   const isFormValid = loginForm.id !== "" && loginForm.password !== "";
 
   const handleClickLogo = () => navigate("/");
- 
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  useEffect(() => {
+    // if (loginId !== "") {
+    //   navigate("/");
+    // }
+    if (redirectTo === "/") {
+      navigate("/");
+    }
+  }, [redirectTo, navigate]);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await dispatch(
+    // try {
+    //   const response = await login.checkLoginUser({
+    //     id: loginForm.id,
+    //     password: loginForm.password,
+    //   });
+    //   console.log(response);
+    //   if (response.status === 200) navigate(`/`);
+    // } catch (error: any) {
+    //   dispatch(openModal(error.message));
+    // }
+
+    dispatch(
       loginAction({
         id: loginForm.id,
         password: loginForm.password,

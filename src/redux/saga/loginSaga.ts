@@ -17,6 +17,7 @@ function* loginSaga(
   try {
     yield put(loginLoading());
     const response = yield call(login.checkLoginUser, action.payload);
+    console.log(response)
     yield put(loginSuccess(response));
   } catch (error: any) {
     yield put(loginFail(error));

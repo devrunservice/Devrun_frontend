@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {  ChangeEvent, useState } from "react";
 import { IProfileBtn } from "types";
+import useValid from "hooks/useValid";
 import * as St from "./style";
 
 interface Iprofile {
@@ -12,6 +13,9 @@ interface Iprofile {
 
 
 const index = () => {
+
+  
+
   // 버튼 관련
   const [profileBtn, setProfileBtn] = useState<IProfileBtn>({
     email: false,
@@ -41,11 +45,23 @@ const index = () => {
   const numberChange = (e: ChangeEvent<HTMLInputElement>) =>
     setProfile((state) => ({ ...state, number: e.target.value }));
 
+  const [profileImg, setProfileImg] = useState<string>("")
+
+  const imgChange = (e:ChangeEvent<HTMLInputElement>)=>{
+    const img = e.target.files
+    if(img && img.length > 0){
+      const file = img[0];
+      setProfileImg(URL.createObjectURL(file));
+    }
+  }
+
   return (
     <St.Profile>
       <St.Title>프로필</St.Title>
       <St.ProfileCon>
-        <St.Imgbox>{/* <img src="" /> */}</St.Imgbox>
+        <St.Imgbox>
+          {profileImg && <St.Img src={profileImg} alt="프로필사진" />}
+        </St.Imgbox>
         <St.Rightbox>
           <St.InputWrap>
             <St.Input
@@ -53,6 +69,7 @@ const index = () => {
               type="file"
               placeholder="선택된 이미지 없음"
               id="imgfile"
+              onChange={imgChange}
             />
             <St.Label htmlFor="imgfile">파일선택</St.Label>
           </St.InputWrap>

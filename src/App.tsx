@@ -7,11 +7,14 @@ const App = () => {
   const hideHeader =
     location.pathname === "/signup" ||
     location.pathname === "/login" ||
-    location.pathname === "/findid";
+    location.pathname === "/findaccount:id" ||
+    location.pathname === "/findaccount:password";
+
   const hideFooter =
     location.pathname === "/signup" ||
     location.pathname === "/login" ||
-    location.pathname === "/findid";
+    location.pathname === "/findaccount:id" ||
+    location.pathname === "/findaccount:password";
 
   return (
     <>

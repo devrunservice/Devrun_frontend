@@ -2,26 +2,26 @@
 import { createAction, createSlice } from "@reduxjs/toolkit";
 import { LoginFormType } from "types";
 
-export interface TestType {
+export interface LoginReducerDataType {
   id: string;
   password: string;
-  status: number;
 }
 
 export interface LoginReducerType {
   loading: boolean;
-  data: TestType;
+  data: LoginFormType;
   error: Error | null;
+  redirectTo: string;
 }
 
 const initialState: LoginReducerType = {
   loading: false,
   data: {
-    id: "" ,
-    password: "" ,
-    status: 0,
+    id: "",
+    password: "",
   },
   error: null,
+  redirectTo: "",
 };
 
 export const loginAction = createAction<LoginFormType>("LOGIN_ACTION");
@@ -41,7 +41,7 @@ const loginReducer = createSlice({
       state.loading = false;
       state.data.id = action.payload.id;
       state.data.password = action.payload.password;
-      state.data.status = action.payload.status;
+      state.redirectTo = "/";
     },
     loginFail: (state, action) => {
       console.log(action);
