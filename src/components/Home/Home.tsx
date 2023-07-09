@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { LectureCard } from "components";
 import { SildeImg } from "asset";
 import { Swiper, SwiperSlide } from "swiper/react";
+
 import * as St from "./style";
 import 'swiper/swiper.css';
 
+
 const Home = () => {
   const [test, setTest] = useState([1, 2, 34, 1, 2, 3, 4]); // eslint-disable-line @typescript-eslint/no-unused-vars
+  
   return (
     <>
       <St.EventBanner>

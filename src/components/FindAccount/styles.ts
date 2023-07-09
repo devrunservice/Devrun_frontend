@@ -30,39 +30,19 @@ export const H1 = styled.h1`
   padding-bottom: 1.5rem;
 `;
 
+export const P = styled.p`
+  color: ${(props) => props.theme.textBlack};
+  margin-bottom: 0.6rem;
+`;
+
 export const Button = styled.button`
+  width: 100%;
   border: none;
   border-radius: 5px;
   color: ${(props) => props.theme.textWhite};
   background-color: ${(props) => props.theme.brandColor};
   padding: 0.8rem 0;
   cursor: pointer;
-`;
-
-// 아이디, 비밀번호 찾기 버튼
-export const Menu = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-
-  & > ${Button}:nth-child(1) {
-    width: 100%;
-    color: ${(props) => props.theme.textBlack};
-    background-color: ${(props) => props.theme.bgColor};
-    border: ${(props) => props.theme.brandColor} 2px solid;
-    border-bottom: 0;
-  }
-
-  & > ${Button}:nth-child(2) {
-    width: 100%;
-    color: ${(props) => props.theme.textWhite};
-    background-color: ${(props) => props.theme.brandColor};
-  }
-`;
-
-export const MenuBtn = styled(Button)`
-  padding: 0.8rem 1rem;
-  border-radius: 0px;
 `;
 
 // 휴대폰 번호, 이메일 선택 라디오 박스
@@ -74,6 +54,12 @@ export const OptionWrapper = styled.div`
 export const Option = styled.div`
   display: flex;
   margin-right: 1rem;
+`;
+
+export const InputField = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.6rem;
 `;
 
 export const Radio = styled.input`
