@@ -17,6 +17,7 @@ const rootReducer = combineReducers({
   modalReducer,
   loginReducer,
   createVideoSlice,
+  userReducer
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
