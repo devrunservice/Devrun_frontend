@@ -1,3 +1,4 @@
+import React, { MutableRefObject } from 'react'
 // 페이지네이션
 export interface IPagination {
   activePage?: number;
@@ -221,8 +222,54 @@ export interface CheckValidationReducerType {
     emailDuplication: boolean;
   };
 }
-
 export interface TokenType {
   value: string;
   expire: Date;
+}
+
+// export interface CreateLectureType {
+//   lectureName: string;
+//   lecturePrice: string;
+//   imageUrl: string;
+//   lectureCategory: string;
+//   lectureTag: Array<string>;
+//   lectureExplane: string;
+//   lectureIntroduce: string
+//   num: number;
+//   title: string;
+//   isReadOnly: boolean;
+//   subTitle: Array<subTitleType  >
+// }
+// export interface subTitleType {
+//   subNum:number;
+//   className: string;
+//   url: string;
+//   isReadOnly: boolean;
+// }
+export interface CreateLectureType {
+  lectureName?: string;
+  lecturePrice?: string;
+  imageUrl?: string;
+  lectureCategory?: string;
+  lectureTag?: Array<string>;
+  lectureExplane?: string;
+  lectureIntroduce?: string;
+  section?: Array<SectionType>
+}
+export interface SectionType {
+  // num:number,
+  num:MutableRefObject<number>,
+  title: string;
+  isReadOnly: boolean;
+  subTitle: Array<SubTitleType>
+}
+export interface SubTitleType {
+  subNum:number;
+  // subNum:React.MutableRefObject<number>;
+  className: string;
+  url: string;
+  isReadOnly: boolean;
+}
+export interface RefType {
+
 }
