@@ -1,5 +1,6 @@
-import styled from "styled-components"
-import { Inner } from "style/Theme";
+import styled, { css } from "styled-components"
+import { Inner } from "style/Common";
+import { IButtonColor } from "types";
 import { Category, Search ,Logo} from "asset";
 
 export const HeaderWrap = styled.div`
@@ -10,17 +11,14 @@ export const InnerHeader = styled(Inner)`
   justify-content: space-between;
   height: 80px;
 `;
-export const Left = styled.div`
+export const NavWrap = styled.div`
   display:flex; 
   align-items: center;
 `
 export const LogoIcon = styled(Logo)`
   cursor: pointer;
-
 `
-export const Right = styled.div`
-  display: flex;
-`;
+
 export const CategoryWrap = styled.div`
   margin-left:60px;
   display: flex;
@@ -59,6 +57,26 @@ export const SearchIcon = styled(Search)`
   bottom:0;
   cursor: pointer;
 `;
+
+export const ButtonWrap = styled.div`
+  display: flex;
+  align-items: center;
+  gap:10px;
+`;
+export const Button = styled.button<IButtonColor>`
+  background: ${(props: any) =>
+    props.active ? props.theme.bgColor : props.theme.textPoint};
+  color: ${(props: any) =>
+    props.active ? props.theme.textColor : props.theme.textWhite};
+  border: 1px solid
+    ${(props: any) =>
+      props.active ? props.theme.borderGray : props.theme.textPoint};
+  font-size: ${(props: any) => props.theme.fontSize14px};
+  width: ${(props: any) => props.theme.width85};
+  border-radius: 5px;
+  height: 40px;
+`;
+export const IconWrap = styled.div``
 export const HeaderIcon = styled.div`
   width: 50px;
   justify-content: center;
@@ -72,17 +90,39 @@ export const HeaderIcon = styled.div`
     visibility: visible;
   }
 `;
+
+const common = css`
+  width: 0;
+  height: 0;
+  border-width: 0 15px 13px 15px;
+  border-style: solid;
+  content: "";
+  position: absolute;
+  right: 8px;
+`;
+
 export const CartHover = styled.div`
   position: absolute;
   visibility: hidden;
   width: 440px;
-  top: 70px;
+  top: 50px;
   right: 0;
   border-radius: 8px;
-  background: ${(props:any) => props.theme.bgColor};
-  border: 1px solid ${(props:any) => props.theme.borderGray};
+  background: ${(props: any) => props.theme.bgColor};
+  border: 1px solid ${(props: any) => props.theme.borderGray};
   z-index: 99;
-  padding: 25px;
+  padding: 25px 25px;
+  &::after {
+    top: -14px;
+    border-color: ${(props: any) => props.theme.borderGray} transparent;
+    ${common}
+  }
+  &::before {
+    border-color: ${(props: any) => props.theme.bgColor} transparent;
+    top: -13px;
+    z-index: 1;
+    ${common}
+  }
 `;
 export const CartTop = styled.div`
   display: flex;
@@ -142,7 +182,7 @@ export const LecturePrice = styled.p`
   font-weight: ${(props: any) => props.theme.fontMedium};
   line-height: 1;
 `;
-export const Button = styled.button`
+export const CartButton = styled.button`
   display: block;
   margin: 20px auto 0;
   background: ${(props: any) => props.theme.textPoint};

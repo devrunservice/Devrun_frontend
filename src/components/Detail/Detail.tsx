@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; 
 
 import LectureCard from 'components/LectureCard/LectureCard';
 import { ListWrap } from 'components/Home/style';
@@ -9,7 +9,7 @@ import * as St from './style'
 import 'swiper/swiper.css';
 
 const Detail = () => {
-  const [test, setTest] = useState([1,2,34,1,2,3,4]) // eslint-disable-line @typescript-eslint/no-unused-vars
+  const [test, setTest] = useState([1,2,34,1,2,3,4]) // eslint-disable-line 
   return (
     <St.DetailWrap>
       <St.PreviewArea>

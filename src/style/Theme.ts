@@ -1,6 +1,6 @@
-import styled, { DefaultTheme, createGlobalStyle } from 'styled-components';
+import { DefaultTheme, createGlobalStyle } from "styled-components";
 
-import reset from 'styled-reset';
+import reset from "styled-reset";
 
 export const GlobalStyle = createGlobalStyle`
     ${reset}
@@ -72,6 +72,7 @@ export const defaultTheme: DefaultTheme = {
   bgColor: "#fff",
   bgGrayColor: "#f7f7f7",
   bgBlack: "#333",
+  bgNavcolor :"#DBD3EB",
   mainColor: "#604B8E",
   textBlack: "#171717",
   textColor: "#676767",
@@ -84,17 +85,3 @@ export const defaultTheme: DefaultTheme = {
   border49: "#494949",
   borderGray: "#ddd",
 };
-
-export const WhiteBg = styled.div`
-  padding: 60px 0 100px;
-  background: ${(props: any) => props.theme.WhiteBg};
-`;
-export const GaryBg = styled.div`
-  background: ${(props: any) => props.theme.bgGrayColor};
-  padding: 60px 0 100px;
-`;
-
-export const Inner = styled.div`
-  width: 1200px;
-  margin: 0 auto;
-`;

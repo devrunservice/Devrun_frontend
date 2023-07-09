@@ -1,4 +1,4 @@
-import { AxiosError } from "axios";
+import React, { MutableRefObject } from 'react'
 // 페이지네이션
 export interface IPagination {
   activePage?: number;
@@ -7,7 +7,20 @@ export interface IPagination {
   count?: number;
 }
 export interface IPageColor {
-  isActive?: boolean;
+  isActive: boolean;
+}
+export interface IButtonColor {
+  active: boolean;
+}
+export interface IBtnNav {
+  active: boolean;
+}
+export interface IComment {
+  comment: string;
+}
+
+export interface IPriceButton {
+  active: boolean;
 }
 
 // 결제창
@@ -86,24 +99,23 @@ declare global {
   }
 }
 
-export interface IComment {
-  comment: string;
-}
 
-export interface IPriceButton {
-  active: boolean;
-}
 
 // 회원가입 타입
-export interface FormType {
-  userId: string;
-  password: string;
-  passwordConfirm: string;
-  name: string;
-  email: string;
-  birthday: string;
-  phonenumber: string;
-  code: string;
+export interface SignupFormType {
+  id?: string | undefined;
+  password?: string;
+  passwordConfirm?: string;
+  name?: string;
+  email?: string;
+  birthday?: string;
+  phonenumber?: string;
+  code?: string;
+  allChecked?: boolean;
+  acChecked?: boolean;
+  tosChecked?: boolean;
+  pcChecked?: boolean;
+  mcChecked?: boolean;
 }
 
 // 회원가입 데이터 전송 시 타입
@@ -117,22 +129,120 @@ export interface CreateUser {
   code?: string;
 }
 
-// export interface VerifiedCode {
-//   phonenumber: string;
-//   code?: string;
+export interface FindAccountType {
+  name?: string;
+  phonenumber?: string;
+  email?: string;
+  code: string;
+}
+
+export interface IsValidType {
+  id: boolean;
+  password: boolean;
+  passwordConfirm: boolean;
+  email: boolean;
+  name: boolean;
+  birthday: boolean;
+  phonenumber: boolean;
+  code: boolean;
+  codeBtn: boolean;
+  checkCodeBtn: boolean;
+  idDuplication: boolean;
+  emailDuplication: boolean;
+  allChecked: boolean;
+  acChecked: boolean;
+  tosChecked: boolean;
+  pcChecked: boolean;
+  mcChecked: boolean;
+}
+
+// 로그인 타입
+export interface LoginFormType {
+  id: string;
+  password?: string;
+}
+
+// export interface ITmi {
+//   loading: boolean;
+//   data: string[] | any;
+//   error: string | null | undefined;
 // }
 
-export interface ITmi {
-  loading: boolean;
-  data: string[] | null;
-  error: AxiosError | null;
+
+export interface tmi {
+  id: string;
 }
+
+export interface CheckValidationReducerType {
+  message: {
+    idMessage: string;
+    passwordMessage: string;
+    passwordConfirmMessage: string;
+    emailMessage: string;
+    phonenumberMessage: string;
+    codeMessage: string;
+    idDuplicationMessage: string;
+    emailDuplicationMessage: string;
+  };
+  valid: {
+    id: boolean;
+    password: boolean;
+    passwordConfirm: boolean;
+    email: boolean;
+    name: boolean;
+    birthday: boolean;
+    phonenumber: boolean;
+    code: boolean;
+    codeBtn: boolean;
+    checkCodeBtn: boolean;
+    idDuplication: boolean;
+    emailDuplication: boolean;
+  };
+}
+
+// export interface CreateLectureType {
+//   lectureName: string;
+//   lecturePrice: string;
+//   imageUrl: string;
+//   lectureCategory: string;
+//   lectureTag: Array<string>;
+//   lectureExplane: string;
+//   lectureIntroduce: string
+//   num: number;
+//   title: string;
+//   isReadOnly: boolean;
+//   subTitle: Array<subTitleType  >
+// }
+// export interface subTitleType {
+//   subNum:number;
+//   className: string;
+//   url: string;
+//   isReadOnly: boolean;
+// }
 export interface CreateLectureType {
-  lectureName: string,
-  lecturePrice: string,
-  imageUrl: string,
-  lectureCategory: string,
-  lectureTag: Array<string>,
-  lectureExplane: string,
-  lectureIntroduce: string
+  lectureName?: string;
+  lecturePrice?: string;
+  imageUrl?: string;
+  lectureCategory?: string;
+  lectureTag?: Array<string>;
+  lectureExplane?: string;
+  lectureIntroduce?: string;
+  section?: Array<SectionType>
+}
+export interface SectionType {
+  // num:number,
+  num:MutableRefObject<number>,
+  title: string;
+  isReadOnly: boolean;
+  subTitle: Array<SubTitleType>
+}
+export interface SubTitleType {
+  subNum:number;
+  // subNum:React.MutableRefObject<number>;
+  className: string;
+  url: string;
+  isReadOnly: boolean;
+}
+export interface RefType {
+
 }

@@ -1,9 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import {createBrowserRouter, RouterProvider} from 'react-router-dom';
-import {ThemeProvider} from 'styled-components';
-import {GlobalStyle, defaultTheme} from 'style/Theme';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
+import { ThemeProvider } from "styled-components";
+import { GlobalStyle, defaultTheme } from "style/Theme";
+import { CookiesProvider } from "react-cookie";
+import { getCookie } from "api/cookies";
 import { Provider } from "react-redux";
+
 import {
   Notice,
   Basket,
@@ -16,12 +23,16 @@ import {
   CreateVideo,
   NoticeWrite,
   NoticeDetail,
-  SignupSuccess,
   FindId,
+  FindPassword,
+  Profile,
+  Certificate,
 } from "pages";
 import store from "./redux/store";
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+
+const ACCESS_TOKEN = getCookie("accessToken");
 
 const router = createBrowserRouter([
   {
@@ -33,15 +44,28 @@ const router = createBrowserRouter([
       { path: "home", element: <HomePage /> },
       { path: "login", element: <Login /> },
       { path: "signup", element: <Signup /> },
-      { path: "signup/:id", element: <SignupSuccess /> },
-      { path: "basket", element: <Basket /> },
+      {
+        path: "basket",
+        element: ACCESS_TOKEN ? <Basket /> : <Navigate replace to="/login" />,
+      },
       { path: "notice", element: <Notice /> },
-      { path: "findid", element: <FindId /> },
+      { path: "findaccount:id", element: <FindId /> },
+      { path: "findaccount:password", element: <FindPassword /> },
       { path: "noticeWrite", element: <NoticeWrite /> },
       { path: "noticeDetail", element: <NoticeDetail /> },
       { path: "lecture", element: <Lecture /> },
       { path: "detail", element: <DetailPage /> },
       { path: "createVideo", element: <CreateVideo /> },
+      { path: "Profile", element: <Profile /> },
+      { path: "Certificate", element: <Certificate /> },
+      {
+        path: "createVideo",
+        element: ACCESS_TOKEN ? (
+          <CreateVideo />
+        ) : (
+          <Navigate replace to="/login" />
+        ),
+      },
     ],
   },
 ]);
@@ -50,19 +74,14 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
 root.render(
-  <React.StrictMode>
+  <CookiesProvider>
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyle />
-      
-        <Provider store={store}>
-          <RouterProvider router={router} />
-        </Provider>
-      
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
     </ThemeProvider>
-  </React.StrictMode>,
+  </CookiesProvider>,
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
