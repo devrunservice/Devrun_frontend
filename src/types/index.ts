@@ -8,12 +8,27 @@ export interface IPagination {
 export interface IPageColor {
   isActive: boolean;
 }
+// 헤더
 export interface IButtonColor {
   active: boolean;
 }
+
+// 마이페이지 네비게이션
 export interface IBtnNav {
   active: boolean;
 }
+
+// 프로필
+export interface IProfileActiveBtn {
+  active: boolean;
+}
+export interface IProfileBtn {
+  email: boolean;
+  password: boolean;
+  number: boolean;
+}
+
+// 댓글
 export interface IComment {
   comment: string;
 }
@@ -163,7 +178,9 @@ export interface ITmiData {
   id: string;
   email: string;
   name: string;
+  birthday: string;
   phonenumber: number;
+  role: string;
 }
 
 export interface ITmi {
@@ -204,6 +221,6 @@ export interface CheckValidationReducerType {
 }
 
 export interface TokenType {
-  value: string;
-  expire: Date;
+  accessToken?: string;
+  refreshToken?: string;
 }

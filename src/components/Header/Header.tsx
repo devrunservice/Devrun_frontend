@@ -1,25 +1,37 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "redux/store";
 import { getCookie, removeCookie } from "api/cookies";
 import NoImg from "asset/images/NoImg.jpg";
 import * as St from "./style";
+import { fetchUserTmi } from "../../redux/reducer/userReducer";
+import { logoutLoading } from "../../redux/reducer/loginReducer";
 
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [cookie, setCookie] = useState<boolean>(false);
+
+  const userId = localStorage.getItem("userId");
+  const userData = useSelector((state: RootState) => state.userReducer.data);
 
   useEffect(() => {
     if (getCookie("accessToken")) {
       setCookie(true);
+      dispatch(fetchUserTmi(userId || ""));
     }
   }, []);
 
   const handleLogout = () => {
-    removeCookie("accessToken");
-    removeCookie("refreshToken");
-    setCookie(false);
-    location.reload();
+    // removeCookie("accessToken");
+    // removeCookie("refreshToken");
+    // localStorage.clear();
+    // setCookie(false);
+    const refreshToken = getCookie("refreshToken");
+    console.log(refreshToken);
+    dispatch(logoutLoading(refreshToken));
   };
 
   return (
@@ -60,13 +72,10 @@ const Header = () => {
                       총 결제금액 <St.CartNum>29,700</St.CartNum>원
                     </St.CartPrice>
                   </St.CartTop>
-
                   <St.CartUl>
                     <St.CartLi>
                       <St.ImgWrap>
-                        <St.ImgBox>
-                          <St.Img src={NoImg} alt="" />
-                        </St.ImgBox>
+                        <St.Img src={NoImg} alt="" />
                       </St.ImgWrap>
                       <St.TextWrap>
                         <St.LectureTitle>
@@ -85,22 +94,20 @@ const Header = () => {
               <St.HeaderIcon>
                 <St.Icon>
                   <St.Person />
-                  <St.Dropdown>
-                    <St.DropdownTop>
-                      <St.DropdownItemWrapper>
-                        <St.DropdownItemBtn
-                          onClick={() => navigate("/profile")}
-                        >
-                          {localStorage.getItem("userId")}
-                        </St.DropdownItemBtn>
-                        {/* <p>학생</p> */}
-                      </St.DropdownItemWrapper>
-                      <St.DropdownItemBtn onClick={handleLogout}>
-                        로그아웃
-                      </St.DropdownItemBtn>
-                    </St.DropdownTop>
-                  </St.Dropdown>
                 </St.Icon>
+                <St.Dropdown>
+                  <St.DropdownTop>
+                    <St.DropdownItemWrapper>
+                      <St.DropdownItemBtn onClick={() => navigate("/profile")}>
+                        {userData.id}
+                      </St.DropdownItemBtn>
+                      <p>{userData.role}</p>
+                    </St.DropdownItemWrapper>
+                    <St.DropdownItemBtn onClick={handleLogout}>
+                      로그아웃
+                    </St.DropdownItemBtn>
+                  </St.DropdownTop>
+                </St.Dropdown>
               </St.HeaderIcon>
             </St.NavWrap>
           ) : (

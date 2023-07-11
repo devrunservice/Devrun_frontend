@@ -6,7 +6,8 @@ import modalReducer from "./reducer/modalReducer";
 import { watchCheckValidationSaga } from "./saga/checkValidationSaga";
 import loginReducer from "./reducer/loginReducer";
 import userReducer from "./reducer/userReducer";
-import { watchLoginSaga } from "./saga/loginSaga";
+import { watchLoginSaga, watchLogoutSaga } from "./saga/loginSaga";
+import { watchFetchDataSaga } from "./saga/userSaga";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -20,7 +21,12 @@ const rootReducer = combineReducers({
 export type RootState = ReturnType<typeof rootReducer>;
 
 export function* rootSaga() {
-  yield all([watchCheckValidationSaga(), watchLoginSaga()]);
+  yield all([
+    watchCheckValidationSaga(),
+    watchLoginSaga(),
+    watchFetchDataSaga(),
+    watchLogoutSaga(),
+  ]);
 }
 
 const store = configureStore({

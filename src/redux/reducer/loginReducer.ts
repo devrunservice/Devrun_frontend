@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { createAction, createSlice } from "@reduxjs/toolkit";
-import { LoginFormType } from "types";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface LoginReducerDataType {
   name: string;
@@ -22,17 +21,11 @@ const initialState: LoginReducerType = {
   redirectTo: "",
 };
 
-export const loginAction = createAction<LoginFormType>("LOGIN_ACTION");
-// export const loginLoading = createAction("LOGIN_Loading");
-// export const loginSuccess = createAction<LoginFormType>("LOGIN_SUCCESS");
-// export const loginFail = createAction<Error>("LOGIN_FAIL");
-
 const loginReducer = createSlice({
   name: "loginReducer",
   initialState,
-  // reducers: {},
   reducers: {
-    loginLoading: (state) => {
+    loginLoading: (state, action) => {
       state.loading = true;
     },
     loginSuccess: (state, action) => {
@@ -47,27 +40,40 @@ const loginReducer = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    logoutLoading: (state, action) => {
+      console.log(action);
+      state.loading = true;
+    },
+    logoutSuccess: (state, action) => {
+      state.loading = false;
+      state.redirectTo = "/";
+    },
+    logoutFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    kakaoLoading: (state, action) => {
+      state.loading = true;
+    },
+    kakaoSuccess: (state, action) => {
+      state.loading = false;
+      state.redirectTo = "/login";
+    },
+    kakaoFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
-  // extraReducers: (builder) => {
-  //   builder
-  //     .addCase(loginLoading, (state) => {
-  //       state.loading = true;
-  //     })
-  //     .addCase(loginSuccess, (state, action) => {
-  //       console.log(action.payload);
-  //       state.loading = false;
-  //       state.data.id = action.payload.id;
-  //       state.data.password = action.payload.password;
-  //     })
-  //     .addCase(loginFail, (state, action) => {
-  //       console.log(action.payload);
-  //       state.loading = false;
-  //       state.error = action.payload;
-  //     });
-  // },
 });
 
-export const { loginLoading, loginSuccess, loginFail } = loginReducer.actions;
+export const {
+  loginLoading,
+  loginSuccess,
+  loginFail,
+  logoutLoading,
+  logoutSuccess,
+  logoutFail,
+} = loginReducer.actions;
 
 export default loginReducer.reducer;
 /* eslint-disable @typescript-eslint/no-unused-vars */

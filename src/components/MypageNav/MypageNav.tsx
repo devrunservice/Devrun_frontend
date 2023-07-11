@@ -1,12 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import * as St from "./style"
-
-
+import * as St from "./style";
 
 const MypageNav = () => {
   const navigate = useNavigate();
-  const local = window.location.pathname
+  const local = window.location.pathname;
   return (
     <St.Aside>
       <St.AsideUl>
@@ -20,14 +18,14 @@ const MypageNav = () => {
       <St.AsideUl>
         <St.AsideTit>개인</St.AsideTit>
         <St.AsideBtn
-          onClick={() => navigate("/Profile")}
-          active={local === "/Profile"}
+          onClick={() => navigate("/profile")}
+          active={local === "/profile" || local === "/profileupdate"}
         >
           프로필
         </St.AsideBtn>
         <St.AsideBtn
-          onClick={() => navigate("/Certificate")}
-          active={local === "/Certificate"}
+          onClick={() => navigate("/certificate")}
+          active={local === "/certificate"}
         >
           수료증
         </St.AsideBtn>

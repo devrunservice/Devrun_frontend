@@ -27,6 +27,7 @@ import {
   FindPassword,
   Profile,
   Certificate,
+  ProfileUpdate,
 } from "pages";
 import store from "./redux/store";
 import App from "./App";
@@ -56,15 +57,21 @@ const router = createBrowserRouter([
       { path: "lecture", element: <Lecture /> },
       { path: "detail", element: <DetailPage /> },
       { path: "createVideo", element: <CreateVideo /> },
-      { path: "Profile", element: <Profile /> },
-      { path: "Certificate", element: <Certificate /> },
+      {
+        path: "profile",
+        element: ACCESS_TOKEN ? <Profile /> : <Navigate replace to="/" />,
+      },
+      {
+        path: "profileupdate",
+        element: ACCESS_TOKEN ? <ProfileUpdate /> : <Navigate replace to="/" />,
+      },
+      {
+        path: "certificate",
+        element: ACCESS_TOKEN ? <Certificate /> : <Navigate replace to="/" />,
+      },
       {
         path: "createVideo",
-        element: ACCESS_TOKEN ? (
-          <CreateVideo />
-        ) : (
-          <Navigate replace to="/login" />
-        ),
+        element: ACCESS_TOKEN ? <CreateVideo /> : <Navigate replace to="/" />,
       },
     ],
   },
@@ -74,14 +81,16 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
 root.render(
-  <CookiesProvider>
-    <ThemeProvider theme={defaultTheme}>
-      <GlobalStyle />
-      <Provider store={store}>
-        <RouterProvider router={router} />
-      </Provider>
-    </ThemeProvider>
-  </CookiesProvider>,
+  <React.StrictMode>
+    <CookiesProvider>
+      <ThemeProvider theme={defaultTheme}>
+        <GlobalStyle />
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
+      </ThemeProvider>
+    </CookiesProvider>
+  </React.StrictMode>,
 );
 
 reportWebVitals();

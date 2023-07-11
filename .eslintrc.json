@@ -43,7 +43,9 @@
     //return 관련
     "consistent-return": "off",
     "no-param-reassign": "off",
-    "no-restricted-globals": ["error", "some-other-global"]
+    "no-restricted-globals": ["error", "some-other-global"],
+    "prefer-destructuring": "off",
+    "no-plusplus": "off"
   },
 
   "settings": {
