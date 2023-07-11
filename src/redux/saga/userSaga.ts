@@ -1,8 +1,9 @@
-import { call, put, takeEvery, all } from "redux-saga/effects";
+import { call, put, takeLatest } from "redux-saga/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { tmi } from "types";
 import { userData } from "api";
 import {
+  fetchUserTmi,
   userTmiPending,
   userTmiFulfilled,
   userTmiRejected,
@@ -18,18 +19,15 @@ function* fetchDataSaga(action: PayloadAction<tmi>): Generator<any, void, any> {
     yield put(userTmiPending());
     // 데이터를 옴
     const response = yield call(userData.createUser, action.payload);
-    // 성공적으로 데이터를 가져왓다면 성공 action에 내보냄.
-    yield put(userTmiFulfilled(response.data));
+    console.log(response);
+    // 성공적으로 데이터를 가져왔다면 성공 action에 내보냄.
+    yield put(userTmiFulfilled(response));
   } catch (err: any) {
     // 데이터가져오는게 실패했다면 실패 action에 내보냄.
-    yield put(userTmiRejected(err.message));
+    yield put(userTmiRejected(err));
   }
 }
 
-function* watchFetchDataSaga() {
-  yield takeEvery(userTmiPending.type, fetchDataSaga);
-}
-
-export default function* userSaga() {
-  yield all([watchFetchDataSaga()]);
+export function* watchFetchDataSaga() {
+  yield takeLatest(fetchUserTmi.type, fetchDataSaga);
 }

@@ -165,7 +165,18 @@ export const CartLi = styled.li`
 `;
 export const ImgWrap = styled.div`
   width: 170px;
+  height: 95px;
+  overflow: hidden;
+  border-radius: 5px;
 `;
+export const Img = styled.img`
+  width: inherit;
+  height: inherit;
+  object-fit: cover;
+  padding: 0;
+  max-width: 100%;
+`;
+
 export const TextWrap = styled.div`
   width: calc(100% - 170px);
   padding-left: 20px;
@@ -204,32 +215,12 @@ export const CartButton = styled.button`
   border-radius: 5px;
   height: 40px;
 `;
-export const ImgBox = styled.div`
-  width: 100%;
-  height: 0;
-  position: relative;
-  padding-bottom: 56.25%;
-  overflow: hidden;
-  border-radius: 5px;
-`;
-export const Img = styled.img`
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-`;
 
 export const Dropdown = styled(CartHover)`
   /* display: flex;
   justify-content: space-between; */
   visibility: visible;
-  width: 200px;
+  width: 250px;
 
   & button:nth-child(1) {
     font-size: ${(props) => props.theme.fontSize18px};
@@ -242,17 +233,23 @@ export const Dropdown = styled(CartHover)`
   & button:nth-child(2) {
     color: ${(props) => props.theme.brandColor};
   }
+
+  & p {
+    font-size: ${(props) => props.theme.fontSize12px};
+  }
 `;
 
 export const DropdownTop = styled(CartTop)`
   justify-content: space-between;
+  padding-bottom: 1rem;
 `;
 
 export const DropdownItemWrapper = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 `;
 
 export const DropdownItemBtn = styled.button`
   background-color: transparent;
+  padding: 0;
 `;

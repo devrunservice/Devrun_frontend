@@ -13,5 +13,4 @@ export { default as CreateVideoTwo } from "./CreateVideoTwo/CreateVideoTwo";
 export { default as PasswordInput } from "./Login/PasswordInput/PasswordInput";
 export { default as Modal } from "./Login/Modal/Modal";
 export { default as MypageNav } from "./MypageNav/MypageNav";
-export { default as Profile } from "./Profile/Profile";
 export { default as Certificate } from "./Certificates/Certificates";
