@@ -1,21 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {  ChangeEvent, useState } from "react";
-import { IProfileBtn } from "types";
-import useValid from "hooks/useValid";
+import { IProfileBtn, Iprofile } from "types";
 import * as St from "./style";
 
-interface Iprofile {
-  password: string;
-  passwordCheck: string;
-  email: string;
-  number: string;
-}
+
 
 
 const index = () => {
-
-  
-
   // 버튼 관련
   const [profileBtn, setProfileBtn] = useState<IProfileBtn>({
     email: false,

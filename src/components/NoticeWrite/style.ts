@@ -14,7 +14,7 @@ export const Editor = styled(ReactQuill)`
   }
 `;
 export const Title = styled.h4`
-  margin-bottom: 30px;
+  margin-bottom: 50px;
   font-size: ${(props: any) => props.theme.fontSize25px};
   font-weight: ${(props: any) => props.theme.fontBold};
   color: ${(props: any) => props.theme.textBlack};
