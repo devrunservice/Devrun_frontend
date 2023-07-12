@@ -27,16 +27,29 @@ export interface IProfileBtn {
   password: boolean;
   number: boolean;
 }
+export interface Iprofile {
+  password: string;
+  passwordCheck: string;
+  email: string;
+  number: string;
+}
+// 내 학습관리 탭
+export interface ILearnTap {
+  active: boolean;
+}
+
 
 // 댓글
 export interface IComment {
   comment: string;
 }
 
-
-
 export interface IPriceButton {
   active: boolean;
+}
+// 마이페이지 검색
+export interface IMySearch{
+  search:string;
 }
 
 
