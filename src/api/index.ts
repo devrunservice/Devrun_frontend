@@ -5,6 +5,7 @@ import {
   tmi,
   RequestPayResponse,
   SignupFormType,
+  IMySearch,
 } from "types";
 import { setCookie } from "./cookies";
 import { authAxios, accAxios } from "./instance";
@@ -48,7 +49,7 @@ export const login = {
     const accessToken = response.data.Access_token.substr(7);
     // 한시간
     const expirationDate = new Date();
-    expirationDate.setMinutes(expirationDate.getMinutes() * 30);
+    expirationDate.setMinutes(expirationDate.getMinutes() * 2);
     setCookie("accessToken", accessToken, {
       // 모든페이지에서 쿠키 엑세스 가능
       path: "/",
@@ -92,8 +93,8 @@ export const token = {
 
 // 로그인한 유저정보
 export const userData = {
-  createUser: async (id: tmi) => {
-    const response = await accAxios.get("/tmi", { params: { id } });
+  createUser: (params: tmi) => {
+    const response = accAxios.get("/tmi", { params: { params } });
     return response;
   },
 };
@@ -113,5 +114,12 @@ export const Cart = {
     return response;
   },
 };
+
+export const Search ={
+  mygage:(params:IMySearch)=>{
+    const response = accAxios.get("/params", { params: { params } });
+    return response
+  }
+}
 
 /* eslint-disable @typescript-eslint/no-unused-vars */

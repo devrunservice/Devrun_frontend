@@ -10,24 +10,8 @@ import { GlobalStyle, defaultTheme } from "style/Theme";
 import { CookiesProvider } from "react-cookie";
 import { getCookie } from "api/cookies";
 import { Provider } from "react-redux";
+import * as Route from "pages";
 
-import {
-  Notice,
-  Basket,
-  HomePage,
-  Login,
-  Signup,
-  NotFound,
-  Lecture,
-  DetailPage,
-  CreateVideo,
-  NoticeWrite,
-  NoticeDetail,
-  FindId,
-  FindPassword,
-  Profile,
-  Certificate,
-} from "pages";
 import store from "./redux/store";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -38,30 +22,35 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <NotFound />,
+    errorElement: <Route.NotFound />,
     children: [
-      { index: true, element: <HomePage /> },
-      { path: "home", element: <HomePage /> },
-      { path: "login", element: <Login /> },
-      { path: "signup", element: <Signup /> },
+      { index: true, element: <Route.HomePage /> },
+      { path: "home", element: <Route.HomePage /> },
+      { path: "login", element: <Route.Login /> },
+      { path: "signup", element: <Route.Signup /> },
       {
         path: "basket",
-        element: ACCESS_TOKEN ? <Basket /> : <Navigate replace to="/login" />,
+        element: ACCESS_TOKEN ? (
+          <Route.Basket />
+        ) : (
+          <Navigate replace to="/login" />
+        ),
       },
-      { path: "notice", element: <Notice /> },
-      { path: "findaccount:id", element: <FindId /> },
-      { path: "findaccount:password", element: <FindPassword /> },
-      { path: "noticeWrite", element: <NoticeWrite /> },
-      { path: "noticeDetail", element: <NoticeDetail /> },
-      { path: "lecture", element: <Lecture /> },
-      { path: "detail", element: <DetailPage /> },
-      { path: "createVideo", element: <CreateVideo /> },
-      { path: "Profile", element: <Profile /> },
-      { path: "Certificate", element: <Certificate /> },
+      { path: "notice", element: <Route.Notice /> },
+      { path: "findaccount:id", element: <Route.FindId /> },
+      { path: "findaccount:password", element: <Route.FindPassword /> },
+      { path: "noticeWrite", element: <Route.NoticeWrite /> },
+      { path: "noticeDetail", element: <Route.NoticeDetail /> },
+      { path: "lecture", element: <Route.Lecture /> },
+      { path: "detail", element: <Route.DetailPage /> },
+      { path: "createVideo", element: <Route.CreateVideo /> },
+      { path: "profile", element: <Route.Profile /> },
+      { path: "certificate", element: <Route.Certificate /> },
+      { path: "learning", element: <Route.Learning /> },
       {
         path: "createVideo",
         element: ACCESS_TOKEN ? (
-          <CreateVideo />
+          <Route.CreateVideo />
         ) : (
           <Navigate replace to="/login" />
         ),
