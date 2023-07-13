@@ -65,29 +65,23 @@ export const login = {
     localStorage.setItem("userId", params.id);
     return response;
   },
-  kakaoLogin: async (params: any) => {},
   checkLogout: async (params: TokenType) => {
     const config = {
       headers: {
-        Refresh_token: `Bearer ${params}`,
+        Refresh_token: `${params}`,
       },
     };
     const response = await authAxios.post("/logout", null, config);
     console.log(response);
     return response;
   },
-  // refreshAccessToken: async (params: string) => {
-  //   const response = await accAxios.post("/token/refresh", `Bearer ${params}`);
-  //   setCookie("accessToken", response.data.Access_token);
-  //   return response.data.Access_token;
-  // },
   refreshAccessToken: async (params: string) => {
     const config = {
       headers: {
         Refresh_token: `${params}`,
       },
     };
-    const response = await accAxios.post("/token/refresh", config);
+    const response = await accAxios.post("/token/refresh", null, config);
     console.log(response);
     // setCookie("accessToken", response.data.Access_token);
     return response.data.Access_token;
