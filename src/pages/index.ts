@@ -1,5 +1,4 @@
 export { default as Basket } from "./Basket/Basket";
-
 export { default as HomePage } from "./HomePage/HomePage";
 export { default as Lecture } from "./Lecture/Lecture";
 export { default as Login } from "./Login/Login";
@@ -16,3 +15,4 @@ export { default as NoticeWrite } from "./NoticeWrite";
 export { default as NoticeDetail } from "./NoticeDetail";
 export { default as Notice } from "./Notice";
 export { default as Dashboard } from "./User/Dashboard/Dashboard";
+export { default as Learning } from "./Learning";

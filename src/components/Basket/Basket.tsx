@@ -69,7 +69,6 @@ const Basket = () => {
   const dispatch = useDispatch();
   const data = useSelector((state: RootState) => state.userReducer.data);
 
-  console.log(data);
   const [id, setId] = useState("");
   const idChange = (e: ChangeEvent<HTMLInputElement>) => setId(e.target.value);
   const idFind = () => {

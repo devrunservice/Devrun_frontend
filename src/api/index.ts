@@ -6,6 +6,7 @@ import {
   RequestPayResponse,
   SignupFormType,
   TokenType,
+  IMySearch,
 } from "types";
 import { setCookie } from "./cookies";
 import { authAxios, accAxios } from "./instance";
@@ -108,8 +109,8 @@ export const userInfo = {
 
 // 로그인한 유저정보
 export const userData = {
-  createUser: async (id: tmi) => {
-    const response = await accAxios.get("/tmi", { params: { id } });
+  createUser: (params: tmi) => {
+    const response = accAxios.get("/tmi", { params: { params } });
     return response;
   },
 };
@@ -125,6 +126,13 @@ export const Cart = {
   },
   refund: (params: any) => {
     const response = accAxios.post("/payment", params);
+    return response;
+  },
+};
+
+export const Search = {
+  mygage: (params: IMySearch) => {
+    const response = accAxios.get("/params", { params: { params } });
     return response;
   },
 };

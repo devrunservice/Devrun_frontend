@@ -1,21 +1,17 @@
-
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
 import * as St from "./style";
 
 
 const Notice = () => {
   const navigate = useNavigate();
 
-  const listBtn = () => navigate("/noticeDetail");
-  const writeBtn = () => navigate("/noticeWrite");
 
   return (
     <>
       <St.Title>공지사항</St.Title>
       <St.Table>
-        <St.TableLi onClick={() => listBtn()}>
+        <St.TableLi onClick={() => navigate("/noticeDetail")}>
           <St.Num>1</St.Num>
           <St.Text>23123</St.Text>
           <St.Writer>12312</St.Writer>
@@ -25,7 +21,7 @@ const Notice = () => {
       </St.Table>
       <St.ButtonWrap>
         
-        <St.Button type="button" onClick={() => writeBtn()}>
+        <St.Button type="button" onClick={() => navigate("/noticeWrite")}>
           글쓰기
         </St.Button>
       </St.ButtonWrap>
