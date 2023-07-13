@@ -1,18 +1,32 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "redux/store";
 import { getCookie } from "api/cookies";
 import NoImg from "asset/images/NoImg.jpg";
 import * as St from "./style";
+import { userTmiPending } from "../../redux/reducer/userReducer";
+import { logoutLoading } from "../../redux/reducer/loginReducer";
 
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [cookie, setCookie] = useState<boolean>(false);
+
+  const userId = localStorage.getItem("userId");
+  const userData = useSelector((state: RootState) => state.userReducer.data);
+  const isLogin = useSelector((state: RootState) => state.loginReducer.isLogin);
+
   useEffect(() => {
-    if (getCookie("accessToken")) {
-      setCookie(true);
+    if (isLogin === true) {
+      dispatch(userTmiPending(userId || ""));
     }
   }, []);
+
+  const handleLogout = () => {
+    dispatch(logoutLoading());
+  };
 
   return (
     <St.HeaderWrap>
@@ -37,7 +51,7 @@ const Header = () => {
             />
             <St.SearchIcon />
           </St.SearchBox>
-          {cookie ? (
+          {isLogin === true ? (
             <St.NavWrap>
               <St.HeaderIcon>
                 <St.Icon>
@@ -52,7 +66,6 @@ const Header = () => {
                       총 결제금액 <St.CartNum>29,700</St.CartNum>원
                     </St.CartPrice>
                   </St.CartTop>
-
                   <St.CartUl>
                     <St.CartLi>
                       <St.ImgWrap>
@@ -76,6 +89,19 @@ const Header = () => {
                 <St.Icon>
                   <St.Person />
                 </St.Icon>
+                <St.Dropdown>
+                  <St.DropdownTop>
+                    <St.DropdownItemWrapper>
+                      <St.DropdownItemBtn onClick={() => navigate("/profile")}>
+                        {userData.id}
+                      </St.DropdownItemBtn>
+                      <p>{userData.role}</p>
+                    </St.DropdownItemWrapper>
+                    <St.DropdownItemBtn onClick={handleLogout}>
+                      로그아웃
+                    </St.DropdownItemBtn>
+                  </St.DropdownTop>
+                </St.Dropdown>
               </St.HeaderIcon>
             </St.NavWrap>
           ) : (

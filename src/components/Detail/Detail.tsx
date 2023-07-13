@@ -1,20 +1,21 @@
-import React, { useState } from 'react'; 
+import React, { useState } from "react";
 
-import LectureCard from 'components/LectureCard/LectureCard';
-import { ListWrap } from 'components/Home/style';
-import { HeartFill, Link, Circle, MoreBtn } from 'asset'
-import Curriculum from 'components/Curriculum/Curriculum'
-import { Swiper, SwiperSlide } from 'swiper/react';
-import * as St from './style'
-import 'swiper/swiper.css';
+import LectureCard from "components/LectureCard/LectureCard";
+import { ListWrap } from "components/Home/style";
+import { HeartFill, Link, Circle, MoreBtn } from "asset";
+import Curriculum from "components/Curriculum/Curriculum";
+import { Swiper, SwiperSlide } from "swiper/react";
+import * as St from "./style";
+import "swiper/swiper.css";
 
 const Detail = () => {
-  const [test, setTest] = useState([1,2,34,1,2,3,4]) // eslint-disable-line 
+  const [test, setTest] = useState([1, 2, 34, 1, 2, 3, 4]); // eslint-disable-line
   return (
     <St.DetailWrap>
       <St.PreviewArea>
         <St.DetailThum>
-          아무래도 여기는 강의 썸네일이 들어가고 재생버튼을 가운데 둬야 할듯합니다. 재생버튼 클릭하면 미리보기 시작
+          아무래도 여기는 강의 썸네일이 들어가고 재생버튼을 가운데 둬야
+          할듯합니다. 재생버튼 클릭하면 미리보기 시작
         </St.DetailThum>
         <St.DetailInfo>
           <St.DetailInfoTitle>제목들어갈곳</St.DetailInfoTitle>
@@ -25,12 +26,12 @@ const Detail = () => {
               <HeartFill /> 2
             </St.DetailUtilsItem>
             <St.DetailUtilsItem>
-              <Link href="/"/>
+              <Link href="/" />
               공유하기
             </St.DetailUtilsItem>
           </St.DetailUtils>
 
-          <St.ShortSpacer/>
+          <St.ShortSpacer />
 
           <St.DetailHashWrap>
             <St.DetailHash>#</St.DetailHash>
@@ -49,26 +50,22 @@ const Detail = () => {
           <St.DetailTabItem>수강전 문의</St.DetailTabItem>
         </St.DetailTab>
 
-        <St.DraftArea>
-          에디터영역
-        </St.DraftArea>       
+        <St.DraftArea>에디터영역</St.DraftArea>
         <St.SectionAreaWrap>
           <St.SectionTitle>커리큘럼</St.SectionTitle>
           <ul>
-            <Curriculum/>
-            <Curriculum/>
-            <Curriculum/>
+            <Curriculum />
+            <Curriculum />
+            <Curriculum />
           </ul>
         </St.SectionAreaWrap>
 
         <St.SectionAreaWrap>
           <St.SectionTitle>수강평</St.SectionTitle>
           <St.ReviewCreateArea>
-            <textarea placeholder='수강평을 작성해 주세요.' />
+            <textarea placeholder="수강평을 작성해 주세요." />
             <St.ReviewCreateBtnArea>
-              <span>
-                0 / 300
-              </span>
+              <span>0 / 300</span>
               <St.ReviewCancelBtn>취소</St.ReviewCancelBtn>
               <St.ReviewCreateBtn>등록</St.ReviewCreateBtn>
             </St.ReviewCreateBtnArea>
@@ -76,11 +73,11 @@ const Detail = () => {
             <St.CommentList>
               <St.CommentInfoWrap>
                 <div>
-                  <Circle/>
+                  <Circle />
                   <span>작성자명</span>
                 </div>
                 <span>
-                  <MoreBtn/>
+                  <MoreBtn />
                 </span>
               </St.CommentInfoWrap>
               <St.CommentArea>
@@ -88,20 +85,22 @@ const Detail = () => {
               </St.CommentArea>
               <St.CommentUtils>
                 <div>
-                  <HeartFill/>
+                  <HeartFill />
                   <span>2</span>
                 </div>
-                <St.CommentTime>2023.05.15 · <St.RecommentBtb>답글 작성</St.RecommentBtb></St.CommentTime>
+                <St.CommentTime>
+                  2023.05.15 · <St.RecommentBtb>답글 작성</St.RecommentBtb>
+                </St.CommentTime>
               </St.CommentUtils>
 
               <St.RecommentList>
                 <St.CommentInfoWrap>
                   <div>
-                    <Circle/>
+                    <Circle />
                     <span>작성자명</span>
                   </div>
                   <span>
-                    <MoreBtn/>
+                    <MoreBtn />
                   </span>
                 </St.CommentInfoWrap>
                 <St.CommentArea>
@@ -109,7 +108,7 @@ const Detail = () => {
                 </St.CommentArea>
                 <St.CommentUtils>
                   <div>
-                    <HeartFill/>
+                    <HeartFill />
                     <span>2</span>
                   </div>
                   <St.CommentTime>2023.05.15</St.CommentTime>
@@ -119,11 +118,11 @@ const Detail = () => {
             <St.CommentList>
               <St.CommentInfoWrap>
                 <div>
-                  <Circle/>
+                  <Circle />
                   <span>작성자명</span>
                 </div>
                 <span>
-                  <MoreBtn/>
+                  <MoreBtn />
                 </span>
               </St.CommentInfoWrap>
               <St.CommentArea>
@@ -131,20 +130,22 @@ const Detail = () => {
               </St.CommentArea>
               <St.CommentUtils>
                 <div>
-                  <HeartFill/>
+                  <HeartFill />
                   <span>2</span>
                 </div>
-                <St.CommentTime>2023.05.15 · <St.RecommentBtb>답글 작성</St.RecommentBtb></St.CommentTime>
+                <St.CommentTime>
+                  2023.05.15 · <St.RecommentBtb>답글 작성</St.RecommentBtb>
+                </St.CommentTime>
               </St.CommentUtils>
 
               <St.RecommentList>
                 <St.CommentInfoWrap>
                   <div>
-                    <Circle/>
+                    <Circle />
                     <span>작성자명</span>
                   </div>
                   <span>
-                    <MoreBtn/>
+                    <MoreBtn />
                   </span>
                 </St.CommentInfoWrap>
                 <St.CommentArea>
@@ -152,7 +153,7 @@ const Detail = () => {
                 </St.CommentArea>
                 <St.CommentUtils>
                   <div>
-                    <HeartFill/>
+                    <HeartFill />
                     <span>2</span>
                   </div>
                   <St.CommentTime>2023.05.15</St.CommentTime>
@@ -162,11 +163,11 @@ const Detail = () => {
             <St.CommentList>
               <St.CommentInfoWrap>
                 <div>
-                  <Circle/>
+                  <Circle />
                   <span>작성자명</span>
                 </div>
                 <span>
-                  <MoreBtn/>
+                  <MoreBtn />
                 </span>
               </St.CommentInfoWrap>
               <St.CommentArea>
@@ -174,20 +175,22 @@ const Detail = () => {
               </St.CommentArea>
               <St.CommentUtils>
                 <div>
-                  <HeartFill/>
+                  <HeartFill />
                   <span>2</span>
                 </div>
-                <St.CommentTime>2023.05.15 · <St.RecommentBtb>답글 작성</St.RecommentBtb></St.CommentTime>
+                <St.CommentTime>
+                  2023.05.15 · <St.RecommentBtb>답글 작성</St.RecommentBtb>
+                </St.CommentTime>
               </St.CommentUtils>
 
               <St.RecommentList>
                 <St.CommentInfoWrap>
                   <div>
-                    <Circle/>
+                    <Circle />
                     <span>작성자명</span>
                   </div>
                   <span>
-                    <MoreBtn/>
+                    <MoreBtn />
                   </span>
                 </St.CommentInfoWrap>
                 <St.CommentArea>
@@ -195,7 +198,7 @@ const Detail = () => {
                 </St.CommentArea>
                 <St.CommentUtils>
                   <div>
-                    <HeartFill/>
+                    <HeartFill />
                     <span>2</span>
                   </div>
                   <St.CommentTime>2023.05.15</St.CommentTime>
@@ -204,27 +207,22 @@ const Detail = () => {
             </St.CommentList>
             <St.MoreLectureBtn>수강평 더보기</St.MoreLectureBtn>
           </St.ReviewCreateArea>
-
         </St.SectionAreaWrap>
         <St.SectionAreaWrap>
           <St.SectionTitle>다른 강의 함께 보기</St.SectionTitle>
-          <Swiper
-              spaceBetween={20}
-              slidesPerView={4}
-            >
-              <ListWrap>
-                {
-                  test.map((list, index) => <SwiperSlide key={index}>
-                      <LectureCard/>
-                    </SwiperSlide>)
-                }
-              </ListWrap>
-            </Swiper>
+          <Swiper spaceBetween={20} slidesPerView={4}>
+            <ListWrap>
+              {test.map((list, index) => (
+                <SwiperSlide key={index}>
+                  <LectureCard category="detail" />
+                </SwiperSlide>
+              ))}
+            </ListWrap>
+          </Swiper>
         </St.SectionAreaWrap>
       </St.DetailMainWrap>
-
     </St.DetailWrap>
-  )
-}
+  );
+};
 
-export default Detail
+export default Detail;

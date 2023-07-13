@@ -1,29 +1,51 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { redirect } from "react-router-dom";
 import { call, put, takeLatest } from "redux-saga/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { login } from "api";
-import { LoginFormType } from "types";
+import { getCookie, removeCookie } from "api/cookies";
+import { LoginFormType, TokenType } from "types";
 import { openModal } from "../reducer/modalReducer";
 import {
-  loginAction,
   loginFail,
   loginLoading,
   loginSuccess,
+  logoutFail,
+  logoutLoading,
+  logoutSuccess,
 } from "../reducer/loginReducer";
 
 function* loginSaga(
   action: PayloadAction<LoginFormType>,
 ): Generator<any, void, any> {
   try {
-    yield put(loginLoading());
     const response = yield call(login.checkLoginUser, action.payload);
-    console.log(response)
+    console.log(response);
     yield put(loginSuccess(response));
   } catch (error: any) {
     yield put(loginFail(error));
     yield put(openModal(error.message));
   }
 }
+
+function* logoutSaga(): Generator<any, void, any> {
+  try {
+    const refreshCookie = getCookie("refreshToken");
+    const response = yield call(login.checkLogout, refreshCookie);
+    console.log(response);
+    yield put(logoutSuccess(response));
+    removeCookie("accessToken");
+    removeCookie("refreshToken");
+    localStorage.clear();
+  } catch (error) {
+    yield put(logoutFail(error));
+  }
+}
+
 export function* watchLoginSaga() {
-  yield takeLatest(loginAction.type, loginSaga);
+  yield takeLatest(loginLoading.type, loginSaga);
+}
+
+export function* watchLogoutSaga() {
+  yield takeLatest(logoutLoading.type, logoutSaga);
 }
