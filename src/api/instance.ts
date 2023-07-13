@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import axios from "axios";
-import { login } from "api";
 import { getCookie, setCookie } from "./cookies";
 
 export const authAxios = axios.create({
@@ -20,9 +19,7 @@ export const accAxios = axios.create({
 accAxios.interceptors.request.use(
   (config) => {
     const accessToken = getCookie("accessToken");
-    const refreshToken = getCookie("refreshToken");
     config.headers.Access_token = `Bearer ${accessToken}`;
-    config.headers.refresh_token = `${refreshToken}`;
     return config;
   },
   (error) => {
@@ -40,46 +37,45 @@ accAxios.interceptors.response.use(
     const originalRequest = error.config;
     const refreshToken = getCookie("refreshToken");
 
-    if (errorStatus === 401 && errorMessage === "Token is expired") {
-      console.log("토큰 만료");
-      const newAccessToken = login.refreshAccessToken(refreshToken);
-      console.log(newAccessToken);
-      // originalRequest.headers.Access_token = `Bearer ${newAccessToken}`;
-      // return axios(originalRequest);
-      // console.log(originalRequest);
+    let response;
+    let newAccessToken;
+
+    switch (errorStatus) {
+      case 401:
+        switch (errorMessage) {
+          case "Token is expired":
+            response = await authAxios.post("/token/refresh", null, {
+              headers: { Refresh_token: refreshToken },
+            });
+            newAccessToken = response.data.Access_token.substr(7);
+            setCookie("accessToken", newAccessToken);
+            originalRequest.headers.Access_token = `Bearer ${newAccessToken}`;
+            return axios(originalRequest);
+          default:
+            break;
+        }
+        break;
+      case 403:
+        switch (errorMessage) {
+          case "Signature validation failed":
+            return Promise.reject(new Error("토큰이 조작되었습니다."));
+          default:
+            break;
+        }
+        break;
+      case 500:
+        switch (errorMessage) {
+          case "Unexpected server error occurred":
+            return Promise.reject(
+              new Error("예상하지 못한 에러가 발생했습니다."),
+            );
+          default:
+            break;
+        }
+        break;
+      default:
+        break;
     }
-    // switch (errorStatus) {
-    //   case 401:
-    //     switch (errorMessage) {
-    //       case "Token is expired":
-    //         const newAccessToken = login.refreshAccessToken(refreshToken);
-    //         originalRequest.headers.Access_token = `Bearer ${newAccessToken}`;
-    //         return axios(originalRequest);
-    //       default:
-    //         break;
-    //     }
-    //     break;
-    //   case 403:
-    //     switch (errorMessage) {
-    //       case "Signature validation failed":
-    //         return Promise.reject(new Error("토큰이 조작되었습니다."));
-    //       default:
-    //         break;
-    //     }
-    //     break;
-    //   case 500:
-    //     switch (errorMessage) {
-    //       case "Unexpected server error occurred":
-    //         return Promise.reject(
-    //           new Error("예상하지 못한 에러가 발생했습니다."),
-    //         );
-    //       default:
-    //         break;
-    //     }
-    //     break;
-    //   default:
-    //     break;
-    // }
   },
 
   // const originalRequest = error.config;
