@@ -3,13 +3,11 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
-import { login } from "api";
-import { getCookie } from "api/cookies";
 import { BrandLogo, Kakao, Naver, Google } from "asset";
 import { LoginFormType } from "types";
 import { PasswordInput, Modal } from "components";
 import { Input } from "style/Common";
-import { loginAction } from "../../redux/reducer/loginReducer";
+import { loginLoading } from "../../redux/reducer/loginReducer";
 import * as St from "./styles";
 
 const LoginForm = () => {
@@ -24,14 +22,12 @@ const LoginForm = () => {
   const redirectTo = useSelector(
     (state: RootState) => state.loginReducer.redirectTo,
   );
+
   const isFormValid = loginForm.id !== "" && loginForm.password !== "";
 
   const handleClickLogo = () => navigate("/");
 
   useEffect(() => {
-    // if (loginId !== "") {
-    //   navigate("/");
-    // }
     if (redirectTo === "/") {
       navigate("/");
     }
@@ -50,8 +46,14 @@ const LoginForm = () => {
     //   dispatch(openModal(error.message));
     // }
 
+    // dispatch(
+    //   loginAction({
+    //     id: loginForm.id,
+    //     password: loginForm.password,
+    //   }),
+    // );
     dispatch(
-      loginAction({
+      loginLoading({
         id: loginForm.id,
         password: loginForm.password,
       }),
@@ -64,6 +66,12 @@ const LoginForm = () => {
       ...prev,
       [name]: value,
     }));
+  };
+
+  const handleSocialLogin = (social: string) => {
+    if (social === "kakao") {
+      window.location.href = `${process.env.REACT_APP_SERVER_URL}/kakao/login`;
+    }
   };
 
   return (
@@ -127,13 +135,13 @@ const LoginForm = () => {
           <St.SocialLoginTitle>간편 로그인</St.SocialLoginTitle>
           <St.SocialLoginBtn>
             <St.Button>
-              <Kakao />
+              <Kakao onClick={() => handleSocialLogin("kakao")} />
             </St.Button>
             <St.Button>
-              <Naver />
+              <Naver onClick={() => handleSocialLogin("naver")} />
             </St.Button>
             <St.Button>
-              <Google />
+              <Google onClick={() => handleSocialLogin("google")} />
             </St.Button>
           </St.SocialLoginBtn>
         </St.SocialLogin>

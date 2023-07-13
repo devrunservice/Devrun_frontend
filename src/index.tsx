@@ -10,9 +10,9 @@ import { GlobalStyle, defaultTheme } from "style/Theme";
 import { CookiesProvider } from "react-cookie";
 import { getCookie } from "api/cookies";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 import * as Route from "pages";
-
-import store from "./redux/store";
+import store, { persistor } from "./redux/store";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
@@ -67,7 +67,9 @@ root.render(
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyle />
       <Provider store={store}>
-        <RouterProvider router={router} />
+        <PersistGate loading={null} persistor={persistor}>
+          <RouterProvider router={router} />
+        </PersistGate>
       </Provider>
     </ThemeProvider>
   </CookiesProvider>,

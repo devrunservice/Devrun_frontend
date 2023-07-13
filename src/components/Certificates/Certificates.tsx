@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { Pagination } from "components";
 import * as St from "./style";
 
-
-
 const Certificates = () => {
   const navigate = useNavigate();
   return (
@@ -26,5 +24,5 @@ const Certificates = () => {
       <Pagination />
     </St.Cert>
   );
-}
+};
 export default Certificates;
