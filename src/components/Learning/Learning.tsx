@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { Search } from "api";
-import { Pagination, Learn, Modal } from "components";
+import { Pagination, Learn } from "components";
 import * as St from "./style";
+
 
 const Learning = () => {
   const [search, setSearch] = useState<string>("");
@@ -25,6 +26,17 @@ const Learning = () => {
     }
   };
   const [tap,SetTap] = useState<number>(1)
+  const tapList = [
+    { id: 0, list: "학습순" },
+    { id: 1, list: "신청순" },
+    { id: 2, list: "제목순" },
+  ];
+  const [tapOpen, setTapOpen] = useState<boolean>(false);
+  const [tapLists, setTaplists] = useState(tapList[0].list);
+  const tapOpsion = (item:string) => {
+    setTaplists(item);
+    setTapOpen(false);
+  };
   return (
     <St.Learn>
       <St.Top>
@@ -53,7 +65,20 @@ const Learning = () => {
               완료
             </St.Btn>
           </St.Left>
-          <St.Tap>asd</St.Tap>
+          <St.Tap>
+            <St.TapLabel onClick={() => setTapOpen(!tapOpen)}>
+              {tapLists}
+            </St.TapLabel>
+            {tapOpen && (
+              <St.TapUl>
+                {tapList.map((item) => (
+                  <St.TapLi key={item.id} onClick={() => tapOpsion(item.list)}>
+                    {item.list}
+                  </St.TapLi>
+                ))}
+              </St.TapUl>
+            )}
+          </St.Tap>
         </St.TapWrap>
         <St.LearnUl>
           {tap === 1 && <Learn />}

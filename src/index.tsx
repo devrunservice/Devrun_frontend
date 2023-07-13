@@ -17,7 +17,6 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 const ACCESS_TOKEN = getCookie("accessToken");
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -30,11 +29,8 @@ const router = createBrowserRouter([
       { path: "signup", element: <Route.Signup /> },
       {
         path: "basket",
-        element: ACCESS_TOKEN ? (
-          <Route.Basket />
-        ) : (
-          <Navigate replace to="/login" />
-        ),
+        element: ACCESS_TOKEN ? <Route.Basket /> : <Navigate replace to="/login" />
+        
       },
       { path: "notice", element: <Route.Notice /> },
       { path: "findaccount:id", element: <Route.FindId /> },

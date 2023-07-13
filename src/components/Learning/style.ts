@@ -61,8 +61,36 @@ export const Btn = styled.button<ILearnTap>`
     props.active ? props.theme.textPoint : props.theme.textWhite};
   height: 40px;
 `;
-export const Tap = styled.div``;
-
+export const Tap = styled.div`
+  width: ${(props: any) => props.theme.width95};
+  border: 1px solid ${(props: any) => props.theme.borderGray};
+  height: 40px;
+  position: relative;
+  box-sizing: content-box;
+  border-radius:5px;
+`;
+export const TapLabel = styled.p`
+  font-size: ${(props: any) => props.theme.fontSize14px};
+  line-height: 40px;
+  padding-left: 10px;
+  cursor: pointer;
+`;
+export const TapUl = styled.ul`
+  position: absolute;
+  border: 1px solid ${(props: any) => props.theme.borderGray};
+  width: ${(props: any) => props.theme.width100};
+  top: 40px;
+  padding: 8px 0;
+  box-sizing: content-box;
+  left: -1px;
+`;
+export const TapLi = styled.li`
+  font-size: ${(props: any) => props.theme.fontSize14px};
+  cursor: pointer;
+  height:32px;
+  line-height:32px;
+  padding-left:10px;
+`;
 
 export const LearnUl = styled.div`
   display: flex;
