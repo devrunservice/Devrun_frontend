@@ -49,7 +49,7 @@ export const login = {
     const accessToken = response.data.Access_token.substr(7);
     const offset = 1000 * 60 * 60 * 9;
     const expirationDate = new Date(new Date().getTime() + offset);
-    expirationDate.setMinutes(expirationDate.getMinutes() + 15);
+    expirationDate.setMinutes(expirationDate.getMinutes() + 1);
     setCookie("accessToken", accessToken, {
       // 모든페이지에서 쿠키 엑세스 가능
       path: "/",
@@ -76,9 +76,20 @@ export const login = {
     console.log(response);
     return response;
   },
+  // refreshAccessToken: async (params: string) => {
+  //   const response = await accAxios.post("/token/refresh", `Bearer ${params}`);
+  //   setCookie("accessToken", response.data.Access_token);
+  //   return response.data.Access_token;
+  // },
   refreshAccessToken: async (params: string) => {
-    const response = await accAxios.post("/token/refresh", params);
-    setCookie("accessToken", response.data.Access_token);
+    const config = {
+      headers: {
+        Refresh_token: `${params}`,
+      },
+    };
+    const response = await accAxios.post("/token/refresh", config);
+    console.log(response);
+    // setCookie("accessToken", response.data.Access_token);
     return response.data.Access_token;
   },
 };

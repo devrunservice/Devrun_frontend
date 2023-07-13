@@ -3,13 +3,14 @@ import { redirect } from "react-router-dom";
 import { call, put, takeLatest } from "redux-saga/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { login } from "api";
-import { removeCookie } from "api/cookies";
+import { getCookie, removeCookie } from "api/cookies";
 import { LoginFormType, TokenType } from "types";
 import { openModal } from "../reducer/modalReducer";
 import {
   loginFail,
   loginLoading,
   loginSuccess,
+  logoutFail,
   logoutLoading,
   logoutSuccess,
 } from "../reducer/loginReducer";
@@ -27,26 +28,19 @@ function* loginSaga(
   }
 }
 
-function* logoutSaga(
-  action: PayloadAction<TokenType>,
-): Generator<any, void, any> {
+function* logoutSaga(): Generator<any, void, any> {
   try {
-    const response = yield call(login.checkLogout, action.payload);
+    const refreshCookie = getCookie("refreshToken");
+    const response = yield call(login.checkLogout, refreshCookie);
     console.log(response);
     yield put(logoutSuccess(response));
-    // removeCookie("accessToken");
-    // removeCookie("refreshToken");
-    // localStorage.clear();
+    removeCookie("accessToken");
+    removeCookie("refreshToken");
+    localStorage.clear();
   } catch (error) {
-    console.log(error);
+    yield put(logoutFail(error));
   }
 }
-
-// function* kakaoSaga(action) {
-//   try {
-//     const response = yield call(login.)
-//   }
-// };
 
 export function* watchLoginSaga() {
   yield takeLatest(loginLoading.type, loginSaga);

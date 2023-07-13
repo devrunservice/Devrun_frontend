@@ -3,13 +3,11 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
-import { login } from "api";
-import { getCookie } from "api/cookies";
 import { BrandLogo, Kakao, Naver, Google } from "asset";
 import { LoginFormType } from "types";
 import { PasswordInput, Modal } from "components";
 import { Input } from "style/Common";
-import { loginLoading, loginSuccess } from "../../redux/reducer/loginReducer";
+import { loginLoading } from "../../redux/reducer/loginReducer";
 import * as St from "./styles";
 
 const LoginForm = () => {
@@ -24,6 +22,7 @@ const LoginForm = () => {
   const redirectTo = useSelector(
     (state: RootState) => state.loginReducer.redirectTo,
   );
+
   const isFormValid = loginForm.id !== "" && loginForm.password !== "";
 
   const handleClickLogo = () => navigate("/");

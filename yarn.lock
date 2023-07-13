@@ -3187,15 +3187,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jsonwebtoken@npm:^9.0.2":
-  version: 9.0.2
-  resolution: "@types/jsonwebtoken@npm:9.0.2"
-  dependencies:
-    "@types/node": "*"
-  checksum: 3bb8d40e78d7eb53e427db6e9f0f22e0890cfee80965dcf741d08341814913afb211306de6e9847c6d241cc8e36f8a59090cbfdcc510ab7c81af9d650c5afe0e
-  languageName: node
-  linkType: hard
-
 "@types/keyv@npm:^3.1.4":
   version: 3.1.4
   resolution: "@types/keyv@npm:3.1.4"
@@ -3315,6 +3306,15 @@ __metadata:
     "@types/scheduler": "*"
     csstype: ^3.0.2
   checksum: a6a5e8cc78f486b9020d1ad009aa6c56943c68c7c6376e0f8399e9cbcd950b7b8f5d73f00200f5379f5e58d31d57d8aed24357f301d8e86108cd438ce6c8b3dd
+  languageName: node
+  linkType: hard
+
+"@types/redux-persist@npm:^4.3.1":
+  version: 4.3.1
+  resolution: "@types/redux-persist@npm:4.3.1"
+  dependencies:
+    redux-persist: "*"
+  checksum: 0b4518fd8a38ddf4538c7f7141323ea81f8b5918df1ce2ba35c609b71b0766a23c8d4ab1bcfb5021b8b3546f2365670b33ff5de870f40f72c65e8c45a47ef1b1
   languageName: node
   linkType: hard
 
@@ -5911,11 +5911,11 @@ __metadata:
     "@testing-library/user-event": ^13.2.1
     "@types/jest": ^29.5.2
     "@types/js-cookie": ^3.0.3
-    "@types/jsonwebtoken": ^9.0.2
     "@types/node": ^20.3.1
     "@types/react": ^18.2.13
     "@types/react-dom": ^18.2.6
     "@types/react-router-dom": ^5.3.3
+    "@types/redux-persist": ^4.3.1
     "@types/styled-components": ^5.1.26
     "@types/testing-library__jest-dom": ^5.14.6
     "@typescript-eslint/eslint-plugin": latest
@@ -5940,12 +5940,12 @@ __metadata:
     react-router-dom: ^6.12.1
     react-scripts: 5.0.1
     redux: ^4.2.1
+    redux-persist: ^6.0.0
     redux-saga: ^1.2.3
     styled-components: ^6.0.0-rc.3
     styled-reset: ^4.4.7
     swiper: ^9.3.2
     typescript: ^4.9.3
-    universal-cookie: ^4.0.4
     web-vitals: ^2.1.0
   languageName: unknown
   linkType: soft
@@ -12188,6 +12188,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"redux-persist@npm:*, redux-persist@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "redux-persist@npm:6.0.0"
+  peerDependencies:
+    redux: ">4.0.0"
+  checksum: edaf10dbf17351ce8058d0802357adae8665b3a1ff39371834e37838ddbe1a79cccbc717b8ba54acb5307651ccf51d0f7dc1cbc8dbae0726ff952d11ef61c6b8
+  languageName: node
+  linkType: hard
+
 "redux-saga@npm:^1.2.3":
   version: 1.2.3
   resolution: "redux-saga@npm:1.2.3"
@@ -14019,7 +14028,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"universal-cookie@npm:^4.0.0, universal-cookie@npm:^4.0.4":
+"universal-cookie@npm:^4.0.0":
   version: 4.0.4
   resolution: "universal-cookie@npm:4.0.4"
   dependencies:
