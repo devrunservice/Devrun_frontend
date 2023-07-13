@@ -72,7 +72,7 @@ export const PriceBtn = styled.button<IPriceButton>`
   background: ${(props) => (props.active ? "#fff" : "#604B8E")};
   color: ${(props) => (props.active ? "#000" : "#fff")};
   border: 1px solid ${(props) => props.theme.mainColor};
-  border-radius: ${(props) => (props.active ? "5px 0 0 5px" : "0px 5px 5px 0px")};
+  /* border-radius: ${(props) => (props.active ? "5px 0 0 5px" : "0px 5px 5px 0px")}; */
 `;
 
 export const UploadArea = styled.div`
