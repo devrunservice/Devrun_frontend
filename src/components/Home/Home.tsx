@@ -27,8 +27,6 @@ const Home = () => {
             <Swiper
               spaceBetween={20}
               slidesPerView={4}
-              // onSlideChange={() => console.log("slide change")}
-              // onSwiper={(swiper) => console.log(swiper)}
             >
               <St.ListWrap>
                 {test.map((list, index) => (
@@ -57,8 +55,6 @@ const Home = () => {
             <Swiper
               spaceBetween={20}
               slidesPerView={4}
-              // onSlideChange={() => console.log("slide change")}
-              // onSwiper={(swiper) => console.log(swiper)}
             >
               <St.ListWrap>
                 {test.map((list, index) => (
