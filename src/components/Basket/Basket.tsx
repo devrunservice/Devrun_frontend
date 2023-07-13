@@ -7,8 +7,7 @@ import { Cart } from "api";
 import { IRequestPayParams, RequestPayResponse } from "types";
 import NoImg from "asset/images/NoImg.jpg";
 import * as St from "./style";
-import { fetchUserTmi } from "../../redux/reducer/userReducer";
-
+import { userTmiPending } from "../../redux/reducer/userReducer";
 
 const Basket = () => {
   /* 콜백 함수 정의  */
@@ -67,15 +66,15 @@ const Basket = () => {
     /* 4. 결제 창 호출하기 */
     IMP.request_pay(data, callback);
   };
-  const dispatch = useDispatch()
-  const data = useSelector((state:RootState)=>state.userReducer.data)
+  const dispatch = useDispatch();
+  const data = useSelector((state: RootState) => state.userReducer.data);
 
-  console.log(data)
-  const [id,setId] = useState("")
-  const idChange = (e:ChangeEvent<HTMLInputElement>) => setId(e.target.value);
-  const idFind = ()=>{
-    dispatch(fetchUserTmi(id));
-  }
+  console.log(data);
+  const [id, setId] = useState("");
+  const idChange = (e: ChangeEvent<HTMLInputElement>) => setId(e.target.value);
+  const idFind = () => {
+    dispatch(userTmiPending(id));
+  };
   return (
     <>
       <St.BasketForm onSubmit={basketBtn}>
@@ -183,7 +182,7 @@ const Basket = () => {
         </St.WhiteSmallBg>
         <St.Button>결제하기</St.Button>
       </St.BasketForm>
-      <input type="text" onChange={idChange}  />
+      <input type="text" onChange={idChange} />
       <button type="button" onClick={idFind}>
         버튼
       </button>

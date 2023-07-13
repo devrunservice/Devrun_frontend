@@ -20,7 +20,8 @@ const App = () => {
   const myPage =
     location.pathname === "/profile" ||
     location.pathname === "/profileupdate" ||
-    location.pathname === "/certificate";
+    location.pathname === "/certificate" ||
+    location.pathname === "/dashboard";
 
   return (
     <>
@@ -30,7 +31,7 @@ const App = () => {
       ) : (
         <St.AppSection>
           <div className="left-panel">
-            <MypageNav />n
+            <MypageNav />
           </div>
           <div className="right-panel">
             <Outlet />

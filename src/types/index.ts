@@ -179,7 +179,7 @@ export interface ITmiData {
   email: string;
   name: string;
   birthday: string;
-  phonenumber: number;
+  phonenumber: string;
   role: string;
 }
 

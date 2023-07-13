@@ -1,24 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { LectureCard } from "components";
 import { SildeImg } from "asset";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import * as St from "./style";
-import 'swiper/swiper.css';
-
+import "swiper/swiper.css";
 
 const Home = () => {
   const [test, setTest] = useState([1, 2, 34, 1, 2, 3, 4]); // eslint-disable-line @typescript-eslint/no-unused-vars
-  
+
   return (
     <>
       <St.EventBanner>
         <Swiper slidesPerView={1}>
           {test.map((list, index) => (
-              <SwiperSlide key={index}>
-                <St.FullWidthImg />
-              </SwiperSlide>
-            ))}
+            <SwiperSlide key={index}>
+              <St.FullWidthImg />
+            </SwiperSlide>
+          ))}
         </Swiper>
       </St.EventBanner>
       <St.MainBg>
@@ -33,10 +32,10 @@ const Home = () => {
             >
               <St.ListWrap>
                 {test.map((list, index) => (
-                    <SwiperSlide key={index}>
-                      <LectureCard />
-                    </SwiperSlide>
-                  ))}
+                  <SwiperSlide key={index}>
+                    <LectureCard category="home" />
+                  </SwiperSlide>
+                ))}
               </St.ListWrap>
             </Swiper>
           </St.SwiperBox>
@@ -46,10 +45,10 @@ const Home = () => {
         {/* onSwiper={(swiper) => console.log(swiper)} */}
         <Swiper slidesPerView={1}>
           {test.map((list, index) => (
-              <SwiperSlide key={index}>
-                <SildeImg style={{ margin: "30px 0 60px" }} />
-              </SwiperSlide>
-            ))}
+            <SwiperSlide key={index}>
+              <SildeImg style={{ margin: "30px 0 60px" }} />
+            </SwiperSlide>
+          ))}
         </Swiper>
 
         <St.ListEachArea>
@@ -63,10 +62,10 @@ const Home = () => {
             >
               <St.ListWrap>
                 {test.map((list, index) => (
-                    <SwiperSlide key={index}>
-                      <LectureCard />
-                    </SwiperSlide>
-                  ))}
+                  <SwiperSlide key={index}>
+                    <LectureCard category="home" />
+                  </SwiperSlide>
+                ))}
               </St.ListWrap>
             </Swiper>
           </St.SwiperBox>
@@ -92,5 +91,5 @@ const Home = () => {
       </St.MainBg>
     </>
   );
-}
+};
 export default Home;

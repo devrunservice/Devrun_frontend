@@ -4,14 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import profile from "asset/images/profile.png";
-import { fetchUserTmi } from "../../redux/reducer/userReducer";
+import { userTmiPending } from "../../../redux/reducer/userReducer";
 import * as St from "./styles";
-
-export interface IProfile {
-  email: string;
-  password: string;
-  phonenumber: string;
-}
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -21,8 +15,10 @@ const Profile = () => {
 
   useEffect(() => {
     const userId = localStorage.getItem("userId");
-    dispatch(fetchUserTmi(userId || ""));
-  });
+    const response = dispatch(userTmiPending(userId || ""));
+    console.log(response);
+  }, []);
+
   return (
     <St.Profile>
       <St.Title>프로필</St.Title>

@@ -1,7 +1,8 @@
-import { createSlice, createAction } from "@reduxjs/toolkit";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { createSlice } from "@reduxjs/toolkit";
 import { ITmi } from "types";
 
-export const fetchUserTmi = createAction<string>("userReducer/fetchUserTmi");
+// export const fetchUserTmi = createAction<string>("userReducer/fetchUserTmi");
 
 const initialState: ITmi = {
   data: {
@@ -9,7 +10,7 @@ const initialState: ITmi = {
     email: "",
     name: "",
     birthday: "",
-    phonenumber: 0,
+    phonenumber: "",
     role: "",
   },
   error: null,
@@ -20,11 +21,12 @@ const userTmiSlice = createSlice({
   name: "data",
   initialState,
   reducers: {
-    userTmiPending: (state) => {
+    userTmiPending: (state, action) => {
       state.loading = true;
       state.error = null;
     },
     userTmiFulfilled: (state, action) => {
+      console.log(action);
       state.loading = false;
       state.data.id = action.payload.data.id;
       state.data.email = action.payload.data.email;

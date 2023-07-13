@@ -7,6 +7,7 @@ export interface LoginReducerDataType {
 
 export interface LoginReducerType {
   loading: boolean;
+  isLogin: boolean;
   data: LoginReducerDataType;
   error: Error | null;
   redirectTo: string;
@@ -14,6 +15,7 @@ export interface LoginReducerType {
 
 const initialState: LoginReducerType = {
   loading: false,
+  isLogin: false,
   data: {
     name: "",
   },
@@ -27,9 +29,11 @@ const loginReducer = createSlice({
   reducers: {
     loginLoading: (state, action) => {
       state.loading = true;
+      state.isLogin = false;
     },
     loginSuccess: (state, action) => {
       state.loading = false;
+      state.isLogin = true;
       console.log(action.payload);
       state.data.name = action.payload.data.username;
       state.redirectTo = "/";
@@ -38,29 +42,38 @@ const loginReducer = createSlice({
     loginFail: (state, action) => {
       console.log(action);
       state.loading = false;
+      state.isLogin = false;
       state.error = action.payload;
     },
-    logoutLoading: (state, action) => {
-      console.log(action);
+    logoutLoading: (state) => {
       state.loading = true;
+      state.isLogin = true;
     },
     logoutSuccess: (state, action) => {
+      console.log(action.payload);
       state.loading = false;
-      state.redirectTo = "/";
+      state.isLogin = false;
+      state.data.name = "";
+      state.redirectTo = "";
+      console.log(state);
     },
     logoutFail: (state, action) => {
       state.loading = false;
+      state.isLogin = true;
       state.error = action.payload;
     },
     kakaoLoading: (state, action) => {
       state.loading = true;
+      state.isLogin = false;
     },
     kakaoSuccess: (state, action) => {
       state.loading = false;
+      state.isLogin = true;
       state.redirectTo = "/login";
     },
     kakaoFail: (state, action) => {
       state.loading = false;
+      state.isLogin = false;
       state.error = action.payload;
     },
   },

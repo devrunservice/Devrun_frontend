@@ -1,4 +1,5 @@
 export { default as Basket } from "./Basket/Basket";
+
 export { default as HomePage } from "./HomePage/HomePage";
 export { default as Lecture } from "./Lecture/Lecture";
 export { default as Login } from "./Login/Login";
@@ -8,9 +9,10 @@ export { default as DetailPage } from "./DetailPage/DetailPage";
 export { default as CreateVideo } from "./CreateVideo/CreateVideo";
 export { default as FindId } from "./FindAccount/FindId";
 export { default as FindPassword } from "./FindAccount/FindPassword";
-export { default as Profile } from "./Profile/Profile";
-export { default as ProfileUpdate } from "./Profile/ProfileUpdate";
+export { default as Profile } from "./User/Profile/Profile";
+export { default as ProfileUpdate } from "./User/Profile/ProfileUpdate";
 export { default as Certificate } from "./Certificates";
 export { default as NoticeWrite } from "./NoticeWrite";
 export { default as NoticeDetail } from "./NoticeDetail";
 export { default as Notice } from "./Notice";
+export { default as Dashboard } from "./User/Dashboard/Dashboard";

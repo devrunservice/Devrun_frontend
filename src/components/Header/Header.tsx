@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
-import { getCookie, removeCookie } from "api/cookies";
+import { getCookie } from "api/cookies";
 import NoImg from "asset/images/NoImg.jpg";
 import * as St from "./style";
-import { fetchUserTmi } from "../../redux/reducer/userReducer";
+import { userTmiPending } from "../../redux/reducer/userReducer";
 import { logoutLoading } from "../../redux/reducer/loginReducer";
 
 const Header = () => {
@@ -16,22 +16,20 @@ const Header = () => {
 
   const userId = localStorage.getItem("userId");
   const userData = useSelector((state: RootState) => state.userReducer.data);
+  const isLogin = useSelector((state: RootState) => state.loginReducer.isLogin);
 
-  useEffect(() => {
-    if (getCookie("accessToken")) {
-      setCookie(true);
-      dispatch(fetchUserTmi(userId || ""));
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (isLogin === true) {
+  //     dispatch(userTmiPending(userId || ""));
+  //   }
+  // }, []);
 
   const handleLogout = () => {
     // removeCookie("accessToken");
     // removeCookie("refreshToken");
     // localStorage.clear();
     // setCookie(false);
-    const refreshToken = getCookie("refreshToken");
-    console.log(refreshToken);
-    dispatch(logoutLoading(refreshToken));
+    dispatch(logoutLoading());
   };
 
   return (
@@ -57,7 +55,7 @@ const Header = () => {
             />
             <St.SearchIcon />
           </St.SearchBox>
-          {cookie ? (
+          {isLogin === true ? (
             <St.NavWrap>
               <St.HeaderIcon>
                 <St.Icon>
