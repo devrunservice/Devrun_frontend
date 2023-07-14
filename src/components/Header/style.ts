@@ -11,6 +11,7 @@ export const InnerHeader = styled(Inner)`
   display: flex;
   justify-content: space-between;
   height: 80px;
+  padding: 0;
 `;
 export const NavWrap = styled.div`
   display: flex;
@@ -177,7 +178,6 @@ export const Img = styled.img`
   max-width: 100%;
 `;
 
-
 export const TextWrap = styled.div`
   width: calc(100% - 170px);
   padding-left: 20px;
@@ -218,7 +218,39 @@ export const CartButton = styled.button`
 `;
 
 export const Dropdown = styled(CartHover)`
-  width: 200px;
+  /* display: flex;
+  justify-content: space-between; */
+  /* visibility: visible; */
+  width: 250px;
+
+  & button:nth-child(1) {
+    font-size: ${(props) => props.theme.fontSize18px};
+  }
+
+  & button:nth-child(1):hover {
+    text-decoration: underline;
+  }
+
+  & button:nth-child(2) {
+    color: ${(props) => props.theme.brandColor};
+  }
+
+  & p {
+    font-size: ${(props) => props.theme.fontSize12px};
+  }
 `;
 
-export const DropdownItem = styled.button``;
+export const DropdownTop = styled(CartTop)`
+  justify-content: space-between;
+  padding-bottom: 1rem;
+`;
+
+export const DropdownItemWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const DropdownItemBtn = styled.button`
+  background-color: transparent;
+  padding: 0;
+`;

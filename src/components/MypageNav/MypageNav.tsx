@@ -1,17 +1,20 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import * as St from "./style"
-
-
+import * as St from "./style";
 
 const MypageNav = () => {
   const navigate = useNavigate();
-  const local = window.location.pathname
+  const local = window.location.pathname;
   return (
     <St.Aside>
       <St.AsideUl>
         <St.AsideTit>학습 관리</St.AsideTit>
-        {/* <St.AsideBtn onClick={() => navigate("")}>대쉬보드</St.AsideBtn> */}
+        <St.AsideBtn
+          onClick={() => navigate("/dashboard")}
+          active={local === "/dashboard"}
+        >
+          대쉬보드
+        </St.AsideBtn>
         <St.AsideBtn
           onClick={() => navigate("/learning")}
           active={local === "/learning"}
@@ -26,7 +29,7 @@ const MypageNav = () => {
         <St.AsideTit>개인</St.AsideTit>
         <St.AsideBtn
           onClick={() => navigate("/profile")}
-          active={local === "/profile"}
+          active={local === "/profile" || local === "/profileupdate"}
         >
           프로필
         </St.AsideBtn>

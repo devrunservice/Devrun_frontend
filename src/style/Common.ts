@@ -39,7 +39,9 @@ export const GaryBg = styled.div`
 export const Inner = styled.div`
   width: 1200px;
   margin: 0 auto;
+  padding: 60px 0 100px;
 `;
-export const InnerF = styled(Inner)`
-display:flex;
-`
+
+export const AppSection = styled(Inner)`
+  display: flex;
+`;
