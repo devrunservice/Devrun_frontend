@@ -3,30 +3,30 @@ import { RxDotsVertical } from "react-icons/rx";
 import NoImg from "asset/images/NoImg.jpg";
 import * as St from "./style";
 
-
+interface IComment {
+  comment: string;
+  comments: string;
+}
 
 const Comment = () => {
   
-  const [comments, setComments] = useState<string>("");
-  const commentsChange = (e: ChangeEvent<HTMLTextAreaElement>) => setComments(e.target.value);
-  const commentsCancel = () => setComments("")
-  
-  const [comment, setComment] = useState<string>("");
-  const commentChange = (e: ChangeEvent<HTMLTextAreaElement>) => setComment(e.target.value);
-  const commentCancel = () => setComment("");
-  
+  const [comment, setComment] = useState<IComment>({
+    comment: "",
+    comments: "",
+  });  
+  console.log(comment.comments)
   const [love, setLove] = useState<boolean>(false);
   const loveBtn = () => setLove(!love);
 
   const [write, setWrite] = useState<boolean>(false);
   const writeBtn = () => {
     setWrite(!write);
-    setComment(""); 
+    setComment({ ...comment, comments: "" });
   };
 
   const commentRegBtn = () => {
     setWrite(!write);
-    setComment("")
+    setComment({ ...comment, comments: "" });
   }
  
   return (
@@ -39,13 +39,17 @@ const Comment = () => {
           </St.CommentCount>
         </St.CommentTitle>
         <St.CommentBox
-          onChange={commentsChange}
+          onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+            setComment({ ...comment, comment: e.target.value })
+          }
           maxLength={500}
-          value={comments}
+          value={comment.comment}
         />
         <St.ButtonWrap>
-          <St.CommentNum>{comments.length} / 500</St.CommentNum>
-          <St.ButtonOut onClick={() => commentsCancel()}>취소</St.ButtonOut>
+          <St.CommentNum>{comment.comment.length} / 500</St.CommentNum>
+          <St.ButtonOut onClick={() => setComment({ ...comment, comment: "" })}>
+            취소
+          </St.ButtonOut>
           <St.Button>등록</St.Button>
         </St.ButtonWrap>
       </St.Top>
@@ -101,15 +105,15 @@ const Comment = () => {
           {write && (
             <St.CommentWriteWrap>
               <St.CommentBox
-                onChange={commentChange}
+                onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+                  setComment({ ...comment, comments: e.target.value })
+                }
                 maxLength={500}
-                value={comment}
+                value={comment.comments}
               />
               <St.ButtonWrap>
-                <St.CommentNum>{comment.length} / 500</St.CommentNum>
-                <St.ButtonOut onClick={() => commentCancel()}>
-                  취소
-                </St.ButtonOut>
+                <St.CommentNum>{comment.comments.length} / 500</St.CommentNum>
+                <St.ButtonOut onClick={() => writeBtn()}>취소</St.ButtonOut>
                 <St.Button onClick={() => commentRegBtn()}>등록</St.Button>
               </St.ButtonWrap>
             </St.CommentWriteWrap>
@@ -117,6 +121,7 @@ const Comment = () => {
           <St.CommentWriteWrap>aaa</St.CommentWriteWrap>
           <St.CommentWriteWrap>aaa</St.CommentWriteWrap>
         </St.CommentLi>
+        
       </St.CommentUl>
     </St.CommentWrap>
   );
