@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useRef, useState } from "react";
+import React, { /* MouseEventHandler, */ useRef, useState } from "react";
 import CurriculumSection from "components/CurriculumSection/CurriculumSection";
 import Modal from "components/Modal/Modal";
 import { PlusCircle } from "asset";
-import { RootState } from "redux/store";
-import { useDispatch, useSelector } from "react-redux";
+// import { RootState } from "redux/store";
+import { useDispatch } from "react-redux";
 import { SectionType } from "types";
 import {
   addClass,
@@ -17,6 +17,7 @@ import {
 import * as St from "../CreateNewVideo/style";
 
 const CreateVideoTwo = ({ PrevPage }: { PrevPage: any }) => {
+  /* eslint-disable @typescript-eslint/no-unused-vars */
   const dispatch = useDispatch();
   // const createVideoSlice = useSelector((state:RootState)=>state.createVideoSlice.section)
   const nextId = useRef<number>(1);
@@ -40,9 +41,9 @@ const CreateVideoTwo = ({ PrevPage }: { PrevPage: any }) => {
     nextId.current += 1;
   };
   const deleteSections = (id: number) => {
-    // dispatch(deleteSection(
-    //   createVideoSlice.filter((list:any)=>list.num !== id)
-    // ))
+    // dispatch(
+    //   deleteSection(createVideoSlice.filter((list: any) => list.num !== id)),
+    // );
   };
   const addClasses = (id: number) => {
     dispatch(
@@ -90,18 +91,17 @@ const CreateVideoTwo = ({ PrevPage }: { PrevPage: any }) => {
             섹션추가하기
           </button>
         </St.ArticleTitle>
-        {/* {
-          createVideoSlice.map((list: any,index:number)=>(
-            <CurriculumSection 
-              item={list} key={index} 
-              modalOn={modalOn} 
-              deleteSections={deleteSections}
-              addClasses={addClasses}
-              changeTitles={changeTitles}
-              onTitleWrites={onTitleWrites}
-            />
-          ))
-        } */}
+        {/* {createVideoSlice.map((list: any, index: number) => (
+          <CurriculumSection
+            item={list}
+            key={index}
+            modalOn={modalOn}
+            deleteSections={deleteSections}
+            addClasses={addClasses}
+            changeTitles={changeTitles}
+            onTitleWrites={onTitleWrites}
+          />
+        ))} */}
         <div>
           <St.NextCreateBtn>등록</St.NextCreateBtn>
         </div>

@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import axios from "axios";
-import { login } from "api";
 import { getCookie, setCookie } from "./cookies";
 
 export const authAxios = axios.create({
@@ -20,9 +19,7 @@ export const accAxios = axios.create({
 accAxios.interceptors.request.use(
   (config) => {
     const accessToken = getCookie("accessToken");
-    const refreshToken = getCookie("refreshToken");
     config.headers.Access_token = `Bearer ${accessToken}`;
-    config.headers.refresh_token = `Bearer ${refreshToken}`;
     return config;
   },
   (error) => {

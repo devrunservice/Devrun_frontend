@@ -5,8 +5,8 @@ import {
   tmi,
   RequestPayResponse,
   SignupFormType,
-  IMySearch,
   TokenType,
+  IMySearch,
 } from "types";
 import { setCookie } from "./cookies";
 import { authAxios, accAxios } from "./instance";
@@ -65,18 +65,27 @@ export const login = {
     localStorage.setItem("userId", params.id);
     return response;
   },
-  kakaoLogin: async (params: any) => {},
   checkLogout: async (params: TokenType) => {
     const config = {
       headers: {
-        Refresh_token: `Bearer ${params}`,
+        Refresh_token: `${params}`,
       },
     };
     const response = await authAxios.post("/logout", null, config);
     console.log(response);
     return response;
   },
-  
+  refreshAccessToken: async (params: string) => {
+    const config = {
+      headers: {
+        Refresh_token: `${params}`,
+      },
+    };
+    const response = await accAxios.post("/token/refresh", null, config);
+    console.log(response);
+    // setCookie("accessToken", response.data.Access_token);
+    return response.data.Access_token;
+  },
 };
 
 export const userInfo = {
@@ -120,11 +129,11 @@ export const Cart = {
   },
 };
 
-export const Search ={
-  mygage:(params:IMySearch)=>{
+export const Search = {
+  mygage: (params: IMySearch) => {
     const response = accAxios.get("/params", { params: { params } });
-    return response
-  }
-}
+    return response;
+  },
+};
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
