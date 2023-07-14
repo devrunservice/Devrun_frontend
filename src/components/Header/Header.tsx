@@ -17,17 +17,14 @@ const Header = () => {
   const userId = localStorage.getItem("userId");
   const userData = useSelector((state: RootState) => state.userReducer.data);
   const isLogin = useSelector((state: RootState) => state.loginReducer.isLogin);
-  // useEffect(() => {
-  //   if (isLogin === true) {
-  //     dispatch(userTmiPending(userId || ""));
-  //   }
-  // }, []);
+
+  useEffect(() => {
+    if (isLogin === true) {
+      dispatch(userTmiPending(userId || ""));
+    }
+  }, []);
 
   const handleLogout = () => {
-    // removeCookie("accessToken");
-    // removeCookie("refreshToken");
-    // localStorage.clear();
-    // setCookie(false);
     dispatch(logoutLoading());
   };
 
