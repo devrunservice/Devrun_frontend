@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import profile from "asset/images/profile.png";
 import * as St from "./styles";
+import { Section } from "../styles";
 
 const ProfileUpdate = () => {
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ const ProfileUpdate = () => {
   const userData = useSelector((state: RootState) => state.userReducer.data);
 
   return (
-    <St.Profile>
+    <Section>
       <St.Title>프로필</St.Title>
       <St.ProfileCon>
         <St.Imgbox>
@@ -59,7 +60,7 @@ const ProfileUpdate = () => {
         <St.InputOther value={userData.phonenumber} disabled />
       </St.ProfileCon>
       <St.ChangeBtn onClick={() => navigate("/profile")}>확인</St.ChangeBtn>
-    </St.Profile>
+    </Section>
   );
 };
 
