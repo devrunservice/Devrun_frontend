@@ -6,6 +6,7 @@ import { RootState } from "redux/store";
 import profile from "asset/images/profile.png";
 import { userTmiPending } from "../../../redux/reducer/userReducer";
 import * as St from "./styles";
+import { Section } from "../styles";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const Profile = () => {
   }, []);
 
   return (
-    <St.Profile>
+    <Section>
       <St.Title>프로필</St.Title>
       <St.ProfileCon>
         <St.Imgbox>
@@ -74,7 +75,7 @@ const Profile = () => {
       <St.ChangeBtn onClick={() => navigate("/profileupdate")}>
         수정
       </St.ChangeBtn>
-    </St.Profile>
+    </Section>
   );
 };
 
