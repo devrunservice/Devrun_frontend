@@ -37,6 +37,7 @@ export const signup = {
     const response = authAxios.post(`/checkEmail`, params);
     return response;
   },
+  // 휴대폰 중복확인
   getDuplicatedPhonnumber: (params: CreateUser) => {
     const response = authAxios.post("/checkPhone", params);
     return response;
@@ -84,7 +85,6 @@ export const login = {
     };
     const response = await accAxios.post("/token/refresh", null, config);
     console.log(response);
-    // setCookie("accessToken", response.data.Access_token);
     return response.data.Access_token;
   },
 };
@@ -109,8 +109,8 @@ export const userInfo = {
 
 // 로그인한 유저정보
 export const userData = {
-  createUser: (params: tmi) => {
-    const response = accAxios.get("/tmi", { params: { params } });
+  createUser: async (params: tmi) => {
+    const response = await accAxios.get("/tmi", { params: { id: params } });
     return response;
   },
 };

@@ -37,19 +37,6 @@ const FindAccount = ({ findOption }: { findOption: string }) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (option === "phonenumber") {
-      const response = userInfo.findIdByPhonenumber({
-        name: findAccountForm.name,
-        phonenumber: findAccountForm.phonenumber,
-      });
-      console.log(response);
-    } else {
-      const response = userInfo.findIdByEmail({
-        name: findAccountForm.name,
-        phonenumber: findAccountForm.phonenumber,
-      });
-      console.log(response);
-    }
   };
 
   const handleRadioBox = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,6 +62,32 @@ const FindAccount = ({ findOption }: { findOption: string }) => {
     }
 
     console.log(findAccountForm.phonenumber);
+  };
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const { name } = e.target as HTMLButtonElement;
+
+    if (name === "findIdBtn") {
+      if (option === "phonenumber") {
+        const response = userInfo.findIdByPhonenumber({
+          name: findAccountForm.name,
+          phonenumber: findAccountForm.phonenumber,
+        });
+        console.log(response);
+      } else {
+        const response = userInfo.findIdByEmail({
+          name: findAccountForm.name,
+          phonenumber: findAccountForm.phonenumber,
+        });
+        console.log(response);
+      }
+    } else if (name === "findPasswordBtn") {
+      if (option === "phonenumber") {
+        console.log("휴대폰 번호로 비밀번호 찾기");
+      } else {
+        console.log("이메일로 비밀번호 찾기");
+      }
+    }
   };
 
   return (
@@ -149,8 +162,15 @@ const FindAccount = ({ findOption }: { findOption: string }) => {
             getAuthenticationForm={getAuthenticationForm}
           />
         )}
-
-        <St.Button>아이디 찾기</St.Button>
+        {findOption === "id" ? (
+          <St.Button type="submit" name="findIdBtn" onClick={handleClick}>
+            아이디 찾기
+          </St.Button>
+        ) : (
+          <St.Button type="submit" name="findPasswordBtn" onClick={handleClick}>
+            비밀번호 찾기
+          </St.Button>
+        )}
       </form>
     </>
   );

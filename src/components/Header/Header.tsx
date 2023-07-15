@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
-import { getCookie } from "api/cookies";
 import NoImg from "asset/images/NoImg.jpg";
+import Modal from "components/Login/Modal/Modal";
 import * as St from "./style";
 import { userTmiPending } from "../../redux/reducer/userReducer";
 import { logoutLoading } from "../../redux/reducer/loginReducer";
@@ -20,7 +20,7 @@ const Header = () => {
 
   useEffect(() => {
     if (isLogin === true) {
-      dispatch(userTmiPending(userId || ""));
+      dispatch(userTmiPending(userId));
     }
   }, []);
 
@@ -30,6 +30,7 @@ const Header = () => {
 
   return (
     <St.HeaderWrap>
+      <Modal page="home" />
       <St.InnerHeader>
         <St.NavWrap>
           <St.LogoIcon onClick={() => navigate("/")} />
