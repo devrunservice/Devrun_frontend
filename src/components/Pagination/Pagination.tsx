@@ -4,6 +4,7 @@ import { IPagination } from "types";
 import { PageNext, PagePrev } from "asset";
 import * as St from "./style";
 // props: IPagination
+
 const Pagination = () => {
   const [startPage, setStartPage] = useState<number>(1);
   const [activePage, setActivePage] = useState<number>(1);

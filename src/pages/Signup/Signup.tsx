@@ -437,7 +437,7 @@ const Signup = () => {
           {/* 회원가입 버튼 */}
           <St.SignupBtn disabled={disabledBtn}>회원가입</St.SignupBtn>
         </form>
-        <Modal />
+        <Modal page="signup" />
       </St.Container>
     </St.Section>
   );

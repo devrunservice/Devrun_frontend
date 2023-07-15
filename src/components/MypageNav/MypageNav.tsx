@@ -15,9 +15,24 @@ const MypageNav = () => {
         >
           대쉬보드
         </St.AsideBtn>
-        {/* <St.AsideBtn onClick={() => navigate("")}>내 학습 관리</St.AsideBtn> */}
-        {/* <St.AsideBtn onClick={() => navigate("")}>강의 노트</St.AsideBtn> */}
-        {/* <St.AsideBtn onClick={() => navigate("")}>작성한 질문</St.AsideBtn> */}
+        <St.AsideBtn
+          onClick={() => navigate("/studymanage")}
+          active={local === "/studymanage"}
+        >
+          내 학습 관리
+        </St.AsideBtn>
+        <St.AsideBtn
+          onClick={() => navigate("/notes")}
+          active={local === "/notes"}
+        >
+          강의 노트
+        </St.AsideBtn>
+        <St.AsideBtn
+          onClick={() => navigate("/questions")}
+          active={local === "/questions"}
+        >
+          작성한 질문
+        </St.AsideBtn>
       </St.AsideUl>
 
       <St.AsideUl>
@@ -34,10 +49,25 @@ const MypageNav = () => {
         >
           수료증
         </St.AsideBtn>
-        {/* <St.AsideBtn onClick={() => navigate("")}>스크랩</St.AsideBtn>
-        <St.AsideBtn onClick={() => navigate("")}>쿠폰함</St.AsideBtn>
-        <St.AsideBtn onClick={() => navigate("")}>구매 내역</St.AsideBtn>
-        <St.AsideBtn onClick={() => navigate("")}>문의 내역</St.AsideBtn> */}
+        <St.AsideBtn
+          onClick={() => navigate("/save")}
+          active={local === "/save"}
+        >
+          스크랩
+        </St.AsideBtn>
+        <St.AsideBtn
+          onClick={() => navigate("/coupon")}
+          active={local === "/coupon"}
+        >
+          쿠폰함
+        </St.AsideBtn>
+        <St.AsideBtn
+          onClick={() => navigate("/receipt")}
+          active={local === "/receipt"}
+        >
+          구매 내역
+        </St.AsideBtn>
+        {/* <St.AsideBtn onClick={() => navigate("")}>문의 내역</St.AsideBtn> */}
       </St.AsideUl>
     </St.Aside>
   );

@@ -99,7 +99,7 @@ const LoginForm = () => {
           </St.InputField>
           <St.LoginBtn disabled={!isFormValid}>로그인</St.LoginBtn>
         </form>
-        <Modal />
+        <Modal page="login" />
 
         {/* 아이디, 비밀번호 찾기 및 회원가입 */}
         <St.Finder>
