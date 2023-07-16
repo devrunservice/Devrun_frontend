@@ -41,3 +41,21 @@ export const ModalSection = styled.div`
     outline-color: ${props=>props.theme.mainColor};
   }
 `
+export const ModalBtnWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+`
+export const ModalAccept = styled.button`
+  background: ${props=>props.theme.mainColor};
+  color: ${props=>props.theme.textWhite};
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-left: 10px;
+`
+export const ModalCancel = styled.button`
+  background: ${props=>props.theme.textWhite};
+  border: 1px solid ${props=>props.theme.mainColor};
+  border-radius: 5px;
+  padding: 10px 20px;
+`

@@ -5,7 +5,7 @@ import { PlusCircle } from 'asset';
 import { RootState } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { SectionType } from 'types';
-import { addClass, addSection, changeTitle, deleteSection, onTitleWrite } from '../../redux/reducer/createVideoSlice';
+import { /* connectModal, */ addClass, addSection, changeTitle, deleteClass, deleteSection, onTitleWrite } from '../../redux/reducer/createVideoSlice';
 // import { deleteSection } from '../../redux/reducer/createVideoSlice';
 import * as St from '../CreateNewVideo/style'
 
@@ -52,27 +52,34 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
     }))
     nextSubId.current += 1
   };
+  const deleteClasses = (num:number, index:number) => {
+    dispatch(deleteClass({num,index}))}
+
   const changeTitles = (e:React.KeyboardEvent<HTMLInputElement>, id:number) => {
     if(e.key === 'Enter') {
-      dispatch(changeTitle(
-        {
-          id,
-          value: e.currentTarget.value
-        }
-      ))
+      dispatch(changeTitle({id, value: e.currentTarget.value}))
     }
   }
+
   const onTitleWrites = (id: number) => {
-    dispatch(onTitleWrite(
-      {id,
-      isReadOnly: false}
-    ))
+    dispatch(onTitleWrite({id, isReadOnly: false}))
   }
+
   const [onModal, setOnModal] = useState<boolean>(false)
-  const modalOn = (index: number) => {
-    console.log(index)
+
+  const modalOn = (num:number, index: number) => {
     setOnModal(true)
+
+    // dispatch(connectModal({num, index}))
   }
+  
+  const [modalNum, setModalNum] = useState(0)
+  const modalClose = () => {
+    setOnModal(false)
+  }
+  // const onSubTitleWrites = () => {
+
+  // }
   return (
     <St.CreateVideoWrap>
       <St.CreateVideoArticle>
@@ -90,6 +97,7 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
               modalOn={modalOn} 
               deleteSections={deleteSections}
               addClasses={addClasses}
+              deleteClasses={deleteClasses}
               changeTitles={changeTitles}
               onTitleWrites={onTitleWrites}
             />
@@ -100,9 +108,8 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
         </div>
       </St.CreateVideoArticle>
       {
-        onModal && <Modal />
+        onModal && <Modal modalClose={modalClose} />
       }
-      {/* <Modal /> */}
     </St.CreateVideoWrap>
   )
 }
