@@ -10,7 +10,7 @@ export { default as FindId } from "./FindAccount/FindId";
 export { default as FindPassword } from "./FindAccount/FindPassword";
 export { default as Profile } from "./User/Profile/Profile";
 export { default as ProfileUpdate } from "./User/Profile/ProfileUpdate";
-export { default as Certificate } from "./Certificates";
+export { default as Certificate } from "./User/Certificates";
 export { default as NoticeWrite } from "./NoticeWrite";
 export { default as NoticeDetail } from "./NoticeDetail";
 export { default as Notice } from "./Notice";
