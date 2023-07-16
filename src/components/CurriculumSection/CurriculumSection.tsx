@@ -1,4 +1,4 @@
-import React, { /* MouseEventHandler, */ useState } from "react";
+import React from "react";
 import { Pencil, PlusCircle, Trash } from "asset";
 import * as St from "./style";
 // import * as Dst from "../CreateNewVideo/style";
@@ -21,35 +21,16 @@ interface SubTitleType  {
 }
 interface TestType {
   item: ListType,
-  // key: number,
-  modalOn: (index:number)=> void,
-  // deleteSections:(id:MouseEventHandler<SVGAElement>)=> void
-  deleteSections:(id:number)=> void,
+  modalOn: (num:number, index:number)=> void
+  deleteSections:(id:number)=> void
   addClasses: (id: number)=> void
+  deleteClasses: (num:number, index: number) =>void
   changeTitles: (e:React.KeyboardEvent<HTMLInputElement>, id:number)=>void
   onTitleWrites: (id:number) => void
 }
 
-const CurriculumSection:React.FC<TestType> = ({item, modalOn, deleteSections, addClasses, changeTitles, onTitleWrites}) => {
-  const [classState, setClassState] = useState<any>([
-    {
-      num:1,
-      subTitle: '',
-    }
-  ])
-  /* const addClass = () => {
-    const newNum = classState.length + 1; 
-    const newClassState = [...classState, { num: newNum }];
-    setClassState(newClassState);
-  } */
-  const deleteClass = (num: any) => {
-    const updatedState = classState.filter((list: any) => list.num !== num.num);
-    setClassState(updatedState);
-  }
-  /* const changeSubTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {value} = e.target
-    setClassState([...classState, {subTitle: value}])
-  } */
+const CurriculumSection:React.FC<TestType> = ({item, modalOn, deleteSections, addClasses, changeTitles, onTitleWrites, deleteClasses}) => {
+  console.log(item)
   return(
     <St.CurriculumSectionWrap>
       <St.CurriculumHeader>
@@ -75,12 +56,15 @@ const CurriculumSection:React.FC<TestType> = ({item, modalOn, deleteSections, ad
         item.subTitle.map((list:any, index:number)=>(
           <St.CurriculumMain key={index}>
             <div>
-              <input type="text" placeholder="예)변수 let, const 수업" style={{width:'600px'}} /> 
+              <p>제목</p>
+              <input type="text" name="title" placeholder="예)변수 let, const 수업" readOnly style={{width:'600px'}} /> 
+              <p>URL</p>
+              <input type="text" name="url" placeholder="예)변수 let, const 수업" readOnly style={{width:'600px'}} /> 
             </div>
-            <div>
-              <Pencil onClick={()=>modalOn(index)}/>
-              <Trash onClick={()=>deleteClass(list)} />
-            </div>
+            <St.FlexLine>
+              <Pencil onClick={()=>modalOn(item.num, index)}/>
+              <Trash onClick={()=>deleteClasses(item.num, list.subNum)} />
+            </St.FlexLine>
           </St.CurriculumMain>
         ))
       }
