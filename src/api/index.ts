@@ -116,13 +116,22 @@ export const userData = {
 
 export const Cart = {
   callbak: (params: RequestPayResponse) => {
-    const response = accAxios.post(`/verifyIamport/${params.imp_uid}`);
+    const response = accAxios.post(
+      `/verifyIamport/${params.imp_uid}?couponCode=55519-Vww0UMMKPZue5551`,
+    );
+    console.log(params.imp_uid);
     return response;
   },
   save: (params: RequestPayResponse) => {
     const response = accAxios.post("/savePaymentInfo", params);
     return response;
   },
+  // coupon: (params: RequestPayResponse) => {
+  //   const response = accAxios.post(
+  //     `/verifyIamport/${params.imp_uid}?couponCode=55519-Vww0UMMKPZue5551`,
+  //   );
+  //   return response;
+  // },
   refund: (params: any) => {
     const response = accAxios.post("/payment", params);
     return response;

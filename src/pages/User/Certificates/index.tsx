@@ -1,10 +1,11 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import { Pagination } from "components";
 import * as St from "./style";
+import CertPopup from "./CertPopup";
 
 const index = () => {
-  const navigate = useNavigate();
+  const [popup,setPopup] = useState<boolean>(false)
+
   return (
     <St.Cert>
       <St.Title>
@@ -15,11 +16,14 @@ const index = () => {
       </St.Title>
 
       <St.CertCon>
-        <St.CertConLi onClick={() => navigate("/certificate")}>
+        <St.CertConLi
+          onClick={() => setPopup(!popup)}
+        >
           <St.Num>1</St.Num>
           <St.Text>23123</St.Text>
           <St.Date>123</St.Date>
         </St.CertConLi>
+        {popup && <CertPopup/>}
       </St.CertCon>
       <Pagination />
     </St.Cert>

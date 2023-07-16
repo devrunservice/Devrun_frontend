@@ -33,8 +33,23 @@ const Basket = () => {
       merchant_uid,
       pg_tid,
       pg_provider,
+      paid_at,
     } = response;
     const res = await Cart.callbak({ imp_uid });
+    console.log(res)
+    console.log(
+      imp_uid,
+      paid_amount,
+      buyer_email,
+      buyer_name,
+      buyer_tel,
+      pay_method,
+      name,
+      merchant_uid,
+      pg_tid,
+      pg_provider,
+      paid_at,
+    );
     if (paid_amount === res.data.response.amount) {
       // 저장에 성공했을때
       await Cart.save({
@@ -66,11 +81,11 @@ const Basket = () => {
       pg: "html5_inicis", // PG사
       pay_method: "card", // 결제수단
       merchant_uid: `merchant_${new Date().getTime()}`, // 주문번호
-      amount: 10, // 결제금액
+      amount: 100, // 결제금액
       name: "아임포트 결제", // 주문명
-      buyer_name: userData.name, // 구매자 이름
-      buyer_tel: userData.phonenumber, // 구매자 전화번호
-      buyer_email: userData.email, // 구매자 이메일
+      buyer_name: "송진환", // 구매자 이름
+      buyer_tel: "01032633143", // 구매자 전화번호
+      buyer_email: "song7022556@gmail.com", // 구매자 이메일
     };
 
     /* 4. 결제 창 호출하기 */
