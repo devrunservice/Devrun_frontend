@@ -45,6 +45,7 @@ function* loginSaga(
     //   secure: false,
     //   expires: expirationDate,
     // });
+
     yield put(loginSuccess(response));
   } catch (error: any) {
     yield put(loginFail(error));
@@ -72,10 +73,10 @@ function* kakaoLoginSaga(
   try {
     const response = yield call(login.checkKakaoLogin, action.payload);
     console.log(response);
-    const easyLoginToken = response.data.Easylogin_token;
+    const easyLoginToken = response.data.Easylogin_token.substr(7);
     if (easyLoginToken) {
       console.log(easyLoginToken);
-      localStorage.setItem("easyLoginToken", easyLoginToken.substr(7));
+      // localStorage.setItem("easyLoginToken", easyLoginToken);
       setCookie("easyLoginToken", easyLoginToken, {
         path: "/login",
       });

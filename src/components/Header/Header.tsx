@@ -22,6 +22,10 @@ const Header = () => {
   useEffect(() => {
     console.log("메인 화면으로 진입");
     if (isLogin === true) {
+      const easyLoginToken = getCookie("easyLoginToken");
+      if (easyLoginToken) {
+        removeCookie("easyLoginToken");
+      }
       const decodedToken = decode("accessToken");
       const userId = decodedToken;
       console.log(userId);

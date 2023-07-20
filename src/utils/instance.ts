@@ -132,7 +132,7 @@ authAxios.interceptors.response.use(
       case 400:
         switch (errorMessage) {
           case "Invalid input data":
-            return Promise.reject(new Error("회원가입 폼을 작성해주세요."));
+            return Promise.reject(new Error("회원가입 양식을 작성해주세요."));
           case "Already linked to another user":
             return Promise.reject(
               new Error("로그인 되어있는 계정이 있습니다."),

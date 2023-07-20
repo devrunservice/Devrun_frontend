@@ -1,4 +1,4 @@
-import React, { MutableRefObject } from 'react'
+import React, { MutableRefObject } from "react";
 // 페이지네이션
 export interface IPagination {
   activePage?: number;
@@ -39,7 +39,6 @@ export interface ILearnTap {
   active: boolean;
 }
 
-
 // 댓글
 export interface IComment {
   comment: string;
@@ -49,8 +48,8 @@ export interface IPriceButton {
   active: boolean;
 }
 // 마이페이지 검색
-export interface IMySearch{
-  search:string;
+export interface IMySearch {
+  search: string;
 }
 
 // 결제창
@@ -267,22 +266,20 @@ export interface CreateLectureType {
   lectureTag?: Array<string>;
   lectureExplane?: string;
   lectureIntroduce?: string;
-  section?: Array<SectionType>
+  section?: Array<SectionType>;
 }
 export interface SectionType {
   // num:number,
-  num:MutableRefObject<number>,
+  num: MutableRefObject<number>;
   title: string;
   isReadOnly: boolean;
-  subTitle: Array<SubTitleType>
+  subTitle: Array<SubTitleType>;
 }
 export interface SubTitleType {
-  subNum:number;
+  subNum: number;
   // subNum:React.MutableRefObject<number>;
   className: string;
   url: string;
   isReadOnly: boolean;
 }
-export interface RefType {
-
-}
+export interface RefType {}
