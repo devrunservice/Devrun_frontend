@@ -248,7 +248,7 @@ export interface TokenType {
 // }
 export interface CreateLectureType {
   lectureName?: string;
-  lecturePrice?: string;
+  lecturePrice?: number;
   imageUrl?: string;
   lectureCategory?: string;
   lectureTag?: Array<string>;

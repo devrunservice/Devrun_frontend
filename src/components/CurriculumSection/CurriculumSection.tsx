@@ -1,5 +1,5 @@
 import React from "react";
-import { Pencil, PlusCircle, Trash } from "asset";
+import { /* Pencil, */ PlusCircle, Trash } from "asset";
 import * as St from "./style";
 // import * as Dst from "../CreateNewVideo/style";
 
@@ -21,26 +21,27 @@ interface SubTitleType  {
 }
 interface TestType {
   item: ListType,
-  modalOn: (num:number, index:number)=> void
+  // modalOn: (num:number, index:number)=> void
   deleteSections:(id:number)=> void
   addClasses: (id: number)=> void
   deleteClasses: (num:number, index: number) =>void
-  changeTitles: (e:React.KeyboardEvent<HTMLInputElement>, id:number)=>void
+  changeTitles: (e:React.ChangeEvent<HTMLInputElement>, id:number)=>void
   onTitleWrites: (id:number) => void
+  changeSubTitle: (e:React.ChangeEvent<HTMLInputElement>, num:number, index:number) => void
 }
 
-const CurriculumSection:React.FC<TestType> = ({item, modalOn, deleteSections, addClasses, changeTitles, onTitleWrites, deleteClasses}) => {
+const CurriculumSection:React.FC<TestType> = ({item, /* modalOn, */changeSubTitle, deleteSections, addClasses, changeTitles, /* onTitleWrites, */ deleteClasses}) => {
   console.log(item)
   return(
     <St.CurriculumSectionWrap>
       <St.CurriculumHeader>
           <h4>섹션{item.num}. 
+          {/* readOnly={item.isReadOnly}  */}
             <input 
               type="text" 
-              placeholder="작성 후 엔터키 입력" 
-              readOnly={item.isReadOnly} 
-              onKeyDown={(event)=>changeTitles(event, item.num)} 
-              // value={item.title} 
+              placeholder="목차 입력" 
+              onChange={(event)=>changeTitles(event, item.num)} 
+              value={item.title} 
               />
           </h4>
           <div>
@@ -48,7 +49,7 @@ const CurriculumSection:React.FC<TestType> = ({item, modalOn, deleteSections, ad
               <PlusCircle/>
               수업 추가하기
             </button>
-            <Pencil onClick={()=>onTitleWrites(item.num)}/>
+            {/* <Pencil onClick={()=>onTitleWrites(item.num)}/> */}
             <Trash onClick={()=>deleteSections(item.num)}/>
           </div>
       </St.CurriculumHeader>
@@ -57,12 +58,12 @@ const CurriculumSection:React.FC<TestType> = ({item, modalOn, deleteSections, ad
           <St.CurriculumMain key={index}>
             <div>
               <p>제목</p>
-              <input type="text" name="title" placeholder="예)변수 let, const 수업" readOnly style={{width:'600px'}} /> 
+              <input type="text" value={list.className} onChange={(event)=>changeSubTitle(event, item.num, index)} name="title" placeholder="제목입력"  style={{width:'600px'}} /> 
               <p>URL</p>
-              <input type="text" name="url" placeholder="예)변수 let, const 수업" readOnly style={{width:'600px'}} /> 
+              <input type="text" value={list.url} onChange={(event)=>changeSubTitle(event, item.num, index)} name="url" placeholder="url주소 입력"  style={{width:'600px'}} /> 
             </div>
             <St.FlexLine>
-              <Pencil onClick={()=>modalOn(item.num, index)}/>
+              {/* <Pencil onClick={()=>modalOn(item.num, index)}/> */}
               <Trash onClick={()=>deleteClasses(item.num, list.subNum)} />
             </St.FlexLine>
           </St.CurriculumMain>
