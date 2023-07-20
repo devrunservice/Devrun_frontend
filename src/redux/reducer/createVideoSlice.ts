@@ -39,7 +39,6 @@ const initialState:CreateLectureType = {
   lectureIntroduce: '',
   section: [
     {
-      // num: nextId,
       num: 0,
       title: '',
       isReadOnly: false,

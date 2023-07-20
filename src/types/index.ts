@@ -19,7 +19,7 @@ export interface IBtnNav {
   active: boolean;
 }
 
-// 프로필 
+// 프로필
 export interface IProfileActiveBtn {
   active: boolean;
 }
@@ -28,19 +28,30 @@ export interface IProfileBtn {
   password: boolean;
   number: boolean;
 }
+export interface Iprofile {
+  password: string;
+  passwordCheck: string;
+  email: string;
+  number: string;
+}
+// 내 학습관리 탭
+export interface ILearnTap {
+  active: boolean;
+}
+
 
 // 댓글
 export interface IComment {
   comment: string;
 }
 
-
-
 export interface IPriceButton {
   active: boolean;
 }
-
-
+// 마이페이지 검색
+export interface IMySearch{
+  search:string;
+}
 
 // 결제창
 export interface IRequestPayAdd {
@@ -183,7 +194,9 @@ export interface ITmiData {
   id: string;
   email: string;
   name: string;
-  phonenumber: number;
+  birthday: string;
+  phonenumber: string;
+  role: string;
 }
 
 export interface ITmi {
@@ -223,8 +236,8 @@ export interface CheckValidationReducerType {
   };
 }
 export interface TokenType {
-  value: string;
-  expire: Date;
+  accessToken?: string;
+  refreshToken?: string;
 }
 
 // export interface CreateLectureType {

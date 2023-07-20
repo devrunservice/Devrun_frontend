@@ -5,6 +5,8 @@ import {
   tmi,
   RequestPayResponse,
   SignupFormType,
+  TokenType,
+  IMySearch,
 } from "types";
 import { setCookie } from "./cookies";
 import { authAxios, accAxios } from "./instance";
@@ -46,9 +48,9 @@ export const login = {
     const response = await authAxios.post("/login", params);
     console.log(response);
     const accessToken = response.data.Access_token.substr(7);
-    // 한시간
-    const expirationDate = new Date();
-    expirationDate.setMinutes(expirationDate.getMinutes() * 30);
+    const offset = 1000 * 60 * 60 * 9;
+    const expirationDate = new Date(new Date().getTime() + offset);
+    expirationDate.setMinutes(expirationDate.getMinutes() + 1);
     setCookie("accessToken", accessToken, {
       // 모든페이지에서 쿠키 엑세스 가능
       path: "/",
@@ -56,11 +58,34 @@ export const login = {
       secure: false,
       // 쿠키 훔쳐가는거 막음 로컬에서는 사용이 안된다함
       // httpOnly: true,
-      // 쿠키 만료날짜 1시간
+      // 쿠키 만료 날짜
       expires: expirationDate,
     });
-    setCookie("refreshToken", response.data.Refresh_token);
+    // setCookie("accessToken", response.data.Access_token);
+    setCookie("refreshToken", response.data.Refresh_token.substr(7));
+    localStorage.setItem("userId", params.id);
     return response;
+  },
+  checkLogout: async (params: TokenType) => {
+    const config = {
+      headers: {
+        Refresh_token: `${params}`,
+      },
+    };
+    const response = await authAxios.post("/logout", null, config);
+    console.log(response);
+    return response;
+  },
+  refreshAccessToken: async (params: string) => {
+    const config = {
+      headers: {
+        Refresh_token: `${params}`,
+      },
+    };
+    const response = await accAxios.post("/token/refresh", null, config);
+    console.log(response);
+    // setCookie("accessToken", response.data.Access_token);
+    return response.data.Access_token;
   },
 };
 
@@ -82,22 +107,13 @@ export const userInfo = {
   },
 };
 
-export const token = {
-  refreshAccessToken: async (params: string) => {
-    const response = await accAxios.post("/token/refresh", params);
-    setCookie("accessToken", response.data.Access_token);
-    return response.data.Access_token;
-  },
-};
-
 // 로그인한 유저정보
 export const userData = {
-  createUser: async (id: tmi) => {
-    const response = await accAxios.get("/tmi", { params: { id } });
+  createUser: (params: tmi) => {
+    const response = accAxios.get("/tmi", { params: { params } });
     return response;
   },
 };
-
 
 export const Cart = {
   callbak: (params: RequestPayResponse) => {
@@ -110,6 +126,13 @@ export const Cart = {
   },
   refund: (params: any) => {
     const response = accAxios.post("/payment", params);
+    return response;
+  },
+};
+
+export const Search = {
+  mygage: (params: IMySearch) => {
+    const response = accAxios.get("/params", { params: { params } });
     return response;
   },
 };

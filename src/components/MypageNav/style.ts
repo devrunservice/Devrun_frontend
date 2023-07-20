@@ -6,7 +6,10 @@ export const Aside = styled.aside`
   display: flex;
   flex-direction: column;
   gap: 30px;
-  margin-right:70px;
+  /* margin-right: 70px; */
+`;
+export const AsideUl = styled.div`
+  width: 230px;
 `;
 export const AsideTit = styled.em`
   display: block;
@@ -14,9 +17,9 @@ export const AsideTit = styled.em`
   color: ${(props) => props.theme.textPoint};
   font-size: ${(props) => props.theme.fontSize16px};
   font-weight: ${(props) => props.theme.fontSemiBold};
-  margin-bottom:15px;
+  margin-bottom: 15px;
 `;
-export const AsideUl = styled.div``;
+
 export const AsideBtn = styled.button<IBtnNav>`
   width: 100%;
   height: 40px;

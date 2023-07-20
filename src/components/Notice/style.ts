@@ -1,7 +1,5 @@
 import { styled } from "styled-components";
 
-
-
 export const Title = styled.h4`
   margin-bottom: 30px;
   font-size: ${(props: any) => props.theme.fontSize25px};
@@ -16,7 +14,7 @@ export const TableLi = styled.li`
   border-bottom: 1px solid ${(props:any) => props.theme.borderGray};
   display: flex;
   align-items: center;
-  padding: 25px 0;
+  padding: 20px 0;
   text-align: center;
   cursor:pointer;
   ;
