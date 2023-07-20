@@ -418,6 +418,9 @@ const Signup = () => {
             </St.Li>
           </St.Ul>
 
+          <St.CancelBtn type="button" onClick={() => navigate("/")}>
+            취소
+          </St.CancelBtn>
           {/* 회원가입 버튼 */}
           <St.SignupBtn type="submit" disabled={disabledBtn}>
             회원가입
