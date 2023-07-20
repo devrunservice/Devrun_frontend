@@ -4,10 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { BrandLogo, Kakao, Naver, Google } from "asset";
+import { login } from "utils";
 import { LoginFormType } from "types";
 import { PasswordInput, Modal } from "components";
 import { Input } from "style/Common";
-import { loginLoading } from "../../redux/reducer/loginReducer";
+import { kakaoLoading, loginLoading } from "../../redux/reducer/loginReducer";
 import * as St from "./styles";
 
 const LoginForm = () => {
@@ -35,23 +36,6 @@ const LoginForm = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // try {
-    //   const response = await login.checkLoginUser({
-    //     id: loginForm.id,
-    //     password: loginForm.password,
-    //   });
-    //   console.log(response);
-    //   if (response.status === 200) navigate(`/`);
-    // } catch (error: any) {
-    //   dispatch(openModal(error.message));
-    // }
-
-    // dispatch(
-    //   loginAction({
-    //     id: loginForm.id,
-    //     password: loginForm.password,
-    //   }),
-    // );
     dispatch(
       loginLoading({
         id: loginForm.id,
@@ -70,7 +54,8 @@ const LoginForm = () => {
 
   const handleSocialLogin = (social: string) => {
     if (social === "kakao") {
-      window.location.href = `${process.env.REACT_APP_SERVER_URL}/kakao/login`;
+      const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`;
+      window.location.href = kakaoURL;
     }
   };
 

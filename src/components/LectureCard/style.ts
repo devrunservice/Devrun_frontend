@@ -3,6 +3,7 @@ import { styled } from "styled-components";
 export const List = styled.li`
   color: ${(props) => props.theme.textBlack};
   margin-bottom: 30px;
+  width: 100%;
 `;
 export const ListThumbnail = styled.div`
   border-radius: 10px;

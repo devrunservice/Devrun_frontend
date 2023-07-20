@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import axios from "axios";
 import {
   CreateUser,
   LoginFormType,
@@ -48,23 +49,23 @@ export const login = {
   checkLoginUser: async (params: LoginFormType) => {
     const response = await authAxios.post("/login", params);
     console.log(response);
-    const accessToken = response.data.Access_token.substr(7);
-    const offset = 1000 * 60 * 60 * 9;
-    const expirationDate = new Date(new Date().getTime() + offset);
-    expirationDate.setMinutes(expirationDate.getMinutes() + 1);
-    setCookie("accessToken", accessToken, {
-      // 모든페이지에서 쿠키 엑세스 가능
-      path: "/",
-      // https 일때 true로 바꿔줄것!
-      secure: false,
-      // 쿠키 훔쳐가는거 막음 로컬에서는 사용이 안된다함
-      // httpOnly: true,
-      // 쿠키 만료 날짜
-      expires: expirationDate,
-    });
-    // setCookie("accessToken", response.data.Access_token);
-    setCookie("refreshToken", response.data.Refresh_token.substr(7));
-    localStorage.setItem("userId", params.id);
+    // const accessToken = response.data.Access_token.substr(7);
+    // const refreshToken = response.data.Refresh_token.substr(7);
+    // const offset = 1000 * 60 * 60 * 9;
+    // const expirationDate = new Date(new Date().getTime() + offset);
+    // expirationDate.setMinutes(expirationDate.getMinutes() + 1);
+    // setCookie("accessToken", accessToken, {
+    //   // 모든페이지에서 쿠키 엑세스 가능
+    //   path: "/",
+    //   // https 일때 true로 바꿔줄것!
+    //   secure: false,
+    //   // 쿠키 훔쳐가는거 막음 로컬에서는 사용이 안된다함
+    //   // httpOnly: true,
+    //   // 쿠키 만료 날짜
+    //   expires: expirationDate,
+    // });
+    // setCookie("refreshToken", refreshToken);
+    // localStorage.setItem("userId", params.id);
     return response;
   },
   checkLogout: async (params: TokenType) => {
@@ -86,6 +87,13 @@ export const login = {
     const response = await accAxios.post("/token/refresh", null, config);
     console.log(response);
     return response.data.Access_token;
+  },
+  checkKakaoLogin: async (params: string) => {
+    const response = await authAxios.get(
+      `${process.env.REACT_APP_SERVER_URL}/auth/kakao/callback?code=${params}`,
+    );
+    console.log(response);
+    return response;
   },
 };
 

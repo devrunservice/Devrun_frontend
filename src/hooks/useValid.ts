@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
-import { signup } from "api";
+import { signup } from "utils";
 import { IsValidType, SignupFormType } from "types";
 import { useDispatch } from "react-redux";
 import {
