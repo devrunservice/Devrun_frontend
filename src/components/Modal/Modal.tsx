@@ -1,10 +1,10 @@
 import React, { ChangeEvent, useState } from 'react';
 import * as St from './style'
 
-interface ModalProps {
+/* interface ModalProps {
   modalClose:() => void
-}
-const Modal:React.FC<ModalProps> = ({modalClose}) => {
+} */
+const Modal/* :React.FC<ModalProps> */ = (/* {modalClose} */) => {
   const [input, setInput] = useState({
     title: '',
     url: '',
@@ -31,7 +31,7 @@ const Modal:React.FC<ModalProps> = ({modalClose}) => {
           <input onChange={onChange} value={url} type="text" name='url' placeholder='Youtube동영상 URL을 넣어주세요.' />
         </St.ModalSection>
         <St.ModalBtnWrap>
-          <St.ModalCancel onClick={()=>modalClose()}>취소</St.ModalCancel>
+          <St.ModalCancel /* onClick={()=>modalClose()} */>취소</St.ModalCancel>
           <St.ModalAccept>저장</St.ModalAccept>
         </St.ModalBtnWrap>
       </St.ModalWrap>

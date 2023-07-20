@@ -160,3 +160,12 @@ export const TagItem = styled.span`
   background: ${props=>props.theme.mainColor};
   color: ${props=>props.theme.textWhite};
 `
+
+export const OtherBtn = styled.button`
+  display: block;
+  border: none;
+  border-radius: 5px;
+  background: #604B8E;
+  color: #fff;
+  padding: 12px 25px;
+`
