@@ -1,13 +1,10 @@
 import React from "react";
-import { Certificate, MypageNav } from "components";
+import { Certificate } from "components";
 import * as St from "style/Common";
 
 const index = () => (
   <St.WhiteBg>
-    <St.InnerF>
-      <MypageNav />
-      <Certificate />
-    </St.InnerF>
+    <Certificate />
   </St.WhiteBg>
 );
 export default index;
