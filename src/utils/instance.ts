@@ -51,8 +51,6 @@ accAxios.interceptors.response.use(
     const errorStatus = error.response.status;
     const originalRequest = error.config;
     const refreshToken = getCookie("refreshToken");
-    const offset = 1000 * 60 * 60 * 9;
-    const expirationDate = new Date(new Date().getTime() + offset);
     let response;
     let newAccessToken;
     let newRefreshToken;
@@ -66,20 +64,8 @@ accAxios.interceptors.response.use(
             });
             newAccessToken = response.data.Access_token.substr(7);
             newRefreshToken = response.data.Refresh_token.substr(7);
-            setCookie("accessToken", newAccessToken, {
-              path: "/",
-              secure: false,
-              expires: expirationDate.setMinutes(
-                expirationDate.getMinutes() + 1,
-              ),
-            });
-            setCookie("refreshToken", newRefreshToken, {
-              path: "/",
-              secure: false,
-              expires: expirationDate.setMinutes(
-                expirationDate.getMinutes() + 2,
-              ),
-            });
+            setCookie("accessToken", newAccessToken);
+            setCookie("refreshToken", newRefreshToken);
             originalRequest.headers.Access_token = `Bearer ${newAccessToken}`;
             return axios(originalRequest);
           default:
