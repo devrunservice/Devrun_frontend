@@ -1,14 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "redux/store";
+import { useDispatch } from "react-redux";
 import { BrandLogo, Kakao, Naver, Google } from "asset";
-import { login } from "utils";
 import { LoginFormType } from "types";
 import { PasswordInput, Modal } from "components";
 import { Input } from "style/Common";
-import { kakaoLoading, loginLoading } from "../../redux/reducer/loginReducer";
+import { loginLoading } from "../../redux/reducer/loginReducer";
 import * as St from "./styles";
 
 const LoginForm = () => {
@@ -20,19 +18,9 @@ const LoginForm = () => {
     password: "",
   });
 
-  const redirectTo = useSelector(
-    (state: RootState) => state.loginReducer.redirectTo,
-  );
-
   const isFormValid = loginForm.id !== "" && loginForm.password !== "";
 
   const handleClickLogo = () => navigate("/");
-
-  useEffect(() => {
-    if (redirectTo === "/") {
-      navigate("/");
-    }
-  }, [redirectTo, navigate]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

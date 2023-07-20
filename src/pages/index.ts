@@ -20,6 +20,5 @@ export { default as StudyManage } from "./User/StudyManage/StudyManage";
 export { default as Notes } from "./User/Notes/Notes";
 export { default as Questions } from "./User/Questions/Questions";
 export { default as Coupon } from "./User/Coupon/Coupon";
-export { default as Save } from "./User/Save/Save";
 export { default as Receipt } from "./User/Receipt/Receipt";
 export { default as Learning } from "./Learning";

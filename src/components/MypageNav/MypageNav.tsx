@@ -50,12 +50,6 @@ const MypageNav = () => {
           수료증
         </St.AsideBtn>
         <St.AsideBtn
-          onClick={() => navigate("/save")}
-          active={local === "/save"}
-        >
-          스크랩
-        </St.AsideBtn>
-        <St.AsideBtn
           onClick={() => navigate("/coupon")}
           active={local === "/coupon"}
         >

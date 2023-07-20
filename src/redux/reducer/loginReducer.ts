@@ -3,7 +3,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface LoginReducerDataType {
   name: string;
-  // easyLoginToken: string;
 }
 
 export interface LoginReducerType {
@@ -19,7 +18,6 @@ const initialState: LoginReducerType = {
   isLogin: false,
   data: {
     name: "",
-    // easyLoginToken: "",
   },
   error: null,
   redirectTo: "",
@@ -36,7 +34,6 @@ const loginReducer = createSlice({
     loginSuccess: (state, action) => {
       state.loading = false;
       state.isLogin = true;
-      state.redirectTo = "/";
       console.log("일반 로그인 성공");
       return state;
     },
@@ -54,7 +51,7 @@ const loginReducer = createSlice({
       console.log(action.payload);
       state.loading = false;
       state.isLogin = false;
-      state.redirectTo = "";
+      state.redirectTo = "/logout";
       console.log(state);
     },
     logoutFail: (state, action) => {
@@ -66,14 +63,12 @@ const loginReducer = createSlice({
       console.log("카카오 로그인 로딩 중");
       state.loading = true;
       state.isLogin = false;
-      state.redirectTo = "";
     },
     kakaoSuccess: (state, action) => {
       console.log("카카오 로그인 성공");
       state.loading = false;
       state.isLogin = false;
-      // state.data.easyLoginToken = action.payload.data.Easylogin_token.substr(7);
-      state.redirectTo = "/login";
+      state.redirectTo = "/auth/kakao/callback/login";
     },
     kakaoFail: (state, action) => {
       console.log("카카오 로그인 실패");

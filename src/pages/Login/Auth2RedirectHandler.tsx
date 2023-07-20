@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
+import { Spinner } from "components";
 import { kakaoLoading } from "../../redux/reducer/loginReducer";
 
 const Auth2RedirectHandler = () => {
@@ -21,21 +22,13 @@ const Auth2RedirectHandler = () => {
   }, []);
 
   useEffect(() => {
-    if (redirectTo === "/login") {
+    if (redirectTo === "/auth/kakao/callback/login") {
       console.log("로그인으로 이동");
-      navigate("/login");
-      localStorage.removeItem("easyLoginToken");
-    } else if (redirectTo === "/") {
-      console.log("카카오 로그인 완료, 메인 페이지로 이동");
-      navigate("/");
+      navigate("/auth/kakao/callback/login");
     }
-  }, [redirectTo, navigate]);
+  }, [redirectTo]);
 
-  return (
-    <div>
-      <p>정보를 받아오고 있습니다.</p>
-    </div>
-  );
+  return <Spinner />;
 };
 
 export default Auth2RedirectHandler;

@@ -8,14 +8,18 @@ const App = () => {
   const hideHeader =
     location.pathname === "/signup" ||
     location.pathname === "/login" ||
+    location.pathname === "/auth/kakao/callback/login" ||
     location.pathname === "/findaccount:id" ||
-    location.pathname === "/findaccount:password";
+    location.pathname === "/findaccount:password" ||
+    location.pathname === "/auth/kakao/callback";
 
   const hideFooter =
     location.pathname === "/signup" ||
     location.pathname === "/login" ||
+    location.pathname === "/auth/kakao/callback/login" ||
     location.pathname === "/findaccount:id" ||
-    location.pathname === "/findaccount:password";
+    location.pathname === "/findaccount:password" ||
+    location.pathname === "/auth/kakao/callback";
 
   const myPage =
     location.pathname === "/profile" ||
@@ -26,8 +30,7 @@ const App = () => {
     location.pathname === "/notes" ||
     location.pathname === "/questions" ||
     location.pathname === "/coupon" ||
-    location.pathname === "/receipt" ||
-    location.pathname === "/save";
+    location.pathname === "/receipt";
 
   return (
     <>

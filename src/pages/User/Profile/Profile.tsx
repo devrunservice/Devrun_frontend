@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import profile from "asset/images/profile.png";
+import { decode } from "utils/decode";
 import { userTmiPending } from "../../../redux/reducer/userReducer";
 import * as St from "./styles";
 import { Section } from "../styles";
@@ -15,9 +16,8 @@ const Profile = () => {
   const userData = useSelector((state: RootState) => state.userReducer.data);
 
   useEffect(() => {
-    const userId = localStorage.getItem("userId");
-    const response = dispatch(userTmiPending(userId || ""));
-    console.log(response);
+    const userId = decode("accessToken");
+    dispatch(userTmiPending(userId));
   }, []);
 
   return (
