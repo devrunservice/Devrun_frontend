@@ -3,13 +3,8 @@ import { useEffect, useState } from "react";
 import { signup } from "utils";
 import { IsValidType, SignupFormType } from "types";
 import { useDispatch } from "react-redux";
-import {
-  setDuplicatedId,
-  setValidId,
-} from "../redux/reducer/checkValidationReducer";
 
 const useValid = (signupForm: SignupFormType) => {
-  const dispatch = useDispatch();
   const [validMessage, setValidMessage] = useState({
     idMessage: "",
     passwordMessage: "",

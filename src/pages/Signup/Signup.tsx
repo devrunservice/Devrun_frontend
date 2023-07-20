@@ -70,30 +70,6 @@ const Signup = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // if (signupForm.id === "") {
-    //   return dispatch(openModal("아이디를 입력해주세요."));
-    // }
-    // if (signupForm.password === "") {
-    //   return dispatch(openModal("비밀번호를 입력해주세요."));
-    // }
-    // if (signupForm.passwordConfirm === "") {
-    //   return dispatch(openModal("비밀번호 확인을 입력해주세요."));
-    // }
-    // if (signupForm.name === "") {
-    //   return dispatch(openModal("이름을 입력해주세요."));
-    // }
-    // if (signupForm.email === "") {
-    //   return dispatch(openModal("이메일을 입력해주세요."));
-    // }
-    // if (signupForm.birthday === "") {
-    //   return dispatch(openModal("생일을 입력해주세요."));
-    // }
-    // if (signupForm.phonenumber === "") {
-    //   return dispatch(openModal("휴대폰 번호를 입력해주세요."));
-    // }
-    // if (signupForm.code === "") {
-    //   return dispatch(openModal("인증번호를 입력해주세요."));
-    // }
     try {
       const response = await signup.createUser({
         id: signupForm.id,
@@ -197,6 +173,7 @@ const Signup = () => {
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setSignupForm({ ...signupForm, id: e.target.value })
                 }
+                required
               />
               <St.Button
                 type="button"
@@ -209,11 +186,12 @@ const Signup = () => {
             {signupForm.id && isValid.id === false && (
               <ErrorMessage>{validMessage.idMessage}</ErrorMessage>
             )}
-            {signupForm.id !== "" && isValid.idDuplication ? (
+            {signupForm.id && isValid.idDuplication && (
               <SuccessMessage>
                 {validMessage.idDuplicationMessage}
               </SuccessMessage>
-            ) : (
+            )}
+            {signupForm.id !== "" && !isValid.idDuplication && (
               <ErrorMessage>{validMessage.idDuplicationMessage}</ErrorMessage>
             )}
             {/* 리덕스 */}
@@ -271,6 +249,7 @@ const Signup = () => {
                 setSignupForm({ ...signupForm, name: e.target.value });
                 setIsValid((prev) => ({ ...prev, name: true }));
               }}
+              required
             />
           </St.InputField>
 
@@ -298,11 +277,12 @@ const Signup = () => {
             {signupForm.email && isValid.email === false && (
               <ErrorMessage>{validMessage.emailMessage}</ErrorMessage>
             )}
-            {isValid.emailDuplication ? (
+            {signupForm.email && isValid.emailDuplication && (
               <SuccessMessage>
                 {validMessage.emailDuplicationMessage}
               </SuccessMessage>
-            ) : (
+            )}
+            {signupForm.email !== "" && !isValid.emailDuplication && (
               <ErrorMessage>
                 {validMessage.emailDuplicationMessage}
               </ErrorMessage>
@@ -318,6 +298,7 @@ const Signup = () => {
               value={signupForm.birthday}
               max={minDate}
               onChange={handleChangeBday}
+              required
             />
           </St.InputField>
 
@@ -396,6 +377,7 @@ const Signup = () => {
                 id="age-consent"
                 checked={isValid.acChecked}
                 onChange={handleCheckBoxChange}
+                required
               />
               <label htmlFor="age-consent">만 19세 이상입니다. (필수)</label>
             </St.Li>
@@ -405,6 +387,7 @@ const Signup = () => {
                 id="terms-of-service"
                 checked={isValid.tosChecked}
                 onChange={handleCheckBoxChange}
+                required
               />
               <label htmlFor="terms-of-service">
                 서비스 이용약관 동의 (필수)
@@ -416,6 +399,7 @@ const Signup = () => {
                 id="privacy-consent"
                 checked={isValid.pcChecked}
                 onChange={handleCheckBoxChange}
+                required
               />
               <label htmlFor="privacy-consente">
                 개인정보 수집 및 이용 동의 (필수)
@@ -435,7 +419,9 @@ const Signup = () => {
           </St.Ul>
 
           {/* 회원가입 버튼 */}
-          <St.SignupBtn disabled={disabledBtn}>회원가입</St.SignupBtn>
+          <St.SignupBtn type="submit" disabled={disabledBtn}>
+            회원가입
+          </St.SignupBtn>
         </form>
         <Modal page="signup" />
       </St.Container>
