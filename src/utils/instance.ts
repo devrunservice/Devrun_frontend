@@ -18,8 +18,7 @@ export const accAxios = axios.create({
 
 authAxios.interceptors.request.use(
   (config) => {
-    // const easyLoginToken = getCookie("easyLoginToken");
-    const easyLoginToken = localStorage.getItem("easyLoginToken");
+    const easyLoginToken = getCookie("easyLoginToken");
     console.log(easyLoginToken);
     if (easyLoginToken) {
       config.headers.Easylogin_token = `${easyLoginToken}`;
