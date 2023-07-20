@@ -3,7 +3,7 @@ import React, { ChangeEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
 
-import { Cart } from "api";
+import { Cart } from "utils";
 import { IRequestPayParams, RequestPayResponse } from "types";
 import NoImg from "asset/images/NoImg.jpg";
 import * as St from "./style";

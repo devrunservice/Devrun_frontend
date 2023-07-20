@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import useValid from "hooks/useValid";
-import { signup } from "api/index";
+import { signup } from "utils/index";
 import PasswordInput from "components/Login/PasswordInput/PasswordInput";
 import AuthenticationNumber from "components/Login/AuthenticationNumber/AuthenticationNumber";
 import Modal from "components/Login/Modal/Modal";

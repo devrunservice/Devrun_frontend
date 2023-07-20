@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
-import { Search } from "api";
+import { Search } from "utils";
 import { Pagination, Learn, Modal } from "components";
 import * as St from "./style";
 
@@ -24,7 +24,7 @@ const Learning = () => {
       searchBtn();
     }
   };
-  const [tap,SetTap] = useState<number>(1)
+  const [tap, SetTap] = useState<number>(1);
   return (
     <St.Learn>
       <St.Top>

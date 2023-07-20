@@ -2,6 +2,7 @@ export { default as Basket } from "./Basket/Basket";
 export { default as HomePage } from "./HomePage/HomePage";
 export { default as Lecture } from "./Lecture/Lecture";
 export { default as Login } from "./Login/Login";
+export { default as Auth2RedirectHandler } from "./Login/Auth2RedirectHandler";
 export { default as NotFound } from "./NotFound/NotFound";
 export { default as Signup } from "./Signup/Signup";
 export { default as DetailPage } from "./DetailPage/DetailPage";

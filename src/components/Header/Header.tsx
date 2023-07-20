@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
+import { getCookie, removeCookie } from "utils/cookies";
+import { decode } from "utils/decode";
 import NoImg from "asset/images/NoImg.jpg";
 import Modal from "components/Login/Modal/Modal";
 import * as St from "./style";
@@ -14,18 +16,26 @@ const Header = () => {
   const dispatch = useDispatch();
   const [cookie, setCookie] = useState<boolean>(false);
 
-  const userId = localStorage.getItem("userId");
   const userData = useSelector((state: RootState) => state.userReducer.data);
   const isLogin = useSelector((state: RootState) => state.loginReducer.isLogin);
 
   useEffect(() => {
+    console.log("메인 화면으로 진입");
     if (isLogin === true) {
-      dispatch(userTmiPending(userId));
+      const decodedToken = decode("accessToken");
+      const userId = decodedToken;
+      console.log(userId);
+      // dispatch(userTmiPending(userId));
     }
-  }, []);
+    // setCookie(getCookie("accessToken"));
+    // if (cookie) {
+    //   dispatch(userTmiPending(userId));
+    // }
+  }, [isLogin]);
 
   const handleLogout = () => {
     dispatch(logoutLoading());
+    navigate("/");
   };
 
   return (

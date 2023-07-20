@@ -8,7 +8,7 @@ import {
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle, defaultTheme } from "style/Theme";
 import { CookiesProvider } from "react-cookie";
-import { getCookie } from "api/cookies";
+import { getCookie } from "utils/cookies";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import * as Route from "pages";
@@ -27,6 +27,7 @@ const router = createBrowserRouter([
       { index: true, element: <Route.HomePage /> },
       { path: "home", element: <Route.HomePage /> },
       { path: "login", element: <Route.Login /> },
+      { path: "auth/kakao/callback", element: <Route.Auth2RedirectHandler /> },
       { path: "signup", element: <Route.Signup /> },
       {
         path: "basket",
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
       { path: "detail", element: <Route.DetailPage /> },
       { path: "createVideo", element: <Route.CreateVideo /> },
       { path: "profile", element: <Route.Profile /> },
+      { path: "profileupdate", element: <Route.ProfileUpdate /> },
       { path: "dashboard", element: <Route.Dashboard /> },
       { path: "studymanage", element: <Route.StudyManage /> },
       { path: "notes", element: <Route.Notes /> },

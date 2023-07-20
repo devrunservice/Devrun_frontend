@@ -16,12 +16,22 @@ export const accAxios = axios.create({
   },
 });
 
+authAxios.interceptors.request.use(
+  (config) => {
+    // const easyLoginToken = getCookie("easyLoginToken");
+    const easyLoginToken = localStorage.getItem("easyLoginToken");
+    console.log(easyLoginToken);
+    if (easyLoginToken) {
+      config.headers.Easylogin_token = `${easyLoginToken}`;
+    }
+    return config;
+  },
+  (error) => {
+    console.log(error);
+  },
+);
+
 accAxios.interceptors.request.use(
-  // (config) => {
-  //   const accessToken = getCookie("accessToken");
-  //   config.headers.Access_token = `Bearer ${accessToken}`;
-  //   return config;
-  // },
   (config) => {
     const accessToken = getCookie("accessToken");
     config.headers.Access_token = `Bearer ${accessToken}`;
@@ -41,9 +51,11 @@ accAxios.interceptors.response.use(
     const errorStatus = error.response.status;
     const originalRequest = error.config;
     const refreshToken = getCookie("refreshToken");
-
+    const offset = 1000 * 60 * 60 * 9;
+    const expirationDate = new Date(new Date().getTime() + offset);
     let response;
     let newAccessToken;
+    let newRefreshToken;
 
     switch (errorStatus) {
       case 401:
@@ -53,7 +65,21 @@ accAxios.interceptors.response.use(
               headers: { Refresh_token: refreshToken },
             });
             newAccessToken = response.data.Access_token.substr(7);
-            setCookie("accessToken", newAccessToken);
+            newRefreshToken = response.data.Refresh_token.substr(7);
+            setCookie("accessToken", newAccessToken, {
+              path: "/",
+              secure: false,
+              expires: expirationDate.setMinutes(
+                expirationDate.getMinutes() + 1,
+              ),
+            });
+            setCookie("refreshToken", newRefreshToken, {
+              path: "/",
+              secure: false,
+              expires: expirationDate.setMinutes(
+                expirationDate.getMinutes() + 2,
+              ),
+            });
             originalRequest.headers.Access_token = `Bearer ${newAccessToken}`;
             return axios(originalRequest);
           default:
@@ -84,34 +110,6 @@ accAxios.interceptors.response.use(
         break;
     }
   },
-
-  // const originalRequest = error.config;
-  // // 토큰이 만료될 때
-  // if (error.response.status === 401 && !originalRequest.retry) {
-  //   originalRequest.retry = true;
-  //   const refreshToken = getCookie("refreshToken");
-  //   if (refreshToken) {
-  //     try {
-  //       const newAccessToken = await login.refreshAccessToken(refreshToken);
-  //       setCookie("accessToken", newAccessToken);
-  //       originalRequest.header.Access_token = `Bearer ${newAccessToken}`;
-  //       return await axios(originalRequest);
-  //     } catch (refreshToeknError: any) {
-  //       const errorMessage = refreshToeknError.response.data;
-  //       switch (errorMessage) {
-  //         case "Malformed token":
-  //           return Promise.reject(
-  //             new Error("refresh token 값이 잘못되었습니다."),
-  //           );
-  //         default:
-  //           break;
-  //       }
-  //     }
-  //   }
-  // } else if (error.response.status === 500) {
-  //   return Promise.reject(new Error("서버에 문제가 발생했습니다."));
-  // }
-  // },
 );
 
 authAxios.interceptors.response.use(
@@ -122,6 +120,15 @@ authAxios.interceptors.response.use(
     const errorStatus = error.response.status;
 
     switch (errorStatus) {
+      case 303:
+        console.log(errorMessage.message);
+        switch (errorMessage.message) {
+          case "No linked account found. Please link your account.":
+            return error.response;
+          default:
+            break;
+        }
+        break;
       case 400:
         switch (errorMessage) {
           case "Invalid input data":
