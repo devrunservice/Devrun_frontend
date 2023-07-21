@@ -17,6 +17,7 @@ export const accAxios = axios.create({
 });
 
 accAxios.interceptors.request.use(
+
   (config) => {
     const accessToken = getCookie("accessToken");
     config.headers.Access_token = `Bearer ${accessToken}`;
@@ -57,7 +58,9 @@ accAxios.interceptors.response.use(
       case 403:
         switch (errorMessage) {
           case "Signature validation failed":
-            return Promise.reject(new Error("토큰이 조작되었습니다."));
+            return Promise.reject(
+              new Error(`오류가 감지되었습니다. 로그인을 다시 해주세요.`),
+            );
           default:
             break;
         }

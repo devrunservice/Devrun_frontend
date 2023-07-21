@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import * as St from "./styles";
 import { closeModal } from "../../../redux/reducer/modalReducer";
+import { logoutLoading } from "../../../redux/reducer/loginReducer";
 
-const Modal = () => {
+const Modal = ({ page }: { page: string }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const modalOpen = useSelector(
@@ -23,9 +24,16 @@ const Modal = () => {
   );
 
   const handleClick = () => {
+    // 회원가입 성공 시
     dispatch(closeModal());
     if (signupSuccess === true) {
       navigate("/login");
+    }
+
+    // 토큰 조작 시
+    if (page === "home") {
+      dispatch(logoutLoading());
+      navigate("/home");
     }
   };
 

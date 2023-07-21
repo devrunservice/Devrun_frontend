@@ -1,24 +1,17 @@
 import { styled } from "styled-components";
 import { BsExclamationCircle } from "react-icons/bs";
+import { TitleWrapper } from "../styles";
 
-export const Profile = styled.section`
-  width: calc(100% - 300px);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-`;
-export const Title = styled.h4`
-  line-height: 1;
-  font-size: ${(props: any) => props.theme.fontSize25px};
-  font-weight: ${(props: any) => props.theme.fontBold};
-  color: ${(props: any) => props.theme.textBlack};
-`;
+export const Title = styled(TitleWrapper)``;
+
 export const ProfileCon = styled.article`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  padding-bottom: 1rem;
 `;
 export const Imgbox = styled.div`
+  margin: 2rem 0;
   margin-right: 40px;
   width: 110px;
   height: 110px;

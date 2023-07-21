@@ -71,7 +71,10 @@ const LoginForm = () => {
   const handleSocialLogin = (social: string) => {
     if (social === "kakao") {
       window.location.href = `${process.env.REACT_APP_SERVER_URL}/kakao/login`;
+      const code = new URL(window.location.href).searchParams.get("code");
+      dispatch(loginLoading(code));
     }
+    
   };
 
   return (
@@ -99,7 +102,7 @@ const LoginForm = () => {
           </St.InputField>
           <St.LoginBtn disabled={!isFormValid}>로그인</St.LoginBtn>
         </form>
-        <Modal />
+        <Modal page="login" />
 
         {/* 아이디, 비밀번호 찾기 및 회원가입 */}
         <St.Finder>

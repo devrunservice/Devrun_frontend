@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import { Delete, Arrow, Coupon } from "asset";
+import { IPrice } from "types";
 import Checked from "asset/images/Checked.png";
 
 export const BasketForm = styled.form`
@@ -7,8 +8,6 @@ export const BasketForm = styled.form`
 `;
 
 export const WhiteSmallBg = styled.div`
-  background: ${(props: any) => props.theme.bgColor};
-  border-radius: 5px;
   margin: 60px auto 0;
   &:first-child {
     margin-top: 0;
@@ -199,23 +198,25 @@ export const SelectBox = styled.div`
   margin: 15px 0 20px;
   position: relative;
 `;
-export const SelectLabel = styled.label`
+export const SelectLabel = styled.label<IPrice>`
   width: 100%;
   border: 1px solid ${(props: any) => props.theme.borderGray};
   font-size: ${(props: any) => props.theme.fontSize14px};
-  border-radius: 5px;
+  border-radius: ${(props: any) => props.active ? "5px 5px 0 0" : "5px"};
   display: block;
   padding: 0 10px;
   line-height: 45px;
   height: 45px;
   cursor: pointer;
 `;
-export const Arr = styled(Arrow)`
+export const Arr = styled(Arrow)<IPrice>`
   position: absolute;
   right: 10px;
   bottom: 0;
   top: 0;
   margin: auto 0;
+  transform: ${(props: any) => (props.active ? "rotatez(-180deg)" : "")};
+  transition: all 0.3s;
 `;
 export const SelectBoxUi = styled.ul`
   border: 1px solid ${(props: any) => props.theme.borderGray};
@@ -225,7 +226,8 @@ export const SelectBoxUi = styled.ul`
   position: absolute;
   width: 100%;
   padding: 15px 15px;
-  top: 39px;
+  top: 44px;
+  border-radius: 0 0 10px 10px
 `;
 
 export const SelectBoxLi = styled.li`
@@ -238,7 +240,7 @@ export const SelectBoxLi = styled.li`
   }
 `;
 export const PointInput = styled.input`
-  margin: 15px 0 20px;
+  margin-top: 15px;
   width: 100%;
   line-height: 45px;
   height: 45px;
@@ -259,10 +261,10 @@ export const DisCountInfo = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-top: 15px;
   line-height: 1;
   &:last-child {
-    margin-bottom: 0;
+    margin-bottom: 20px;
   }
 `;
 export const DisCountInfoLeft = styled.p`

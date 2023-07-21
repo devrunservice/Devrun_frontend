@@ -7,6 +7,8 @@ import {
   SignupFormType,
   TokenType,
   IMySearch,
+  IRefund,
+  ICoupon,
 } from "types";
 import { setCookie } from "./cookies";
 import { authAxios, accAxios } from "./instance";
@@ -37,6 +39,7 @@ export const signup = {
     const response = authAxios.post(`/checkEmail`, params);
     return response;
   },
+  // 휴대폰 중복확인
   getDuplicatedPhonnumber: (params: CreateUser) => {
     const response = authAxios.post("/checkPhone", params);
     return response;
@@ -47,9 +50,9 @@ export const login = {
   checkLoginUser: async (params: LoginFormType) => {
     const response = await authAxios.post("/login", params);
     const accessToken = response.data.Access_token.substr(7);
-    const offset = 1000 * 60 * 60 * 9;
-    const expirationDate = new Date(new Date().getTime() + offset);
-    expirationDate.setMinutes(expirationDate.getMinutes() + 1);
+    // const offset = 60 * 60 * 60;
+    // const expirationDate = new Date(new Date().getTime() + offset);
+   // expirationDate.setMinutes(expirationDate.getMinutes() + 1);
     setCookie("accessToken", accessToken, {
       // 모든페이지에서 쿠키 엑세스 가능
       path: "/",
@@ -58,7 +61,8 @@ export const login = {
       // 쿠키 훔쳐가는거 막음 로컬에서는 사용이 안된다함
       // httpOnly: true,
       // 쿠키 만료 날짜
-      expires: expirationDate,
+      // expires: expirationDate,
+      maxAge:3600
     });
     // setCookie("accessToken", response.data.Access_token);
     setCookie("refreshToken", response.data.Refresh_token.substr(7));
@@ -83,7 +87,6 @@ export const login = {
     };
     const response = await accAxios.post("/token/refresh", null, config);
     console.log(response);
-    // setCookie("accessToken", response.data.Access_token);
     return response.data.Access_token;
   },
 };
@@ -116,24 +119,20 @@ export const userData = {
 
 export const Cart = {
   callbak: (params: RequestPayResponse) => {
-    const response = accAxios.post(
-      `/verifyIamport/${params.imp_uid}?couponCode=55519-Vww0UMMKPZue5551`,
-    );
-    console.log(params.imp_uid);
+    const response = accAxios.post(`/verifyIamport/${params.imp_uid}`);
     return response;
   },
   save: (params: RequestPayResponse) => {
     const response = accAxios.post("/savePaymentInfo", params);
     return response;
   },
-  // coupon: (params: RequestPayResponse) => {
-  //   const response = accAxios.post(
-  //     `/verifyIamport/${params.imp_uid}?couponCode=55519-Vww0UMMKPZue5551`,
-  //   );
-  //   return response;
-  // },
-  refund: (params: any) => {
+  coupon: (params: ICoupon) => {
+    const response = accAxios.post(`/applyCoupon`, params);
+    return response;
+  },
+  refund: (params: IRefund) => {
     const response = accAxios.post("/payment", params);
+   
     return response;
   },
 };

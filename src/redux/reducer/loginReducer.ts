@@ -1,14 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export interface LoginReducerDataType {
-  name: string;
-}
-
 export interface LoginReducerType {
   loading: boolean;
   isLogin: boolean;
-  data: LoginReducerDataType;
+  data: string;
   error: Error | null;
   redirectTo: string;
 }
@@ -16,9 +12,7 @@ export interface LoginReducerType {
 const initialState: LoginReducerType = {
   loading: false,
   isLogin: false,
-  data: {
-    name: "",
-  },
+  data: "",
   error: null,
   redirectTo: "",
 };
@@ -34,7 +28,7 @@ const loginReducer = createSlice({
     loginSuccess: (state, action) => {
       state.loading = false;
       state.isLogin = true;
-      state.data.name = action.payload.data.username;
+      state.data = action.payload.data;
       state.redirectTo = "/";
       return state;
     },
@@ -49,12 +43,10 @@ const loginReducer = createSlice({
       state.isLogin = true;
     },
     logoutSuccess: (state, action) => {
-      console.log(action.payload);
       state.loading = false;
       state.isLogin = false;
-      state.data.name = "";
+      state.data = "";
       state.redirectTo = "";
-      console.log(state);
     },
     logoutFail: (state, action) => {
       state.loading = false;

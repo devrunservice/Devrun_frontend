@@ -14,3 +14,4 @@ export { default as Modal } from "./Login/Modal/Modal";
 export { default as MypageNav } from "./MypageNav/MypageNav";
 export { default as List } from "./List/List";
 export { default as Learn } from "./Learn/Learn";
+export { default as Table } from "./Table/Table";

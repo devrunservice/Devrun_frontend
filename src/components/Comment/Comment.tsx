@@ -14,7 +14,7 @@ const Comment = () => {
     comment: "",
     comments: "",
   });  
-  console.log(comment.comments)
+
   const [love, setLove] = useState<boolean>(false);
   const loveBtn = () => setLove(!love);
 

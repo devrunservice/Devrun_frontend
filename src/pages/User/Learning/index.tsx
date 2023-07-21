@@ -2,6 +2,7 @@
 import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { Search } from "api";
 import { Pagination, Learn } from "components";
+import * as S from "../styles";
 import * as St from "./style";
 
 
@@ -38,20 +39,20 @@ const index = () => {
     setTapOpen(false);
   };
   return (
-    <St.Learn>
-      <St.Top>
-        <St.Title>내 학습 관리</St.Title>
-        <St.SearchWrap>
-          <St.Search
+    <S.Section>
+      <S.Top>
+        <S.Title>내 학습 관리</S.Title>
+        <S.SearchWrap>
+          <S.Search
             type="text"
             ref={searchRef}
             onChange={searchChang}
             onKeyPress={searchEnter}
             placeholder="찾고 싶은 강의 주제를 입력해주세요"
           />
-          <St.SearchButton onClick={searchBtn}>검색</St.SearchButton>
-        </St.SearchWrap>
-      </St.Top>
+          <S.SearchButton onClick={searchBtn}>검색</S.SearchButton>
+        </S.SearchWrap>
+      </S.Top>
       <St.LearnCon>
         <St.TapWrap>
           <St.Left>
@@ -65,10 +66,11 @@ const index = () => {
               완료
             </St.Btn>
           </St.Left>
-          <St.Tap>
+          <St.Tap active={tapOpen === true}>
             <St.TapLabel onClick={() => setTapOpen(!tapOpen)}>
               {tapLists}
             </St.TapLabel>
+            <St.Arr active={tapOpen === true} />
             {tapOpen && (
               <St.TapUl>
                 {tapList.map((item) => (
@@ -87,7 +89,7 @@ const index = () => {
         </St.LearnUl>
       </St.LearnCon>
       <Pagination />
-    </St.Learn>
+    </S.Section>
   );
 };
 export default index;

@@ -23,6 +23,7 @@ const modalReducer = createSlice({
       state.currentPage = action.payload;
     },
     setSignupSuccess: (state, action) => {
+      console.log(action.payload);
       state.signupSuccess = action.payload;
     },
   },
