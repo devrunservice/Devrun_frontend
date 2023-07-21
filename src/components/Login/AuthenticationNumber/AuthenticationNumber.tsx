@@ -64,6 +64,7 @@ const AuthenticationNumber = ({
                 setIsValid((prev) => ({ ...prev, code: true }));
                 handleInputChange();
               }}
+              required
             />
             <St.Button
               type="button"
@@ -92,6 +93,7 @@ const AuthenticationNumber = ({
                 setIsValid((prev) => ({ ...prev, code: true }));
                 handleInputChange();
               }}
+              required
             />
             <St.Button
               type="button"
@@ -124,6 +126,7 @@ const AuthenticationNumber = ({
                 setIsValid((prev) => ({ ...prev, code: true }));
                 handleInputChange();
               }}
+              required
             />
             <St.Button
               type="button"
@@ -152,6 +155,7 @@ const AuthenticationNumber = ({
                 setIsValid((prev) => ({ ...prev, code: true }));
                 handleInputChange();
               }}
+              required
             />
             <St.Button
               type="button"

@@ -5,7 +5,7 @@ import AuthenticationNumber from "components/Login/AuthenticationNumber/Authenti
 import { SignupFormType } from "types";
 import * as St from "./styles";
 // import Input from 'components/Login/Input/Input';
-import { userInfo } from "../../api/index";
+import { userInfo } from "../../utils/index";
 
 const FindAccount = ({ findOption }: { findOption: string }) => {
   //   const [name, setName] = useState('');

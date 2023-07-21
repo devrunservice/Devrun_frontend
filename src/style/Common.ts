@@ -26,13 +26,24 @@ export const SuccessMessage = styled(ErrorMessage)`
   color: ${(props) => props.theme.brandColor};
 `;
 
-
 export const Inner = styled.div`
   width: 1200px;
   margin: 0 auto;
   padding: 60px 0 100px;
 `;
 
-export const AppSection = styled(Inner)`
+// 마이페이지 화면 분할
+export const AppSection = styled.div`
   display: flex;
+  padding: 4rem 0;
+
+  .left-panel {
+    flex: 3;
+  }
+
+  .right-panel {
+    flex: 7;
+  }
+  width: 1200px;
+  margin: 0 auto;
 `;

@@ -1,12 +1,12 @@
 import React from "react";
-import { Form, SearchBtn, SearchInput, Section, TitleWrapper } from "../styles";
+import { Form, SearchBtn, SearchInput, TitleWrapper } from "../styles";
 
 const Coupon = () => {
   const haneleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
   return (
-    <Section>
+    <section>
       <TitleWrapper>
         <h1>강의 노트</h1>
         <Form onSubmit={haneleSubmit}>
@@ -14,7 +14,7 @@ const Coupon = () => {
           <SearchBtn>검색</SearchBtn>
         </Form>
       </TitleWrapper>
-    </Section>
+    </section>
   );
 };
 

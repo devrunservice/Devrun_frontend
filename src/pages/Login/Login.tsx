@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "redux/store";
+import { useDispatch } from "react-redux";
 import { BrandLogo, Kakao, Naver, Google } from "asset";
 import { LoginFormType } from "types";
 import { PasswordInput, Modal } from "components";
@@ -19,39 +18,12 @@ const LoginForm = () => {
     password: "",
   });
 
-  const redirectTo = useSelector(
-    (state: RootState) => state.loginReducer.redirectTo,
-  );
-
   const isFormValid = loginForm.id !== "" && loginForm.password !== "";
 
   const handleClickLogo = () => navigate("/");
 
-  useEffect(() => {
-    if (redirectTo === "/") {
-      navigate("/");
-    }
-  }, [redirectTo, navigate]);
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // try {
-    //   const response = await login.checkLoginUser({
-    //     id: loginForm.id,
-    //     password: loginForm.password,
-    //   });
-    //   console.log(response);
-    //   if (response.status === 200) navigate(`/`);
-    // } catch (error: any) {
-    //   dispatch(openModal(error.message));
-    // }
-
-    // dispatch(
-    //   loginAction({
-    //     id: loginForm.id,
-    //     password: loginForm.password,
-    //   }),
-    // );
     dispatch(
       loginLoading({
         id: loginForm.id,
@@ -70,11 +42,9 @@ const LoginForm = () => {
 
   const handleSocialLogin = (social: string) => {
     if (social === "kakao") {
-      window.location.href = `${process.env.REACT_APP_SERVER_URL}/kakao/login`;
-      const code = new URL(window.location.href).searchParams.get("code");
-      dispatch(loginLoading(code));
+      const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`;
+      window.location.href = kakaoURL;
     }
-    
   };
 
   return (

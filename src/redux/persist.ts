@@ -10,7 +10,7 @@ import createVideoSlice from "./reducer/createVideoSlice";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["loginReducer"],
+  whitelist: [],
 };
 
 const rootReducer = combineReducers({

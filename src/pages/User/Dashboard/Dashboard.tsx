@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { RootState } from "redux/store";
+import { useSelector } from "react-redux";
 import { LectureCard, List } from "components";
 import * as St from "./styles";
-import { Section, TitleWrapper } from "../styles";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -44,6 +45,8 @@ const Dashboard = () => {
     },
   ]);
 
+  const userData = useSelector((state: RootState) => state.userReducer.data);
+
   const handleMoreBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { name } = e.target as HTMLButtonElement;
 
@@ -57,8 +60,12 @@ const Dashboard = () => {
   };
 
   return (
-    <Section>
-      <TitleWrapper>박호연님, 반갑습니다 🏃‍♂️</TitleWrapper>
+    <section>
+      <St.WelcomeMessage>
+        <div>{userData.name}</div>
+        <div>&nbsp;님, </div>
+        <div>&nbsp; 반갑습니다 🏃‍♂️</div>
+      </St.WelcomeMessage>
 
       {/* 학습 중인 강의 */}
       <div>
@@ -112,7 +119,7 @@ const Dashboard = () => {
           </ul>
         </div>
       </St.Wrapper>
-    </Section>
+    </section>
   );
 };
 

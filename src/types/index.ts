@@ -1,5 +1,4 @@
-import React, { MutableRefObject } from 'react'
-
+import React, { MutableRefObject } from "react";
 
 // 회원가입 타입
 export interface SignupFormType {
@@ -139,28 +138,23 @@ export interface CreateLectureType {
   lectureTag?: Array<string>;
   lectureExplane?: string;
   lectureIntroduce?: string;
-  section?: Array<SectionType>
+  section?: Array<SectionType>;
 }
 export interface SectionType {
   // num:number,
-  num:MutableRefObject<number>,
+  num: MutableRefObject<number>;
   title: string;
   isReadOnly: boolean;
-  subTitle: Array<SubTitleType>
+  subTitle: Array<SubTitleType>;
 }
 export interface SubTitleType {
-  subNum:number;
+  subNum: number;
   // subNum:React.MutableRefObject<number>;
   className: string;
   url: string;
   isReadOnly: boolean;
 }
-export interface RefType {
-
-}
-
-
-
+export interface RefType {}
 
 export interface IRefund {
   merchant_uid: string;
@@ -175,7 +169,7 @@ export interface ITable {
   basketBtn?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export interface ICoupon  {
+export interface ICoupon {
   couponCode?: string;
   amount?: number;
 }
@@ -195,10 +189,8 @@ export interface IPagination {
 }
 export interface ICert {
   setPopup?: boolean;
-  popup:boolean
+  popup: boolean;
 }
-
-
 
 export interface IPageColor {
   isActive: boolean;
@@ -233,20 +225,19 @@ export interface ILearnTap {
   active: boolean;
 }
 
-
 // 댓글
 export interface IComment {
   comment: string;
 }
 export interface IPrice {
-  active:boolean
+  active: boolean;
 }
 export interface IPriceButton {
   active: boolean;
 }
 // 마이페이지 검색
-export interface IMySearch{
-  search:string;
+export interface IMySearch {
+  search: string;
 }
 export interface ILearning {
   active: boolean;

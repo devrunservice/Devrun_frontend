@@ -4,12 +4,10 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { IRequestPayParams, RequestPayResponse, ICoupon, IBasket } from "types";
 import { RootState } from "redux/store";
-import { Cart } from "api";
+import { Cart } from "utils";
 import NoImg from "asset/images/NoImg.jpg";
 import * as S from "style/Common";
 import * as St from "./style";
-
-
 
 const Basket = () => {
   const navigate = useNavigate();
@@ -20,7 +18,7 @@ const Basket = () => {
     couponBoolean: false,
     coupon: "쿠폰을 선택해주세요",
   });
-  const [point,setPoint] = useState(0)
+  const [point, setPoint] = useState(0);
   const couponBtn = async (item: string) => {
     if (item !== "쿠폰을 선택해주세요") {
       const data: ICoupon = {

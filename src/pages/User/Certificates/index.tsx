@@ -5,10 +5,10 @@ import * as St from "./style";
 import CertPopup from "./CertPopup";
 
 const index = () => {
-  const [popup,setPopup] = useState<boolean>(false)
+  const [popup, setPopup] = useState<boolean>(false);
 
   return (
-    <S.Section>
+    <section>
       <S.Top>
         <S.Title>
           수료증
@@ -27,7 +27,7 @@ const index = () => {
         {popup && <CertPopup />}
       </St.CertCon>
       <Pagination />
-    </S.Section>
+    </section>
   );
-}
+};
 export default index;

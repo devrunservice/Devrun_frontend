@@ -1,10 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export interface LoginReducerDataType {
+  name: string;
+}
+
 export interface LoginReducerType {
   loading: boolean;
   isLogin: boolean;
-  data: string;
+  data: LoginReducerDataType;
   error: Error | null;
   redirectTo: string;
 }
@@ -12,7 +16,9 @@ export interface LoginReducerType {
 const initialState: LoginReducerType = {
   loading: false,
   isLogin: false,
-  data: "",
+  data: {
+    name: "",
+  },
   error: null,
   redirectTo: "",
 };
@@ -28,8 +34,7 @@ const loginReducer = createSlice({
     loginSuccess: (state, action) => {
       state.loading = false;
       state.isLogin = true;
-      state.data = action.payload.data;
-      state.redirectTo = "/";
+      console.log("일반 로그인 성공");
       return state;
     },
     loginFail: (state, action) => {
@@ -43,10 +48,11 @@ const loginReducer = createSlice({
       state.isLogin = true;
     },
     logoutSuccess: (state, action) => {
+      console.log(action.payload);
       state.loading = false;
       state.isLogin = false;
-      state.data = "";
-      state.redirectTo = "";
+      state.redirectTo = "/logout";
+      console.log(state);
     },
     logoutFail: (state, action) => {
       state.loading = false;
@@ -54,15 +60,18 @@ const loginReducer = createSlice({
       state.error = action.payload;
     },
     kakaoLoading: (state, action) => {
+      console.log("카카오 로그인 로딩 중");
       state.loading = true;
       state.isLogin = false;
     },
     kakaoSuccess: (state, action) => {
+      console.log("카카오 로그인 성공");
       state.loading = false;
-      state.isLogin = true;
-      state.redirectTo = "/login";
+      state.isLogin = false;
+      state.redirectTo = "/auth/kakao/callback/login";
     },
     kakaoFail: (state, action) => {
+      console.log("카카오 로그인 실패");
       state.loading = false;
       state.isLogin = false;
       state.error = action.payload;
@@ -77,6 +86,9 @@ export const {
   logoutLoading,
   logoutSuccess,
   logoutFail,
+  kakaoLoading,
+  kakaoSuccess,
+  kakaoFail,
 } = loginReducer.actions;
 
 export default loginReducer.reducer;
