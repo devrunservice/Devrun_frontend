@@ -1,43 +1,11 @@
 import { styled } from "styled-components";
-import { ILearnTap } from "types";
+import { Arrow } from "asset";
+import { ILearnTap, ILearning } from "types";
 
-export const Learn = styled.section`
-  width: calc(100% - 300px);
+
+export const LearnCon = styled.div`
+  width:100%;
 `;
-export const Top = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  align-items: center;
-  margin-bottom: 30px;
-`;
-export const Title = styled.h4`
-  line-height: 1;
-  font-size: ${(props: any) => props.theme.fontSize25px};
-  font-weight: ${(props: any) => props.theme.fontBold};
-  color: ${(props: any) => props.theme.textBlack};
-  display: flex;
-  align-items: flex-end;
-`;
-export const SearchWrap = styled.div``;
-export const Search = styled.input`
-  border: 1px solid ${(props: any) => props.theme.borderGray};
-  border-radius: 5px 0 0 5px;
-  height: 40px;
-  padding: 0 10px;
-  width: 250px;
-  outline: 0;
-`;
-export const SearchButton = styled.button`
-  cursor: pointer;
-  width: ${(props: any) => props.theme.width85};
-  color: ${(props: any) => props.theme.textWhite};
-  background: ${(props: any) => props.theme.textPoint};
-  vertical-align: top;
-  height: 40px;
-  border-radius: 0px 5px 5px 0px;
-`;
-export const LearnCon = styled.div``;
 export const TapWrap = styled.div`
   display: flex;
   justify-content: space-between;
@@ -45,8 +13,8 @@ export const TapWrap = styled.div`
 `;
 export const Left = styled.div`
   display: flex;
-  gap:10px;
-  alin
+  gap: 10px;
+  align-items: center;
 `;
 export const Btn = styled.button<ILearnTap>`
   border-radius: 5px;
@@ -59,19 +27,28 @@ export const Btn = styled.button<ILearnTap>`
     props.active ? props.theme.textPoint : props.theme.textWhite};
   height: 40px;
 `;
-export const Tap = styled.div`
+export const Tap = styled.div<ILearning>`
   width: ${(props: any) => props.theme.width95};
   border: 1px solid ${(props: any) => props.theme.borderGray};
   height: 40px;
   position: relative;
   box-sizing: content-box;
-  border-radius: 5px;
+  border-radius: ${(props: any) => props.active ? "5px 5px 0 0" : "5px"};
 `;
 export const TapLabel = styled.p`
   font-size: ${(props: any) => props.theme.fontSize14px};
   line-height: 40px;
   padding-left: 10px;
   cursor: pointer;
+`;
+export const Arr = styled(Arrow)<ILearning>`
+  position: absolute;
+  right: 10px;
+  bottom: 0;
+  top: 0;
+  margin: auto 0;
+  transform: ${(props: any) => (props.active ? "rotatez(-180deg)" : "")};
+  transition: all 0.3s;
 `;
 export const TapUl = styled.ul`
   position: absolute;

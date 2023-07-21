@@ -23,7 +23,13 @@ const App = () => {
     location.pathname === "/certificate" ||
     location.pathname === "/dashboard" ||
     location.pathname === "/learning" ||
-    location.pathname === "/certificate";
+    location.pathname === "/certificate" ||
+    location.pathname === "/studymanage" ||
+    location.pathname === "/notes" ||
+    location.pathname === "/questions" ||
+    location.pathname === "/coupon" ||
+    location.pathname === "/receipt" ||
+    location.pathname === "/save";
 
   return (
     <>
