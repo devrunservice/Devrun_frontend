@@ -1,29 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
-import { Pagination, Learn } from "components";
+import React, { ChangeEvent, useRef, useState } from "react";
+import { Pagination, Learn, SearchBar } from "components";
 import * as S from "../styles";
 import * as St from "./style";
 
 const Learning = () => {
-  const [search, setSearch] = useState<string>("");
   // const [filterData, setFilterData] = useState(Search.mygage);
-  const searchChang = (e: ChangeEvent<HTMLInputElement>) =>
-    setSearch(e.target.value);
 
-  const searchBtn = async () => {
-    console.log("as");
-    // const filter = Search.mygage.filter((item) => {
-    //   return item.name.toUpperCase().includes(search);
-    // });
-    // setFilterData(filter);
-  };
-  // 엔터시 페이지 넘김.
-  const searchRef = useRef<HTMLInputElement>(null);
-  const searchEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      searchBtn();
-    }
-  };
   const [tap, SetTap] = useState<number>(1);
   const tapList = [
     { id: 0, list: "학습순" },
@@ -40,16 +23,7 @@ const Learning = () => {
     <section>
       <S.Top>
         <S.Title>내 학습 관리</S.Title>
-        <S.SearchWrap>
-          <S.Search
-            type="text"
-            ref={searchRef}
-            onChange={searchChang}
-            onKeyPress={searchEnter}
-            placeholder="찾고 싶은 강의 주제를 입력해주세요"
-          />
-          <S.SearchButton onClick={searchBtn}>검색</S.SearchButton>
-        </S.SearchWrap>
+        <SearchBar />
       </S.Top>
       <St.LearnCon>
         <St.TapWrap>
