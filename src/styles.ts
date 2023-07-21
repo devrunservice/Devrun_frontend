@@ -2,11 +2,10 @@ import { styled } from "styled-components";
 
 export const AppSection = styled.div`
   display: flex;
+  padding: 4rem 0;
 
   .left-panel {
     flex: 3;
-    padding-top: 2rem;
-    padding-bottom: 3rem;
   }
 
   .right-panel {

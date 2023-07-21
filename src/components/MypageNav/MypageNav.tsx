@@ -16,8 +16,8 @@ const MypageNav = () => {
           대쉬보드
         </St.AsideBtn>
         <St.AsideBtn
-          onClick={() => navigate("/studymanage")}
-          active={local === "/studymanage"}
+          onClick={() => navigate("/learning")}
+          active={local === "/learning"}
         >
           내 학습 관리
         </St.AsideBtn>

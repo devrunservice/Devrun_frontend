@@ -16,7 +16,6 @@ export { default as NoticeWrite } from "./NoticeWrite";
 export { default as NoticeDetail } from "./NoticeDetail";
 export { default as Notice } from "./Notice";
 export { default as Dashboard } from "./User/Dashboard/Dashboard";
-export { default as StudyManage } from "./User/StudyManage/StudyManage";
 export { default as Notes } from "./User/Notes/Notes";
 export { default as Questions } from "./User/Questions/Questions";
 export { default as Coupon } from "./User/Coupon/Coupon";

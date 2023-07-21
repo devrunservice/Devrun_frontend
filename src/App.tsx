@@ -26,7 +26,7 @@ const App = () => {
     location.pathname === "/profileupdate" ||
     location.pathname === "/certificate" ||
     location.pathname === "/dashboard" ||
-    location.pathname === "/studymanage" ||
+    location.pathname === "/learning" ||
     location.pathname === "/notes" ||
     location.pathname === "/questions" ||
     location.pathname === "/coupon" ||

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 import * as St from "./styles";
-import { Form, SearchBtn, SearchInput, Section, TitleWrapper } from "../styles";
+import { Form, SearchBtn, SearchInput, TitleWrapper } from "../styles";
 
 const Notes = () => {
   const haneleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -9,7 +9,7 @@ const Notes = () => {
   };
 
   return (
-    <Section>
+    <section>
       <TitleWrapper>
         <h1>강의 노트</h1>
         <Form onSubmit={haneleSubmit}>
@@ -20,7 +20,7 @@ const Notes = () => {
           <SearchBtn>검색</SearchBtn>
         </Form>
       </TitleWrapper>
-    </Section>
+    </section>
   );
 };
 

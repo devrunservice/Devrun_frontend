@@ -5,7 +5,6 @@ import { RootState } from "redux/store";
 import { useSelector } from "react-redux";
 import { LectureCard, List } from "components";
 import * as St from "./styles";
-import { Section, TitleWrapper } from "../styles";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -61,7 +60,7 @@ const Dashboard = () => {
   };
 
   return (
-    <Section>
+    <section>
       <St.WelcomeMessage>
         <div>{userData.name}</div>
         <div>&nbsp;님, </div>
@@ -120,7 +119,7 @@ const Dashboard = () => {
           </ul>
         </div>
       </St.Wrapper>
-    </Section>
+    </section>
   );
 };
 
