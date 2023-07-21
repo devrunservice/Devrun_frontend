@@ -17,3 +17,4 @@ export { default as Learn } from "./Learn/Learn";
 export { default as Spinner } from "./Spinner/Spinner";
 export { default as ImageUploader } from "./ImageUploader/ImageUploader";
 export { default as Table } from "./Table/Table";
+export { default as SearchBar } from "./SearchBar/SearchBar";
