@@ -34,19 +34,21 @@ export const Text = styled.p`
   text-align: left;
   ${common}
 `;
-export const Writer = styled.p`
-  width: 11.67%;
-  ${common}
-`;
-export const Date = styled.p`
+export const CommonLi = styled.p`
   width: 11.11%;
   ${common}
 `;
 export const View = styled.p`
-  width: 7.78%;
+  width: 8.34%;
   ${common}
 `;
+export const Title = styled(Text)`
+  width: calc(100% - 42%);
+`;
+export const PayBtn = styled(View)`
+  width: 14%;
+`;
+
 export const Button = styled.button`
   background: none;
-  
 `;
