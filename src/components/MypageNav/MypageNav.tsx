@@ -16,7 +16,8 @@ const MypageNav = () => {
           대쉬보드
         </St.AsideBtn>
         <St.AsideBtn
-          active={local === "/studymanage"}
+          onClick={() => navigate("/learning")}
+          active={local === "/learning"}
         >
           내 학습 관리
         </St.AsideBtn>
@@ -32,14 +33,6 @@ const MypageNav = () => {
         >
           작성한 질문
         </St.AsideBtn>
-        <St.AsideBtn
-          onClick={() => navigate("/learning")}
-          active={local === "/learning"}
-        >
-          내 학습 관리
-        </St.AsideBtn>
-        {/* <St.AsideBtn onClick={() => navigate("")}>강의 노트</St.AsideBtn>
-        <St.AsideBtn onClick={() => navigate("")}>작성한 질문</St.AsideBtn>  */}
       </St.AsideUl>
 
       <St.AsideUl>
@@ -55,12 +48,6 @@ const MypageNav = () => {
           active={local === "/certificate"}
         >
           수료증
-        </St.AsideBtn>
-        <St.AsideBtn
-          onClick={() => navigate("/save")}
-          active={local === "/save"}
-        >
-          스크랩
         </St.AsideBtn>
         <St.AsideBtn
           onClick={() => navigate("/coupon")}

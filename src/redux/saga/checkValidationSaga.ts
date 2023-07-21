@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { all, call, fork, put, takeLatest } from "redux-saga/effects";
-import { signup } from "api";
+import { signup } from "utils";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { CreateUser } from "types";
 import { setDuplicatedId, setUser } from "../reducer/checkValidationReducer";

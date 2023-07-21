@@ -1,12 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
-import { Search } from "api";
 import { Pagination, Learn } from "components";
 import * as S from "../styles";
 import * as St from "./style";
 
-
-const index = () => {
+const Learning = () => {
   const [search, setSearch] = useState<string>("");
   // const [filterData, setFilterData] = useState(Search.mygage);
   const searchChang = (e: ChangeEvent<HTMLInputElement>) =>
@@ -26,7 +24,7 @@ const index = () => {
       searchBtn();
     }
   };
-  const [tap,SetTap] = useState<number>(1)
+  const [tap, SetTap] = useState<number>(1);
   const tapList = [
     { id: 0, list: "학습순" },
     { id: 1, list: "신청순" },
@@ -34,12 +32,12 @@ const index = () => {
   ];
   const [tapOpen, setTapOpen] = useState<boolean>(false);
   const [tapLists, setTaplists] = useState(tapList[0].list);
-  const tapOpsion = (item:string) => {
+  const tapOpsion = (item: string) => {
     setTaplists(item);
     setTapOpen(false);
   };
   return (
-    <S.Section>
+    <section>
       <S.Top>
         <S.Title>내 학습 관리</S.Title>
         <S.SearchWrap>
@@ -89,7 +87,7 @@ const index = () => {
         </St.LearnUl>
       </St.LearnCon>
       <Pagination />
-    </S.Section>
+    </section>
   );
 };
-export default index;
+export default Learning;
