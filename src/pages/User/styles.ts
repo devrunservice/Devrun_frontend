@@ -1,11 +1,6 @@
 import { styled } from "styled-components";
 import { Input } from "style/Common";
 
-export const Section = styled.section`
-  padding-top: 2rem;
-  padding-bottom: 3rem;
-`;
-
 export const TitleWrapper = styled.div`
   display: flex;
   flex-direction: row;

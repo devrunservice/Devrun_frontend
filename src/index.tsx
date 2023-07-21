@@ -49,7 +49,6 @@ const router = createBrowserRouter([
       { path: "profile", element: <Route.Profile /> },
       { path: "profileupdate", element: <Route.ProfileUpdate /> },
       { path: "dashboard", element: <Route.Dashboard /> },
-      { path: "studymanage", element: <Route.StudyManage /> },
       { path: "notes", element: <Route.Notes /> },
       { path: "questions", element: <Route.Questions /> },
       { path: "certificate", element: <Route.Certificate /> },

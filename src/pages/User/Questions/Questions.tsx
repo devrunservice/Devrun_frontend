@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
-import { Form, SearchBtn, SearchInput, Section, TitleWrapper } from "../styles";
+import { Form, SearchBtn, SearchInput, TitleWrapper } from "../styles";
 
 const Questions = () => {
   const haneleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
   return (
-    <Section>
+    <section>
       <TitleWrapper>
         <h1>작성한 질문</h1>
         <Form onSubmit={haneleSubmit}>
@@ -18,7 +18,7 @@ const Questions = () => {
           <SearchBtn>검색</SearchBtn>
         </Form>
       </TitleWrapper>
-    </Section>
+    </section>
   );
 };
 

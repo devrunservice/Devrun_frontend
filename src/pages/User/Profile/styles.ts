@@ -7,6 +7,7 @@ export const Title = styled(TitleWrapper)``;
 export const ProfileCon = styled.article`
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   width: 100%;
   padding-bottom: 1rem;
 `;

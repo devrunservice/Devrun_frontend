@@ -7,7 +7,6 @@ import profile from "asset/images/profile.png";
 import { decode } from "utils/decode";
 import { userTmiPending } from "../../../redux/reducer/userReducer";
 import * as St from "./styles";
-import { Section } from "../styles";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -21,36 +20,12 @@ const Profile = () => {
   }, []);
 
   return (
-    <Section>
+    <section>
       <St.Title>프로필</St.Title>
       <St.ProfileCon>
         <St.Imgbox>
           <St.ProfileImg src={profile} alt="profile" />
         </St.Imgbox>
-        {/* <St.Rightbox>
-        <St.Imgbox>
-          {profileImg && <St.Img src={profileImg} alt="프로필사진" />}
-        </St.Imgbox>
-        <St.Rightbox>
-          <St.InputWrap>
-            <St.Input
-              accept="image/*"
-              type="file"
-              placeholder="선택된 이미지 없음"
-              id="imgfile"
-              onChange={imgChange}
-            />
-            <St.Label htmlFor="imgfile">파일선택</St.Label>
-          </St.InputWrap>
-          <St.Imgtext>
-            <St.TextIcon />
-            최대 2MB까지 업로드 가능합니다.
-          </St.Imgtext>
-          <St.Imgtext>
-            <St.TextIcon />
-            110 X 110 픽셀 이미지 사용
-          </St.Imgtext>
-        </St.Rightbox> */}
       </St.ProfileCon>
       <St.ProfileCon>
         <St.ProfileEm>이름</St.ProfileEm>
@@ -75,7 +50,7 @@ const Profile = () => {
       <St.ChangeBtn onClick={() => navigate("/profileupdate")}>
         수정
       </St.ChangeBtn>
-    </Section>
+    </section>
   );
 };
 

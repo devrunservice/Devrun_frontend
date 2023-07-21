@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import profile from "asset/images/profile.png";
 import AuthenticationNumber from "components/Login/AuthenticationNumber/AuthenticationNumber";
+import { ImageUploader } from "components";
 import * as St from "./styles";
-import { Section } from "../styles";
 
 const ProfileUpdate = () => {
   const dispatch = useDispatch();
@@ -25,10 +25,10 @@ const ProfileUpdate = () => {
     const { value } = e.target;
   };
   return (
-    <Section>
+    <section>
       <St.Title>프로필</St.Title>
       <St.ProfileCon>
-        <St.Imgbox>
+        {/* <St.Imgbox>
           <St.ProfileImg src={profile} alt="profile" />
         </St.Imgbox>
         <St.Rightbox>
@@ -49,7 +49,8 @@ const ProfileUpdate = () => {
             <St.TextIcon />
             110 X 110 픽셀 이미지 사용
           </St.Imgtext>
-        </St.Rightbox>
+        </St.Rightbox> */}
+        <ImageUploader page="profileUpdate" />
       </St.ProfileCon>
       <form onSubmit={handleSubmit}>
         <St.ProfileCon>
@@ -74,7 +75,7 @@ const ProfileUpdate = () => {
         </St.ProfileCon>
         <St.ChangeBtn onClick={() => navigate("/profile")}>확인</St.ChangeBtn>
       </form>
-    </Section>
+    </section>
   );
 };
 
