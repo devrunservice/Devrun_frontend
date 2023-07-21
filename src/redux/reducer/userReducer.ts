@@ -24,7 +24,6 @@ const userTmiSlice = createSlice({
       state.error = null;
     },
     userTmiFulfilled: (state, action) => {
-      console.log(action);
       state.loading = false;
       state.data.id = action.payload.data.id;
       state.data.email = action.payload.data.email;

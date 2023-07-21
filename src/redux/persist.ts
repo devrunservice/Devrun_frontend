@@ -5,6 +5,7 @@ import checkValidationReducer from "./reducer/checkValidationReducer";
 import modalReducer from "./reducer/modalReducer";
 import userReducer from "./reducer/userReducer";
 import loginReducer from "./reducer/loginReducer";
+import createVideoSlice from "./reducer/createVideoSlice";
 
 const persistConfig = {
   key: "root",
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   modalReducer,
   loginReducer,
   userReducer,
+  createVideoSlice,
 });
 
 export default persistReducer(persistConfig, rootReducer);

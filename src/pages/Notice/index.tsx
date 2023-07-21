@@ -1,13 +1,11 @@
 import React from 'react';
-import * as St from "style/Common";
 import { NoticeCom, Pagination } from "components";
+import * as S from "style/Common";
 
 const index = () => (
-  <St.WhiteBg>
-    <St.Inner>
-      <NoticeCom />
-      <Pagination />
-    </St.Inner>
-  </St.WhiteBg>
+  <S.Inner>
+    <NoticeCom />
+    <Pagination />
+  </S.Inner>
 );
 export default index;

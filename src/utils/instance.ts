@@ -45,7 +45,6 @@ accAxios.interceptors.request.use(
 accAxios.interceptors.response.use(
   (response) => response,
   async (error) => {
-    console.log(error);
     const errorMessage = error.response.data.message;
     const errorStatus = error.response.status;
     const originalRequest = error.config;

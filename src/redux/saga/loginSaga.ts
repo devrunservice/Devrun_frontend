@@ -56,7 +56,6 @@ function* logoutSaga(): Generator<any, void, any> {
   try {
     const refreshCookie = getCookie("refreshToken");
     const response = yield call(login.checkLogout, refreshCookie);
-    console.log(response);
     yield put(logoutSuccess(response));
     removeCookie("accessToken");
     removeCookie("refreshToken");

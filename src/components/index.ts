@@ -1,4 +1,3 @@
-export { default as ShoppingBasket } from "./Basket/Basket";
 export { default as Home } from "./Home/Home";
 export { default as NoticeCom } from "./Notice/Notice";
 export { default as Pagination } from "./Pagination/Pagination";
@@ -13,9 +12,8 @@ export { default as CreateVideoTwo } from "./CreateVideoTwo/CreateVideoTwo";
 export { default as PasswordInput } from "./Login/PasswordInput/PasswordInput";
 export { default as Modal } from "./Login/Modal/Modal";
 export { default as MypageNav } from "./MypageNav/MypageNav";
-export { default as Certificate } from "./Certificates/Certificates";
 export { default as List } from "./List/List";
-export { default as Learning } from "./Learning/Learning";
 export { default as Learn } from "./Learn/Learn";
 export { default as Spinner } from "./Spinner/Spinner";
 export { default as ImageUploader } from "./ImageUploader/ImageUploader";
+export { default as Table } from "./Table/Table";
