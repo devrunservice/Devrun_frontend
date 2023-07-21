@@ -6,10 +6,10 @@ export const Aside = styled.aside`
   display: flex;
   flex-direction: column;
   gap: 30px;
-  /* margin-right: 70px; */
+  margin-right: 70px;
 `;
 export const AsideUl = styled.div`
-  width: 230px;
+  width: 100%;
 `;
 export const AsideTit = styled.em`
   display: block;

@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
-import * as St from "./styles";
 import { Form, SearchBtn, SearchInput, TitleWrapper } from "../styles";
 
 const Notes = () => {
@@ -15,6 +14,9 @@ const Notes = () => {
         <Form onSubmit={haneleSubmit}>
           <SearchInput
             type="text"
+            // ref={searchRef}
+            // onChange={searchChang}
+            // onKeyPress={searchEnter}
             placeholder="강의명 또는 내용을 입력해주세요"
           />
           <SearchBtn>검색</SearchBtn>

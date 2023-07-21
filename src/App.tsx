@@ -1,7 +1,7 @@
 import React from "react";
 import { Footer, Header, MypageNav } from "components";
 import { Outlet, useLocation } from "react-router-dom";
-import * as St from "styles";
+import * as St from "style/Common";
 
 const App = () => {
   const location = useLocation();

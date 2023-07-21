@@ -67,6 +67,7 @@ export const defaultTheme: DefaultTheme = {
   fontSize20px: "20px",
   fontSize25px: "25px",
   width85: "85px",
+  width95: "95px",
   width120: "120px",
   width100: "100%",
   brandColor: "#5F4B8B",

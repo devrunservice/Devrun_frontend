@@ -14,11 +14,6 @@ const Profile = () => {
 
   const userData = useSelector((state: RootState) => state.userReducer.data);
 
-  useEffect(() => {
-    const userId = decode("accessToken");
-    dispatch(userTmiPending(userId));
-  }, []);
-
   return (
     <section>
       <St.Title>프로필</St.Title>

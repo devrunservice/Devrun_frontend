@@ -14,10 +14,10 @@ import { PersistGate } from "redux-persist/integration/react";
 import * as Route from "pages";
 import store, { persistor } from "./redux/store";
 import App from "./App";
+
 import reportWebVitals from "./reportWebVitals";
 
 const ACCESS_TOKEN = getCookie("accessToken");
-
 const router = createBrowserRouter([
   {
     path: "/",

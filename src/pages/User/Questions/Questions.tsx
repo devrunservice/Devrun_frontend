@@ -13,7 +13,10 @@ const Questions = () => {
         <Form onSubmit={haneleSubmit}>
           <SearchInput
             type="text"
-            placeholder="강의명 또는 내용을 입력해주세요"
+            // ref={searchRef}
+            // onChange={searchChang}
+            // onKeyPress={searchEnter}
+            placeholder="작성한 질문을 입력해주세요"
           />
           <SearchBtn>검색</SearchBtn>
         </Form>
