@@ -1,45 +1,6 @@
 import { styled } from "styled-components";
 
 
-
-
-export const CertCon = styled.article`
-  min-height: 651px;
-  width: 100%;
-  > :nth-child(1) {
-    border-top: 1px solid ${(props: any) => props.theme.borderGray};
-  }
-`;
-
-export const CertConLi = styled.div`
-  border-bottom: 1px solid ${(props: any) => props.theme.borderGray};
-  display: flex;
-  align-items: center;
-  padding: 20px 0;
-  text-align: center;
-  cursor: pointer;
-
-  &:hover {
-    color: ${(props: any) => props.theme.textBlack};
-    background: ${(props: any) => props.theme.bgGrayColor};
-  }
-`;
-
-export const Num = styled.p`
-  width: 5.83%;
-  padding: 0 10px;
-`;
-export const Text = styled.p`
-  width: calc(100% - 18.51%);
-  text-align: left;
-  padding: 0 10px;
-`;
-
-export const Date = styled.p`
-  width: 9.58%;
-  padding: 0 10px;
-`;
-
 export const PopupBg = styled.div`
   position:fixed;
   width:100%;

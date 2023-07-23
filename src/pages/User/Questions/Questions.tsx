@@ -1,27 +1,27 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
-import * as S from "../styles"
+import { Form, SearchBtn, SearchInput, TitleWrapper } from "../styles";
 
 const Questions = () => {
   const haneleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
   return (
-    <S.Section>
-      <S.Top>
-        <S.Title>작성한 질문</S.Title>
-        <S.SearchWrap>
-          <S.Search
+    <section>
+      <TitleWrapper>
+        <h1>작성한 질문</h1>
+        <Form onSubmit={haneleSubmit}>
+          <SearchInput
             type="text"
             // ref={searchRef}
             // onChange={searchChang}
             // onKeyPress={searchEnter}
             placeholder="작성한 질문을 입력해주세요"
           />
-          <S.SearchButton >검색</S.SearchButton>
-        </S.SearchWrap>
-      </S.Top>
-    </S.Section>
+          <SearchBtn>검색</SearchBtn>
+        </Form>
+      </TitleWrapper>
+    </section>
   );
 };
 

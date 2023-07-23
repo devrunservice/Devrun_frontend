@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
+import { getCookie } from "utils/cookies";
+import { decode } from "utils/decode";
 import NoImg from "asset/images/NoImg.jpg";
 import Modal from "components/Login/Modal/Modal";
 import * as St from "./style";
@@ -12,12 +14,18 @@ import { logoutLoading } from "../../redux/reducer/loginReducer";
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const isLogin = useSelector((state: RootState) => state.loginReducer.isLogin);
-  const userId = localStorage.getItem("userId");
+
+  const [cookie, setCookie] = useState<boolean>(false);
+
   const userData = useSelector((state: RootState) => state.userReducer.data);
 
   useEffect(() => {
-    if (isLogin === true) dispatch(userTmiPending(userId));
+    console.log("메인 화면으로 진입");
+    if (getCookie("accessToken")) {
+      setCookie(true);
+      const userId = decode("accessToken");
+      dispatch(userTmiPending(userId));
+    }
   }, []);
 
   const handleLogout = () => {
@@ -48,7 +56,7 @@ const Header = () => {
             />
             <St.SearchIcon />
           </St.SearchBox>
-          {isLogin === true ? (
+          {cookie ? (
             <St.NavWrap>
               <St.HeaderIcon>
                 <St.Icon>

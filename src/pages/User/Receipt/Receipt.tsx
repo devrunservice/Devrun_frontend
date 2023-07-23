@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from "react";
-import { Cart } from "api";
+import React, { useState } from "react";
+import { Cart } from "utils";
 import { Table, Pagination } from "components";
 import { IRefund } from "types";
 import * as S from "../styles";
 
 const Receipt = () => {
+  const [payment, setPayment] = useState(false);
 
-   
-       
   const basketBtn = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const data: IRefund = {
@@ -17,11 +16,10 @@ const Receipt = () => {
       reason: "테스트 결제 환불",
     };
     await Cart.refund(data);
+    setPayment(true)
   };
-
-
   return (
-    <S.Section>
+    <section>
       <S.Top>
         <S.Title>
           구매내역
@@ -30,9 +28,15 @@ const Receipt = () => {
           </S.Number>
         </S.Title>
       </S.Top>
-      <Table basketBtn={basketBtn} />
+      <Table
+        basketBtn={basketBtn}
+        num="1"
+        title="111"
+        pay="5000"
+        payment={payment}
+      />
       <Pagination />
-    </S.Section>
+    </section>
   );
 };
 

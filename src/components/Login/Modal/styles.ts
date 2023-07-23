@@ -26,7 +26,7 @@ export const Section = styled.section`
 
 export const Modal = styled.div`
   text-align: center;
-  width: 300px;
+  width: 400px;
   padding: 20px;
   border-radius: 5px;
   background: ${(props) => props.theme.bgColor};

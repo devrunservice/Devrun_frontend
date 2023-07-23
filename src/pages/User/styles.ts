@@ -1,54 +1,41 @@
 import { styled } from "styled-components";
 import { Input } from "style/Common";
 
-export const Section = styled.section`
-  width: calc(100% - 300px);
-`;
-
 export const TitleWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  width: 100%;
   font-size: ${(props: any) => props.theme.fontSize25px};
   font-weight: ${(props: any) => props.theme.fontBold};
   color: ${(props: any) => props.theme.textBlack};
   padding-bottom: 1rem;
+
+  & > h1 {
+    width: 60%;
+  }
 `;
 
 export const Form = styled.form`
   display: flex;
+  width: 40%;
 `;
 
 export const SearchInput = styled(Input)`
   padding: 0.4rem 0;
-  width: 100%;
+  width: 80%;
 `;
 
 export const SearchBtn = styled.button`
   border: 0;
   outline: 0;
   border-radius: 5px;
+  width: 20%;
   color: ${(props) => props.theme.textWhite};
   background-color: ${(props) => props.theme.brandColor};
 `;
 
 
-
-export const Top = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  align-items: center;
-  margin-bottom:30px;
-`;
-export const Title = styled.h4`
-  line-height: 1;
-  font-size: ${(props: any) => props.theme.fontSize25px};
-  font-weight: ${(props: any) => props.theme.fontBold};
-  color: ${(props: any) => props.theme.textBlack};
-  display: flex;
-  align-items: flex-end;
-`;
 export const SearchWrap = styled.div``;
 export const Search = styled.input`
   border: 1px solid ${(props: any) => props.theme.borderGray};
@@ -68,12 +55,3 @@ export const SearchButton = styled.button`
   border-radius: 0px 5px 5px 0px;
 `;
 
-export const Number = styled.p`
-  margin-left: 20px;
-  font-weight: ${(props: any) => props.theme.fontRegular};
-  font-size: ${(props: any) => props.theme.fontSize16px};
-`;
-export const NumCount = styled.span`
-  color: ${(props: any) => props.theme.textPoint};
-  font-weight: ${(props: any) => props.theme.fontMedium};
-`;

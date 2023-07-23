@@ -1,16 +1,18 @@
 import { styled, css } from "styled-components";
+import { ITable } from "types"; 
+
 
 export const Table = styled.ul`
   border-top: 1px solid ${(props: any) => props.theme.borderGray};
   min-height: 568px;
 `;
-export const TableLi = styled.li`
+export const TableLi = styled.li<ITable>`
   border-bottom: 1px solid ${(props: any) => props.theme.borderGray};
   display: flex;
   align-items: center;
   padding: 20px 0;
   text-align: center;
-  cursor: pointer;
+  cursor: ${(props: any) => props.cursor ? "pointer" : ""};
   &:hover {
     color: ${(props: any) => props.theme.textBlack};
     background: ${(props: any) => props.theme.bgGrayColor};
@@ -30,12 +32,12 @@ export const Num = styled.p`
   ${common}
 `;
 export const Text = styled.p`
-  width: calc(100% - 36.34%);
+  width: calc(100% - 34.34%);
   text-align: left;
   ${common}
 `;
 export const CommonLi = styled.p`
-  width: 11.11%;
+  width: 10.11%;
   ${common}
 `;
 export const View = styled.p`
@@ -46,9 +48,15 @@ export const Title = styled(Text)`
   width: calc(100% - 42%);
 `;
 export const PayBtn = styled(View)`
-  width: 14%;
+  width: 18%;
+  display:flex;
+  gap:5px;
 `;
 
-export const Button = styled.button`
-  background: none;
+export const Button = styled.button<ITable>`
+  background: ${(props: any) =>
+    props.color ? props.theme.textRed : props.theme.textPoint};
+  border-radius: 5px;
+  color: ${(props: any) => props.theme.textWhite};
+  padding: 5px 10px;
 `;

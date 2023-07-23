@@ -13,8 +13,11 @@ const Modal = ({ page }: { page: string }) => {
   const modalOpen = useSelector(
     (state: RootState) => state.modalReducer.modalOpen,
   );
-  const modalMessage = useSelector(
-    (state: RootState) => state.modalReducer.modalMessage,
+  const modalMessage1 = useSelector(
+    (state: RootState) => state.modalReducer.modalMessage1,
+  );
+  const modalMessage2 = useSelector(
+    (state: RootState) => state.modalReducer.modalMessage2,
   );
   const currentPage = useSelector(
     (state: RootState) => state.modalReducer.currentPage,
@@ -42,7 +45,8 @@ const Modal = ({ page }: { page: string }) => {
   return (
     <St.Section>
       <St.Modal>
-        <p>{modalMessage}</p>
+        <p>{modalMessage1}</p>
+        <p>{modalMessage2}</p>
         <St.Button onClick={handleClick}>확인</St.Button>
       </St.Modal>
     </St.Section>
