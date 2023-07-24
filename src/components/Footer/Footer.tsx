@@ -1,7 +1,8 @@
+import React from 'react';
 import { FooterLogo } from "asset"
 import * as St from "./style";
-const Footer =()=>{
-    return (
+
+const Footer = () => (
       <St.FooterBg>
         <St.Inner>
           <St.Top>
@@ -41,6 +42,5 @@ const Footer =()=>{
           </St.Bottom>
         </St.Inner>
       </St.FooterBg>
-    );
-}
+    )
 export default Footer
