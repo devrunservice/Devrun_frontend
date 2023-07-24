@@ -36,7 +36,7 @@ jobs:
                   REACT_APP_KAKAO_CLIENT_ID: ${{ secrets.REACT_APP_KAKAO_CLIENT_ID }}
                   REACT_APP_KAKAO_REDIRECT_URI: ${{ secrets.REACT_APP_KAKAO_REDIRECT_URI }}
                   REACT_APP_KAKAO_JAVASCRIPT_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-                  REACT_APP_KAKAOURL: ${{ secrets.REACT_APP_KAKAOURL }}
+
 
             - name: Deploy
               env:
