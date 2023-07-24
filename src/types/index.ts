@@ -178,10 +178,18 @@ export interface ITable {
   num?: string;
   pay?: string;
 }
+export interface ICert {
+  popupBtn?: () => void;
+}
+export interface IUserTop {
+  title: string;
+  count?: string;
+}
+
 
 export interface ICoupon {
-  couponCode?: string;
-  amount?: number;
+  couponCode: string;
+  amount: number;
 }
 
 export interface IBasket {
@@ -196,10 +204,6 @@ export interface IPagination {
   startPage?: number;
   lastPage?: number;
   count?: number;
-}
-export interface ICert {
-  setPopup?: boolean;
-  popup: boolean;
 }
 
 export interface IPageColor {

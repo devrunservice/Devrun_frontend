@@ -1,5 +1,4 @@
 import base64 from "base-64";
-// import jwt from "jsonwebtoken";
 import { getCookie } from "./cookies";
 
 export const decode = (name: string) => {

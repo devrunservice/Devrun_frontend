@@ -18,6 +18,7 @@ const Basket = () => {
     couponBoolean: false,
     coupon: "쿠폰을 선택해주세요",
   });
+
   const [point, setPoint] = useState(0);
   const couponBtn = async (item: string) => {
     if (item !== "쿠폰을 선택해주세요") {
@@ -32,17 +33,21 @@ const Basket = () => {
         coupon: item,
         couponBoolean: !price.couponBoolean,
       });
-    } else {
-      setPrice({ ...price, coupon: item, couponBoolean: !price.couponBoolean }); // 총금액으로 바꿀것.
+    } else if (item === "쿠폰을 선택해주세요") {
+      setPrice({ ...price, coupon: item, couponBoolean: !price.couponBoolean,price:100 }); // 총금액으로 바꿀것.
     }
   };
+  
   // 셀렉트박스 닫을때.
-  const couponOpsion = useRef<HTMLDivElement>(null);
+  const couponOption = useRef<HTMLDivElement>(null);
+  const couponOptionUi = useRef<HTMLUListElement>(null);
   useEffect(() => {
     const couponOut = (e: MouseEvent) => {
       if (
-        couponOpsion.current &&
-        !couponOpsion.current.contains(e.target as Node)
+        couponOption.current &&
+        couponOptionUi.current &&
+        !couponOptionUi.current.contains(e.target as Node) &&
+        !couponOption.current.contains(e.target as Node)
       ) {
         setPrice({ ...price, couponBoolean: false });
       }
@@ -190,7 +195,7 @@ const Basket = () => {
               사용가능 <St.CountSpan>0</St.CountSpan>
             </St.Count>
           </St.SelectWarp>
-          <St.SelectBox ref={couponOpsion}>
+          <St.SelectBox ref={couponOption}>
             <St.SelectLabel
               onClick={() =>
                 setPrice({ ...price, couponBoolean: !price.couponBoolean })
@@ -201,7 +206,7 @@ const Basket = () => {
             </St.SelectLabel>
             <St.Arr active={price.couponBoolean} />
             {price.couponBoolean && (
-              <St.SelectBoxUi>
+              <St.SelectBoxUi ref={couponOptionUi}>
                 <St.SelectBoxLi
                   onClick={() => couponBtn("쿠폰을 선택해주세요")}
                 >

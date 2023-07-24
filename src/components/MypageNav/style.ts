@@ -7,6 +7,7 @@ export const Aside = styled.aside`
   flex-direction: column;
   gap: 30px;
   margin-right: 70px;
+
 `;
 export const AsideUl = styled.div`
   width: 100%;

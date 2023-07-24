@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
 import { Cart } from "utils";
-import { Table, Pagination } from "components";
+import { Table, Pagination, UserTop } from "components";
 import { IRefund } from "types";
-import * as S from "../styles";
+
 
 const Receipt = () => {
   const [payment, setPayment] = useState(false);
@@ -20,14 +20,7 @@ const Receipt = () => {
   };
   return (
     <section>
-      <S.Top>
-        <S.Title>
-          구매내역
-          <S.Number>
-            전체 <S.NumCount>2</S.NumCount>
-          </S.Number>
-        </S.Title>
-      </S.Top>
+      <UserTop title="구매내역" count="2" />
       <Table
         basketBtn={basketBtn}
         num="1"
