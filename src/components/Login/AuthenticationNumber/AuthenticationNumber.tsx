@@ -55,7 +55,10 @@ const AuthenticationNumber = ({
 
   // 휴대폰 인증번호
   const handleGetAuthenticationNumber = () => {
-    requestAuthenticationNumber(authenticationForm.phonenumber || "");
+    requestAuthenticationNumber(
+      page || "",
+      authenticationForm.phonenumber || "",
+    );
   };
 
   // 인증번호 확인
@@ -69,7 +72,7 @@ const AuthenticationNumber = ({
     <St.InputField>
       {option === "phonenumber" ? (
         <>
-          <St.P page={page}>휴대폰 번호</St.P>
+          <St.P>휴대폰 번호</St.P>
           <St.Field>
             <Input
               type="text"
@@ -117,7 +120,7 @@ const AuthenticationNumber = ({
         </>
       ) : (
         <>
-          <St.P page={page}>이메일</St.P>
+          <St.P>이메일</St.P>
           <St.Field>
             <Input
               type="text"

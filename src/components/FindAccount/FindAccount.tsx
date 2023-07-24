@@ -200,11 +200,13 @@ const FindAccount = ({ findOption }: { findOption: string }) => {
         {option === "phonenumber" ? (
           <AuthenticationNumber
             option={option}
+            page="findAccount"
             getAuthenticationForm={getAuthenticationForm}
           />
         ) : (
           <AuthenticationNumber
             option={option}
+            page="findAccount"
             getAuthenticationForm={getAuthenticationForm}
           />
         )}
