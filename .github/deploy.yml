@@ -47,3 +47,10 @@ jobs:
                   --recursive \
                   --region ap-northeast-2 \
                   build s3://devrun \
+                  echo $AWS_ACCESS_KEY_ID \
+                  echo $AWS_SECRET_ACCESS_K \
+                  echo $REACT_APP_SERVER_URL \
+                  echo $REACT_APP_KAKAO_CLIENT_ID \
+                  echo $REACT_APP_KAKAO_REDIRECT_URI \
+                  echo $REACT_APP_KAKAO_JAVASCRIPT_KEY \
+                  echo $REACT_APP_KAKAOURL \
