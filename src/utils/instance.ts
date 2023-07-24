@@ -19,7 +19,6 @@ export const accAxios = axios.create({
 authAxios.interceptors.request.use(
   (config) => {
     const easyLoginToken = getCookie("easyLoginToken");
-    console.log(easyLoginToken);
     if (easyLoginToken) {
       config.headers.Easylogin_token = `${easyLoginToken}`;
     }
@@ -116,6 +115,10 @@ authAxios.interceptors.response.use(
       case 400:
         switch (errorMessage) {
           case "Invalid input data":
+            return Promise.reject(
+              new Error("입력한 정보가 올바르지 않습니다."),
+            );
+          case "information cannot be null or empty":
             return Promise.reject(new Error("회원가입 양식을 작성해주세요."));
           case "Already linked to another user":
             return Promise.reject(
@@ -155,6 +158,8 @@ authAxios.interceptors.response.use(
             return Promise.reject(new Error("휴면 상태의 회원입니다."));
           case "Account has been withdrawn":
             return Promise.reject(new Error("탈퇴한 회원입니다."));
+          case "Verification failed phonenumber":
+            return Promise.reject(new Error("새로운 인증번호를 받아주세요."));
           default:
             break;
         }
@@ -167,7 +172,7 @@ authAxios.interceptors.response.use(
           case "Email already registered":
             return Promise.reject(new Error("이메일이 중복되었습니다."));
           case "Phone number already registered":
-            return Promise.reject(new Error("핸드폰번호가 중복되었습니다."));
+            return Promise.reject(new Error("중복된 핸드폰번호입니다."));
           default:
             break;
         }

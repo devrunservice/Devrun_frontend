@@ -14,33 +14,35 @@ import { authAxios, accAxios } from "./instance";
 
 export const signup = {
   // 회원가입
-  createUser: (params: CreateUser) => {
-    const response = authAxios.post(`/signup/okay`, params);
+  createUser: async (code: string, params: CreateUser) => {
+    console.log(params);
+    const response = await authAxios.post(`/signup/okay?code=${code}`, params);
+    console.log(response);
     return response;
   },
   // 인증번호 받기
-  getAuthenticationNumber: (params: CreateUser) => {
-    const response = authAxios.post(`/signup/auth/`, params);
+  getAuthenticationNumber: async (params: CreateUser) => {
+    const response = await authAxios.post(`/auth/phone/`, params);
     return response;
   },
   // 인증번호 확인
-  checkAuthenticationNumber: (params: CreateUser) => {
-    const response = authAxios.post(`/verify`, params);
+  checkAuthenticationNumber: async (params: CreateUser) => {
+    const response = await authAxios.post(`/verify`, params);
     return response;
   },
   // 아이디 중복확인
-  getDuplicatedId: (params: CreateUser) => {
-    const response = authAxios.post(`/checkID`, params);
+  getDuplicatedId: async (params: CreateUser) => {
+    const response = await authAxios.post(`/checkID`, params);
     return response;
   },
   // 이메일 중복확인
-  getDuplicatedEmail: (params: CreateUser) => {
-    const response = authAxios.post(`/checkEmail`, params);
+  getDuplicatedEmail: async (params: CreateUser) => {
+    const response = await authAxios.post(`/checkEmail`, params);
     return response;
   },
   // 휴대폰 중복확인
-  getDuplicatedPhonnumber: (params: CreateUser) => {
-    const response = authAxios.post("/checkPhone", params);
+  getDuplicatedPhonnumber: async (params: CreateUser) => {
+    const response = await authAxios.post("/checkPhone", params);
     return response;
   },
 };
@@ -80,9 +82,10 @@ export const login = {
   },
 };
 
-export const userInfo = {
+export const findAccount = {
   findIdByPhonenumber: async (params: SignupFormType) => {
-    const response = await authAxios.post("/find/uid", params);
+    console.log(params);
+    const response = await authAxios.post("/find/id", params);
     console.log(response);
     return response;
   },
@@ -92,7 +95,7 @@ export const userInfo = {
     return response;
   },
   findPassword: async (params: SignupFormType) => {
-    const response = await authAxios.post("/find/upass", params);
+    const response = await authAxios.post("/find/password", params);
     console.log(response);
     return response;
   },

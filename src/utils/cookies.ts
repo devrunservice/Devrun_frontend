@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { login } from "utils";
+import { login } from "utils/api";
 import { Cookies } from "react-cookie";
 
 const cookies = new Cookies();
