@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
-import { Cart } from "utils";
+import { Cart } from "utils/api";
 import { Table, Pagination } from "components";
 import { IRefund } from "types";
 import * as S from "../styles";

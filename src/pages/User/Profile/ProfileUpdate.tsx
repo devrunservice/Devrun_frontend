@@ -1,78 +1,86 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
-import profile from "asset/images/profile.png";
 import AuthenticationNumber from "components/Login/AuthenticationNumber/AuthenticationNumber";
 import { ImageUploader } from "components";
+import { SignupFormType } from "types";
 import * as St from "./styles";
 
 const ProfileUpdate = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [profileUpdateForm, setProfileUpdateForm] = useState({
+  const userData = useSelector((state: RootState) => state.userReducer.data);
+
+  const [profileUpdateForm, setProfileUpdateForm] = useState<SignupFormType>({
     email: "",
     phonenumber: "",
+    code: "",
+    // 이미지 파일도 넘겨줘야함
   });
-  const userData = useSelector((state: RootState) => state.userReducer.data);
+
+  useEffect(() => {
+    setProfileUpdateForm({ ...profileUpdateForm, email: userData.email });
+  }, [userData]);
 
   const handleSubmit = (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
+    const { name, value } = e.target;
+    console.log(e.target);
+    setProfileUpdateForm({ ...profileUpdateForm, [name]: value });
   };
+
+  const getAuthenticationForm = (values: SignupFormType) => {
+    profileUpdateForm.phonenumber = values.phonenumber;
+    profileUpdateForm.code = values.code;
+    console.log(profileUpdateForm.phonenumber);
+    console.log(profileUpdateForm.code);
+  };
+
   return (
     <section>
       <St.Title>프로필</St.Title>
       <St.ProfileCon>
-        {/* <St.Imgbox>
-          <St.ProfileImg src={profile} alt="profile" />
-        </St.Imgbox>
-        <St.Rightbox>
-          <St.InputWrap>
-            <St.Input
-              accept="image/*"
-              type="file"
-              placeholder="선택된 이미지 없음"
-              id="imgfile"
-            />
-            <St.Label htmlFor="imgfile">파일선택</St.Label>
-          </St.InputWrap>
-          <St.Imgtext>
-            <St.TextIcon />
-            최대 2MB까지 업로드 가능합니다.
-          </St.Imgtext>
-          <St.Imgtext>
-            <St.TextIcon />
-            110 X 110 픽셀 이미지 사용
-          </St.Imgtext>
-        </St.Rightbox> */}
         <ImageUploader page="profileUpdate" />
       </St.ProfileCon>
       <form onSubmit={handleSubmit}>
         <St.ProfileCon>
-          <St.ProfileEm>이름</St.ProfileEm>
+          <St.ProfileP>이름</St.ProfileP>
           <St.InputOther value={userData.name} disabled />
         </St.ProfileCon>
         <St.ProfileCon>
-          <St.ProfileEm>아이디</St.ProfileEm>
+          <St.ProfileP>아이디</St.ProfileP>
           <St.InputOther value={userData.id} disabled />
         </St.ProfileCon>
         <St.ProfileCon>
-          <St.ProfileEm>이메일</St.ProfileEm>
-          <St.InputOther value={userData.email} onChange={handleChange} />
+          <St.ProfileP>이메일</St.ProfileP>
+          <St.InputOther
+            name="email"
+            value={profileUpdateForm.email}
+            onChange={handleChange}
+          />
         </St.ProfileCon>
         <St.ProfileCon>
-          <St.ProfileEm>생년월일</St.ProfileEm>
+          <St.ProfileP>생년월일</St.ProfileP>
           <St.InputOther value={userData.birthday} disabled />
         </St.ProfileCon>
-        <St.ProfileCon>
-          <St.ProfileEm>휴대폰 번호</St.ProfileEm>
-          <St.InputOther value={userData.phonenumber} />
-        </St.ProfileCon>
+        {/* <St.ProfileP>휴대폰 번호</St.ProfileP>
+          <St.InputOther
+            name="phonenumber"
+            value={profileUpdateForm.phonenumber}
+          /> */}
+        <St.Phonenumber>
+          <AuthenticationNumber
+            option="phonenumber"
+            page="profileUpdate"
+            getAuthenticationForm={getAuthenticationForm}
+          />
+        </St.Phonenumber>
+
         <St.ChangeBtn onClick={() => navigate("/profile")}>확인</St.ChangeBtn>
       </form>
     </section>

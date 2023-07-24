@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { call, put, takeLatest } from "redux-saga/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { login } from "utils";
+import { login } from "utils/api";
 import { getCookie, removeCookie, setCookie } from "utils/cookies";
 import { redirect } from "utils/redirect";
 import { LoginFormType } from "types";
@@ -59,7 +59,6 @@ function* logoutSaga(): Generator<any, void, any> {
     yield put(logoutSuccess(response));
     removeCookie("accessToken");
     removeCookie("refreshToken");
-    localStorage.clear();
     yield call(redirect, "/");
   } catch (error) {
     yield put(logoutFail(error));
