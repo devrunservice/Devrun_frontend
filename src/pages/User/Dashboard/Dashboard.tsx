@@ -51,7 +51,7 @@ const Dashboard = () => {
     const { name } = e.target as HTMLButtonElement;
 
     if (name === "coursesBtn") {
-      navigate("/studymanage");
+      navigate("/learning");
     } else if (name === "notesBtn") {
       navigate("/notes");
     } else {
