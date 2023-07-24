@@ -53,4 +53,4 @@ jobs:
                   echo $REACT_APP_KAKAO_CLIENT_ID \
                   echo $REACT_APP_KAKAO_REDIRECT_URI \
                   echo $REACT_APP_KAKAO_JAVASCRIPT_KEY \
-                  echo $REACT_APP_KAKAOURL \
+                  echo $REACT_APP_KAKAOURL
