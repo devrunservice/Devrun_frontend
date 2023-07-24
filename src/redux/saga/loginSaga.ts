@@ -62,6 +62,7 @@ function* logoutSaga(): Generator<any, void, any> {
     yield call(redirect, "/");
   } catch (error) {
     yield put(logoutFail(error));
+    // yield call(redirect, "/home");
   }
 }
 

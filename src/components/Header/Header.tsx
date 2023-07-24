@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { getCookie } from "utils/cookies";
 import { decode } from "utils/decode";
+import { redirect } from "utils/redirect";
 import NoImg from "asset/images/NoImg.jpg";
 import Modal from "components/Login/Modal/Modal";
 import * as St from "./style";
@@ -112,7 +113,7 @@ const Header = () => {
           ) : (
             <St.ButtonWrap>
               <St.Button
-                onClick={() => navigate("/login")}
+                onClick={() => redirect("/login")}
                 type="button"
                 active
               >
