@@ -1,6 +1,6 @@
-import {DefaultTheme, createGlobalStyle} from 'styled-components';
-import styled from 'styled-components';
-import reset from 'styled-reset';
+import { DefaultTheme, createGlobalStyle } from "styled-components";
+
+import reset from "styled-reset";
 
 export const GlobalStyle = createGlobalStyle`
     ${reset}
@@ -30,16 +30,18 @@ export const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
         margin: 0;
         font-family: 'Pretendard';
+        line-height: 1.5;
     }
     body {
-        color: ${({theme}) => theme.textColor};
-        background-color: ${({theme}) => theme.bgColor};
-        font-size:${({theme}) => theme.fontSize16px};
-        font-weight:${({theme}) => theme.fontRegular};
+        color: ${({ theme }) => theme.textColor};
+        background-color: ${({ theme }) => theme.bgColor};
+        font-size:${({ theme }) => theme.fontSize16px};
+        font-weight:${({ theme }) => theme.fontRegular};
         font-family: 'Pretendard';
         display: flex;
         flex-direction: column;
         list-style: none;
+        line-height: 1.5;
     }
 
     #root {
@@ -47,8 +49,8 @@ export const GlobalStyle = createGlobalStyle`
     }
     button{
         cursor: pointer;
-        font-size:${({theme}) => theme.fontSize14px};
-        color: ${({theme}) => theme.textBlack};
+        font-size:${({ theme }) => theme.fontSize14px};
+        color: ${({ theme }) => theme.textBlack};
         border: 0;
     }
 `;
@@ -63,38 +65,26 @@ export const defaultTheme: DefaultTheme = {
   fontSize16px: "16px",
   fontSize18px: "18px",
   fontSize20px: "20px",
+  fontSize25px: "25px",
+  width40: "40px",
+  width85: "85px",
+  width95: "95px",
+  width120: "120px",
+  width100: "100%",
   brandColor: "#5F4B8B",
   bgColor: "#fff",
   bgGrayColor: "#f7f7f7",
   bgBlack: "#333",
+  bgNavcolor: "#DBD3EB",
   mainColor: "#604B8E",
   textBlack: "#171717",
   textColor: "#676767",
   textRed: "#F03B43",
   textPoint: "#5F4B8B",
   textWhite: "#fff",
-  textGrayB0: "#B0B0B0",
   textGrayC: "#ccc",
   borderBlack: "#171717",
   border83: "#838383",
   border49: "#494949",
   borderGray: "#ddd",
 };
-
-export const WhiteBg = styled.div`
-  padding: 40px 0 100px;
-  background: ${(props) => props.theme.WhiteBg};
-`;
-export const GaryBg = styled.div`
-  background: ${(props) => props.theme.bgGrayColor};
-  padding: 40px 0 100px;
-`;
-
-export const Inner = styled.div`
-  width: 1200px;
-  margin: 0 auto;
-`;
-export const Inner80 = styled.div`
-  width: 800px;
-  margin: 0 auto;
-`;

@@ -1,41 +1,23 @@
-import * as St from "./style"
-import { Button, Pagination } from "components";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { Table } from "components";
+import * as St from "./style";
+
+
 const Notice = () => {
+  const navigate = useNavigate();
+  const notice = "/noticeDetail";
+
   return (
     <>
       <St.Title>공지사항</St.Title>
-      <St.Table>
-        <St.TableLi>
-          <St.Num>1</St.Num>
-          <St.Text>23123</St.Text>
-          <St.Writer>12312</St.Writer>
-          <St.Date>123</St.Date>
-          <St.View>123</St.View>
-        </St.TableLi>
-        <St.TableLi>
-          <St.Num>2</St.Num>
-          <St.Text>23123</St.Text>
-          <St.Writer>12312</St.Writer>
-          <St.Date>123</St.Date>
-          <St.View>123</St.View>
-        </St.TableLi>
-        <St.TableLi>
-          <St.Num>3</St.Num>
-          <St.Text>23123</St.Text>
-          <St.Writer>12312</St.Writer>
-          <St.Date>123</St.Date>
-          <St.View>123</St.View>
-        </St.TableLi>
-        <St.TableLi>
-          <St.Num>4</St.Num>
-          <St.Text>23123</St.Text>
-          <St.Writer>12312</St.Writer>
-          <St.Date>123</St.Date>
-          <St.View>123</St.View>
-        </St.TableLi>
-      </St.Table>
-      <Button text={"글쓰기"} size={"ms"} color={"point"} />
-      <Pagination />
+      <Table notice={notice} />
+
+      <St.ButtonWrap>
+        <St.Button type="button" onClick={() => navigate("/noticeWrite")}>
+          글쓰기
+        </St.Button>
+      </St.ButtonWrap>
     </>
   );
 };

@@ -1,6 +1,6 @@
 # DEVRUN 🏃‍♀️🏃‍♂️
 
-> [🔗 DEVRUN 사이트 바로가기]("")
+> [🔗 DEVRUN 사이트 바로가기](http://devrun.s3-website.ap-northeast-2.amazonaws.com/)
 
 <br/>
 
@@ -47,3 +47,4 @@ DEVRUN은 프로그래밍과 관련된 강의를 들을 수 있는 온라인 교
 - Redux, Redux-Saga
 - React-Router, React-Icons, Axios, Draft
 - Styled-Components
+- AWS S3

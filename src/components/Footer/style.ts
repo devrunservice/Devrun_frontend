@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 
 export const FooterBg = styled.div`
-    background:${(props)=>props.theme.bgBlack}
+    background:${(props:any)=>props.theme.bgBlack}
 `;
 export const Inner = styled.div`
     width:1200px;
@@ -16,8 +16,8 @@ export const Left = styled.div`
     margin-right:50px;
 `;
 export const Slogan = styled.p`
-  font-size: ${(props) => props.theme.fontSize14px};
-  color: ${(props) => props.theme.textWhite};
+  font-size: ${(props:any) => props.theme.fontSize14px};
+  color: ${(props:any) => props.theme.textWhite};
   margin-top:10px;
 `;
 export const Right = styled.div``;
@@ -29,15 +29,15 @@ export const Link = styled.div`
   }
 `;
 export const Title = styled.em`
-  color: ${(props) => props.theme.textWhite};
-  font-size: ${(props) => props.theme.fontSize14px};
-  font-weight: ${(props) => props.theme.fontMedium};
+  color: ${(props:any) => props.theme.textWhite};
+  font-size: ${(props:any) => props.theme.fontSize14px};
+  font-weight: ${(props:any) => props.theme.fontMedium};
   margin-right: 30px;
 `;
 export const LinkLi = styled.p`
   position: relative;
-  color: ${(props) => props.theme.textGrayC};
-  font-size: ${(props) => props.theme.fontSize14px};
+  color: ${(props:any) => props.theme.textGrayC};
+  font-size: ${(props:any) => props.theme.fontSize14px};
   margin-right: 10px;
   padding-right: 11px;
   &:last-child {
@@ -49,7 +49,7 @@ export const LinkLi = styled.p`
     right: 0;
     width: 1px;
     height: 8px;
-    background: ${(props) => props.theme.border83};
+    background: ${(props:any) => props.theme.border83};
     margin:auto 0;
     bottom:0;
     top:0;
@@ -59,11 +59,11 @@ export const LinkLi = styled.p`
 export const Bottom = styled.div`
   margin-top: 20px;
   padding-top: 21px;
-  border-top: 1px solid ${(props) => props.theme.border49};
+  border-top: 1px solid ${(props:any) => props.theme.border49};
   display:flex
 `;
 export const Info = styled.p`
   margin-right: 20px;
-  color: ${(props) => props.theme.textGrayC};
-  font-size: ${(props) => props.theme.fontSize14px};
+  color: ${(props:any) => props.theme.textGrayC};
+  font-size: ${(props:any) => props.theme.fontSize14px};
 `;
