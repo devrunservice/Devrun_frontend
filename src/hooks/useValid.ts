@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from "react";
-import { signup } from "utils";
+import { signup } from "utils/api";
 import { IsValidType, SignupFormType } from "types";
-import { useDispatch } from "react-redux";
 
-const useValid = (signupForm: SignupFormType) => {
+const useValid = (form: SignupFormType) => {
   const [validMessage, setValidMessage] = useState({
     idMessage: "",
     passwordMessage: "",
@@ -21,7 +20,7 @@ const useValid = (signupForm: SignupFormType) => {
     passwordConfirm: false,
     email: false,
     name: false,
-    birthday: false,
+    // birthday: false,
     phonenumber: false,
     code: false,
     codeBtn: false,
@@ -39,7 +38,7 @@ const useValid = (signupForm: SignupFormType) => {
   useEffect(() => {
     const regex = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{5,13}$/;
 
-    if (!regex.test(signupForm.id || "")) {
+    if (!regex.test(form.id || "")) {
       setValidMessage((prev) => ({
         ...prev,
         idMessage: "영어, 숫자를 포함한 5 ~ 13자로 입력해주세요.",
@@ -56,27 +55,7 @@ const useValid = (signupForm: SignupFormType) => {
       }));
       setIsValid((prev) => ({ ...prev, idDuplication: false }));
     }
-  }, [signupForm.id]);
-
-  // useEffect(() => {
-  //   const regex = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{5,13}$/;
-
-  //   if (!regex.test(signupForm.id)) {
-  //     dispatch(
-  //       setValidId({
-  //         id: false,
-  //         idMessage: "영어, 숫자를 포함한 5 ~ 13자로 입력해주세요.",
-  //       }),
-  //     );
-  //   } else {
-  //     dispatch(
-  //       setValidId({
-  //         id: true,
-  //         idMessage: "",
-  //       }),
-  //     );
-  //   }
-  // }, [signupForm.id]);
+  }, [form.id]);
 
   // 아이디 중복확인
   const checkDuplicatedId = async (id: string) => {
@@ -96,15 +75,12 @@ const useValid = (signupForm: SignupFormType) => {
       setIsValid((prev) => ({ ...prev, idDuplication: false }));
     }
   };
-  // const checkDuplicatedId = (id: string) => {
-  //   dispatch(setDuplicatedId(id));
-  // };
 
   // 비밀번호
   useEffect(() => {
     const regex = /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*]).{8,15}$/;
 
-    if (!regex.test(signupForm.password || "")) {
+    if (!regex.test(form.password || "")) {
       setValidMessage((prev) => ({
         ...prev,
         passwordMessage: "숫자, 영문, 특수문자 포함한 8 ~ 15자로 입력해주세요",
@@ -115,7 +91,7 @@ const useValid = (signupForm: SignupFormType) => {
     }
 
     // 비밀번호 확인 유효성 검사
-    if (signupForm.password !== signupForm.passwordConfirm) {
+    if (form.password !== form.passwordConfirm) {
       setValidMessage((prev) => ({
         ...prev,
         passwordConfirmMessage: "비밀번호가 일치하지 않습니다.",
@@ -124,13 +100,13 @@ const useValid = (signupForm: SignupFormType) => {
     } else if (!isValid.passwordConfirm) {
       setIsValid((prev) => ({ ...prev, passwordConfirm: true }));
     }
-  }, [signupForm.password, signupForm.passwordConfirm]);
+  }, [form.password, form.passwordConfirm]);
 
   // 이메일 유효성 검사
   useEffect(() => {
     const regex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
 
-    if (!regex.test(signupForm.email || "")) {
+    if (!regex.test(form.email || "")) {
       setValidMessage((prev) => ({
         ...prev,
         emailMessage: "올바른 이메일 형식이 아닙니다.",
@@ -147,39 +123,7 @@ const useValid = (signupForm: SignupFormType) => {
       }));
       setIsValid((prev) => ({ ...prev, emailDuplication: false }));
     }
-  }, [signupForm.email]);
-
-  // 휴대폰 유효성 검사
-  useEffect(() => {
-    const regex = /^01([016789])(?:\d{3}|\d{4})\d{4}$/;
-
-    if (!regex.test(signupForm.phonenumber || "")) {
-      setIsValid({ ...isValid, phonenumber: false });
-    } else {
-      setIsValid({ ...isValid, phonenumber: true });
-    }
-
-    if (
-      (!isValid.phonenumber && isValid.codeBtn) ||
-      (isValid.phonenumber && isValid.codeBtn)
-    ) {
-      setValidMessage((prev) => ({
-        ...prev,
-        phonenumberMessage: "인증번호를 다시 받아주세요.",
-      }));
-      setIsValid((prev) => ({ ...prev, codeBtn: false }));
-    }
-  }, [signupForm.phonenumber]);
-
-  // 인증번호
-  useEffect(() => {
-    if (!isValid.code && isValid.checkCodeBtn) {
-      setValidMessage((prev) => ({
-        ...prev,
-        codeMessage: "올바른 인증번호를 입력해주세요.",
-      }));
-    }
-  }, [signupForm.code]);
+  }, [form.email]);
 
   // 이메일 중복확인
   const checkDuplicatedEmail = async (email: string) => {
@@ -200,61 +144,93 @@ const useValid = (signupForm: SignupFormType) => {
     }
   };
 
+  // 휴대폰 유효성 검사
+  useEffect(() => {
+    const regex = /^01([016789])(?:\d{3}|\d{4})\d{4}$/;
+
+    if (!regex.test(form.phonenumber || "")) {
+      setIsValid({ ...isValid, phonenumber: false });
+    } else {
+      setIsValid({ ...isValid, phonenumber: true });
+    }
+
+    if (
+      (!isValid.phonenumber && isValid.codeBtn) ||
+      (isValid.phonenumber && isValid.codeBtn)
+    ) {
+      setValidMessage((prev) => ({
+        ...prev,
+        phonenumberMessage: "인증번호를 다시 받아주세요.",
+      }));
+      setIsValid((prev) => ({ ...prev, codeBtn: false }));
+    }
+  }, [form.phonenumber]);
+
+  // 인증번호
+  // useEffect(() => {
+  //   if (!isValid.code && isValid.checkCodeBtn) {
+  //     setValidMessage((prev) => ({
+  //       ...prev,
+  //       codeMessage: "올바른 인증번호를 입력해주세요.",
+  //     }));
+  //   }
+  // }, [form.code]);
+
   // 휴대폰 인증번호
   const requestAuthenticationNumber = async (phonenumber: string) => {
     // 휴대폰 중복확인
-    // const response = await signup.getDuplicatedPhonnumber({
-    //   phonenumber,
-    // });
-    // console.log(response);
-    // if (response.data === 0) {
-    //   try {
-    //     await signup.getAuthenticationNumber({
-    //       phonenumber,
-    //     });
-    //     setValidMessage((prev) => ({
-    //       ...prev,
-    //       phonenumberMessage: "인증번호가 요청되었습니다.",
-    //     }));
-    //     setIsValid((prev) => ({ ...prev, phonenumber: true }));
-    //     setIsValid((prev) => ({ ...prev, codeBtn: true }));
-    //   } catch (error) {
-    //     setValidMessage((prev) => ({
-    //       ...prev,
-    //       phonenumberMessage: "인증번호 요청에 실패했습니다.",
-    //     }));
-    //     setIsValid((prev) => ({ ...prev, phonenumber: false }));
-    //     setIsValid((prev) => ({ ...prev, codeBtn: false }));
-    //   }
-    // } else {
-    //   setValidMessage((prev) => ({
-    //     ...prev,
-    //     phonenumberMessage: "현재 가입된 번호입니다.",
-    //   }));
-    //   setIsValid((prev) => ({ ...prev, phonenumber: false }));
-    //   setIsValid((prev) => ({ ...prev, codeBtn: false }));
-    // }
-    try {
-      const response = await signup.getAuthenticationNumber({
-        phonenumber,
-      });
-
-      if (response.status === 200) {
+    const response = await signup.getDuplicatedPhonnumber({
+      phonenumber,
+    });
+    console.log(response);
+    if (response.data === 0) {
+      try {
+        await signup.getAuthenticationNumber({
+          phonenumber,
+        });
         setValidMessage((prev) => ({
           ...prev,
           phonenumberMessage: "인증번호가 요청되었습니다.",
         }));
         setIsValid((prev) => ({ ...prev, phonenumber: true }));
         setIsValid((prev) => ({ ...prev, codeBtn: true }));
+      } catch (error) {
+        setValidMessage((prev) => ({
+          ...prev,
+          phonenumberMessage: "인증번호 요청에 실패했습니다.",
+        }));
+        setIsValid((prev) => ({ ...prev, phonenumber: false }));
+        setIsValid((prev) => ({ ...prev, codeBtn: false }));
       }
-    } catch (error) {
+    } else {
       setValidMessage((prev) => ({
         ...prev,
-        phonenumberMessage: "인증번호 요청에 실패했습니다.",
+        phonenumberMessage: "현재 가입된 번호입니다.",
       }));
       setIsValid((prev) => ({ ...prev, phonenumber: false }));
       setIsValid((prev) => ({ ...prev, codeBtn: false }));
     }
+    // try {
+    //   const response = await signup.getAuthenticationNumber({
+    //     phonenumber,
+    //   });
+
+    //   if (response.status === 200) {
+    //     setValidMessage((prev) => ({
+    //       ...prev,
+    //       phonenumberMessage: "인증번호가 요청되었습니다.",
+    //     }));
+    //     setIsValid((prev) => ({ ...prev, phonenumber: true }));
+    //     setIsValid((prev) => ({ ...prev, codeBtn: true }));
+    //   }
+    // } catch (error) {
+    //   setValidMessage((prev) => ({
+    //     ...prev,
+    //     phonenumberMessage: "인증번호 요청에 실패했습니다.",
+    //   }));
+    //   setIsValid((prev) => ({ ...prev, phonenumber: false }));
+    //   setIsValid((prev) => ({ ...prev, codeBtn: false }));
+    // }
   };
 
   // 인증번호 확인
