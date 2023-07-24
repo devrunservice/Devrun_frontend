@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { IRequestPayParams, RequestPayResponse, ICoupon, IBasket } from "types";
 import { RootState } from "redux/store";
-import { Cart } from "utils";
+import { Cart } from "utils/api";
 import NoImg from "asset/images/NoImg.jpg";
 import * as S from "style/Common";
 import * as St from "./style";

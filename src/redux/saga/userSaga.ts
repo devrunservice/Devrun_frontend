@@ -1,7 +1,7 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { tmi } from "types";
-import { userData } from "utils";
+import { userData } from "utils/api";
 import {
   userTmiPending,
   userTmiFulfilled,

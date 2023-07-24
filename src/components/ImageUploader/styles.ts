@@ -1,5 +1,6 @@
 import { BasicInput } from "components/CreateNewVideo/style";
 import { styled } from "styled-components";
+import { PropsType } from "types";
 
 export const UploadArea = styled.div`
   display: flex;
@@ -19,8 +20,27 @@ export const ImageWrap = styled.div`
     height: 100%;
   }
 `;
-export const UploadVideoWrap = styled.div`
-  width: 50%;
+
+export const Imgbox = styled.div`
+  align-items: center;
+  width: 110px;
+  height: 110px;
+  margin-right: 2rem;
+  border-radius: 50%;
+  background: #ddd;
+  overflow: hidden;
+  img {
+    width: inherit;
+    height: inherit;
+    object-fit: cover;
+    padding: 0;
+    max-width: 100%;
+  }
+`;
+
+export const UploadVideoWrap = styled.div<PropsType>`
+  width: ${(props) =>
+    props.page === "profileUpdate" ? "calc(100%-110px)" : "50%"};
   align-self: self-start;
   > div {
     display: flex;
@@ -50,6 +70,10 @@ export const ShortInput = styled(BasicInput)`
     width: auto;
     flex: 1;
   }
+`;
+
+export const ImageBtn = styled.label`
+  cursor: pointer;
 `;
 
 export const InputNotice = styled.p`
