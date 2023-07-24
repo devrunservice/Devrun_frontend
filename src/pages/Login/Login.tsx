@@ -79,7 +79,7 @@ const LoginForm = () => {
           <St.Button
             type="button"
             onClick={() => {
-              navigate("/findid");
+              navigate("/findaccount:id");
             }}
           >
             아이디 찾기
@@ -88,7 +88,7 @@ const LoginForm = () => {
           <St.Button
             type="button"
             onClick={() => {
-              navigate("/findpassword");
+              navigate("/findaccount:password");
             }}
           >
             비밀번호 찾기

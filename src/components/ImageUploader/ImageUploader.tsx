@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
+import { PropsType } from "types";
 import { Exclamation } from "asset";
-import profile from "asset/images/profile.png";
 import * as St from "./styles";
 
-const ImageUploader = ({ page }: { page: string }) => {
+const ImageUploader: React.FC<PropsType> = ({ page }) => {
   const [imgUrl, setImgUrl] = useState("");
+
   const uploadImg = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
     if (!files) {
@@ -19,17 +20,20 @@ const ImageUploader = ({ page }: { page: string }) => {
       }
       const url = URL.createObjectURL(file);
       setImgUrl(url);
+      // getImage(imgUrl || "");
     }
   };
   return (
     <St.UploadArea>
-      <St.ImageWrap>
-        {page === "profileUpdate" && (
-          <img src={profile} alt="default profile" />
-        )}
-        {page === "createVideo" && imgUrl && <img src={imgUrl} alt="" />}
-      </St.ImageWrap>
-      <St.UploadVideoWrap>
+      {page === "profileUpdate" && (
+        <St.Imgbox>
+          {imgUrl && <img src={imgUrl} alt="updated profile" />}
+        </St.Imgbox>
+      )}
+      {page === "createVideo" && (
+        <St.ImageWrap>{imgUrl && <img src={imgUrl} alt="" />}</St.ImageWrap>
+      )}
+      <St.UploadVideoWrap page={page}>
         <div>
           <St.ShortInput
             onChange={uploadImg}
@@ -38,7 +42,7 @@ const ImageUploader = ({ page }: { page: string }) => {
             type="file"
             placeholder="선택된 이미지 없음"
           />
-          <label htmlFor="uploader">파일선택</label>
+          <St.ImageBtn htmlFor="uploader">파일선택</St.ImageBtn>
         </div>
         <St.InputNotice>
           <Exclamation />

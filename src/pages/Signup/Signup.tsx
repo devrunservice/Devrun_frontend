@@ -1,13 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "redux/store";
+import { useDispatch } from "react-redux";
 import useValid from "hooks/useValid";
-import { signup } from "utils/index";
-import PasswordInput from "components/Login/PasswordInput/PasswordInput";
-import AuthenticationNumber from "components/Login/AuthenticationNumber/AuthenticationNumber";
-import Modal from "components/Login/Modal/Modal";
+import { signup } from "utils/api";
+import { PasswordInput, AuthenticationNumber, Modal } from "components";
 import { SignupFormType } from "types";
 import { ErrorMessage, Input, SuccessMessage } from "style/Common";
 import * as St from "./styles";
@@ -16,15 +13,7 @@ import { openModal, setSignupSuccess } from "../../redux/reducer/modalReducer";
 const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const signupSuccess = useSelector(
-    (state: RootState) => state.modalReducer.signupSuccess,
-  );
-  // const message = useSelector(
-  //   (state: RootState) => state.checkValidationReducer.message,
-  // );
-  // const valid = useSelector(
-  //   (state: RootState) => state.checkValidationReducer.valid,
-  // );
+
   const [signupForm, setSignupForm] = useState<SignupFormType>({
     id: "",
     password: "",
@@ -44,11 +33,9 @@ const Signup = () => {
   const {
     validMessage,
     isValid,
-    setIsValid,
+    // setIsValid,
     checkDuplicatedId,
     checkDuplicatedEmail,
-    requestAuthenticationNumber,
-    verifyAuthenticationNumber,
     checkAllChecked,
     checkConsent,
   } = useValid(signupForm);
@@ -71,13 +58,17 @@ const Signup = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await signup.createUser({
+      const response = await signup.createUser(signupForm.code || "", {
         id: signupForm.id,
         password: signupForm.password,
         name: signupForm.name,
         email: signupForm.email,
         birthday: signupForm.birthday,
         phonenumber: signupForm.phonenumber,
+        ageConsent: isValid.acChecked,
+        termsOfService: isValid.tosChecked,
+        privacyConsent: isValid.pcChecked,
+        marketConsent: isValid.mcChecked,
       });
       console.log(response);
       if (response.status === 200) {
@@ -89,22 +80,11 @@ const Signup = () => {
       console.error(error.message);
       dispatch(openModal(error.message));
     }
+  };
 
-    // try {
-    //   dispatch(
-    //     setUser({
-    //       id: signupForm.id,
-    //       password: signupForm.password,
-    //       name: signupForm.name,
-    //       email: signupForm.email,
-    //       birthday: signupForm.birthday,
-    //       phonenumber: signupForm.phonenumber,
-    //     }),
-    //   );
-    //   dispatch(dispatch(openModal("회원가입이 완료되었습니다.")));
-    // } catch (error: any) {
-    //   return error.response;
-    // }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setSignupForm({ ...signupForm, [name]: value });
   };
 
   // 아이디 중복
@@ -143,6 +123,7 @@ const Signup = () => {
     signupForm.phonenumber = values.phonenumber;
     signupForm.code = values.code;
     console.log(signupForm.phonenumber);
+    console.log(signupForm.code);
   };
 
   // 생년월일 값 가져오기
@@ -153,7 +134,7 @@ const Signup = () => {
     const day = String(value.getDate()).padStart(2, "0");
 
     setSignupForm({ ...signupForm, birthday: `${year}-${month}-${day}` });
-    setIsValid((prev) => ({ ...prev, birthday: true }));
+    // setIsValid((prev) => ({ ...prev, birthday: true }));
   };
 
   return (
@@ -170,9 +151,7 @@ const Signup = () => {
                 name="id"
                 value={signupForm.id}
                 placeholder="영문, 숫자 5-13자"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setSignupForm({ ...signupForm, id: e.target.value })
-                }
+                onChange={handleChange}
                 required
               />
               <St.Button
@@ -194,17 +173,6 @@ const Signup = () => {
             {signupForm.id !== "" && !isValid.idDuplication && (
               <ErrorMessage>{validMessage.idDuplicationMessage}</ErrorMessage>
             )}
-            {/* 리덕스 */}
-            {/* {signupForm.id && !valid.id && (
-              <ErrorMessage>{message.idMessage}</ErrorMessage>
-            )} */}
-            {/* {signupForm.id !== "" && isValid.idDuplication ? (
-              <SuccessMessage>
-                {validMessage.idDuplicationMessage}
-              </SuccessMessage>
-            ) : (
-              <ErrorMessage>{validMessage.idDuplicationMessage}</ErrorMessage>
-            )} */}
           </St.InputField>
 
           {/* 비밀번호 input */}
@@ -214,9 +182,7 @@ const Signup = () => {
               name="password"
               value={signupForm.password}
               placeholder="숫자, 영문, 특수문자 조합 최소 8자"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setSignupForm({ ...signupForm, password: e.target.value })
-              }
+              onChange={handleChange}
             />
             {signupForm.password && !isValid.password && (
               <ErrorMessage>{validMessage.passwordMessage}</ErrorMessage>
@@ -225,12 +191,7 @@ const Signup = () => {
               name="passwordConfirm"
               value={signupForm.passwordConfirm}
               placeholder="비밀번호 재입력"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setSignupForm({
-                  ...signupForm,
-                  passwordConfirm: e.target.value,
-                })
-              }
+              onChange={handleChange}
             />
             {!isValid.passwordConfirm && (
               <ErrorMessage>{validMessage.passwordConfirmMessage}</ErrorMessage>
@@ -245,10 +206,7 @@ const Signup = () => {
               name="name"
               value={signupForm.name}
               placeholder="홍길동"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setSignupForm({ ...signupForm, name: e.target.value });
-                setIsValid((prev) => ({ ...prev, name: true }));
-              }}
+              onChange={handleChange}
               required
             />
           </St.InputField>
@@ -262,9 +220,7 @@ const Signup = () => {
                 name="email"
                 value={signupForm.email}
                 placeholder="이메일"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setSignupForm({ ...signupForm, email: e.target.value })
-                }
+                onChange={handleChange}
               />
               <St.Button
                 type="button"
