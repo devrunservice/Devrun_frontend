@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
-import { ImageUploaderType } from "types";
+import { PropsType } from "types";
 import { Exclamation } from "asset";
 import * as St from "./styles";
 
-const ImageUploader: React.FC<ImageUploaderType> = ({ page }) => {
+const ImageUploader: React.FC<PropsType> = ({ page }) => {
   const [imgUrl, setImgUrl] = useState("");
 
   const uploadImg = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,6 +20,7 @@ const ImageUploader: React.FC<ImageUploaderType> = ({ page }) => {
       }
       const url = URL.createObjectURL(file);
       setImgUrl(url);
+      // getImage(imgUrl || "");
     }
   };
   return (
