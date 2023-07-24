@@ -26,6 +26,10 @@ export interface CreateUser {
   birthday?: string;
   phonenumber?: string;
   code?: string;
+  ageConsent?: boolean;
+  termsOfService?: boolean;
+  privacyConsent?: boolean;
+  marketConsent?: boolean;
 }
 
 export interface FindAccountType {
@@ -41,7 +45,7 @@ export interface IsValidType {
   passwordConfirm: boolean;
   email: boolean;
   name: boolean;
-  birthday: boolean;
+  // birthday: boolean;
   phonenumber: boolean;
   code: boolean;
   codeBtn: boolean;
@@ -59,6 +63,12 @@ export interface IsValidType {
 export interface LoginFormType {
   id: string;
   password?: string;
+}
+
+// 마이페이지 타입
+export interface PropsType {
+  page?: string;
+  getImage?: void;
 }
 
 export interface ITmiData {
