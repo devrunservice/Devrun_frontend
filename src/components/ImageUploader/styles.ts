@@ -1,6 +1,6 @@
 import { BasicInput } from "components/CreateNewVideo/style";
 import { styled } from "styled-components";
-import { ImageUploaderType } from "types";
+import { PropsType } from "types";
 
 export const UploadArea = styled.div`
   display: flex;
@@ -38,7 +38,7 @@ export const Imgbox = styled.div`
   }
 `;
 
-export const UploadVideoWrap = styled.div<ImageUploaderType>`
+export const UploadVideoWrap = styled.div<PropsType>`
   width: ${(props) =>
     props.page === "profileUpdate" ? "calc(100%-110px)" : "50%"};
   align-self: self-start;
