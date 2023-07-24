@@ -32,16 +32,17 @@ jobs:
               run: yarn build
               env:
                   CI: ""
+            - name: Deploy
+              env:
+                  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
                   REACT_APP_SERVER_URL: ${{ secrets.REACT_APP_SERVER_URL }}
                   REACT_APP_KAKAO_CLIENT_ID: ${{ secrets.REACT_APP_KAKAO_CLIENT_ID }}
                   REACT_APP_KAKAO_REDIRECT_URI: ${{ secrets.REACT_APP_KAKAO_REDIRECT_URI }}
                   REACT_APP_KAKAO_JAVASCRIPT_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
                   REACT_APP_KAKAOURL: ${{ secrets.REACT_APP_KAKAOURL }}
-            - name: Deploy
-              env:
-                  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-                  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-                  
               run: |
                    aws s3 cp \
                   --recursive \
