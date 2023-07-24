@@ -1,29 +1,6 @@
 import { Input } from "style/Common";
 import { styled } from "styled-components";
 
-export const Section = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: ${(props) => props.theme.bgGrayColor};
-  overflow: auto;
-`;
-
-// white 배경 컴포넌트
-export const Container = styled.div`
-  width: 400px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 3rem 2rem;
-  margin: 3rem 0;
-  background: ${(props) => props.theme.bgColor};
-  border-radius: 10px;
-  border: ${(props) => props.theme.borderGray} 1px solid;
-`;
-
 export const H1 = styled.h1`
   color: ${(props) => props.theme.textBlack};
   text-align: center;
@@ -84,4 +61,10 @@ export const Field = styled.div`
     color: ${(props) => props.theme.textWhite};
     background-color: ${(props) => props.theme.brandColor};
   }
+`;
+
+export const CancelBtn = styled(Button)`
+  margin-bottom: 0.5rem;
+  background-color: #f0f0f0;
+  color: ${(props) => props.theme.textBlack};
 `;

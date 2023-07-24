@@ -1,3 +1,195 @@
+import React, { MutableRefObject } from "react";
+
+// 회원가입 타입
+export interface SignupFormType {
+  id?: string | undefined;
+  password?: string;
+  passwordConfirm?: string;
+  name?: string;
+  email?: string;
+  birthday?: string;
+  phonenumber?: string;
+  code?: string;
+  allChecked?: boolean;
+  acChecked?: boolean;
+  tosChecked?: boolean;
+  pcChecked?: boolean;
+  mcChecked?: boolean;
+}
+
+// 회원가입 데이터 전송 시 타입
+export interface CreateUser {
+  id?: string;
+  password?: string;
+  name?: string;
+  email?: string;
+  birthday?: string;
+  phonenumber?: string;
+  code?: string;
+  ageConsent?: boolean;
+  termsOfService?: boolean;
+  privacyConsent?: boolean;
+  marketConsent?: boolean;
+}
+
+export interface FindAccountType {
+  name?: string;
+  phonenumber?: string;
+  email?: string;
+  code: string;
+}
+
+export interface IsValidType {
+  id: boolean;
+  password: boolean;
+  passwordConfirm: boolean;
+  email: boolean;
+  name: boolean;
+  // birthday: boolean;
+  phonenumber: boolean;
+  code: boolean;
+  codeBtn: boolean;
+  checkCodeBtn: boolean;
+  idDuplication: boolean;
+  emailDuplication: boolean;
+  allChecked: boolean;
+  acChecked: boolean;
+  tosChecked: boolean;
+  pcChecked: boolean;
+  mcChecked: boolean;
+}
+
+// 로그인 타입
+export interface LoginFormType {
+  id: string;
+  password?: string;
+}
+
+// 마이페이지 타입
+export interface PropsType {
+  page?: string;
+  getImage?: void;
+}
+
+export interface ITmiData {
+  id: string;
+  email: string;
+  name: string;
+  birthday: string;
+  phonenumber: string;
+  role: string;
+}
+
+export interface ITmi {
+  loading: boolean;
+  data: ITmiData;
+  error: string | null | undefined;
+}
+
+export interface tmi {
+  id: string;
+}
+
+export interface CheckValidationReducerType {
+  message: {
+    idMessage: string;
+    passwordMessage: string;
+    passwordConfirmMessage: string;
+    emailMessage: string;
+    phonenumberMessage: string;
+    codeMessage: string;
+    idDuplicationMessage: string;
+    emailDuplicationMessage: string;
+  };
+  valid: {
+    id: boolean;
+    password: boolean;
+    passwordConfirm: boolean;
+    email: boolean;
+    name: boolean;
+    birthday: boolean;
+    phonenumber: boolean;
+    code: boolean;
+    codeBtn: boolean;
+    checkCodeBtn: boolean;
+    idDuplication: boolean;
+    emailDuplication: boolean;
+  };
+}
+export interface TokenType {
+  accessToken?: string;
+  refreshToken?: string;
+}
+
+// export interface CreateLectureType {
+//   lectureName: string;
+//   lecturePrice: string;
+//   imageUrl: string;
+//   lectureCategory: string;
+//   lectureTag: Array<string>;
+//   lectureExplane: string;
+//   lectureIntroduce: string
+//   num: number;
+//   title: string;
+//   isReadOnly: boolean;
+//   subTitle: Array<subTitleType  >
+// }
+// export interface subTitleType {
+//   subNum:number;
+//   className: string;
+//   url: string;
+//   isReadOnly: boolean;
+// }
+export interface CreateLectureType {
+  lectureName?: string;
+  lecturePrice?: number;
+  imageUrl?: string;
+  lectureCategory?: string;
+  lectureTag?: Array<string>;
+  lectureExplane?: string;
+  lectureIntroduce?: string;
+  section?: Array<SectionType>;
+}
+export interface SectionType {
+  // num:number,
+  num: MutableRefObject<number>;
+  title: string;
+  isReadOnly: boolean;
+  subTitle: Array<SubTitleType>;
+}
+export interface SubTitleType {
+  subNum: number;
+  // subNum:React.MutableRefObject<number>;
+  className: string;
+  url: string;
+  isReadOnly: boolean;
+}
+export interface RefType {}
+
+export interface IRefund {
+  merchant_uid: string;
+  cancel_request_amount: number;
+  reason?: string;
+  refund_holder?: string;
+  refund_bank?: string;
+  refund_account?: string;
+}
+export interface ITable {
+  notice?: string;
+  basketBtn?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+}
+
+export interface ICoupon {
+  couponCode?: string;
+  amount?: number;
+}
+
+export interface IBasket {
+  price: number;
+  couponBoolean: boolean;
+  coupon: string;
+}
+
 // 페이지네이션
 export interface IPagination {
   activePage?: number;
@@ -5,20 +197,59 @@ export interface IPagination {
   lastPage?: number;
   count?: number;
 }
+export interface ICert {
+  setPopup?: boolean;
+  popup: boolean;
+}
+
 export interface IPageColor {
   isActive: boolean;
 }
+// 헤더
 export interface IButtonColor {
   active: boolean;
 }
+
+// 마이페이지 네비게이션
 export interface IBtnNav {
   active: boolean;
 }
+
+// 프로필
+export interface IProfileActiveBtn {
+  active: boolean;
+}
+export interface IProfileBtn {
+  email: boolean;
+  password: boolean;
+  number: boolean;
+}
+export interface Iprofile {
+  password: string;
+  passwordCheck: string;
+  email: string;
+  number: string;
+}
+// 내 학습관리 탭
+export interface ILearnTap {
+  active: boolean;
+}
+
+// 댓글
 export interface IComment {
   comment: string;
 }
-
+export interface IPrice {
+  active: boolean;
+}
 export interface IPriceButton {
+  active: boolean;
+}
+// 마이페이지 검색
+export interface IMySearch {
+  search: string;
+}
+export interface ILearning {
   active: boolean;
 }
 
@@ -62,11 +293,11 @@ export interface IRequestPayResponse {
 }
 
 export interface RequestPayResponse extends IRequestPayResponse {
-  success: boolean;
-  error_code: string;
-  errorMsg: string;
-  imp_uid: string | null;
-  merchant_uid: string;
+  success?: boolean;
+  error_code?: string | boolean;
+  errorMsg?: string;
+  imp_uid?: string | null;
+  merchant_uid?: string;
   pay_method?: string;
   paid_amount?: number;
   status?: string;
@@ -96,105 +327,4 @@ declare global {
   interface Window {
     IMP?: Iamport;
   }
-}
-
-
-
-// 회원가입 타입
-export interface SignupFormType {
-  id?: string | undefined;
-  password?: string;
-  passwordConfirm?: string;
-  name?: string;
-  email?: string;
-  birthday?: string;
-  phonenumber?: string;
-  code?: string;
-  allChecked?: boolean;
-  acChecked?: boolean;
-  tosChecked?: boolean;
-  pcChecked?: boolean;
-  mcChecked?: boolean;
-}
-
-// 회원가입 데이터 전송 시 타입
-export interface CreateUser {
-  id?: string;
-  password?: string;
-  name?: string;
-  email?: string;
-  birthday?: string;
-  phonenumber?: string;
-  code?: string;
-}
-
-export interface FindAccountType {
-  name?: string;
-  phonenumber?: string;
-  email?: string;
-  code: string;
-}
-
-export interface IsValidType {
-  id: boolean;
-  password: boolean;
-  passwordConfirm: boolean;
-  email: boolean;
-  name: boolean;
-  birthday: boolean;
-  phonenumber: boolean;
-  code: boolean;
-  codeBtn: boolean;
-  checkCodeBtn: boolean;
-  idDuplication: boolean;
-  emailDuplication: boolean;
-  allChecked: boolean;
-  acChecked: boolean;
-  tosChecked: boolean;
-  pcChecked: boolean;
-  mcChecked: boolean;
-}
-
-// 로그인 타입
-export interface LoginFormType {
-  id: string;
-  password?: string;
-}
-
-// export interface ITmi {
-//   loading: boolean;
-//   data: string[] | any;
-//   error: string | null | undefined;
-// }
-
-
-export interface tmi {
-  id: string;
-}
-
-export interface CheckValidationReducerType {
-  message: {
-    idMessage: string;
-    passwordMessage: string;
-    passwordConfirmMessage: string;
-    emailMessage: string;
-    phonenumberMessage: string;
-    codeMessage: string;
-    idDuplicationMessage: string;
-    emailDuplicationMessage: string;
-  };
-  valid: {
-    id: boolean;
-    password: boolean;
-    passwordConfirm: boolean;
-    email: boolean;
-    name: boolean;
-    birthday: boolean;
-    phonenumber: boolean;
-    code: boolean;
-    codeBtn: boolean;
-    checkCodeBtn: boolean;
-    idDuplication: boolean;
-    emailDuplication: boolean;
-  };
 }

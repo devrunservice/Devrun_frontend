@@ -30,7 +30,7 @@ export const TitleInput = styled.input`
 export const ButtonWrap = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-top: 20px;
+  margin-top: 30px;
   gap:10px;
 `;
 export const Button = styled.button`

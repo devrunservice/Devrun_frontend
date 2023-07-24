@@ -1,22 +1,40 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Cart, Person } from "asset";
-import { getCookie } from "api/cookies";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "redux/store";
+import { getCookie } from "utils/cookies";
+import { decode } from "utils/decode";
 import NoImg from "asset/images/NoImg.jpg";
+import Modal from "components/Login/Modal/Modal";
 import * as St from "./style";
+import { userTmiPending } from "../../redux/reducer/userReducer";
+import { logoutLoading } from "../../redux/reducer/loginReducer";
 
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [cookie, setCookie] = useState<boolean>(false);
+
+  const userData = useSelector((state: RootState) => state.userReducer.data);
+
   useEffect(() => {
+    console.log("메인 화면으로 진입");
     if (getCookie("accessToken")) {
       setCookie(true);
+      const userId = decode("accessToken");
+      dispatch(userTmiPending(userId));
     }
   }, []);
 
+  const handleLogout = () => {
+    dispatch(logoutLoading());
+  };
+
   return (
     <St.HeaderWrap>
+      <Modal page="home" />
       <St.InnerHeader>
         <St.NavWrap>
           <St.LogoIcon onClick={() => navigate("/")} />
@@ -41,7 +59,9 @@ const Header = () => {
           {cookie ? (
             <St.NavWrap>
               <St.HeaderIcon>
-                <Cart />
+                <St.Icon>
+                  <St.Cart />
+                </St.Icon>
                 <St.CartHover>
                   <St.CartTop>
                     <St.CartTitle>
@@ -51,13 +71,10 @@ const Header = () => {
                       총 결제금액 <St.CartNum>29,700</St.CartNum>원
                     </St.CartPrice>
                   </St.CartTop>
-
                   <St.CartUl>
                     <St.CartLi>
                       <St.ImgWrap>
-                        <St.ImgBox>
-                          <St.Img src={NoImg} alt="" />
-                        </St.ImgBox>
+                        <St.Img src={NoImg} alt="" />
                       </St.ImgWrap>
                       <St.TextWrap>
                         <St.LectureTitle>
@@ -74,7 +91,22 @@ const Header = () => {
                 </St.CartHover>
               </St.HeaderIcon>
               <St.HeaderIcon>
-                <Person onClick={() => navigate("/notice")} />
+                <St.Icon>
+                  <St.Person />
+                </St.Icon>
+                <St.Dropdown>
+                  <St.DropdownTop>
+                    <St.DropdownItemWrapper>
+                      <St.DropdownItemBtn onClick={() => navigate("/profile")}>
+                        {userData.id}
+                      </St.DropdownItemBtn>
+                      <p>{userData.role}</p>
+                    </St.DropdownItemWrapper>
+                    <St.DropdownItemBtn onClick={handleLogout}>
+                      로그아웃
+                    </St.DropdownItemBtn>
+                  </St.DropdownTop>
+                </St.Dropdown>
               </St.HeaderIcon>
             </St.NavWrap>
           ) : (

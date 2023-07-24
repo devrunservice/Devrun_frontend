@@ -48,4 +48,10 @@ export const CurriculumMain = styled.li`
     margin-left: 20px;
     cursor: pointer;
   }
+  p {
+    font-size: 12px;
+  }
+`
+export const FlexLine = styled.div`
+  display: flex;
 `

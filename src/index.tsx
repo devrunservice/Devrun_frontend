@@ -8,60 +8,57 @@ import {
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle, defaultTheme } from "style/Theme";
 import { CookiesProvider } from "react-cookie";
-import { getCookie } from "api/cookies";
+import { getCookie } from "utils/cookies";
 import { Provider } from "react-redux";
-
-import {
-  Notice,
-  Basket,
-  HomePage,
-  Login,
-  Signup,
-  NotFound,
-  Lecture,
-  DetailPage,
-  CreateVideo,
-  NoticeWrite,
-  NoticeDetail,
-  FindId,
-  FindPassword,
-  Profile,
-  Certificate,
-} from "pages";
-import store from "./redux/store";
+import { PersistGate } from "redux-persist/integration/react";
+import * as Route from "pages";
+import store, { persistor } from "./redux/store";
 import App from "./App";
+
 import reportWebVitals from "./reportWebVitals";
 
 const ACCESS_TOKEN = getCookie("accessToken");
-
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <NotFound />,
+    errorElement: <Route.NotFound />,
     children: [
-      { index: true, element: <HomePage /> },
-      { path: "home", element: <HomePage /> },
-      { path: "login", element: <Login /> },
-      { path: "signup", element: <Signup /> },
+      { index: true, element: <Route.HomePage /> },
+      { path: "home", element: <Route.HomePage /> },
+      { path: "login", element: <Route.Login /> },
+      { path: "auth/kakao/callback/login", element: <Route.Login /> },
+      { path: "auth/kakao/callback", element: <Route.Auth2RedirectHandler /> },
+      { path: "signup", element: <Route.Signup /> },
       {
         path: "basket",
-        element: ACCESS_TOKEN ? <Basket /> : <Navigate replace to="/login" />,
+        element: ACCESS_TOKEN ? (
+          <Route.Basket />
+        ) : (
+          <Navigate replace to="/login" />
+        ),
       },
-      { path: "notice", element: <Notice /> },
-      { path: "findaccount:id", element: <FindId /> },
-      { path: "findaccount:password", element: <FindPassword /> },
-      { path: "noticeWrite", element: <NoticeWrite /> },
-      { path: "noticeDetail", element: <NoticeDetail /> },
-      { path: "lecture", element: <Lecture /> },
-      { path: "detail", element: <DetailPage /> },
-      { path: "createVideo", element: <CreateVideo /> },
-      { path: "Profile", element: <Profile /> },
-      { path: "Certificate", element: <Certificate /> },
+      { path: "notice", element: <Route.Notice /> },
+      { path: "findaccount:id", element: <Route.FindId /> },
+      { path: "findaccount:password", element: <Route.FindPassword /> },
+      { path: "noticeWrite", element: <Route.NoticeWrite /> },
+      { path: "noticeDetail", element: <Route.NoticeDetail /> },
+      { path: "lecture", element: <Route.Lecture /> },
+      { path: "detail", element: <Route.DetailPage /> },
+      { path: "createVideo", element: <Route.CreateVideo /> },
+      { path: "profile", element: <Route.Profile /> },
+      { path: "profileupdate", element: <Route.ProfileUpdate /> },
+      { path: "dashboard", element: <Route.Dashboard /> },
+      { path: "notes", element: <Route.Notes /> },
+      { path: "questions", element: <Route.Questions /> },
+      { path: "certificate", element: <Route.Certificate /> },
+      { path: "coupon", element: <Route.Coupon /> },
+      { path: "Receipt", element: <Route.Receipt /> },
+      { path: "learning", element: <Route.Learning /> },
       {
         path: "createVideo",
         element: ACCESS_TOKEN ? (
-          <CreateVideo />
+          <Route.CreateVideo />
         ) : (
           <Navigate replace to="/login" />
         ),
@@ -78,7 +75,9 @@ root.render(
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyle />
       <Provider store={store}>
-        <RouterProvider router={router} />
+        <PersistGate loading={null} persistor={persistor}>
+          <RouterProvider router={router} />
+        </PersistGate>
       </Provider>
     </ThemeProvider>
   </CookiesProvider>,

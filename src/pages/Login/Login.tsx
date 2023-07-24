@@ -1,17 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "redux/store";
-import { login } from "api";
-import { getCookie } from "api/cookies";
+import { useDispatch } from "react-redux";
 import { BrandLogo, Kakao, Naver, Google } from "asset";
 import { LoginFormType } from "types";
 import { PasswordInput, Modal } from "components";
 import { Input } from "style/Common";
-
-import { loginAction } from "../../redux/reducer/loginReducer";
-
+import { loginLoading } from "../../redux/reducer/loginReducer";
 import * as St from "./styles";
 
 const LoginForm = () => {
@@ -27,39 +22,15 @@ const LoginForm = () => {
 
   const handleClickLogo = () => navigate("/");
 
-  useEffect(() => {
-    // if (loginId !== "") {
-    //   navigate("/");
-    // }
-    console.log(getCookie("accessToken"));
-    if (getCookie("accessToken")) {
-      navigate("/");
-    }
-  }, [getCookie("accessToken")]);
-
-  const handleSubmit = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      // try {
-      //   const response = await login.checkLoginUser({
-      //     id: loginForm.id,
-      //     password: loginForm.password,
-      //   });
-      //   console.log(response);
-      //   if (response.status === 200) navigate(`/`);
-      // } catch (error: any) {
-      //   dispatch(openModal(error.message));
-      // }
-
-      dispatch(
-        loginAction({
-          id: loginForm.id,
-          password: loginForm.password,
-        }),
-      );
-    },
-    [loginForm],
-  );
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(
+      loginLoading({
+        id: loginForm.id,
+        password: loginForm.password,
+      }),
+    );
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -67,6 +38,13 @@ const LoginForm = () => {
       ...prev,
       [name]: value,
     }));
+  };
+
+  const handleSocialLogin = (social: string) => {
+    if (social === "kakao") {
+      const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`;
+      window.location.href = kakaoURL;
+    }
   };
 
   return (
@@ -94,14 +72,14 @@ const LoginForm = () => {
           </St.InputField>
           <St.LoginBtn disabled={!isFormValid}>로그인</St.LoginBtn>
         </form>
-        <Modal />
+        <Modal page="login" />
 
         {/* 아이디, 비밀번호 찾기 및 회원가입 */}
         <St.Finder>
           <St.Button
             type="button"
             onClick={() => {
-              navigate("/findid");
+              navigate("/findaccount:id");
             }}
           >
             아이디 찾기
@@ -110,7 +88,7 @@ const LoginForm = () => {
           <St.Button
             type="button"
             onClick={() => {
-              navigate("/findpassword");
+              navigate("/findaccount:password");
             }}
           >
             비밀번호 찾기
@@ -130,13 +108,13 @@ const LoginForm = () => {
           <St.SocialLoginTitle>간편 로그인</St.SocialLoginTitle>
           <St.SocialLoginBtn>
             <St.Button>
-              <Kakao />
+              <Kakao onClick={() => handleSocialLogin("kakao")} />
             </St.Button>
             <St.Button>
-              <Naver />
+              <Naver onClick={() => handleSocialLogin("naver")} />
             </St.Button>
             <St.Button>
-              <Google />
+              <Google onClick={() => handleSocialLogin("google")} />
             </St.Button>
           </St.SocialLoginBtn>
         </St.SocialLogin>

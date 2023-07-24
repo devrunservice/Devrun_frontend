@@ -11,10 +11,13 @@ const CreateVideo = () => {
   const ChangePage = () => {
     setCreatePage(2)
   }
+  const PrevPage = () => {
+    setCreatePage(1)
+  }
   return (
     <div>
       {
-        createPage === 1 ? <CreateNewVideo ChangePage={ChangePage}/> : <CreateVideoTwo/>
+        createPage === 1 ? <CreateNewVideo ChangePage={ChangePage}/> : <CreateVideoTwo PrevPage={PrevPage}/>
       }
     </div>
   );

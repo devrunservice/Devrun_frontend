@@ -72,7 +72,7 @@ export const PriceBtn = styled.button<IPriceButton>`
   background: ${(props) => (props.active ? "#fff" : "#604B8E")};
   color: ${(props) => (props.active ? "#000" : "#fff")};
   border: 1px solid ${(props) => props.theme.mainColor};
-  border-radius: ${(props) => (props.active ? "5px 0 0 5px" : "0px 5px 5px 0px")};
+  /* border-radius: ${(props) => (props.active ? "5px 0 0 5px" : "0px 5px 5px 0px")}; */
 `;
 
 export const UploadArea = styled.div`
@@ -159,4 +159,13 @@ export const TagItem = styled.span`
   border-radius: 5px;
   background: ${props=>props.theme.mainColor};
   color: ${props=>props.theme.textWhite};
+`
+
+export const OtherBtn = styled.button`
+  display: block;
+  border: none;
+  border-radius: 5px;
+  background: #604B8E;
+  color: #fff;
+  padding: 12px 25px;
 `

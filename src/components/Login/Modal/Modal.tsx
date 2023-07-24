@@ -5,15 +5,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import * as St from "./styles";
 import { closeModal } from "../../../redux/reducer/modalReducer";
+import { logoutLoading } from "../../../redux/reducer/loginReducer";
 
-const Modal = () => {
+const Modal = ({ page }: { page: string }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const modalOpen = useSelector(
     (state: RootState) => state.modalReducer.modalOpen,
   );
-  const modalMessage = useSelector(
-    (state: RootState) => state.modalReducer.modalMessage,
+  const modalMessage1 = useSelector(
+    (state: RootState) => state.modalReducer.modalMessage1,
+  );
+  const modalMessage2 = useSelector(
+    (state: RootState) => state.modalReducer.modalMessage2,
   );
   const currentPage = useSelector(
     (state: RootState) => state.modalReducer.currentPage,
@@ -23,9 +27,16 @@ const Modal = () => {
   );
 
   const handleClick = () => {
+    // 회원가입 성공 시
     dispatch(closeModal());
     if (signupSuccess === true) {
       navigate("/login");
+    }
+
+    // 토큰 조작 시
+    if (page === "home") {
+      dispatch(logoutLoading());
+      navigate("/home");
     }
   };
 
@@ -34,7 +45,8 @@ const Modal = () => {
   return (
     <St.Section>
       <St.Modal>
-        <p>{modalMessage}</p>
+        <p>{modalMessage1}</p>
+        <p>{modalMessage2}</p>
         <St.Button onClick={handleClick}>확인</St.Button>
       </St.Modal>
     </St.Section>
