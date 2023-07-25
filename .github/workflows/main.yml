@@ -15,6 +15,15 @@ jobs:
         steps:
             - name: Checkout source code
               uses: actions/checkout@master
+              
+            # .env에 있던 환경변수들을 등록해주는 단계
+            - name: .env setting
+              run: |
+                echo "REACT_APP_SERVER_URL=${{ secrets.REACT_APP_SERVER_URL }}" >> .env
+                echo "REACT_APP_KAKAO_CLIENT_ID=${{ secrets.REACT_APP_KAKAO_CLIENT_ID }}" >> .env
+                echo "REACT_APP_KAKAO_REDIRECT_URI=${{ secrets.REACT_APP_KAKAO_REDIRECT_URI }}" >> .env
+                echo "REACT_APP_KAKAO_JAVASCRIPT_KEY=${{ secrets.REACT_APP_KAKAO_JAVASCRIPT_KEY }}" >> .env
+                echo "REACT_APP_KAKAOURL=${{ secrets.REACT_APP_KAKAOURL }}" >> .env
 
             # 실행 속도를 빠르게 하기 위해 설치된 Node 모듈을 캐시하도록 설정합니다.
             - name: Cache node modules
@@ -24,6 +33,14 @@ jobs:
                   key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
                   restore-keys: |
                       ${{ runner.os }}-node-
+
+            - name: Install Dependencies
+              run: yarn
+
+            - name: Build
+              run: yarn build
+              env:
+                  CI: ""
 
             - name: Deploy
               env:
@@ -35,13 +52,8 @@ jobs:
                   REACT_APP_KAKAO_JAVASCRIPT_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
                   REACT_APP_KAKAOURL: ${{ secrets.REACT_APP_KAKAOURL }}
               run: |
-                echo "REACT_APP_SERVER_URL=${{ secrets.REACT_APP_SERVER_URL }}" >> .env
-                echo "REACT_APP_KAKAO_CLIENT_ID=${{ secrets.REACT_APP_KAKAO_CLIENT_ID }}" >> .env
-                echo "REACT_APP_KAKAO_REDIRECT_URI=${{ secrets.REACT_APP_KAKAO_REDIRECT_URI }}" >> .env
-                echo "REACT_APP_KAKAO_JAVASCRIPT_KEY=${{ secrets.REACT_APP_KAKAO_JAVASCRIPT_KEY }}" >> .env
-                echo "REACT_APP_KAKAOURL=${{ secrets.REACT_APP_KAKAOURL }}" >> .env
-
                    aws s3 cp \
                   --recursive \
                   --region ap-northeast-2 \
                   build s3://devrun 
+                  
