@@ -27,6 +27,12 @@ jobs:
 
              # .env에 있던 환경변수들을 등록해주는 단계
             - name: .env setting
+              env:
+                REACT_APP_SERVER_URL: ${{ secrets.REACT_APP_SERVER_URL }}
+                REACT_APP_KAKAO_CLIENT_ID: ${{ secrets.REACT_APP_KAKAO_CLIENT_ID }}
+                REACT_APP_KAKAO_REDIRECT_URI: ${{ secrets.REACT_APP_KAKAO_REDIRECT_URI }}
+                REACT_APP_KAKAO_JAVASCRIPT_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                REACT_APP_KAKAOURL: ${{ secrets.REACT_APP_KAKAOURL }}
               run: |
                 echo "REACT_APP_SERVER_URL=${{ secrets.REACT_APP_SERVER_URL }}" >> .env
                 echo "REACT_APP_KAKAO_CLIENT_ID=${{ secrets.REACT_APP_KAKAO_CLIENT_ID }}" >> .env
