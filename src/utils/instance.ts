@@ -97,10 +97,12 @@ accAxios.interceptors.response.use(
 
 authAxios.interceptors.response.use(
   (response) => response,
-  (error) => {
+  async (error) => {
     console.log(error);
     const errorMessage = error.response.data;
     const errorStatus = error.response.status;
+
+    let response;
 
     switch (errorStatus) {
       case 303:
@@ -145,6 +147,8 @@ authAxios.interceptors.response.use(
             return Promise.reject(new Error("로그아웃을 할 수 없습니다."));
           case "Invalid refresh token":
             return Promise.reject(new Error("로그인을 해주세요."));
+          case "Account is inactive":
+            return Promise.reject(new Error("휴면 상태의 회원입니다."));
           default:
             break;
         }
@@ -154,8 +158,6 @@ authAxios.interceptors.response.use(
         switch (errorMessage) {
           case "User has not agreed to the terms":
             return Promise.reject(new Error("약관동의를 진행해주세요."));
-          case "Account is inactive":
-            return Promise.reject(new Error("휴면 상태의 회원입니다."));
           case "Account has been withdrawn":
             return Promise.reject(new Error("탈퇴한 회원입니다."));
           case "Verification failed phonenumber":

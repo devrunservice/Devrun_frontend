@@ -7,7 +7,7 @@ import * as St from "./styles";
 import { closeModal } from "../../../redux/reducer/modalReducer";
 import { logoutLoading } from "../../../redux/reducer/loginReducer";
 
-const Modal = ({ page }: { page: string }) => {
+const Modal = ({ page }: { page?: string }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const modalOpen = useSelector(

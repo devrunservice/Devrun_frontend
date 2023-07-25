@@ -35,13 +35,14 @@ function* loginSaga(
       // https 일때만 통신할 수 있는 것 https일때 true로 바꿔줄것!
       secure: false,
       // 쿠키 훔쳐가는거 막음 로컬에서는 사용이 안된다함
-      // httpOnly: true,
+      httpOnly: true,
       // 쿠키 만료 날짜
       expires: expirationDate,
     });
     setCookie("refreshToken", refreshToken, {
       path: "/",
       secure: false,
+      httpOnly: true,
       expires: expirationDate,
     });
     yield put(loginSuccess(response));

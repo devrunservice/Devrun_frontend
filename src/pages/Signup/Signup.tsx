@@ -312,6 +312,7 @@ const Signup = () => {
           </St.InputField> */}
           <AuthenticationNumber
             option="phonenumber"
+            page="signup"
             getAuthenticationForm={getAuthenticationForm}
           />
 

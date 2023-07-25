@@ -99,6 +99,11 @@ export const findAccount = {
     console.log(response);
     return response;
   },
+  checkIdPhonenumberMatched: async (params: SignupFormType) => {
+    const response = await authAxios.post("verifyPhone", params);
+    console.log(response);
+    return response;
+  },
 };
 
 // 로그인한 유저정보

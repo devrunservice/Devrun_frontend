@@ -1,15 +1,20 @@
-import useValid from "hooks/useValid";
 import React, { useEffect, useState } from "react";
+import useValid from "hooks/useValid";
+import Modal from "components/Login/Modal/Modal";
 import { ErrorMessage, Input, SuccessMessage } from "style/Common";
 import { SignupFormType } from "types";
 import * as St from "./styles";
 
 const AuthenticationNumber = ({
+  findOption,
   option,
+  id,
   page,
   getAuthenticationForm,
 }: {
+  findOption?: string;
   option: string;
+  id?: string;
   page?: string;
   getAuthenticationForm: (values: SignupFormType, isClicked: boolean) => void;
 }) => {
@@ -58,6 +63,8 @@ const AuthenticationNumber = ({
     requestAuthenticationNumber(
       page || "",
       authenticationForm.phonenumber || "",
+      findOption,
+      id,
     );
   };
 
@@ -95,6 +102,7 @@ const AuthenticationNumber = ({
           ) : (
             <ErrorMessage>{validMessage.phonenumberMessage}</ErrorMessage>
           )}
+          <Modal page="findPassword" />
           <St.Field>
             <Input
               type="text"
