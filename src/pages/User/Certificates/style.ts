@@ -1,11 +1,10 @@
 import { styled } from "styled-components";
 
 
-export const PopupBg = styled.div`
+export const PopupWrap = styled.div`
   position:fixed;
   width:100%;
   height:100%;
-  background:rgba(0,0,0,0.7);
   left:0;
   top:0;
   right:0;
@@ -14,6 +13,12 @@ export const PopupBg = styled.div`
   z-index:99;
   
 `
+export const PopupBg = styled.div`
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+`;
 export const Popup = styled.div`
   width: 1200px;
   position:absolute;
@@ -44,6 +49,4 @@ export const Btn = styled.button`
   background: ${(props: any) => props.theme.bgColor};
 `;
 
-
-
-export const PopupWrap = styled.div``;
+export const Popupbox = styled.div``;

@@ -5,17 +5,20 @@ import { IoClose } from "react-icons/io5";
 import * as St from "./style"
 
 const CertPopup = (props: ICert) => (
-  <St.PopupBg >
+  <St.PopupWrap>
     <St.Popup>
       <St.ButtonWrap>
-        <St.Btn onClick={props.popupBtn}><IoClose/></St.Btn>
-        <St.Btn><FiDownload/></St.Btn>
+        <St.Btn onClick={props.popupBtn}>
+          <IoClose />
+        </St.Btn>
+        <St.Btn>
+          <FiDownload />
+        </St.Btn>
       </St.ButtonWrap>
 
-      <St.PopupWrap>
-        asdsad
-      </St.PopupWrap>
+      <St.Popupbox>asdsad</St.Popupbox>
     </St.Popup>
-  </St.PopupBg>
+    <St.PopupBg onClick={props.popupBtn} />
+  </St.PopupWrap>
 );
 export default CertPopup;

@@ -16,10 +16,12 @@ const Basket = () => {
   const [price, setPrice] = useState<IBasket>({
     price: 0,
     couponBoolean: false,
-    coupon: "쿠폰을 선택해주세요",
+    coupon: "",
   });
 
   const [point, setPoint] = useState(0);
+  // 셀렉트박스 닫을때.
+  const couponOptionUi = useRef<HTMLUListElement | null>(null);
   const couponBtn = async (item: string) => {
     if (item !== "쿠폰을 선택해주세요") {
       const data: ICoupon = {
@@ -33,31 +35,30 @@ const Basket = () => {
         coupon: item,
         couponBoolean: !price.couponBoolean,
       });
-    } else if (item === "쿠폰을 선택해주세요") {
+    } else{
       setPrice({ ...price, coupon: item, couponBoolean: !price.couponBoolean,price:100 }); // 총금액으로 바꿀것.
     }
   };
   
-  // 셀렉트박스 닫을때.
-  const couponOption = useRef<HTMLDivElement>(null);
-  const couponOptionUi = useRef<HTMLUListElement>(null);
+  
   useEffect(() => {
-    const couponOut = (e: MouseEvent) => {
+    const couponOut = (e: { target: any }) => {
       if (
-        couponOption.current &&
         couponOptionUi.current &&
-        !couponOptionUi.current.contains(e.target as Node) &&
-        !couponOption.current.contains(e.target as Node)
+        !couponOptionUi.current.contains(e.target)
       ) {
-        setPrice({ ...price, couponBoolean: false });
+        setPrice({
+          ...price,
+          couponBoolean: false,
+          coupon: price.coupon,
+        });
       }
     };
     document.addEventListener("mousedown", couponOut);
     return () => {
       document.removeEventListener("mousedown", couponOut);
     };
-  }, []);
-
+  }, [price.coupon]);
   const priceDot = (num: number) => {
     const returnString = num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return returnString;
@@ -195,7 +196,7 @@ const Basket = () => {
               사용가능 <St.CountSpan>0</St.CountSpan>
             </St.Count>
           </St.SelectWarp>
-          <St.SelectBox ref={couponOption}>
+          <St.SelectBox>
             <St.SelectLabel
               onClick={() =>
                 setPrice({ ...price, couponBoolean: !price.couponBoolean })
@@ -233,7 +234,7 @@ const Basket = () => {
             value={stringPoint}
           />
 
-          {price.coupon !== "쿠폰을 선택해주세요" && (
+          {price.coupon !== "쿠폰을 선택해주세요" && price.coupon !== ""  && (
             <St.DisCountInfo>
               <St.DisCountInfoLeft>
                 <St.CouponDisCount />
