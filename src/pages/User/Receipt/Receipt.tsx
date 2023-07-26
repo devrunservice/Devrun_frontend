@@ -15,7 +15,8 @@ const Receipt = () => {
       cancel_request_amount: 100,
       reason: "테스트 결제 환불",
     };
-    await Cart.refund(data);
+    const res = await Cart.refund(data);
+    console.log(res)
     setPayment(true)
   };
   return (
