@@ -271,7 +271,10 @@ const useValid = (form: SignupFormType) => {
                 phonenumberMessage: "인증번호 요청에 실패했습니다.",
               }));
               setIsValid((prev) => ({ ...prev, phonenumber: false }));
-              setIsValid((prev) => ({ ...prev, codeBtn: false }));
+              setIsValid((prev) => ({
+                ...prev,
+                codeBtn: false,
+              }));
             }
           } else if (response.data === false) {
             // setValidMessage((prev) => ({
@@ -287,25 +290,42 @@ const useValid = (form: SignupFormType) => {
         }
       } else if (findOption === "id") {
         try {
-          const response = await signup.getAuthenticationNumber({
+          let response = await signup.getDuplicatedPhonnumber({
             phonenumber,
           });
-
-          if (response.status === 200) {
-            setValidMessage((prev) => ({
-              ...prev,
-              phonenumberMessage: "인증번호가 요청되었습니다.",
-            }));
-            setIsValid((prev) => ({ ...prev, phonenumber: true }));
-            setIsValid((prev) => ({ ...prev, codeBtn: true }));
+          console.log(response);
+          if (response.data === 1) {
+            try {
+              response = await signup.getAuthenticationNumber({
+                phonenumber,
+              });
+              if (response.status === 200) {
+                setValidMessage((prev) => ({
+                  ...prev,
+                  phonenumberMessage: "인증번호가 요청되었습니다.",
+                }));
+                setIsValid((prev) => ({ ...prev, phonenumber: true }));
+                setIsValid((prev) => ({ ...prev, codeBtn: true }));
+              }
+            } catch (error) {
+              setValidMessage((prev) => ({
+                ...prev,
+                phonenumberMessage: "인증번호 요청에 실패했습니다.",
+              }));
+              setIsValid((prev) => ({ ...prev, phonenumber: false }));
+              setIsValid((prev) => ({ ...prev, codeBtn: false }));
+            }
+          } else if (response.data === 0) {
+            // setValidMessage((prev) => ({
+            //   ...prev,
+            //   phonenumberMessage: "입력하신 정보는 없는 정보입니다.",
+            // }));
+            dispatch(openModal("입력하신 정보는 없는 정보입니다."));
+            setIsValid((prev) => ({ ...prev, phonenumber: false }));
+            setIsValid((prev) => ({ ...prev, codeBtn: false }));
           }
         } catch (error) {
-          setValidMessage((prev) => ({
-            ...prev,
-            phonenumberMessage: "인증번호 요청에 실패했습니다.",
-          }));
-          setIsValid((prev) => ({ ...prev, phonenumber: false }));
-          setIsValid((prev) => ({ ...prev, codeBtn: false }));
+          console.log(error);
         }
       }
     }

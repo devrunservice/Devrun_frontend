@@ -126,6 +126,12 @@ authAxios.interceptors.response.use(
             return Promise.reject(
               new Error("로그인 되어있는 계정이 있습니다."),
             );
+          case "Same as current password":
+            return Promise.reject(
+              new Error(
+                "현재 사용 중인 비밀번호와 동일합니다./다른 비밀번호를 입력해주세요.",
+              ),
+            );
           default:
             break;
         }

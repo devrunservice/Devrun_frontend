@@ -50,7 +50,7 @@ const Signup = () => {
   const minDate = new Date(
     currentDate.getFullYear() - 19,
     currentDate.getMonth(),
-    currentDate.getDate(),
+    currentDate.getDate() + 1,
   )
     .toISOString()
     .split("T")[0];
