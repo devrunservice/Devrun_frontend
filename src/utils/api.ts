@@ -15,9 +15,7 @@ import { authAxios, accAxios } from "./instance";
 export const signup = {
   // 회원가입
   createUser: async (code: string, params: CreateUser) => {
-    console.log(params);
     const response = await authAxios.post(`/signup/okay?code=${code}`, params);
-    console.log(response);
     return response;
   },
   // 인증번호 받기
@@ -50,7 +48,6 @@ export const signup = {
 export const login = {
   checkLoginUser: async (params: LoginFormType) => {
     const response = await authAxios.post("/login", params);
-    console.log(response);
     return response;
   },
   checkLogout: async (params: TokenType) => {
@@ -60,7 +57,6 @@ export const login = {
       },
     };
     const response = await authAxios.post("/logout", null, config);
-    console.log(response);
     return response;
   },
   refreshAccessToken: async (params: string) => {
@@ -70,7 +66,6 @@ export const login = {
       },
     };
     const response = await accAxios.post("/token/refresh", null, config);
-    console.log(response);
     return response.data.Access_token;
   },
   checkKakaoLogin: async (params: string) => {
@@ -86,17 +81,14 @@ export const findAccount = {
   findIdByPhonenumber: async (params: SignupFormType) => {
     console.log(params);
     const response = await authAxios.post("/find/id", params);
-    console.log(response);
     return response;
   },
   findIdByEmail: async (params: SignupFormType) => {
     const response = await authAxios.post("/find/uid", params);
-    console.log(response);
     return response;
   },
   findPassword: async (params: SignupFormType) => {
     const response = await authAxios.post("/find/password", params);
-    console.log(response);
     return response;
   },
 };
