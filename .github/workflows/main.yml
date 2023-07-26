@@ -24,13 +24,21 @@ jobs:
                   key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
                   restore-keys: |
                       ${{ runner.os }}-node-
+             # .env에 있던 환경변수들을 등록해주는 단계
             - name: .env setting
+              env:
+                REACT_APP_SERVER_URL: ${{ secrets.REACT_APP_SERVER_URL }}
+                REACT_APP_KAKAO_CLIENT_ID: ${{ secrets.REACT_APP_KAKAO_CLIENT_ID }}
+                REACT_APP_KAKAO_REDIRECT_URI: ${{ secrets.REACT_APP_KAKAO_REDIRECT_URI }}
+                REACT_APP_KAKAO_JAVASCRIPT_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                REACT_APP_KAKAOURL: ${{ secrets.REACT_APP_KAKAOURL }}
               run: |
                 echo "REACT_APP_SERVER_URL=${{ secrets.REACT_APP_SERVER_URL }}" >> .env
                 echo "REACT_APP_KAKAO_CLIENT_ID=${{ secrets.REACT_APP_KAKAO_CLIENT_ID }}" >> .env
                 echo "REACT_APP_KAKAO_REDIRECT_URI=${{ secrets.REACT_APP_KAKAO_REDIRECT_URI }}" >> .env
                 echo "REACT_APP_KAKAO_JAVASCRIPT_KEY=${{ secrets.REACT_APP_KAKAO_JAVASCRIPT_KEY }}" >> .env
                 echo "REACT_APP_KAKAOURL=${{ secrets.REACT_APP_KAKAOURL }}" >> .env
+                
             - name: Install Dependencies
               run: yarn
 
@@ -44,7 +52,7 @@ jobs:
                   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
                   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
               run: |
-                   aws s3 cp \
+                  aws s3 cp \
                   --recursive \
                   --region ap-northeast-2 \
-                  build s3://devrun 
+                  build s3://devrun

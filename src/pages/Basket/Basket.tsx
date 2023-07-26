@@ -14,11 +14,11 @@ const Basket = () => {
   const userData = useSelector((state: RootState) => state.userReducer.data);
 
   const [price, setPrice] = useState<IBasket>({
-    price: 0,
+    price: 100,
     couponBoolean: false,
     coupon: "",
   });
-
+  
   const [point, setPoint] = useState(0);
   // 셀렉트박스 닫을때.
   const couponOptionUi = useRef<HTMLUListElement | null>(null);
@@ -86,9 +86,10 @@ const Basket = () => {
       name,
       merchant_uid,
       pg_provider,
+      receipt_url,
     } = response;
     const res = await Cart.callbak({ imp_uid });
-
+    console.log(receipt_url);
     if (paid_amount === res.data.response.amount) {
       // 저장에 성공했을때
       await Cart.save({
@@ -101,14 +102,14 @@ const Basket = () => {
         imp_uid,
         paid_amount,
         pg_provider,
+        receipt_url,
       });
       navigate("/learning");
     } else {
-      // 저장에 실패했을떄
       alert("결제를 취소했습니다.");
     }
   };
-
+  
   const basketBtn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // 가맹점 식별코드
@@ -126,7 +127,6 @@ const Basket = () => {
       buyer_tel: userData.phonenumber, // 구매자 전화번호
       buyer_email: userData.email, // 구매자 이메일
     };
-
     /* 4. 결제 창 호출하기 */
     IMP.request_pay(data, callback);
   };
