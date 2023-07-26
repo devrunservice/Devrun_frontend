@@ -16,7 +16,7 @@ const CertPopup = (props: ICert) => (
         </St.Btn>
       </St.ButtonWrap>
 
-      <St.Popupbox>asdsad</St.Popupbox>
+      <St.Popupbox>asdasdasdasdasdasdasdasdasdas</St.Popupbox>
     </St.Popup>
     <St.PopupBg onClick={props.popupBtn} />
   </St.PopupWrap>
