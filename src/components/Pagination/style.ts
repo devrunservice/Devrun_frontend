@@ -14,7 +14,6 @@ export const PagingArr = styled.button`
   border-radius: 3px;
   height: 40px;
   font-size: ${(props: any) => props.theme.fontSize12px};
-   background: ${(props) => props.theme.bgColor}
   cursor: pointer;
 
   &:hover {

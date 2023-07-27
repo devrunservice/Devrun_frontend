@@ -1,13 +1,11 @@
 import React from 'react';
 import { NoticeList, Comment } from "components";
-import * as St from "style/Common";
+import * as S from "style/Common";
 
 const index = () => (
-  <St.WhiteBg>
-    <St.Inner>
+  <S.Inner>
       <NoticeList />
       <Comment />
-    </St.Inner>
-  </St.WhiteBg>
+  </S.Inner>
 );
 export default index;

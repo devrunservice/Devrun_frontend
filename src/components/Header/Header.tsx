@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
-import { getCookie } from "api/cookies";
+import { getCookie } from "utils/cookies";
+import { decode } from "utils/decode";
 import NoImg from "asset/images/NoImg.jpg";
+import Modal from "components/Login/Modal/Modal";
 import * as St from "./style";
 import { userTmiPending } from "../../redux/reducer/userReducer";
 import { logoutLoading } from "../../redux/reducer/loginReducer";
@@ -12,15 +14,16 @@ import { logoutLoading } from "../../redux/reducer/loginReducer";
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const [cookie, setCookie] = useState<boolean>(false);
 
-  const userId = localStorage.getItem("userId");
   const userData = useSelector((state: RootState) => state.userReducer.data);
-  const isLogin = useSelector((state: RootState) => state.loginReducer.isLogin);
 
   useEffect(() => {
-    if (isLogin === true) {
-      dispatch(userTmiPending(userId || ""));
+    if (getCookie("accessToken")) {
+      setCookie(true);
+      const userId = decode("accessToken");
+      dispatch(userTmiPending(userId));
     }
   }, []);
 
@@ -30,6 +33,7 @@ const Header = () => {
 
   return (
     <St.HeaderWrap>
+      <Modal page="home" />
       <St.InnerHeader>
         <St.NavWrap>
           <St.LogoIcon onClick={() => navigate("/")} />
@@ -51,7 +55,7 @@ const Header = () => {
             />
             <St.SearchIcon />
           </St.SearchBox>
-          {isLogin === true ? (
+          {cookie ? (
             <St.NavWrap>
               <St.HeaderIcon>
                 <St.Icon>

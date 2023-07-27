@@ -1,9 +1,8 @@
 import React, { ChangeEvent, useState } from 'react';
 import { Close, Exclamation } from 'asset';
 import { useDispatch, useSelector } from 'react-redux';
-// import { CreateLectureType } from 'types';
 import { RootState } from 'redux/store';
-import { deleteTag, onCategoryType, onImageUrl, onLectureCategory, onLectureExplane, onLectureIntroduce, /* onLectureCategory, */ onLectureName, onLecturePrice, onLectureTag } from '../../redux/reducer/createVideoSlice';
+import { deleteTag, onCategoryType, onImageUrl, onLectureCategory, onLectureExplane, /* onLectureIntroduce, */ onLectureName, onLecturePrice, onLectureTag } from '../../redux/reducer/createVideoSlice';
 import * as St from './style'
 
 export interface StyledButtonProps {
@@ -11,11 +10,8 @@ export interface StyledButtonProps {
 }
 
 const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
-  const dispatch = useDispatch()// eslint-disable-line @typescript-eslint/no-unused-vars
-  // const test = useSelector((state: {createVideo: CreateLectureType}) => state.createVideo)// eslint-disable-line @typescript-eslint/no-unused-vars
+  const dispatch = useDispatch()
   const createVideoSlice = useSelector((state:RootState)=>state.createVideoSlice)
-  console.log(createVideoSlice)
-  // const lectureNameVal = createVideoSlice.lectureName
   const tags = createVideoSlice.lectureTag
   
   /* 가격 무료 유료 선택 */
@@ -24,6 +20,7 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
   const freePayment = () => {
     setIsActive(false)
     setPriceState(false)
+    dispatch(onLecturePrice(0))
   }
   const pricePayment = () => {
     setIsActive(true)
@@ -31,27 +28,23 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
   }
 
   /* 강의제목 */
-  // const [lectureName, setLectureName] = useState('')
   const nameInput = (e: ChangeEvent<HTMLInputElement>) => {
-    // setLectureName(e.target.value)
     dispatch(onLectureName(e.target.value))
   }
   /* 가격 */
-  // const [price, setPrice] = useState<number>(0)// eslint-disable-line @typescript-eslint/no-unused-vars
   const priceInput = (e: ChangeEvent<HTMLInputElement>) => {
     const {value} = e.target;
-    const regex = value.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");
-    let comma = Number(regex.replaceAll(",", ""));
-    if (comma === 0) {
-      comma = 0;
-    } else {
-      // setPrice(comma)
-      dispatch(onLecturePrice(comma))
-    }
+    // const regex = value.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");
+    // let comma = Number(regex.replaceAll(",", ""));
+    // if (comma === 0) {
+    //   comma = 0;
+    // } else {
+    //   dispatch(onLecturePrice(comma))
+    // }
+    dispatch(onLecturePrice(value))
   }
 
   /* 이미지업로드 */
-  // const [imgUrl, setImgUrl] = useState('')
   const uploadImg = (e: ChangeEvent<HTMLInputElement>) => {
     const {files} = e.target
     if(!files) {
@@ -64,26 +57,19 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
         return;
       }
       const url = URL.createObjectURL(file);
-      // setImgUrl(url);
       dispatch(onImageUrl(url))
     }
   }
 
   /* 카테고리 */
-  // const [type, setType] = useState<string>('front')// eslint-disable-line @typescript-eslint/no-unused-vars
-  // const [category, setCategory] = useState<string>('html')// eslint-disable-line @typescript-eslint/no-unused-vars
   const changeType = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    // setType(e.target.value)
     dispatch(onCategoryType(e.target.value))
   }
   const changeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    // setCategory(e.target.value)
-
     dispatch(onLectureCategory(e.target.value))
   }
 
   /* 태그 */
-  // const [tags, setTags] = useState<string[]>([])
   const [tagInput, setTagInput] = useState('')
   const tagChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTagInput((e.target.value).trim())
@@ -103,9 +89,7 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
         alert('태그는 10개까지 작성 가능합니다.') 
         return;
       }
-      // setTags([...tags, tagInput])
       dispatch(onLectureTag([
-        // ...createVideoSlice.lectureTag
         tagInput
       ]))
       setTagInput('')
@@ -113,23 +97,17 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
     }
   }
   const deleteTags =(tag: number | string) => {
-    // setTags(tags.filter((tag,idx) => idx !== index))
     dispatch(deleteTag(tag))
   }
 
   /* 한줄설명 */
-  // const [explanation, setExplanation] = useState('')
   const explanationInput = (e: any) => {
-    // setExplanation(e.target.value)
     dispatch(onLectureExplane(e.target.value))
   }
   /* 소개영상 */
-  // const [introduce, setIntroduce] = useState('')
-  const introduceInput = (e:any) => {
-    // setIntroduce(e.target.value)
-    dispatch(onLectureIntroduce(e.target.value))
-  }
-  // console.log(lectureName,price,imgUrl)
+  // const introduceInput = (e:any) => {
+  //   dispatch(onLectureIntroduce(e.target.value))
+  // }
   return (
     <St.CreateVideoWrap>
       <St.CreateVideoArticle>
@@ -168,7 +146,6 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
           {priceState && (
             <St.ShortInput onChange={priceInput} value={createVideoSlice.lecturePrice} type="number" placeholder="0" />
           )}
-          {/* <St.ShortInput type="number" placeholder='0'/> */}
         </div>
       </St.CreateVideoArticle>
 
@@ -177,7 +154,6 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
         <St.UploadArea>
           <St.LectureImageWrap>
             {createVideoSlice.imageUrl && <img src={createVideoSlice.imageUrl} alt="" />}
-            {/* <img src={URL.createObjectURL(imgUrl)} alt="" /> */}
           </St.LectureImageWrap>
           <St.UploadVideoWrap>
             <div>
@@ -226,17 +202,6 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
               <option value="java">Java</option>
             </St.CategorySelect>
           }
-          {/* <St.CategorySelect>
-            <option value="">HTML/CSS</option>
-            <option value="">JavaScript</option>
-            <option value="">React</option>
-            <option value="">Vue</option>
-            <option value="">Angular</option>
-          </St.CategorySelect>
-          <St.CategorySelect>
-            <option value="">C#</option>
-            <option value="">Spring</option>
-          </St.CategorySelect> */}
         </div>
       </St.CreateVideoArticle>
 
@@ -276,14 +241,14 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
           />
         </St.MBThirty>
 
-        <St.MBThirty>
+        {/* <St.MBThirty>
           <St.ArticleTitle>소개 영상</St.ArticleTitle>
           <St.BasicInput
             onChange={introduceInput}
             value={createVideoSlice.lectureIntroduce}
             placeholder="Youtube동영상 URL을 넣어주세요."
           />
-        </St.MBThirty>
+        </St.MBThirty> */}
 
         <St.MBThirty>
           <St.ArticleTitle>강좌 소개</St.ArticleTitle>
