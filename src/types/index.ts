@@ -140,30 +140,29 @@ export interface TokenType {
 //   url: string;
 //   isReadOnly: boolean;
 // }
-// export interface CreateLectureType {
-//   lectureName?: string;
-//   lecturePrice?: number;
-//   imageUrl?: string;
-//   lectureCategory?: string;
-//   lectureTag?: Array<string>;
-//   lectureExplane?: string;
-//   lectureIntroduce?: string;
-//   section?: Array<SectionType>;
-// }
-// export interface SectionType {
-//   // num:number,
-//   num: MutableRefObject<number>;
-//   title: string;
-//   isReadOnly: boolean;
-//   subTitle: Array<SubTitleType>;
-// }
-// export interface SubTitleType {
-//   subNum: number;
-//   // subNum:React.MutableRefObject<number>;
-//   className: string;
-//   url: string;
-//   isReadOnly: boolean;
-// }
+export interface CreateLectureType {
+  lectureName?: string;
+  lecturePrice?: number;
+  imageUrl?: string;
+  categoryType?: string;
+  lectureCategory?: string;
+  lectureTag?: Array<string>;
+  lectureExplane?: string;
+  // lectureIntroduce?: string;
+  section?: Array<SectionType>
+}
+export interface SectionType {
+  num:number,
+  // num:MutableRefObject<number>,
+  title: string;
+  subTitle: Array<SubTitleType>
+}
+export interface SubTitleType {
+  subNum:number;
+  // subNum:React.MutableRefObject<number>;
+  className: string;
+  url: string;
+}
 export interface RefType {}
 
 export interface IRefund {
@@ -215,6 +214,7 @@ export interface IPagination {
   lastPage?: number;
   count?: number;
 }
+
 export interface IPageColor {
   isActive: boolean;
 }
@@ -326,29 +326,6 @@ export interface RequestPayResponse extends IRequestPayResponse {
   custom_data?: any;
   paid_at?: number;
   receipt_url?: string;
-}
-export interface CreateLectureType {
-  lectureName?: string;
-  lecturePrice?: number;
-  imageUrl?: string;
-  categoryType?: string;
-  lectureCategory?: string;
-  lectureTag?: Array<string>;
-  lectureExplane?: string;
-  // lectureIntroduce?: string;
-  section?: Array<SectionType>
-}
-export interface SectionType {
-  num:number,
-  // num:MutableRefObject<number>,
-  title: string;
-  subTitle: Array<SubTitleType>
-}
-export interface SubTitleType {
-  subNum:number;
-  // subNum:React.MutableRefObject<number>;
-  className: string;
-  url: string;
 }
 
 export type RequestPayResponseCallback = (response: RequestPayResponse) => void;
