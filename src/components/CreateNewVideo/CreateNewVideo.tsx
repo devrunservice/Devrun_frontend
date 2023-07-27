@@ -3,7 +3,7 @@ import { Close, Exclamation } from 'asset';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 import { deleteTag, onCategoryType, onImageUrl, onLectureCategory, onLectureExplane, /* onLectureIntroduce, */ onLectureName, onLecturePrice, onLectureTag } from '../../redux/reducer/createVideoSlice';
-import { ImageUploader } from "components";
+// import { ImageUploader } from "components";
 import * as St from './style'
 
 export interface StyledButtonProps {
