@@ -3,6 +3,7 @@ import { Close, Exclamation } from 'asset';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 import { deleteTag, onCategoryType, onImageUrl, onLectureCategory, onLectureExplane, /* onLectureIntroduce, */ onLectureName, onLecturePrice, onLectureTag } from '../../redux/reducer/createVideoSlice';
+// import { ImageUploader } from "components";
 import * as St from './style'
 
 export interface StyledButtonProps {
@@ -176,6 +177,7 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
             </St.InputNotice>
           </St.UploadVideoWrap>
         </St.UploadArea>
+        {/* <ImageUploader page="createVideo" /> */}
       </St.CreateVideoArticle>
 
       <St.CreateVideoArticle>

@@ -137,4 +137,6 @@ export const Search = {
   },
 };
 
+/* 강의생성 */
+
 /* eslint-disable @typescript-eslint/no-unused-vars */
