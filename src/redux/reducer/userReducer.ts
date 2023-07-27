@@ -2,8 +2,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ITmi } from "types";
 
-// export const fetchUserTmi = createAction<string>("userReducer/fetchUserTmi");
-
 const initialState: ITmi = {
   data: {
     id: "",
@@ -26,7 +24,6 @@ const userTmiSlice = createSlice({
       state.error = null;
     },
     userTmiFulfilled: (state, action) => {
-      console.log(action);
       state.loading = false;
       state.data.id = action.payload.data.id;
       state.data.email = action.payload.data.email;
