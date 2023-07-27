@@ -97,6 +97,12 @@ export const Checkbox = styled.input`
   margin-right: 0.5rem;
 `;
 
+export const CancelBtn = styled(Button)`
+  padding: 0.8rem 0;
+  margin-bottom: 0.5rem;
+  width: 100%;
+`;
+
 export const SignupBtn = styled(Button)`
   color: ${(props) => props.theme.textWhite};
   background-color: ${(props) => props.theme.brandColor};

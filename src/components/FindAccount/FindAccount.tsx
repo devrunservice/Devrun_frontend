@@ -1,29 +1,22 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
-import { Input } from "style/Common";
-import AuthenticationNumber from "components/Login/AuthenticationNumber/AuthenticationNumber";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { findAccount } from "utils/api";
+import { AuthenticationNumber, PasswordInput } from "components";
 import { SignupFormType } from "types";
+import { Input } from "style/Common";
 import * as St from "./styles";
-// import Input from 'components/Login/Input/Input';
-import { userInfo } from "../../api/index";
+import { openModal } from "../../redux/reducer/modalReducer";
 
 const FindAccount = ({ findOption }: { findOption: string }) => {
-  //   const [name, setName] = useState('');
-  //   const [phone, setPhone] = useState('');
-
-  //   const onNameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //     setName(e.target.value);
-  //     console.log(name);
-  //   };
-
-  //   const onPhoneHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //     setPhone(e.target.value);
-  //     console.log(phone);
-  //   };
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [findAccountForm, setFindAccountForm] = useState<SignupFormType>({
     id: "",
-    name: "",
+    password: "",
+    passwordConfirm: "",
     phonenumber: "",
     email: "",
     code: "",
@@ -34,24 +27,14 @@ const FindAccount = ({ findOption }: { findOption: string }) => {
     phonenumberRadioBox: true,
     emailRadioBox: false,
   });
+  // state for whether authentication code btn was pressed or not
+  const [isCheckBtnClicked, setIsCheckBtnClicked] = useState<boolean>(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (option === "phonenumber") {
-      const response = userInfo.findIdByPhonenumber({
-        name: findAccountForm.name,
-        phonenumber: findAccountForm.phonenumber,
-      });
-      console.log(response);
-    } else {
-      const response = userInfo.findIdByEmail({
-        name: findAccountForm.name,
-        phonenumber: findAccountForm.phonenumber,
-      });
-      console.log(response);
-    }
   };
 
+  // setting values for which radio box is selected
   const handleRadioBox = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === "findIDByPhonenumber") {
       setOption("phonenumber");
@@ -65,7 +48,10 @@ const FindAccount = ({ findOption }: { findOption: string }) => {
   };
 
   // 휴대폰 번호 및 인증번호 값 가져오기
-  const getAuthenticationForm = (values: SignupFormType) => {
+  const getAuthenticationForm = (
+    values: SignupFormType,
+    isClicked: boolean,
+  ) => {
     if (option === "phonenumber") {
       findAccountForm.phonenumber = values.phonenumber;
       findAccountForm.code = values.code;
@@ -73,8 +59,70 @@ const FindAccount = ({ findOption }: { findOption: string }) => {
       findAccountForm.email = values.email;
       findAccountForm.code = values.code;
     }
+    setIsCheckBtnClicked(isClicked);
+  };
 
-    console.log(findAccountForm.phonenumber);
+  // getting values when input values are being changed
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setFindAccountForm({ ...findAccountForm, [name]: value });
+  };
+
+  // pushing values to server
+  const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const { name } = e.target as HTMLButtonElement;
+
+    if (name === "findIdBtn") {
+      if (option === "phonenumber") {
+        try {
+          const response = await findAccount.findIdByPhonenumber({
+            phonenumber: findAccountForm.phonenumber,
+            code: findAccountForm.code,
+          });
+          console.log(response);
+
+          if (response.status === 200) {
+            dispatch(openModal("휴대폰 번호로 아이디가 전송되었습니다."));
+            navigate("/login");
+          }
+        } catch (error: any) {
+          console.log(error);
+          dispatch(openModal(error.message));
+        }
+      } else {
+        const response = await findAccount.findIdByEmail({
+          phonenumber: findAccountForm.phonenumber,
+          code: findAccountForm.code,
+        });
+        console.log(response);
+      }
+    } else if (name === "findPasswordBtn") {
+      if (option === "phonenumber") {
+        console.log("휴대폰 번호로 비밀번호 찾기");
+        console.log(findAccountForm);
+        try {
+          const response = await findAccount.findPassword({
+            id: findAccountForm.id,
+            password: findAccountForm.password,
+            phonenumber: findAccountForm.phonenumber,
+            code: findAccountForm.code,
+          });
+          console.log(response);
+          if (response.status === 200) {
+            dispatch(
+              openModal("비밀번호 변경이 완료되었습니다./다시 로그인 해주세요"),
+            );
+            navigate("/login");
+          }
+        } catch (error: any) {
+          console.log(error.message);
+          dispatch(openModal(error.message));
+        }
+      } else {
+        console.log("이메일로 비밀번호 찾기");
+      }
+    }
   };
 
   return (
@@ -111,7 +159,7 @@ const FindAccount = ({ findOption }: { findOption: string }) => {
 
       {/* Finding Account Form */}
       <form onSubmit={handleSubmit}>
-        {findOption === "id" ? (
+        {/* {findOption === "id" ? (
           <St.InputField>
             <St.P>이름</St.P>
             <Input
@@ -119,9 +167,8 @@ const FindAccount = ({ findOption }: { findOption: string }) => {
               name="name"
               value={findAccountForm.name}
               placeholder="이름"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setFindAccountForm({ ...findAccountForm, name: e.target.value })
-              }
+              onChange={handleChange}
+              required
             />
           </St.InputField>
         ) : (
@@ -132,9 +179,21 @@ const FindAccount = ({ findOption }: { findOption: string }) => {
               name="id"
               value={findAccountForm.id}
               placeholder="영어, 숫자를 포함한 5 ~ 13자로 입력해주세요."
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setFindAccountForm({ ...findAccountForm, id: e.target.value })
-              }
+              onChange={handleChange}
+              required
+            />
+          </St.InputField>
+        )} */}
+        {findOption === "password" && (
+          <St.InputField>
+            <St.P>아이디</St.P>
+            <Input
+              type="text"
+              name="id"
+              value={findAccountForm.id}
+              placeholder="영어, 숫자를 포함한 5 ~ 13자로 입력해주세요."
+              onChange={handleChange}
+              required
             />
           </St.InputField>
         )}
@@ -149,8 +208,35 @@ const FindAccount = ({ findOption }: { findOption: string }) => {
             getAuthenticationForm={getAuthenticationForm}
           />
         )}
-
-        <St.Button>아이디 찾기</St.Button>
+        {findOption === "password" && isCheckBtnClicked && (
+          <St.InputField>
+            <St.P>새로운 비밀번호</St.P>
+            <PasswordInput
+              name="password"
+              value={findAccountForm.password}
+              placeholder="숫자, 영문, 특수문자 조합 최소 8자"
+              onChange={handleChange}
+            />
+            <PasswordInput
+              name="passwordConfirm"
+              value={findAccountForm.passwordConfirm}
+              placeholder="비밀번호 재입력"
+              onChange={handleChange}
+            />
+          </St.InputField>
+        )}
+        <St.CancelBtn type="button" onClick={() => navigate("/login")}>
+          취소
+        </St.CancelBtn>
+        {findOption === "id" ? (
+          <St.Button type="submit" name="findIdBtn" onClick={handleClick}>
+            아이디 찾기
+          </St.Button>
+        ) : (
+          <St.Button type="submit" name="findPasswordBtn" onClick={handleClick}>
+            비밀번호 찾기
+          </St.Button>
+        )}
       </form>
     </>
   );
