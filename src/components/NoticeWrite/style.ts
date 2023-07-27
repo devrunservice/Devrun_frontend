@@ -14,7 +14,7 @@ export const Editor = styled(ReactQuill)`
   }
 `;
 export const Title = styled.h4`
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   font-size: ${(props: any) => props.theme.fontSize25px};
   font-weight: ${(props: any) => props.theme.fontBold};
   color: ${(props: any) => props.theme.textBlack};
@@ -30,7 +30,7 @@ export const TitleInput = styled.input`
 export const ButtonWrap = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-top: 20px;
+  margin-top: 30px;
   gap:10px;
 `;
 export const Button = styled.button`

@@ -8,16 +8,16 @@ import {
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle, defaultTheme } from "style/Theme";
 import { CookiesProvider } from "react-cookie";
-import { getCookie } from "api/cookies";
+import { getCookie } from "utils/cookies";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import * as Route from "pages";
 import store, { persistor } from "./redux/store";
 import App from "./App";
+
 import reportWebVitals from "./reportWebVitals";
 
 const ACCESS_TOKEN = getCookie("accessToken");
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -27,6 +27,8 @@ const router = createBrowserRouter([
       { index: true, element: <Route.HomePage /> },
       { path: "home", element: <Route.HomePage /> },
       { path: "login", element: <Route.Login /> },
+      { path: "auth/kakao/callback/login", element: <Route.Login /> },
+      { path: "auth/kakao/callback", element: <Route.Auth2RedirectHandler /> },
       { path: "signup", element: <Route.Signup /> },
       {
         path: "basket",
@@ -45,7 +47,13 @@ const router = createBrowserRouter([
       { path: "detail", element: <Route.DetailPage /> },
       { path: "createVideo", element: <Route.CreateVideo /> },
       { path: "profile", element: <Route.Profile /> },
+      { path: "profileupdate", element: <Route.ProfileUpdate /> },
+      { path: "dashboard", element: <Route.Dashboard /> },
+      { path: "notes", element: <Route.Notes /> },
+      { path: "questions", element: <Route.Questions /> },
       { path: "certificate", element: <Route.Certificate /> },
+      { path: "coupon", element: <Route.Coupon /> },
+      { path: "Receipt", element: <Route.Receipt /> },
       { path: "learning", element: <Route.Learning /> },
       {
         path: "createVideo",

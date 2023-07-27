@@ -1,12 +1,10 @@
 import React from 'react';
-import * as St from "style/Common";
 import { NoticeWriter } from "components";
+import * as S from "style/Common";
 
 const index = () => (
-  <St.WhiteBg>
-    <St.Inner>
+  <S.Inner>
       <NoticeWriter />
-    </St.Inner>
-  </St.WhiteBg>
+  </S.Inner>
 );
 export default index;

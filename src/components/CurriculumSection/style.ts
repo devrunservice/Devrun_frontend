@@ -55,21 +55,3 @@ export const CurriculumMain = styled.li`
 export const FlexLine = styled.div`
   display: flex;
 `
-export const FileInput = styled.input`
-  &::-webkit-inner-spin-button{
-    appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-  }
-  &::file-selector-button {
-    display: none;
-  }
-  &#video-url {
-    width: auto;
-    flex: 1;
-    border: 1px solid #222;
-    padding: 1px 2px;
-    border-radius: 5px;
-    margin-right: 5px
-  }
-`

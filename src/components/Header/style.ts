@@ -11,6 +11,7 @@ export const InnerHeader = styled(Inner)`
   display: flex;
   justify-content: space-between;
   height: 80px;
+  padding: 0;
 `;
 export const NavWrap = styled.div`
   display: flex;
@@ -219,7 +220,8 @@ export const CartButton = styled.button`
 export const Dropdown = styled(CartHover)`
   /* display: flex;
   justify-content: space-between; */
-  visibility: visible;
+  /* visibility: visible; */
+  visibility: hidden;
   width: 250px;
 
   & button:nth-child(1) {
