@@ -21,7 +21,6 @@ const Header = () => {
   const userData = useSelector((state: RootState) => state.userReducer.data);
 
   useEffect(() => {
-    console.log("메인 화면으로 진입");
     if (getCookie("accessToken")) {
       setCookie(true);
       const userId = decode("accessToken");

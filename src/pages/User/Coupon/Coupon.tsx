@@ -1,13 +1,10 @@
 import React from "react";
-import { SearchBar } from "components";
-import { TitleWrapper } from "../styles";
+import { UserTop } from "components";
+
 
 const Coupon = () => (
   <section>
-    <TitleWrapper>
-      <h1>강의 노트</h1>
-      <SearchBar />
-    </TitleWrapper>
+    <UserTop title="쿠폰함"/>
   </section>
 );
 

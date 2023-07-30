@@ -36,14 +36,13 @@ export const Inner = styled.div`
 export const AppSection = styled.div`
   display: flex;
   padding: 4rem 0;
-
+  width: 1200px;
+  margin: 0 auto;
   .left-panel {
-    flex: 3;
+    flex: 2;
   }
 
   .right-panel {
-    flex: 7;
+    flex: 8;
   }
-  width: 1200px;
-  margin: 0 auto;
 `;

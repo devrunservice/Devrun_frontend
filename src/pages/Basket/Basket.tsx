@@ -14,11 +14,14 @@ const Basket = () => {
   const userData = useSelector((state: RootState) => state.userReducer.data);
 
   const [price, setPrice] = useState<IBasket>({
-    price: 0,
+    price: 100,
     couponBoolean: false,
-    coupon: "쿠폰을 선택해주세요",
+    coupon: "",
   });
+  
   const [point, setPoint] = useState(0);
+  // 셀렉트박스 닫을때.
+  const couponOptionUi = useRef<HTMLUListElement | null>(null);
   const couponBtn = async (item: string) => {
     if (item !== "쿠폰을 선택해주세요") {
       const data: ICoupon = {
@@ -32,27 +35,30 @@ const Basket = () => {
         coupon: item,
         couponBoolean: !price.couponBoolean,
       });
-    } else {
-      setPrice({ ...price, coupon: item, couponBoolean: !price.couponBoolean }); // 총금액으로 바꿀것.
+    } else{
+      setPrice({ ...price, coupon: item, couponBoolean: !price.couponBoolean,price:100 }); // 총금액으로 바꿀것.
     }
   };
-  // 셀렉트박스 닫을때.
-  const couponOpsion = useRef<HTMLDivElement>(null);
+  
+  
   useEffect(() => {
-    const couponOut = (e: MouseEvent) => {
+    const couponOut = (e: { target: any }) => {
       if (
-        couponOpsion.current &&
-        !couponOpsion.current.contains(e.target as Node)
+        couponOptionUi.current &&
+        !couponOptionUi.current.contains(e.target)
       ) {
-        setPrice({ ...price, couponBoolean: false });
+        setPrice({
+          ...price,
+          couponBoolean: false,
+          coupon: price.coupon,
+        });
       }
     };
     document.addEventListener("mousedown", couponOut);
     return () => {
       document.removeEventListener("mousedown", couponOut);
     };
-  }, []);
-
+  }, [price.coupon]);
   const priceDot = (num: number) => {
     const returnString = num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return returnString;
@@ -80,9 +86,10 @@ const Basket = () => {
       name,
       merchant_uid,
       pg_provider,
+      receipt_url,
     } = response;
     const res = await Cart.callbak({ imp_uid });
-
+    console.log(receipt_url);
     if (paid_amount === res.data.response.amount) {
       // 저장에 성공했을때
       await Cart.save({
@@ -95,14 +102,14 @@ const Basket = () => {
         imp_uid,
         paid_amount,
         pg_provider,
+        receipt_url,
       });
       navigate("/learning");
     } else {
-      // 저장에 실패했을떄
       alert("결제를 취소했습니다.");
     }
   };
-
+  
   const basketBtn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // 가맹점 식별코드
@@ -120,7 +127,6 @@ const Basket = () => {
       buyer_tel: userData.phonenumber, // 구매자 전화번호
       buyer_email: userData.email, // 구매자 이메일
     };
-
     /* 4. 결제 창 호출하기 */
     IMP.request_pay(data, callback);
   };
@@ -190,7 +196,7 @@ const Basket = () => {
               사용가능 <St.CountSpan>0</St.CountSpan>
             </St.Count>
           </St.SelectWarp>
-          <St.SelectBox ref={couponOpsion}>
+          <St.SelectBox>
             <St.SelectLabel
               onClick={() =>
                 setPrice({ ...price, couponBoolean: !price.couponBoolean })
@@ -201,7 +207,7 @@ const Basket = () => {
             </St.SelectLabel>
             <St.Arr active={price.couponBoolean} />
             {price.couponBoolean && (
-              <St.SelectBoxUi>
+              <St.SelectBoxUi ref={couponOptionUi}>
                 <St.SelectBoxLi
                   onClick={() => couponBtn("쿠폰을 선택해주세요")}
                 >
@@ -228,7 +234,7 @@ const Basket = () => {
             value={stringPoint}
           />
 
-          {price.coupon !== "쿠폰을 선택해주세요" && (
+          {price.coupon !== "쿠폰을 선택해주세요" && price.coupon !== ""  && (
             <St.DisCountInfo>
               <St.DisCountInfoLeft>
                 <St.CouponDisCount />

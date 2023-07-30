@@ -46,7 +46,8 @@
     "no-restricted-globals": ["error", "some-other-global"],
     "prefer-destructuring": "off",
     "no-plusplus": "off",
-    "no-new": "off"
+    "no-new": "off",
+    "react/destructuring-assignment": [0, "always"]
   },
 
   "settings": {

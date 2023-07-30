@@ -155,25 +155,24 @@ export interface CreateLectureType {
   lectureName?: string;
   lecturePrice?: number;
   imageUrl?: string;
+  categoryType?: string;
   lectureCategory?: string;
   lectureTag?: Array<string>;
   lectureExplane?: string;
-  lectureIntroduce?: string;
-  section?: Array<SectionType>;
+  // lectureIntroduce?: string;
+  section?: Array<SectionType>
 }
 export interface SectionType {
-  // num:number,
-  num: MutableRefObject<number>;
+  num:number,
+  // num:MutableRefObject<number>,
   title: string;
-  isReadOnly: boolean;
-  subTitle: Array<SubTitleType>;
+  subTitle: Array<SubTitleType>
 }
 export interface SubTitleType {
-  subNum: number;
+  subNum:number;
   // subNum:React.MutableRefObject<number>;
   className: string;
   url: string;
-  isReadOnly: boolean;
 }
 export interface RefType {}
 
@@ -188,11 +187,29 @@ export interface IRefund {
 export interface ITable {
   notice?: string;
   basketBtn?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  color?: boolean;
+  cursor?: boolean;
+  payment?: boolean;
+  popupBtn?: () => void;
+  name?: string;
+  date?: string;
+  title?: string;
+  view?: string;
+  num?: string;
+  pay?: string;
+}
+export interface ICert {
+  popupBtn?: () => void;
+}
+export interface IUserTop {
+  title: string;
+  count?: string;
 }
 
+
 export interface ICoupon {
-  couponCode?: string;
-  amount?: number;
+  couponCode: string;
+  amount: number;
 }
 
 export interface IBasket {
@@ -207,10 +224,6 @@ export interface IPagination {
   startPage?: number;
   lastPage?: number;
   count?: number;
-}
-export interface ICert {
-  setPopup?: boolean;
-  popup: boolean;
 }
 
 export interface IPageColor {
@@ -245,6 +258,7 @@ export interface Iprofile {
 export interface ILearnTap {
   active: boolean;
 }
+
 
 // 댓글
 export interface IComment {

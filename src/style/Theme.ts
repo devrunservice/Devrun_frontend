@@ -66,6 +66,7 @@ export const defaultTheme: DefaultTheme = {
   fontSize18px: "18px",
   fontSize20px: "20px",
   fontSize25px: "25px",
+  width40: "40px",
   width85: "85px",
   width95: "95px",
   width120: "120px",

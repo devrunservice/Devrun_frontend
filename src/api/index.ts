@@ -7,40 +7,38 @@ import {
   SignupFormType,
   TokenType,
   IMySearch,
-  IRefund,
-  ICoupon,
 } from "types";
+import { setCookie } from "./cookies";
 import { authAxios, accAxios } from "./instance";
 
 export const signup = {
   // 회원가입
-  createUser: async (code: string, params: CreateUser) => {
-    const response = await authAxios.post(`/signup/okay?code=${code}`, params);
+  createUser: (params: CreateUser) => {
+    const response = authAxios.post(`/signup/okay`, params);
     return response;
   },
   // 인증번호 받기
-  getAuthenticationNumber: async (params: CreateUser) => {
-    const response = await authAxios.post(`/auth/phone/`, params);
+  getAuthenticationNumber: (params: CreateUser) => {
+    const response = authAxios.post(`/signup/auth/`, params);
     return response;
   },
   // 인증번호 확인
-  checkAuthenticationNumber: async (params: CreateUser) => {
-    const response = await authAxios.post(`/verify`, params);
+  checkAuthenticationNumber: (params: CreateUser) => {
+    const response = authAxios.post(`/verify`, params);
     return response;
   },
   // 아이디 중복확인
-  getDuplicatedId: async (params: CreateUser) => {
-    const response = await authAxios.post(`/checkID`, params);
+  getDuplicatedId: (params: CreateUser) => {
+    const response = authAxios.post(`/checkID`, params);
     return response;
   },
   // 이메일 중복확인
-  getDuplicatedEmail: async (params: CreateUser) => {
-    const response = await authAxios.post(`/checkEmail`, params);
+  getDuplicatedEmail: (params: CreateUser) => {
+    const response = authAxios.post(`/checkEmail`, params);
     return response;
   },
-  // 휴대폰 중복확인
-  getDuplicatedPhonnumber: async (params: CreateUser) => {
-    const response = await authAxios.post("/checkPhone", params);
+  getDuplicatedPhonnumber: (params: CreateUser) => {
+    const response = authAxios.post("/checkPhone", params);
     return response;
   },
 };
@@ -48,6 +46,24 @@ export const signup = {
 export const login = {
   checkLoginUser: async (params: LoginFormType) => {
     const response = await authAxios.post("/login", params);
+    console.log(response);
+    const accessToken = response.data.Access_token.substr(7);
+    const offset = 1000 * 60 * 60 * 9;
+    const expirationDate = new Date(new Date().getTime() + offset);
+    expirationDate.setMinutes(expirationDate.getMinutes() + 1);
+    setCookie("accessToken", accessToken, {
+      // 모든페이지에서 쿠키 엑세스 가능
+      path: "/",
+      // https 일때 true로 바꿔줄것!
+      secure: false,
+      // 쿠키 훔쳐가는거 막음 로컬에서는 사용이 안된다함
+      // httpOnly: true,
+      // 쿠키 만료 날짜
+      expires: expirationDate,
+    });
+    // setCookie("accessToken", response.data.Access_token);
+    setCookie("refreshToken", response.data.Refresh_token.substr(7));
+    localStorage.setItem("userId", params.id);
     return response;
   },
   checkLogout: async (params: TokenType) => {
@@ -57,6 +73,7 @@ export const login = {
       },
     };
     const response = await authAxios.post("/logout", null, config);
+    console.log(response);
     return response;
   },
   refreshAccessToken: async (params: string) => {
@@ -66,33 +83,25 @@ export const login = {
       },
     };
     const response = await accAxios.post("/token/refresh", null, config);
-    return response.data.Access_token;
-  },
-  checkKakaoLogin: async (params: string) => {
-    const response = await authAxios.get(
-      `${process.env.REACT_APP_SERVER_URL}/auth/kakao/callback?code=${params}`,
-    );
     console.log(response);
-    return response;
+    // setCookie("accessToken", response.data.Access_token);
+    return response.data.Access_token;
   },
 };
 
-export const findAccount = {
+export const userInfo = {
   findIdByPhonenumber: async (params: SignupFormType) => {
-    console.log(params);
-    const response = await authAxios.post("/find/id", params);
+    const response = await authAxios.post("/find/uid", params);
+    console.log(response);
     return response;
   },
   findIdByEmail: async (params: SignupFormType) => {
     const response = await authAxios.post("/find/uid", params);
+    console.log(response);
     return response;
   },
   findPassword: async (params: SignupFormType) => {
-    const response = await authAxios.post("/find/password", params);
-    return response;
-  },
-  checkIdPhonenumberMatched: async (params: SignupFormType) => {
-    const response = await authAxios.post("verifyPhone", params);
+    const response = await authAxios.post("/find/upass", params);
     console.log(response);
     return response;
   },
@@ -101,7 +110,7 @@ export const findAccount = {
 // 로그인한 유저정보
 export const userData = {
   createUser: (params: tmi) => {
-    const response = accAxios.get("/tmi", { params: { id: params } });
+    const response = accAxios.get("/tmi", { params: { params } });
     return response;
   },
 };
@@ -115,13 +124,8 @@ export const Cart = {
     const response = accAxios.post("/savePaymentInfo", params);
     return response;
   },
-  coupon: (params: ICoupon) => {
-    const response = accAxios.post(`/applyCoupon`, params);
-    return response;
-  },
-  refund: (params: IRefund) => {
+  refund: (params: any) => {
     const response = accAxios.post("/payment", params);
-
     return response;
   },
 };
@@ -132,5 +136,7 @@ export const Search = {
     return response;
   },
 };
+
+/* 강의생성 */
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
