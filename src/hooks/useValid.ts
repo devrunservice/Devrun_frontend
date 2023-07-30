@@ -2,12 +2,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { findAccount, signup } from "utils/api";
-import { IsValidType, SignupFormType } from "types";
+import { IsValidType, IsValidMessageType, SignupFormType } from "types";
 import { openModal } from "../redux/reducer/modalReducer";
 
 const useValid = (form: SignupFormType) => {
   const dispatch = useDispatch();
-  const [validMessage, setValidMessage] = useState({
+  const [validMessage, setValidMessage] = useState<IsValidMessageType>({
     idMessage: "",
     passwordMessage: "",
     passwordConfirmMessage: "",
@@ -60,22 +60,29 @@ const useValid = (form: SignupFormType) => {
     }
   }, [form.id]);
 
-  // 아이디 중복확인
-  const checkDuplicatedId = async (id: string) => {
-    const response = await signup.getDuplicatedId({ id });
-    console.log("response: ", response);
+  // 아이디, 이메일 중복확인
+  const checkDuplicated = async (
+    option: string,
+    korean: string,
+    value: string,
+  ) => {
+    const response =
+      option === "id"
+        ? await signup.getDuplicatedId({ id: value })
+        : await signup.getDuplicatedEmail({ email: value });
+    console.log(response);
     if (response.data === 0) {
       setValidMessage((prev) => ({
         ...prev,
-        idDuplicationMessage: "사용 가능한 아이디입니다.",
+        [`${option}DuplicationMessage`]: `사용 가능한 ${korean}입니다.`,
       }));
-      setIsValid((prev) => ({ ...prev, idDuplication: true }));
+      setIsValid((prev) => ({ ...prev, [`${option}Duplication`]: true }));
     } else if (response.data === 1) {
       setValidMessage((prev) => ({
         ...prev,
-        idDuplicationMessage: "이미 사용중인 아이디입니다.",
+        [`${option}DuplicationMessage`]: `이미 사용중인 ${korean}입니다.`,
       }));
-      setIsValid((prev) => ({ ...prev, idDuplication: false }));
+      setIsValid((prev) => ({ ...prev, [`${option}Duplication`]: false }));
     }
   };
 
@@ -128,30 +135,15 @@ const useValid = (form: SignupFormType) => {
     }
   }, [form.email]);
 
-  // 이메일 중복확인
-  const checkDuplicatedEmail = async (email: string) => {
-    const response = await signup.getDuplicatedEmail({ email });
-    console.log("response: ", response);
-    if (response.data === 0) {
-      setValidMessage((prev) => ({
-        ...prev,
-        emailDuplicationMessage: "사용 가능한 이메일 입니다.",
-      }));
-      setIsValid((prev) => ({ ...prev, emailDuplication: true }));
-    } else if (response.data === 1) {
-      setValidMessage((prev) => ({
-        ...prev,
-        emailDuplicationMessage: "이미 사용중인 이메일 입니다.",
-      }));
-      setIsValid((prev) => ({ ...prev, emailDuplication: false }));
-    }
-  };
-
   // 휴대폰 유효성 검사
   useEffect(() => {
-    const regex = /^01([016789])(?:\d{3}|\d{4})\d{4}$/;
+    const regex = /^01([016789])([0-9]{8})$/;
 
     if (!regex.test(form.phonenumber || "")) {
+      // setValidMessage((prev) => ({
+      //   ...prev,
+      //   phonenumberMessage: "- 제외 11자리를 입력해주세요.",
+      // }));
       setIsValid({ ...isValid, phonenumber: false });
     } else {
       setIsValid({ ...isValid, phonenumber: true });
@@ -169,7 +161,7 @@ const useValid = (form: SignupFormType) => {
     }
   }, [form.phonenumber]);
 
-  // 인증번호
+  // 인증번호;
   // useEffect(() => {
   //   if (!isValid.code && isValid.checkCodeBtn) {
   //     setValidMessage((prev) => ({
@@ -219,29 +211,6 @@ const useValid = (form: SignupFormType) => {
         setIsValid((prev) => ({ ...prev, phonenumber: false }));
         setIsValid((prev) => ({ ...prev, codeBtn: false }));
       }
-      // 돌아가는 코드
-      // } else if (page === "findAccount") {
-      //   try {
-      //     const response = await signup.getAuthenticationNumber({
-      //       phonenumber,
-      //     });
-
-      //     if (response.status === 200) {
-      //       setValidMessage((prev) => ({
-      //         ...prev,
-      //         phonenumberMessage: "인증번호가 요청되었습니다.",
-      //       }));
-      //       setIsValid((prev) => ({ ...prev, phonenumber: true }));
-      //       setIsValid((prev) => ({ ...prev, codeBtn: true }));
-      //     }
-      //   } catch (error) {
-      //     setValidMessage((prev) => ({
-      //       ...prev,
-      //       phonenumberMessage: "인증번호 요청에 실패했습니다.",
-      //     }));
-      //     setIsValid((prev) => ({ ...prev, phonenumber: false }));
-      //     setIsValid((prev) => ({ ...prev, codeBtn: false }));
-      //   }
     } else if (page === "findAccount") {
       if (findOption === "password") {
         // 계정 찾기에서 비밀번호 찾기일 때
@@ -328,29 +297,29 @@ const useValid = (form: SignupFormType) => {
           console.log(error);
         }
       }
+    } else if (page === "profileUpdate") {
+      try {
+        const response = await signup.getAuthenticationNumber({
+          phonenumber,
+        });
+
+        if (response.status === 200) {
+          setValidMessage((prev) => ({
+            ...prev,
+            phonenumberMessage: "인증번호가 요청되었습니다.",
+          }));
+          setIsValid((prev) => ({ ...prev, phonenumber: true }));
+          setIsValid((prev) => ({ ...prev, codeBtn: true }));
+        }
+      } catch (error) {
+        setValidMessage((prev) => ({
+          ...prev,
+          phonenumberMessage: "인증번호 요청에 실패했습니다.",
+        }));
+        setIsValid((prev) => ({ ...prev, phonenumber: false }));
+        setIsValid((prev) => ({ ...prev, codeBtn: false }));
+      }
     }
-
-    // try {
-    //   const response = await signup.getAuthenticationNumber({
-    //     phonenumber,
-    //   });
-
-    //   if (response.status === 200) {
-    //     setValidMessage((prev) => ({
-    //       ...prev,
-    //       phonenumberMessage: "인증번호가 요청되었습니다.",
-    //     }));
-    //     setIsValid((prev) => ({ ...prev, phonenumber: true }));
-    //     setIsValid((prev) => ({ ...prev, codeBtn: true }));
-    //   }
-    // } catch (error) {
-    //   setValidMessage((prev) => ({
-    //     ...prev,
-    //     phonenumberMessage: "인증번호 요청에 실패했습니다.",
-    //   }));
-    //   setIsValid((prev) => ({ ...prev, phonenumber: false }));
-    //   setIsValid((prev) => ({ ...prev, codeBtn: false }));
-    // }
   };
 
   // 인증번호 확인
@@ -430,8 +399,7 @@ const useValid = (form: SignupFormType) => {
     setValidMessage,
     isValid,
     setIsValid,
-    checkDuplicatedId,
-    checkDuplicatedEmail,
+    checkDuplicated,
     requestAuthenticationNumber,
     verifyAuthenticationNumber,
     checkAllChecked,

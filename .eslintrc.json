@@ -45,7 +45,8 @@
     "no-param-reassign": "off",
     "no-restricted-globals": ["error", "some-other-global"],
     "prefer-destructuring": "off",
-    "no-plusplus": "off"
+    "no-plusplus": "off",
+    "no-new": "off"
   },
 
   "settings": {

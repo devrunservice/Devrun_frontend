@@ -28,6 +28,15 @@ const ProfileUpdate = () => {
     e.preventDefault();
   };
 
+  const handleClick = () => {
+    navigate("/profile");
+    const config = {
+      Headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     console.log(e.target);
@@ -37,8 +46,6 @@ const ProfileUpdate = () => {
   const getAuthenticationForm = (values: SignupFormType) => {
     profileUpdateForm.phonenumber = values.phonenumber;
     profileUpdateForm.code = values.code;
-    console.log(profileUpdateForm.phonenumber);
-    console.log(profileUpdateForm.code);
   };
 
   return (
@@ -81,7 +88,7 @@ const ProfileUpdate = () => {
           />
         </St.Phonenumber>
 
-        <St.ChangeBtn onClick={() => navigate("/profile")}>확인</St.ChangeBtn>
+        <St.ChangeBtn onClick={handleClick}>확인</St.ChangeBtn>
       </form>
     </section>
   );

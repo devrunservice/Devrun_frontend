@@ -24,8 +24,8 @@ function* loginSaga(
   try {
     const response = yield call(login.checkLoginUser, action.payload);
     console.log(response);
-    // const accessToken = response.data.Access_token.substr(7);
-    // const refreshToken = response.data.Refresh_token.substr(7);
+    const accessToken = response.data.Access_token.substr(7);
+    const refreshToken = response.data.Refresh_token.substr(7);
     // const offset = 1000 * 60 * 60 * 9;
     // const expirationDate = new Date(new Date().getTime() + offset);
     // expirationDate.setMinutes(expirationDate.getMinutes() + 1);
@@ -45,10 +45,10 @@ function* loginSaga(
     //   httpOnly: true,
     //   expires: expirationDate,
     // });
-    const accessToken =
-      "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiYmIyMjIiLCJpYXQiOjE2OTAzNzcwODAsImV4cCI6MTY5MDQ2MzQ4MH0.RbkMntKliTUQK5mSjBcfjY9-X46n1tiXklFJddBnImgc3ctpEiv95tHivqMeDj6xbqZW9NMC_wD1TNFbwtIIpw";
-    const refreshToken =
-      "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiYmIyMjIiLCJuYW1lIjoi7ZmN6ri464-ZIiwianRpIjoiMjk4MTVhYTYtOTlhNS00NmJkLWE0YTktNTgyNmQ0YzQwMzA4IiwiZXhwIjoxNjkwMzc3OTgwfQ.qgpP8Oa79AkKggbb3jQ-IkKuN-Lp_jrHN-S6XNnKtQSPcy2lspxPH5cgyhHrWsIfPqunOSCqV9-k-DAv8Qp8AA";
+    // const accessToken =
+    //   "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiYmIyMjIiLCJpYXQiOjE2OTAzNzcwODAsImV4cCI6MTY5MDQ2MzQ4MH0.RbkMntKliTUQK5mSjBcfjY9-X46n1tiXklFJddBnImgc3ctpEiv95tHivqMeDj6xbqZW9NMC_wD1TNFbwtIIpw";
+    // const refreshToken =
+    //   "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiYmIyMjIiLCJuYW1lIjoi7ZmN6ri464-ZIiwianRpIjoiMjk4MTVhYTYtOTlhNS00NmJkLWE0YTktNTgyNmQ0YzQwMzA4IiwiZXhwIjoxNjkwMzc3OTgwfQ.qgpP8Oa79AkKggbb3jQ-IkKuN-Lp_jrHN-S6XNnKtQSPcy2lspxPH5cgyhHrWsIfPqunOSCqV9-k-DAv8Qp8AA";
     setCookie("accessToken", accessToken);
     setCookie("refreshToken", refreshToken);
     yield put(loginSuccess(response));

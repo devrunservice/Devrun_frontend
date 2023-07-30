@@ -272,9 +272,7 @@ const FindAccount = ({ findOption }: { findOption: string }) => {
             />
           </St.InputField>
         )}
-        <St.CancelBtn type="button" onClick={() => navigate("/login")}>
-          취소
-        </St.CancelBtn>
+
         {findOption === "id" ? (
           <St.Button type="submit" name="findIdBtn" onClick={handleClick}>
             아이디 찾기
@@ -284,6 +282,9 @@ const FindAccount = ({ findOption }: { findOption: string }) => {
             비밀번호 찾기
           </St.Button>
         )}
+        <St.CancelBtn type="button" onClick={() => navigate("/login")}>
+          취소
+        </St.CancelBtn>
       </form>
     </>
   );

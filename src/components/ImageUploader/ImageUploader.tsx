@@ -13,6 +13,7 @@ const ImageUploader: React.FC<PropsType> = ({ page }) => {
       return;
     }
     if (files.length > 0) {
+      console.log(files);
       const file = files[0];
       if (file.size > 1024 * 1024 * 2) {
         alert("이미지 용량을 초과하였습니다.");

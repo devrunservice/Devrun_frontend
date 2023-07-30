@@ -33,7 +33,7 @@ const Modal = ({ page }: { page?: string }) => {
       navigate("/login");
     }
 
-    // 토큰 조작 시
+    // 토큰 조작 및 Refresh Token 만료 시
     if (page === "home") {
       dispatch(logoutLoading());
       navigate("/home");

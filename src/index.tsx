@@ -30,6 +30,8 @@ const router = createBrowserRouter([
       { path: "auth/kakao/callback/login", element: <Route.Login /> },
       { path: "auth/kakao/callback", element: <Route.Auth2RedirectHandler /> },
       { path: "signup", element: <Route.Signup /> },
+      { path: "findaccount:id", element: <Route.FindId /> },
+      { path: "findaccount:password", element: <Route.FindPassword /> },
       {
         path: "basket",
         element: ACCESS_TOKEN ? (
@@ -38,9 +40,14 @@ const router = createBrowserRouter([
           <Navigate replace to="/login" />
         ),
       },
-      { path: "notice", element: <Route.Notice /> },
-      { path: "findaccount:id", element: <Route.FindId /> },
-      { path: "findaccount:password", element: <Route.FindPassword /> },
+      {
+        path: "notice",
+        element: ACCESS_TOKEN ? (
+          <Route.Notice />
+        ) : (
+          <Navigate replace to="/login" />
+        ),
+      },
       { path: "noticeWrite", element: <Route.NoticeWrite /> },
       { path: "noticeDetail", element: <Route.NoticeDetail /> },
       { path: "lecture", element: <Route.Lecture /> },

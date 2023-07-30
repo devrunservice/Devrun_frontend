@@ -41,68 +41,12 @@ accAxios.interceptors.request.use(
   },
 );
 
-accAxios.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    const errorMessage = error.response.data.message;
-    const errorStatus = error.response.status;
-    const originalRequest = error.config;
-    const refreshToken = getCookie("refreshToken");
-    let response;
-    let newAccessToken;
-    let newRefreshToken;
-
-    switch (errorStatus) {
-      case 401:
-        switch (errorMessage) {
-          case "Token is expired":
-            response = await authAxios.post("/token/refresh", null, {
-              headers: { Refresh_token: refreshToken },
-            });
-            newAccessToken = response.data.Access_token.substr(7);
-            newRefreshToken = response.data.Refresh_token.substr(7);
-            setCookie("accessToken", newAccessToken);
-            setCookie("refreshToken", newRefreshToken);
-            originalRequest.headers.Access_token = `Bearer ${newAccessToken}`;
-            return axios(originalRequest);
-          default:
-            break;
-        }
-        break;
-      case 403:
-        switch (errorMessage) {
-          case "Signature validation failed":
-            return Promise.reject(
-              new Error(`오류가 감지되었습니다. 로그인을 다시 해주세요.`),
-            );
-          default:
-            break;
-        }
-        break;
-      case 500:
-        switch (errorMessage) {
-          case "Unexpected server error occurred":
-            return Promise.reject(
-              new Error("예상하지 못한 에러가 발생했습니다."),
-            );
-          default:
-            break;
-        }
-        break;
-      default:
-        break;
-    }
-  },
-);
-
 authAxios.interceptors.response.use(
   (response) => response,
   async (error) => {
     console.log(error);
     const errorMessage = error.response.data;
     const errorStatus = error.response.status;
-
-    let response;
 
     switch (errorStatus) {
       case 303:
@@ -132,6 +76,9 @@ authAxios.interceptors.response.use(
                 "현재 사용 중인 비밀번호와 동일합니다./다른 비밀번호를 입력해주세요.",
               ),
             );
+          case "Refresh token is required":
+          case "Unauthorized request":
+            return Promise.reject(new Error("알 수 없는 에러가 발생했습니다."));
           default:
             break;
         }
@@ -155,6 +102,14 @@ authAxios.interceptors.response.use(
             return Promise.reject(new Error("로그인을 해주세요."));
           case "Account is inactive":
             return Promise.reject(new Error("휴면 상태의 회원입니다."));
+          default:
+            break;
+        }
+        switch (errorMessage.message) {
+          case "Token is expired":
+            return Promise.reject(
+              new Error("접속이 만료되었습니다./로그인을 다시해주세요."),
+            );
           default:
             break;
         }
@@ -187,7 +142,78 @@ authAxios.interceptors.response.use(
         break;
 
       case 500:
+        switch (errorMessage) {
+          case "Failed to save point":
+          case "Failed to set point entity":
+          case "Failed to register to user":
+          case "Failed to register for database":
+            return Promise.reject(
+              new Error(
+                "알 수 없는 에러가 발생했습니다./회원가입을 다시 시도해주세요.",
+              ),
+            );
+          default:
+            break;
+        }
         return Promise.reject(new Error("알 수 없는 에러가 발생했습니다."));
+      default:
+        break;
+    }
+  },
+);
+
+accAxios.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    console.log(error);
+    const errorMessage = error.response.data.message;
+    const errorStatus = error.response.status;
+    const originalRequest = error.config;
+    const refreshToken = getCookie("refreshToken");
+    let response;
+    let newAccessToken;
+    let newRefreshToken;
+
+    switch (errorStatus) {
+      case 401:
+        switch (errorMessage) {
+          case "Token is expired":
+            response = await authAxios.post("/token/refresh", null, {
+              headers: { Refresh_token: `Bearer ${refreshToken}` },
+            });
+            console.log(response);
+            newAccessToken = response.data.Access_token.substr(7);
+            newRefreshToken = response.data.Refresh_token.substr(7);
+            setCookie("accessToken", newAccessToken);
+            setCookie("refreshToken", newRefreshToken);
+            originalRequest.headers.Access_token = `Bearer ${newAccessToken}`;
+            return axios(originalRequest);
+          default:
+            break;
+        }
+        break;
+      case 403:
+        switch (errorMessage) {
+          case "Signature validation failed":
+            return Promise.reject(
+              new Error(`오류가 감지되었습니다. 로그인을 다시 해주세요.`),
+            );
+          case "Access Denied failed":
+            return Promise.reject(new Error(``));
+          default:
+            break;
+        }
+        break;
+      case 500:
+        switch (errorMessage) {
+          case "Unexpected server error occurred":
+            return Promise.reject(
+              new Error("예상하지 못한 에러가 발생했습니다."),
+            );
+          default:
+            break;
+        }
+        break;
       default:
         break;
     }

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { getCookie } from "utils/cookies";
 import { BrandLogo, Kakao, Naver, Google } from "asset";
 import { LoginFormType } from "types";
 import { PasswordInput, Modal } from "components";
@@ -17,6 +18,8 @@ const LoginForm = () => {
     id: "",
     password: "",
   });
+
+  const easyLoginToken = getCookie("easyLoginToken");
 
   const isFormValid = loginForm.id !== "" && loginForm.password !== "";
 
@@ -44,6 +47,10 @@ const LoginForm = () => {
     if (social === "kakao") {
       const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`;
       window.location.href = kakaoURL;
+    } else if (social === "naver") {
+      console.log("naver 로그인");
+    } else if (social === "google") {
+      console.log("naver 로그인");
     }
   };
 
@@ -104,20 +111,22 @@ const LoginForm = () => {
           </St.Button>
         </St.Finder>
         {/* 간편 로그인 */}
-        <St.SocialLogin>
-          <St.SocialLoginTitle>간편 로그인</St.SocialLoginTitle>
-          <St.SocialLoginBtn>
-            <St.Button>
-              <Kakao onClick={() => handleSocialLogin("kakao")} />
-            </St.Button>
-            <St.Button>
-              <Naver onClick={() => handleSocialLogin("naver")} />
-            </St.Button>
-            <St.Button>
-              <Google onClick={() => handleSocialLogin("google")} />
-            </St.Button>
-          </St.SocialLoginBtn>
-        </St.SocialLogin>
+        {!easyLoginToken && (
+          <St.SocialLogin>
+            <St.SocialLoginTitle>간편 로그인</St.SocialLoginTitle>
+            <St.SocialLoginBtn>
+              <St.Button>
+                <Kakao onClick={() => handleSocialLogin("kakao")} />
+              </St.Button>
+              <St.Button>
+                <Naver onClick={() => handleSocialLogin("naver")} />
+              </St.Button>
+              <St.Button>
+                <Google onClick={() => handleSocialLogin("google")} />
+              </St.Button>
+            </St.SocialLoginBtn>
+          </St.SocialLogin>
+        )}
       </St.Container>
     </St.Section>
   );
