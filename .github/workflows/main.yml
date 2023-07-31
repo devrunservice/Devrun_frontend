@@ -25,7 +25,7 @@ jobs:
                   restore-keys: |
                       ${{ runner.os }}-node-
 
-             # .env에 있던 환경변수들을 등록해주는 단계
+            # .env에 있던 환경변수들을 등록해주는 단계
             - name: .env setting
               env:
                 REACT_APP_SERVER_URL: ${{ secrets.REACT_APP_SERVER_URL }}

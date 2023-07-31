@@ -5,6 +5,6 @@ import * as S from "style/Common";
 const index = () => (
   <S.Inner>
       <NoticeWriter />
-   </S.Inner>
+  </S.Inner>
 );
 export default index;
