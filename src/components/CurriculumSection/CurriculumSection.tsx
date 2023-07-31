@@ -47,7 +47,7 @@ const CurriculumSection:React.FC<TestType> = ({item, indexNum,changeSubTitle, de
         item.subTitle.map((list:any, index:number)=>(
           <St.CurriculumMain key={index}>
             <div>
-              <p>제목</p>
+              <p>제목1</p>
               <input 
                 type="text" 
                 value={list.className}
