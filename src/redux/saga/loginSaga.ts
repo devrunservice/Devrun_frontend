@@ -78,6 +78,7 @@ function* kakaoLoginSaga(
 ): Generator<any, void, any> {
   try {
     // 인가 코드 pass
+    console.log("카카오 로그인 사가 작동");
     const response = yield call(login.checkKakaoLogin, action.payload);
     console.log(response);
     const easyLoginToken = response.data.Easylogin_token;
@@ -103,6 +104,7 @@ function* kakaoLoginSaga(
   } catch (error) {
     console.log(error);
     yield put(kakaoFail(error));
+    yield put(openModal(error));
   }
 }
 

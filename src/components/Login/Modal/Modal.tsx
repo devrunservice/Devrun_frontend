@@ -27,8 +27,9 @@ const Modal = ({ page }: { page?: string }) => {
   );
 
   const handleClick = () => {
-    // 회원가입 성공 시
     dispatch(closeModal());
+
+    // 회원가입 성공 시
     if (signupSuccess === true) {
       navigate("/login");
     }
@@ -36,7 +37,7 @@ const Modal = ({ page }: { page?: string }) => {
     // 토큰 조작 및 Refresh Token 만료 시
     if (page === "home") {
       dispatch(logoutLoading());
-      navigate("/home");
+      navigate("/");
     }
   };
 

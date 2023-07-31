@@ -69,9 +69,7 @@ export const login = {
     return response.data.Access_token;
   },
   checkKakaoLogin: async (params: string) => {
-    const response = await authAxios.get(
-      `${process.env.REACT_APP_SERVER_URL}/auth/kakao/callback?code=${params}`,
-    );
+    const response = await authAxios.get(`/auth/kakao/callback?code=${params}`);
     console.log(response);
     return response;
   },

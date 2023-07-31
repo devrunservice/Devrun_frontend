@@ -20,7 +20,7 @@ authAxios.interceptors.request.use(
   (config) => {
     const easyLoginToken = getCookie("easyLoginToken");
     if (easyLoginToken) {
-      config.headers.Easylogin_token = `${easyLoginToken}`;
+      config.headers.Easylogin_token = `Bearer ${easyLoginToken}`;
     }
     return config;
   },
