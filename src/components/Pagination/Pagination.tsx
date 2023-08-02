@@ -1,50 +1,43 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from "react";
-import { IPagination } from "types";
+import React, { useState, MouseEvent } from "react";
+import * as I from "types";
 import { PageNext, PagePrev } from "asset";
 import * as St from "./style";
-// props: IPagination
 
-const Pagination = () => {
-  const [startPage, setStartPage] = useState<number>(1);
-  const [activePage, setActivePage] = useState<number>(1);
-  const lastPage = 0 != null ? Math.ceil(5 / 5) : 0;
 
-  const onClickPage = () => {
-    // const activePage = Number(e.currentTarget.id);
-    setActivePage(startPage);
+const Pagination = (props: I.Pagination) => {
+  
+  
+  const lastPage =
+    props.data != null ? Math.ceil(props.data.length / props.limit) : 0;
+  const onClickPage = (pageNumber:number) => {
+    props.setActivePage(pageNumber);
   };
-  // 이전 페이지 클릭시
-  const onClickPrev = () => {
-    if (startPage === 1) return;
-    setStartPage((prev) => prev - 5);
-    setActivePage((prev) => prev - 5);
-  };
-  // 다음 페이지 클릭시
-  const onClickNext = () => {
-    if (startPage + 5 > lastPage) return;
-    setStartPage((prev) => prev + 5);
-    setActivePage((prev) => prev + 5);
-  };
-  // console.log(activePage);
+
   return (
     <St.PagingWrap>
-      <St.PagingArr onClick={() => onClickPrev()}>
+      <St.PagingArr
+        onClick={() => props.setActivePage(props.activePage -1)}
+        disabled={props.activePage === 1}
+      >
         <PagePrev />
       </St.PagingArr>
-      {new Array(5).fill(1).map(
-        (index) =>
-          startPage + index <= lastPage && (
-            <St.Paging
-              key={startPage + index}
-              onClick={onClickPage}
-              isActive={startPage + index === activePage}
-            >
-              {startPage + index}
-            </St.Paging>
-          ),
-      )}
-      <St.PagingArr onClick={() => onClickNext()}>
+      {Array.from({ length: lastPage }).map((_, index) => {
+        const pageNumber = index + 1;
+        return (
+          <St.Paging
+            key={pageNumber}
+            $active={pageNumber === props.activePage}
+            onClick={() => onClickPage(pageNumber)}
+          >
+            {pageNumber}
+          </St.Paging>
+        );
+      })}
+      <St.PagingArr
+        onClick={() => props.setActivePage(props.activePage + 1)}
+        disabled={props.activePage === lastPage}
+      >
         <PageNext />
       </St.PagingArr>
     </St.PagingWrap>

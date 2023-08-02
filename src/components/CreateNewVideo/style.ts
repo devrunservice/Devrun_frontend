@@ -17,12 +17,12 @@ export const CreateVideoArticle = styled.article`
 export const ArticleTitle = styled.h4`
   color: #1d1d1d;
   margin-bottom: 15px;
-  font-weight: ${props=>props.theme.fontSemiBold};
+  font-weight: ${props=>props.theme.semiBold};
   display: flex;
   align-items: center;
   justify-content: space-between;
   button {
-    font-size: ${props=>props.theme.fontSize14px};
+    font-size: ${props=>props.theme.size14};
     font-weight: 400;
     display: flex;
     align-items: center;
@@ -59,7 +59,7 @@ export const InputNotice = styled.p`
   align-items: center;
   color: #555555;
   margin-top: 10px;
-  font-size: ${props=>props.theme.fontSize14px};
+  font-size: ${props=>props.theme.size14};
   svg {
     margin-right: 5px;
   }

@@ -13,9 +13,9 @@ export const NotText = styled.div`
 `;
 export const NotTitle = styled.em`
   line-height: 1;
-  color: ${(props) => props.theme.textBlack};
+  color: ${(props) => props.theme.black};
   font-size: 3.125rem;
-  font-weight: ${(props) => props.theme.fontSemiBold};
+  font-weight: ${(props) => props.theme.semiBold};
 `;
 export const NotContent = styled.p`
   line-height: 35px;
@@ -27,7 +27,7 @@ export const NotButton = styled.button`
   width: 170px;
   height: 60px;
   outline: 0;
-  background: ${(props) => props.theme.textPoint};
+  background: ${(props) => props.theme.brandColor};
   border-radius: 10px;
   color: ${(props) => props.theme.textWhite};
 `;

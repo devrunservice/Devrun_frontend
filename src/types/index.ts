@@ -165,110 +165,83 @@ export interface SubTitleType {
 }
 export interface RefType {}
 
-export interface IRefund {
-  merchant_uid: string;
-  cancel_request_amount: number;
-  reason?: string;
-  refund_holder?: string;
-  refund_bank?: string;
-  refund_account?: string;
+
+export interface Receipt {
+  buyer_email?: string;
+  buyer_name?: string;
+  buyer_tel?: string;
+  imp_uid?: string;
+  merchant_uid?: string;
+  name?: string;
+  paid_amount?: number;
+  paymentDate?: string;
+  receipt_url?: string ;
+  user_no?: number | string;
+  status?: string;
 }
-export interface ITable {
+
+export interface Table {
   notice?: string;
-  basketBtn?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  color?: boolean;
-  cursor?: boolean;
-  payment?: boolean;
-  popupBtn?: () => void;
+  $cursor?: boolean;
+  $color?: boolean;
   name?: string;
   date?: string;
   title?: string;
   view?: string;
   num?: string;
-  pay?: string;
 }
-export interface ICert {
-  popupBtn?: () => void;
+
+export interface ReceiptTable {
+  data?: Receipt[]
+  offset:number;
+  limit:number;
 }
-export interface IUserTop {
+export interface UserTop {
   title: string;
-  count?: string;
+  sub?:string;
+  count?: Receipt[] | string;
+}
+// 페이지네이션
+export interface Pagination {
+  activePage: number;
+  setActivePage: (page: number) => void;
+  limit: number;
+  data?: Receipt[];
 }
 
-
-export interface ICoupon {
+export interface Coupon {
   couponCode: string;
   amount: number;
 }
 
-export interface IBasket {
+export interface Basket {
   price: number;
-  couponBoolean: boolean;
-  coupon: string;
+  discount: number;
+  discounts: number;
 }
 
-// 페이지네이션
-export interface IPagination {
-  activePage?: number;
-  startPage?: number;
-  lastPage?: number;
-  count?: number;
-}
-
-export interface IPageColor {
-  isActive: boolean;
-}
-// 헤더
-export interface IButtonColor {
-  active: boolean;
-}
-
-// 마이페이지 네비게이션
-export interface IBtnNav {
-  active: boolean;
-}
-
-// 프로필
-export interface IProfileActiveBtn {
-  active: boolean;
-}
-export interface IProfileBtn {
-  email: boolean;
-  password: boolean;
-  number: boolean;
-}
-export interface Iprofile {
-  password: string;
-  passwordCheck: string;
-  email: string;
-  number: string;
-}
-// 내 학습관리 탭
-export interface ILearnTap {
-  active: boolean;
+export interface IEdit{
+  title:string;
 }
 
 
 // 댓글
-export interface IComment {
+export interface Comment {
   comment: string;
+  comments: string;
 }
-export interface IPrice {
-  active: boolean;
-}
+
 export interface IPriceButton {
   active: boolean;
 }
 // 마이페이지 검색
-export interface IMySearch {
+export interface MySearch {
   search: string;
 }
-export interface ILearning {
-  active: boolean;
-}
+
 
 // 결제창
-export interface IRequestPayAdd {
+export interface RequestPayAdd {
   digital?: boolean;
   vbank_due?: string;
   m_redirect_url?: string;
@@ -278,7 +251,7 @@ export interface IRequestPayAdd {
 export interface Display {
   card_quota?: number[];
 }
-export interface IRequestPayParams extends IRequestPayAdd {
+export interface RequestPayParams extends RequestPayAdd {
   pg?: string;
   pay_method: string;
   escrow?: boolean;
@@ -328,11 +301,28 @@ export interface RequestPayResponse extends IRequestPayResponse {
   receipt_url?: string;
 }
 
+
+export interface CallbackData {
+  id: number;
+  name: string;
+  paid_amount: number ;
+  buyer_email?: string;
+  buyer_name?: string;
+  buyer_tel?: string;
+  pay_method?: string;
+  merchant_uid?: string;
+  pg_provider?: string;
+  receipt_url?: string;
+  imp_uid?: string | null;
+}
+
+
+
 export type RequestPayResponseCallback = (response: RequestPayResponse) => void;
 export interface Iamport {
   init: (accountID: string) => void;
   request_pay: (
-    params: IRequestPayParams,
+    params: RequestPayParams,
     callback?: RequestPayResponseCallback,
   ) => void;
 }
@@ -341,4 +331,50 @@ declare global {
   interface Window {
     IMP?: Iamport;
   }
+}
+
+
+export interface Refund {
+  merchant_uid: string | undefined;
+  cancel_request_amount: number | undefined;
+  reason?: string | undefined;
+  refund_holder?: string;
+  refund_bank?: string;
+  refund_account?: string;
+}
+
+export interface Selet {
+  seletsBoolean: boolean;
+  seletes:string
+}
+export interface Active {
+  $active: boolean;
+}
+
+export interface bastetUser {
+  user: {
+    name: string;
+    email: string;
+    phonenumber: string;
+  };
+}
+
+export interface basketProduct {
+  item: {
+    id: number;
+    name: string;
+    paid_amount: number;
+  };
+  isChecked: boolean;
+  singleCheack: (
+    checked: boolean,
+    id: number,
+    name: string,
+    paid_amount: number,
+  ) => void;
+}
+
+export interface CouponGet {
+  code: string;
+  id: string;
 }

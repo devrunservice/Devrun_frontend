@@ -6,6 +6,7 @@ import { RootState } from "redux/store";
 import { getCookie } from "utils/cookies";
 import { decode } from "utils/decode";
 import NoImg from "asset/images/NoImg.jpg";
+import Logo from "asset/images/Logo.png";
 import Modal from "components/Login/Modal/Modal";
 import * as St from "./style";
 import { userTmiPending } from "../../redux/reducer/userReducer";
@@ -36,7 +37,9 @@ const Header = () => {
       <Modal page="home" />
       <St.InnerHeader>
         <St.NavWrap>
-          <St.LogoIcon onClick={() => navigate("/")} />
+          <St.LogoIcon onClick={() => navigate("/")} >
+            <img src={Logo} alt="로고" />
+          </St.LogoIcon>
           <St.CategoryWrap>
             <St.CategoryLi>
               <St.CategoryIcon />
@@ -113,14 +116,14 @@ const Header = () => {
               <St.Button
                 onClick={() => navigate("/login")}
                 type="button"
-                active
+                $active
               >
                 로그인
               </St.Button>
               <St.Button
                 onClick={() => navigate("/signup")}
                 type="button"
-                active={false}
+                $active={false}
               >
                 회원가입
               </St.Button>

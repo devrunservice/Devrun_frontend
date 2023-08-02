@@ -22,7 +22,7 @@ export const Container = styled.div`
   margin: 3rem 0;
   background: ${(props) => props.theme.bgColor};
   border-radius: 10px;
-  border: ${(props) => props.theme.borderGray} 1px solid;
+  border: ${(props) => props.theme.borderC} 1px solid;
 `;
 
 export const Button = styled.button`

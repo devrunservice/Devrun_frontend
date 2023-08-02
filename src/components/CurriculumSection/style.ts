@@ -13,8 +13,8 @@ export const CurriculumHeader = styled.div`
   padding: 18px;
   background: ${props=>props.theme.bgGrayColor};
   h4 {
-    color: ${props=>props.theme.textBlack};
-    font-weight: ${props=>props.theme.fontMedium};
+    color: ${props=>props.theme.black};
+    font-weight: ${props=>props.theme.medium};
   }
   div {
     display: flex;

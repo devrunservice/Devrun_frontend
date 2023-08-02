@@ -5,7 +5,7 @@ export const Input = styled.input`
   border-radius: 5px;
   padding: 0.8rem 0;
   width: 100%;
-  border: ${(props) => props.theme.borderGray} 1px solid;
+  border: ${(props) => props.theme.borderC} 1px solid;
 `;
 
 // 비밀번호
