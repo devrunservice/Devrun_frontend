@@ -1,53 +1,45 @@
-// import React from "react";
-// import { useRef } from "react";
-import { createSlice, /* PayloadAction */ } from "@reduxjs/toolkit";
-// import { CreateLectureType } from "types";
+import { createSlice } from "@reduxjs/toolkit";
+
 interface CreateLectureType {
   lectureName: string;
   lecturePrice: number;
   categoryType: string,
   imageUrl: string;
+  // lectureBigCategory: string,
   lectureCategory: string;
   lectureTag: Array<string>;
   lectureExplane: string;
-  lectureIntroduce: string;
+  // lectureIntroduce: string;
   section: Array<SectionType>
 }
 interface SectionType {
-  // num:React.MutableRefObject<number>,
   num:number,
   title: string;
-  isReadOnly: boolean;
   subTitle: Array<SubTitleType>
 }
 interface SubTitleType {
   subNum:number;
-  // subNum:React.MutableRefObject<number>;
   className: string;
   url: string;
-  isReadOnly: boolean;
 }
 
 const initialState:CreateLectureType = {
-  lectureName: '',
-  lecturePrice: 0,
-  imageUrl: '',
-  categoryType: '',
-  lectureCategory: '',
-  lectureTag: [],
-  lectureExplane: '',
-  lectureIntroduce: '',
-  section: [
+  lectureName: '', 
+  lecturePrice: 0, 
+  imageUrl: '', 
+  categoryType: 'front', 
+  lectureCategory: 'html',
+  lectureTag: [], 
+  lectureExplane: '', 
+  section: [ 
     {
-      num: 0,
-      title: '',
-      isReadOnly: false,
+      num: 0, 
+      title: '', 
       subTitle: [
         {
-          subNum:0,
-          className: '',
-          url:'',
-          isReadOnly: false,
+          subNum:0, 
+          className: '', 
+          url:'', 
         }
       ],
     }
@@ -81,10 +73,11 @@ const createVideoSlice = createSlice({
     onLectureExplane: (state, action) => {
       state.lectureExplane = action.payload
     },
-    onLectureIntroduce: (state, action) => {
-      state.lectureIntroduce = action.payload
-    },
+    // onLectureIntroduce: (state, action) => {
+    //   state.lectureIntroduce = action.payload
+    // },
     addSection:(state, action) => {
+      console.log('addSection',action.payload)
       state.section = state.section.concat(action.payload)
     },
     deleteSection: (state, action) => {
@@ -103,36 +96,21 @@ const createVideoSlice = createSlice({
     changeTitle:(state, action) => {
       const index = state.section.findIndex(list=>list.num === action.payload.id)
       state.section[index].title = action.payload.value
-      state.section[index].isReadOnly = true
-    },
-    connectModal:(state,action) => {
-      console.log(action.payload.num)
-      const index = state.section.findIndex(list=>list.num === action.payload.num)
-      const num = state.section[index].subTitle.findIndex(list=>list.subNum === action.payload.index)
-      console.log(num)
-      console.log(index)
-      state.section.findIndex(list=>list.num === action.payload.num)
-    },
-    onTitleWrite:(state, action) => {
-      const index = state.section.findIndex(list=>list.num === action.payload.id)
-      if(state.section[index].isReadOnly === true) {
-        state.section[index].isReadOnly = action.payload.isReadOnly
-      }
     },
     onSubTitle:(state, action) => {
-      // console.log(action.payload)
+      const index = state.section.findIndex(list=>list.num === action.payload.num)
       if(action.payload.name === 'title') {
-        state.section[action.payload.num].subTitle[action.payload.index].className = action.payload.value
+        state.section[index].subTitle[action.payload.index].className = action.payload.value
       } else {
-        state.section[action.payload.num].subTitle[action.payload.index].url = action.payload.value
-        
+        state.section[index].subTitle[action.payload.index].url = action.payload.url
       }
+    },
+    changeUrl: (state, action) => {
+      const index = state.section.findIndex(list=>list.num === action.payload.num)
+      state.section[index].subTitle[action.payload.index].url = action.payload
     }
-    // onSubTitleWrite:(state, action) => {
-    //   const index = state.section.findIndex
-    // },
   }
 })
 
-export const {addSection,onSubTitle, deleteSection, addClass, deleteClass, deleteTag, changeTitle,onCategoryType, onTitleWrite, connectModal, onLectureName, onLecturePrice, onImageUrl, onLectureCategory, onLectureTag, onLectureExplane,  onLectureIntroduce} = createVideoSlice.actions
+export const {addSection, changeUrl, onSubTitle, deleteSection, addClass, deleteClass, deleteTag, changeTitle,onCategoryType, onLectureName, onLecturePrice, onImageUrl, onLectureCategory, onLectureTag, onLectureExplane,  /* onLectureIntroduce */} = createVideoSlice.actions
 export default createVideoSlice.reducer
