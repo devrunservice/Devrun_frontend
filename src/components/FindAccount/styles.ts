@@ -64,7 +64,7 @@ export const Field = styled.div`
 `;
 
 export const CancelBtn = styled(Button)`
-  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
   background-color: #f0f0f0;
   color: ${(props) => props.theme.black};
 `;
