@@ -12,7 +12,7 @@ import * as St from "./style";
 
 
 const dataLists = [
-  { id: 1, name: "aaa", paid_amount: 80, mypoint: 100 },
+  { id: 1, name: "aaa", paid_amount: 80 },
   { id: 2, name: "bbb", paid_amount: 20 },
 ];
 
@@ -38,16 +38,17 @@ const Basket = () => {
     discounts: 0,
   });
 
-
-  useEffect(() => {
-
+  console.log(price.discounts, price.discount);
+  useEffect(()=>{
     setCheckedList(dataLists);
+  },[])
+  useEffect(() => {
     if (price.discount > 0) {
       setPrice({ ...price, discounts: price.price - price.discount });
-    }else{
-      setPrice({ ...price, discounts:0});
+    } else {
+      setPrice({ ...price, discounts: 0 });
     }
-  }, []);
+  }, [price.discount]);
   // 선택된 금액
   useEffect(() => {
     const totalAmount = checkedList.reduce(
@@ -81,19 +82,22 @@ const Basket = () => {
   const callback = async (response: I.RequestPayResponse) => {
     const { imp_uid, paid_amount, success } = response;
 
-    const payload: I.CallbackData[] = dataLists.map((item) => ({
-      id: item.id,
-      name: item.name,
-      paid_amount: item.paid_amount,
-      buyer_email: response.buyer_email,
-      buyer_name: response.buyer_name,
-      buyer_tel: response.buyer_tel,
-      pay_method: response.pay_method,
-      merchant_uid: response.merchant_uid,
-      pg_provider: response.pg_provider,
-      receipt_url: response.receipt_url,
-      imp_uid: response.imp_uid,
-    }));
+    const payload: I.CallbackData[] = dataLists.map((item, index) => {
+      const baseData = {
+        id: item.id,
+        name: item.name,
+        paid_amount: item.paid_amount,
+        buyer_email: response.buyer_email,
+        buyer_name: response.buyer_name,
+        buyer_tel: response.buyer_tel,
+        pay_method: response.pay_method,
+        merchant_uid: response.merchant_uid,
+        pg_provider: response.pg_provider,
+        receipt_url: response.receipt_url,
+        imp_uid: response.imp_uid,
+      }
+      return index === 0 ? { ...baseData, mypoint: mypoint } : baseData;
+    });
     const res = await Cart.callbak({ imp_uid });
     if (paid_amount === res.data.response.amount && success) {
       await Cart.save(payload);
@@ -114,7 +118,7 @@ const Basket = () => {
       pg: "html5_inicis", // PG사
       pay_method: "card", // 결제수단
       merchant_uid: `merchant_${new Date().getTime()}`, // 주문번호
-      amount: 100, // 결제금액
+      amount: price.price - mypoint - price.discounts, // 결제금액
       name: "주문명입니다.", // 주문명
       buyer_name: user.name, // 구매자 이름
       buyer_tel: user.phonenumber, // 구매자 전화번호

@@ -15,28 +15,31 @@ const ReceiptTable = (props: I.ReceiptTable) => {
     name: string | undefined,
     paid_amount: number | undefined,
   ) => {
-    if(window.confirm("환불하시겠습니까?")){
+    if (window.confirm("환불하시겠습니까?")) {
       const pay: I.Refund = {
         merchant_uid: merchant_uid,
-        cancel_request_amount: paid_amount,
+        amount: paid_amount,
         reason: name,
       };
       await Cart.refund(pay);
       alert("환불되었습니다.");
-    }else{
-      alert("취소되었습니다.")
+    } else {
+      alert("취소되었습니다.");
     }
-    
   };
+  console.log(props.data)
+
   return (
     <St.ReceiptTable>
       {props.data?.slice(props.offset, props.offset + props.limit).map((item: I.Receipt) => {
         return (
-          <St.TableLi $cursor={false} key={item.user_no}>
-            <St.Num>{item.user_no}</St.Num>
+          <St.TableLi $cursor={false} key={item.pay_no}>
+            <St.Num>{item.pay_no}</St.Num>
             <St.Title>{item.name}</St.Title>
             <St.CommonLi>{item.paid_amount} 원</St.CommonLi>
-            <St.CommonLi>{item.status === "0" ? "결제완료" : "환불완료"}</St.CommonLi>
+            <St.CommonLi>
+              {item.status === "0" ? "결제완료" : "환불완료"}
+            </St.CommonLi>
             <St.PayBtn>
               {item.status === "0" && (
                 <St.Button

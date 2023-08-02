@@ -175,8 +175,8 @@ export interface Receipt {
   name?: string;
   paid_amount?: number;
   paymentDate?: string;
-  receipt_url?: string ;
-  user_no?: number | string;
+  receipt_url?: string;
+  pay_no?: number | string;
   status?: string;
 }
 
@@ -220,9 +220,6 @@ export interface Basket {
   discounts: number;
 }
 
-export interface IEdit{
-  title:string;
-}
 
 
 // 댓글
@@ -336,7 +333,7 @@ declare global {
 
 export interface Refund {
   merchant_uid: string | undefined;
-  cancel_request_amount: number | undefined;
+  amount: number | undefined;
   reason?: string | undefined;
   refund_holder?: string;
   refund_bank?: string;

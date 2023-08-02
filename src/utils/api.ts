@@ -132,7 +132,8 @@ export const mygage = {
     return response;
   },
   coupon: (params:I.CouponGet) => {
-    const response = accAxios.post("​/coupon​/registrate", params);
+    const response = accAxios.post("/coupon/registrate", params);
+    return response
   },
 };
 /* eslint-disable @typescript-eslint/no-unused-vars */
