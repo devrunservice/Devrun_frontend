@@ -4,30 +4,30 @@ import { BsHeart, BsHeartFill } from "react-icons/bs";
 export const CommentWrap = styled.div`
   margin-top: 60px;
   padding-top: 50px;
-  border-top: 1px solid ${(props: any) => props.theme.borderGray};
+  border-top: 1px solid ${(props: any) => props.theme.borderC};
 `;
 export const Top = styled.div``
 export const CommentTitle = styled.em`
-  color: ${(props: any) => props.theme.textBlack};
-  font-weight: ${(props: any) => props.theme.fontSemiBold};
-  font-size: ${(props: any) => props.theme.fontSize20px};
+  color: ${(props: any) => props.theme.black};
+  font-weight: ${(props: any) => props.theme.semiBold};
+  font-size: ${(props: any) => props.theme.size20};
   display: flex;
   align-items: flex-end;
   margin-bottom: 25px;
 `;
 export const CommentCount = styled.p`
   margin-left: 10px;
-  font-weight: ${(props: any) => props.theme.fontRegular};
-  font-size: ${(props: any) => props.theme.fontSize16px};
+  font-weight: ${(props: any) => props.theme.regular};
+  font-size: ${(props: any) => props.theme.size16};
 `;
 export const Comments = styled.span`
-  color: ${(props: any) => props.theme.textPoint};
-  font-weight: ${(props: any) => props.theme.fontMedium};
+  color: ${(props: any) => props.theme.brandColor};
+  font-weight: ${(props: any) => props.theme.medium};
 `;
 export const CommentBox = styled.textarea`
-  width: ${(props: any) => props.theme.width100};
-  border: 1px solid ${(props: any) => props.theme.borderGray};
-  font-size: ${(props: any) => props.theme.fontSize16px};
+  width: ${(props: any) => props.theme.size100};
+  border: 1px solid ${(props: any) => props.theme.borderC};
+  font-size: ${(props: any) => props.theme.size16};
   outline: 0;
   height: 100px;
   padding: 20px 20px;
@@ -44,31 +44,31 @@ export const ButtonWrap = styled.div`
   gap: 10px;
 `;
 export const CommentNum = styled.p`
-  font-size: ${(props: any) => props.theme.fontSize14px};
+  font-size: ${(props: any) => props.theme.size14};
 `;
 export const Button = styled.button`
-  width: ${(props: any) => props.theme.width85};
+  width: ${(props: any) => props.theme.size85};
   border-radius: 5px;
   height: 40px;
 
-  font-size: ${(props: any) => props.theme.fontSize14px};
+  font-size: ${(props: any) => props.theme.size14};
   color: ${(props: any) => props.theme.textWhite};
-  background: ${(props: any) => props.theme.textPoint};
+  background: ${(props: any) => props.theme.brandColor};
 `;
 export const ButtonOut = styled(Button)`
-  color: ${(props: any) => props.theme.textPoint};
-  border: 1px solid ${(props: any) => props.theme.textPoint};
+  color: ${(props: any) => props.theme.brandColor};
+  border: 1px solid ${(props: any) => props.theme.brandColor};
   background: ${(props: any) => props.theme.bgColor};
 `;
 
 export const CommentUl = styled.ul`
-  border-top: 1px solid ${(props: any) => props.theme.borderGray};
+  border-top: 1px solid ${(props: any) => props.theme.borderC};
   padding: 30px 0 0;
   margin-top: 50px;
   
 `;
 export const CommentLi = styled.li`
-  border-bottom: 1px solid ${(props: any) => props.theme.borderGray};
+  border-bottom: 1px solid ${(props: any) => props.theme.borderC};
   padding-bottom: 30px;
   margin-bottom: 30px;
   &:last-child {
@@ -104,8 +104,8 @@ export const CommentImg = styled.img`
 `;
 
 export const CommentName = styled.p`
-  color: ${(props: any) => props.theme.textBlack};
-  font-weight: ${(props: any) => props.theme.fontMedium};
+  color: ${(props: any) => props.theme.black};
+  font-weight: ${(props: any) => props.theme.medium};
   margin-left:10px
 `;
 export const ToggleBtn = styled.button`
@@ -113,7 +113,7 @@ export const ToggleBtn = styled.button`
 `;
 
 export const CommentText = styled.p`
-  color: ${(props: any) => props.theme.textBlack};
+  color: ${(props: any) => props.theme.black};
   margin:20px 0;
   line-height: 1.5;
 `;
@@ -131,21 +131,21 @@ export const CommentLoveIcon = styled.div`
   align-items: center;
 `;
 export const LoveBorder = styled(BsHeart)`
-  stroke: ${(props: any) => props.theme.borderGray};
-  font-size: ${(props: any) => props.theme.fontSize16px};
+  stroke: ${(props: any) => props.theme.borderC};
+  font-size: ${(props: any) => props.theme.size16};
 `;
 export const LoveFill = styled(BsHeartFill)`
   fill: ${(props: any) => props.theme.textRed};
-  font-size: ${(props: any) => props.theme.fontSize16px};
+  font-size: ${(props: any) => props.theme.size16};
 `;
 export const CommentLoveNum = styled.span`
   margin-left: 5px;
-  font-size: ${(props: any) => props.theme.fontSize16px};
+  font-size: ${(props: any) => props.theme.size16};
 `;
 export const CommentDate = styled.p``;
 export const CommentWrite = styled.p`
-  font-weight: ${(props: any) => props.theme.fontMedium};
-  color: ${(props: any) => props.theme.textPoint};
+  font-weight: ${(props: any) => props.theme.medium};
+  color: ${(props: any) => props.theme.brandColor};
   cursor: pointer;
 `;
 

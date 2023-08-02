@@ -11,12 +11,12 @@ export const Input = styled.input`
   border-radius: 5px;
   padding: 0.8rem 0;
   width: 100%;
-  border: ${(props) => props.theme.borderGray} 1px solid;
+  border: ${(props) => props.theme.borderC} 1px solid;
 `;
 
 // 에러 메세지
 export const ErrorMessage = styled.p`
-  font-size: ${(props) => props.theme.fontSize14px};
+  font-size: ${(props) => props.theme.size14};
   color: ${(props) => props.theme.textRed};
   margin: 0.25rem 0;
 `;

@@ -16,9 +16,9 @@ display: grid;
 align-items: center;
 `
 export const ListTitle = styled.h3`
-  color: ${props=>props.theme.textBlack};
-  font-weight: ${props=>props.theme.fontSemiBold};
-  font-size: ${props=>props.theme.fontSize18px};
+  color: ${props=>props.theme.black};
+  font-weight: ${props=>props.theme.semiBold};
+  font-size: ${props=>props.theme.size18};
   margin-bottom: 20px;
 `
 export const ListEachArea = styled.div`
@@ -31,10 +31,10 @@ export const RecommendClassWrap = styled.div`
 `
 export const RecommendClass = styled.li`
   background: ${(props) => props.theme.bgGrayColor};
-  color: ${(props) => props.theme.textBlack};
+  color: ${(props) => props.theme.black};
   list-style: none;
-  font-size: ${(props) => props.theme.fontSize16px};
-  font-weight: ${(props) => props.theme.fontSemiBold};
+  font-size: ${(props) => props.theme.size16};
+  font-weight: ${(props) => props.theme.semiBold};
   text-align: center;
   border-radius: 10px;
   padding: 18px 0;

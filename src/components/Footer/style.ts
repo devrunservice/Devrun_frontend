@@ -16,7 +16,7 @@ export const Left = styled.div`
     margin-right:50px;
 `;
 export const Slogan = styled.p`
-  font-size: ${(props:any) => props.theme.fontSize14px};
+  font-size: ${(props:any) => props.theme.size14};
   color: ${(props:any) => props.theme.textWhite};
   margin-top:10px;
 `;
@@ -30,14 +30,14 @@ export const Link = styled.div`
 `;
 export const Title = styled.em`
   color: ${(props:any) => props.theme.textWhite};
-  font-size: ${(props:any) => props.theme.fontSize14px};
-  font-weight: ${(props:any) => props.theme.fontMedium};
+  font-size: ${(props:any) => props.theme.size14};
+  font-weight: ${(props:any) => props.theme.medium};
   margin-right: 30px;
 `;
 export const LinkLi = styled.p`
   position: relative;
-  color: ${(props:any) => props.theme.textGrayC};
-  font-size: ${(props:any) => props.theme.fontSize14px};
+  color: ${(props: any) => props.theme.borderC};
+  font-size: ${(props: any) => props.theme.size14};
   margin-right: 10px;
   padding-right: 11px;
   &:last-child {
@@ -49,11 +49,11 @@ export const LinkLi = styled.p`
     right: 0;
     width: 1px;
     height: 8px;
-    background: ${(props:any) => props.theme.border83};
-    margin:auto 0;
-    bottom:0;
-    top:0;
-    content:"";
+    background: ${(props: any) => props.theme.border49};
+    margin: auto 0;
+    bottom: 0;
+    top: 0;
+    content: "";
   }
 `;
 export const Bottom = styled.div`
@@ -64,6 +64,6 @@ export const Bottom = styled.div`
 `;
 export const Info = styled.p`
   margin-right: 20px;
-  color: ${(props:any) => props.theme.textGrayC};
-  font-size: ${(props:any) => props.theme.fontSize14px};
+  color: ${(props:any) => props.theme.borderC};
+  font-size: ${(props:any) => props.theme.size14};
 `;

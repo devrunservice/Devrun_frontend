@@ -1,12 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { ChangeEvent, useRef, useState } from "react";
-import { Pagination, Learn, SearchBar } from "components";
+import React, {  useState, useEffect } from "react";
+import { Learn, SearchBar } from "components";
 import * as S from "../styles";
 import * as St from "./style";
 
 const Learning = () => {
-  // const [filterData, setFilterData] = useState(Search.mygage);
-
+useEffect(() => {
+  window.scrollTo(0, 0);
+}, []);
   const [tap, SetTap] = useState<number>(1);
   const tapList = [
     { id: 0, list: "학습순" },
@@ -28,21 +28,21 @@ const Learning = () => {
       <St.LearnCon>
         <St.TapWrap>
           <St.Left>
-            <St.Btn onClick={() => SetTap(1)} active={tap === 1}>
+            <St.Btn onClick={() => SetTap(1)} $active={tap === 1}>
               전체
             </St.Btn>
-            <St.Btn onClick={() => SetTap(2)} active={tap === 2}>
+            <St.Btn onClick={() => SetTap(2)} $active={tap === 2}>
               학습중
             </St.Btn>
-            <St.Btn onClick={() => SetTap(3)} active={tap === 3}>
+            <St.Btn onClick={() => SetTap(3)} $active={tap === 3}>
               완료
             </St.Btn>
           </St.Left>
-          <St.Tap active={tapOpen === true}>
+          <St.Tap $active={tapOpen === true}>
             <St.TapLabel onClick={() => setTapOpen(!tapOpen)}>
               {tapLists}
             </St.TapLabel>
-            <St.Arr active={tapOpen === true} />
+            <St.Arr $active={tapOpen === true} />
             {tapOpen && (
               <St.TapUl>
                 {tapList.map((item) => (
@@ -60,7 +60,7 @@ const Learning = () => {
           {tap === 3 && <Learn />}
         </St.LearnUl>
       </St.LearnCon>
-      <Pagination />
+      {/* <Pagination /> */}
     </section>
   );
 };
