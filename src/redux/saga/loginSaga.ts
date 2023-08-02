@@ -53,7 +53,7 @@ function* loginSaga(
     setCookie("accessToken", accessToken);
     setCookie("refreshToken", refreshToken);
     yield put(loginSuccess(response));
-    // yield call(redirect, "/home");
+    yield call(redirect, "/home");
   } catch (error: any) {
     yield put(loginFail(error));
     yield put(openModal(error.message));

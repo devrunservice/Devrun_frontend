@@ -66,7 +66,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-redux", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:8.1.1"],\
             ["react-router-dom", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:6.14.1"],\
             ["react-scripts", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:5.0.1"],\
-            ["react-spinners", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:0.13.8"],\
             ["redux", "npm:4.2.1"],\
             ["redux-persist", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:6.0.0"],\
             ["redux-saga", "npm:1.2.3"],\
@@ -8727,7 +8726,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-redux", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:8.1.1"],\
             ["react-router-dom", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:6.14.1"],\
             ["react-scripts", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:5.0.1"],\
-            ["react-spinners", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:0.13.8"],\
             ["redux", "npm:4.2.1"],\
             ["redux-persist", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:6.0.0"],\
             ["redux-saga", "npm:1.2.3"],\
@@ -16792,32 +16790,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "eslint",\
             "react",\
             "typescript"\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["react-spinners", [\
-        ["npm:0.13.8", {\
-          "packageLocation": "./.yarn/cache/react-spinners-npm-0.13.8-bf54f5b324-cb58f916bb.zip/node_modules/react-spinners/",\
-          "packageDependencies": [\
-            ["react-spinners", "npm:0.13.8"]\
-          ],\
-          "linkType": "SOFT"\
-        }],\
-        ["virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:0.13.8", {\
-          "packageLocation": "./.yarn/__virtual__/react-spinners-virtual-ad2053ff90/0/cache/react-spinners-npm-0.13.8-bf54f5b324-cb58f916bb.zip/node_modules/react-spinners/",\
-          "packageDependencies": [\
-            ["react-spinners", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:0.13.8"],\
-            ["@types/react", "npm:18.2.14"],\
-            ["@types/react-dom", "npm:18.2.6"],\
-            ["react", "npm:18.2.0"],\
-            ["react-dom", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:18.2.0"]\
-          ],\
-          "packagePeers": [\
-            "@types/react-dom",\
-            "@types/react",\
-            "react-dom",\
-            "react"\
           ],\
           "linkType": "HARD"\
         }]\
