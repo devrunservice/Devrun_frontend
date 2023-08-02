@@ -21,12 +21,12 @@ export const Container = styled.div`
   margin: 3rem 0;
   background-color: ${(props) => props.theme.bgColor};
   border-radius: 10px;
-  border: ${(props) => props.theme.borderGray} 1px solid;
+  border: ${(props) => props.theme.borderC} 1px solid;
 `;
 
 // 아이디, 비밀번호 찾기
 export const H1 = styled.h1`
-  color: ${(props) => props.theme.textBlack};
+  color: ${(props) => props.theme.black};
   text-align: center;
   padding-bottom: 1.5rem;
 `;
@@ -53,7 +53,7 @@ export const MenuIdBtn = styled(Button)`
   border-radius: 0px;
   width: 100%;
   &.id {
-    color: ${(props) => props.theme.textBlack};
+    color: ${(props) => props.theme.black};
     background-color: ${(props) => props.theme.bgColor};
     border: ${(props) => props.theme.brandColor} 2px solid;
     border-bottom: 0;
@@ -73,7 +73,7 @@ export const MenuPasswordBtn = styled(Button)`
     background-color: ${(props) => props.theme.brandColor};
   }
   &.password {
-    color: ${(props) => props.theme.textBlack};
+    color: ${(props) => props.theme.black};
     background-color: ${(props) => props.theme.bgColor};
     border: ${(props) => props.theme.brandColor} 2px solid;
     border-bottom: 0;

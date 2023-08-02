@@ -13,6 +13,9 @@
     "axios": "^1.4.0",
     "base-64": "^1.0.0",
     "chart.js": "^4.3.0",
+    "file-saver": "^2.0.5",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-cookie": "^4.1.1",
@@ -61,7 +64,10 @@
     ]
   },
   "devDependencies": {
+    "@types/file-saver": "^2.0.5",
+    "@types/html2canvas": "^1.0.0",
     "@types/jest": "^29.5.2",
+    "@types/jspdf": "^2.0.0",
     "@types/node": "^20.3.1",
     "@types/react": "^18.2.13",
     "@types/react-dom": "^18.2.6",

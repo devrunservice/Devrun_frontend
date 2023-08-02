@@ -6,10 +6,11 @@ import {
   RequestPayResponse,
   SignupFormType,
   TokenType,
-  IMySearch,
-  IRefund,
-  ICoupon,
+  CouponGet,
 } from "types";
+import * as I from "types"
+
+
 import { authAxios, accAxios } from "./instance";
 
 export const signup = {
@@ -70,9 +71,8 @@ export const login = {
   },
   checkKakaoLogin: async (params: string) => {
     const response = await authAxios.get(
-      `${process.env.REACT_APP_SERVER_URL}/auth/kakao/callback?code=${params}`,
+      `/auth/kakao/callback?code=${params}`,
     );
-    console.log(response);
     return response;
   },
 };
@@ -106,26 +106,33 @@ export const Cart = {
     const response = accAxios.post(`/verifyIamport/${params.imp_uid}`);
     return response;
   },
-  save: (params: RequestPayResponse) => {
+  save: (params: I.CallbackData[]) => {
     const response = accAxios.post("/savePaymentInfo", params);
     return response;
   },
-  coupon: (params: ICoupon) => {
+  coupon: (params: I.Coupon) => {
     const response = accAxios.post(`/applyCoupon`, params);
     return response;
   },
-  refund: (params: IRefund) => {
+  refund: (params: I.Refund) => {
     const response = accAxios.post("/payment", params);
-
     return response;
   },
 };
 
 export const Search = {
-  mygage: (params: IMySearch) => {
+  mygage: (params: I.MySearch) => {
     const response = accAxios.get("/params", { params: { params } });
     return response;
   },
 };
-
+export const mygage = {
+  pay: () => {
+    const response = accAxios.get("/PaymentInfo");
+    return response;
+  },
+  coupon: (params:I.CouponGet) => {
+    const response = accAxios.post("​/coupon​/registrate", params);
+  },
+};
 /* eslint-disable @typescript-eslint/no-unused-vars */

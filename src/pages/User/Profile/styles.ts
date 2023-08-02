@@ -27,7 +27,7 @@ export const ProfileImg = styled.img`
 `;
 
 const InputCommon = styled.input`
-  border: 1px solid ${(props) => props.theme.borderGray};
+  border: 1px solid ${(props) => props.theme.borderC};
   line-height: 43px;
   height: 45px;
   border-radius: 5px;
@@ -44,9 +44,9 @@ const InputCommon = styled.input`
 `;
 
 export const ProfileP = styled.p`
-  color: ${(props) => props.theme.textBlack};
+  color: ${(props) => props.theme.black};
   margin-bottom: 0.6rem;
-  font-weight: ${(props) => props.theme.fontSemiBold};
+  font-weight: ${(props) => props.theme.semiBold};
 `;
 
 export const InputOther = styled(InputCommon)`
@@ -64,9 +64,9 @@ export const Phonenumber = styled.div`
 export const ChangeBtn = styled.button`
   height: 45px;
   text-align: center;
-  width: ${(props: any) => props.theme.width85};
-  color: ${(props: any) => props.theme.textPoint};
-  border: 1px solid ${(props: any) => props.theme.textPoint};
+  width: ${(props: any) => props.theme.size85};
+  color: ${(props: any) => props.theme.brandColor};
+  border: 1px solid ${(props: any) => props.theme.brandColor};
   background: transparent;
   border-radius: 5px;
   cursor: pointer;
