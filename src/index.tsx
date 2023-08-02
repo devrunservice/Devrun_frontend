@@ -1,48 +1,102 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import reportWebVitals from './reportWebVitals';
-import {createBrowserRouter, RouterProvider} from 'react-router-dom';
-import {ThemeProvider} from 'styled-components';
-import {GlobalStyle, defaultTheme} from 'style/Theme';
-import store from "./redux/store";
-import {Provider} from 'react-redux';
-import App from './App';
-import { Notice, Basket, HomePage, Login, SignUp, NotFound, Lecture, DetailPage, CreateVideo } from "pages";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
+import { ThemeProvider } from "styled-components";
+import { GlobalStyle, defaultTheme } from "style/Theme";
+import { CookiesProvider } from "react-cookie";
+import { getCookie } from "utils/cookies";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import * as Route from "pages";
+import store, { persistor } from "./redux/store";
+import App from "./App";
 
+import reportWebVitals from "./reportWebVitals";
+
+const ACCESS_TOKEN = getCookie("accessToken");
+const EASY_LOTIN_TOKEN = getCookie("easyLoginToken");
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <NotFound />,
+    errorElement: <Route.NotFound />,
     children: [
-      { index: true, element: <HomePage /> },
-      { path: "home", element: <HomePage /> },
-      { path: "login", element: <Login /> },
-      { path: "signUp", element: <SignUp /> },
-      { path: "basket", element: <Basket /> },
-      { path: "notice", element: <Notice /> },
-      { path: "lecture", element: <Lecture /> },
-      { path: "detail", element: <DetailPage /> },
-      { path: "createVideo", element: <CreateVideo /> },
+      { index: true, element: <Route.HomePage /> },
+      { path: "home", element: <Route.HomePage /> },
+      { path: "login", element: <Route.Login /> },
+      {
+        path: "auth/kakao/callback/login",
+        element: EASY_LOTIN_TOKEN ? (
+          <Route.Login />
+        ) : (
+          <Navigate replace to="/login" />
+        ),
+      },
+      { path: "auth/kakao/callback", element: <Route.Auth2RedirectHandler /> },
+      { path: "signup", element: <Route.Signup /> },
+      { path: "findaccount:id", element: <Route.FindId /> },
+      { path: "findaccount:password", element: <Route.FindPassword /> },
+      {
+        path: "basket",
+        element: ACCESS_TOKEN ? (
+          <Route.Basket />
+        ) : (
+          <Navigate replace to="/login" />
+        ),
+      },
+      {
+        path: "notice",
+        element: ACCESS_TOKEN ? (
+          <Route.Notice />
+        ) : (
+          <Navigate replace to="/login" />
+        ),
+      },
+      { path: "noticeWrite", element: <Route.NoticeWrite /> },
+      { path: "noticeDetail", element: <Route.NoticeDetail /> },
+      { path: "lecture", element: <Route.Lecture /> },
+      { path: "detail", element: <Route.DetailPage /> },
+      { path: "createVideo", element: <Route.CreateVideo /> },
+      { path: "profile", element: <Route.Profile /> },
+      { path: "profileupdate", element: <Route.ProfileUpdate /> },
+      { path: "dashboard", element: <Route.Dashboard /> },
+      { path: "notes", element: <Route.Notes /> },
+      { path: "questions", element: <Route.Questions /> },
+      { path: "cert", element: <Route.Cert /> },
+      { path: "certDetail", element: <Route.CertDetail /> },
+      { path: "coupon", element: <Route.Coupon /> },
+      { path: "Receipt", element: <Route.Receipt /> },
+      { path: "learning", element: <Route.Learning /> },
+      {
+        path: "createVideo",
+        element: ACCESS_TOKEN ? (
+          <Route.CreateVideo />
+        ) : (
+          <Navigate replace to="/login" />
+        ),
+      },
     ],
   },
 ]);
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement,
 );
 root.render(
-  <React.StrictMode>
+  <CookiesProvider>
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyle />
       <Provider store={store}>
-        <RouterProvider router={router} />
+        <PersistGate loading={null} persistor={persistor}>
+          <RouterProvider router={router} />
+        </PersistGate>
       </Provider>
     </ThemeProvider>
-  </React.StrictMode>
+  </CookiesProvider>,
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

@@ -1,6 +1,6 @@
 import {styled} from 'styled-components'
 
-//preview
+// preview
 export const DetailWrap = styled.div`
 `
 export const PreviewArea = styled.section`
@@ -25,7 +25,7 @@ export const DetailInfo = styled.div`
 `
 export const DetailInfoTitle = styled.div`
   margin-bottom: 20px;
-  font-weight: ${props=>props.theme.fontBold}
+  font-weight: ${props=>props.theme.bold}
 `
 export const DetailUtils = styled.div`
   display: flex;
@@ -85,7 +85,7 @@ export const DetailHash = styled.span`
   margin: 5px;
 `
 
-//main content & info
+// main content & info
 export const DetailMainWrap = styled.section`
   width: 1200px;
   margin: 0 auto;
@@ -114,7 +114,7 @@ export const DraftArea = styled.section`
   justify-content: center;
 `
 export const SectionTitle = styled.div`
-  font-weight: ${props=>props.theme.fontSemiBold};
+  font-weight: ${props=>props.theme.semiBold};
   font-size: 25px;
   margin-bottom: 20px;
 `

@@ -1,20 +1,57 @@
-import { Footer,Header } from 'components';
-import {Outlet, useLocation} from 'react-router-dom';
+import React from "react";
+import { Footer, Header, MypageNav } from "components";
+import { Outlet, useLocation } from "react-router-dom";
+import * as St from "style/Common";
 
-function App() {
+const App = () => {
   const location = useLocation();
   const hideHeader =
-    location.pathname === "/signUp" || location.pathname === "/login";
+    location.pathname === "/signup" ||
+    location.pathname === "/login" ||
+    location.pathname === "/auth/kakao/callback/login" ||
+    location.pathname === "/findaccount:id" ||
+    location.pathname === "/findaccount:password" ||
+    location.pathname === "/auth/kakao/callback";
+
   const hideFooter =
-    location.pathname === "/signUp" || location.pathname === "/login";
+    location.pathname === "/signup" ||
+    location.pathname === "/login" ||
+    location.pathname === "/auth/kakao/callback/login" ||
+    location.pathname === "/findaccount:id" ||
+    location.pathname === "/findaccount:password" ||
+    location.pathname === "/auth/kakao/callback";
+
+  const myPage =
+    location.pathname === "/profile" ||
+    location.pathname === "/profileupdate" ||
+    location.pathname === "/cert" ||
+    location.pathname === "/CertDetail" ||
+    location.pathname === "/dashboard" ||
+    location.pathname === "/learning" ||
+    location.pathname === "/notes" ||
+    location.pathname === "/questions" ||
+    location.pathname === "/coupon" ||
+    location.pathname === "/receipt";
 
   return (
     <>
       {!hideHeader && <Header />}
-      <Outlet />
+      {!myPage ? (
+        <Outlet />
+      ) : (
+        <St.AppSection>
+          <div className="left-panel">
+            <MypageNav />
+          </div>
+          <div className="right-panel">
+            <Outlet />
+          </div>
+        </St.AppSection>
+      )}
+
       {!hideFooter && <Footer />}
     </>
   );
-}
+};
 
 export default App;
