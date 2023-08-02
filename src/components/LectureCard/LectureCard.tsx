@@ -6,8 +6,13 @@ interface LectureCardType {
   key?: number;
   category: string;
   title?: string;
+  progress?: number;
 }
-const LectureCard: React.FC<LectureCardType> = ({ category, title }) => (
+const LectureCard: React.FC<LectureCardType> = ({
+  category,
+  title,
+  progress,
+}) => (
   <St.List>
     <St.ListThumbnail />
     <St.ListTextArea>
@@ -24,7 +29,7 @@ const LectureCard: React.FC<LectureCardType> = ({ category, title }) => (
               <St.ListViewCount>2.8</St.ListViewCount>
             </div>
           </St.Progress>
-          <div>진도율 막대기</div>
+          <div>{progress}</div>
         </>
       )}
       {category === "detail" ||
