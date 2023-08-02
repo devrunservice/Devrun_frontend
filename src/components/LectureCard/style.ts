@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 
 export const List = styled.li`
-  color: ${(props) => props.theme.textBlack};
+  color: ${(props) => props.theme.black};
   margin-bottom: 30px;
   width: 100%;
 `;
@@ -49,5 +49,5 @@ export const Progress = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  font-size: ${(props) => props.theme.fontSize12px};
+  font-size: ${(props) => props.theme.size12};
 `;
