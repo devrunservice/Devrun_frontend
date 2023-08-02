@@ -25,7 +25,7 @@ export const DetailInfo = styled.div`
 `
 export const DetailInfoTitle = styled.div`
   margin-bottom: 20px;
-  font-weight: ${props=>props.theme.fontBold}
+  font-weight: ${props=>props.theme.bold}
 `
 export const DetailUtils = styled.div`
   display: flex;
@@ -114,7 +114,7 @@ export const DraftArea = styled.section`
   justify-content: center;
 `
 export const SectionTitle = styled.div`
-  font-weight: ${props=>props.theme.fontSemiBold};
+  font-weight: ${props=>props.theme.semiBold};
   font-size: 25px;
   margin-bottom: 20px;
 `

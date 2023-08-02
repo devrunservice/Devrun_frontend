@@ -5,9 +5,9 @@ export const TitleWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  font-size: ${(props: any) => props.theme.fontSize25px};
-  font-weight: ${(props: any) => props.theme.fontBold};
-  color: ${(props: any) => props.theme.textBlack};
+  font-size: ${(props: any) => props.theme.size25};
+  font-weight: ${(props: any) => props.theme.bold};
+  color: ${(props: any) => props.theme.black};
   padding-bottom: 1rem;
 
   & > h1 {
@@ -30,9 +30,9 @@ export const Top = styled.div`
 `;
 export const Title = styled.h4`
   line-height: 1;
-  font-size: ${(props: any) => props.theme.fontSize25px};
-  font-weight: ${(props: any) => props.theme.fontBold};
-  color: ${(props: any) => props.theme.textBlack};
+  font-size: ${(props: any) => props.theme.size25};
+  font-weight: ${(props: any) => props.theme.bold};
+  color: ${(props: any) => props.theme.black};
   display: flex;
   align-items: flex-end;
 `;

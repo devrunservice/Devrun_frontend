@@ -1,16 +1,14 @@
 import React,{ ChangeEvent, useState } from "react";
 import { RxDotsVertical } from "react-icons/rx";
 import NoImg from "asset/images/NoImg.jpg";
+import * as I from "types";
 import * as St from "./style";
 
-interface IComment {
-  comment: string;
-  comments: string;
-}
+
 
 const Comment = () => {
   
-  const [comment, setComment] = useState<IComment>({
+  const [comment, setComment] = useState<I.Comment>({
     comment: "",
     comments: "",
   });  

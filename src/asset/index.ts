@@ -24,3 +24,4 @@ export { ReactComponent as PlusCircle } from "./images/plus-circle.svg";
 export { ReactComponent as Pencil } from "./images/pencil.svg";
 export { ReactComponent as Trash } from "./images/trash.svg";
 export { ReactComponent as Close } from "./images/close.svg";
+export { ReactComponent as Stamp } from "./images/Stamp.svg";
