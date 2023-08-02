@@ -118,7 +118,7 @@ const Basket = () => {
       pg: "html5_inicis", // PG사
       pay_method: "card", // 결제수단
       merchant_uid: `merchant_${new Date().getTime()}`, // 주문번호
-      amount: 100, // 결제금액
+      amount: price.price - mypoint - price.discounts, // 결제금액
       name: "주문명입니다.", // 주문명
       buyer_name: user.name, // 구매자 이름
       buyer_tel: user.phonenumber, // 구매자 전화번호
