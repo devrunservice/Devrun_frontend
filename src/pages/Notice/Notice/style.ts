@@ -7,11 +7,10 @@ export const Title = styled.h4`
   color: ${(props: any) => props.theme.black};
 `;
 
-
 export const ButtonWrap = styled.div`
   display: flex;
   justify-content: flex-end;
- 
+
 `;
 export const Button = styled.button`
   width: ${(props:any) => props.theme.size85};

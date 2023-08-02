@@ -43,6 +43,5 @@ const Pagination = (props: I.Pagination) => {
     </St.PagingWrap>
   );
 };
-
 export default Pagination;
 /* eslint-disable @typescript-eslint/no-unused-vars */
