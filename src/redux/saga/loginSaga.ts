@@ -26,9 +26,9 @@ function* loginSaga(
     console.log(response);
     const accessToken = response.data.Access_token.substr(7);
     const refreshToken = response.data.Refresh_token.substr(7);
-    // const offset = 1000 * 60 * 60 * 9;
-    // const expirationDate = new Date(new Date().getTime() + offset);
-    // expirationDate.setMinutes(expirationDate.getMinutes() + 1);
+    const offset = 1000 * 60 * 60 * 9;
+    const expirationDate = new Date(new Date().getTime() + offset);
+    expirationDate.setMinutes(expirationDate.getMinutes() + 1);
     // setCookie("accessToken", accessToken, {
     //   // 모든페이지에서 쿠키 엑세스 가능
     //   path: "/",
@@ -45,6 +45,7 @@ function* loginSaga(
     //   httpOnly: true,
     //   expires: expirationDate,
     // });
+    // 만료된 토큰
     // const accessToken =
     //   "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiYmIyMjIiLCJpYXQiOjE2OTAzNzcwODAsImV4cCI6MTY5MDQ2MzQ4MH0.RbkMntKliTUQK5mSjBcfjY9-X46n1tiXklFJddBnImgc3ctpEiv95tHivqMeDj6xbqZW9NMC_wD1TNFbwtIIpw";
     // const refreshToken =
@@ -52,7 +53,7 @@ function* loginSaga(
     setCookie("accessToken", accessToken);
     setCookie("refreshToken", refreshToken);
     yield put(loginSuccess(response));
-    yield call(redirect, "/home");
+    // yield call(redirect, "/home");
   } catch (error: any) {
     yield put(loginFail(error));
     yield put(openModal(error.message));

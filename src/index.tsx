@@ -18,6 +18,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 const ACCESS_TOKEN = getCookie("accessToken");
+const EASY_LOTIN_TOKEN = getCookie("easyLoginToken");
 const router = createBrowserRouter([
   {
     path: "/",
@@ -27,7 +28,14 @@ const router = createBrowserRouter([
       { index: true, element: <Route.HomePage /> },
       { path: "home", element: <Route.HomePage /> },
       { path: "login", element: <Route.Login /> },
-      { path: "auth/kakao/callback/login", element: <Route.Login /> },
+      {
+        path: "auth/kakao/callback/login",
+        element: EASY_LOTIN_TOKEN ? (
+          <Route.Login />
+        ) : (
+          <Navigate replace to="/login" />
+        ),
+      },
       { path: "auth/kakao/callback", element: <Route.Auth2RedirectHandler /> },
       { path: "signup", element: <Route.Signup /> },
       { path: "findaccount:id", element: <Route.FindId /> },

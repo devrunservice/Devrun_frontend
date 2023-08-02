@@ -21,6 +21,7 @@ const modalReducer = createSlice({
         state.modalMessage2 = message[1];
       } else {
         state.modalMessage1 = action.payload;
+        state.modalMessage2 = "";
       }
     },
     closeModal: (state) => {

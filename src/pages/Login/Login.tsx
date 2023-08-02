@@ -23,8 +23,6 @@ const LoginForm = () => {
 
   const isFormValid = loginForm.id !== "" && loginForm.password !== "";
 
-  const handleClickLogo = () => navigate("/");
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(
@@ -57,7 +55,7 @@ const LoginForm = () => {
   return (
     <St.Section>
       <St.Container>
-        <St.LogoBtn onClick={handleClickLogo}>
+        <St.LogoBtn onClick={() => navigate("/")}>
           <BrandLogo />
         </St.LogoBtn>
         {/* 로그인 */}
