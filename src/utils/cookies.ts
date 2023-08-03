@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { login } from "utils/api";
-import { Cookies } from "react-cookie";
+import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
 
@@ -12,5 +10,5 @@ export const setCookie = (name: string, value: string, option?: any) =>
 export const getCookie = (name: string) => cookies.get(name);
 
 // 쿠키를 지울 때
-export const removeCookie = (name: string) => cookies.remove(name);
-
+export const removeCookie = (name: string, option?: any) =>
+  cookies.remove(name, { ...option });
