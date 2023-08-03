@@ -8,8 +8,7 @@ import {
   TokenType,
   CouponGet,
 } from "types";
-import * as I from "types"
-
+import * as I from "types";
 
 import { authAxios, accAxios } from "./instance";
 
@@ -70,9 +69,8 @@ export const login = {
     return response.data.Access_token;
   },
   checkKakaoLogin: async (params: string) => {
-    const response = await authAxios.get(
-      `/auth/kakao/callback?code=${params}`,
-    );
+    const response = await authAxios.get(`/auth/kakao/callback?code=${params}`);
+    console.log(response);
     return response;
   },
 };
@@ -89,6 +87,11 @@ export const findAccount = {
   },
   findPassword: async (params: SignupFormType) => {
     const response = await authAxios.post("/find/password", params);
+    return response;
+  },
+  checkIdPhonenumberMatched: async (params: SignupFormType) => {
+    const response = await authAxios.post("verifyPhone", params);
+    console.log(response);
     return response;
   },
 };

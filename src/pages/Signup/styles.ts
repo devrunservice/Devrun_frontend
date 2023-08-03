@@ -99,7 +99,7 @@ export const Checkbox = styled.input`
 
 export const CancelBtn = styled(Button)`
   padding: 0.8rem 0;
-  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
   width: 100%;
 `;
 

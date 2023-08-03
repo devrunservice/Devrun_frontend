@@ -4,17 +4,18 @@ import * as I from "types";
 import * as St from "./style";
 
 const ReceiptTable = (props: I.ReceiptTable) => {
-  
   const receipt = (item: string | undefined) => {
     const windowFeatures =
       "width=420,height=512,menubar=no,toolbar=no,location=no,resizable=yes,scrollbars=yes";
     window.open(item, "_blank", windowFeatures);
   };
+
   const basketBtn = async (
     merchant_uid: string | undefined,
     name: string | undefined,
     amount: number | undefined,
   ) => {
+    
     if (window.confirm("환불하시겠습니까?")) {
       const pay: I.Refund = {
         merchant_uid: merchant_uid,
@@ -67,5 +68,5 @@ const ReceiptTable = (props: I.ReceiptTable) => {
       })}
     </St.ReceiptTable>
   );
-};
+}
 export default ReceiptTable;

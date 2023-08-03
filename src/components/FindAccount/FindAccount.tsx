@@ -97,6 +97,47 @@ const FindAccount = ({ findOption }: { findOption: string }) => {
         });
         console.log(response);
       }
+      // } else if (name === "findPasswordBtn") {
+      //   if (option === "phonenumber") {
+      //     console.log("휴대폰 번호로 비밀번호 찾기");
+      //     console.log(findAccountForm);
+      //     try {
+      //       // check if Id and Phonenumber match in the registered account
+      //       let response = await findAccount.checkIdPhonenumberMatched({
+      //         id: findAccountForm.id,
+      //         phonenumber: findAccountForm.phonenumber,
+      //       });
+      //       console.log(response);
+      //       // if matched send verification code
+      //       if (response.status === 200) {
+      //         try {
+      //           response = await findAccount.findPassword({
+      //             id: findAccountForm.id,
+      //             password: findAccountForm.password,
+      //             phonenumber: findAccountForm.phonenumber,
+      //             code: findAccountForm.code,
+      //           });
+      //           if (response.status === 200) {
+      //             dispatch(
+      //               openModal(
+      //                 "비밀번호 변경이 완료되었습니다./다시 로그인 해주세요",
+      //               ),
+      //             );
+      //             navigate("/login");
+      //           }
+      //         } catch (error: any) {
+      //           console.log(error);
+      //         }
+      //       }
+      //       // if not matched show error message
+      //     } catch (error: any) {
+      //       console.log(error.message);
+      //       dispatch(openModal(error.message));
+      //     }
+      //   } else {
+      //     console.log("이메일로 비밀번호 찾기");
+      //   }
+      // }
     } else if (name === "findPasswordBtn") {
       if (option === "phonenumber") {
         console.log("휴대폰 번호로 비밀번호 찾기");
@@ -199,12 +240,18 @@ const FindAccount = ({ findOption }: { findOption: string }) => {
         )}
         {option === "phonenumber" ? (
           <AuthenticationNumber
+            findOption={findOption}
             option={option}
+            id={findAccountForm.id}
+            page="findAccount"
             getAuthenticationForm={getAuthenticationForm}
           />
         ) : (
           <AuthenticationNumber
+            findOption={findOption}
             option={option}
+            id={findAccountForm.id}
+            page="findAccount"
             getAuthenticationForm={getAuthenticationForm}
           />
         )}
@@ -225,9 +272,7 @@ const FindAccount = ({ findOption }: { findOption: string }) => {
             />
           </St.InputField>
         )}
-        <St.CancelBtn type="button" onClick={() => navigate("/login")}>
-          취소
-        </St.CancelBtn>
+
         {findOption === "id" ? (
           <St.Button type="submit" name="findIdBtn" onClick={handleClick}>
             아이디 찾기
@@ -237,6 +282,9 @@ const FindAccount = ({ findOption }: { findOption: string }) => {
             비밀번호 찾기
           </St.Button>
         )}
+        <St.CancelBtn type="button" onClick={() => navigate("/login")}>
+          취소
+        </St.CancelBtn>
       </form>
     </>
   );

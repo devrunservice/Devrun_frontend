@@ -59,6 +59,17 @@ export interface IsValidType {
   mcChecked: boolean;
 }
 
+export interface IsValidMessageType {
+  idMessage: string;
+  passwordMessage: string;
+  passwordConfirmMessage: string;
+  emailMessage: string;
+  phonenumberMessage: string;
+  codeMessage: string;
+  idDuplicationMessage: string;
+  emailDuplicationMessage: string;
+}
+
 // 로그인 타입
 export interface LoginFormType {
   id: string;

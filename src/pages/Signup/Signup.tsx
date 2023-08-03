@@ -34,8 +34,7 @@ const Signup = () => {
     validMessage,
     isValid,
     // setIsValid,
-    checkDuplicatedId,
-    checkDuplicatedEmail,
+    checkDuplicated,
     checkAllChecked,
     checkConsent,
   } = useValid(signupForm);
@@ -50,7 +49,7 @@ const Signup = () => {
   const minDate = new Date(
     currentDate.getFullYear() - 19,
     currentDate.getMonth(),
-    currentDate.getDate(),
+    currentDate.getDate() + 1,
   )
     .toISOString()
     .split("T")[0];
@@ -87,25 +86,15 @@ const Signup = () => {
     setSignupForm({ ...signupForm, [name]: value });
   };
 
-  // 아이디 중복
-  const handleClickDuplicatedId = () => {
-    checkDuplicatedId(signupForm.id || "");
+  // 아이디, 이메일 중복확인
+  const handleDuplicated = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const { name } = e.target as HTMLButtonElement;
+    if (name === "idDuplicationBtn") {
+      checkDuplicated("id", "아이디", signupForm.id || "");
+    } else if (name === "emailDuplicationBtn") {
+      checkDuplicated("email", "이메일", signupForm.email || "");
+    }
   };
-
-  // 이메일 중복 확인
-  const handleClickDuplicatedEmail = () => {
-    checkDuplicatedEmail(signupForm.email || "");
-  };
-
-  // 휴대폰 인증번호
-  // const handleGetAuthenticationNumber = () => {
-  //   requestAuthenticationNumber(signupForm.phonenumber);
-  // };
-
-  // // 인증번호 확인
-  // const handleCheckAuthenticationNumber = () => {
-  //   verifyAuthenticationNumber(signupForm.phonenumber, signupForm.code);
-  // };
 
   // 약관 동의
   const handleAllChecked = () => {
@@ -122,8 +111,6 @@ const Signup = () => {
   const getAuthenticationForm = (values: SignupFormType) => {
     signupForm.phonenumber = values.phonenumber;
     signupForm.code = values.code;
-    console.log(signupForm.phonenumber);
-    console.log(signupForm.code);
   };
 
   // 생년월일 값 가져오기
@@ -156,7 +143,8 @@ const Signup = () => {
               />
               <St.Button
                 type="button"
-                onClick={handleClickDuplicatedId}
+                name="idDuplicationBtn"
+                onClick={handleDuplicated}
                 disabled={!isValid.id}
               >
                 중복확인
@@ -224,7 +212,8 @@ const Signup = () => {
               />
               <St.Button
                 type="button"
-                onClick={handleClickDuplicatedEmail}
+                name="emailDuplicationBtn"
+                onClick={handleDuplicated}
                 disabled={isValid.email === false}
               >
                 중복확인
@@ -259,59 +248,9 @@ const Signup = () => {
           </St.InputField>
 
           {/* 휴대폰 번호 input */}
-          {/* <St.InputField>
-            <St.P>휴대폰 번호</St.P>
-            <St.Field>
-              <Input
-                type="text"
-                name="phonenumber"
-                value={signupForm.phonenumber}
-                placeholder="휴대폰 번호 '-' 제외하고 입력"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  setSignupForm({ ...signupForm, phonenumber: e.target.value });
-                  setIsValid((prev) => ({ ...prev, phonenumber: true }));
-                }}
-              />
-              <St.Button
-                type="button"
-                onClick={handleGetAuthenticationNumber}
-                disabled={!isValid.phonenumber}
-              >
-                인증번호
-              </St.Button>
-            </St.Field>
-            {isValid.codeBtn && isValid.phonenumber ? (
-              <SuccessMessage>{validMessage.phonenumberMessage}</SuccessMessage>
-            ) : (
-              <ErrorMessage>{validMessage.phonenumberMessage}</ErrorMessage>
-            )}
-            <St.Field>
-              <Input
-                type="text"
-                name="code"
-                value={signupForm.code}
-                placeholder="인증번호 입력"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  setSignupForm({ ...signupForm, code: e.target.value });
-                  setIsValid((prev) => ({ ...prev, code: true }));
-                }}
-              />
-              <St.Button
-                type="button"
-                onClick={handleCheckAuthenticationNumber}
-                disabled={!isValid.code}
-              >
-                확인
-              </St.Button>
-            </St.Field>
-            {isValid.checkCodeBtn && isValid.code ? (
-              <SuccessMessage>{validMessage.codeMessage}</SuccessMessage>
-            ) : (
-              <ErrorMessage>{validMessage.codeMessage}</ErrorMessage>
-            )}
-          </St.InputField> */}
           <AuthenticationNumber
             option="phonenumber"
+            page="signup"
             getAuthenticationForm={getAuthenticationForm}
           />
 
@@ -374,13 +313,13 @@ const Signup = () => {
             </St.Li>
           </St.Ul>
 
-          <St.CancelBtn type="button" onClick={() => navigate("/")}>
-            취소
-          </St.CancelBtn>
           {/* 회원가입 버튼 */}
           <St.SignupBtn type="submit" disabled={disabledBtn}>
             회원가입
           </St.SignupBtn>
+          <St.CancelBtn type="button" onClick={() => navigate("/")}>
+            취소
+          </St.CancelBtn>
         </form>
         <Modal page="signup" />
       </St.Container>
