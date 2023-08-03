@@ -38,9 +38,9 @@ const Basket = () => {
     discounts: 0,
   });
 
-  console.log(price.discounts, price.discount);
   useEffect(()=>{
     setCheckedList(dataLists);
+    
   },[])
   useEffect(() => {
     if (price.discount > 0) {
@@ -75,8 +75,6 @@ const Basket = () => {
     }
   }, [checkedList]); 
 
-
-  
   
   // 콜백 함수 정의
   const callback = async (response: I.RequestPayResponse) => {
@@ -101,7 +99,7 @@ const Basket = () => {
     const res = await Cart.callbak({ imp_uid });
     if (paid_amount === res.data.response.amount && success) {
       await Cart.save(payload);
-      // navigate("/learning");
+      navigate("/learning");
     } else {
       alert("결제를 취소했습니다.");
     }
@@ -128,7 +126,14 @@ const Basket = () => {
     IMP.request_pay(data, callback);
   };
   const couponBtn = async (item: string) => {
-    if (item !== "쿠폰을 선택해주세요") {
+    if(checkedList.length == 0){
+      setSelets({
+        ...selets,
+        seletes: "쿠폰을 선택해주세요",
+        seletsBoolean:false,
+      });
+      alert("상품을 선택해주세요")
+    }else if (item !== "쿠폰을 선택해주세요") {
       const data: I.Coupon = {
         couponCode: item,
         amount: price.price,
@@ -177,7 +182,7 @@ const Basket = () => {
                 {dataLists.length}
               </St.CheckLabel>
             </St.Left>
-            <St.Right>
+            <St.Right type="button">
               선택삭제
               <St.Deletes />
             </St.Right>

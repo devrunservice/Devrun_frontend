@@ -3,11 +3,10 @@ import * as I from "types";
 
 const useCheck = () => {
     const dataLists = [
-      { id: 1, name: "aaa", paid_amount: 80, mypoint: 100 },
+      { id: 1, name: "aaa", paid_amount: 80 },
       { id: 2, name: "bbb", paid_amount: 20 },
     ];
       const [checkedList, setCheckedList] = useState<I.CallbackData[]>([]);
-    console.log(checkedList);
   // 체크박스 단일 선택
   const singleCheack = (
     checked: boolean,

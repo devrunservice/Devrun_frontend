@@ -13,12 +13,12 @@ const ReceiptTable = (props: I.ReceiptTable) => {
   const basketBtn = async (
     merchant_uid: string | undefined,
     name: string | undefined,
-    paid_amount: number | undefined,
+    amount: number | undefined,
   ) => {
     if (window.confirm("환불하시겠습니까?")) {
       const pay: I.Refund = {
         merchant_uid: merchant_uid,
-        amount: paid_amount,
+        amount: amount,
         reason: name,
       };
       await Cart.refund(pay);
@@ -27,7 +27,7 @@ const ReceiptTable = (props: I.ReceiptTable) => {
       alert("취소되었습니다.");
     }
   };
-  console.log(props.data)
+
 
   return (
     <St.ReceiptTable>

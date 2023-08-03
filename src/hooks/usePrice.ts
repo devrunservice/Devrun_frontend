@@ -2,7 +2,6 @@ import React,{ useState } from "react";
 
 const usePrice = () => {
     const [mypoint, setMypoint] = useState(0);
-    console.log(mypoint)
   // 1000당 , 넣기
   const priceDot = (num: number) => {
     const returnString = num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
