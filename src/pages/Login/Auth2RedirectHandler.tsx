@@ -24,7 +24,7 @@ const Auth2RedirectHandler = () => {
   useEffect(() => {
     if (redirectTo === "/auth/kakao/callback/login") {
       console.log("로그인으로 이동");
-      navigate("/auth/kakao/callback/login");
+      navigate("/login");
     }
   }, [redirectTo]);
 
