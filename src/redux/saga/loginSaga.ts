@@ -50,8 +50,9 @@ function* loginSaga(
     //   "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiYmIyMjIiLCJpYXQiOjE2OTAzNzcwODAsImV4cCI6MTY5MDQ2MzQ4MH0.RbkMntKliTUQK5mSjBcfjY9-X46n1tiXklFJddBnImgc3ctpEiv95tHivqMeDj6xbqZW9NMC_wD1TNFbwtIIpw";
     // const refreshToken =
     //   "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiYmIyMjIiLCJuYW1lIjoi7ZmN6ri464-ZIiwianRpIjoiMjk4MTVhYTYtOTlhNS00NmJkLWE0YTktNTgyNmQ0YzQwMzA4IiwiZXhwIjoxNjkwMzc3OTgwfQ.qgpP8Oa79AkKggbb3jQ-IkKuN-Lp_jrHN-S6XNnKtQSPcy2lspxPH5cgyhHrWsIfPqunOSCqV9-k-DAv8Qp8AA";
-    setCookie("accessToken", accessToken);
-    setCookie("refreshToken", refreshToken);
+    setCookie("accessToken", accessToken, { path: "/" });
+    setCookie("refreshToken", refreshToken, { path: "/" });
+    removeCookie("easyLoginToken", { path: "/" });
     yield put(loginSuccess(response));
     yield call(redirect, "/home");
   } catch (error: any) {
@@ -70,7 +71,7 @@ function* logoutSaga(): Generator<any, void, any> {
     yield call(redirect, "/");
   } catch (error) {
     yield put(logoutFail(error));
-    // yield call(redirect, "/home");
+    yield call(redirect, "/home");
   }
 }
 
@@ -84,8 +85,7 @@ function* kakaoLoginSaga(
     console.log(response);
     const easyLoginToken = response.data.Easylogin_token;
     if (easyLoginToken) {
-      console.log(easyLoginToken);
-      setCookie("easyLoginToken", easyLoginToken.substr(7));
+      setCookie("easyLoginToken", easyLoginToken.substr(7), { path: "/" });
       yield put(
         openModal(
           "간편 로그인이 완료되었습니다./로그인을 진행하여 기존 계정과 연동해주세요.",

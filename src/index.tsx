@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle, defaultTheme } from "style/Theme";
-import { CookiesProvider } from "react-cookie";
 import { getCookie } from "utils/cookies";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
@@ -18,7 +17,6 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 const ACCESS_TOKEN = getCookie("accessToken");
-const EASY_LOTIN_TOKEN = getCookie("easyLoginToken");
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,14 +26,6 @@ const router = createBrowserRouter([
       { index: true, element: <Route.HomePage /> },
       { path: "home", element: <Route.HomePage /> },
       { path: "login", element: <Route.Login /> },
-      {
-        path: "auth/kakao/callback/login",
-        element: EASY_LOTIN_TOKEN ? (
-          <Route.Login />
-        ) : (
-          <Navigate replace to="/login" />
-        ),
-      },
       { path: "auth/kakao/callback", element: <Route.Auth2RedirectHandler /> },
       { path: "signup", element: <Route.Signup /> },
       { path: "findaccount:id", element: <Route.FindId /> },
@@ -87,16 +77,14 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
 root.render(
-  <CookiesProvider>
-    <ThemeProvider theme={defaultTheme}>
-      <GlobalStyle />
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <RouterProvider router={router} />
-        </PersistGate>
-      </Provider>
-    </ThemeProvider>
-  </CookiesProvider>,
+  <ThemeProvider theme={defaultTheme}>
+    <GlobalStyle />
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <RouterProvider router={router} />
+      </PersistGate>
+    </Provider>
+  </ThemeProvider>,
 );
 
 reportWebVitals();
