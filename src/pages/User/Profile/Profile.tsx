@@ -1,9 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import profile from "asset/images/profile.png";
+import { Modal } from "components";
+import { Title, Input } from "style/Common";
+import { openModal } from "../../../redux/reducer/modalReducer";
 import * as St from "./styles";
 
 const Profile = () => {
@@ -13,37 +16,36 @@ const Profile = () => {
   const userData = useSelector((state: RootState) => state.userReducer.data);
 
   return (
-    <section>
+    <St.Section>
       <St.Title>프로필</St.Title>
-      <St.ProfileCon>
+      <St.InputField>
         <St.Imgbox>
           <St.ProfileImg src={profile} alt="profile" />
         </St.Imgbox>
-      </St.ProfileCon>
-      <St.ProfileCon>
-        <St.ProfileP>이름</St.ProfileP>
-        <St.InputOther value={userData.name} disabled />
-      </St.ProfileCon>
-      <St.ProfileCon>
-        <St.ProfileP>아이디</St.ProfileP>
-        <St.InputOther value={userData.id} disabled />
-      </St.ProfileCon>
-      <St.ProfileCon>
-        <St.ProfileP>이메일</St.ProfileP>
-        <St.InputOther value={userData.email} disabled />
-      </St.ProfileCon>
-      <St.ProfileCon>
-        <St.ProfileP>생년월일</St.ProfileP>
-        <St.InputOther value={userData.birthday} disabled />
-      </St.ProfileCon>
-      <St.ProfileCon>
-        <St.ProfileP>휴대폰 번호</St.ProfileP>
-        <St.InputOther value={userData.phonenumber} disabled />
-      </St.ProfileCon>
-      <St.ChangeBtn onClick={() => navigate("/profileupdate")}>
-        수정
-      </St.ChangeBtn>
-    </section>
+      </St.InputField>
+      <St.InputField>
+        <Title>이름</Title>
+        <Input value={userData.name} disabled />
+      </St.InputField>
+      <St.InputField>
+        <Title>아이디</Title>
+        <Input value={userData.id} disabled />
+      </St.InputField>
+      <St.InputField>
+        <Title>이메일</Title>
+        <Input value={userData.email} disabled />
+      </St.InputField>
+      <St.InputField>
+        <Title>생년월일</Title>
+        <Input value={userData.birthday} disabled />
+      </St.InputField>
+      <St.InputField>
+        <Title>휴대폰 번호</Title>
+        <Input value={userData.phonenumber} disabled />
+      </St.InputField>
+      <St.ChangeBtn onClick={() => dispatch(openModal(""))}>수정</St.ChangeBtn>
+      <Modal page="profileUpdate" />
+    </St.Section>
   );
 };
 

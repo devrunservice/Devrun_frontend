@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "redux/store";
 import { getCookie } from "utils/cookies";
 import { BrandLogo, Kakao, Naver, Google } from "asset";
 import { LoginFormType } from "types";
@@ -31,6 +32,7 @@ const LoginForm = () => {
         password: loginForm.password,
       }),
     );
+    dispatch(loginLoading(loginForm));
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

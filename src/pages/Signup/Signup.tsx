@@ -6,7 +6,7 @@ import useValid from "hooks/useValid";
 import { signup } from "utils/api";
 import { PasswordInput, AuthenticationNumber, Modal } from "components";
 import { SignupFormType } from "types";
-import { ErrorMessage, Input, SuccessMessage } from "style/Common";
+import { Title, ErrorMessage, Input, SuccessMessage } from "style/Common";
 import * as St from "./styles";
 import { openModal, setSignupSuccess } from "../../redux/reducer/modalReducer";
 
@@ -131,7 +131,7 @@ const Signup = () => {
         <form onSubmit={handleSubmit}>
           {/* 아이디 input */}
           <St.InputField>
-            <St.P>아이디</St.P>
+            <Title>아이디</Title>
             <St.Field>
               <Input
                 type="text"
@@ -165,7 +165,7 @@ const Signup = () => {
 
           {/* 비밀번호 input */}
           <St.InputField>
-            <St.P>비밀번호</St.P>
+            <Title>비밀번호</Title>
             <PasswordInput
               name="password"
               value={signupForm.password}
@@ -188,7 +188,7 @@ const Signup = () => {
 
           {/* 이름 input */}
           <St.InputField>
-            <St.P>이름</St.P>
+            <Title>이름</Title>
             <Input
               type="text"
               name="name"
@@ -201,7 +201,7 @@ const Signup = () => {
 
           {/* 이메일 input */}
           <St.InputField>
-            <St.P>이메일</St.P>
+            <Title>이메일</Title>
             <St.Field>
               <Input
                 type="email"
@@ -236,7 +236,7 @@ const Signup = () => {
 
           {/* 생년월일 input */}
           <St.InputField>
-            <St.P>생년월일</St.P>
+            <Title>생년월일</Title>
             <St.Birthday
               type="date"
               name="birthday"

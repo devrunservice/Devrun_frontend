@@ -5,7 +5,7 @@ import { login } from "utils/api";
 import { getCookie, removeCookie, setCookie } from "utils/cookies";
 import { redirect } from "utils/redirect";
 import { LoginFormType } from "types";
-import { openModal } from "../reducer/modalReducer";
+import { openModal, setKakaoLoginSuccess } from "../reducer/modalReducer";
 import {
   kakaoFail,
   kakaoLoading,
@@ -92,6 +92,7 @@ function* kakaoLoginSaga(
         ),
       );
       yield put(kakaoSuccess(response));
+      yield put(setKakaoLoginSuccess(true));
     } else {
       setCookie("accessToken", response.data.Access_token.substr(7), {
         path: "/",

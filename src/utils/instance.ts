@@ -2,6 +2,13 @@
 import axios from "axios";
 import { getCookie, setCookie } from "./cookies";
 
+export const baseAxios = axios.create({
+  baseURL: `${process.env.REACT_APP_SERVER_URL}`,
+  headers: {
+    "Content-type": "application/json",
+  },
+});
+
 export const authAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
   headers: {
@@ -9,14 +16,7 @@ export const authAxios = axios.create({
   },
 });
 
-export const accAxios = axios.create({
-  baseURL: `${process.env.REACT_APP_SERVER_URL}`,
-  headers: {
-    "Content-type": "application/json",
-  },
-});
-
-authAxios.interceptors.request.use(
+baseAxios.interceptors.request.use(
   (config) => {
     const easyLoginToken = getCookie("easyLoginToken");
     if (easyLoginToken) {
@@ -29,7 +29,7 @@ authAxios.interceptors.request.use(
   },
 );
 
-accAxios.interceptors.request.use(
+authAxios.interceptors.request.use(
   (config) => {
     const accessToken = getCookie("accessToken");
     config.headers.Access_token = `Bearer ${accessToken}`;
@@ -41,7 +41,7 @@ accAxios.interceptors.request.use(
   },
 );
 
-authAxios.interceptors.response.use(
+baseAxios.interceptors.response.use(
   (response) => response,
   async (error) => {
     console.log(error);
@@ -78,7 +78,7 @@ authAxios.interceptors.response.use(
             );
           case "Refresh token is required":
           case "Unauthorized request":
-            return Promise.reject(new Error("알 수 없는 에러가 발생했습니다."));
+            return Promise.reject(new Error("알 수 없는 오류가 발생했습니다."));
           default:
             break;
         }
@@ -123,6 +123,8 @@ authAxios.interceptors.response.use(
             return Promise.reject(new Error("탈퇴한 회원입니다."));
           case "Verification failed phonenumber":
             return Promise.reject(new Error("새로운 인증번호를 받아주세요."));
+          case "Access Denied":
+            return Promise.reject(new Error("알 수 없는 오류가 발생했습니다."));
           default:
             break;
         }
@@ -149,20 +151,20 @@ authAxios.interceptors.response.use(
           case "Failed to register for database":
             return Promise.reject(
               new Error(
-                "알 수 없는 에러가 발생했습니다./회원가입을 다시 시도해주세요.",
+                "알 수 없는 오류가 발생했습니다./회원가입을 다시 시도해주세요.",
               ),
             );
           default:
             break;
         }
-        return Promise.reject(new Error("알 수 없는 에러가 발생했습니다."));
+        return Promise.reject(new Error("알 수 없는 오류가 발생했습니다."));
       default:
         break;
     }
   },
 );
 
-accAxios.interceptors.response.use(
+authAxios.interceptors.response.use(
   (response) => response,
   async (error) => {
     console.log(error);
@@ -178,7 +180,7 @@ accAxios.interceptors.response.use(
       case 401:
         switch (errorMessage) {
           case "Token is expired":
-            response = await authAxios.post("/token/refresh", null, {
+            response = await baseAxios.post("/token/refresh", null, {
               headers: { Refresh_token: `Bearer ${refreshToken}` },
             });
             console.log(response);
@@ -207,9 +209,7 @@ accAxios.interceptors.response.use(
       case 500:
         switch (errorMessage) {
           case "Unexpected server error occurred":
-            return Promise.reject(
-              new Error("예상하지 못한 에러가 발생했습니다."),
-            );
+            return Promise.reject(new Error("알 수 없는 오류가 발생했습니다."));
           default:
             break;
         }

@@ -1,19 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
-import { Spinner } from "components";
+import { Spinner, Modal } from "components";
 import { kakaoLoading } from "../../redux/reducer/loginReducer";
 
 const Auth2RedirectHandler = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const code = new URL(window.location.href).searchParams.get("code");
 
-  const redirectTo = useSelector(
-    (state: RootState) => state.loginReducer.redirectTo,
+  const kakaoLoginSuccess = useSelector(
+    (state: RootState) => state.modalReducer.kakaoLoginSuccess,
   );
 
   useEffect(() => {
@@ -21,14 +19,12 @@ const Auth2RedirectHandler = () => {
     dispatch(kakaoLoading(code));
   }, []);
 
-  useEffect(() => {
-    if (redirectTo === "/auth/kakao/callback/login") {
-      console.log("로그인으로 이동");
-      navigate("/login");
-    }
-  }, [redirectTo]);
-
-  return <Spinner />;
+  return (
+    <>
+      {!kakaoLoginSuccess && <Spinner />}
+      {kakaoLoginSuccess && <Modal />}
+    </>
+  );
 };
 
 export default Auth2RedirectHandler;

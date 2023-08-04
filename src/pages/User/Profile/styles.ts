@@ -1,14 +1,12 @@
 import { styled } from "styled-components";
+import { Input } from "style/Common";
 import { TitleWrapper } from "../styles";
 
+export const Section = styled.section`
+  width: 60%;
+`;
 export const Title = styled(TitleWrapper)``;
 
-export const ProfileCon = styled.article`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding-bottom: 1rem;
-`;
 export const Imgbox = styled.div`
   margin: 2rem 0;
   margin-right: 40px;
@@ -43,12 +41,6 @@ const InputCommon = styled.input`
   }
 `;
 
-export const ProfileP = styled.p`
-  color: ${(props) => props.theme.black};
-  margin-bottom: 0.6rem;
-  font-weight: ${(props) => props.theme.semiBold};
-`;
-
 export const InputOther = styled(InputCommon)`
   width: 538px;
   margin-bottom: 10px;
@@ -58,7 +50,7 @@ export const InputOther = styled(InputCommon)`
 `;
 
 export const Phonenumber = styled.div`
-  width: 65%;
+  width: 100%;
 `;
 
 export const ChangeBtn = styled.button`
@@ -70,4 +62,33 @@ export const ChangeBtn = styled.button`
   background: transparent;
   border-radius: 5px;
   cursor: pointer;
+`;
+
+export const Button = styled.button`
+  /* width: 100%; */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+`;
+
+export const InputField = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.6rem;
+`;
+
+export const Field = styled.div`
+  display: flex;
+  margin-bottom: 0.6rem;
+
+  & > ${Input} {
+    width: 75%;
+    margin: 0 1.5rem 0 0;
+  }
+
+  & > ${Button} {
+    width: 25%;
+    color: ${(props) => props.theme.textWhite};
+    background-color: ${(props) => props.theme.brandColor};
+  }
 `;

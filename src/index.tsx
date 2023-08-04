@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import ReactDOM from "react-dom/client";
 import {
   createBrowserRouter,
@@ -13,10 +13,13 @@ import { PersistGate } from "redux-persist/integration/react";
 import * as Route from "pages";
 import store, { persistor } from "./redux/store";
 import App from "./App";
-
 import reportWebVitals from "./reportWebVitals";
 
 const ACCESS_TOKEN = getCookie("accessToken");
+
+const protectedRoute = (component: ReactNode) =>
+  ACCESS_TOKEN ? component : <Navigate replace to="/login" />;
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -30,23 +33,12 @@ const router = createBrowserRouter([
       { path: "signup", element: <Route.Signup /> },
       { path: "findaccount:id", element: <Route.FindId /> },
       { path: "findaccount:password", element: <Route.FindPassword /> },
+      { path: "basket", element: protectedRoute(<Route.Basket />) },
+      { path: "notice", element: protectedRoute(<Route.Notice />) },
       {
-        path: "basket",
-        element: ACCESS_TOKEN ? (
-          <Route.Basket />
-        ) : (
-          <Navigate replace to="/login" />
-        ),
+        path: "noticeWrite",
+        element: protectedRoute(<Route.NoticeWrite />),
       },
-      {
-        path: "notice",
-        element: ACCESS_TOKEN ? (
-          <Route.Notice />
-        ) : (
-          <Navigate replace to="/login" />
-        ),
-      },
-      { path: "noticeWrite", element: <Route.NoticeWrite /> },
       { path: "noticeDetail", element: <Route.NoticeDetail /> },
       { path: "lecture", element: <Route.Lecture /> },
       { path: "detail", element: <Route.DetailPage /> },
