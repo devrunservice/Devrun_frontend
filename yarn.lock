@@ -3112,7 +3112,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/hoist-non-react-statics@npm:*, @types/hoist-non-react-statics@npm:^3.0.1, @types/hoist-non-react-statics@npm:^3.3.1":
+"@types/hoist-non-react-statics@npm:*, @types/hoist-non-react-statics@npm:^3.3.1":
   version: 3.3.1
   resolution: "@types/hoist-non-react-statics@npm:3.3.1"
   dependencies:
@@ -3193,13 +3193,6 @@ __metadata:
     expect: ^29.0.0
     pretty-format: ^29.0.0
   checksum: 7d205599ea3cccc262bad5cc173d3242d6bf8138c99458509230e4ecef07a52d6ddcde5a1dbd49ace655c0af51d2dbadef3748697292ea4d86da19d9e03e19c0
-  languageName: node
-  linkType: hard
-
-"@types/js-cookie@npm:^3.0.3":
-  version: 3.0.3
-  resolution: "@types/js-cookie@npm:3.0.3"
-  checksum: 927254ec37ce4fbe4d9d54f53a446b4351259799d9933db5808ddb7c430396aa2496bdd0a4e47e1b56048ffbec98645cbd4daa9e3ed9a6fff55e25eb640fcb15
   languageName: node
   linkType: hard
 
@@ -6025,7 +6018,6 @@ __metadata:
     "@types/file-saver": ^2.0.5
     "@types/html2canvas": ^1.0.0
     "@types/jest": ^29.5.2
-    "@types/js-cookie": ^3.0.3
     "@types/jspdf": ^2.0.0
     "@types/node": ^20.3.1
     "@types/react": ^18.2.13
@@ -6055,7 +6047,6 @@ __metadata:
     react: ^18.2.0
     react-app: ^1.1.2
     react-chartjs-2: ^5.2.0
-    react-cookie: ^4.1.1
     react-dom: ^18.2.0
     react-icons: ^4.9.0
     react-quill: ^2.0.0
@@ -6069,6 +6060,7 @@ __metadata:
     styled-reset: ^4.4.7
     swiper: ^9.3.2
     typescript: ^4.9.3
+    universal-cookie: ^4.0.4
     web-vitals: ^2.1.0
   languageName: unknown
   linkType: soft
@@ -7968,7 +7960,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hoist-non-react-statics@npm:^3.0.0, hoist-non-react-statics@npm:^3.3.0, hoist-non-react-statics@npm:^3.3.2":
+"hoist-non-react-statics@npm:^3.3.0, hoist-non-react-statics@npm:^3.3.2":
   version: 3.3.2
   resolution: "hoist-non-react-statics@npm:3.3.2"
   dependencies:
@@ -12076,19 +12068,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-cookie@npm:^4.1.1":
-  version: 4.1.1
-  resolution: "react-cookie@npm:4.1.1"
-  dependencies:
-    "@types/hoist-non-react-statics": ^3.0.1
-    hoist-non-react-statics: ^3.0.0
-    universal-cookie: ^4.0.0
-  peerDependencies:
-    react: ">= 16.3.0"
-  checksum: b734dcad35d790ced8c8fc3b19e3eb1f546e0923c637bad888c7c0096dbe2c996668416a49b48827ec7ad2d81522f1b57567694c791e1a5fb89ca41b39158a74
-  languageName: node
-  linkType: hard
-
 "react-dev-utils@npm:^12.0.1":
   version: 12.0.1
   resolution: "react-dev-utils@npm:12.0.1"
@@ -14256,7 +14235,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"universal-cookie@npm:^4.0.0":
+"universal-cookie@npm:^4.0.4":
   version: 4.0.4
   resolution: "universal-cookie@npm:4.0.4"
   dependencies:

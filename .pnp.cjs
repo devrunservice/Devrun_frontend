@@ -36,7 +36,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/file-saver", "npm:2.0.5"],\
             ["@types/html2canvas", "npm:1.0.0"],\
             ["@types/jest", "npm:29.5.2"],\
-            ["@types/js-cookie", "npm:3.0.3"],\
             ["@types/jspdf", "npm:2.0.0"],\
             ["@types/node", "npm:20.4.1"],\
             ["@types/react", "npm:18.2.14"],\
@@ -66,7 +65,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react", "npm:18.2.0"],\
             ["react-app", "npm:1.1.2"],\
             ["react-chartjs-2", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:5.2.0"],\
-            ["react-cookie", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:4.1.1"],\
             ["react-dom", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:18.2.0"],\
             ["react-icons", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:4.10.1"],\
             ["react-quill", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:2.0.0"],\
@@ -80,6 +78,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["styled-reset", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:4.5.1"],\
             ["swiper", "npm:9.4.1"],\
             ["typescript", "patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=289587"],\
+            ["universal-cookie", "npm:4.0.4"],\
             ["web-vitals", "npm:2.1.4"]\
           ],\
           "linkType": "SOFT"\
@@ -5195,15 +5194,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["@types/js-cookie", [\
-        ["npm:3.0.3", {\
-          "packageLocation": "./.yarn/cache/@types-js-cookie-npm-3.0.3-ffeb1814e1-927254ec37.zip/node_modules/@types/js-cookie/",\
-          "packageDependencies": [\
-            ["@types/js-cookie", "npm:3.0.3"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["@types/json-schema", [\
         ["npm:7.0.12", {\
           "packageLocation": "./.yarn/cache/@types-json-schema-npm-7.0.12-f05cfc0e99-00239e9723.zip/node_modules/@types/json-schema/",\
@@ -8795,7 +8785,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/file-saver", "npm:2.0.5"],\
             ["@types/html2canvas", "npm:1.0.0"],\
             ["@types/jest", "npm:29.5.2"],\
-            ["@types/js-cookie", "npm:3.0.3"],\
             ["@types/jspdf", "npm:2.0.0"],\
             ["@types/node", "npm:20.4.1"],\
             ["@types/react", "npm:18.2.14"],\
@@ -8825,7 +8814,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react", "npm:18.2.0"],\
             ["react-app", "npm:1.1.2"],\
             ["react-chartjs-2", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:5.2.0"],\
-            ["react-cookie", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:4.1.1"],\
             ["react-dom", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:18.2.0"],\
             ["react-icons", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:4.10.1"],\
             ["react-quill", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:2.0.0"],\
@@ -8839,6 +8827,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["styled-reset", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:4.5.1"],\
             ["swiper", "npm:9.4.1"],\
             ["typescript", "patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=289587"],\
+            ["universal-cookie", "npm:4.0.4"],\
             ["web-vitals", "npm:2.1.4"]\
           ],\
           "linkType": "SOFT"\
@@ -16598,31 +16587,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "@types/chart.js",\
             "@types/react",\
             "chart.js",\
-            "react"\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["react-cookie", [\
-        ["npm:4.1.1", {\
-          "packageLocation": "./.yarn/cache/react-cookie-npm-4.1.1-90d4f0fcb5-b734dcad35.zip/node_modules/react-cookie/",\
-          "packageDependencies": [\
-            ["react-cookie", "npm:4.1.1"]\
-          ],\
-          "linkType": "SOFT"\
-        }],\
-        ["virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:4.1.1", {\
-          "packageLocation": "./.yarn/__virtual__/react-cookie-virtual-843660dba5/0/cache/react-cookie-npm-4.1.1-90d4f0fcb5-b734dcad35.zip/node_modules/react-cookie/",\
-          "packageDependencies": [\
-            ["react-cookie", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:4.1.1"],\
-            ["@types/hoist-non-react-statics", "npm:3.3.1"],\
-            ["@types/react", "npm:18.2.14"],\
-            ["hoist-non-react-statics", "npm:3.3.2"],\
-            ["react", "npm:18.2.0"],\
-            ["universal-cookie", "npm:4.0.4"]\
-          ],\
-          "packagePeers": [\
-            "@types/react",\
             "react"\
           ],\
           "linkType": "HARD"\
