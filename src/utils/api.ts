@@ -109,7 +109,7 @@ export const Cart = {
     const response = accAxios.post(`/verifyIamport/${params.imp_uid}`);
     return response;
   },
-  save: (params: I.CallbackData[]) => {
+  save: (params: I.bastetCheck[]) => {
     const response = accAxios.post("/savePaymentInfo", params);
     return response;
   },
