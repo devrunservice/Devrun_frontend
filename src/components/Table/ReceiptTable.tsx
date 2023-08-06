@@ -16,8 +16,9 @@ const ReceiptTable = (props: I.ReceiptTable) => {
   ) => {
     if (window.confirm("환불하시겠습니까?")) {
       const pay: I.Refund = {
-        merchantUid: merchantUid,
+        merchant_uid: merchantUid,
         amount: amount,
+
       };
       await Cart.refund(pay);
       alert("환불되었습니다.");
