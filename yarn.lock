@@ -6045,6 +6045,7 @@ __metadata:
     html2canvas: ^1.4.1
     jspdf: ^2.5.1
     react: ^18.2.0
+    react-app: ^1.1.2
     react-chartjs-2: ^5.2.0
     react-dom: ^18.2.0
     react-icons: ^4.9.0
@@ -12045,6 +12046,15 @@ __metadata:
     regenerator-runtime: ^0.13.9
     whatwg-fetch: ^3.6.2
   checksum: 1bb031080af15397d6eb9c69a0c2e93799991f7197a086e4409ba719398f1256b542a3d6c9a34673d516c684eef3e8226c99b335982593851f58f65f6e43571b
+  languageName: node
+  linkType: hard
+
+"react-app@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "react-app@npm:1.1.2"
+  bin:
+    react-app: ./bin/react-app.js
+  checksum: 38106570973f035ad1f25e0027fc0b5ec19d71bf9a713d9a2ed14a25b0d44f880443dcbd1ed742d0f138f2bc7416617c70095e9cce005dc8d33abffd62ba1ca3
   languageName: node
   linkType: hard
 

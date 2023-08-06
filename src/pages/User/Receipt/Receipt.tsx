@@ -19,7 +19,6 @@ const Receipt = () => {
     payList();
   },[])
 
-
   return (
     <section>
       <UserTop title="구매내역" count={data} sub="전체"/>
