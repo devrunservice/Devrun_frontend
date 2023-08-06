@@ -17,7 +17,6 @@ function* fetchDataSaga(action: PayloadAction<tmi>): Generator<any, void, any> {
   try {
     // 데이터를 옴
     const response = yield call(userData.createUser, action.payload);
-    console.log(response);
     // 성공적으로 데이터를 가져왔다면 성공 action에 내보냄.
     yield put(userTmiFulfilled(response));
   } catch (error: any) {

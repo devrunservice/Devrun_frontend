@@ -1,44 +1,35 @@
-import { useState } from "react";
-import * as I from "types";
+import { useState, useEffect } from "react";
+import * as I from "types"
 
-const useCheck = () => {
-    const dataLists = [
-      { id: 1, name: "aaa", paid_amount: 80 },
-      { id: 2, name: "bbb", paid_amount: 20 },
-    ];
-      const [checkedList, setCheckedList] = useState<I.CallbackData[]>([]);
-  // 체크박스 단일 선택
-  const singleCheack = (
-    checked: boolean,
-    id: number,
-    name: string,
-    paid_amount: number,
-  ) => {
-    if (checked) {
-      setCheckedList([...checkedList, { id, name, paid_amount }]);
-    } else {
-      setCheckedList(checkedList.filter((item) => item.id !== id));
-    }
+const useCheck = (data:I.bastetCheck[]) => {
+  const [checkList, setCheckList] = useState<I.bastetCheck[]>(data);
+  const [prevList, setPrevList] = useState<I.bastetCheck[]>(data);
+  
+  const singleCheck = (id: number, paid_amount:number) => {
+    setCheckList((prev) =>
+      prev.some((item) => item.id === id)
+        ? prev.filter((item) => item.id !== id)
+        : [...prev, { id, paid_amount }]
+    );
   };
-  // 전체 선택
-  const allCheack = (checked: boolean) => {
-    if (checked) {
-      setCheckedList(
-        dataLists.map((item) => ({
-          id: item.id,
-          name: item.name,
-          paid_amount: item.paid_amount,
-        })),
-      );
-    } else {
-      setCheckedList([]);
-    }
-  };
+
+  // 선택 추가
+  const addlist = checkList.find((item) => !prevList.includes(item));
+
+  // 선택 제거
+  const removelist = prevList.find((item) => !checkList.includes(item));
+
+  useEffect(() => {
+    setCheckList(data);
+  }, [data]);
+
   return {
-    singleCheack,
-    allCheack,
-    checkedList,
-    setCheckedList,
+    singleCheck,
+    checkList,
+    setPrevList,
+    setCheckList,
+    addlist,
+    removelist,
   };
 };
 export default useCheck;

@@ -11,16 +11,15 @@ const ReceiptTable = (props: I.ReceiptTable) => {
   };
 
   const basketBtn = async (
-    merchant_uid: string | undefined,
-    name: string | undefined,
-    amount: number | undefined,
+    merchantUid: string ,
+    name: string ,
+    amount: number 
   ) => {
-    
     if (window.confirm("환불하시겠습니까?")) {
       const pay: I.Refund = {
-        merchant_uid: merchant_uid,
+        merchantUid: merchantUid,
         amount: amount,
-        reason: name,
+        name: name,
       };
       await Cart.refund(pay);
       alert("환불되었습니다.");
@@ -34,10 +33,10 @@ const ReceiptTable = (props: I.ReceiptTable) => {
     <St.ReceiptTable>
       {props.data?.slice(props.offset, props.offset + props.limit).map((item: I.Receipt) => {
         return (
-          <St.TableLi $cursor={false} key={item.pay_no}>
-            <St.Num>{item.pay_no}</St.Num>
+          <St.TableLi $cursor={false} key={item.payno}>
+            <St.Num>{item.payno}</St.Num>
             <St.Title>{item.name}</St.Title>
-            <St.CommonLi>{item.paid_amount} 원</St.CommonLi>
+            <St.CommonLi>{item.paidamount} 원</St.CommonLi>
             <St.CommonLi>
               {item.status === "0" ? "결제완료" : "환불완료"}
             </St.CommonLi>
@@ -47,17 +46,17 @@ const ReceiptTable = (props: I.ReceiptTable) => {
                   type="button"
                   $color
                   onClick={() =>
-                    basketBtn(item.merchant_uid, item.name, item.paid_amount)
+                    basketBtn(item.merchantUid, item.name, item.paidamount)
                   }
                 >
                   환불
                 </St.Button>
               )}
-              {item.receipt_url && (
+              {item.receipturl && (
                 <St.Button
                   type="button"
                   $color={false}
-                  onClick={() => receipt(item.receipt_url)}
+                  onClick={() => receipt(item.receipturl)}
                 >
                   거래명세서
                 </St.Button>

@@ -6,7 +6,7 @@ const useSelet = () => {
   const selet = useRef<HTMLUListElement | null>(null);
   const [selets, setSelets] = useState<I.Selet>({
     seletsBoolean: false,
-    seletes: "",
+    seletes: "쿠폰을 선택해주세요",
   });
   useEffect(() => {
     const couponOut = (e: { target: any }) => {
