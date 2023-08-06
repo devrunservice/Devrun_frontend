@@ -349,7 +349,6 @@ declare global {
 export interface Refund {
   merchantUid: string 
   amount: number 
-  name: string 
 }
 
 export interface Selet {

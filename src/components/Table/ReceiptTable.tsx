@@ -12,14 +12,12 @@ const ReceiptTable = (props: I.ReceiptTable) => {
 
   const basketBtn = async (
     merchantUid: string ,
-    name: string ,
     amount: number 
   ) => {
     if (window.confirm("환불하시겠습니까?")) {
       const pay: I.Refund = {
         merchantUid: merchantUid,
         amount: amount,
-        name: name,
       };
       await Cart.refund(pay);
       alert("환불되었습니다.");
@@ -46,7 +44,7 @@ const ReceiptTable = (props: I.ReceiptTable) => {
                   type="button"
                   $color
                   onClick={() =>
-                    basketBtn(item.merchantUid, item.name, item.paidamount)
+                    basketBtn(item.merchantUid,  item.paidamount)
                   }
                 >
                   환불
