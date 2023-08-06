@@ -42,7 +42,9 @@ const CertDetail = () => {
   return (
     <section>
       <UserTop title="수료증" />
-
+      <St.DownBtn onClick={() => pdfDown()}>
+        다운로드 <FiDownload />
+      </St.DownBtn>
       <St.Certbox ref={pdfCon}>
         <St.Top>
           <St.SubTitle>
@@ -80,23 +82,19 @@ const CertDetail = () => {
           </St.Content>
         </St.Top>
         <St.Bottom>
-          <St.CopyText>
-            (주) 데브런
-            <br />
-            서울시 강남구 어딘가 가고 싶다
-            <br />
-            http://devrun.s3-website.ap-northeast-2.amazonaws.com/
-            <St.LogoIcon>
-              <img src={Logo} alt="로고" />
-            </St.LogoIcon>
-          </St.CopyText>
-
+          <St.LogoIcon>
+            <St.CopyText>
+              (주) 데브런
+              <br />
+              서울시 강남구 어딘가 가고 싶다
+              <br />
+              http://devrun.s3-website.ap-northeast-2.amazonaws.com/
+            </St.CopyText>
+            <img src={Logo} alt="로고" />
+          </St.LogoIcon>
           <St.StampIcon />
         </St.Bottom>
       </St.Certbox>
-      <St.DownBtn onClick={() => pdfDown()}>
-        다운로드 <FiDownload />
-      </St.DownBtn>
     </section>
   );
 };
