@@ -109,7 +109,7 @@ export const Cart = {
     const response = accAxios.post(`/verifyIamport/${params.imp_uid}`);
     return response;
   },
-  save: (params: I.CallbackData[]) => {
+  save: (params: I.bastetCheck[]) => {
     const response = accAxios.post("/savePaymentInfo", params);
     return response;
   },
@@ -134,8 +134,9 @@ export const mygage = {
     const response = accAxios.get("/PaymentInfo");
     return response;
   },
-  coupon: (params: I.CouponGet) => {
-    const response = accAxios.post("​/coupon​/registrate", params);
+  coupon: (params:I.CouponGet) => {
+    const response = accAxios.post("/coupon/registrate", params);
+    return response
   },
 };
 /* eslint-disable @typescript-eslint/no-unused-vars */

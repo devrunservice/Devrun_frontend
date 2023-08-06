@@ -11,7 +11,7 @@ const Profile = () => {
   const navigate = useNavigate();
 
   const userData = useSelector((state: RootState) => state.userReducer.data);
-
+  console.log(userData);
   return (
     <section>
       <St.Title>프로필</St.Title>

@@ -13,6 +13,7 @@ const Coupon = () => {
     await mygage.coupon({ code ,id:id.id});
 
   }
+  console.log(code)
   return (
     <section>
       <UserTop title="쿠폰함" />

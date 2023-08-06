@@ -3,11 +3,10 @@ import React, { ChangeEvent, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { IEdit } from "types";
 import * as St from "./style";
 
-const Editor = (props: IEdit) => {
-  const Navigate = useNavigate();
+const Editor = () => {
+  
   const quillRef = useRef<ReactQuill>(null);
   const [content, setContent] = useState<string>("");
   const [title, setTitle] = useState<string>("");
@@ -57,7 +56,6 @@ const Editor = (props: IEdit) => {
       }
     };
   };
-  console.log(content);
   // useMemo를 사용하여 modules가 렌더링 시 에디터가 사라지는 버그를 방지
   const modules = useMemo(
     () => ({
@@ -83,7 +81,7 @@ const Editor = (props: IEdit) => {
   );
   return (
     <St.EditorWrap>
-      <St.Title>{props.title}</St.Title>
+      
       <St.TitleInput
         type="text"
         placeholder="제목을 적어주세요"
@@ -96,14 +94,7 @@ const Editor = (props: IEdit) => {
         onChange={setContent}
         modules={modules}
       />
-      <St.ButtonWrap>
-        <St.Button onClick={() => Navigate("/notice")} $active={false}>
-          나가기
-        </St.Button>
-        <St.Button onClick={() => Navigate("/notice")} $active>
-          글쓰기
-        </St.Button>
-      </St.ButtonWrap>
+      
     </St.EditorWrap>
   );
 };
