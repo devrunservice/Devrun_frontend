@@ -9,7 +9,7 @@ export const Table = styled.ul`
 export const ReceiptTable = styled(Table)`
   min-height: 721px;
 `;
-export const TableLi = styled.li<I.Table | I.ReceiptTable>`
+export const TableLi = styled.li<I.TableCommon>`
   border-bottom: 1px solid ${(props: any) => props.theme.borderC};
   display: flex;
   align-items: center;
@@ -57,7 +57,7 @@ export const PayBtn = styled(View)`
   gap: 5px;
 `;
 
-export const Button = styled.button<I.Table>`
+export const Button = styled.button<I.TableCommon>`
   background: ${(props: any) =>
     props.$color ? props.theme.textRed : props.theme.brandColor};
   border-radius: 5px;

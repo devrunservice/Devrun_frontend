@@ -9,19 +9,17 @@ const ReceiptTable = (props: I.ReceiptTable) => {
       "width=420,height=512,menubar=no,toolbar=no,location=no,resizable=yes,scrollbars=yes";
     window.open(item, "_blank", windowFeatures);
   };
-
-  const basketBtn = async (
-    merchantUid: string ,
-    name: string ,
-    amount: number 
-  ) => {
+  const basketBtn = async (merchantUid: string, amount: number, payno:number) => {
     if (window.confirm("환불하시겠습니까?")) {
       const pay: I.Refund = {
-        merchantUid: merchantUid,
+        merchant_uid: merchantUid,
         amount: amount,
-        name: name,
       };
       await Cart.refund(pay);
+      const resfunds = props.data?.map((item) =>
+        item.payno === payno ? { ...item, status: "1" } : item
+      );
+      props.setData(resfunds);
       alert("환불되었습니다.");
     } else {
       alert("취소되었습니다.");
@@ -38,16 +36,16 @@ const ReceiptTable = (props: I.ReceiptTable) => {
             <St.Title>{item.name}</St.Title>
             <St.CommonLi>{item.paidamount} 원</St.CommonLi>
             <St.CommonLi>
-              {item.status === "0" ? "결제완료" : "환불완료"}
+              {item.status === "0" 
+                ? "결제완료"
+                : "환불완료"}
             </St.CommonLi>
             <St.PayBtn>
-              {item.status === "0" && (
+              {item.status === "0"  && (
                 <St.Button
                   type="button"
                   $color
-                  onClick={() =>
-                    basketBtn(item.merchantUid, item.name, item.paidamount)
-                  }
+                  onClick={() => basketBtn(item.merchantUid, item.paidamount,item.payno)}
                 >
                   환불
                 </St.Button>

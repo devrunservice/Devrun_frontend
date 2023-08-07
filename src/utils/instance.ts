@@ -208,8 +208,9 @@ accAxios.interceptors.response.use(
         switch (errorMessage) {
           case "Unexpected server error occurred":
             return Promise.reject(
-              new Error("예상하지 못한 에러가 발생했습니다."),
+              new Error("예상하지 못한 에러가 발생했습니다.")
             );
+          
           default:
             break;
         }

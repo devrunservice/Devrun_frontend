@@ -129,7 +129,7 @@ const Basket = () => {
     const res = await Cart.callbak({ imp_uid });
     if (paid_amount === res.data.response.amount && success) {
       await Cart.save(payload);
-     navigate("/learning");
+      navigate("/learning");
     } else {
       alert("결제를 취소했습니다.");
     }
