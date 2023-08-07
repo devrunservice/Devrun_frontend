@@ -11,13 +11,14 @@ export const DownBtn = styled.button`
 `;
 
 export const Certbox = styled.div`
+  visibility: hidden;
+  position: fixed;
   width: 21cm;
   min-height: 29.7cm;
   padding: 1.5cm 1.5cm 2cm 1.5cm;
   border: 1px solid ${(props: any) => props.theme.borderC};
   box-sizing: border-box;
   position: relative;
-  background: ${(props: any) => props.theme.bgColor};
   display: flex;
   flex-wrap: wrap;
   align-content: space-between;

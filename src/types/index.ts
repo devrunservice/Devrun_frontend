@@ -188,19 +188,22 @@ export interface Receipt {
 
 export interface Table {
   notice?: string;
-  $cursor?: boolean;
-  $color?: boolean;
   name?: string;
   date?: string;
   title?: string;
   view?: string;
   num?: string;
+  completion?:string
 }
-
+export interface TableCommon {
+  $cursor?: boolean;
+  $color?: boolean;
+}
 export interface ReceiptTable {
-  data?: Receipt[]
-  offset:number;
-  limit:number;
+  data: Receipt[];
+  offset: number;
+  limit: number;
+  setData: React.Dispatch<React.SetStateAction<Receipt[]>>;
 }
 export interface UserTop {
   title: string;
@@ -347,8 +350,8 @@ declare global {
 
 
 export interface Refund {
-  merchantUid: string 
-  amount: number 
+  merchant_uid: string;
+  amount: number;
 }
 
 export interface Selet {
