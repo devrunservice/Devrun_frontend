@@ -21,6 +21,7 @@ const ReceiptTable = (props: I.ReceiptTable) => {
 
       };
       await Cart.refund(pay);
+      props.setResfund(true)
       alert("환불되었습니다.");
     } else {
       alert("취소되었습니다.");

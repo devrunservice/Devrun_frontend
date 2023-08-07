@@ -188,19 +188,22 @@ export interface Receipt {
 
 export interface Table {
   notice?: string;
-  $cursor?: boolean;
-  $color?: boolean;
   name?: string;
   date?: string;
   title?: string;
   view?: string;
   num?: string;
+  completion?:string
 }
-
+export interface TableCommon {
+  $cursor?: boolean;
+  $color?: boolean;
+}
 export interface ReceiptTable {
-  data?: Receipt[]
-  offset:number;
-  limit:number;
+  data?: Receipt[];
+  setResfund: React.Dispatch<React.SetStateAction<boolean>>;
+  offset: number;
+  limit: number;
 }
 export interface UserTop {
   title: string;
