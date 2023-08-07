@@ -200,10 +200,10 @@ export interface TableCommon {
   $color?: boolean;
 }
 export interface ReceiptTable {
-  data?: Receipt[];
-  setResfund: React.Dispatch<React.SetStateAction<boolean>>;
+  data: Receipt[];
   offset: number;
   limit: number;
+  setData: React.Dispatch<React.SetStateAction<Receipt[]>>;
 }
 export interface UserTop {
   title: string;

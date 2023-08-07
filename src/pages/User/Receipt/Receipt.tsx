@@ -2,11 +2,11 @@
 import React, { useEffect, useState } from "react";
 import { mygage } from "utils/api";
 import { ReceiptTable, Pagination, UserTop } from "components";
+import * as I from "types"
 import usePage from "hooks/usePage";
 
 const Receipt = () => {
-  const [data, setData] = useState([]);
-  const [resfund, setResfund] = useState(false);
+  const [data, setData] = useState<I.Receipt[]>([]);
   const { limit, activePage, offset, setActivePage } = usePage();
   // 반환값
   useEffect(() => {
@@ -20,7 +20,7 @@ const Receipt = () => {
     };
     payList();
   }, []);
-  console.log(resfund);
+  
   return (
     <section>
       <UserTop title="구매내역" count={data} sub="전체" />
@@ -28,7 +28,7 @@ const Receipt = () => {
         data={data}
         offset={offset}
         limit={limit}
-        setResfund={setResfund}
+        setData={setData}
       />
       <Pagination
         data={data}
