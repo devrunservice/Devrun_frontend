@@ -1,4 +1,4 @@
-import React, { MutableRefObject } from "react";
+import React from "react";
 
 // 회원가입 타입
 export interface SignupFormType {
