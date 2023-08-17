@@ -1,10 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "redux/store";
 import useValid from "hooks/useValid";
+import useCheckbox from "hooks/useCheckbox";
 import { signup } from "utils/api";
-import { PasswordInput, AuthenticationNumber, Modal } from "components";
+import {
+  PasswordInput,
+  AuthenticationNumber,
+  Modal,
+  DuplicationForm,
+} from "components";
 import { SignupFormType } from "types";
 import { Title, ErrorMessage, Input, SuccessMessage } from "style/Common";
 import * as St from "./styles";
@@ -30,21 +37,27 @@ const Signup = () => {
     mcChecked: false,
   });
 
-  const {
-    validMessage,
-    isValid,
-    // setIsValid,
-    checkDuplicated,
-    checkAllChecked,
-    checkConsent,
-  } = useValid(signupForm);
+  useValid(signupForm);
 
-  const disabledBtn = Object.values(isValid)
-    .filter((value) => value !== "mcChecked") // mcChecked 제외
-    .every((value) => value === false);
+  const validState = useSelector(
+    (state: RootState) => state.validationReducer.validState,
+  );
+  const messageState = useSelector(
+    (state: RootState) => state.validationReducer.messageState,
+  );
+
+  const { checkboxes, handleCheckAll, handleCheckSingle } = useCheckbox({
+    allChecked: false,
+    acChecked: false,
+    tosChecked: false,
+    pcChecked: false,
+    mcChecked: false,
+  });
+
   // console.log(isValid);
 
   // 만 19세 이상 가입
+  // hooks로 빼기
   const currentDate = new Date();
   const minDate = new Date(
     currentDate.getFullYear() - 19,
@@ -56,6 +69,7 @@ const Signup = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(signupForm);
     try {
       const response = await signup.createUser(signupForm.code || "", {
         id: signupForm.id,
@@ -64,10 +78,10 @@ const Signup = () => {
         email: signupForm.email,
         birthday: signupForm.birthday,
         phonenumber: signupForm.phonenumber,
-        ageConsent: isValid.acChecked,
-        termsOfService: isValid.tosChecked,
-        privacyConsent: isValid.pcChecked,
-        marketConsent: isValid.mcChecked,
+        ageConsent: signupForm.acChecked,
+        termsOfService: signupForm.tosChecked,
+        privacyConsent: signupForm.pcChecked,
+        marketConsent: signupForm.mcChecked,
       });
       console.log(response);
       if (response.status === 200) {
@@ -76,35 +90,26 @@ const Signup = () => {
         navigate("/login");
       }
     } catch (error: any) {
-      console.error(error.message);
+      console.error(error);
       dispatch(openModal(error.message));
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("비밀번호 수정");
     const { name, value } = e.target;
     setSignupForm({ ...signupForm, [name]: value });
   };
 
-  // 아이디, 이메일 중복확인
-  const handleDuplicated = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const { name } = e.target as HTMLButtonElement;
-    if (name === "idDuplicationBtn") {
-      checkDuplicated("id", "아이디", signupForm.id || "");
-    } else if (name === "emailDuplicationBtn") {
-      checkDuplicated("email", "이메일", signupForm.email || "");
-    }
-  };
-
-  // 약관 동의
-  const handleAllChecked = () => {
-    checkAllChecked();
-  };
-
-  const handleCheckBoxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, checked } = e.target;
-
-    checkConsent(id, checked);
+  // 이메일 아이디 값 가져오기
+  const getDuplicationForm = (value: SignupFormType) => {
+    Object.keys(value).forEach((name) => {
+      if (name === "id") {
+        signupForm.id = value.id;
+      } else if (name === "email") {
+        signupForm.email = value.email;
+      }
+    });
   };
 
   // 휴대폰 번호 및 인증번호 값 가져오기
@@ -124,44 +129,38 @@ const Signup = () => {
     // setIsValid((prev) => ({ ...prev, birthday: true }));
   };
 
+  // 약관 동의
+  const handleChecked = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, checked } = e.target;
+
+    if (id === "allChecked") {
+      handleCheckAll(checked);
+      setSignupForm((prev) => ({
+        ...prev,
+        acChecked: checked,
+        tosChecked: checked,
+        pcChecked: checked,
+        mcChecked: checked,
+      }));
+    } else {
+      handleCheckSingle(id, checked);
+      setSignupForm((prev) => ({ ...prev, [id]: checked }));
+    }
+  };
+
   return (
     <St.Section>
       <St.Container>
         <St.H1>회원가입</St.H1>
         <form onSubmit={handleSubmit}>
           {/* 아이디 input */}
-          <St.InputField>
-            <Title>아이디</Title>
-            <St.Field>
-              <Input
-                type="text"
-                name="id"
-                value={signupForm.id}
-                placeholder="영문, 숫자 5-13자"
-                onChange={handleChange}
-                required
-              />
-              <St.Button
-                type="button"
-                name="idDuplicationBtn"
-                onClick={handleDuplicated}
-                disabled={!isValid.id}
-              >
-                중복확인
-              </St.Button>
-            </St.Field>
-            {signupForm.id && isValid.id === false && (
-              <ErrorMessage>{validMessage.idMessage}</ErrorMessage>
-            )}
-            {signupForm.id && isValid.idDuplication && (
-              <SuccessMessage>
-                {validMessage.idDuplicationMessage}
-              </SuccessMessage>
-            )}
-            {signupForm.id !== "" && !isValid.idDuplication && (
-              <ErrorMessage>{validMessage.idDuplicationMessage}</ErrorMessage>
-            )}
-          </St.InputField>
+          <DuplicationForm
+            title="아이디"
+            inputName="id"
+            btnName="idDuplicationBtn"
+            placeholder="영문, 숫자 5-13자"
+            getDuplicationForm={getDuplicationForm}
+          />
 
           {/* 비밀번호 input */}
           <St.InputField>
@@ -172,8 +171,8 @@ const Signup = () => {
               placeholder="숫자, 영문, 특수문자 조합 최소 8자"
               onChange={handleChange}
             />
-            {signupForm.password && !isValid.password && (
-              <ErrorMessage>{validMessage.passwordMessage}</ErrorMessage>
+            {signupForm.password && !validState.password && (
+              <ErrorMessage>{messageState.passwordMessage}</ErrorMessage>
             )}
             <PasswordInput
               name="passwordConfirm"
@@ -181,11 +180,10 @@ const Signup = () => {
               placeholder="비밀번호 재입력"
               onChange={handleChange}
             />
-            {!isValid.passwordConfirm && (
-              <ErrorMessage>{validMessage.passwordConfirmMessage}</ErrorMessage>
+            {!validState.passwordConfirm && (
+              <ErrorMessage>{messageState.passwordConfirmMessage}</ErrorMessage>
             )}
           </St.InputField>
-
           {/* 이름 input */}
           <St.InputField>
             <Title>이름</Title>
@@ -200,39 +198,13 @@ const Signup = () => {
           </St.InputField>
 
           {/* 이메일 input */}
-          <St.InputField>
-            <Title>이메일</Title>
-            <St.Field>
-              <Input
-                type="email"
-                name="email"
-                value={signupForm.email}
-                placeholder="이메일"
-                onChange={handleChange}
-              />
-              <St.Button
-                type="button"
-                name="emailDuplicationBtn"
-                onClick={handleDuplicated}
-                disabled={isValid.email === false}
-              >
-                중복확인
-              </St.Button>
-            </St.Field>
-            {signupForm.email && isValid.email === false && (
-              <ErrorMessage>{validMessage.emailMessage}</ErrorMessage>
-            )}
-            {signupForm.email && isValid.emailDuplication && (
-              <SuccessMessage>
-                {validMessage.emailDuplicationMessage}
-              </SuccessMessage>
-            )}
-            {signupForm.email !== "" && !isValid.emailDuplication && (
-              <ErrorMessage>
-                {validMessage.emailDuplicationMessage}
-              </ErrorMessage>
-            )}
-          </St.InputField>
+          <DuplicationForm
+            title="이메일"
+            inputName="email"
+            btnName="emailDuplicationBtn"
+            placeholder="이메일"
+            getDuplicationForm={getDuplicationForm}
+          />
 
           {/* 생년월일 input */}
           <St.InputField>
@@ -246,82 +218,75 @@ const Signup = () => {
               required
             />
           </St.InputField>
-
           {/* 휴대폰 번호 input */}
           <AuthenticationNumber
             option="phonenumber"
             page="signup"
             getAuthenticationForm={getAuthenticationForm}
           />
-
           {/* 약관 동의 */}
           <St.Ul>
             <St.Li>
               <St.Checkbox
                 type="checkbox"
-                id="all-agree"
-                checked={isValid.allChecked}
-                onChange={handleAllChecked}
+                id="allChecked"
+                checked={checkboxes.allChecked}
+                onChange={handleChecked}
               />
-              <label htmlFor="all-agree">전체동의</label>
+              <label htmlFor="allChecked">전체동의</label>
             </St.Li>
             <hr />
             <St.Li>
               <St.Checkbox
                 type="checkbox"
-                id="age-consent"
-                checked={isValid.acChecked}
-                onChange={handleCheckBoxChange}
+                id="acChecked"
+                checked={checkboxes.acChecked}
+                onChange={handleChecked}
                 required
               />
-              <label htmlFor="age-consent">만 19세 이상입니다. (필수)</label>
+              <label htmlFor="acChecked">만 19세 이상입니다. (필수)</label>
             </St.Li>
             <St.Li>
               <St.Checkbox
                 type="checkbox"
-                id="terms-of-service"
-                checked={isValid.tosChecked}
-                onChange={handleCheckBoxChange}
+                id="tosChecked"
+                checked={checkboxes.tosChecked}
+                onChange={handleChecked}
                 required
               />
-              <label htmlFor="terms-of-service">
-                서비스 이용약관 동의 (필수)
-              </label>
+              <label htmlFor="tosChecked">서비스 이용약관 동의 (필수)</label>
             </St.Li>
             <St.Li>
               <St.Checkbox
                 type="checkbox"
-                id="privacy-consent"
-                checked={isValid.pcChecked}
-                onChange={handleCheckBoxChange}
+                id="pcChecked"
+                checked={checkboxes.pcChecked}
+                onChange={handleChecked}
                 required
               />
-              <label htmlFor="privacy-consente">
+              <label htmlFor="pcChecked">
                 개인정보 수집 및 이용 동의 (필수)
               </label>
             </St.Li>
             <St.Li>
               <St.Checkbox
                 type="checkbox"
-                id="marketing-consent"
-                checked={isValid.mcChecked}
-                onChange={handleCheckBoxChange}
+                id="mcChecked"
+                checked={checkboxes.mcChecked}
+                onChange={handleChecked}
               />
-              <label htmlFor="marketing-consent">
+              <label htmlFor="mcChecked">
                 마케팅 활용 동의 및 광고 수신 동의 (선택)
               </label>
             </St.Li>
           </St.Ul>
-
           {/* 회원가입 버튼 */}
-          <St.SignupBtn type="submit" disabled={disabledBtn}>
-            회원가입
-          </St.SignupBtn>
+          <St.SignupBtn type="submit">회원가입</St.SignupBtn>
           <St.CancelBtn type="button" onClick={() => navigate("/")}>
             취소
           </St.CancelBtn>
         </form>
-        <Modal page="signup" />
+        <Modal option="signup" />
       </St.Container>
     </St.Section>
   );
