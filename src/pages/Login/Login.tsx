@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "redux/store";
+import { useDispatch } from "react-redux";
 import { getCookie } from "utils/cookies";
+import { redirect } from "utils/redirect";
 import { BrandLogo, Kakao, Naver, Google } from "asset";
 import { LoginFormType } from "types";
 import { PasswordInput, Modal } from "components";
@@ -12,7 +11,6 @@ import { loginLoading } from "../../redux/reducer/loginReducer";
 import * as St from "./styles";
 
 const LoginForm = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [loginForm, setLoginForm] = useState<LoginFormType>({
@@ -57,7 +55,7 @@ const LoginForm = () => {
   return (
     <St.Section>
       <St.Container>
-        <St.LogoBtn onClick={() => navigate("/")}>
+        <St.LogoBtn onClick={() => redirect("/")}>
           <BrandLogo />
         </St.LogoBtn>
         {/* 로그인 */}
@@ -79,14 +77,14 @@ const LoginForm = () => {
           </St.InputField>
           <St.LoginBtn disabled={!isFormValid}>로그인</St.LoginBtn>
         </form>
-        <Modal page="login" />
+        <Modal option="login" />
 
         {/* 아이디, 비밀번호 찾기 및 회원가입 */}
         <St.Finder>
           <St.Button
             type="button"
             onClick={() => {
-              navigate("/findaccount:id");
+              redirect("/findaccount:id");
             }}
           >
             아이디 찾기
@@ -95,7 +93,7 @@ const LoginForm = () => {
           <St.Button
             type="button"
             onClick={() => {
-              navigate("/findaccount:password");
+              redirect("/findaccount:password");
             }}
           >
             비밀번호 찾기
@@ -104,7 +102,7 @@ const LoginForm = () => {
           <St.Button
             type="button"
             onClick={() => {
-              navigate("/signup");
+              redirect("/signup");
             }}
           >
             회원가입

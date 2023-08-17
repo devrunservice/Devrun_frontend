@@ -1,15 +1,20 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
+import { LoginFormType } from "types";
 
 export interface LoginReducerType {
   loading: boolean;
   isLogin: boolean;
+  data: LoginFormType;
   error: Error | null;
 }
 
 const initialState: LoginReducerType = {
   loading: false,
   isLogin: false,
+  data: {
+    id: "",
+  },
   error: null,
 };
 
@@ -24,8 +29,10 @@ const loginReducer = createSlice({
     },
     loginSuccess: (state, action) => {
       console.log("일반 로그인 성공");
+      console.log(action.payload);
       state.loading = false;
       state.isLogin = true;
+      state.data = action.payload;
       return state;
     },
     loginFail: (state, action) => {

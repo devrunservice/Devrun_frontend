@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "redux/store";
 import useValid from "hooks/useValid";
 import Modal from "components/Login/Modal/Modal";
 import { ErrorMessage, Input, SuccessMessage } from "style/Common";
@@ -24,15 +26,17 @@ const AuthenticationNumber = ({
     code: "",
   });
 
-  const {
-    isValid,
-    // setIsValid,
-    validMessage,
-    requestAuthenticationNumber,
-    verifyAuthenticationNumber,
-  } = useValid(authenticationForm);
+  const validState = useSelector(
+    (state: RootState) => state.validationReducer.validState,
+  );
+  const messageState = useSelector(
+    (state: RootState) => state.validationReducer.messageState,
+  );
 
-  console.log(isValid);
+  const { requestAuthenticationNumber, verifyAuthenticationNumber } =
+    useValid(authenticationForm);
+
+  // console.log(isValid);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAuthenticationForm({
       ...authenticationForm,
@@ -47,12 +51,13 @@ const AuthenticationNumber = ({
         phonenumber: authenticationForm.phonenumber,
         code: authenticationForm.code,
       },
-      isValid.checkCodeBtn,
+      validState.checkCodeBtn,
     );
-  }, [authenticationForm, isValid.checkCodeBtn]);
+  }, [authenticationForm, validState.checkCodeBtn]);
 
   // 휴대폰 인증번호
   const handleGetAuthenticationNumber = () => {
+    console.log("인증번호 받기");
     requestAuthenticationNumber(
       page || "",
       authenticationForm.phonenumber || "",
@@ -86,25 +91,25 @@ const AuthenticationNumber = ({
             <St.Button
               type="button"
               onClick={handleGetAuthenticationNumber}
-              disabled={!isValid.phonenumber}
+              disabled={!validState.phonenumber}
             >
               인증번호
             </St.Button>
           </St.Field>
-          {/* {isValid.codeBtn && isValid.phonenumber ? (
-            <SuccessMessage>{validMessage.phonenumberMessage}</SuccessMessage>
+          {/* {validState.codeBtn && validState.phonenumber ? (
+            <SuccessMessage>{messageState.phonenumberMessage}</SuccessMessage>
           ) : (
-            <ErrorMessage>{validMessage.phonenumberMessage}</ErrorMessage>
+            <ErrorMessage>{messageState.phonenumberMessage}</ErrorMessage>
           )} */}
-          {isValid.codeBtn && isValid.phonenumber && (
-            <SuccessMessage>{validMessage.phonenumberMessage}</SuccessMessage>
+          {validState.codeBtn && validState.phonenumber && (
+            <SuccessMessage>{messageState.phonenumberMessage}</SuccessMessage>
           )}
           {authenticationForm.phonenumber !== "" &&
-            !isValid.phonenumber &&
-            !isValid.codeBtn && (
-              <ErrorMessage>{validMessage.phonenumberMessage}</ErrorMessage>
+            !validState.phonenumber &&
+            !validState.codeBtn && (
+              <ErrorMessage>{messageState.phonenumberMessage}</ErrorMessage>
             )}
-          <Modal page="findPassword" />
+          <Modal option="findPassword" />
           <St.Field>
             <Input
               type="text"
@@ -118,10 +123,10 @@ const AuthenticationNumber = ({
               확인
             </St.Button>
           </St.Field>
-          {isValid.checkCodeBtn && isValid.code ? (
-            <SuccessMessage>{validMessage.codeMessage}</SuccessMessage>
+          {validState.checkCodeBtn && validState.code ? (
+            <SuccessMessage>{messageState.codeMessage}</SuccessMessage>
           ) : (
-            <ErrorMessage>{validMessage.codeMessage}</ErrorMessage>
+            <ErrorMessage>{messageState.codeMessage}</ErrorMessage>
           )}
         </>
       ) : (
@@ -139,7 +144,7 @@ const AuthenticationNumber = ({
             <St.Button
               type="button"
               onClick={handleGetAuthenticationNumber}
-              disabled={!isValid.email}
+              disabled={!validState.email}
             >
               인증번호
             </St.Button>
@@ -150,8 +155,8 @@ const AuthenticationNumber = ({
             <ErrorMessage>{validMessage.emailMessage}</ErrorMessage>
           )} */}
 
-          {authenticationForm.email && isValid.email === false && (
-            <ErrorMessage>{validMessage.emailMessage}</ErrorMessage>
+          {authenticationForm.email && validState.email === false && (
+            <ErrorMessage>{messageState.emailMessage}</ErrorMessage>
           )}
 
           <St.Field>
@@ -167,10 +172,10 @@ const AuthenticationNumber = ({
               확인
             </St.Button>
           </St.Field>
-          {isValid.checkCodeBtn && isValid.code ? (
-            <SuccessMessage>{validMessage.codeMessage}</SuccessMessage>
+          {validState.checkCodeBtn && validState.code ? (
+            <SuccessMessage>{messageState.codeMessage}</SuccessMessage>
           ) : (
-            <ErrorMessage>{validMessage.codeMessage}</ErrorMessage>
+            <ErrorMessage>{messageState.codeMessage}</ErrorMessage>
           )}
         </>
       )}

@@ -3,17 +3,20 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
-import { PasswordInput } from "components";
+import { AuthenticationNumber, PasswordInput } from "components";
+import { SignupFormType } from "types";
 import * as St from "./styles";
 import { closeModal } from "../../../redux/reducer/modalReducer";
 import { logoutLoading } from "../../../redux/reducer/loginReducer";
 
-const Modal = ({ page }: { page?: string }) => {
+const Modal = ({ option }: { option?: string }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [inputForm, setInputForm] = useState({
     password: "",
+    phonenumber: "",
+    code: "",
   });
 
   const modalOpen = useSelector(
@@ -41,11 +44,8 @@ const Modal = ({ page }: { page?: string }) => {
     }
 
     // 토큰 조작 및 Refresh Token 만료 시
-    if (page === "home") {
+    if (option === "home") {
       dispatch(logoutLoading());
-      navigate("/");
-    } else {
-      navigate("/profileupdate");
     }
 
     // 카카오 로그인 성공 시
@@ -74,16 +74,23 @@ const Modal = ({ page }: { page?: string }) => {
     setInputForm({ ...inputForm, [name]: value });
   };
 
+  const getAuthenticationForm = (values: SignupFormType) => {
+    // inputForm.phonenumber = values.phonenumber;
+    // inputForm.code = values.code;
+    // setInputForm({ ...inputForm, phonenumber: values.phonenumber });
+    // setInputForm({ ...inputForm, code: values.code });
+  };
+
   return (
     <St.Section>
-      {page !== "profileUpdate" && (
+      {option !== "profile" && option !== "profilePhonenumber" && (
         <St.Modal>
           <p>{modalMessage1}</p>
           <p>{modalMessage2}</p>
           <St.Button onClick={handleClick}>확인</St.Button>
         </St.Modal>
       )}
-      {page === "profileUpdate" && (
+      {option === "profile" && (
         <St.Modal>
           <St.P>비밀번호</St.P>
           <PasswordInput
@@ -93,6 +100,16 @@ const Modal = ({ page }: { page?: string }) => {
             onChange={handleChange}
           />
           <St.Button onClick={handleClick}>확인</St.Button>
+        </St.Modal>
+      )}
+      {option === "profilePhonenumber" && (
+        <St.Modal>
+          <AuthenticationNumber
+            option="phonenumber"
+            page="signup"
+            getAuthenticationForm={getAuthenticationForm}
+          />
+          <St.Button onClick={handleClick}>수정</St.Button>
         </St.Modal>
       )}
     </St.Section>

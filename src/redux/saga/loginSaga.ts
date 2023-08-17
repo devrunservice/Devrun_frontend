@@ -4,6 +4,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { login } from "utils/api";
 import { getCookie, removeCookie, setCookie } from "utils/cookies";
 import { redirect } from "utils/redirect";
+import { decode } from "utils/decode";
 import { LoginFormType } from "types";
 import { openModal, setKakaoLoginSuccess } from "../reducer/modalReducer";
 import {
@@ -29,30 +30,24 @@ function* loginSaga(
     const offset = 1000 * 60 * 60 * 9;
     const expirationDate = new Date(new Date().getTime() + offset);
     expirationDate.setMinutes(expirationDate.getMinutes() + 1);
-    // setCookie("accessToken", accessToken, {
-    //   // 모든페이지에서 쿠키 엑세스 가능
-    //   path: "/",
-    //   // https 일때만 통신할 수 있는 것 https일때 true로 바꿔줄것!
-    //   secure: false,
-    //   // 쿠키 훔쳐가는거 막음 로컬에서는 사용이 안된다함
-    //   httpOnly: true,
-    //   // 쿠키 만료 날짜
-    //   expires: expirationDate,
-    // });
-    // setCookie("refreshToken", refreshToken, {
-    //   path: "/",
-    //   secure: false,
-    //   httpOnly: true,
-    //   expires: expirationDate,
-    // });
     // 만료된 토큰
     // const accessToken =
     //   "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiYmIyMjIiLCJpYXQiOjE2OTAzNzcwODAsImV4cCI6MTY5MDQ2MzQ4MH0.RbkMntKliTUQK5mSjBcfjY9-X46n1tiXklFJddBnImgc3ctpEiv95tHivqMeDj6xbqZW9NMC_wD1TNFbwtIIpw";
     // const refreshToken =
     //   "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiYmIyMjIiLCJuYW1lIjoi7ZmN6ri464-ZIiwianRpIjoiMjk4MTVhYTYtOTlhNS00NmJkLWE0YTktNTgyNmQ0YzQwMzA4IiwiZXhwIjoxNjkwMzc3OTgwfQ.qgpP8Oa79AkKggbb3jQ-IkKuN-Lp_jrHN-S6XNnKtQSPcy2lspxPH5cgyhHrWsIfPqunOSCqV9-k-DAv8Qp8AA";
-    setCookie("accessToken", accessToken, { path: "/" });
-    setCookie("refreshToken", refreshToken, { path: "/" });
-    removeCookie("easyLoginToken", { path: "/" });
+    setCookie("accessToken", accessToken, {
+      path: "/",
+      // https 일때만 통신할 수 있는 것 https일때 true로 바꿔줄것!
+      secure: true,
+      // 쿠키 훔쳐가는거 막음 로컬에서는 사용이 안된다함
+      // httpOnly: true,
+      // expires: expirationDate,
+    });
+    setCookie("refreshToken", refreshToken, {
+      path: "/",
+      secure: true,
+    });
+    removeCookie("easyLoginToken", { path: "/", secure: true, httpOnly: true });
     yield put(loginSuccess(response));
     yield call(redirect, "/home");
   } catch (error: any) {
@@ -66,8 +61,8 @@ function* logoutSaga(): Generator<any, void, any> {
     const refreshCookie = getCookie("refreshToken");
     const response = yield call(login.checkLogout, refreshCookie);
     yield put(logoutSuccess(response));
-    removeCookie("accessToken");
-    removeCookie("refreshToken");
+    removeCookie("accessToken", { path: "/" });
+    removeCookie("refreshToken", { path: "/" });
     yield call(redirect, "/");
   } catch (error) {
     yield put(logoutFail(error));
@@ -85,7 +80,10 @@ function* kakaoLoginSaga(
     console.log(response);
     const easyLoginToken = response.data.Easylogin_token;
     if (easyLoginToken) {
-      setCookie("easyLoginToken", easyLoginToken.substr(7), { path: "/" });
+      setCookie("easyLoginToken", easyLoginToken.substr(7), {
+        path: "/",
+        secure: true,
+      });
       yield put(
         openModal(
           "간편 로그인이 완료되었습니다./로그인을 진행하여 기존 계정과 연동해주세요.",
@@ -96,9 +94,11 @@ function* kakaoLoginSaga(
     } else {
       setCookie("accessToken", response.data.Access_token.substr(7), {
         path: "/",
+        secure: true,
       });
       setCookie("refreshToken", response.data.Refresh_token.substr(7), {
         path: "/",
+        secure: true,
       });
       yield put(loginSuccess(response));
       yield call(redirect, "/home");
