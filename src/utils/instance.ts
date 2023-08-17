@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import axios from "axios";
-import { getCookie, setCookie } from "./cookies";
+import { getCookie, removeCookie, setCookie } from "./cookies";
 
 export const baseAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
@@ -14,6 +14,11 @@ export const authAxios = axios.create({
   headers: {
     "Content-type": "application/json",
   },
+});
+
+export const imageAxios = axios.create({
+  baseURL: `${process.env.REACT_APP_SERVER_URL}`,
+  headers: {},
 });
 
 baseAxios.interceptors.request.use(
@@ -37,6 +42,17 @@ authAxios.interceptors.request.use(
   },
   (error) => {
     console.log(error);
+    return Promise.reject(error);
+  },
+);
+
+imageAxios.interceptors.request.use(
+  (config) => {
+    const accessToken = getCookie("accessToken");
+    config.headers.Access_token = `Bearer ${accessToken}`;
+    return config;
+  },
+  (error) => {
     return Promise.reject(error);
   },
 );
@@ -107,6 +123,8 @@ baseAxios.interceptors.response.use(
         }
         switch (errorMessage.message) {
           case "Token is expired":
+            removeCookie("accessToken");
+            removeCookie("refreshToken");
             return Promise.reject(
               new Error("접속이 만료되었습니다./로그인을 다시해주세요."),
             );
@@ -121,7 +139,7 @@ baseAxios.interceptors.response.use(
             return Promise.reject(new Error("약관동의를 진행해주세요."));
           case "Account has been withdrawn":
             return Promise.reject(new Error("탈퇴한 회원입니다."));
-          case "Verification failed phonenumber":
+          case "Verification failed Phonenumber":
             return Promise.reject(new Error("새로운 인증번호를 받아주세요."));
           case "Access Denied":
             return Promise.reject(new Error("알 수 없는 오류가 발생했습니다."));
@@ -186,8 +204,14 @@ authAxios.interceptors.response.use(
             console.log(response);
             newAccessToken = response.data.Access_token.substr(7);
             newRefreshToken = response.data.Refresh_token.substr(7);
-            setCookie("accessToken", newAccessToken);
-            setCookie("refreshToken", newRefreshToken);
+            setCookie("accessToken", newAccessToken, {
+              path: "/",
+              secure: true,
+            });
+            setCookie("refreshToken", newRefreshToken, {
+              path: "/",
+              secure: true,
+            });
             originalRequest.headers.Access_token = `Bearer ${newAccessToken}`;
             return axios(originalRequest);
           default:
@@ -202,6 +226,16 @@ authAxios.interceptors.response.use(
             );
           case "Access Denied failed":
             return Promise.reject(new Error(``));
+          case "Logout user":
+            return Promise.reject(new Error(`이미 로그아웃 됐습니다.`));
+          default:
+            break;
+        }
+        break;
+      case 409:
+        switch (errorMessage) {
+          case "This email is duplicated":
+            return Promise.reject(new Error("이메일이 중복되었습니다."));
           default:
             break;
         }
@@ -217,5 +251,16 @@ authAxios.interceptors.response.use(
       default:
         break;
     }
+    switch (error.message) {
+      case "Network Error":
+        return Promise.reject(new Error("알 수 없는 오류가 발생했습니다."));
+      default:
+        break;
+    }
   },
+);
+
+imageAxios.interceptors.response.use(
+  (response) => response,
+  (error) => error,
 );

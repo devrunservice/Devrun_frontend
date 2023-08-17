@@ -7,10 +7,11 @@ import {
   SignupFormType,
   TokenType,
   CouponGet,
+  MypageType,
 } from "types";
 import * as I from "types";
 
-import { baseAxios, authAxios } from "./instance";
+import { baseAxios, authAxios, imageAxios } from "./instance";
 
 export const signup = {
   // 회원가입
@@ -53,7 +54,7 @@ export const login = {
   checkLogout: async (params: TokenType) => {
     const config = {
       headers: {
-        Refresh_token: `${params}`,
+        Refresh_token: `Bearer ${params}`,
       },
     };
     const response = await baseAxios.post("/logout", null, config);
@@ -100,6 +101,30 @@ export const findAccount = {
 export const userData = {
   createUser: (params: tmi) => {
     const response = authAxios.get("/tmi", { params: { id: params } });
+    return response;
+  },
+};
+
+// 마이페이지 정보
+export const mypage = {
+  profile: async (params: MypageType) => {
+    const response = await authAxios.get(`/mypage/${params.id}`);
+    console.log(response);
+    return response;
+  },
+  updateEmail: async (params: MypageType) => {
+    const response = await authAxios.post(`/edit/email`, params);
+    console.log(response);
+    return response;
+  },
+  updatePhonenumber: async (params: MypageType) => {
+    const response = await authAxios.post(`/edit/phone`, params);
+    console.log(response);
+    return response;
+  },
+  updateProfileImage: async (params: FormData) => {
+    const response = await imageAxios.post(`/edit/profileimg`, params);
+    console.log(response);
     return response;
   },
 };

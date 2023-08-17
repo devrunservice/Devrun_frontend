@@ -52,11 +52,7 @@ export interface IsValidType {
   checkCodeBtn: boolean;
   idDuplication: boolean;
   emailDuplication: boolean;
-  allChecked: boolean;
-  acChecked: boolean;
-  tosChecked: boolean;
-  pcChecked: boolean;
-  mcChecked: boolean;
+  [key: string]: boolean; // 동적인 프로퍼티 접근 허용
 }
 
 export interface IsValidMessageType {
@@ -68,6 +64,7 @@ export interface IsValidMessageType {
   codeMessage: string;
   idDuplicationMessage: string;
   emailDuplicationMessage: string;
+  [key: string]: string; // 동적인 프로퍼티 접근 허용
 }
 
 // 로그인 타입
@@ -80,6 +77,23 @@ export interface LoginFormType {
 export interface PropsType {
   page?: string;
   getImage?: void;
+}
+
+export interface MypageType {
+  id?: string;
+  name?: string;
+  email?: string;
+  birthday?: string;
+  phonenumber?: string;
+  code?: string;
+  profileImage?: string;
+}
+
+export interface ProfileInputType {
+  profileImageBtn: boolean;
+  emailBtn: boolean;
+  phonenumberBtn: boolean;
+  [key: string]: boolean;
 }
 
 export interface ITmiData {
@@ -160,22 +174,21 @@ export interface CreateLectureType {
   lectureTag?: Array<string>;
   lectureExplane?: string;
   // lectureIntroduce?: string;
-  section?: Array<SectionType>
+  section?: Array<SectionType>;
 }
 export interface SectionType {
-  num:number,
+  num: number;
   // num:MutableRefObject<number>,
   title: string;
-  subTitle: Array<SubTitleType>
+  subTitle: Array<SubTitleType>;
 }
 export interface SubTitleType {
-  subNum:number;
+  subNum: number;
   // subNum:React.MutableRefObject<number>;
   className: string;
   url: string;
 }
 export interface RefType {}
-
 
 export interface Receipt {
   buyer_email?: string;
@@ -186,7 +199,7 @@ export interface Receipt {
   name?: string;
   paid_amount?: number;
   paymentDate?: string;
-  receipt_url?: string ;
+  receipt_url?: string;
   user_no?: number | string;
   status?: string;
 }
@@ -203,13 +216,13 @@ export interface Table {
 }
 
 export interface ReceiptTable {
-  data?: Receipt[]
-  offset:number;
-  limit:number;
+  data?: Receipt[];
+  offset: number;
+  limit: number;
 }
 export interface UserTop {
   title: string;
-  sub?:string;
+  sub?: string;
   count?: Receipt[] | string;
 }
 // 페이지네이션
@@ -231,10 +244,9 @@ export interface Basket {
   discounts: number;
 }
 
-export interface IEdit{
-  title:string;
+export interface IEdit {
+  title: string;
 }
-
 
 // 댓글
 export interface Comment {
@@ -249,7 +261,6 @@ export interface IPriceButton {
 export interface MySearch {
   search: string;
 }
-
 
 // 결제창
 export interface RequestPayAdd {
@@ -312,11 +323,10 @@ export interface RequestPayResponse extends IRequestPayResponse {
   receipt_url?: string;
 }
 
-
 export interface CallbackData {
   id: number;
   name: string;
-  paid_amount: number ;
+  paid_amount: number;
   buyer_email?: string;
   buyer_name?: string;
   buyer_tel?: string;
@@ -326,8 +336,6 @@ export interface CallbackData {
   receipt_url?: string;
   imp_uid?: string | null;
 }
-
-
 
 export type RequestPayResponseCallback = (response: RequestPayResponse) => void;
 export interface Iamport {
@@ -344,7 +352,6 @@ declare global {
   }
 }
 
-
 export interface Refund {
   merchant_uid: string | undefined;
   cancel_request_amount: number | undefined;
@@ -356,7 +363,7 @@ export interface Refund {
 
 export interface Selet {
   seletsBoolean: boolean;
-  seletes:string
+  seletes: string;
 }
 export interface Active {
   $active: boolean;
