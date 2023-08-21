@@ -7,6 +7,7 @@ import {
   SignupFormType,
   TokenType,
   IMySearch,
+  CreateLectureType
 } from "types";
 import { setCookie } from "./cookies";
 import { authAxios, accAxios } from "./instance";
@@ -138,5 +139,21 @@ export const Search = {
 };
 
 /* 강의생성 */
-
+export const createVideo = {
+  create: (params:CreateLectureType ) => {
+    const response = accAxios.post('/lectureregist', params, {
+      headers: {
+        "Content-type": "multipart/form-data",
+      }
+    })
+    return response
+  },
+  // videoList: (params:VideoType) => {
+  //   const response = accAxios.post('/api/upload', params, {
+  //     headers: {
+  //       "Content-type": "multipart/form-data",
+  //     }
+  //   })
+  // }
+}
 /* eslint-disable @typescript-eslint/no-unused-vars */

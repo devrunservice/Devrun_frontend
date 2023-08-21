@@ -1,79 +1,76 @@
 import React from "react";
+import { RootState } from 'redux/store';
+import { useSelector } from 'react-redux';
 import { PlusCircle, Trash } from "asset";
+import { SectionType } from "types";
 import * as St from "./style";
 
-interface ListType  {
-  num: number,
-  title: string,
-  subTitle: Array<SubTitleType>
-}
-interface SubTitleType  {
-  subNum: number,
-  className: string,
-  url: string,
-}
-interface TestType {
-  item: ListType,
-  indexNum: number,
-  deleteSections:(id:number)=> void
+interface curriculumPropsType {
+  list: SectionType,
+  index: number,
+  deleteSections:(index:number)=> void
   addClasses: (id: number)=> void
-  deleteClasses: (num:number, index: number) =>void
+  deleteClasses: (id:number) =>void
   changeTitles: (e:React.ChangeEvent<HTMLInputElement>, id:number)=>void
-  changeSubTitle: (e:React.ChangeEvent<HTMLInputElement>, num:number, index:number) => void
+  changeVideoFiles: (e:React.ChangeEvent<HTMLInputElement>, id:number) => void
+  changeClassTitles: (e:React.ChangeEvent<HTMLInputElement>, id:number) => void
 }
 
-const CurriculumSection:React.FC<TestType> = ({item, indexNum,changeSubTitle, deleteSections, addClasses, changeTitles, deleteClasses}) => {
-  console.log(indexNum)
+const CurriculumSection:React.FC<curriculumPropsType> = ({list, index, changeClassTitles, changeVideoFiles, changeTitles, deleteSections, deleteClasses, addClasses}) => {
+  const videoStore = useSelector((state:RootState)=>state.createVideoSlice)
   return(
     <St.CurriculumSectionWrap>
       <St.CurriculumHeader>
-          <h4>섹션{indexNum}. 
+          <h4>섹션{index}.
             <input 
               type="text" 
               placeholder="목차 입력" 
-              onChange={(event)=>changeTitles(event, item.num)} 
-              value={item.title} 
-              />
+              onChange={(event)=>changeTitles(event, list.lectureSectionId)} 
+              value={list.sectionTitle}
+            />
           </h4>
           <div>
-            <button onClick={()=>addClasses(item.num)}>
+            <button onClick={()=>addClasses(list.lectureSectionId)}>
               <PlusCircle/>
               수업 추가하기
             </button>
-            <Trash onClick={()=>deleteSections(item.num)}/>
+            <Trash onClick={()=>deleteSections(index)}/>
           </div>
       </St.CurriculumHeader>
       {
-        item.subTitle.map((list:any, index:number)=>(
-          <St.CurriculumMain key={index}>
+        videoStore.videoList?.map((item)=>(
+          item.lectureSectionId === list.lectureSectionId ? (
+          <St.CurriculumMain key={item.videoNo}>
             <div>
               <p>제목</p>
               <input 
                 type="text" 
-                value={list.className}
-                onChange={(event)=>changeSubTitle(event, item.num, index)} 
-                name="title" 
-                placeholder="제목입력"  
                 style={{width:'600px'}} 
-              /> 
+                placeholder="수업 제목"
+                value={item.videoTitle||''}
+                onChange={(event)=>changeClassTitles(event, item.videoNo)}
+              />
+              {/* {item.file === undefined||item.file === null ? '제목없음' : item.file.name.split('.')[0]} */}
               <p>URL</p>
               <St.FileInput 
-              onChange={(event:any)=>changeSubTitle(event, item.num, index)} 
+                onChange={(event:any)=>changeVideoFiles(event, item.videoNo)} 
                 id="video-url" 
                 type="file" 
                 name="url" 
-                placeholder="파일 업로드하기" 
-                style={{width:'600px'}} 
-                // value={list.url}
+                accept="video/*"
+                style={{width:'600px'}}
+                // value={item.file === undefined||item.file === null ? '제목없음' : item.file.name.split('.')[0]}
               /> 
-              <label htmlFor="video-url">파일선택</label>
             </div>
             <St.FlexLine>
-              <Trash onClick={()=>deleteClasses(item.num, list.subNum)} />
+              <Trash onClick={()=>deleteClasses(item.videoNo)} />
             </St.FlexLine>
           </St.CurriculumMain>
-        ))
+          ) : null
+        ))      
       }
+
+      
     </St.CurriculumSectionWrap>
   )
 };
