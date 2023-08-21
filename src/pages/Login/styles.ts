@@ -1,5 +1,5 @@
-import { styled } from "styled-components";
-import { Input } from "style/Common";
+import {styled} from 'styled-components';
+import {Input} from 'style/Common';
 
 // Gray 배경 컴포넌트
 export const Section = styled.section`
@@ -57,6 +57,10 @@ export const LoginBtn = styled(Button)`
   background-color: ${(props) => props.theme.brandColor};
 `;
 
+export const Recaptcha = styled.div`
+  display: flex;
+`;
+
 // 아이디 찾기, 비밀번호 찾기, 회원가입
 export const Finder = styled.div`
   display: flex;
@@ -104,7 +108,7 @@ export const SocialLoginTitle = styled.div`
 
   &::after,
   &::before {
-    content: "";
+    content: '';
     flex-grow: 1;
     background: rgba(103, 103, 103, 0.8);
     height: 1px;

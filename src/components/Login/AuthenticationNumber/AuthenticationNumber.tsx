@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "redux/store";
-import useValid from "hooks/useValid";
-import Modal from "components/Login/Modal/Modal";
-import { ErrorMessage, Input, SuccessMessage } from "style/Common";
-import { SignupFormType } from "types";
-import * as St from "./styles";
+import React, {useEffect, useState} from 'react';
+import {useSelector} from 'react-redux';
+import {RootState} from 'redux/store';
+import useValid from 'hooks/useValid';
+import Modal from 'components/Login/Modal/Modal';
+import {ErrorMessage, Input, SuccessMessage} from 'style/Common';
+import {SignupFormType} from 'types';
+import * as St from './styles';
 
 const AuthenticationNumber = ({
   findOption,
@@ -21,19 +21,19 @@ const AuthenticationNumber = ({
   getAuthenticationForm: (values: SignupFormType, isClicked: boolean) => void;
 }) => {
   const [authenticationForm, setAuthenticationForm] = useState<SignupFormType>({
-    phonenumber: "",
-    email: "",
-    code: "",
+    phonenumber: '',
+    email: '',
+    code: '',
   });
 
   const validState = useSelector(
-    (state: RootState) => state.validationReducer.validState,
+    (state: RootState) => state.validationReducer.validState
   );
   const messageState = useSelector(
-    (state: RootState) => state.validationReducer.messageState,
+    (state: RootState) => state.validationReducer.messageState
   );
 
-  const { requestAuthenticationNumber, verifyAuthenticationNumber } =
+  const {requestAuthenticationNumber, verifyAuthenticationNumber} =
     useValid(authenticationForm);
 
   // console.log(isValid);
@@ -51,32 +51,32 @@ const AuthenticationNumber = ({
         phonenumber: authenticationForm.phonenumber,
         code: authenticationForm.code,
       },
-      validState.checkCodeBtn,
+      validState.checkCodeBtn
     );
   }, [authenticationForm, validState.checkCodeBtn]);
 
   // 휴대폰 인증번호
   const handleGetAuthenticationNumber = () => {
-    console.log("인증번호 받기");
+    console.log('인증번호 받기');
     requestAuthenticationNumber(
-      page || "",
-      authenticationForm.phonenumber || "",
+      page || '',
+      authenticationForm.phonenumber || '',
       findOption,
-      id,
+      id
     );
   };
 
   // 인증번호 확인
   const handleCheckAuthenticationNumber = () => {
-    console.log("인증번호 확인 클릭");
+    console.log('인증번호 확인 클릭');
     verifyAuthenticationNumber(
-      authenticationForm.phonenumber || "",
-      authenticationForm.code || "",
+      authenticationForm.phonenumber || '',
+      authenticationForm.code || ''
     );
   };
   return (
     <St.InputField>
-      {option === "phonenumber" ? (
+      {option === 'phonenumber' ? (
         <>
           <St.P>휴대폰 번호</St.P>
           <St.Field>
@@ -104,12 +104,12 @@ const AuthenticationNumber = ({
           {validState.codeBtn && validState.phonenumber && (
             <SuccessMessage>{messageState.phonenumberMessage}</SuccessMessage>
           )}
-          {authenticationForm.phonenumber !== "" &&
+          {authenticationForm.phonenumber !== '' &&
             !validState.phonenumber &&
             !validState.codeBtn && (
               <ErrorMessage>{messageState.phonenumberMessage}</ErrorMessage>
             )}
-          <Modal option="findPassword" />
+          <Modal page="findPassword" />
           <St.Field>
             <Input
               type="text"

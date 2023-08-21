@@ -1,13 +1,8 @@
-import React from "react";
-import ReCAPTCHA from "react-google-recaptcha";
-import { LoginFormType } from "types";
-import * as St from "./styles";
+import React from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
+import * as St from './styles';
 
-const Recaptcha = ({
-  getRecaptcha,
-}: {
-  getRecaptcha: (value: LoginFormType) => void;
-}) => {
+const Recaptcha = ({getRecaptcha}: {getRecaptcha: (value: string) => void}) => {
   const onChange = (value: any) => {
     // console.log("Captcha value:", value);
     getRecaptcha(value);

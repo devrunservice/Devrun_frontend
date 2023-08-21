@@ -66,7 +66,7 @@ export const login = {
         Refresh_token: `${params}`,
       },
     };
-    const response = await authAxios.post('/token/refresh', null, config);
+    const response = await authAxios.post('/authz/token/refresh', null, config);
     return response.data.Access_token;
   },
   checkKakaoLogin: async (params: string) => {
@@ -74,7 +74,7 @@ export const login = {
     console.log(response);
     return response;
   },
-  checkRecaptcha: async (params: LoginFormType) => {
+  checkRecaptcha: async (params: string) => {
     const response = await baseAxios.post(
       `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.REACT_APP_RECAPTCHA_SECRET_KEY}&response=${params}`
     );
