@@ -25,7 +25,7 @@ function* loginSaga(
     const response = yield call(login.checkLoginUser, action.payload);
     console.log(response);
     const accessToken = response.data.Access_token.substr(7);
-    const refreshToken = response.data.Refresh_token.substr(7);
+    // const refreshToken = response.data.Refresh_token.substr(7);
     const offset = 1000 * 60 * 60 * 9;
     const expirationDate = new Date(new Date().getTime() + offset);
     expirationDate.setMinutes(expirationDate.getMinutes() + 1);
@@ -51,7 +51,7 @@ function* loginSaga(
     // const refreshToken =
     //   "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiYmIyMjIiLCJuYW1lIjoi7ZmN6ri464-ZIiwianRpIjoiMjk4MTVhYTYtOTlhNS00NmJkLWE0YTktNTgyNmQ0YzQwMzA4IiwiZXhwIjoxNjkwMzc3OTgwfQ.qgpP8Oa79AkKggbb3jQ-IkKuN-Lp_jrHN-S6XNnKtQSPcy2lspxPH5cgyhHrWsIfPqunOSCqV9-k-DAv8Qp8AA";
     setCookie("accessToken", accessToken, { path: "/" });
-    setCookie("refreshToken", refreshToken, { path: "/" });
+    // setCookie("refreshToken", refreshToken, { path: "/" });
     removeCookie("easyLoginToken", { path: "/" });
     yield put(loginSuccess(response));
     yield call(redirect, "/home");
@@ -63,11 +63,11 @@ function* loginSaga(
 
 function* logoutSaga(): Generator<any, void, any> {
   try {
-    const refreshCookie = getCookie("refreshToken");
-    const response = yield call(login.checkLogout, refreshCookie);
-    yield put(logoutSuccess(response));
+    // const refreshCookie = getCookie("refreshToken");
+    // const response = yield call(login.checkLogout, refreshCookie);
+    // yield put(logoutSuccess(response));
     removeCookie("accessToken");
-    removeCookie("refreshToken");
+    // removeCookie("refreshToken");
     yield call(redirect, "/");
   } catch (error) {
     yield put(logoutFail(error));
@@ -96,9 +96,9 @@ function* kakaoLoginSaga(
       setCookie("accessToken", response.data.Access_token.substr(7), {
         path: "/",
       });
-      setCookie("refreshToken", response.data.Refresh_token.substr(7), {
-        path: "/",
-      });
+      // setCookie("refreshToken", response.data.Refresh_token.substr(7), {
+      //   path: "/",
+      // });
       yield put(loginSuccess(response));
       yield call(redirect, "/home");
     }

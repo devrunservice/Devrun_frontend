@@ -25,7 +25,8 @@ const Header = () => {
     if (getCookie("accessToken")) {
       setCookie(true);
       const userId = decode("accessToken");
-      dispatch(userTmiPending(userId));
+      console.log(userId);
+      // dispatch(userTmiPending(userId));
     }
   }, []);
 

@@ -169,29 +169,29 @@ accAxios.interceptors.response.use(
     const errorMessage = error.response.data.message;
     const errorStatus = error.response.status;
     const originalRequest = error.config;
-    const refreshToken = getCookie("refreshToken");
+    // const refreshToken = getCookie("refreshToken");
     let response;
     let newAccessToken;
-    let newRefreshToken;
+    // let newRefreshToken;
 
     switch (errorStatus) {
-      case 401:
-        switch (errorMessage) {
-          case "Token is expired":
-            response = await authAxios.post("/token/refresh", null, {
-              headers: { Refresh_token: `Bearer ${refreshToken}` },
-            });
-            console.log(response);
-            newAccessToken = response.data.Access_token.substr(7);
-            newRefreshToken = response.data.Refresh_token.substr(7);
-            setCookie("accessToken", newAccessToken);
-            setCookie("refreshToken", newRefreshToken);
-            originalRequest.headers.Access_token = `Bearer ${newAccessToken}`;
-            return axios(originalRequest);
-          default:
-            break;
-        }
-        break;
+      // case 401:
+      //   switch (errorMessage) {
+      //     case "Token is expired":
+      //       response = await authAxios.post("/token/refresh", null, {
+      //         headers: { Refresh_token: `Bearer ${refreshToken}` },
+      //       });
+      //       console.log(response);
+      //       newAccessToken = response.data.Access_token.substr(7);
+      //       newRefreshToken = response.data.Refresh_token.substr(7);
+      //       setCookie("accessToken", newAccessToken);
+      //       setCookie("refreshToken", newRefreshToken);
+      //       originalRequest.headers.Access_token = `Bearer ${newAccessToken}`;
+      //       return axios(originalRequest);
+      //     default:
+      //       break;
+      //   }
+      //   break;
       case 403:
         switch (errorMessage) {
           case "Signature validation failed":

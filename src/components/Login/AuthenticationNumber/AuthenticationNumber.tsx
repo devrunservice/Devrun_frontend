@@ -32,7 +32,7 @@ const AuthenticationNumber = ({
     verifyAuthenticationNumber,
   } = useValid(authenticationForm);
 
-  console.log(isValid);
+  // console.log(isValid);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAuthenticationForm({
       ...authenticationForm,

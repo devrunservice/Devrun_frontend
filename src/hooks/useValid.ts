@@ -46,7 +46,6 @@ const useValid = (form: SignupFormType) => {
         ...prev,
         idMessage: "영어, 숫자를 포함한 5 ~ 13자로 입력해주세요.",
       }));
-      setIsValid({ ...isValid, id: false });
     } else {
       setIsValid({ ...isValid, id: true });
     }
@@ -59,7 +58,7 @@ const useValid = (form: SignupFormType) => {
       setIsValid((prev) => ({ ...prev, idDuplication: false }));
     }
   }, [form.id]);
-
+  console.log(isValid)
   // 아이디, 이메일 중복확인
   const checkDuplicated = async (
     option: string,
