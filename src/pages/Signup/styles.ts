@@ -32,12 +32,6 @@ export const H1 = styled.h1`
   padding-bottom: 1.5rem;
 `;
 
-// p 태그
-export const P = styled.p`
-  color: ${(props) => props.theme.black};
-  margin-bottom: 0.6rem;
-`;
-
 // 버튼 태그
 export const Button = styled.button`
   /* width: 100%; */

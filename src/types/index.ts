@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 // 회원가입 타입
 export interface SignupFormType {
@@ -52,11 +52,8 @@ export interface IsValidType {
   checkCodeBtn: boolean;
   idDuplication: boolean;
   emailDuplication: boolean;
-  allChecked: boolean;
-  acChecked: boolean;
-  tosChecked: boolean;
-  pcChecked: boolean;
-  mcChecked: boolean;
+  profileImage: boolean;
+  [key: string]: boolean; // 동적인 프로퍼티 접근 허용
 }
 
 export interface IsValidMessageType {
@@ -68,18 +65,42 @@ export interface IsValidMessageType {
   codeMessage: string;
   idDuplicationMessage: string;
   emailDuplicationMessage: string;
+  [key: string]: string; // 동적인 프로퍼티 접근 허용
+}
+
+export interface ValidFieldType {
+  name: string;
+  value: boolean;
 }
 
 // 로그인 타입
 export interface LoginFormType {
   id: string;
   password?: string;
+  recaptcha?: string;
 }
 
 // 마이페이지 타입
 export interface PropsType {
   page?: string;
   getImage?: void;
+}
+
+export interface MypageType {
+  id?: string;
+  name?: string;
+  email?: string;
+  birthday?: string;
+  phonenumber?: string;
+  code?: string;
+  profileImage?: string;
+}
+
+export interface ProfileInputType {
+  profileImageBtn: boolean;
+  emailBtn: boolean;
+  phonenumberBtn: boolean;
+  [key: string]: boolean;
 }
 
 export interface ITmiData {
@@ -132,57 +153,48 @@ export interface TokenType {
   refreshToken?: string;
 }
 
-// export interface CreateLectureType {
-//   lectureName: string;
-//   lecturePrice: string;
-//   imageUrl: string;
-//   lectureCategory: string;
-//   lectureTag: Array<string>;
-//   lectureExplane: string;
-//   lectureIntroduce: string
-//   num: number;
-//   title: string;
-//   isReadOnly: boolean;
-//   subTitle: Array<subTitleType  >
-// }
-// export interface subTitleType {
-//   subNum:number;
-//   className: string;
-//   url: string;
-//   isReadOnly: boolean;
-// }
+/* 강의 등록 타입 */
 export interface CreateLectureType {
-  lectureName?: string;
-  lecturePrice?: number;
-  imageUrl?: string;
-  categoryType?: string;
-  lectureCategory?: string;
-  lectureTag?: Array<string>;
-  lectureExplane?: string;
-  // lectureIntroduce?: string;
-  section?: Array<SectionType>
+  lectureName: string;
+  lecturePrice: number;
+  lectureThumbnail: string;
+  lectureThumbnailUrl?: string;
+  lectureCategory: category;
+  lectureTag: Array<string>;
+  lectureIntro: string;
+  lectureSectionList: SectionType[]
+  videoList?: VideoType[]
+}
+export interface category {
+  lectureBigCategory:string 
+  lectureMidCategory: string
 }
 export interface SectionType {
-  num:number,
-  // num:MutableRefObject<number>,
-  title: string;
-  subTitle: Array<SubTitleType>
+  lectureSectionId: number  
+  sectionTitle: string;
 }
-export interface SubTitleType {
-  subNum:number;
-  // subNum:React.MutableRefObject<number>;
-  className: string;
-  url: string;
+export interface VideoType {
+  lectureSectionId: number,
+  videoNo: number,
+  file:videoFileType|undefined
+  videoTitle: string
 }
-export interface RefType {}
+export interface videoFileType {
+  fileBits: BlobPart[],
+  fileName: string,
+  options?: FilePropertyBag
+  name: string
+}
 
+
+export interface RefType {}
 
 export interface Receipt {
   merchantUid: string;
   name: string;
   paidamount: number;
   receipturl: string;
-  payno: number 
+  payno: number;
   status: string;
 }
 
@@ -193,7 +205,7 @@ export interface Table {
   title?: string;
   view?: string;
   num?: string;
-  completion?:string
+  completion?: string;
 }
 export interface TableCommon {
   $cursor?: boolean;
@@ -207,7 +219,7 @@ export interface ReceiptTable {
 }
 export interface UserTop {
   title: string;
-  sub?:string;
+  sub?: string;
   count?: Receipt[] | string;
 }
 // 페이지네이션
@@ -229,8 +241,6 @@ export interface Basket {
   discounts: number;
 }
 
-
-
 // 댓글
 export interface Comment {
   comment: string;
@@ -244,7 +254,6 @@ export interface IPriceButton {
 export interface MySearch {
   search: string;
 }
-
 
 // 결제창
 export interface RequestPayAdd {
@@ -307,7 +316,6 @@ export interface RequestPayResponse extends IRequestPayResponse {
   receipt_url?: string;
 }
 
-
 export interface basketProduct {
   item: {
     id: number;
@@ -331,14 +339,12 @@ export interface bastetCheck {
   imp_uid?: string | null;
 }
 
-
-
 export type RequestPayResponseCallback = (response: RequestPayResponse) => void;
 export interface Iamport {
   init: (accountID: string) => void;
   request_pay: (
     params: RequestPayParams,
-    callback?: RequestPayResponseCallback,
+    callback?: RequestPayResponseCallback
   ) => void;
 }
 
@@ -348,7 +354,6 @@ declare global {
   }
 }
 
-
 export interface Refund {
   merchant_uid: string;
   amount: number;
@@ -356,7 +361,7 @@ export interface Refund {
 
 export interface Selet {
   seletsBoolean: boolean;
-  seletes:string
+  seletes: string;
 }
 export interface Active {
   $active: boolean;
@@ -369,8 +374,6 @@ export interface bastetUser {
     phonenumber: string;
   };
 }
-
-
 
 export interface CouponGet {
   code: string;

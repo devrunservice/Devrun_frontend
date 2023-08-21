@@ -36,10 +36,10 @@ const Header = () => {
 
   return (
     <St.HeaderWrap>
-      <Modal page="home" />
+      <Modal option="home" />
       <St.InnerHeader>
         <St.NavWrap>
-          <St.LogoIcon onClick={() => navigate("/")} >
+          <St.LogoIcon onClick={() => navigate("/")}>
             <img src={Logo} alt="로고" />
           </St.LogoIcon>
           <St.CategoryWrap>

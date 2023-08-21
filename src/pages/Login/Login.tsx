@@ -1,29 +1,36 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "redux/store";
 import { getCookie } from "utils/cookies";
+import { redirect } from "utils/redirect";
+import { login } from "utils/api";
 import { BrandLogo, Kakao, Naver, Google } from "asset";
 import { LoginFormType } from "types";
-import { PasswordInput, Modal } from "components";
+import { PasswordInput, Modal, Recaptcha } from "components";
 import { Input } from "style/Common";
 import { loginLoading } from "../../redux/reducer/loginReducer";
 import * as St from "./styles";
 
 const LoginForm = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [loginForm, setLoginForm] = useState<LoginFormType>({
     id: "",
     password: "",
+    recaptcha: "",
   });
+  const [loginAttemptesExceeded, setLoginAttemptesExceeds] = useState();
+
+  const loginErrorMessage = useSelector(
+    (state: RootState) => state.userReducer.error,
+  );
 
   const easyLoginToken = getCookie("easyLoginToken");
 
   const isFormValid = loginForm.id !== "" && loginForm.password !== "";
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(
       loginLoading({
@@ -41,6 +48,12 @@ const LoginForm = () => {
     }));
   };
 
+  const getRecaptcha = async (value: LoginFormType) => {
+    console.log(value);
+    const response = await login.checkRecaptcha(value);
+    console.log(response);
+  };
+
   const handleSocialLogin = (social: string) => {
     if (social === "kakao") {
       const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`;
@@ -55,7 +68,7 @@ const LoginForm = () => {
   return (
     <St.Section>
       <St.Container>
-        <St.LogoBtn onClick={() => navigate("/")}>
+        <St.LogoBtn onClick={() => redirect("/")}>
           <BrandLogo />
         </St.LogoBtn>
         {/* 로그인 */}
@@ -74,17 +87,21 @@ const LoginForm = () => {
               placeholder="비밀번호"
               onChange={handleChange}
             />
+            {loginErrorMessage === "5번 이상의 로그인이 시도되었습니다." && (
+              <Recaptcha getRecaptcha={getRecaptcha} />
+            )}
+            <Recaptcha getRecaptcha={getRecaptcha} />
           </St.InputField>
           <St.LoginBtn disabled={!isFormValid}>로그인</St.LoginBtn>
         </form>
-        <Modal page="login" />
+        <Modal option="login" />
 
         {/* 아이디, 비밀번호 찾기 및 회원가입 */}
         <St.Finder>
           <St.Button
             type="button"
             onClick={() => {
-              navigate("/findaccount:id");
+              redirect("/findaccount:id");
             }}
           >
             아이디 찾기
@@ -93,7 +110,7 @@ const LoginForm = () => {
           <St.Button
             type="button"
             onClick={() => {
-              navigate("/findaccount:password");
+              redirect("/findaccount:password");
             }}
           >
             비밀번호 찾기
@@ -102,7 +119,7 @@ const LoginForm = () => {
           <St.Button
             type="button"
             onClick={() => {
-              navigate("/signup");
+              redirect("/signup");
             }}
           >
             회원가입
