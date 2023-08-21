@@ -22,19 +22,19 @@ export const Container = styled.div`
   margin: 3rem 0;
   background-color: ${(props) => props.theme.bgColor};
   border-radius: 10px;
-  border: ${(props) => props.theme.borderGray} 1px solid;
+  border: ${(props) => props.theme.borderC} 1px solid;
 `;
 
 // 회원가입
 export const H1 = styled.h1`
-  color: ${(props) => props.theme.textBlack};
+  color: ${(props) => props.theme.black};
   text-align: center;
   padding-bottom: 1.5rem;
 `;
 
 // p 태그
 export const P = styled.p`
-  color: ${(props) => props.theme.textBlack};
+  color: ${(props) => props.theme.black};
   margin-bottom: 0.6rem;
 `;
 
@@ -99,7 +99,7 @@ export const Checkbox = styled.input`
 
 export const CancelBtn = styled(Button)`
   padding: 0.8rem 0;
-  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
   width: 100%;
 `;
 

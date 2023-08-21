@@ -12,14 +12,17 @@ const Dashboard = () => {
     {
       title: "강좌명",
       name: "강사명",
+      progress: 75,
     },
     {
       title: "강좌명",
       name: "강사명",
+      progress: 60,
     },
     {
       title: "강좌명",
       name: "강사명",
+      progress: 40,
     },
   ]);
   const [notes, setNotes] = useState([
@@ -81,6 +84,7 @@ const Dashboard = () => {
               key={index}
               category="dashboard"
               title={course.title}
+              progress={course.progress}
             />
           ))}
         </St.ListWrapper>

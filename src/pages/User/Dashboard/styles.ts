@@ -4,13 +4,13 @@ export const WelcomeMessage = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-  font-size: ${(props) => props.theme.fontSize18px};
-  font-weight: ${(props) => props.theme.fontBold};
+  font-size: ${(props) => props.theme.size18};
+  font-weight: ${(props) => props.theme.bold};
   margin-bottom: 1rem;
 
   & > div:nth-child(1) {
-    font-size: ${(props) => props.theme.fontSize25px};
-    font-weight: ${(props) => props.theme.fontBold};
+    font-size: ${(props) => props.theme.size25};
+    font-weight: ${(props) => props.theme.bold};
     color: ${(props) => props.theme.brandColor};
     text-decoration: underline;
     text-underline-offset: 0.4rem;
@@ -24,7 +24,7 @@ export const TitleWrapper = styled.div`
 `;
 
 export const MoreBtn = styled.button`
-  color: ${(props) => props.theme.textGrayC};
+  color: ${(props) => props.theme.borderC};
   background-color: transparent;
 `;
 

@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle, defaultTheme } from "style/Theme";
-import { CookiesProvider } from "react-cookie";
 import { getCookie } from "utils/cookies";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
@@ -27,9 +26,10 @@ const router = createBrowserRouter([
       { index: true, element: <Route.HomePage /> },
       { path: "home", element: <Route.HomePage /> },
       { path: "login", element: <Route.Login /> },
-      { path: "auth/kakao/callback/login", element: <Route.Login /> },
       { path: "auth/kakao/callback", element: <Route.Auth2RedirectHandler /> },
       { path: "signup", element: <Route.Signup /> },
+      { path: "findaccount:id", element: <Route.FindId /> },
+      { path: "findaccount:password", element: <Route.FindPassword /> },
       {
         path: "basket",
         element: ACCESS_TOKEN ? (
@@ -38,9 +38,14 @@ const router = createBrowserRouter([
           <Navigate replace to="/login" />
         ),
       },
-      { path: "notice", element: <Route.Notice /> },
-      { path: "findaccount:id", element: <Route.FindId /> },
-      { path: "findaccount:password", element: <Route.FindPassword /> },
+      {
+        path: "notice",
+        element: ACCESS_TOKEN ? (
+          <Route.Notice />
+        ) : (
+          <Navigate replace to="/login" />
+        ),
+      },
       { path: "noticeWrite", element: <Route.NoticeWrite /> },
       { path: "noticeDetail", element: <Route.NoticeDetail /> },
       { path: "lecture", element: <Route.Lecture /> },
@@ -51,7 +56,8 @@ const router = createBrowserRouter([
       { path: "dashboard", element: <Route.Dashboard /> },
       { path: "notes", element: <Route.Notes /> },
       { path: "questions", element: <Route.Questions /> },
-      { path: "certificate", element: <Route.Certificate /> },
+      { path: "cert", element: <Route.Cert /> },
+      { path: "certDetail", element: <Route.CertDetail /> },
       { path: "coupon", element: <Route.Coupon /> },
       { path: "Receipt", element: <Route.Receipt /> },
       { path: "learning", element: <Route.Learning /> },
@@ -71,16 +77,14 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
 root.render(
-  <CookiesProvider>
-    <ThemeProvider theme={defaultTheme}>
-      <GlobalStyle />
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <RouterProvider router={router} />
-        </PersistGate>
-      </Provider>
-    </ThemeProvider>
-  </CookiesProvider>,
+  <ThemeProvider theme={defaultTheme}>
+    <GlobalStyle />
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <RouterProvider router={router} />
+      </PersistGate>
+    </Provider>
+  </ThemeProvider>,
 );
 
 reportWebVitals();

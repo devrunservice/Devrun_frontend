@@ -1,35 +1,41 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from "react";
-import { Cart } from "utils/api";
-import { Table, Pagination, UserTop } from "components";
-import { IRefund } from "types";
-
+import React, { useEffect, useState } from "react";
+import { mygage } from "utils/api";
+import { ReceiptTable, Pagination, UserTop } from "components";
+import * as I from "types"
+import usePage from "hooks/usePage";
 
 const Receipt = () => {
-  const [payment, setPayment] = useState(false);
-
-  const basketBtn = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    const data: IRefund = {
-      merchant_uid: "merchant_1689686364644",
-      cancel_request_amount: 100,
-      reason: "테스트 결제 환불",
+  const [data, setData] = useState<I.Receipt[]>([]);
+  const { limit, activePage, offset, setActivePage } = usePage();
+  // 반환값
+  useEffect(() => {
+    const payList = async () => {
+      try {
+        const res = await mygage.pay();
+        setData(res.data);
+      } catch (error) {
+        console.log(error);
+      }
     };
-    const res = await Cart.refund(data);
-    console.log(res)
-    setPayment(true)
-  };
+    payList();
+  }, []);
+  
   return (
     <section>
-      <UserTop title="구매내역" count="2" />
-      <Table
-        basketBtn={basketBtn}
-        num="1"
-        title="111"
-        pay="5000"
-        payment={payment}
+      <UserTop title="구매내역" count={data} sub="전체" />
+      <ReceiptTable
+        data={data}
+        offset={offset}
+        limit={limit}
+        setData={setData}
       />
-      <Pagination />
+      <Pagination
+        data={data}
+        limit={limit}
+        activePage={activePage}
+        setActivePage={setActivePage}
+      />
     </section>
   );
 };

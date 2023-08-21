@@ -9,7 +9,7 @@
                   REACT_APP_KAKAO_JAVASCRIPT_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
                   REACT_APP_KAKAOURL: ${{ secrets.REACT_APP_KAKAOURL }}
               run: |
-                  aws s3 cp \
+                   aws s3 cp \
                   --recursive \
                   --region ap-northeast-2 \
                   build s3://devrun 

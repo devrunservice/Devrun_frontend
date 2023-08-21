@@ -1,17 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
-import { IUserTop } from "types";
+import * as I from "types";
 import * as St from "./style";
 
 
-const UserTop = (props: IUserTop) => (
+const UserTop = (props: I.UserTop) => (
   <St.Top>
     <St.Title>
       {props.title}
       <St.Number>
-        전체 <St.NumCount>{props.count}</St.NumCount>
+        {props.sub} <St.NumCount>{props.count?.length}</St.NumCount>
       </St.Number>
     </St.Title>
+    
   </St.Top>
 );
 

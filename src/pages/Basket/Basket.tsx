@@ -1,115 +1,140 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, useEffect,  useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { IRequestPayParams, RequestPayResponse, ICoupon, IBasket } from "types";
 import { RootState } from "redux/store";
+import { useNavigate } from "react-router-dom";
 import { Cart } from "utils/api";
-import NoImg from "asset/images/NoImg.jpg";
+import { usePrice, useSelet, useCheck } from "hooks";
+import { Product, UserInfo } from "components";
+import * as I from "types";
 import * as S from "style/Common";
 import * as St from "./style";
 
+
+const dataLists = [
+  { id: 1, name: "aaa", paid_amount: 80 },
+  { id: 2, name: "bbb", paid_amount: 20 },
+  { id: 3, name: "ccc", paid_amount: 40 },
+];
+
 const Basket = () => {
   const navigate = useNavigate();
-  const userData = useSelector((state: RootState) => state.userReducer.data);
+  const user = useSelector((state: RootState) => state.userReducer.data);
+  const { mypoint,setMypoint, priceDot,  stringPoint } = usePrice();
+  const { selet, selets, setSelets } = useSelet();
+  const {
+    singleCheck,
+    checkList,
+    setPrevList,
+    setCheckList,
+    addlist,
+    removelist,
+  } = useCheck(dataLists);
 
-  const [price, setPrice] = useState<IBasket>({
-    price: 100,
-    couponBoolean: false,
-    coupon: "",
-  });
+ const checkPrice: number = checkList.reduce(
+   (item, num) => num.paid_amount + item,
+   0
+ );
   
-  const [point, setPoint] = useState(0);
-  // 셀렉트박스 닫을때.
-  const couponOptionUi = useRef<HTMLUListElement | null>(null);
-  const couponBtn = async (item: string) => {
-    if (item !== "쿠폰을 선택해주세요") {
-      const data: ICoupon = {
-        couponCode: item,
-        amount: 100,
-      };
-      const res = await Cart.coupon(data);
+ const [price, setPrice] = useState<I.Basket>({
+   price: checkPrice,
+   discount: 0,
+   discounts: 0,
+ });
+   const pointChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+     const pointValue = parseFloat(e.target.value.replace(/[^\d.]/g, ""));
+     const value = isNaN(pointValue)
+       ? 0
+       : Math.max(0, Math.min(pointValue, price.price - price.discounts));
+     setMypoint(value);
+   };
+  
+ 
+
+
+  useEffect(() => {
+    setPrice({
+      ...price,
+      price: checkPrice,
+      discounts: price.discount > 0 ? price.price - price.discount : 0,
+    });
+
+    if (
+      (addlist || removelist || selets.seletes !== "쿠폰을 선택해주세요") &&
+      price.discount > 0
+    )
+      setMypoint(0);
+
+    // 체크가 안되잇을시
+    if (checkList.length === 0) {
       setPrice({
         ...price,
-        price: res.data,
-        coupon: item,
-        couponBoolean: !price.couponBoolean,
+        discounts: 0,
+        discount: 0,
+        price: 0,
       });
-    } else{
-      setPrice({ ...price, coupon: item, couponBoolean: !price.couponBoolean,price:100 }); // 총금액으로 바꿀것.
+      setSelets({
+        ...selets,
+        seletes: "쿠폰을 선택해주세요",
+        seletsBoolean: false,
+      });
+      setMypoint(0);
     }
-  };
-  
-  
+  }, [checkList, price.price, price.discount]); 
   useEffect(() => {
-    const couponOut = (e: { target: any }) => {
+    const reselectionList = async () => {
       if (
-        couponOptionUi.current &&
-        !couponOptionUi.current.contains(e.target)
+        (removelist || addlist) &&
+        price.discount > 0 &&
+        selets.seletes !== "쿠폰을 선택해주세요"
       ) {
+        const data: I.Coupon = {
+          couponCode: selets.seletes,
+          amount: price.price,
+        };
+        const res = await Cart.coupon(data);
         setPrice({
           ...price,
-          couponBoolean: false,
-          coupon: price.coupon,
+          discount: res.data,
         });
       }
     };
-    document.addEventListener("mousedown", couponOut);
-    return () => {
-      document.removeEventListener("mousedown", couponOut);
-    };
-  }, [price.coupon]);
-  const priceDot = (num: number) => {
-    const returnString = num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    return returnString;
-  };
+    reselectionList();
+    setPrevList(checkList);
+  }, [price.price]);
+  
+  
+  
 
-  const pointChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const pointValue = parseFloat(e.target.value.replace(/[^\d.]/g, ""));
-    const value = isNaN(pointValue) ? 0 : Math.max(0, pointValue);
-    setPoint(value);
-  };
-  const stringPoint =
-    point >= 1000
-      ? point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-      : point.toString();
+  // 콜백 함수 정의
+  const callback = async (response: I.RequestPayResponse) => {
+    const { imp_uid, paid_amount, success } = response;
 
-  /* 콜백 함수 정의  */
-  const callback = async (response: RequestPayResponse) => {
-    const {
-      imp_uid,
-      paid_amount,
-      buyer_email,
-      buyer_name,
-      buyer_tel,
-      pay_method,
-      name,
-      merchant_uid,
-      pg_provider,
-      receipt_url,
-    } = response;
+    const payload: I.bastetCheck[] = checkList.map((item, index) => {
+      const baseData = {
+        id: item.id,
+        name: item.name,
+        paid_amount: item.paid_amount,
+        buyer_email: response.buyer_email,
+        buyer_name: response.buyer_name,
+        buyer_tel: response.buyer_tel,
+        pay_method: response.pay_method,
+        merchant_uid: response.merchant_uid,
+        pg_provider: response.pg_provider,
+        receipt_url: response.receipt_url,
+        imp_uid: response.imp_uid,
+      };
+      return index === 0 ? { ...baseData, mypoint: mypoint } : baseData;
+    });
     const res = await Cart.callbak({ imp_uid });
-    console.log(receipt_url);
-    if (paid_amount === res.data.response.amount) {
-      // 저장에 성공했을때
-      await Cart.save({
-        buyer_email,
-        buyer_name,
-        buyer_tel,
-        pay_method,
-        name,
-        merchant_uid,
-        imp_uid,
-        paid_amount,
-        pg_provider,
-        receipt_url,
-      });
+    if (paid_amount === res.data.response.amount && success) {
+      await Cart.save(payload);
       navigate("/learning");
     } else {
       alert("결제를 취소했습니다.");
     }
   };
-  
+
   const basketBtn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // 가맹점 식별코드
@@ -117,18 +142,56 @@ const Basket = () => {
     const { IMP } = window;
     IMP.init("imp75220550");
     /* 2. 결제 데이터 정의하기 */
-    const data: IRequestPayParams = {
+    const data: I.RequestPayParams = {
       pg: "html5_inicis", // PG사
       pay_method: "card", // 결제수단
       merchant_uid: `merchant_${new Date().getTime()}`, // 주문번호
-      amount: price.price - point, // 결제금액
-      name: "아임포트 결제", // 주문명
-      buyer_name: userData.name, // 구매자 이름
-      buyer_tel: userData.phonenumber, // 구매자 전화번호
-      buyer_email: userData.email, // 구매자 이메일
+      amount: price.price - mypoint - price.discounts, // 결제금액
+      name:
+        checkList.length > 1
+          ? `${checkList[0].name} 외 ${checkList.length - 1}개`
+          : ` ${checkList[0].name}`, // 주문명
+      buyer_name: user.name, // 구매자 이름
+      buyer_tel: user.phonenumber, // 구매자 전화번호
+      buyer_email: user.email, // 구매자 이메일
     };
     /* 4. 결제 창 호출하기 */
     IMP.request_pay(data, callback);
+  };
+  const couponBtn = async (item: string) => {
+    if (checkList.length === 0 && item !== "쿠폰을 선택해주세요") {
+      setSelets({
+        ...selets,
+        seletes: "쿠폰을 선택해주세요",
+        seletsBoolean: false,
+      });
+      alert("상품을 선택해주세요");
+    } else if (item !== "쿠폰을 선택해주세요") {
+      const data: I.Coupon = {
+        couponCode: item,
+        amount: price.price,
+      };
+      const res = await Cart.coupon(data);
+      setPrice({
+        ...price,
+        discount: res.data,
+        price: price.price,
+      });
+      setSelets({
+        seletes: item,
+        seletsBoolean: !selets.seletsBoolean,
+      });
+    } else {
+      setPrice({
+        ...price,
+        price: price.price,
+        discount: 0,
+      });
+      setSelets({
+        seletes: item,
+        seletsBoolean: !selets.seletsBoolean,
+      });
+    }
   };
   return (
     <S.Inner>
@@ -137,56 +200,41 @@ const Basket = () => {
           <St.Title>수강바구니</St.Title>
           <St.SelectWarp>
             <St.Left>
-              <St.CheckBox type="checkbox" id="allCheck" name="allCheck" />
-              <St.CheckLabel htmlFor="allCheck">
-                전체선택 <St.CheckAll>2</St.CheckAll> / 2
+              <St.CheckBox
+                type="checkbox"
+                name="selectAll"
+                id="selectAll"
+                checked={checkList.length === dataLists.length}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  e.target.checked ? setCheckList(dataLists) : setCheckList([])
+                }
+              />
+              <St.CheckLabel htmlFor="selectAll">
+                전체선택 <St.CheckAll>{checkList.length}</St.CheckAll> /
+                {dataLists.length}
               </St.CheckLabel>
             </St.Left>
-            <St.Right>
+            <St.Right type="button">
               선택삭제
               <St.Deletes />
             </St.Right>
           </St.SelectWarp>
           <St.Product>
-            <St.ProductLi>
-              <St.CheckBox type="checkbox" id="listCheck" name="listCheck" />
-              <St.ContentBox>
-                <St.ImgWrap>
-                  <St.Img src={NoImg} alt="" />
-                </St.ImgWrap>
-                <St.TextBox>
-                  <St.TextLeft>
-                    <St.TitleText>
-                      제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다
-                    </St.TitleText>
-                    <St.SubText>
-                      제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다
-                    </St.SubText>
-                    <St.Writer>
-                      강사명 · <St.Hours>무제한 수강</St.Hours>
-                    </St.Writer>
-                  </St.TextLeft>
-                  <St.TextRight>
-                    <St.Discount>25%</St.Discount>
-                    <St.DiscountNum>88,000원</St.DiscountNum>
-                    <St.Money>66,000원</St.Money>
-                  </St.TextRight>
-                </St.TextBox>
-              </St.ContentBox>
-            </St.ProductLi>
+            {dataLists.map((item) => {
+              return (
+                <Product
+                  checked={checkList.some((items) => items.id === item.id)}
+                  item={item}
+                  key={item.id}
+                  singleCheck={singleCheck}
+                />
+              );
+            })}
           </St.Product>
         </St.WhiteSmallBg>
         <St.WhiteSmallBg>
           <St.Title>구매자 정보</St.Title>
-          <St.InfoWrap>
-            이름 <St.Info>{userData.name}</St.Info>
-          </St.InfoWrap>
-          <St.InfoWrap>
-            이메일 <St.Info>{userData.email}</St.Info>
-          </St.InfoWrap>
-          <St.InfoWrap>
-            휴대폰 번호 <St.Info>{userData.phonenumber}</St.Info>
-          </St.InfoWrap>
+          <UserInfo user={user} />
         </St.WhiteSmallBg>
         <St.WhiteSmallBg>
           <St.Title>할인정보</St.Title>
@@ -199,21 +247,18 @@ const Basket = () => {
           <St.SelectBox>
             <St.SelectLabel
               onClick={() =>
-                setPrice({ ...price, couponBoolean: !price.couponBoolean })
+                setSelets({ ...selets, seletsBoolean: !selets.seletsBoolean })
               }
-              active={price.couponBoolean}
+              $active={selets.seletsBoolean}
             >
-              {price.coupon || "쿠폰을 선택해주세요"}
+              {selets.seletes || "쿠폰을 선택해주세요"}
             </St.SelectLabel>
-            <St.Arr active={price.couponBoolean} />
-            {price.couponBoolean && (
-              <St.SelectBoxUi ref={couponOptionUi}>
+            <St.Arr $active={selets.seletsBoolean} />
+            {selets.seletsBoolean && (
+              <St.SelectBoxUi ref={selet}>
                 <St.SelectBoxLi
                   onClick={() => couponBtn("쿠폰을 선택해주세요")}
-                >
-                  ------------------------------------------------------------
-                  쿠폰 취소
-                  ------------------------------------------------------------
+                >쿠폰 취소
                 </St.SelectBoxLi>
                 <St.SelectBoxLi onClick={() => couponBtn("55519-Vww0UMMKPZue")}>
                   55519-Vww0UMMKPZue
@@ -233,30 +278,34 @@ const Basket = () => {
             onChange={pointChange}
             value={stringPoint}
           />
-
-          {price.coupon !== "쿠폰을 선택해주세요" && price.coupon !== ""  && (
-            <St.DisCountInfo>
-              <St.DisCountInfoLeft>
-                <St.CouponDisCount />
-                할인쿠폰
-              </St.DisCountInfoLeft>
-              <St.DisCountInfoRight>
-                - {priceDot(price.price)}원
-              </St.DisCountInfoRight>
-            </St.DisCountInfo>
-          )}
-          {point !== 0 && (
+          {selets.seletes !== "쿠폰을 선택해주세요" &&
+            selets.seletes !== "" && (
+              <St.DisCountInfo>
+                <St.DisCountInfoLeft>
+                  <St.CouponDisCount />
+                  할인쿠폰
+                </St.DisCountInfoLeft>
+                <St.DisCountInfoRight>
+                  - {priceDot(price.price - price.discount)}원
+                </St.DisCountInfoRight>
+              </St.DisCountInfo>
+            )}
+          {mypoint !== 0 && (
             <St.DisCountInfo>
               <St.DisCountInfoLeft>
                 <St.CouponDisCount />
                 포인트
               </St.DisCountInfoLeft>
-              <St.DisCountInfoRight>- {priceDot(point)}원</St.DisCountInfoRight>
+              <St.DisCountInfoRight>
+                - {priceDot(mypoint)}원
+              </St.DisCountInfoRight>
             </St.DisCountInfo>
           )}
           <St.TotalWrap>
             <St.Total>총 결제 금액</St.Total>
-            <St.Total>{priceDot(price.price - point)}원</St.Total>
+            <St.Total>
+              {priceDot(price.price - mypoint - price.discounts)}원
+            </St.Total>
           </St.TotalWrap>
           <St.Privacy>
             회원 본인은 주문내용을 확인했으며,

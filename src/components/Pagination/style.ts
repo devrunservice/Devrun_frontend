@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { IPageColor } from "types";
+import * as I from "types";
 
 export const PagingWrap = styled.div`
     margin:40px auto 0;
@@ -9,15 +9,13 @@ export const PagingWrap = styled.div`
     gap:10px;
 `
 export const PagingArr = styled.button`
-  width: 40px;
-  height: 40px;
+  width: ${(props: any) => props.theme.size40};
+  height: ${(props: any) => props.theme.size40};
   border-radius: 3px;
-  height: 40px;
-  font-size: ${(props: any) => props.theme.fontSize12px};
-  cursor: pointer;
+  font-size: ${(props: any) => props.theme.size12};
 
   &:hover {
-    background: ${(props: any) => props.theme.textPoint};
+    background: ${(props: any) => props.theme.brandColor};
     color: ${(props: any) => props.theme.textWhite};
   }
   > svg {
@@ -27,9 +25,13 @@ export const PagingArr = styled.button`
     fill: ${(props: any) => props.theme.textWhite};
   }
 `;
-export const Paging = styled.button<IPageColor>`
-  
+export const Paging = styled.button<I.Active>`
   background: ${(props) =>
-    props.isActive ? props.theme.textPoint : props.theme.bgColor}
-  
+    props.$active ? props.theme.brandColor : props.theme.bgGrayColor};
+  color: ${(props) =>
+    props.$active ? props.theme.textWhite : props.theme.textColor};
+  width: ${(props: any) => props.theme.size40};
+  height: ${(props: any) => props.theme.size40};
+  border-radius: 3px;
+  font-size: ${(props: any) => props.theme.size12};
 `;

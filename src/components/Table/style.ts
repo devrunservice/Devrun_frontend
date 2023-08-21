@@ -1,20 +1,23 @@
 import { styled, css } from "styled-components";
-import { ITable } from "types"; 
+import * as I from "types"; 
 
 
 export const Table = styled.ul`
-  border-top: 1px solid ${(props: any) => props.theme.borderGray};
-  min-height: 568px;
+  border-top: 1px solid ${(props: any) => props.theme.borderC};
+  min-height: 621px;
 `;
-export const TableLi = styled.li<ITable>`
-  border-bottom: 1px solid ${(props: any) => props.theme.borderGray};
+export const ReceiptTable = styled(Table)`
+  min-height: 721px;
+`;
+export const TableLi = styled.li<I.TableCommon>`
+  border-bottom: 1px solid ${(props: any) => props.theme.borderC};
   display: flex;
   align-items: center;
   padding: 20px 0;
   text-align: center;
-  cursor: ${(props: any) => props.cursor ? "pointer" : ""};
+  cursor: ${(props: any) => (props.$cursor ? "pointer" : "")};
   &:hover {
-    color: ${(props: any) => props.theme.textBlack};
+    color: ${(props: any) => props.theme.black};
     background: ${(props: any) => props.theme.bgGrayColor};
   }
 `;
@@ -24,7 +27,7 @@ const common = css`
   overflow: hidden;
   white-space: nowrap;
   padding: 0 5px;
-  font-size: ${(props: any) => props.theme.fontSize14px};
+  font-size: ${(props: any) => props.theme.size14};
 `;
 
 export const Num = styled.p`
@@ -49,13 +52,14 @@ export const Title = styled(Text)`
 `;
 export const PayBtn = styled(View)`
   width: 18%;
-  display:flex;
-  gap:5px;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
 `;
 
-export const Button = styled.button<ITable>`
+export const Button = styled.button<I.TableCommon>`
   background: ${(props: any) =>
-    props.color ? props.theme.textRed : props.theme.textPoint};
+    props.$color ? props.theme.textRed : props.theme.brandColor};
   border-radius: 5px;
   color: ${(props: any) => props.theme.textWhite};
   padding: 5px 10px;

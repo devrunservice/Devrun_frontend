@@ -11,25 +11,25 @@ const MypageNav = () => {
         <St.AsideTit>학습 관리</St.AsideTit>
         <St.AsideBtn
           onClick={() => navigate("/dashboard")}
-          active={local === "/dashboard"}
+          $active={local === "/dashboard"}
         >
           대쉬보드
         </St.AsideBtn>
         <St.AsideBtn
           onClick={() => navigate("/learning")}
-          active={local === "/learning"}
+          $active={local === "/learning"}
         >
           내 학습 관리
         </St.AsideBtn>
         <St.AsideBtn
           onClick={() => navigate("/notes")}
-          active={local === "/notes"}
+          $active={local === "/notes"}
         >
           강의 노트
         </St.AsideBtn>
         <St.AsideBtn
           onClick={() => navigate("/questions")}
-          active={local === "/questions"}
+          $active={local === "/questions"}
         >
           작성한 질문
         </St.AsideBtn>
@@ -39,25 +39,25 @@ const MypageNav = () => {
         <St.AsideTit>개인</St.AsideTit>
         <St.AsideBtn
           onClick={() => navigate("/profile")}
-          active={local === "/profile" || local === "/profileupdate"}
+          $active={local === "/profile" || local === "/profileupdate"}
         >
           프로필
         </St.AsideBtn>
         <St.AsideBtn
-          onClick={() => navigate("/certificate")}
-          active={local === "/certificate"}
+          onClick={() => navigate("/cert")}
+          $active={local === "/cert" || local === "/CertDetail"}
         >
           수료증
         </St.AsideBtn>
         <St.AsideBtn
           onClick={() => navigate("/coupon")}
-          active={local === "/coupon"}
+          $active={local === "/coupon"}
         >
           쿠폰함
         </St.AsideBtn>
         <St.AsideBtn
           onClick={() => navigate("/receipt")}
-          active={local === "/receipt"}
+          $active={local === "/receipt"}
         >
           구매 내역
         </St.AsideBtn>

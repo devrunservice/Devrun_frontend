@@ -2,13 +2,13 @@ import { Input } from "style/Common";
 import { styled } from "styled-components";
 
 export const H1 = styled.h1`
-  color: ${(props) => props.theme.textBlack};
+  color: ${(props) => props.theme.black};
   text-align: center;
   padding-bottom: 1.5rem;
 `;
 
 export const P = styled.p`
-  color: ${(props) => props.theme.textBlack};
+  color: ${(props) => props.theme.black};
   margin-bottom: 0.6rem;
 `;
 
@@ -64,7 +64,7 @@ export const Field = styled.div`
 `;
 
 export const CancelBtn = styled(Button)`
-  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
   background-color: #f0f0f0;
-  color: ${(props) => props.theme.textBlack};
+  color: ${(props) => props.theme.black};
 `;
