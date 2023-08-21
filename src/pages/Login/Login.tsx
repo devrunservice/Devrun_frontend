@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "redux/store";
 import { getCookie } from "utils/cookies";
 import { redirect } from "utils/redirect";
+import { login } from "utils/api";
 import { BrandLogo, Kakao, Naver, Google } from "asset";
 import { LoginFormType } from "types";
-import { PasswordInput, Modal } from "components";
+import { PasswordInput, Modal, Recaptcha } from "components";
 import { Input } from "style/Common";
 import { loginLoading } from "../../redux/reducer/loginReducer";
 import * as St from "./styles";
@@ -16,13 +18,19 @@ const LoginForm = () => {
   const [loginForm, setLoginForm] = useState<LoginFormType>({
     id: "",
     password: "",
+    recaptcha: "",
   });
+  const [loginAttemptesExceeded, setLoginAttemptesExceeds] = useState();
+
+  const loginErrorMessage = useSelector(
+    (state: RootState) => state.userReducer.error,
+  );
 
   const easyLoginToken = getCookie("easyLoginToken");
 
   const isFormValid = loginForm.id !== "" && loginForm.password !== "";
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(
       loginLoading({
@@ -30,7 +38,6 @@ const LoginForm = () => {
         password: loginForm.password,
       }),
     );
-    dispatch(loginLoading(loginForm));
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,6 +46,12 @@ const LoginForm = () => {
       ...prev,
       [name]: value,
     }));
+  };
+
+  const getRecaptcha = async (value: LoginFormType) => {
+    console.log(value);
+    const response = await login.checkRecaptcha(value);
+    console.log(response);
   };
 
   const handleSocialLogin = (social: string) => {
@@ -74,6 +87,10 @@ const LoginForm = () => {
               placeholder="비밀번호"
               onChange={handleChange}
             />
+            {loginErrorMessage === "5번 이상의 로그인이 시도되었습니다." && (
+              <Recaptcha getRecaptcha={getRecaptcha} />
+            )}
+            <Recaptcha getRecaptcha={getRecaptcha} />
           </St.InputField>
           <St.LoginBtn disabled={!isFormValid}>로그인</St.LoginBtn>
         </form>

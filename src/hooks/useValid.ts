@@ -31,7 +31,10 @@ const useValid = (form: SignupFormType) => {
       console.log(response);
       if (response.status === 200) {
         console.log("인증번호 요청 완료");
-        updateMessage("phonenumberMessage", "인증번호가 요청되었습니다.");
+        updateMessage(
+          "phonenumberMessage",
+          "인증번호가 요청되었습니다. 5분 이내에 입력해주세요.",
+        );
         updateValid("phonenumber", true);
         updateValid("codeBtn", true);
       }

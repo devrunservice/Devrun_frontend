@@ -110,8 +110,6 @@ baseAxios.interceptors.response.use(
           case "Unknown Error":
           case "An unexpected error occurred":
             return Promise.reject(new Error("알 수 없는 오류가 발생했습니다."));
-          case "Login attempts exceeded":
-            return Promise.reject(new Error("로그인 횟수를 초과했습니다."));
           case "Refresh token is required":
             return Promise.reject(new Error("로그아웃을 할 수 없습니다."));
           case "Invalid refresh token":
@@ -143,6 +141,8 @@ baseAxios.interceptors.response.use(
             return Promise.reject(new Error("새로운 인증번호를 받아주세요."));
           case "Access Denied":
             return Promise.reject(new Error("알 수 없는 오류가 발생했습니다."));
+          case "Login attempts exceeded":
+            return Promise.reject(new Error("로그인 횟수를 초과했습니다."));
           default:
             break;
         }
@@ -198,9 +198,11 @@ authAxios.interceptors.response.use(
       case 401:
         switch (errorMessage) {
           case "Token is expired":
-            response = await baseAxios.post("/token/refresh", null, {
-              headers: { Refresh_token: `Bearer ${refreshToken}` },
-            });
+            // response = await baseAxios.post("/token/refresh", null, {
+            //   headers: { Refresh_token: `Bearer ${refreshToken}` },
+            // });
+
+            response = await baseAxios.post("/authz/token/refresh");
             console.log(response);
             newAccessToken = response.data.Access_token.substr(7);
             newRefreshToken = response.data.Refresh_token.substr(7);
@@ -208,10 +210,10 @@ authAxios.interceptors.response.use(
               path: "/",
               secure: true,
             });
-            setCookie("refreshToken", newRefreshToken, {
-              path: "/",
-              secure: true,
-            });
+            // setCookie("refreshToken", newRefreshToken, {
+            //   path: "/",
+            //   secure: true,
+            // });
             originalRequest.headers.Access_token = `Bearer ${newAccessToken}`;
             return axios(originalRequest);
           default:
@@ -224,10 +226,10 @@ authAxios.interceptors.response.use(
             return Promise.reject(
               new Error(`오류가 감지되었습니다. 로그인을 다시 해주세요.`),
             );
-          case "Access Denied failed":
-            return Promise.reject(new Error(``));
+          case "Access Denied":
+            return Promise.reject(new Error("알 수 없는 오류가 발생했습니다."));
           case "Logout user":
-            return Promise.reject(new Error(`이미 로그아웃 됐습니다.`));
+            return Promise.reject(new Error("이미 로그아웃 됐습니다."));
           default:
             break;
         }

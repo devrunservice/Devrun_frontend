@@ -22,11 +22,7 @@ const initialState: ValidationReducerType = {
     checkCodeBtn: false,
     idDuplication: false,
     emailDuplication: false,
-    allChecked: false,
-    acChecked: false,
-    tosChecked: false,
-    pcChecked: false,
-    mcChecked: false,
+    profileImage: false,
   },
   messageState: {
     idMessage: "",

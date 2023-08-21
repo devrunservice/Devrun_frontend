@@ -3,31 +3,27 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { decode } from "utils/decode";
-import useValid from "hooks/useValid";
-import {
-  AuthenticationNumber,
-  DuplicationForm,
-  ImageUploader,
-} from "components";
-import { MypageType, ProfileInputType } from "types";
+import { AuthenticationNumber, DuplicationForm } from "components";
+import { MypageType, ProfileInputType, ValidFieldType } from "types";
 import { Exclamation } from "asset";
-import { authAxios } from "utils/instance";
-import { Title, Input, ErrorMessage } from "style/Common";
+import { Title } from "style/Common";
 import {
   getDataLoading,
   updateEmailLoading,
   updatePhonenumberLoading,
   updateProfileImageLoading,
 } from "../../../redux/reducer/mypageReducer";
+import {
+  updateMessageState,
+  updateValidState,
+} from "../../../redux/reducer/validationReducer";
+
 import * as St from "./styles";
 
 const Profile = () => {
   const dispatch = useDispatch();
 
   const userData = useSelector((state: RootState) => state.mypageReducer.data);
-  const errorMessage = useSelector(
-    (state: RootState) => state.mypageReducer.error,
-  );
   const validState = useSelector(
     (state: RootState) => state.validationReducer.validState,
   );
@@ -52,18 +48,22 @@ const Profile = () => {
   const uploadImg = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
     console.log(files);
+    console.log(formData);
     if (!files) {
       return;
     }
     if (files.length > 0) {
       console.log(files);
       const file = files[0];
+      console.log(file);
       if (file.size > 1024 * 1024 * 2) {
         alert("이미지 용량을 초과하였습니다.");
         return;
       }
 
-      formData.append("editimg", files[0], files[0].name);
+      dispatch(updateValidState({ name: "profileImage", value: true }));
+
+      formData.append("editimg", file);
       console.log(formData);
 
       const url = URL.createObjectURL(file);
@@ -72,43 +72,49 @@ const Profile = () => {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    if (name === "email") {
-      setProfileForm({ ...profileForm, [name]: value });
-    }
-  };
-
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const { name } = e.target as HTMLButtonElement;
+    const { name, id } = e.target as HTMLButtonElement;
+    console.log(id);
     setIsInput((prev) => ({ ...prev, [name]: !prev[name] }));
 
-    if (name === "emailBtn") {
-      console.log("이메일 수정");
-      dispatch(updateEmailLoading({ email: profileForm.email }));
-      if (!validState.emailDuplication) {
-        setIsInput((prev) => ({ ...prev, email: true }));
-      } else {
-        setIsInput((prev) => ({ ...prev, email: false }));
-      }
+    if (id === "cancelBtn") {
+      setIsInput((prev) => ({ ...prev, [name]: false }));
     }
-    // else if (name === "phonenumberBtn") {
-    //   dispatch(
-    //     updatePhonenumberLoading({ phonenumber: profileForm.phonenumber }),
-    //   );
-    //   setIsInput((prev) => ({ ...prev, phonenumber: false }));
-    // }
-    // else if (name === "profileImageBtn" && isInput.profileImageBtn) {
-    //   console.log(formData);
-    //   console.log("이미지 수정");
-    //   dispatch(updateProfileImageLoading(formData));
-    // }
-  };
 
-  const testClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setIsInput((prev) => ({ ...prev, profileImage: false }));
-    console.log("이미지 수정");
-    dispatch(updateProfileImageLoading(formData));
+    const updateValidFields = (list: ValidFieldType[]) => {
+      list.forEach((field) => {
+        dispatch(updateValidState(field));
+      });
+    };
+
+    if (validState.emailDuplication) {
+      console.log("이메일 수정 완료");
+      const updateFields = [
+        { name: "email", value: false },
+        { name: "emailDuplication", value: false },
+      ];
+      dispatch(updateEmailLoading({ email: profileForm.email }));
+      updateValidFields(updateFields);
+    } else if (validState.checkCodeBtn) {
+      console.log("휴대폰 번호 수정 완료");
+      const updateFields = [
+        { name: "phonenumber", value: false },
+        { name: "code", value: false },
+        { name: "codeBtn", value: false },
+        { name: "checkCodeBtn", value: false },
+      ];
+      dispatch(
+        updatePhonenumberLoading({
+          phonenumber: profileForm.phonenumber,
+          code: profileForm.code,
+        }),
+      );
+      updateValidFields(updateFields);
+      dispatch(updateMessageState({ name: "codeMessage", value: "" }));
+    } else if (validState.profileImage) {
+      dispatch(updateProfileImageLoading(formData));
+      dispatch(updateValidState({ name: "profileImage", value: false }));
+    }
   };
 
   // useEffect(() => {
@@ -129,12 +135,6 @@ const Profile = () => {
     const userId = decode("accessToken");
     dispatch(getDataLoading({ id: userId }));
   }, []);
-
-  useEffect(() => {
-    setProfileForm({ ...profileForm, email: userData.email });
-  }, [userData]);
-
-  console.log(validState.email, validState.emailDuplication);
 
   return (
     <St.Section>
@@ -176,9 +176,22 @@ const Profile = () => {
               </div>
             </St.UploadArea>
 
-            <St.ChangeBtn name="profileImageBtn" onClick={testClick}>
-              저장
-            </St.ChangeBtn>
+            <St.EditBtn>
+              <St.CancelBtn
+                id="cancelBtn"
+                name="profileImageBtn"
+                onClick={handleClick}
+              >
+                취소
+              </St.CancelBtn>
+              <St.ChangeBtn
+                name="profileImageBtn"
+                onClick={handleClick}
+                disabled={!validState.profileImage}
+              >
+                저장
+              </St.ChangeBtn>
+            </St.EditBtn>
           </>
         )}
       </St.InputField>
@@ -209,14 +222,20 @@ const Profile = () => {
           </St.InputWrapper>
         </St.InputField>
       ) : (
-        <St.PhonenumberInput>
-          <St.ChangeBtn
-            name="emailBtn"
-            onClick={handleClick}
-            disabled={!validState.emailDuplication}
-          >
-            저장
-          </St.ChangeBtn>
+        <St.EditInput>
+          <div>
+            <St.CancelBtn id="cancelBtn" name="emailBtn" onClick={handleClick}>
+              취소
+            </St.CancelBtn>
+            <St.ChangeBtn
+              name="emailBtn"
+              onClick={handleClick}
+              disabled={!validState.email || !validState.emailDuplication}
+            >
+              저장
+            </St.ChangeBtn>
+          </div>
+
           <DuplicationForm
             title="이메일"
             inputName="email"
@@ -224,16 +243,7 @@ const Profile = () => {
             placeholder="이메일"
             getDuplicationForm={getDuplicationForm}
           />
-          {/* <Input
-            name="email"
-            value={profileForm.email}
-            placeholder="이메일"
-            onChange={handleChange}
-          />
-          {errorMessage !== null && (
-            <ErrorMessage>{errorMessage.message}</ErrorMessage>
-          )} */}
-        </St.PhonenumberInput>
+        </St.EditInput>
       )}
 
       <St.Hr />
@@ -255,22 +265,35 @@ const Profile = () => {
           </St.InputWrapper>
         </St.InputField>
       ) : (
-        <St.PhonenumberInput>
-          <St.ChangeBtn
-            name="phonenumberBtn"
-            onClick={handleClick}
-            disabled={
-              !validState.phonenumber && validState.code && !validState.codeBtn
-            }
-          >
-            저장
-          </St.ChangeBtn>
+        <St.EditInput>
+          <div>
+            <St.CancelBtn
+              id="cancelBtn"
+              name="phonenumberBtn"
+              onClick={handleClick}
+            >
+              취소
+            </St.CancelBtn>
+            <St.ChangeBtn
+              name="phonenumberBtn"
+              onClick={handleClick}
+              disabled={
+                !validState.phonenumber ||
+                !validState.code ||
+                !validState.codeBtn ||
+                !validState.checkCodeBtn
+              }
+            >
+              저장
+            </St.ChangeBtn>
+          </div>
+
           <AuthenticationNumber
             page="signup"
             option="phonenumber"
             getAuthenticationForm={getAuthenticationForm}
           />
-        </St.PhonenumberInput>
+        </St.EditInput>
       )}
     </St.Section>
   );

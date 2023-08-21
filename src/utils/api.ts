@@ -57,7 +57,7 @@ export const login = {
         Refresh_token: `Bearer ${params}`,
       },
     };
-    const response = await baseAxios.post("/logout", null, config);
+    const response = await baseAxios.post("/authz/logout", null, config);
     return response;
   },
   refreshAccessToken: async (params: string) => {
@@ -73,6 +73,13 @@ export const login = {
     const response = await baseAxios.get(`/auth/kakao/callback?code=${params}`);
     console.log(response);
     return response;
+  },
+  checkRecaptcha: async (params: LoginFormType) => {
+    const response = await baseAxios.post(
+      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.REACT_APP_RECAPTCHA_SECRET_KEY}&response=${params}`,
+    );
+    console.log(response);
+    return Response;
   },
 };
 

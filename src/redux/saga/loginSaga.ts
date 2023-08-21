@@ -26,7 +26,7 @@ function* loginSaga(
     const response = yield call(login.checkLoginUser, action.payload);
     console.log(response);
     const accessToken = response.data.Access_token.substr(7);
-    const refreshToken = response.data.Refresh_token.substr(7);
+    // const refreshToken = response.data.Refresh_token.substr(7);
     const offset = 1000 * 60 * 60 * 9;
     const expirationDate = new Date(new Date().getTime() + offset);
     expirationDate.setMinutes(expirationDate.getMinutes() + 1);
@@ -43,10 +43,10 @@ function* loginSaga(
       // httpOnly: true,
       // expires: expirationDate,
     });
-    setCookie("refreshToken", refreshToken, {
-      path: "/",
-      secure: true,
-    });
+    // setCookie("refreshToken", refreshToken, {
+    //   path: "/",
+    //   secure: true,
+    // });
     removeCookie("easyLoginToken", { path: "/", secure: true, httpOnly: true });
     yield put(loginSuccess(response));
     yield call(redirect, "/home");
@@ -96,10 +96,10 @@ function* kakaoLoginSaga(
         path: "/",
         secure: true,
       });
-      setCookie("refreshToken", response.data.Refresh_token.substr(7), {
-        path: "/",
-        secure: true,
-      });
+      // setCookie("refreshToken", response.data.Refresh_token.substr(7), {
+      //   path: "/",
+      //   secure: true,
+      // });
       yield put(loginSuccess(response));
       yield call(redirect, "/home");
     }

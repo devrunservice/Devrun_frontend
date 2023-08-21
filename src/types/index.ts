@@ -52,6 +52,7 @@ export interface IsValidType {
   checkCodeBtn: boolean;
   idDuplication: boolean;
   emailDuplication: boolean;
+  profileImage: boolean;
   [key: string]: boolean; // 동적인 프로퍼티 접근 허용
 }
 
@@ -67,10 +68,16 @@ export interface IsValidMessageType {
   [key: string]: string; // 동적인 프로퍼티 접근 허용
 }
 
+export interface ValidFieldType {
+  name: string;
+  value: boolean;
+}
+
 // 로그인 타입
 export interface LoginFormType {
   id: string;
   password?: string;
+  recaptcha?: string;
 }
 
 // 마이페이지 타입

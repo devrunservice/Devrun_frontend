@@ -11,6 +11,7 @@ export { default as PasswordInput } from "./Login/PasswordInput/PasswordInput";
 export { default as AuthenticationNumber } from "./Login/AuthenticationNumber/AuthenticationNumber";
 export { default as DuplicationForm } from "./Login/DuplicationForm/DuplicationForm";
 export { default as Modal } from "./Login/Modal/Modal";
+export { default as Recaptcha } from "./Login/Recaptcha/Recaptcha";
 export { default as MypageNav } from "./MypageNav/MypageNav";
 export { default as List } from "./List/List";
 export { default as Learn } from "./Learn/Learn";
