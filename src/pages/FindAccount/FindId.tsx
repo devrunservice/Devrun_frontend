@@ -1,16 +1,15 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { redirect } from "utils/redirect";
 import FindAccount from "components/FindAccount/FindAccount";
 import * as St from "./styles";
 
 const FindId = () => {
-  const navigate = useNavigate();
   const moveToFindId = () => {
-    navigate("/findaccount:id");
+    redirect("/findaccount:id");
   };
 
   const moveToFindPassword = () => {
-    navigate("/findaccount:password");
+    redirect("/findaccount:password");
   };
   return (
     <St.Section>

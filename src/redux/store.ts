@@ -9,6 +9,12 @@ import {
 } from "./saga/loginSaga";
 import rootReducer from "./persist";
 import { watchFetchDataSaga } from "./saga/userSaga";
+import {
+  watchgetUserDataSaga,
+  watchUpdateEmailSaga,
+  watchUpdatePhonenumberSaga,
+  watchUpdateProfileImageSaga,
+} from "./saga/mypageSaga";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -18,6 +24,10 @@ export function* rootSaga() {
     watchLogoutSaga(),
     watchKakaoLoginSaga(),
     watchFetchDataSaga(),
+    watchgetUserDataSaga(),
+    watchUpdateEmailSaga(),
+    watchUpdatePhonenumberSaga(),
+    watchUpdateProfileImageSaga(),
   ]);
 }
 

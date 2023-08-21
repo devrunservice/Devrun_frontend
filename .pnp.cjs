@@ -40,6 +40,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:20.4.1"],\
             ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", "npm:18.2.6"],\
+            ["@types/react-google-recaptcha", "npm:2.1.5"],\
             ["@types/react-router-dom", "npm:5.3.3"],\
             ["@types/redux-persist", "npm:4.3.1"],\
             ["@types/styled-components", "npm:5.1.26"],\
@@ -66,6 +67,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-app", "npm:1.1.2"],\
             ["react-chartjs-2", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:5.2.0"],\
             ["react-dom", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:18.2.0"],\
+            ["react-google-recaptcha", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:3.1.0"],\
             ["react-icons", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:4.10.1"],\
             ["react-quill", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:2.0.0"],\
             ["react-redux", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:8.1.1"],\
@@ -5352,6 +5354,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@types/react-google-recaptcha", [\
+        ["npm:2.1.5", {\
+          "packageLocation": "./.yarn/cache/@types-react-google-recaptcha-npm-2.1.5-1dd3815d5d-8d0fa9e2ad.zip/node_modules/@types/react-google-recaptcha/",\
+          "packageDependencies": [\
+            ["@types/react-google-recaptcha", "npm:2.1.5"],\
+            ["@types/react", "npm:18.2.14"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@types/react-router", [\
         ["npm:5.1.20", {\
           "packageLocation": "./.yarn/cache/@types-react-router-npm-5.1.20-620ccce99a-1287641434.zip/node_modules/@types/react-router/",\
@@ -8789,6 +8801,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:20.4.1"],\
             ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", "npm:18.2.6"],\
+            ["@types/react-google-recaptcha", "npm:2.1.5"],\
             ["@types/react-router-dom", "npm:5.3.3"],\
             ["@types/redux-persist", "npm:4.3.1"],\
             ["@types/styled-components", "npm:5.1.26"],\
@@ -8815,6 +8828,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-app", "npm:1.1.2"],\
             ["react-chartjs-2", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:5.2.0"],\
             ["react-dom", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:18.2.0"],\
+            ["react-google-recaptcha", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:3.1.0"],\
             ["react-icons", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:4.10.1"],\
             ["react-quill", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:2.0.0"],\
             ["react-redux", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:8.1.1"],\
@@ -16566,6 +16580,30 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["react-async-script", [\
+        ["npm:1.2.0", {\
+          "packageLocation": "./.yarn/cache/react-async-script-npm-1.2.0-e56221a5f4-303890eeaf.zip/node_modules/react-async-script/",\
+          "packageDependencies": [\
+            ["react-async-script", "npm:1.2.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:88a1b2fa30a0eb1efb61e8b4b1753c2ff37893e957465c75b46c0036be10cf5b5e51c1a60d534f01884dc9ae2606e35d34d190a324bc82bed7a2fd7a687dc98c#npm:1.2.0", {\
+          "packageLocation": "./.yarn/__virtual__/react-async-script-virtual-f5caf6f9c1/0/cache/react-async-script-npm-1.2.0-e56221a5f4-303890eeaf.zip/node_modules/react-async-script/",\
+          "packageDependencies": [\
+            ["react-async-script", "virtual:88a1b2fa30a0eb1efb61e8b4b1753c2ff37893e957465c75b46c0036be10cf5b5e51c1a60d534f01884dc9ae2606e35d34d190a324bc82bed7a2fd7a687dc98c#npm:1.2.0"],\
+            ["@types/react", "npm:18.2.14"],\
+            ["hoist-non-react-statics", "npm:3.3.2"],\
+            ["prop-types", "npm:15.8.1"],\
+            ["react", "npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["react-chartjs-2", [\
         ["npm:5.2.0", {\
           "packageLocation": "./.yarn/cache/react-chartjs-2-npm-5.2.0-03632f5179-ace702185b.zip/node_modules/react-chartjs-2/",\
@@ -16671,6 +16709,30 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/react-error-overlay-npm-6.0.11-021cdeaa92-ce7b44c38f.zip/node_modules/react-error-overlay/",\
           "packageDependencies": [\
             ["react-error-overlay", "npm:6.0.11"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["react-google-recaptcha", [\
+        ["npm:3.1.0", {\
+          "packageLocation": "./.yarn/cache/react-google-recaptcha-npm-3.1.0-6ccd4b3b51-9dc64daf96.zip/node_modules/react-google-recaptcha/",\
+          "packageDependencies": [\
+            ["react-google-recaptcha", "npm:3.1.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:3.1.0", {\
+          "packageLocation": "./.yarn/__virtual__/react-google-recaptcha-virtual-88a1b2fa30/0/cache/react-google-recaptcha-npm-3.1.0-6ccd4b3b51-9dc64daf96.zip/node_modules/react-google-recaptcha/",\
+          "packageDependencies": [\
+            ["react-google-recaptcha", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:3.1.0"],\
+            ["@types/react", "npm:18.2.14"],\
+            ["prop-types", "npm:15.8.1"],\
+            ["react", "npm:18.2.0"],\
+            ["react-async-script", "virtual:88a1b2fa30a0eb1efb61e8b4b1753c2ff37893e957465c75b46c0036be10cf5b5e51c1a60d534f01884dc9ae2606e35d34d190a324bc82bed7a2fd7a687dc98c#npm:1.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
