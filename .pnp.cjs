@@ -64,6 +64,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["html2canvas", "npm:1.4.1"],\
             ["jspdf", "npm:2.5.1"],\
             ["react", "npm:18.2.0"],\
+            ["react-app", "npm:1.1.2"],\
             ["react-chartjs-2", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:5.2.0"],\
             ["react-dom", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:18.2.0"],\
             ["react-google-recaptcha", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:3.1.0"],\
@@ -8824,6 +8825,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["html2canvas", "npm:1.4.1"],\
             ["jspdf", "npm:2.5.1"],\
             ["react", "npm:18.2.0"],\
+            ["react-app", "npm:1.1.2"],\
             ["react-chartjs-2", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:5.2.0"],\
             ["react-dom", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:18.2.0"],\
             ["react-google-recaptcha", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:3.1.0"],\
@@ -16550,6 +16552,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["react", "npm:18.2.0"],\
             ["loose-envify", "npm:1.4.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["react-app", [\
+        ["npm:1.1.2", {\
+          "packageLocation": "./.yarn/cache/react-app-npm-1.1.2-8344c11d83-3810657097.zip/node_modules/react-app/",\
+          "packageDependencies": [\
+            ["react-app", "npm:1.1.2"]\
           ],\
           "linkType": "HARD"\
         }]\

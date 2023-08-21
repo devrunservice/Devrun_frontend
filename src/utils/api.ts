@@ -8,10 +8,10 @@ import {
   TokenType,
   CouponGet,
   MypageType,
-} from "types";
-import * as I from "types";
+} from 'types';
+import * as I from 'types';
 
-import { baseAxios, authAxios, imageAxios } from "./instance";
+import {baseAxios, authAxios, imageAxios} from './instance';
 
 export const signup = {
   // 회원가입
@@ -41,14 +41,14 @@ export const signup = {
   },
   // 휴대폰 중복확인
   getDuplicatedPhonnumber: async (params: CreateUser) => {
-    const response = await baseAxios.post("/checkPhone", params);
+    const response = await baseAxios.post('/checkPhone', params);
     return response;
   },
 };
 
 export const login = {
   checkLoginUser: async (params: LoginFormType) => {
-    const response = await baseAxios.post("/login", params);
+    const response = await baseAxios.post('/login', params);
     return response;
   },
   checkLogout: async (params: TokenType) => {
@@ -57,7 +57,7 @@ export const login = {
         Refresh_token: `Bearer ${params}`,
       },
     };
-    const response = await baseAxios.post("/authz/logout", null, config);
+    const response = await baseAxios.post('/authz/logout', null, config);
     return response;
   },
   refreshAccessToken: async (params: string) => {
@@ -66,7 +66,7 @@ export const login = {
         Refresh_token: `${params}`,
       },
     };
-    const response = await authAxios.post("/token/refresh", null, config);
+    const response = await authAxios.post('/token/refresh', null, config);
     return response.data.Access_token;
   },
   checkKakaoLogin: async (params: string) => {
@@ -76,7 +76,7 @@ export const login = {
   },
   checkRecaptcha: async (params: LoginFormType) => {
     const response = await baseAxios.post(
-      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.REACT_APP_RECAPTCHA_SECRET_KEY}&response=${params}`,
+      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.REACT_APP_RECAPTCHA_SECRET_KEY}&response=${params}`
     );
     console.log(response);
     return Response;
@@ -86,19 +86,19 @@ export const login = {
 export const findAccount = {
   findIdByPhonenumber: async (params: SignupFormType) => {
     console.log(params);
-    const response = await baseAxios.post("/find/id", params);
+    const response = await baseAxios.post('/find/id', params);
     return response;
   },
   findIdByEmail: async (params: SignupFormType) => {
-    const response = await baseAxios.post("/find/uid", params);
+    const response = await baseAxios.post('/find/uid', params);
     return response;
   },
   findPassword: async (params: SignupFormType) => {
-    const response = await baseAxios.post("/find/password", params);
+    const response = await baseAxios.post('/find/password', params);
     return response;
   },
   checkIdPhonenumberMatched: async (params: SignupFormType) => {
-    const response = await baseAxios.post("verifyPhone", params);
+    const response = await baseAxios.post('verifyPhone', params);
     console.log(response);
     return response;
   },
@@ -107,7 +107,7 @@ export const findAccount = {
 // 로그인한 유저정보
 export const userData = {
   createUser: (params: tmi) => {
-    const response = authAxios.get("/tmi", { params: { id: params } });
+    const response = authAxios.get('/tmi', {params: {id: params}});
     return response;
   },
 };
@@ -141,8 +141,8 @@ export const Cart = {
     const response = authAxios.post(`/verifyIamport/${params.imp_uid}`);
     return response;
   },
-  save: (params: I.CallbackData[]) => {
-    const response = authAxios.post("/savePaymentInfo", params);
+  save: (params: I.bastetCheck[]) => {
+    const response = authAxios.post('/savePaymentInfo', params);
     return response;
   },
   coupon: (params: I.Coupon) => {
@@ -150,24 +150,25 @@ export const Cart = {
     return response;
   },
   refund: (params: I.Refund) => {
-    const response = authAxios.post("/payment", params);
+    const response = authAxios.post('/payment', params);
     return response;
   },
 };
 
 export const Search = {
   mygage: (params: I.MySearch) => {
-    const response = authAxios.get("/params", { params: { params } });
+    const response = authAxios.get('/params', {params: {params}});
     return response;
   },
 };
 export const mygage = {
   pay: () => {
-    const response = authAxios.get("/PaymentInfo");
+    const response = authAxios.get('/PaymentInfo');
     return response;
   },
   coupon: (params: I.CouponGet) => {
-    const response = authAxios.post("​/coupon​/registrate", params);
+    const response = authAxios.post('/coupon/registrate', params);
+    return response;
   },
 };
 /* eslint-disable @typescript-eslint/no-unused-vars */

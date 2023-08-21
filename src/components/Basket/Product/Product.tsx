@@ -1,25 +1,22 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { ChangeEvent } from "react";
 import NoImg from "asset/images/NoImg.jpg";
-import { basketProduct } from "types";
+import { useCheck } from "hooks";
+import * as I from "types";
 import * as St from "./style";
 
-const Product = (props: basketProduct) => (
+const Product = (props: I.basketProduct) => (
   <St.ProductLi key={props.item.id}>
     <St.CheckBox
       type="checkbox"
-      name={`select${props.item.id}`}
-      id={`select${props.item.id}`}
-      checked={props.isChecked}
-      onChange={(e: ChangeEvent<HTMLInputElement>) =>
-        props.singleCheack(
-          e.target.checked,
-          props.item.id,
-          props.item.name,
-          props.item.paid_amount,
-        )
+      name={`${props.item.id}`}
+      id={`${props.item.id}`}
+      checked={props.checked}
+      onChange={() =>
+        props.singleCheck(props.item.id, props.item.paid_amount)
       }
     />
-    <St.ContentBox htmlFor={`select${props.item.id}`}>
+    <St.ContentBox htmlFor={`${props.item.id}`}>
       <St.ImgWrap>
         <St.Img src={NoImg} alt="" />
       </St.ImgWrap>
@@ -40,4 +37,5 @@ const Product = (props: basketProduct) => (
     </St.ContentBox>
   </St.ProductLi>
 );
-export default Product
+
+export default Product;

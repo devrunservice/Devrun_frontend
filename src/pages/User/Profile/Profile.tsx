@@ -1,38 +1,38 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "redux/store";
-import { decode } from "utils/decode";
-import { AuthenticationNumber, DuplicationForm } from "components";
-import { MypageType, ProfileInputType, ValidFieldType } from "types";
-import { Exclamation } from "asset";
-import { Title } from "style/Common";
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from 'redux/store';
+import {decode} from 'utils/decode';
+import {AuthenticationNumber, DuplicationForm} from 'components';
+import {MypageType, ProfileInputType, ValidFieldType} from 'types';
+import {Exclamation} from 'asset';
+import {Title} from 'style/Common';
 import {
   getDataLoading,
   updateEmailLoading,
   updatePhonenumberLoading,
   updateProfileImageLoading,
-} from "../../../redux/reducer/mypageReducer";
+} from '../../../redux/reducer/mypageReducer';
 import {
   updateMessageState,
   updateValidState,
-} from "../../../redux/reducer/validationReducer";
+} from '../../../redux/reducer/validationReducer';
 
-import * as St from "./styles";
+import * as St from './styles';
 
 const Profile = () => {
   const dispatch = useDispatch();
 
   const userData = useSelector((state: RootState) => state.mypageReducer.data);
   const validState = useSelector(
-    (state: RootState) => state.validationReducer.validState,
+    (state: RootState) => state.validationReducer.validState
   );
 
   const [profileForm, setProfileForm] = useState<MypageType>({
-    profileImage: "",
-    email: "",
-    phonenumber: "",
-    code: "",
+    profileImage: '',
+    email: '',
+    phonenumber: '',
+    code: '',
   });
 
   // 수정 및 저장 버튼
@@ -46,7 +46,7 @@ const Profile = () => {
   const formData = new FormData();
 
   const uploadImg = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { files } = e.target;
+    const {files} = e.target;
     console.log(files);
     console.log(formData);
     if (!files) {
@@ -57,28 +57,28 @@ const Profile = () => {
       const file = files[0];
       console.log(file);
       if (file.size > 1024 * 1024 * 2) {
-        alert("이미지 용량을 초과하였습니다.");
+        alert('이미지 용량을 초과하였습니다.');
         return;
       }
 
-      dispatch(updateValidState({ name: "profileImage", value: true }));
+      dispatch(updateValidState({name: 'profileImage', value: true}));
 
-      formData.append("editimg", file);
+      formData.append('editimg', file);
       console.log(formData);
 
       const url = URL.createObjectURL(file);
-      setProfileForm({ ...profileForm, profileImage: url });
+      setProfileForm({...profileForm, profileImage: url});
       // getImage(imgUrl || "");
     }
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const { name, id } = e.target as HTMLButtonElement;
+    const {name, id} = e.target as HTMLButtonElement;
     console.log(id);
-    setIsInput((prev) => ({ ...prev, [name]: !prev[name] }));
+    setIsInput((prev) => ({...prev, [name]: !prev[name]}));
 
-    if (id === "cancelBtn") {
-      setIsInput((prev) => ({ ...prev, [name]: false }));
+    if (id === 'cancelBtn') {
+      setIsInput((prev) => ({...prev, [name]: false}));
     }
 
     const updateValidFields = (list: ValidFieldType[]) => {
@@ -88,32 +88,32 @@ const Profile = () => {
     };
 
     if (validState.emailDuplication) {
-      console.log("이메일 수정 완료");
+      console.log('이메일 수정 완료');
       const updateFields = [
-        { name: "email", value: false },
-        { name: "emailDuplication", value: false },
+        {name: 'email', value: false},
+        {name: 'emailDuplication', value: false},
       ];
-      dispatch(updateEmailLoading({ email: profileForm.email }));
+      dispatch(updateEmailLoading({email: profileForm.email}));
       updateValidFields(updateFields);
     } else if (validState.checkCodeBtn) {
-      console.log("휴대폰 번호 수정 완료");
+      console.log('휴대폰 번호 수정 완료');
       const updateFields = [
-        { name: "phonenumber", value: false },
-        { name: "code", value: false },
-        { name: "codeBtn", value: false },
-        { name: "checkCodeBtn", value: false },
+        {name: 'phonenumber', value: false},
+        {name: 'code', value: false},
+        {name: 'codeBtn', value: false},
+        {name: 'checkCodeBtn', value: false},
       ];
       dispatch(
         updatePhonenumberLoading({
           phonenumber: profileForm.phonenumber,
           code: profileForm.code,
-        }),
+        })
       );
       updateValidFields(updateFields);
-      dispatch(updateMessageState({ name: "codeMessage", value: "" }));
+      dispatch(updateMessageState({name: 'codeMessage', value: ''}));
     } else if (validState.profileImage) {
       dispatch(updateProfileImageLoading(formData));
-      dispatch(updateValidState({ name: "profileImage", value: false }));
+      dispatch(updateValidState({name: 'profileImage', value: false}));
     }
   };
 
@@ -132,8 +132,8 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    const userId = decode("accessToken");
-    dispatch(getDataLoading({ id: userId }));
+    const userId = decode('accessToken');
+    dispatch(getDataLoading({id: userId}));
   }, []);
 
   return (

@@ -1,4 +1,4 @@
-import React, { MutableRefObject } from "react";
+import React from 'react';
 
 // 회원가입 타입
 export interface SignupFormType {
@@ -198,34 +198,32 @@ export interface SubTitleType {
 export interface RefType {}
 
 export interface Receipt {
-  buyer_email?: string;
-  buyer_name?: string;
-  buyer_tel?: string;
-  imp_uid?: string;
-  merchant_uid?: string;
-  name?: string;
-  paid_amount?: number;
-  paymentDate?: string;
-  receipt_url?: string;
-  user_no?: number | string;
-  status?: string;
+  merchantUid: string;
+  name: string;
+  paidamount: number;
+  receipturl: string;
+  payno: number;
+  status: string;
 }
 
 export interface Table {
   notice?: string;
-  $cursor?: boolean;
-  $color?: boolean;
   name?: string;
   date?: string;
   title?: string;
   view?: string;
   num?: string;
+  completion?: string;
 }
-
+export interface TableCommon {
+  $cursor?: boolean;
+  $color?: boolean;
+}
 export interface ReceiptTable {
-  data?: Receipt[];
+  data: Receipt[];
   offset: number;
   limit: number;
+  setData: React.Dispatch<React.SetStateAction<Receipt[]>>;
 }
 export interface UserTop {
   title: string;
@@ -249,10 +247,6 @@ export interface Basket {
   price: number;
   discount: number;
   discounts: number;
-}
-
-export interface IEdit {
-  title: string;
 }
 
 // 댓글
@@ -330,9 +324,18 @@ export interface RequestPayResponse extends IRequestPayResponse {
   receipt_url?: string;
 }
 
-export interface CallbackData {
+export interface basketProduct {
+  item: {
+    id: number;
+    paid_amount: number;
+  };
+  checked: boolean;
+  singleCheck: (id: number, paid_amount: number) => void;
+}
+
+export interface bastetCheck {
   id: number;
-  name: string;
+  name?: string;
   paid_amount: number;
   buyer_email?: string;
   buyer_name?: string;
@@ -349,7 +352,7 @@ export interface Iamport {
   init: (accountID: string) => void;
   request_pay: (
     params: RequestPayParams,
-    callback?: RequestPayResponseCallback,
+    callback?: RequestPayResponseCallback
   ) => void;
 }
 
@@ -360,12 +363,8 @@ declare global {
 }
 
 export interface Refund {
-  merchant_uid: string | undefined;
-  cancel_request_amount: number | undefined;
-  reason?: string | undefined;
-  refund_holder?: string;
-  refund_bank?: string;
-  refund_account?: string;
+  merchant_uid: string;
+  amount: number;
 }
 
 export interface Selet {
@@ -382,21 +381,6 @@ export interface bastetUser {
     email: string;
     phonenumber: string;
   };
-}
-
-export interface basketProduct {
-  item: {
-    id: number;
-    name: string;
-    paid_amount: number;
-  };
-  isChecked: boolean;
-  singleCheack: (
-    checked: boolean,
-    id: number,
-    name: string,
-    paid_amount: number,
-  ) => void;
 }
 
 export interface CouponGet {

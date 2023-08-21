@@ -11,14 +11,14 @@ export const DownBtn = styled.button`
 `;
 
 export const Certbox = styled.div`
+  visibility: hidden;
+  position: fixed;
   width: 21cm;
   min-height: 29.7cm;
   padding: 1.5cm 1.5cm 2cm 1.5cm;
   border: 1px solid ${(props: any) => props.theme.borderC};
-  margin: auto;
   box-sizing: border-box;
   position: relative;
-  background: ${(props: any) => props.theme.bgColor};
   display: flex;
   flex-wrap: wrap;
   align-content: space-between;
@@ -78,13 +78,12 @@ export const Contitle = styled.p`
   font-size: ${(props: any) => props.theme.size18};
   line-height: 1;
 `;
-
+export const LogoIcon = styled.div``;
 export const CopyText = styled.p`
-  font-size: ${(props: any) => props.theme.size14};  
+  font-size: ${(props: any) => props.theme.size14};
+  margin-bottom: 1.87rem;
 `;
-export const LogoIcon = styled.div`
-  margin-top: 1.87rem;
-`;
+
 export const Right = styled.div`
   display: flex;
   align-items: flex-end;
