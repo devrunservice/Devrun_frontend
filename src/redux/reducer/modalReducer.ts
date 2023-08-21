@@ -4,8 +4,8 @@ const initialState = {
   modalOpen: false,
   modalMessage1: "",
   modalMessage2: "",
-  currentPage: "",
   signupSuccess: false,
+  kakaoLoginSuccess: false,
 };
 
 const modalReducer = createSlice({
@@ -28,17 +28,18 @@ const modalReducer = createSlice({
       state.modalOpen = false;
       state.modalMessage1 = "";
     },
-    setCurrentPage: (state, action) => {
-      state.currentPage = action.payload;
-    },
     setSignupSuccess: (state, action) => {
       console.log(action.payload);
       state.signupSuccess = action.payload;
     },
+    setKakaoLoginSuccess: (state, action) => {
+      console.log(action.payload);
+      state.kakaoLoginSuccess = action.payload;
+    },
   },
 });
 
-export const { openModal, closeModal, setCurrentPage, setSignupSuccess } =
+export const { openModal, closeModal, setSignupSuccess, setKakaoLoginSuccess } =
   modalReducer.actions;
 
 export default modalReducer.reducer;
