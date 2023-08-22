@@ -219,9 +219,6 @@ export const CartButton = styled.button`
 `;
 
 export const Dropdown = styled(CartHover)`
-  /* display: flex;
-  justify-content: space-between; */
-  /* visibility: visible; */
   visibility: hidden;
   width: 250px;
 
