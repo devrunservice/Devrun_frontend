@@ -2,6 +2,8 @@
 import axios from 'axios';
 import {getCookie, removeCookie, setCookie} from './cookies';
 
+axios.defaults.withCredentials = true
+
 export const baseAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
   headers: {
