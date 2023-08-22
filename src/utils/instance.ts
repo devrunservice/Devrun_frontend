@@ -192,7 +192,7 @@ authAxios.interceptors.response.use(
     const refreshToken = getCookie('refreshToken');
     let response;
     let newAccessToken;
-    let newRefreshToken;
+    // let newRefreshToken;
 
     switch (errorStatus) {
       case 401:

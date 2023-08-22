@@ -65,7 +65,7 @@ const useValid = (form: SignupFormType) => {
       updateValid("idDuplication", false);
     }
   }, [form.id]);
-
+  // console.log(isValid)
   // 아이디, 이메일 중복확인
   const checkDuplicated = async (
     option: string,
