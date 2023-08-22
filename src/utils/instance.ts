@@ -16,6 +16,15 @@ export const authAxios = axios.create({
   },
 });
 
+export const refreshAxios = axios.create({
+  baseURL: `${process.env.REACT_APP_SERVER_URL}`,
+  withCredentials: true,
+  headers: {
+    'Content-type': 'application/json',
+    'Access-Control-Allow-Origin': `${process.env.REACT_APP_SERVER_URL}`,
+  },
+});
+
 export const imageAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
   headers: {},
@@ -202,9 +211,7 @@ authAxios.interceptors.response.use(
             //   headers: { Refresh_token: `Bearer ${refreshToken}` },
             // });
 
-            response = await baseAxios.post('/authz/token/refresh', null, {
-          withCredentials: true,
-        });
+            response = await refreshAxios.post('/authz/token/refresh');
             console.log(response);
             newAccessToken = response.data.Access_token.substr(7);
             // newRefreshToken = response.data.Refresh_token.substr(7);
