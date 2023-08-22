@@ -95,13 +95,13 @@ const LoginForm = () => {
               placeholder="비밀번호"
               onChange={handleChange}
             />
-            {showRecaptchaModal && (
+            {/* {showRecaptchaModal && (
               <Recaptcha
                 isOpen={showRecaptchaModal}
                 onClose={(value: boolean) => setShowRecaptchaModal(value)}
                 getRecaptcha={getRecaptcha}
               />
-            )}
+            )} */}
           </St.InputField>
           <St.LoginBtn disabled={!isFormValid}>로그인</St.LoginBtn>
         </form>
