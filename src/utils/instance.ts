@@ -22,6 +22,7 @@ export const refreshAxios = axios.create({
   headers: {
     'Content-type': 'application/json',
     'Access-Control-Allow-Origin': `${process.env.REACT_APP_SERVER_URL}`,
+    'Set-Cookie': 'SameSite=None; Secure',
   },
 });
 
