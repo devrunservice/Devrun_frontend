@@ -33,12 +33,14 @@ jobs:
           REACT_APP_KAKAO_REDIRECT_URI: ${{ secrets.REACT_APP_KAKAO_REDIRECT_URI }}
           REACT_APP_KAKAO_JAVASCRIPT_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           REACT_APP_KAKAOURL: ${{ secrets.REACT_APP_KAKAOURL }}
+          REACT_APP_RECAPTCHA_SITE_KEY: ${{ secrets.REACT_APP_RECAPTCHA_SITE_KEY }}
         run: |
           echo "REACT_APP_SERVER_URL=${{ secrets.REACT_APP_SERVER_URL }}" >> .env
           echo "REACT_APP_KAKAO_CLIENT_ID=${{ secrets.REACT_APP_KAKAO_CLIENT_ID }}" >> .env
           echo "REACT_APP_KAKAO_REDIRECT_URI=${{ secrets.REACT_APP_KAKAO_REDIRECT_URI }}" >> .env
           echo "REACT_APP_KAKAO_JAVASCRIPT_KEY=${{ secrets.REACT_APP_KAKAO_JAVASCRIPT_KEY }}" >> .env
           echo "REACT_APP_KAKAOURL=${{ secrets.REACT_APP_KAKAOURL }}" >> .env
+          echo "REACT_APP_RECAPTCHA_SITE_KEY=${{ secrets.REACT_APP_RECAPTCHA_SITE_KEY }}" >> .env
 
       - name: Install Dependencies
         run: yarn
@@ -46,7 +48,7 @@ jobs:
       - name: Build
         run: yarn build
         env:
-          CI: ""
+          CI: ''
 
       - name: Deploy
         env:

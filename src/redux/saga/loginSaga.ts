@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { call, put, takeLatest } from "redux-saga/effects";
-import { PayloadAction } from "@reduxjs/toolkit";
-import { login } from "utils/api";
-import { getCookie, removeCookie, setCookie } from "utils/cookies";
-import { redirect } from "utils/redirect";
-import { decode } from "utils/decode";
-import { LoginFormType } from "types";
-import { openModal, setKakaoLoginSuccess } from "../reducer/modalReducer";
+import {call, put, takeLatest} from 'redux-saga/effects';
+import {PayloadAction} from '@reduxjs/toolkit';
+import {login} from 'utils/api';
+import {getCookie, removeCookie, setCookie} from 'utils/cookies';
+import {redirect} from 'utils/redirect';
+import {decode} from 'utils/decode';
+import {LoginFormType} from 'types';
+import {openModal, setKakaoLoginSuccess} from '../reducer/modalReducer';
 import {
   kakaoFail,
   kakaoLoading,
@@ -17,10 +17,10 @@ import {
   logoutFail,
   logoutLoading,
   logoutSuccess,
-} from "../reducer/loginReducer";
+} from '../reducer/loginReducer';
 
 function* loginSaga(
-  action: PayloadAction<LoginFormType>,
+  action: PayloadAction<LoginFormType>
 ): Generator<any, void, any> {
   try {
     const response = yield call(login.checkLoginUser, action.payload);
@@ -35,8 +35,8 @@ function* loginSaga(
     //   "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiYmIyMjIiLCJpYXQiOjE2OTAzNzcwODAsImV4cCI6MTY5MDQ2MzQ4MH0.RbkMntKliTUQK5mSjBcfjY9-X46n1tiXklFJddBnImgc3ctpEiv95tHivqMeDj6xbqZW9NMC_wD1TNFbwtIIpw";
     // const refreshToken =
     //   "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiYmIyMjIiLCJuYW1lIjoi7ZmN6ri464-ZIiwianRpIjoiMjk4MTVhYTYtOTlhNS00NmJkLWE0YTktNTgyNmQ0YzQwMzA4IiwiZXhwIjoxNjkwMzc3OTgwfQ.qgpP8Oa79AkKggbb3jQ-IkKuN-Lp_jrHN-S6XNnKtQSPcy2lspxPH5cgyhHrWsIfPqunOSCqV9-k-DAv8Qp8AA";
-    setCookie("accessToken", accessToken, {
-      path: "/",
+    setCookie('accessToken', accessToken, {
+      path: '/',
       // https 일때만 통신할 수 있는 것 https일때 true로 바꿔줄것!
       secure: true,
       // 쿠키 훔쳐가는거 막음 로컬에서는 사용이 안된다함
@@ -47,9 +47,9 @@ function* loginSaga(
     //   path: "/",
     //   secure: true,
     // });
-    removeCookie("easyLoginToken", { path: "/", secure: true, httpOnly: true });
+    removeCookie('easyLoginToken', {path: '/', secure: true});
     yield put(loginSuccess(response));
-    yield call(redirect, "/home");
+    yield call(redirect, '/home');
   } catch (error: any) {
     yield put(loginFail(error));
     yield put(openModal(error.message));
@@ -58,42 +58,43 @@ function* loginSaga(
 
 function* logoutSaga(): Generator<any, void, any> {
   try {
-    const refreshCookie = getCookie("refreshToken");
-    const response = yield call(login.checkLogout, refreshCookie);
+    const refreshCookie = getCookie('refreshToken');
+    // const response = yield call(login.checkLogout, refreshCookie);
+    const response = yield call(login.checkLogout);
     yield put(logoutSuccess(response));
-    removeCookie("accessToken", { path: "/" });
-    removeCookie("refreshToken", { path: "/" });
-    yield call(redirect, "/");
+    removeCookie('accessToken', {path: '/'});
+    // removeCookie('refreshToken', {path: '/'});
+    yield call(redirect, '/');
   } catch (error) {
     yield put(logoutFail(error));
-    yield call(redirect, "/home");
+    yield call(redirect, '/home');
   }
 }
 
 function* kakaoLoginSaga(
-  action: PayloadAction<string>,
+  action: PayloadAction<string>
 ): Generator<any, void, any> {
   try {
     // 인가 코드 pass
-    console.log("카카오 로그인 사가 작동");
+    console.log('카카오 로그인 사가 작동');
     const response = yield call(login.checkKakaoLogin, action.payload);
     console.log(response);
     const easyLoginToken = response.data.Easylogin_token;
     if (easyLoginToken) {
-      setCookie("easyLoginToken", easyLoginToken.substr(7), {
-        path: "/",
+      setCookie('easyLoginToken', easyLoginToken.substr(7), {
+        path: '/',
         secure: true,
       });
-      yield put(
-        openModal(
-          "간편 로그인이 완료되었습니다./로그인을 진행하여 기존 계정과 연동해주세요.",
-        ),
-      );
       yield put(kakaoSuccess(response));
       yield put(setKakaoLoginSuccess(true));
+      yield put(
+        openModal(
+          '간편 로그인이 완료되었습니다./로그인을 진행하여 기존 계정과 연동해주세요.'
+        )
+      );
     } else {
-      setCookie("accessToken", response.data.Access_token.substr(7), {
-        path: "/",
+      setCookie('accessToken', response.data.Access_token.substr(7), {
+        path: '/',
         secure: true,
       });
       // setCookie("refreshToken", response.data.Refresh_token.substr(7), {
@@ -101,7 +102,7 @@ function* kakaoLoginSaga(
       //   secure: true,
       // });
       yield put(loginSuccess(response));
-      yield call(redirect, "/home");
+      yield call(redirect, '/home');
     }
   } catch (error) {
     console.log(error);
