@@ -202,7 +202,9 @@ authAxios.interceptors.response.use(
             //   headers: { Refresh_token: `Bearer ${refreshToken}` },
             // });
 
-            response = await baseAxios.post('/authz/token/refresh');
+            response = await baseAxios.post('/authz/token/refresh', null, {
+          withCredentials: true,
+        });
             console.log(response);
             newAccessToken = response.data.Access_token.substr(7);
             // newRefreshToken = response.data.Refresh_token.substr(7);
