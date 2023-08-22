@@ -41,7 +41,6 @@ jobs:
           echo "REACT_APP_KAKAO_JAVASCRIPT_KEY=${{ secrets.REACT_APP_KAKAO_JAVASCRIPT_KEY }}" >> .env
           echo "REACT_APP_KAKAOURL=${{ secrets.REACT_APP_KAKAOURL }}" >> .env
           echo "REACT_APP_RECAPTCHA_SITE_KEY=${{ secrets.REACT_APP_RECAPTCHA_SITE_KEY }}" >> .env
-          
 
       - name: Install Dependencies
         run: yarn
@@ -49,7 +48,7 @@ jobs:
       - name: Build
         run: yarn build
         env:
-          CI: ""
+          CI: ''
 
       - name: Deploy
         env:

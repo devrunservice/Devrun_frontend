@@ -51,13 +51,14 @@ export const login = {
     const response = await baseAxios.post('/login', params);
     return response;
   },
-  checkLogout: async (params: TokenType) => {
-    const config = {
-      headers: {
-        Refresh_token: `Bearer ${params}`,
-      },
-    };
-    const response = await baseAxios.post('/authz/logout', null, config);
+  checkLogout: async () => {
+    // const config = {
+    //   headers: {
+    //     Refresh_token: `Bearer ${params}`,
+    //   },
+    // };
+    // const response = await baseAxios.post('/logout', null, config);
+    const response = await baseAxios.post('/authz/logout');
     return response;
   },
   refreshAccessToken: async (params: string) => {
@@ -66,7 +67,7 @@ export const login = {
         Refresh_token: `${params}`,
       },
     };
-    const response = await authAxios.post('/token/refresh', null, config);
+    const response = await authAxios.post('/authz/token/refresh', null, config);
     return response.data.Access_token;
   },
   checkKakaoLogin: async (params: string) => {
@@ -74,7 +75,7 @@ export const login = {
     console.log(response);
     return response;
   },
-  checkRecaptcha: async (params: LoginFormType) => {
+  checkRecaptcha: async (params: string) => {
     const response = await baseAxios.post(
       `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.REACT_APP_RECAPTCHA_SECRET_KEY}&response=${params}`
     );

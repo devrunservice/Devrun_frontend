@@ -1,35 +1,35 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "redux/store";
-import useValid from "hooks/useValid";
-import useCheckbox from "hooks/useCheckbox";
-import { signup } from "utils/api";
+import React, {useState, useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from 'redux/store';
+import useValid from 'hooks/useValid';
+import useCheckbox from 'hooks/useCheckbox';
+import {signup} from 'utils/api';
 import {
   PasswordInput,
   AuthenticationNumber,
   Modal,
   DuplicationForm,
-} from "components";
-import { SignupFormType } from "types";
-import { Title, ErrorMessage, Input, SuccessMessage } from "style/Common";
-import * as St from "./styles";
-import { openModal, setSignupSuccess } from "../../redux/reducer/modalReducer";
+} from 'components';
+import {SignupFormType} from 'types';
+import {Title, ErrorMessage, Input, SuccessMessage} from 'style/Common';
+import * as St from './styles';
+import {openModal, setSignupSuccess} from '../../redux/reducer/modalReducer';
 
 const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [signupForm, setSignupForm] = useState<SignupFormType>({
-    id: "",
-    password: "",
-    passwordConfirm: "",
-    name: "",
-    email: "",
-    birthday: "",
-    phonenumber: "",
-    code: "",
+    id: '',
+    password: '',
+    passwordConfirm: '',
+    name: '',
+    email: '',
+    birthday: '',
+    phonenumber: '',
+    code: '',
     allChecked: false,
     acChecked: false,
     tosChecked: false,
@@ -40,13 +40,13 @@ const Signup = () => {
   useValid(signupForm);
 
   const validState = useSelector(
-    (state: RootState) => state.validationReducer.validState,
+    (state: RootState) => state.validationReducer.validState
   );
   const messageState = useSelector(
-    (state: RootState) => state.validationReducer.messageState,
+    (state: RootState) => state.validationReducer.messageState
   );
 
-  const { checkboxes, handleCheckAll, handleCheckSingle } = useCheckbox({
+  const {checkboxes, handleCheckAll, handleCheckSingle} = useCheckbox({
     allChecked: false,
     acChecked: false,
     tosChecked: false,
@@ -62,16 +62,16 @@ const Signup = () => {
   const minDate = new Date(
     currentDate.getFullYear() - 19,
     currentDate.getMonth(),
-    currentDate.getDate() + 1,
+    currentDate.getDate() + 1
   )
     .toISOString()
-    .split("T")[0];
+    .split('T')[0];
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(signupForm);
     try {
-      const response = await signup.createUser(signupForm.code || "", {
+      const response = await signup.createUser(signupForm.code || '', {
         id: signupForm.id,
         password: signupForm.password,
         name: signupForm.name,
@@ -85,9 +85,9 @@ const Signup = () => {
       });
       console.log(response);
       if (response.status === 200) {
-        dispatch(openModal("회원가입이 완료되었습니다."));
         dispatch(setSignupSuccess(true));
-        navigate("/login");
+        dispatch(openModal('회원가입이 완료되었습니다.'));
+        // navigate('/login');
       }
     } catch (error: any) {
       console.error(error);
@@ -96,17 +96,17 @@ const Signup = () => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("비밀번호 수정");
-    const { name, value } = e.target;
-    setSignupForm({ ...signupForm, [name]: value });
+    console.log('비밀번호 수정');
+    const {name, value} = e.target;
+    setSignupForm({...signupForm, [name]: value});
   };
 
   // 이메일 아이디 값 가져오기
   const getDuplicationForm = (value: SignupFormType) => {
     Object.keys(value).forEach((name) => {
-      if (name === "id") {
+      if (name === 'id') {
         signupForm.id = value.id;
-      } else if (name === "email") {
+      } else if (name === 'email') {
         signupForm.email = value.email;
       }
     });
@@ -122,18 +122,18 @@ const Signup = () => {
   const handleChangeBday = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = new Date(e.target.value);
     const year = value.getFullYear();
-    const month = String(value.getMonth() + 1).padStart(2, "0");
-    const day = String(value.getDate()).padStart(2, "0");
+    const month = String(value.getMonth() + 1).padStart(2, '0');
+    const day = String(value.getDate()).padStart(2, '0');
 
-    setSignupForm({ ...signupForm, birthday: `${year}-${month}-${day}` });
+    setSignupForm({...signupForm, birthday: `${year}-${month}-${day}`});
     // setIsValid((prev) => ({ ...prev, birthday: true }));
   };
 
   // 약관 동의
   const handleChecked = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, checked } = e.target;
+    const {id, checked} = e.target;
 
-    if (id === "allChecked") {
+    if (id === 'allChecked') {
       handleCheckAll(checked);
       setSignupForm((prev) => ({
         ...prev,
@@ -144,7 +144,7 @@ const Signup = () => {
       }));
     } else {
       handleCheckSingle(id, checked);
-      setSignupForm((prev) => ({ ...prev, [id]: checked }));
+      setSignupForm((prev) => ({...prev, [id]: checked}));
     }
   };
 
@@ -282,11 +282,11 @@ const Signup = () => {
           </St.Ul>
           {/* 회원가입 버튼 */}
           <St.SignupBtn type="submit">회원가입</St.SignupBtn>
-          <St.CancelBtn type="button" onClick={() => navigate("/")}>
+          <St.CancelBtn type="button" onClick={() => navigate('/')}>
             취소
           </St.CancelBtn>
         </form>
-        <Modal option="signup" />
+        <Modal page="signup" />
       </St.Container>
     </St.Section>
   );

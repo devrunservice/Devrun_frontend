@@ -205,7 +205,7 @@ authAxios.interceptors.response.use(
             response = await baseAxios.post('/authz/token/refresh');
             console.log(response);
             newAccessToken = response.data.Access_token.substr(7);
-            newRefreshToken = response.data.Refresh_token.substr(7);
+            // newRefreshToken = response.data.Refresh_token.substr(7);
             setCookie('accessToken', newAccessToken, {
               path: '/',
               secure: true,

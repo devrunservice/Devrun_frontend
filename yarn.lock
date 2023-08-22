@@ -3325,6 +3325,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-recaptcha-v3@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "@types/react-recaptcha-v3@npm:1.1.2"
+  dependencies:
+    "@types/react": "*"
+  checksum: 8414ffde3252af4b0aa014f02a8b0d2fbe4cd3cb1bb508ed167f7870b2b57b1645265e68d7f04a808fa19bc64353900506107db52dd4923f1a8a8c3ef7ec1d2a
+  languageName: node
+  linkType: hard
+
 "@types/react-router-dom@npm:^5.3.3":
   version: 5.3.3
   resolution: "@types/react-router-dom@npm:5.3.3"
@@ -6032,6 +6041,7 @@ __metadata:
     "@types/react": ^18.2.13
     "@types/react-dom": ^18.2.6
     "@types/react-google-recaptcha": ^2.1.5
+    "@types/react-recaptcha-v3": ^1.1.2
     "@types/react-router-dom": ^5.3.3
     "@types/redux-persist": ^4.3.1
     "@types/styled-components": ^5.1.26
@@ -6061,6 +6071,7 @@ __metadata:
     react-google-recaptcha: ^3.1.0
     react-icons: ^4.9.0
     react-quill: ^2.0.0
+    react-recaptcha-v3: ^2.0.1
     react-redux: ^8.1.0
     react-router-dom: ^6.12.1
     react-scripts: 5.0.1
@@ -12195,6 +12206,16 @@ __metadata:
     react: ^16 || ^17 || ^18
     react-dom: ^16 || ^17 || ^18
   checksum: 568e28656ae3a40944d5c4cc9d35accc21834cf15b61a74af4566d8772eb152ce65c0d5ea6da65918cb5c9453c1a2041c60c4a19819bf319bee2e067b613d32b
+  languageName: node
+  linkType: hard
+
+"react-recaptcha-v3@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "react-recaptcha-v3@npm:2.0.1"
+  peerDependencies:
+    prop-types: ^15.6.2
+    react: ^15.6.2 || ^16.x
+  checksum: 44c5adbffe4674641b8a5ec88b5f3b3e31cabe3e338d393d895887c73840cbac5f6154dacf188b08cd8cf1aa5dd0f6a5c4dcf1acbde38d4a2c98b7b6072507f5
   languageName: node
   linkType: hard
 
