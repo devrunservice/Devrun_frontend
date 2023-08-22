@@ -6,6 +6,7 @@ import {RootState} from 'redux/store';
 import * as St from './styles';
 import {closeModal} from '../../../redux/reducer/modalReducer';
 import {logoutLoading} from '../../../redux/reducer/loginReducer';
+import Recaptcha from '../Recaptcha/Recaptcha';
 
 const Modal = ({page}: {page?: string}) => {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ const Modal = ({page}: {page?: string}) => {
       navigate('/login');
     }
 
-    // 토큰 조작 및 Refresh Token 만료 시
+    // 토큰 조작 및 Refresh Token 만료 및 알 수 없는 에러가 발생했을 시
     if (page === 'home') {
       dispatch(logoutLoading());
     }

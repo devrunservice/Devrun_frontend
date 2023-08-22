@@ -51,13 +51,14 @@ export const login = {
     const response = await baseAxios.post('/login', params);
     return response;
   },
-  checkLogout: async (params: TokenType) => {
-    const config = {
-      headers: {
-        Refresh_token: `Bearer ${params}`,
-      },
-    };
-    const response = await baseAxios.post('/authz/logout', null, config);
+  checkLogout: async () => {
+    // const config = {
+    //   headers: {
+    //     Refresh_token: `Bearer ${params}`,
+    //   },
+    // };
+    // const response = await baseAxios.post('/logout', null, config);
+    const response = await baseAxios.post('/authz/logout');
     return response;
   },
   refreshAccessToken: async (params: string) => {

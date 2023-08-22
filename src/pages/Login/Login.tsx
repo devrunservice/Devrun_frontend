@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import ReCAPTCHA from 'react-google-recaptcha';
 import {RootState} from 'redux/store';
@@ -21,11 +21,18 @@ const LoginForm = () => {
     password: '',
     recaptcha: '',
   });
-  const [loginAttemptesExceeded, setLoginAttemptesExceeds] = useState();
+  const [showRecaptchaModal, setShowRecaptchaModal] = useState(false);
 
   const loginErrorMessage = useSelector(
     (state: RootState) => state.userReducer.error
   );
+
+  useEffect(() => {
+    console.log(loginErrorMessage);
+    if (loginErrorMessage === '로그인 횟수가 초과했습니다.') {
+      setShowRecaptchaModal(true);
+    }
+  }, [loginErrorMessage]);
 
   const easyLoginToken = getCookie('easyLoginToken');
 
@@ -88,11 +95,19 @@ const LoginForm = () => {
               placeholder="비밀번호"
               onChange={handleChange}
             />
-            <Recaptcha getRecaptcha={getRecaptcha} />
+            {showRecaptchaModal && (
+              <Recaptcha
+                isOpen={showRecaptchaModal}
+                onClose={(value: boolean) => setShowRecaptchaModal(value)}
+                getRecaptcha={getRecaptcha}
+              />
+            )}
           </St.InputField>
           <St.LoginBtn disabled={!isFormValid}>로그인</St.LoginBtn>
         </form>
-        <Modal page="login" />
+        {loginErrorMessage !== '로그인 횟수를 초과했습니다.' && (
+          <Modal page="login" />
+        )}
 
         {/* 아이디, 비밀번호 찾기 및 회원가입 */}
         <St.Finder>

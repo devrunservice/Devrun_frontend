@@ -49,7 +49,7 @@ function* loginSaga(
     // });
     removeCookie('easyLoginToken', {path: '/', secure: true});
     yield put(loginSuccess(response));
-    // yield call(redirect, '/home');
+    yield call(redirect, '/home');
   } catch (error: any) {
     yield put(loginFail(error));
     yield put(openModal(error.message));
@@ -59,10 +59,11 @@ function* loginSaga(
 function* logoutSaga(): Generator<any, void, any> {
   try {
     const refreshCookie = getCookie('refreshToken');
-    const response = yield call(login.checkLogout, refreshCookie);
+    // const response = yield call(login.checkLogout, refreshCookie);
+    const response = yield call(login.checkLogout);
     yield put(logoutSuccess(response));
     removeCookie('accessToken', {path: '/'});
-    removeCookie('refreshToken', {path: '/'});
+    // removeCookie('refreshToken', {path: '/'});
     yield call(redirect, '/');
   } catch (error) {
     yield put(logoutFail(error));
@@ -84,13 +85,13 @@ function* kakaoLoginSaga(
         path: '/',
         secure: true,
       });
+      yield put(kakaoSuccess(response));
+      yield put(setKakaoLoginSuccess(true));
       yield put(
         openModal(
           '간편 로그인이 완료되었습니다./로그인을 진행하여 기존 계정과 연동해주세요.'
         )
       );
-      yield put(kakaoSuccess(response));
-      yield put(setKakaoLoginSuccess(true));
     } else {
       setCookie('accessToken', response.data.Access_token.substr(7), {
         path: '/',
