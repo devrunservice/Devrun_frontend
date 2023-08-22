@@ -42,3 +42,14 @@ export const Button = styled.button`
   background-color: ${(props) => props.theme.brandColor};
   cursor: pointer;
 `;
+
+export const InputField = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.6rem;
+`;
+
+export const P = styled.p`
+  color: ${(props) => props.theme.black};
+  margin-bottom: 0.6rem;
+`;

@@ -1,38 +1,52 @@
 import { styled } from "styled-components";
 import { TitleWrapper } from "../styles";
 
+export const Section = styled.section`
+  width: 60%;
+`;
 export const Title = styled(TitleWrapper)``;
 
-export const ProfileCon = styled.article`
+export const InputField = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  padding-bottom: 1rem;
+  margin-bottom: 0.6rem;
 `;
+
+export const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+// 이미지
+export const UploadArea = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 export const Imgbox = styled.div`
   margin: 2rem 0;
   margin-right: 40px;
   width: 110px;
   height: 110px;
   border-radius: 50%;
-  background: ${(props: any) => props.theme.brandColor};
+  /* background: ${(props: any) => props.theme.brandColor}; */
   overflow: hidden;
-`;
-export const ProfileImg = styled.img`
-  width: inherit;
-  height: inherit;
-  object-fit: cover;
-  padding: 0;
-  max-width: 100%;
+  img {
+    width: inherit;
+    height: inherit;
+    object-fit: cover;
+    padding: 0;
+    max-width: 100%;
+  }
 `;
 
-const InputCommon = styled.input`
-  border: 1px solid ${(props) => props.theme.borderC};
-  line-height: 43px;
-  height: 45px;
+export const ShortInput = styled.input`
+  width: 25%;
+  padding: 12px;
   border-radius: 5px;
+  border: 1px solid #ddd;
   outline: none;
-  padding: 0 10px;
   &::-webkit-inner-spin-button {
     appearance: none;
     -moz-appearance: none;
@@ -41,33 +55,64 @@ const InputCommon = styled.input`
   &::file-selector-button {
     display: none;
   }
-`;
-
-export const ProfileP = styled.p`
-  color: ${(props) => props.theme.black};
-  margin-bottom: 0.6rem;
-  font-weight: ${(props) => props.theme.semiBold};
-`;
-
-export const InputOther = styled(InputCommon)`
-  width: 538px;
-  margin-bottom: 10px;
-  &:last-child {
-    margin-bottom: 0;
+  &#uploader {
+    width: auto;
+    flex: 1;
   }
 `;
 
-export const Phonenumber = styled.div`
-  width: 65%;
+export const ImageBtn = styled.label`
+  box-sizing: border-box;
+  padding: 12px;
+  color: ${(props) => props.theme.mainColor};
+  border: 1px solid ${(props) => props.theme.mainColor};
+  border-radius: 5px;
+  margin-left: 10px;
+  cursor: pointer;
+`;
+
+export const InputNotice = styled.p`
+  display: flex;
+  align-items: center;
+  color: #555555;
+  margin-top: 10px;
+  font-size: ${(props) => props.theme.size14};
+  svg {
+    margin-right: 5px;
+  }
+`;
+
+export const EditInput = styled.div`
+  position: relative;
+
+  & > div:nth-child(1) {
+    position: absolute;
+    right: 0;
+  }
+`;
+
+export const EditBtn = styled.div`
+  text-align: right;
 `;
 
 export const ChangeBtn = styled.button`
-  height: 45px;
-  text-align: center;
-  width: ${(props: any) => props.theme.size85};
   color: ${(props: any) => props.theme.brandColor};
-  border: 1px solid ${(props: any) => props.theme.brandColor};
+  border: none;
+  outline: none;
   background: transparent;
-  border-radius: 5px;
   cursor: pointer;
+`;
+
+export const CancelBtn = styled(ChangeBtn)`
+  color: ${(props) => props.theme.textColor};
+`;
+
+export const P = styled.p`
+  padding: 0.8rem 0 0.8rem 0.4rem;
+`;
+
+export const Hr = styled.hr`
+  margin-top: 0.2rem;
+  margin-bottom: 1rem;
+  color: ${(props) => props.theme.borderC};
 `;

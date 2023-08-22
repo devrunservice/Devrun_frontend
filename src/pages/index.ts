@@ -10,7 +10,6 @@ export { default as CreateVideo } from "./CreateVideo/CreateVideo";
 export { default as FindId } from "./FindAccount/FindId";
 export { default as FindPassword } from "./FindAccount/FindPassword";
 export { default as Profile } from "./User/Profile/Profile";
-export { default as ProfileUpdate } from "./User/Profile/ProfileUpdate";
 export { default as Cert } from "./User/Cert/Cert";
 export { default as CertDetail } from "./User/Cert/CertDetail";
 export { default as Dashboard } from "./User/Dashboard/Dashboard";

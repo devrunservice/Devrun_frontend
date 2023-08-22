@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 import { Close, Exclamation } from 'asset';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
-import { deleteTag, onCategoryType, onImageUrl, onLectureCategory, onLectureExplane, /* onLectureIntroduce, */ onLectureName, onLecturePrice, onLectureTag } from '../../redux/reducer/createVideoSlice';
+import { deleteTag, onCategoryType, onImageUrl, onImageFile, onLectureIntro, onLectureCategory, /* onLectureIntroduce, */ onLectureName, onLecturePrice, onLectureTag } from '../../redux/reducer/createVideoSlice';
 // import { ImageUploader } from "components";
 import * as St from './style'
 
@@ -12,8 +12,8 @@ export interface StyledButtonProps {
 
 const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
   const dispatch = useDispatch()
-  const createVideoSlice = useSelector((state:RootState)=>state.createVideoSlice)
-  const tags = createVideoSlice.lectureTag
+  const videoStore = useSelector((state:RootState)=>state.createVideoSlice)
+  const tags = videoStore.lectureTag
   
   /* 가격 무료 유료 선택 */
   const [isActive, setIsActive] = useState<boolean>(false)
@@ -35,13 +35,6 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
   /* 가격 */
   const priceInput = (e: ChangeEvent<HTMLInputElement>) => {
     const {value} = e.target;
-    // const regex = value.replace(/[^0-9.]/g, "").replace(/(\..*)\./g, "$1");
-    // let comma = Number(regex.replaceAll(",", ""));
-    // if (comma === 0) {
-    //   comma = 0;
-    // } else {
-    //   dispatch(onLecturePrice(comma))
-    // }
     dispatch(onLecturePrice(value))
   }
 
@@ -58,16 +51,18 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
         return;
       }
       const url = URL.createObjectURL(file);
+      dispatch(onImageFile(files[0]))
       dispatch(onImageUrl(url))
     }
   }
 
   /* 카테고리 */
   const changeType = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    console.log(e.target.value)
     dispatch(onCategoryType(e.target.value))
   }
   const changeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(onLectureCategory(e.target.value))
+    dispatch(onLectureCategory(e.target.value))      
   }
 
   /* 태그 */
@@ -103,7 +98,7 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
 
   /* 한줄설명 */
   const explanationInput = (e: any) => {
-    dispatch(onLectureExplane(e.target.value))
+    dispatch(onLectureIntro(e.target.value))
   }
   /* 소개영상 */
   // const introduceInput = (e:any) => {
@@ -115,7 +110,7 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
         <St.ArticleTitle>강좌명</St.ArticleTitle>
         <St.BasicInput
           onChange={nameInput}
-          value={createVideoSlice.lectureName}
+          value={videoStore.lectureName}
           type="text"
           placeholder="영문, 숫자 5-11자"
         />
@@ -145,7 +140,7 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
             </St.PriceBtn>
           </St.SelectPriceBtn>
           {priceState && (
-            <St.ShortInput onChange={priceInput} value={createVideoSlice.lecturePrice} type="number" placeholder="0" />
+            <St.ShortInput onChange={priceInput} value={videoStore.lecturePrice} type="number" placeholder="0" />
           )}
         </div>
       </St.CreateVideoArticle>
@@ -154,7 +149,7 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
         <St.ArticleTitle>강좌 이미지</St.ArticleTitle>
         <St.UploadArea>
           <St.LectureImageWrap>
-            {createVideoSlice.imageUrl && <img src={createVideoSlice.imageUrl} alt="" />}
+            {videoStore.lectureThumbnail && <img src={videoStore.lectureThumbnailUrl} alt="" />}
           </St.LectureImageWrap>
           <St.UploadVideoWrap>
             <div>
@@ -183,14 +178,14 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
       <St.CreateVideoArticle>
         <St.ArticleTitle>강좌 카테고리</St.ArticleTitle>
         <div>
-          <St.CategorySelect value={createVideoSlice.categoryType} onChange={changeType}>
+          <St.CategorySelect value={videoStore.lectureCategory.lectureBigCategory} onChange={changeType}>
             <option value="front">프론트엔드</option>
             <option value="back">백엔드</option>
           </St.CategorySelect>
           {
-            createVideoSlice.categoryType === 'front' 
+            videoStore.lectureCategory.lectureBigCategory === 'front' 
             ?
-            <St.CategorySelect value={createVideoSlice.lectureCategory} onChange={changeCategory}>
+            <St.CategorySelect value={videoStore.lectureCategory.lectureMidCategory} onChange={changeCategory}>
               <option value="html">HTML/CSS</option>
               <option value="javascript">JavaScript</option>
               <option value="react">React</option>
@@ -198,7 +193,7 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
               <option value="angular">Angular</option>
             </St.CategorySelect> 
             : 
-            <St.CategorySelect value={createVideoSlice.lectureCategory} onChange={changeCategory}>
+            <St.CategorySelect value={videoStore.lectureCategory.lectureMidCategory} onChange={changeCategory}>
               <option value="c#">C#</option>
               <option value="spring">Spring</option>
               <option value="java">Java</option>
@@ -238,19 +233,10 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
           <St.ArticleTitle>한줄설명</St.ArticleTitle>
           <St.BasicInput
             onChange={explanationInput}
-            value={createVideoSlice.lectureExplane}
+            value={videoStore.lectureIntro}
             placeholder="예: 프로그래밍 강의입니다."
           />
         </St.MBThirty>
-
-        {/* <St.MBThirty>
-          <St.ArticleTitle>소개 영상</St.ArticleTitle>
-          <St.BasicInput
-            onChange={introduceInput}
-            value={createVideoSlice.lectureIntroduce}
-            placeholder="Youtube동영상 URL을 넣어주세요."
-          />
-        </St.MBThirty> */}
 
         <St.MBThirty>
           <St.ArticleTitle>강좌 소개</St.ArticleTitle>

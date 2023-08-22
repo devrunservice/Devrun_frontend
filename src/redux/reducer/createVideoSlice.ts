@@ -1,49 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-interface CreateLectureType {
-  lectureName: string;
-  lecturePrice: number;
-  categoryType: string,
-  imageUrl: string;
-  // lectureBigCategory: string,
-  lectureCategory: string;
-  lectureTag: Array<string>;
-  lectureExplane: string;
-  // lectureIntroduce: string;
-  section: Array<SectionType>
-}
-interface SectionType {
-  num:number,
-  title: string;
-  subTitle: Array<SubTitleType>
-}
-interface SubTitleType {
-  subNum:number;
-  className: string;
-  url: string;
-}
+import { CreateLectureType } from "types";
 
 const initialState:CreateLectureType = {
   lectureName: '', 
   lecturePrice: 0, 
-  imageUrl: '', 
-  categoryType: 'front', 
-  lectureCategory: 'html',
+  lectureThumbnail: '', 
+  lectureThumbnailUrl: '',
+  lectureCategory: {
+    lectureBigCategory: 'front',
+    lectureMidCategory: 'html'
+  },
   lectureTag: [], 
-  lectureExplane: '', 
-  section: [ 
-    {
-      num: 0, 
-      title: '', 
-      subTitle: [
-        {
-          subNum:0, 
-          className: '', 
-          url:'', 
-        }
-      ],
-    }
-  ]
+  lectureIntro: '', 
+  lectureSectionList: [{lectureSectionId:1, sectionTitle:''}],
+  videoList:[{lectureSectionId:1, file:undefined, videoNo:1, videoTitle:''}]
 }
 const createVideoSlice = createSlice({
   name: 'createVideoSlice',
@@ -55,14 +25,17 @@ const createVideoSlice = createSlice({
     onLecturePrice: (state,action) => {
       state.lecturePrice = action.payload
     },
-    onImageUrl: (state,action) => {
-      state.imageUrl = action.payload
+    onImageFile: (state,action)=> {
+      state.lectureThumbnail = action.payload
     },
-    onCategoryType: (state, action) => {
-      state.categoryType = action.payload
+    onImageUrl: (state,action) => {
+      state.lectureThumbnailUrl = action.payload
+    },
+    onCategoryType:(state, action) => {
+      state.lectureCategory.lectureBigCategory = action.payload
     },
     onLectureCategory: (state, action) => {
-      state.lectureCategory = action.payload
+      state.lectureCategory.lectureMidCategory = action.payload
     },
     onLectureTag: (state, action) => {
       state.lectureTag = state.lectureTag.concat(action.payload)
@@ -70,47 +43,50 @@ const createVideoSlice = createSlice({
     deleteTag:(state, action) => {
       state.lectureTag = state.lectureTag.filter(list=>list !== action.payload)
     },
-    onLectureExplane: (state, action) => {
-      state.lectureExplane = action.payload
+    onLectureIntro: (state, action) => {
+      state.lectureIntro = action.payload
     },
-    // onLectureIntroduce: (state, action) => {
-    //   state.lectureIntroduce = action.payload
-    // },
     addSection:(state, action) => {
-      console.log('addSection',action.payload)
-      state.section = state.section.concat(action.payload)
+      state.lectureSectionList = state.lectureSectionList.concat(action.payload)
     },
-    deleteSection: (state, action) => {
-      if(state.section.length === 1) return
-      state.section = action.payload
-    },
-    addClass:(state, action) => {
-      const index = state.section.findIndex(list=>list.num === action.payload.id)
-      state.section[index].subTitle = state.section[index].subTitle.concat(action.payload)
-    },
-    deleteClass:(state, action) => {
-      const index = state.section.findIndex(list=>list.num === action.payload.num)
-      if(state.section[index].subTitle.length === 1) return
-      state.section[index].subTitle = state.section[index].subTitle.filter(list=>list.subNum !== action.payload.index)
-    },
-    changeTitle:(state, action) => {
-      const index = state.section.findIndex(list=>list.num === action.payload.id)
-      state.section[index].title = action.payload.value
-    },
-    onSubTitle:(state, action) => {
-      const index = state.section.findIndex(list=>list.num === action.payload.num)
-      if(action.payload.name === 'title') {
-        state.section[index].subTitle[action.payload.index].className = action.payload.value
-      } else {
-        state.section[index].subTitle[action.payload.index].url = action.payload.url
+    addClass:(state,action) => {
+      if(state.videoList) {
+        state.videoList = state.videoList.concat(action.payload)
       }
     },
-    changeUrl: (state, action) => {
-      const index = state.section.findIndex(list=>list.num === action.payload.num)
-      state.section[index].subTitle[action.payload.index].url = action.payload
-    }
+    deleteSection: (state, action) => {
+      if(state.lectureSectionList.length === 1) return
+      state.lectureSectionList = action.payload
+    },
+    setSection: (state) => {
+      state.lectureSectionList.forEach((section, index)=> {
+        section.lectureSectionId = index + 1
+      })
+    },
+    setClass: (state,action) => {
+      state.videoList = action.payload
+    },
+    deleteClass:(state, action) => {
+      state.videoList = action.payload
+    },
+    changeTitle:(state, action) => {
+      const index = state.lectureSectionList.findIndex(list=>list.lectureSectionId === action.payload.id)
+      state.lectureSectionList[index].sectionTitle = action.payload.value
+    },
+    changeClassTitle:(state, action) => {
+      if(state.videoList) {
+        const index = state.videoList.findIndex(list=>list.videoNo === action.payload.id)
+        state.videoList[index].videoTitle = action.payload.value
+      }
+    },
+    changeVideoFile:(state, action) => {
+      if(state.videoList) {
+        const index = state.videoList.findIndex(list=>list.videoNo === action.payload.id)
+        state.videoList[index].file = action.payload.file
+      }
+    },
   }
 })
 
-export const {addSection, changeUrl, onSubTitle, deleteSection, addClass, deleteClass, deleteTag, changeTitle,onCategoryType, onLectureName, onLecturePrice, onImageUrl, onLectureCategory, onLectureTag, onLectureExplane,  /* onLectureIntroduce */} = createVideoSlice.actions
+export const {addSection, changeClassTitle, addClass, deleteClass, changeTitle, changeVideoFile, setSection, setClass, deleteSection, deleteTag, onCategoryType, onImageFile, onLectureName, onLecturePrice, onImageUrl, onLectureCategory, onLectureTag, onLectureIntro} = createVideoSlice.actions
 export default createVideoSlice.reducer

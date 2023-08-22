@@ -1,121 +1,110 @@
-import React, { /* ChangeEvent, */ useRef, useState } from 'react';
+import React from 'react';
 import CurriculumSection from 'components/CurriculumSection/CurriculumSection';
 import { PlusCircle } from 'asset';
 import { RootState } from 'redux/store';
+// import {createVideo} from 'api'
 import { useDispatch, useSelector } from 'react-redux';
-import { SectionType } from 'types';
-import {  addClass, addSection, changeTitle, /* changeUrl, */ deleteClass, deleteSection, onSubTitle } from '../../redux/reducer/createVideoSlice';
+// import { CreateLectureType } from 'types';
+import axios from 'axios';
+import {  addClass, addSection, changeTitle, setClass,  deleteClass, deleteSection, changeVideoFile, changeClassTitle } from '../../redux/reducer/createVideoSlice';
 import * as St from '../CreateNewVideo/style'
 
 const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
   const dispatch = useDispatch()
-  const createVideoSlice = useSelector((state:RootState)=>state.createVideoSlice)
-  // const [nextId, setNextId] = useState<number>(createVideoSlice.section.length)
-  console.log('leng',createVideoSlice.section.length)
-  const nextSubId = useRef<number>(1)
-  const [section, setSection] = useState<SectionType>(
-    {
-      num: createVideoSlice.section.length,
-      // num: createVideoSlice.section.length,
-      // num: nextId,
-      title: '',
-      subTitle: [
-        {
-          subNum:0,
-          className: '',
-          url:'',
-        }
-      ],
-    },
-  )
+  const videoStore = useSelector((state:RootState)=>state.createVideoSlice)
   
+  /* 강의 수업추가 */
+  const addClasses = (id: number) => {
+    if(videoStore.videoList) {
+      const maxSectionId = videoStore.videoList.reduce((max, section) =>
+        section.videoNo > max ? section.videoNo : max,
+        -1
+      );
+      dispatch(addClass({videoNo:maxSectionId + 1, lectureSectionId:id}))
+    }
+  };
+
+  /* 강의 섹션추가 */
   const addSections = () => {
-    setSection({...section, num:createVideoSlice.section.length + 1})
-    dispatch(addSection({...section}))
-    console.log('ser',section)
-    // nextId.current+=1
-    console.log('createVideoSlice',createVideoSlice)
-  }
-  const deleteSections = (id: number) => {
+    const maxSectionId = videoStore.lectureSectionList.reduce((max, section) =>
+      section.lectureSectionId > max ? section.lectureSectionId : max,
+      -1
+    );
+    dispatch(addSection({ lectureSectionId: maxSectionId + 1, sectionTitle: '' }));
+    addClasses(Number(maxSectionId + 1));
+  };
+
+  /* 강의 섹션삭제 */
+  const deleteSections = (listIndex: number) => {
+    dispatch(setClass(
+      videoStore.videoList?.filter(list=> list.lectureSectionId !== listIndex + 1)
+    ))
     dispatch(deleteSection(
-      createVideoSlice.section.filter((list:any)=>list.num !== id)
+      videoStore.lectureSectionList.filter((_list:any, index:number)=>index !== listIndex)
     ))
   }
-  const addClasses = (id: number) => {
-    dispatch(addClass({
-      id,
-      subNum:nextSubId.current,
-      className: '',
-      url:'',
-    }))
-    nextSubId.current += 1
-  };
-  const deleteClasses = (num:number, index:number) => {
-    dispatch(deleteClass({num,index}))}
 
+  /* 강의 수업삭제 */
+  const deleteClasses = (id:number) => {
+    dispatch(deleteClass(
+      videoStore.videoList?.filter(list=>list.videoNo !== id)
+    ))
+  }
+
+  /* 섹션 제목 변경 */
   const changeTitles = (e:React.ChangeEvent<HTMLInputElement>, id:number) => {
     dispatch(changeTitle({id, value: e.target.value}))
   }
 
-  const changeSubTitle = (e:React.ChangeEvent<HTMLInputElement>, num:number, index:number) => {
-    const {name, value, files} = e.target
-    if (name === 'url' && files instanceof FileList) {
-      const fileList = files?.[0];
-      const url = URL.createObjectURL(fileList);
-      url.toString()
-      dispatch(onSubTitle({
-        num,
-        index,
-        name,
-        url,
-      }))
-    } else {
-      dispatch(onSubTitle({
-        num,
-        index,
-        name,
-        value
+  /* 수업 제목 변경 */
+  const changeClassTitles = (e:React.ChangeEvent<HTMLInputElement>, id:number) => {
+    dispatch(changeClassTitle({id, value:e.target.value}))
+  }
+  /* 비디오 추가 */
+  const changeVideoFiles = (e:React.ChangeEvent<HTMLInputElement>, id:number) => {
+    const {files} = e.target
+    if (files && files.length > 0) {
+      const file = files[0];
+      dispatch(changeVideoFile({
+        file,
+        id
       }))
     }
   }
-  // const changeUrls = (e: ChangeEvent<HTMLInputElement>) => {
-  //   const { files } = e.target
-  //   const file = files[0]
-  //   dispatch(changeUrl({
-  //     num,
-  //     index,
-  //     file
-  //   }))
-  // }
+
   /* 등록하기 */
   const postVideo = () => {
-    console.log(createVideoSlice)
-    if(createVideoSlice.lectureName === '') {
-      return alert('강좌명을 입력해 주세요.')
-    }
-    if(createVideoSlice.imageUrl === '') {
-      return alert('강좌 이미지를 업로드해 주세요.')
-    }
-    if(createVideoSlice.lectureTag.length === 0) {
-      return alert('태그를 하나 이상 이렵해 주세요.')
-    }
-    if(createVideoSlice.lectureExplane === '') {
-      return alert('강좌 한줄설명을 입력해 주세요.')
-    }
-    
-    const params = {
-      lecturename: createVideoSlice.lectureName,
-      lectureprice: createVideoSlice.lecturePrice,
-      lectureThumbnail: createVideoSlice.imageUrl,
-      lectureBigCategory: createVideoSlice.categoryType,
-      lectureMidCategory: createVideoSlice.lectureCategory,
-      lectureTag: createVideoSlice.lectureTag,
-      LecutreIntro: createVideoSlice.lectureExplane,
-      lectureSection: createVideoSlice.section
-    }
-    console.log(params)
-    // const res = createLecture.createLectures
-    // console.log(res)
+    if (
+      videoStore.lectureName === '' || 
+      videoStore.lectureThumbnail === '' ||
+      videoStore.lectureThumbnailUrl === '' ||
+      videoStore.lectureSectionList[0].sectionTitle === '')
+      {
+        return alert('모든 항목을 채워주세요')
+      } 
+
+    const url = 'https://devrun.site/lectureregist'
+    const formData = new FormData();
+    formData.append('lectureName', videoStore.lectureName)
+    formData.append('lecturePrice', videoStore.lecturePrice.toString())
+    formData.append('lectureCategory', JSON.stringify(videoStore.lectureCategory))
+    formData.append('lectureTag', JSON.stringify(videoStore.lectureTag))
+    formData.append('lectureIntro', videoStore.lectureIntro)
+    formData.append('lectureSectionList', JSON.stringify(videoStore.lectureSectionList))
+    formData.append('lectureThumbnail', videoStore.lectureThumbnail)
+    videoStore.videoList?.forEach(list=> {
+      const stringifyVideo = JSON.stringify(list)
+      formData.append('videoList', stringifyVideo)
+    })
+    axios.post(url, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    }).then(res=>{
+      console.log(res)
+    }).catch(err=>{
+      console.log(err)
+    })
   }
 
   return (
@@ -128,15 +117,16 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
           </button>
         </St.ArticleTitle>
         {
-          createVideoSlice.section.map((list: any,index:number)=>(
+          videoStore.lectureSectionList.map((list: any, index:number)=>(
             <CurriculumSection 
-              item={list} key={index}
-              indexNum={index}
+              list={list} key={list.lectureSectionId}
+              index={index}
               deleteSections={deleteSections}
               addClasses={addClasses}
               deleteClasses={deleteClasses}
               changeTitles={changeTitles}
-              changeSubTitle={changeSubTitle}
+              changeVideoFiles={changeVideoFiles}
+              changeClassTitles={changeClassTitles}
             />
           ))
         }

@@ -5,6 +5,21 @@ export const DefaultWidth = styled.div`
   margin: 0 auto;
 `;
 
+export const Title = styled.p`
+  color: ${(props) => props.theme.black};
+  margin-bottom: 0.6rem;
+`;
+
+export const FlexRow = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+export const FlexColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 // 회원가입, 로그인 input
 export const Input = styled.input`
   text-indent: 0.5rem;

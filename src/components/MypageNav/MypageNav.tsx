@@ -41,7 +41,7 @@ const MypageNav = () => {
           onClick={() => navigate("/profile")}
           $active={local === "/profile" || local === "/profileupdate"}
         >
-          프로필
+          내정보
         </St.AsideBtn>
         <St.AsideBtn
           onClick={() => navigate("/cert")}
