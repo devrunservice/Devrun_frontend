@@ -153,48 +153,40 @@ export interface TokenType {
   refreshToken?: string;
 }
 
-// export interface CreateLectureType {
-//   lectureName: string;
-//   lecturePrice: string;
-//   imageUrl: string;
-//   lectureCategory: string;
-//   lectureTag: Array<string>;
-//   lectureExplane: string;
-//   lectureIntroduce: string
-//   num: number;
-//   title: string;
-//   isReadOnly: boolean;
-//   subTitle: Array<subTitleType  >
-// }
-// export interface subTitleType {
-//   subNum:number;
-//   className: string;
-//   url: string;
-//   isReadOnly: boolean;
-// }
+/* 강의 등록 타입 */
 export interface CreateLectureType {
-  lectureName?: string;
-  lecturePrice?: number;
-  imageUrl?: string;
-  categoryType?: string;
-  lectureCategory?: string;
-  lectureTag?: Array<string>;
-  lectureExplane?: string;
-  // lectureIntroduce?: string;
-  section?: Array<SectionType>;
+  lectureName: string;
+  lecturePrice: number;
+  lectureThumbnail: string;
+  lectureThumbnailUrl?: string;
+  lectureCategory: category;
+  lectureTag: Array<string>;
+  lectureIntro: string;
+  lectureSectionList: SectionType[]
+  videoList?: VideoType[]
+}
+export interface category {
+  lectureBigCategory:string 
+  lectureMidCategory: string
 }
 export interface SectionType {
-  num: number;
-  // num:MutableRefObject<number>,
-  title: string;
-  subTitle: Array<SubTitleType>;
+  lectureSectionId: number  
+  sectionTitle: string;
 }
-export interface SubTitleType {
-  subNum: number;
-  // subNum:React.MutableRefObject<number>;
-  className: string;
-  url: string;
+export interface VideoType {
+  lectureSectionId: number,
+  videoNo: number,
+  file:videoFileType|undefined
+  videoTitle: string
 }
+export interface videoFileType {
+  fileBits: BlobPart[],
+  fileName: string,
+  options?: FilePropertyBag
+  name: string
+}
+
+
 export interface RefType {}
 
 export interface Receipt {
