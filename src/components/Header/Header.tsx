@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "redux/store";
-import { getCookie } from "utils/cookies";
-import { decode } from "utils/decode";
-import { redirect } from "utils/redirect";
-import NoImg from "asset/images/NoImg.jpg";
-import Logo from "asset/images/Logo.png";
-import Modal from "components/Login/Modal/Modal";
-import * as St from "./style";
-import { userTmiPending } from "../../redux/reducer/userReducer";
-import { logoutLoading } from "../../redux/reducer/loginReducer";
+import React, {useState, useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from 'redux/store';
+import {getCookie} from 'utils/cookies';
+import {decode} from 'utils/decode';
+import {redirect} from 'utils/redirect';
+import NoImg from 'asset/images/NoImg.jpg';
+import Logo from 'asset/images/Logo.png';
+import Modal from 'components/Login/Modal/Modal';
+import * as St from './style';
+import {userTmiPending} from '../../redux/reducer/userReducer';
+import {logoutLoading} from '../../redux/reducer/loginReducer';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -22,11 +22,10 @@ const Header = () => {
   const userData = useSelector((state: RootState) => state.userReducer.data);
 
   useEffect(() => {
-    if (getCookie("accessToken")) {
+    if (getCookie('accessToken')) {
       setCookie(true);
-      const userId = decode("accessToken");
-      console.log(userId);
-      // dispatch(userTmiPending(userId));
+      const userId = decode('accessToken');
+      dispatch(userTmiPending(userId));
     }
   }, []);
 
@@ -36,10 +35,10 @@ const Header = () => {
 
   return (
     <St.HeaderWrap>
-      <Modal option="home" />
+      <Modal page="home" />
       <St.InnerHeader>
         <St.NavWrap>
-          <St.LogoIcon onClick={() => navigate("/")}>
+          <St.LogoIcon onClick={() => navigate('/')}>
             <img src={Logo} alt="로고" />
           </St.LogoIcon>
           <St.CategoryWrap>
@@ -89,7 +88,7 @@ const Header = () => {
                       </St.TextWrap>
                     </St.CartLi>
                   </St.CartUl>
-                  <St.CartButton onClick={() => navigate("/basket")}>
+                  <St.CartButton onClick={() => navigate('/basket')}>
                     장바구니에서 전체보기
                   </St.CartButton>
                 </St.CartHover>
@@ -101,7 +100,7 @@ const Header = () => {
                 <St.Dropdown>
                   <St.DropdownTop>
                     <St.DropdownItemWrapper>
-                      <St.DropdownItemBtn onClick={() => navigate("/profile")}>
+                      <St.DropdownItemBtn onClick={() => navigate('/profile')}>
                         {userData.id}
                       </St.DropdownItemBtn>
                       <p>{userData.role}</p>
@@ -116,14 +115,14 @@ const Header = () => {
           ) : (
             <St.ButtonWrap>
               <St.Button
-                onClick={() => redirect("/login")}
+                onClick={() => redirect('/login')}
                 type="button"
                 $active
               >
                 로그인
               </St.Button>
               <St.Button
-                onClick={() => navigate("/signup")}
+                onClick={() => navigate('/signup')}
                 type="button"
                 $active={false}
               >
