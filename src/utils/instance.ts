@@ -2,7 +2,7 @@
 import axios from 'axios';
 import {getCookie, removeCookie, setCookie} from './cookies';
 
-axios.defaults.withCredentials = true
+axios.defaults.withCredentials = true;
 
 export const baseAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
@@ -15,16 +15,6 @@ export const authAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
   headers: {
     'Content-type': 'application/json',
-  },
-});
-
-export const refreshAxios = axios.create({
-  baseURL: `${process.env.REACT_APP_SERVER_URL}`,
-  withCredentials: true,
-  headers: {
-    'Content-type': 'application/json',
-    'Access-Control-Allow-Origin': `${process.env.REACT_APP_SERVER_URL}`,
-    'Set-Cookie': 'SameSite=None; Secure',
   },
 });
 
