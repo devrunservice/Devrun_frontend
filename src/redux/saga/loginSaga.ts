@@ -49,7 +49,7 @@ function* loginSaga(
     // });
     removeCookie('easyLoginToken', {path: '/', secure: true});
     yield put(loginSuccess(response));
-    yield call(redirect, '/home');
+    // yield call(redirect, '/home');
   } catch (error: any) {
     yield put(loginFail(error));
     yield put(openModal(error.message));
