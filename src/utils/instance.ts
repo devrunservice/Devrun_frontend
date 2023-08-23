@@ -21,6 +21,14 @@ export const imageAxios = axios.create({
   headers: {},
 });
 
+export const refreshAxios = axios.create({
+  baseURL: `${process.env.REACT_APP_SERVER_URL}`,
+  withCredentials: true,
+  headers: {
+    'Access-Control-Allow-Origin': `${process.env.REACT_APP_SERVER_URL}`,
+  },
+});
+
 baseAxios.interceptors.request.use(
   (config) => {
     const easyLoginToken = getCookie('easyLoginToken');
