@@ -3,10 +3,10 @@ import React, {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
+import {Recaptcha} from 'components';
 import * as St from './styles';
 import {closeModal} from '../../../redux/reducer/modalReducer';
 import {logoutLoading} from '../../../redux/reducer/loginReducer';
-import Recaptcha from '../Recaptcha/Recaptcha';
 
 const Modal = ({page}: {page?: string}) => {
   const navigate = useNavigate();
@@ -21,12 +21,24 @@ const Modal = ({page}: {page?: string}) => {
   const modalMessage2 = useSelector(
     (state: RootState) => state.modalReducer.modalMessage2
   );
+  const modalMessage3 = useSelector(
+    (state: RootState) => state.modalReducer.modalMessage3
+  );
   const signupSuccess = useSelector(
     (state: RootState) => state.modalReducer.signupSuccess
   );
   const kakaoLoginSuccess = useSelector(
     (state: RootState) => state.modalReducer.kakaoLoginSuccess
   );
+  const openRecaptcha = useSelector(
+    (state: RootState) => state.modalReducer.openRecaptcha
+  );
+
+  const handleKeyUp = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      dispatch(closeModal());
+    }
+  };
 
   const handleClick = () => {
     // 기본적으로 모달에서 확인을 누를 경우 모달이 닫힘
@@ -52,11 +64,13 @@ const Modal = ({page}: {page?: string}) => {
     // 모달이 열릴 때 스크롤 비활성화
     if (modalOpen) {
       document.body.style.overflow = 'hidden';
+      window.addEventListener('keyup', handleKeyUp);
     }
 
     return () => {
       // 모달이 닫힐 때 스크롤 비활성화 스타일 제거
       document.body.style.overflow = 'unset';
+      window.removeEventListener('keyup', handleKeyUp);
     };
   }, [modalOpen]);
 
@@ -64,11 +78,19 @@ const Modal = ({page}: {page?: string}) => {
 
   return (
     <St.Section>
-      <St.Modal>
-        <p>{modalMessage1}</p>
-        <p>{modalMessage2}</p>
-        <St.Button onClick={handleClick}>확인</St.Button>
-      </St.Modal>
+      {openRecaptcha ? (
+        <St.Modal>
+          <p>{modalMessage1}</p>
+          <Recaptcha />
+        </St.Modal>
+      ) : (
+        <St.Modal>
+          <p>{modalMessage1}</p>
+          <p>{modalMessage2}</p>
+          <p>{modalMessage3}</p>
+          <St.Button onClick={handleClick}>확인</St.Button>
+        </St.Modal>
+      )}
     </St.Section>
   );
 };
