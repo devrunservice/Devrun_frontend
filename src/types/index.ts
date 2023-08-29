@@ -93,7 +93,8 @@ export interface MypageType {
   birthday?: string;
   phonenumber?: string;
   code?: string;
-  profileImage?: string;
+  profileImage?: File;
+  profilePreview?: string;
 }
 
 export interface ProfileInputType {
@@ -162,30 +163,29 @@ export interface CreateLectureType {
   lectureCategory: category;
   lectureTag: Array<string>;
   lectureIntro: string;
-  lectureSectionList: SectionType[]
-  videoList?: VideoType[]
+  lectureSectionList: SectionType[];
+  videoList?: VideoType[];
 }
 export interface category {
-  lectureBigCategory:string 
-  lectureMidCategory: string
+  lectureBigCategory: string;
+  lectureMidCategory: string;
 }
 export interface SectionType {
-  lectureSectionId: number  
+  lectureSectionId: number;
   sectionTitle: string;
 }
 export interface VideoType {
-  lectureSectionId: number,
-  videoNo: number,
-  file:videoFileType|undefined
-  videoTitle: string
+  lectureSectionId: number;
+  videoNo: number;
+  file: videoFileType | undefined;
+  videoTitle: string;
 }
 export interface videoFileType {
-  fileBits: BlobPart[],
-  fileName: string,
-  options?: FilePropertyBag
-  name: string
+  fileBits: BlobPart[];
+  fileName: string;
+  options?: FilePropertyBag;
+  name: string;
 }
-
 
 export interface RefType {}
 

@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {decode} from 'utils/decode';
-import {AuthenticationNumber, DuplicationForm} from 'components';
+import {AuthenticationNumber, DuplicationForm, Modal} from 'components';
 import {MypageType, ProfileInputType, ValidFieldType} from 'types';
 import {Exclamation} from 'asset';
 import {Title} from 'style/Common';
@@ -17,7 +17,7 @@ import {
   updateMessageState,
   updateValidState,
 } from '../../../redux/reducer/validationReducer';
-
+import {openModal} from '../../../redux/reducer/modalReducer';
 import * as St from './styles';
 
 const Profile = () => {
@@ -29,7 +29,8 @@ const Profile = () => {
   );
 
   const [profileForm, setProfileForm] = useState<MypageType>({
-    profileImage: '',
+    profileImage: undefined,
+    profilePreview: '',
     email: '',
     phonenumber: '',
     code: '',
@@ -43,32 +44,26 @@ const Profile = () => {
   });
 
   // 이미지
-  const formData = new FormData();
 
-  const uploadImg = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {files} = e.target;
-    console.log(files);
-    console.log(formData);
-    if (!files) {
-      return;
-    }
-    if (files.length > 0) {
-      console.log(files);
-      const file = files[0];
+  const handleChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formData = new FormData();
+
+    if (e.target.files) {
+      console.log(e.target.files);
+      const file = e.target.files[0];
       console.log(file);
-      if (file.size > 1024 * 1024 * 2) {
-        alert('이미지 용량을 초과하였습니다.');
-        return;
+      if (file.size > 1024 * 1024 * 1) {
+        dispatch(openModal('이미지 용량을 초과하였습니다.'));
+        // alert('이미지 용량을 초과하였습니다.');
+      } else {
+        console.log('이미지 업로드');
+        dispatch(updateValidState({name: 'profileImage', value: true}));
+        setProfileForm({
+          ...profileForm,
+          profileImage: file,
+          profilePreview: URL.createObjectURL(file),
+        });
       }
-
-      dispatch(updateValidState({name: 'profileImage', value: true}));
-
-      formData.append('editimg', file);
-      console.log(formData);
-
-      const url = URL.createObjectURL(file);
-      setProfileForm({...profileForm, profileImage: url});
-      // getImage(imgUrl || "");
     }
   };
 
@@ -112,14 +107,16 @@ const Profile = () => {
       updateValidFields(updateFields);
       dispatch(updateMessageState({name: 'codeMessage', value: ''}));
     } else if (validState.profileImage) {
+      const formData = new FormData();
+      formData.append('editimg', profileForm.profileImage as unknown as Blob);
+      formData.forEach((value) => {
+        console.log(value);
+      });
       dispatch(updateProfileImageLoading(formData));
-      dispatch(updateValidState({name: 'profileImage', value: false}));
+      updateValidFields([{name: 'profileImage', value: false}]);
+      // dispatch(updateValidState({name: 'profileImage', value: false}));
     }
   };
-
-  // useEffect(() => {
-  //   console.log(formData);
-  // }, [formData]);
 
   const getAuthenticationForm = (values: MypageType) => {
     profileForm.phonenumber = values.phonenumber;
@@ -134,7 +131,11 @@ const Profile = () => {
   useEffect(() => {
     const userId = decode('accessToken');
     dispatch(getDataLoading({id: userId}));
-  }, []);
+    setProfileForm((prev) => ({
+      ...prev,
+      profilePreview: userData.profilePreview,
+    }));
+  }, [userData]);
 
   return (
     <St.Section>
@@ -143,7 +144,7 @@ const Profile = () => {
         {!isInput.profileImageBtn ? (
           <St.InputWrapper>
             <St.Imgbox>
-              <img src={userData.profileImage} alt="profile" />
+              <img src={userData.profilePreview} alt="profile" />
             </St.Imgbox>
             <St.ChangeBtn name="profileImageBtn" onClick={handleClick}>
               수정
@@ -154,11 +155,11 @@ const Profile = () => {
             {/* <ImageUploader page="profileUpdate" /> */}
             <St.UploadArea>
               <St.Imgbox>
-                <img src={profileForm.profileImage} alt="updated profile" />
+                <img src={profileForm.profilePreview} alt="updated profile" />
               </St.Imgbox>
               <div>
                 <St.ShortInput
-                  onChange={uploadImg}
+                  onChange={handleChangeImage}
                   accept="image/*"
                   id="uploader"
                   type="file"
@@ -295,6 +296,7 @@ const Profile = () => {
           />
         </St.EditInput>
       )}
+      <Modal page="profile" />
     </St.Section>
   );
 };
