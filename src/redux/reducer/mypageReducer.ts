@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { createSlice } from "@reduxjs/toolkit";
-import { MypageType } from "types";
+import {createSlice} from '@reduxjs/toolkit';
+import {MypageType} from 'types';
 
 export interface MypageReducerType {
   loading: boolean;
@@ -11,36 +11,37 @@ export interface MypageReducerType {
 const initialState: MypageReducerType = {
   loading: false,
   data: {
-    id: "",
-    name: "",
-    email: "",
-    birthday: "",
-    phonenumber: "",
-    profileImage: "",
+    id: '',
+    name: '',
+    email: '',
+    birthday: '',
+    phonenumber: '',
+    profileImage: undefined,
+    profilePreview: '',
   },
   error: null,
 };
 
 const mypageReduer = createSlice({
-  name: "mypageReducer",
+  name: 'mypageReducer',
   initialState,
   reducers: {
     getDataLoading: (state, action) => {
-      console.log("Try to get user data");
+      console.log('Try to get user data');
       state.loading = true;
     },
     getDataSuccess: (state, action) => {
-      console.log("Success to get user data");
+      console.log('Success to get user data');
       state.loading = false;
       state.data.id = action.payload.data.id;
       state.data.name = action.payload.data.name;
       state.data.email = action.payload.data.email;
-      state.data.birthday = action.payload.data.birthday.split("T")[0];
+      state.data.birthday = action.payload.data.birthday.split('T')[0];
       state.data.phonenumber = action.payload.data.phonenumber;
-      state.data.profileImage = action.payload.data.profileimgsrc;
+      state.data.profilePreview = action.payload.data.profileimgsrc;
     },
     getDataFail: (state, action) => {
-      console.log("Fail to get user data");
+      console.log('Fail to get user data');
       state.loading = false;
       state.error = action.payload;
     },
@@ -69,7 +70,7 @@ const mypageReduer = createSlice({
       state.error = action.payload;
     },
     updateProfileImageLoading: (state, action) => {
-      console.log("이미지 수정 리듀서 시작");
+      console.log('이미지 수정 리듀서 시작');
       state.loading = true;
     },
     updateProfileImageSuccess: (state, action) => {

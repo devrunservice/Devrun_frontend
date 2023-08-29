@@ -6,7 +6,11 @@ import {getCookie, removeCookie, setCookie} from 'utils/cookies';
 import {redirect} from 'utils/redirect';
 import {decode} from 'utils/decode';
 import {LoginFormType} from 'types';
-import {openModal, setKakaoLoginSuccess} from '../reducer/modalReducer';
+import {
+  openModal,
+  setKakaoLoginSuccess,
+  setRecaptcha,
+} from '../reducer/modalReducer';
 import {
   kakaoFail,
   kakaoLoading,
@@ -49,10 +53,15 @@ function* loginSaga(
     // });
     removeCookie('easyLoginToken', {path: '/', secure: true});
     yield put(loginSuccess(response));
-    // yield call(redirect, '/home');
+    yield call(redirect, '/home');
   } catch (error: any) {
     yield put(loginFail(error));
-    yield put(openModal(error.message));
+    if (error.message === '로그인 횟수를 초과했습니다.') {
+      yield put(openModal(error.message));
+      yield put(setRecaptcha(true));
+    } else {
+      yield put(openModal(error.message));
+    }
   }
 }
 
