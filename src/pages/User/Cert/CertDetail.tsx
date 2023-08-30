@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import html2canvas from "html2canvas";
 import JsPDF from "jspdf";
 import Logo from "asset/images/Logo.png";
 import { FiDownload } from "react-icons/fi";
 import { UserTop } from "components";
+import * as S from "style/Common";
 import * as St from "./style";
 
 const CertDetail = () => {
-
+  const Navigate = useNavigate();
   const pdfCon = useRef<HTMLDivElement>(null);
 
   const pdfDown = async() => {
@@ -42,59 +44,68 @@ const CertDetail = () => {
   return (
     <section>
       <UserTop title="수료증" />
-      <St.DownBtn onClick={() => pdfDown()}>
-        다운로드 <FiDownload />
-      </St.DownBtn>
-      <St.Certbox ref={pdfCon}>
-        <St.Top>
-          <St.SubTitle>
-            <St.Dot>우수 수료 인증서</St.Dot> DevRun for business
-          </St.SubTitle>
-          <St.Title>
-            Certificate <br />
-            of Completion
-          </St.Title>
-          <St.Content>
-            <St.ContentLi>
-              <St.Context>이름</St.Context>
-              <St.Contitle>김이름</St.Contitle>
-            </St.ContentLi>
-            <St.ContentLi>
-              <St.Context>생년월일</St.Context>
-              <St.Contitle>2023.07.31</St.Contitle>
-            </St.ContentLi>
-            <St.ContentLi>
-              <St.Context>우수 수료 과정명</St.Context>
-              <St.Contitle>뭔지모름요 ㅈㅅㅈㅅㅈㅅ</St.Contitle>
-            </St.ContentLi>
-            <St.ContentLi>
-              <St.Context>기간</St.Context>
-              <St.Contitle>2023.07.31 ~ 2023.07.31</St.Contitle>
-            </St.ContentLi>
-            <St.ContentLi>
-              <St.Contitle>
-                위 사람은 DevRun의 상기 과정을 성실하게 수료하였음을 인증합니다.
-              </St.Contitle>
-            </St.ContentLi>
-            <St.ContentLi>
-              <St.ConDate>2023.07.31</St.ConDate>
-            </St.ContentLi>
-          </St.Content>
-        </St.Top>
-        <St.Bottom>
-          <St.LogoIcon>
-            <St.CopyText>
-              (주) 데브런
-              <br />
-              서울시 강남구 어딘가 가고 싶다
-              <br />
-              http://devrun.s3-website.ap-northeast-2.amazonaws.com/
-            </St.CopyText>
-            <img src={Logo} alt="로고" />
-          </St.LogoIcon>
-          <St.StampIcon />
-        </St.Bottom>
-      </St.Certbox>
+
+      <St.CertWrap>
+        <St.Certbox ref={pdfCon}>
+          <St.Top>
+            <St.SubTitle>
+              <St.Dot>우수 수료 인증서</St.Dot> DevRun for business
+            </St.SubTitle>
+            <St.Title>
+              Certificate <br />
+              of Completion
+            </St.Title>
+            <St.Content>
+              <St.ContentLi>
+                <St.Context>이름</St.Context>
+                <St.Contitle>김이름</St.Contitle>
+              </St.ContentLi>
+              <St.ContentLi>
+                <St.Context>생년월일</St.Context>
+                <St.Contitle>2023.07.31</St.Contitle>
+              </St.ContentLi>
+              <St.ContentLi>
+                <St.Context>우수 수료 과정명</St.Context>
+                <St.Contitle>뭔지모름요 ㅈㅅㅈㅅㅈㅅ</St.Contitle>
+              </St.ContentLi>
+              <St.ContentLi>
+                <St.Context>기간</St.Context>
+                <St.Contitle>2023.07.31 ~ 2023.07.31</St.Contitle>
+              </St.ContentLi>
+              <St.ContentLi>
+                <St.Contitle>
+                  위 사람은 DevRun의 상기 과정을 성실하게 수료하였음을
+                  인증합니다.
+                </St.Contitle>
+              </St.ContentLi>
+              <St.ContentLi>
+                <St.ConDate>2023.07.31</St.ConDate>
+              </St.ContentLi>
+            </St.Content>
+          </St.Top>
+          <St.Bottom>
+            <St.LogoIcon>
+              <St.CopyText>
+                (주) 데브런
+                <br />
+                서울시 강남구 어딘가 가고 싶다
+                <br />
+                http://devrun.s3-website.ap-northeast-2.amazonaws.com/
+              </St.CopyText>
+              <img src={Logo} alt="로고" />
+            </St.LogoIcon>
+            <St.StampIcon />
+          </St.Bottom>
+        </St.Certbox>
+      </St.CertWrap>
+      <S.ButtonWrap>
+        <S.Button onClick={() => pdfDown()} $active={false}>
+          다운로드 <FiDownload />
+        </S.Button>
+        <S.Button onClick={() => Navigate("/cert")} $active>
+          목록
+        </S.Button>
+      </S.ButtonWrap>
     </section>
   );
 };

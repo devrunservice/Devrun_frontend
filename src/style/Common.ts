@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import * as I from "types";
 
 export const DefaultWidth = styled.div`
   width: 1280px;
@@ -60,4 +61,22 @@ export const AppSection = styled.div`
   .right-panel {
     flex: 8;
   }
+`;
+export const ButtonWrap = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+  gap: 10px;
+`;
+export const Button = styled.button<I.Active>`
+  width: ${(props: any) => props.theme.size90};
+  border-radius: 5px;
+  height: ${(props: any) => props.theme.size40};
+  font-size: ${(props: any) => props.theme.size14};
+  color: ${(props: any) =>
+    props.$active ? props.theme.textWhite : props.theme.brandColor};
+  background: ${(props: any) =>
+    props.$active ? props.theme.brandColor : props.theme.bgColor};
+  border: 1px solid
+    ${(props: any) => (props.$active ? "" : props.theme.brandColor)};
 `;

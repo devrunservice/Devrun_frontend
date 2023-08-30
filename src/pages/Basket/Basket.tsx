@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { ChangeEvent, useEffect,  useState } from "react";
+import React, { ChangeEvent, useCallback, useEffect,  useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { useNavigate } from "react-router-dom";
@@ -21,7 +21,7 @@ const Basket = () => {
   const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.userReducer.data);
   const { mypoint,setMypoint, priceDot,  stringPoint } = usePrice();
-  const { selet, selets, setSelets } = useSelet();
+  const { seletRef, selets, setSelets, seletLabelRef } = useSelet();
   const {
     singleCheck,
     checkList,
@@ -81,6 +81,8 @@ const Basket = () => {
       setMypoint(0);
     }
   }, [checkList, price.price, price.discount]); 
+
+  // 쿠폰관련 지워도됨
   useEffect(() => {
     const reselectionList = async () => {
       if (
@@ -158,41 +160,45 @@ const Basket = () => {
     /* 4. 결제 창 호출하기 */
     IMP.request_pay(data, callback);
   };
-  const couponBtn = async (item: string) => {
-    if (checkList.length === 0 && item !== "쿠폰을 선택해주세요") {
-      setSelets({
-        ...selets,
-        seletes: "쿠폰을 선택해주세요",
-        seletsBoolean: false,
-      });
-      alert("상품을 선택해주세요");
-    } else if (item !== "쿠폰을 선택해주세요") {
-      const data: I.Coupon = {
-        couponCode: item,
-        amount: price.price,
-      };
-      const res = await Cart.coupon(data);
-      setPrice({
-        ...price,
-        discount: res.data,
-        price: price.price,
-      });
-      setSelets({
-        seletes: item,
-        seletsBoolean: !selets.seletsBoolean,
-      });
-    } else {
-      setPrice({
-        ...price,
-        price: price.price,
-        discount: 0,
-      });
-      setSelets({
-        seletes: item,
-        seletsBoolean: !selets.seletsBoolean,
-      });
-    }
-  };
+  const couponBtn = useCallback(
+    async (item: string) => {
+      if (checkList.length === 0 && item !== "쿠폰을 선택해주세요") {
+        setSelets({
+          ...selets,
+          seletes: "쿠폰을 선택해주세요",
+          seletsBoolean: false,
+        });
+        alert("상품을 선택해주세요");
+      } else if (item !== "쿠폰을 선택해주세요") {
+        const data: I.Coupon = {
+          couponCode: item,
+          amount: price.price,
+        };
+        const res = await Cart.coupon(data);
+        setPrice({
+          ...price,
+          discount: res.data,
+          price: price.price,
+        });
+        setSelets({
+          seletes: item,
+          seletsBoolean: !selets.seletsBoolean,
+        });
+      } else {
+        setPrice({
+          ...price,
+          price: price.price,
+          discount: 0,
+        });
+        setSelets({
+          seletes: item,
+          seletsBoolean: !selets.seletsBoolean,
+        });
+      }
+    },
+    [selets, checkList, price]
+  );
+
   return (
     <S.Inner>
       <St.BasketForm onSubmit={basketBtn}>
@@ -250,15 +256,17 @@ const Basket = () => {
                 setSelets({ ...selets, seletsBoolean: !selets.seletsBoolean })
               }
               $active={selets.seletsBoolean}
+              ref={seletLabelRef}
             >
               {selets.seletes || "쿠폰을 선택해주세요"}
             </St.SelectLabel>
             <St.Arr $active={selets.seletsBoolean} />
             {selets.seletsBoolean && (
-              <St.SelectBoxUi ref={selet}>
+              <St.SelectBoxUi ref={seletRef}>
                 <St.SelectBoxLi
                   onClick={() => couponBtn("쿠폰을 선택해주세요")}
-                >쿠폰 취소
+                >
+                  쿠폰 취소
                 </St.SelectBoxLi>
                 <St.SelectBoxLi onClick={() => couponBtn("55519-Vww0UMMKPZue")}>
                   55519-Vww0UMMKPZue

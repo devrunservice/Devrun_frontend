@@ -52,6 +52,7 @@ const router = createBrowserRouter([
       { path: "coupon", element: <Route.Coupon /> },
       { path: "Receipt", element: <Route.Receipt /> },
       { path: "learning", element: <Route.Learning /> },
+      { path: "createcoupon", element: <Route.CreateCoupon /> },
       {
         path: "createVideo",
         element: ACCESS_TOKEN ? (

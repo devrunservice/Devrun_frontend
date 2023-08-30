@@ -199,17 +199,19 @@ export interface Receipt {
 }
 
 export interface Table {
-  notice?: string;
   name?: string;
   date?: string;
-  title?: string;
-  view?: string;
-  num?: string;
+  title: string;
+  num: number;
+  view?: number;
   completion?: string;
+  link?:string
 }
+
 export interface TableCommon {
   $cursor?: boolean;
   $color?: boolean;
+  $view?:boolean;
 }
 export interface ReceiptTable {
   data: Receipt[];
@@ -378,4 +380,23 @@ export interface bastetUser {
 export interface CouponGet {
   code: string;
   id: string;
+}
+
+export interface CouponRegistration {
+  setCoupon: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface CouponDate {
+  day: number;
+  year: number;
+  month: number;
+}
+export interface createCoupon {
+  discountrate: number;
+  issueduser: number;
+  issueddate: string;
+  expirydate: string;
+  quantity: number;
+  coupontype: string;
+  target:string;
 }

@@ -9,6 +9,7 @@ import {redirect} from 'utils/redirect';
 import NoImg from 'asset/images/NoImg.jpg';
 import Logo from 'asset/images/Logo.png';
 import Modal from 'components/Login/Modal/Modal';
+import { Button } from 'style/Common';
 import * as St from './style';
 import {userTmiPending} from '../../redux/reducer/userReducer';
 import {logoutLoading} from '../../redux/reducer/loginReducer';
@@ -114,20 +115,20 @@ const Header = () => {
             </St.NavWrap>
           ) : (
             <St.ButtonWrap>
-              <St.Button
+              <Button
                 onClick={() => redirect('/login')}
                 type="button"
                 $active
               >
                 로그인
-              </St.Button>
-              <St.Button
+              </Button>
+              <Button
                 onClick={() => navigate('/signup')}
                 type="button"
                 $active={false}
               >
                 회원가입
-              </St.Button>
+              </Button>
             </St.ButtonWrap>
           )}
         </St.NavWrap>

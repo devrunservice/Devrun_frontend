@@ -31,7 +31,8 @@ const App = () => {
     location.pathname === "/notes" ||
     location.pathname === "/questions" ||
     location.pathname === "/coupon" ||
-    location.pathname === "/receipt";
+    location.pathname === "/receipt" ||
+    location.pathname === "/createcoupon";
 
   return (
     <>
