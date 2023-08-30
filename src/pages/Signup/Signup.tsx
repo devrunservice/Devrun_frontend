@@ -86,7 +86,11 @@ const Signup = () => {
       console.log(response);
       if (response.status === 200) {
         dispatch(setSignupSuccess(true));
-        dispatch(openModal('회원가입이 완료되었습니다.'));
+        dispatch(
+          openModal(
+            '환영합니다./인증 메일이 전송되었습니다./이메일을 열어 회원가입을 완료해주세요.'
+          )
+        );
         // navigate('/login');
       }
     } catch (error: any) {

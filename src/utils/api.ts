@@ -5,8 +5,6 @@ import {
   tmi,
   RequestPayResponse,
   SignupFormType,
-  TokenType,
-  CouponGet,
   MypageType,
 } from 'types';
 import * as I from 'types';
@@ -131,6 +129,7 @@ export const mypage = {
     return response;
   },
   updateProfileImage: async (params: FormData) => {
+    console.log(params);
     const response = await imageAxios.post(`/edit/profileimg`, params);
     console.log(response);
     return response;

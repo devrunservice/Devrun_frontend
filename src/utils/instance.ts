@@ -2,6 +2,8 @@
 import axios from 'axios';
 import {getCookie, removeCookie, setCookie} from './cookies';
 
+// axios.defaults.withCredentials = true;
+
 export const baseAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
   headers: {
@@ -11,14 +13,24 @@ export const baseAxios = axios.create({
 
 export const authAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
+  withCredentials: true,
   headers: {
     'Content-type': 'application/json',
+    'Access-Control-Allow-Origin': `${process.env.REACT_APP_SERVER_URL}`,
   },
 });
 
 export const imageAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
-  headers: {},
+  headers: {'Content-Type': 'multipart/form-data'},
+});
+
+export const refreshAxios = axios.create({
+  baseURL: `${process.env.REACT_APP_SERVER_URL}`,
+  withCredentials: true,
+  headers: {
+    'Access-Control-Allow-Origin': `${process.env.REACT_APP_SERVER_URL}`,
+  },
 });
 
 baseAxios.interceptors.request.use(
@@ -95,6 +107,13 @@ baseAxios.interceptors.response.use(
           case 'Refresh token is required':
           case 'Unauthorized request':
             return Promise.reject(new Error('알 수 없는 오류가 발생했습니다.'));
+          case 'KakaoLogin failed':
+          case 'Invalid request':
+            return Promise.reject(
+              new Error(
+                '카카오 로그인 과정에서 오류가 발생했습니다./처음부터 다시 시도해주세요.'
+              )
+            );
           default:
             break;
         }
@@ -105,7 +124,7 @@ baseAxios.interceptors.response.use(
           case 'Invalid userId or password':
           case 'User not found or Incorrect password':
             return Promise.reject(
-              new Error('입력한 정보가 올바르지 않습니다.')
+              new Error('아이디 혹은 비밀번호가 일치하지 않습니다.')
             );
           case 'Unknown Error':
           case 'An unexpected error occurred':
@@ -172,6 +191,13 @@ baseAxios.interceptors.response.use(
                 '알 수 없는 오류가 발생했습니다./회원가입을 다시 시도해주세요.'
               )
             );
+          case 'Failed to retrieve access token':
+          case 'Failed to retrieve profile information':
+            return Promise.reject(
+              new Error(
+                '카카오 로그인 과정에서 오류가 발생했습니다./처음부터 다시 시도해주세요.'
+              )
+            );
           default:
             break;
         }
@@ -202,7 +228,7 @@ authAxios.interceptors.response.use(
             //   headers: { Refresh_token: `Bearer ${refreshToken}` },
             // });
 
-            response = await baseAxios.post('/authz/token/refresh');
+            response = await refreshAxios.post('/authz/token/refresh');
             console.log(response);
             newAccessToken = response.data.Access_token.substr(7);
             // newRefreshToken = response.data.Refresh_token.substr(7);

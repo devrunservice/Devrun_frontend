@@ -1,14 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import ReCAPTCHA from 'react-google-recaptcha';
 import {RootState} from 'redux/store';
 import {getCookie} from 'utils/cookies';
 import {redirect} from 'utils/redirect';
-import {login} from 'utils/api';
 import {BrandLogo, Kakao, Naver, Google} from 'asset';
 import {LoginFormType} from 'types';
-import {PasswordInput, Modal, Recaptcha} from 'components';
+import {PasswordInput, Modal} from 'components';
 import {Input} from 'style/Common';
 import {loginLoading} from '../../redux/reducer/loginReducer';
 import * as St from './styles';
@@ -21,18 +19,10 @@ const LoginForm = () => {
     password: '',
     recaptcha: '',
   });
-  const [showRecaptchaModal, setShowRecaptchaModal] = useState(false);
 
   const loginErrorMessage = useSelector(
     (state: RootState) => state.userReducer.error
   );
-
-  useEffect(() => {
-    console.log(loginErrorMessage);
-    if (loginErrorMessage === '로그인 횟수가 초과했습니다.') {
-      setShowRecaptchaModal(true);
-    }
-  }, [loginErrorMessage]);
 
   const easyLoginToken = getCookie('easyLoginToken');
 
@@ -95,13 +85,6 @@ const LoginForm = () => {
               placeholder="비밀번호"
               onChange={handleChange}
             />
-            {/* {showRecaptchaModal && (
-              <Recaptcha
-                isOpen={showRecaptchaModal}
-                onClose={(value: boolean) => setShowRecaptchaModal(value)}
-                getRecaptcha={getRecaptcha}
-              />
-            )} */}
           </St.InputField>
           <St.LoginBtn disabled={!isFormValid}>로그인</St.LoginBtn>
         </form>
