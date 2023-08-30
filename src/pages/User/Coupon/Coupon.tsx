@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
 import { UserTop } from "components";
-import { mygage } from "utils/api";
+import { mypage } from "utils/api";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 
@@ -10,7 +10,7 @@ const Coupon = () => {
   const [code,setCode] = useState<string>("")
   const couponHandler = (e:ChangeEvent<HTMLInputElement>) => setCode(e.target.value)
   const couponBtn = async()=>{
-    await mygage.coupon({ code ,id:id.id});
+    await mypage.coupon({ code, id: id.id });
 
   }
   console.log(code)

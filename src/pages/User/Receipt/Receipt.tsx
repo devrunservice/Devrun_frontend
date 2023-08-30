@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { mygage } from "utils/api";
+import { mypage } from "utils/api";
 import { ReceiptTable, Pagination, UserTop } from "components";
 import * as I from "types"
 import usePage from "hooks/usePage";
@@ -12,7 +12,7 @@ const Receipt = () => {
   useEffect(() => {
     const payList = async () => {
       try {
-        const res = await mygage.pay();
+        const res = await mypage.pay();
         setData(res.data);
       } catch (error) {
         console.log(error);

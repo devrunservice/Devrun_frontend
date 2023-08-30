@@ -3,20 +3,17 @@ import {  Stamp } from "asset";
 import CertBg from "asset/images/CertBg.png";
 
 
-export const DownBtn = styled.button`
-  background: ${(props: any) => props.theme.bgColor};
-  display: flex;
-  align-items: center;
-  gap: 0.31rem;
-`;
 
+export const CertWrap = styled.div`
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid ${(props: any) => props.theme.borderC};
+`;
 export const Certbox = styled.div`
-  visibility: hidden;
-  position: fixed;
+  margin:0 auto;
   width: 21cm;
   min-height: 29.7cm;
-  padding: 1.5cm 1.5cm 2cm 1.5cm;
-  border: 1px solid ${(props: any) => props.theme.borderC};
+  padding: 2cm 1.5cm ;
   box-sizing: border-box;
   position: relative;
   display: flex;
