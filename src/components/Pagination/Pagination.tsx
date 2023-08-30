@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState, MouseEvent } from "react";
+import React from "react";
 import * as I from "types";
 import { PageNext, PagePrev } from "asset";
 import * as St from "./style";
@@ -44,4 +43,3 @@ const Pagination = (props: I.Pagination) => {
   );
 };
 export default Pagination;
-/* eslint-disable @typescript-eslint/no-unused-vars */
