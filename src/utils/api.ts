@@ -17,16 +17,6 @@ export const signup = {
     const response = await baseAxios.post(`/signup/okay?code=${code}`, params);
     return response;
   },
-  // 인증번호 받기
-  getAuthenticationNumber: async (params: CreateUser) => {
-    const response = await baseAxios.post(`/auth/phone/`, params);
-    return response;
-  },
-  // 인증번호 확인
-  checkAuthenticationNumber: async (params: CreateUser) => {
-    const response = await baseAxios.post(`/verify`, params);
-    return response;
-  },
   // 아이디 중복확인
   getDuplicatedId: async (params: CreateUser) => {
     const response = await baseAxios.post(`/checkID`, params);
@@ -40,6 +30,32 @@ export const signup = {
   // 휴대폰 중복확인
   getDuplicatedPhonnumber: async (params: CreateUser) => {
     const response = await baseAxios.post('/checkPhone', params);
+    return response;
+  },
+};
+
+export const verificationAPI = {
+  // 휴대폰 인증번호 받기
+  getAuthenticationNumberbyPhonenumber: async (params: CreateUser) => {
+    const response = await baseAxios.post(`/auth/phone/`, params);
+    return response;
+  },
+  // 휴대폰 인증번호 확인
+  checkAuthenticationNumberByPhonenumber: async (params: CreateUser) => {
+    const response = await baseAxios.post(`/verify/phone`, params);
+    return response;
+  },
+  // 이메일 인증번호 받기
+  getAuthenticationNumberByEmail: async (params: SignupFormType) => {
+    const response = await baseAxios.post('/auth/email', params);
+    console.log(response);
+    console.log(params);
+    return response;
+  },
+  // 이메일 인증번호 확인
+  checkAuthenticationNumberByEmail: async (params: SignupFormType) => {
+    const response = await baseAxios.post('/verify/email', params);
+    console.log(response);
     return response;
   },
 };
@@ -83,21 +99,26 @@ export const login = {
 };
 
 export const findAccount = {
+  // 휴대폰 번호로 아이디 찾기
   findIdByPhonenumber: async (params: SignupFormType) => {
     console.log(params);
-    const response = await baseAxios.post('/find/id', params);
+    const response = await baseAxios.post('/find/id/phone', params);
     return response;
   },
   findIdByEmail: async (params: SignupFormType) => {
-    const response = await baseAxios.post('/find/uid', params);
+    const response = await baseAxios.post('/find/id/email', params);
     return response;
   },
-  findPassword: async (params: SignupFormType) => {
-    const response = await baseAxios.post('/find/password', params);
+  findPasswordByEmail: async (params: SignupFormType) => {
+    const response = await baseAxios.post('/find/password/email', params);
     return response;
   },
-  checkIdPhonenumberMatched: async (params: SignupFormType) => {
-    const response = await baseAxios.post('verifyPhone', params);
+  findPasswordByPhonenumber: async (id: string, params: SignupFormType) => {
+    const response = await baseAxios.post(`/users/${id}/edit-password`, params);
+    return response;
+  },
+  checkIdPhonenumberMatched: async (id: string, params: SignupFormType) => {
+    const response = await baseAxios.post(`/user/${id}/verify/phone`, params);
     console.log(response);
     return response;
   },

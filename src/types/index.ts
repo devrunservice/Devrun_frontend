@@ -2,7 +2,7 @@ import React from 'react';
 
 // 회원가입 타입
 export interface SignupFormType {
-  id?: string | undefined;
+  id?: string;
   password?: string;
   passwordConfirm?: string;
   name?: string;
