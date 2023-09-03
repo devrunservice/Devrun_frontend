@@ -1,12 +1,5 @@
 import { styled } from "styled-components";
 
-export const Top = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  align-items: center;
-  margin-bottom: 30px;
-`;
 export const Title = styled.h4`
   line-height: 1;
   font-size: ${(props: any) => props.theme.size25};

@@ -2,7 +2,9 @@ import React,{ ChangeEvent, useState } from "react";
 import { RxDotsVertical } from "react-icons/rx";
 import NoImg from "asset/images/NoImg.jpg";
 import * as I from "types";
+import { Button } from "style/Common";
 import * as St from "./style";
+
 
 
 
@@ -45,10 +47,13 @@ const Comment = () => {
         />
         <St.ButtonWrap>
           <St.CommentNum>{comment.comment.length} / 500</St.CommentNum>
-          <St.ButtonOut onClick={() => setComment({ ...comment, comment: "" })}>
+          <Button
+            $active={false}
+            onClick={() => setComment({ ...comment, comment: "" })}
+          >
             취소
-          </St.ButtonOut>
-          <St.Button>등록</St.Button>
+          </Button>
+          <Button $active>등록</Button>
         </St.ButtonWrap>
       </St.Top>
       <St.CommentUl>
@@ -111,15 +116,18 @@ const Comment = () => {
               />
               <St.ButtonWrap>
                 <St.CommentNum>{comment.comments.length} / 500</St.CommentNum>
-                <St.ButtonOut onClick={() => writeBtn()}>취소</St.ButtonOut>
-                <St.Button onClick={() => commentRegBtn()}>등록</St.Button>
+                <Button $active={false} onClick={() => writeBtn()}>
+                  취소
+                </Button>
+                <Button $active onClick={() => commentRegBtn()}>
+                  등록
+                </Button>
               </St.ButtonWrap>
             </St.CommentWriteWrap>
           )}
           <St.CommentWriteWrap>aaa</St.CommentWriteWrap>
           <St.CommentWriteWrap>aaa</St.CommentWriteWrap>
         </St.CommentLi>
-        
       </St.CommentUl>
     </St.CommentWrap>
   );

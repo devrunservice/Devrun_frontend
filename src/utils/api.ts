@@ -155,6 +155,14 @@ export const mypage = {
     console.log(response);
     return response;
   },
+  pay: () => {
+    const response = authAxios.get("/PaymentInfo");
+    return response;
+  },
+  coupon: (params: I.CouponGet) => {
+    const response = authAxios.post("/coupon/registrate", params);
+    return response;
+  },
 };
 
 export const Cart = {
@@ -182,14 +190,12 @@ export const Search = {
     return response;
   },
 };
-export const mygage = {
-  pay: () => {
-    const response = authAxios.get('/PaymentInfo');
-    return response;
-  },
-  coupon: (params: I.CouponGet) => {
-    const response = authAxios.post('/coupon/registrate', params);
-    return response;
-  },
-};
+
+export const create={
+  coupon:(params:I.createCoupon)=>{
+    const response = authAxios.post("/coupon/publish", params);
+    return response
+  }
+}
+
 /* eslint-disable @typescript-eslint/no-unused-vars */

@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 
+
 export const CommentWrap = styled.div`
   margin-top: 60px;
   padding-top: 50px;
@@ -45,20 +46,6 @@ export const ButtonWrap = styled.div`
 `;
 export const CommentNum = styled.p`
   font-size: ${(props: any) => props.theme.size14};
-`;
-export const Button = styled.button`
-  width: ${(props: any) => props.theme.size85};
-  border-radius: 5px;
-  height: 40px;
-
-  font-size: ${(props: any) => props.theme.size14};
-  color: ${(props: any) => props.theme.textWhite};
-  background: ${(props: any) => props.theme.brandColor};
-`;
-export const ButtonOut = styled(Button)`
-  color: ${(props: any) => props.theme.brandColor};
-  border: 1px solid ${(props: any) => props.theme.brandColor};
-  background: ${(props: any) => props.theme.bgColor};
 `;
 
 export const CommentUl = styled.ul`

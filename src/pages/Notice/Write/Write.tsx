@@ -11,14 +11,14 @@ const Write = () => {
     <S.Inner>
       <St.Title>공지사항</St.Title>
       <Editor />
-      <St.ButtonWrap>
-        <St.Button onClick={() => Navigate("/notice")} $active={false}>
+      <S.ButtonWrap>
+        <S.Button onClick={() => Navigate("/notice")} $active={false}>
           나가기
-        </St.Button>
+        </S.Button>
         <St.Button onClick={() => Navigate("/notice")} $active>
           글쓰기
         </St.Button>
-      </St.ButtonWrap>
+      </S.ButtonWrap>
     </S.Inner>
   );
 }

@@ -12,12 +12,3 @@ export const ButtonWrap = styled.div`
   justify-content: flex-end;
 
 `;
-export const Button = styled.button`
-  width: ${(props:any) => props.theme.size85};
-  border-radius: 5px;
-  height: 40px;
-  margin-top: 20px;
-  font-size: ${(props:any) => props.theme.size14};
-  color: ${(props:any) => props.theme.textWhite};
-  background: ${(props:any) => props.theme.brandColor};
-`;

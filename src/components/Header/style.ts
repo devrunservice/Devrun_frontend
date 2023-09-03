@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { Inner } from "style/Common";
-import * as I from "types";
+
 import { BsCart3, BsPerson } from "react-icons/bs";
 import { Category, Search } from "asset";
 
@@ -66,19 +66,7 @@ export const ButtonWrap = styled.div`
   align-items: center;
   gap: 10px;
 `;
-export const Button = styled.button<I.Active>`
-  background: ${(props: any) =>
-    props.$active ? props.theme.bgColor : props.theme.brandColor};
-  color: ${(props: any) =>
-    props.$active ? props.theme.textColor : props.theme.textWhite};
-  border: 1px solid
-    ${(props: any) =>
-      props.$active ? props.theme.borderC : props.theme.brandColor};
-  font-size: ${(props: any) => props.theme.size14};
-  width: ${(props: any) => props.theme.size85};
-  border-radius: 5px;
-  height: 40px;
-`;
+
 
 export const HeaderIcon = styled.div`
   width: 50px;
