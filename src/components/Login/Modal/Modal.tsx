@@ -21,9 +21,6 @@ const Modal = ({page}: {page?: string}) => {
   const modalMessage2 = useSelector(
     (state: RootState) => state.modalReducer.modalMessage2
   );
-  const modalMessage3 = useSelector(
-    (state: RootState) => state.modalReducer.modalMessage3
-  );
   const signupSuccess = useSelector(
     (state: RootState) => state.modalReducer.signupSuccess
   );
@@ -87,7 +84,6 @@ const Modal = ({page}: {page?: string}) => {
         <St.Modal>
           <p>{modalMessage1}</p>
           <p>{modalMessage2}</p>
-          <p>{modalMessage3}</p>
           <St.Button onClick={handleClick}>확인</St.Button>
         </St.Modal>
       )}
