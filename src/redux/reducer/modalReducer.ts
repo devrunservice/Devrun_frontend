@@ -4,7 +4,6 @@ const initialState = {
   modalOpen: false,
   modalMessage1: '',
   modalMessage2: '',
-  modalMessage3: '',
   signupSuccess: false,
   kakaoLoginSuccess: false,
   openRecaptcha: false,
@@ -21,7 +20,6 @@ const modalReducer = createSlice({
         const message = action.payload.split('/');
         state.modalMessage1 = message[0];
         state.modalMessage2 = message[1];
-        state.modalMessage3 = message[2];
       } else {
         state.modalMessage1 = action.payload;
         state.modalMessage2 = '';
