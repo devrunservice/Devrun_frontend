@@ -25,27 +25,27 @@ const ReceiptTable = (props: I.ReceiptTable) => {
       alert("취소되었습니다.");
     }
   };
-
+  console.log(props.data);
 
   return (
     <St.ReceiptTable>
-      {props.data?.slice(props.offset, props.offset + props.limit).map((item: I.Receipt) => {
+      {props.data?.slice(props.offset, props.offset + props.limit).map((item: I.Receipt,index) => {
         return (
           <St.TableLi $cursor={false} key={item.payno}>
-            <St.Num>{item.payno}</St.Num>
+            <St.Num>{index}</St.Num>
             <St.Title>{item.name}</St.Title>
             <St.CommonLi>{item.paidamount} 원</St.CommonLi>
             <St.CommonLi>
-              {item.status === "0" 
-                ? "결제완료"
-                : "환불완료"}
+              {item.status === "0" ? "결제완료" : "환불완료"}
             </St.CommonLi>
             <St.PayBtn>
-              {item.status === "0"  && (
+              {item.status === "0" && (
                 <St.Button
                   type="button"
                   $color
-                  onClick={() => basketBtn(item.merchantUid, item.paidamount,item.payno)}
+                  onClick={() =>
+                    basketBtn(item.merchantUid, item.paidamount, item.payno)
+                  }
                 >
                   환불
                 </St.Button>
