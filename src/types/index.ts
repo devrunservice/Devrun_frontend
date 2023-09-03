@@ -398,5 +398,6 @@ export interface createCoupon {
   expirydate: string;
   quantity: number;
   coupontype: string;
-  target:string;
+  target: string;
+  // validityperiod:number
 }

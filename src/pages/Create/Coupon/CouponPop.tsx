@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {
   ChangeEvent,
   useCallback,
@@ -62,7 +61,6 @@ const CouponPop = (props: I.CouponRegistration) => {
       },
       [date]
     );
-    
     const onMonth = useCallback(
       (e: ChangeEvent<HTMLInputElement>) => {
         const months = e.target.value;
@@ -106,7 +104,10 @@ const CouponPop = (props: I.CouponRegistration) => {
       },
       [date]
     );
-    
+    const months = date.month < 10 ? `0${date.month}` : `${date.month}`;
+    const days = date.day < 10 ? `0${date.day}` : `${date.day}`;
+    const getMonths = getMonth < 10 ? `0${getMonth}` : `${getMonth}`;
+    const getDays = getdate < 10 ? `0${getdate}` : `${getdate}`;
     const onCreate = useCallback(
       async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -121,10 +122,10 @@ const CouponPop = (props: I.CouponRegistration) => {
           const creates: I.createCoupon = {
             discountrate: discountrate,
             issueduser: 999,
-            issueddate: `${getYear}-${getMonth}-${getdate}`,
+            issueddate: `${getYear}-${getMonths}-${getDays}`,
             coupontype: "mento",
             quantity: Number(quantity),
-            expirydate: `${date.year}-${date.month}-${date.day}`,
+            expirydate: `${date.year}-${months}-${days}`,
             target: selets.seletes,
           };
         try {
@@ -146,8 +147,8 @@ const CouponPop = (props: I.CouponRegistration) => {
       },
       [selets]
     );
-
     
+
     return (
       <St.PopupWrap>
         <St.Popup>
