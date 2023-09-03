@@ -102,11 +102,11 @@ export const findAccount = {
   // 휴대폰 번호로 아이디 찾기
   findIdByPhonenumber: async (params: SignupFormType) => {
     console.log(params);
-    const response = await baseAxios.post('/find/id/phone', params);
+    const response = await baseAxios.post('/find-id/send-phone', params);
     return response;
   },
   findIdByEmail: async (params: SignupFormType) => {
-    const response = await baseAxios.post('/find/id/email', params);
+    const response = await baseAxios.post('/find-id/send-email', params);
     return response;
   },
   findPasswordByEmail: async (params: SignupFormType) => {
@@ -156,11 +156,11 @@ export const mypage = {
     return response;
   },
   pay: () => {
-    const response = authAxios.get("/PaymentInfo");
+    const response = authAxios.get('/PaymentInfo');
     return response;
   },
   coupon: (params: I.CouponGet) => {
-    const response = authAxios.post("/coupon/registrate", params);
+    const response = authAxios.post('/coupon/registrate', params);
     return response;
   },
 };
@@ -191,11 +191,11 @@ export const Search = {
   },
 };
 
-export const create={
-  coupon:(params:I.createCoupon)=>{
-    const response = authAxios.post("/coupon/publish", params);
-    return response
-  }
-}
+export const create = {
+  coupon: (params: I.createCoupon) => {
+    const response = authAxios.post('/coupon/publish', params);
+    return response;
+  },
+};
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
