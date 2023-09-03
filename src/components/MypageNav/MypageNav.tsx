@@ -10,7 +10,7 @@ const MypageNav = () => {
   const userData = useSelector((state: RootState) => state.userReducer.data);
   return (
     <St.Aside>
-      {userData.role !== "STUDENT" ? (
+      {userData.role === "STUDENT" && (
         <>
           <St.AsideUl>
             <St.AsideTit>학습 관리</St.AsideTit>
@@ -68,7 +68,8 @@ const MypageNav = () => {
             {/* <St.AsideBtn onClick={() => navigate("")}>문의 내역</St.AsideBtn> */}
           </St.AsideUl>
         </>
-      ) : (
+      )}
+      {userData.role === "MENTO" && (
         <St.AsideUl>
           <St.AsideTit>강의관리</St.AsideTit>
           <St.AsideBtn
