@@ -53,7 +53,7 @@ function* loginSaga(
     // });
     removeCookie('easyLoginToken', {path: '/', secure: true});
     yield put(loginSuccess(response));
-    yield call(redirect, '/home');
+    // yield call(redirect, '/home');
   } catch (error: any) {
     yield put(loginFail(error));
     if (error.message === '로그인 횟수를 초과했습니다.') {
