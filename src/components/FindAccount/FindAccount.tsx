@@ -4,9 +4,10 @@ import {useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {findAccount} from 'utils/api';
+import {useValid} from 'hooks';
 import {AuthenticationNumber, PasswordInput} from 'components';
 import {SignupFormType} from 'types';
-import {ErrorMessage, Input} from 'style/Common';
+import {Input, ErrorMessage} from 'style/Common';
 import * as St from './styles';
 import {openModal} from '../../redux/reducer/modalReducer';
 
@@ -38,6 +39,8 @@ const FindAccount = ({findOption}: {findOption: string}) => {
     (state: RootState) => state.validationReducer.messageState
   );
 
+  useValid(findAccountForm);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
@@ -68,8 +71,18 @@ const FindAccount = ({findOption}: {findOption: string}) => {
       findAccountForm.code = values.code;
     }
     setIsCheckBtnClicked(isClicked);
-    console.log(`email: ${findAccountForm.email}`);
-    console.log(`phonenumber: ${findAccountForm.phonenumber}`);
+  };
+
+  const getPassword = (value: SignupFormType) => {
+    Object.keys(value).forEach((name) => {
+      if (name === 'password') {
+        findAccountForm.password = value.password;
+        console.log(findAccountForm.password);
+      } else if (name === 'passwordConfirm') {
+        findAccountForm.passwordConfirm = value.passwordConfirm;
+        console.log(findAccountForm.passwordConfirm);
+      }
+    });
   };
 
   // getting values when input values are being changed
@@ -119,47 +132,6 @@ const FindAccount = ({findOption}: {findOption: string}) => {
           dispatch(openModal(error.message));
         }
       }
-      // } else if (name === "findPasswordBtn") {
-      //   if (option === "phonenumber") {
-      //     console.log("휴대폰 번호로 비밀번호 찾기");
-      //     console.log(findAccountForm);
-      //     try {
-      //       // check if Id and Phonenumber match in the registered account
-      //       let response = await findAccount.checkIdPhonenumberMatched({
-      //         id: findAccountForm.id,
-      //         phonenumber: findAccountForm.phonenumber,
-      //       });
-      //       console.log(response);
-      //       // if matched send verification code
-      //       if (response.status === 200) {
-      //         try {
-      //           response = await findAccount.findPassword({
-      //             id: findAccountForm.id,
-      //             password: findAccountForm.password,
-      //             phonenumber: findAccountForm.phonenumber,
-      //             code: findAccountForm.code,
-      //           });
-      //           if (response.status === 200) {
-      //             dispatch(
-      //               openModal(
-      //                 "비밀번호 변경이 완료되었습니다./다시 로그인 해주세요",
-      //               ),
-      //             );
-      //             navigate("/login");
-      //           }
-      //         } catch (error: any) {
-      //           console.log(error);
-      //         }
-      //       }
-      //       // if not matched show error message
-      //     } catch (error: any) {
-      //       console.log(error.message);
-      //       dispatch(openModal(error.message));
-      //     }
-      //   } else {
-      //     console.log("이메일로 비밀번호 찾기");
-      //   }
-      // }
     } else if (name === 'findPasswordBtn') {
       if (option === 'phonenumber') {
         console.log('휴대폰 번호로 비밀번호 찾기');

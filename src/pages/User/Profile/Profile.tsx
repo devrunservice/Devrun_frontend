@@ -283,7 +283,7 @@ const Profile = () => {
           </div>
 
           <AuthenticationNumber
-            page="signup"
+            page="profileUpdate"
             option="phonenumber"
             getAuthenticationForm={getAuthenticationForm}
           />
