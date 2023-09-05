@@ -31,10 +31,10 @@ const Signup = () => {
     phonenumber: '',
     code: '',
     allChecked: false,
-    acChecked: false,
-    tosChecked: false,
-    pcChecked: false,
-    mcChecked: false,
+    ageConsent: false,
+    termsOfService: false,
+    privacyConsent: false,
+    marketConsent: false,
   });
 
   useValid(signupForm);
@@ -48,10 +48,10 @@ const Signup = () => {
 
   const {checkboxes, handleCheckAll, handleCheckSingle} = useCheckbox({
     allChecked: false,
-    acChecked: false,
-    tosChecked: false,
-    pcChecked: false,
-    mcChecked: false,
+    ageConsent: false,
+    termsOfService: false,
+    privacyConsent: false,
+    marketConsent: false,
   });
 
   // console.log(isValid);
@@ -78,15 +78,15 @@ const Signup = () => {
         email: signupForm.email,
         birthday: signupForm.birthday,
         phonenumber: signupForm.phonenumber,
-        ageConsent: signupForm.acChecked,
-        termsOfService: signupForm.tosChecked,
-        privacyConsent: signupForm.pcChecked,
-        marketConsent: signupForm.mcChecked,
+        ageConsent: signupForm.ageConsent,
+        termsOfService: signupForm.termsOfService,
+        privacyConsent: signupForm.privacyConsent,
+        marketConsent: signupForm.marketConsent,
       });
       console.log(response);
       if (response.status === 200) {
         dispatch(setSignupSuccess(true));
-        dispatch(openModal('회원가입이 완료되었습니다.'));
+        // dispatch(openModal('회원가입이 완료되었습니다.'));
         // navigate('/login');
       }
     } catch (error: any) {
@@ -108,6 +108,17 @@ const Signup = () => {
         signupForm.id = value.id;
       } else if (name === 'email') {
         signupForm.email = value.email;
+      }
+    });
+  };
+
+  // 비밀번호, 비밀번호 확인 값 가져오기
+  const getPassword = (value: SignupFormType) => {
+    Object.keys(value).forEach((name) => {
+      if (name === 'password') {
+        signupForm.password = value.password;
+      } else if (name === 'passwordConfirm') {
+        signupForm.passwordConfirm = value.passwordConfirm;
       }
     });
   };
@@ -137,10 +148,10 @@ const Signup = () => {
       handleCheckAll(checked);
       setSignupForm((prev) => ({
         ...prev,
-        acChecked: checked,
-        tosChecked: checked,
-        pcChecked: checked,
-        mcChecked: checked,
+        ageConsent: checked,
+        termsOfService: checked,
+        privacyConsent: checked,
+        marketConsent: checked,
       }));
     } else {
       handleCheckSingle(id, checked);
@@ -239,43 +250,45 @@ const Signup = () => {
             <St.Li>
               <St.Checkbox
                 type="checkbox"
-                id="acChecked"
-                checked={checkboxes.acChecked}
+                id="ageConsent"
+                checked={checkboxes.ageConsent}
                 onChange={handleChecked}
                 required
               />
-              <label htmlFor="acChecked">만 19세 이상입니다. (필수)</label>
+              <label htmlFor="ageConsent">만 19세 이상입니다. (필수)</label>
             </St.Li>
             <St.Li>
               <St.Checkbox
                 type="checkbox"
-                id="tosChecked"
-                checked={checkboxes.tosChecked}
+                id="termsOfService"
+                checked={checkboxes.termsOfService}
                 onChange={handleChecked}
                 required
               />
-              <label htmlFor="tosChecked">서비스 이용약관 동의 (필수)</label>
+              <label htmlFor="termsOfService">
+                서비스 이용약관 동의 (필수)
+              </label>
             </St.Li>
             <St.Li>
               <St.Checkbox
                 type="checkbox"
-                id="pcChecked"
-                checked={checkboxes.pcChecked}
+                id="privacyConsent"
+                checked={checkboxes.privacyConsent}
                 onChange={handleChecked}
                 required
               />
-              <label htmlFor="pcChecked">
+              <label htmlFor="privacyConsent">
                 개인정보 수집 및 이용 동의 (필수)
               </label>
             </St.Li>
             <St.Li>
               <St.Checkbox
                 type="checkbox"
-                id="mcChecked"
-                checked={checkboxes.mcChecked}
+                id="marketConsent"
+                checked={checkboxes.marketConsent}
                 onChange={handleChecked}
               />
-              <label htmlFor="mcChecked">
+              <label htmlFor="marketConsent">
                 마케팅 활용 동의 및 광고 수신 동의 (선택)
               </label>
             </St.Li>

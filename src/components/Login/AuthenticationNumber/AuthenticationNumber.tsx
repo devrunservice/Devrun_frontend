@@ -29,7 +29,9 @@ const AuthenticationNumber = ({
     code: '',
   });
 
-  console.log(`계정 찾기 종류 : ${findOption}, 휴대폰 or 이메일 : ${option}`);
+  console.log(
+    `페이지 : ${page}, 계정 찾기 종류 : ${findOption}, 휴대폰 or 이메일 : ${option}`
+  );
 
   const validState = useSelector(
     (state: RootState) => state.validationReducer.validState
@@ -62,13 +64,18 @@ const AuthenticationNumber = ({
     // setIsValid((prev) => ({ ...prev, code: true }));
   };
 
-  const getAuthenticationNumberByPhonenumber = async (phonenumber: string) => {
+  // 인증번호 받기
+  const getAuthenticationNumber = async (value: string) => {
     try {
       const response =
-        await verificationAPI.getAuthenticationNumberbyPhonenumber({
-          phonenumber,
-        });
-      console.log(response);
+        option === 'phonenumber'
+          ? await verificationAPI.getAuthenticationNumberbyPhonenumber({
+              phonenumber: value,
+            })
+          : await verificationAPI.getAuthenticationNumberByEmail({
+              id,
+              email: value,
+            });
       if (response.status === 200) {
         console.log('인증번호 요청 완료');
         updateMessage(
@@ -86,266 +93,105 @@ const AuthenticationNumber = ({
     }
   };
 
-  const getAuthenticationNumberByEmail = async (email: string) => {
+  // 인증번호 클릭
+  const handleGetAuthenticationNumber = async () => {
     try {
-      const response = await verificationAPI.getAuthenticationNumberByEmail({
-        id,
-        email,
-      });
-      if (response.status === 200) {
-        console.log('인증번호 요청 완료');
-        updateMessage(
-          'phonenumberMessage',
-          '인증번호가 요청되었습니다. 5분 이내에 입력해주세요.'
-        );
-        updateValid('phonenumber', true);
-        updateValid('codeBtn', true);
-      }
-    } catch (error) {
-      console.log('이메일 인증번호 요청 실패');
-      updateMessage('phonenumberMessage', '인증번호 요청에 실패했습니다.');
-      updateValid('phonenumber', false);
-      updateValid('codeBtn', false);
-    }
-  };
-
-  // 중복확인 후 인증번호 요청
-  const requestAuthenticationNumber = async (value: string) => {
-    // 회원가입에서 휴대폰 중복확인
-    if (page === 'signup') {
-      const response = await signup.getDuplicatedPhonnumber({
-        phonenumber: value,
-      });
-      console.log(response);
-      if (response.data === 0) {
-        getAuthenticationNumberByPhonenumber(value);
-      } else {
-        console.log('현재 가입된 번호');
-        updateMessage('phonenumberMessage', '현재 가입된 번호입니다.');
-        updateValid('phonenumber', false);
-        updateValid('codeBtn', false);
-      }
-    } else if (page === 'findAccount') {
-      if (findOption === 'password') {
-        if (option === 'phonenumber') {
-          // 휴대폰으로 비밀번호 찾기일 때
-          try {
+      // 회원가입에서 휴대폰 중복확인
+      if (page === 'signup' || page === 'profileUpdate') {
+        const response = await signup.getDuplicatedPhonnumber({
+          phonenumber: authenticationForm.phonenumber || '',
+        });
+        console.log(response);
+        if (response.data === 0) {
+          getAuthenticationNumber(authenticationForm.phonenumber || '');
+        } else {
+          if (page === 'signup') {
+            console.log('현재 가입된 번호');
+            updateMessage('phonenumberMessage', '현재 가입된 번호입니다.');
+          } else if (page === 'profileUpdate') {
+            console.log('사용할 수 없는 번호');
+            updateMessage('phonenumberMessage', '사용 불가능한 번호입니다.');
+          }
+          updateValid('phonenumber', false);
+          updateValid('codeBtn', false);
+        }
+      } else if (page === 'findAccount') {
+        if (findOption === 'id') {
+          if (option === 'phonenumber') {
+            const response = await signup.getDuplicatedPhonnumber({
+              phonenumber: authenticationForm.phonenumber || '',
+            });
+            if (response.data === 1) {
+              getAuthenticationNumber(authenticationForm.phonenumber || '');
+            } else if (response.data === 0) {
+              dispatch(openModal('입력하신 정보는 없는 정보입니다.'));
+              updateValid('phonenumber', false);
+              updateValid('codeBtn', false);
+            }
+          } else if (option === 'email') {
+            getAuthenticationNumber(authenticationForm.email || '');
+          }
+        } else if (findOption === 'password') {
+          console.log('휴대폰 번호로 비밀번호 찾기');
+          if (option === 'phonenumber') {
+            // 휴대폰으로 비밀번호 찾기일 때
             if (id) {
               const response = await findAccount.checkIdPhonenumberMatched(id, {
-                phonenumber: value,
+                phonenumber: authenticationForm.phonenumber || '',
               });
               console.log(response);
               // 아이디와 비밀번호가 일치하면
               if (response.data === true) {
-                getAuthenticationNumberByPhonenumber(value);
+                getAuthenticationNumber(authenticationForm.phonenumber || '');
               } else if (response.data === false) {
                 console.log(response);
                 dispatch(openModal('정보가 등록된 계정과 일치하지 않습니다.'));
                 // updateMessage(
-                //   "phonenumberMessage",
-                //   "정보가 등록된 계정과 일치하지 않습니다.",
+                //   'phonenumberMessage',
+                //   '정보가 등록된 계정과 일치하지 않습니다.'
                 // );
                 updateValid('phonenumber', false);
                 updateValid('codeBtn', false);
               }
             }
-          } catch (error) {
-            console.log(error);
-          }
-        } else {
-          try {
-            getAuthenticationNumberByEmail(value);
-          } catch (error) {
-            console.log(error);
+          } else if (option === 'email') {
+            getAuthenticationNumber(authenticationForm.email || '');
           }
         }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-        // 휴대폰으로 아이디 찾기
-      } else if (findOption === 'id') {
-        if (option === 'phonenumber') {
-          try {
-            const response = await signup.getDuplicatedPhonnumber({
-              phonenumber: value,
+  // 인증번호 확인
+  const handleCheckAuthenticationNumber = async () => {
+    try {
+      const response =
+        option === 'phonenumber'
+          ? await verificationAPI.checkAuthenticationNumberByPhonenumber({
+              phonenumber: authenticationForm.phonenumber || '',
+              code: authenticationForm.code || '',
+            })
+          : await verificationAPI.checkAuthenticationNumberByEmail({
+              email: authenticationForm.email || '',
+              code: authenticationForm.code || '',
             });
-            console.log(response);
-            if (response.data === 1) {
-              getAuthenticationNumberByPhonenumber(value);
-            } else if (response.data === 0) {
-              dispatch(openModal('입력하신 정보는 없는 정보입니다.'));
-              // updateMessage(
-              //   "phonenumberMessage",
-              //   "입력하신 정보는 없는 정보입니다.",
-              // );
-              updateValid('phonenumber', false);
-              updateValid('codeBtn', false);
-            }
-          } catch (error) {
-            console.log(error);
-          }
-          // 이메일로 아이디 찾기
-        } else if (option === 'email') {
-          getAuthenticationNumberByEmail(value);
-        }
+      console.log(response);
+      if (response.status === 200) {
+        updateMessage('codeMessage', '인증 완료 되었습니다.');
+        updateValid('code', true);
+        updateValid('checkCodeBtn', true);
       }
-    } else if (page === 'profileUpdate') {
-      // 프로필에서 휴대폰 인증번호 받기
-      getAuthenticationNumberByPhonenumber(value);
-    }
-  };
-
-  // 인증번호 확인
-  const verifyAuthenticationNumber = async (value: string, code: string) => {
-    if (page === 'findAccount') {
-      if (findOption === 'id') {
-        if (option === 'email') {
-          console.log('이메일로 아이디 찾기 인증번호 확인');
-          try {
-            const response =
-              await verificationAPI.checkAuthenticationNumberByEmail({
-                email: value,
-                code,
-              });
-            console.log(response);
-            if (response.status === 200) {
-              updateMessage('codeMessage', '인증 완료 되었습니다.');
-              updateValid('code', true);
-              updateValid('checkCodeBtn', true);
-            }
-          } catch (error: any) {
-            console.log(error);
-            updateMessage('codeMessage', '올바르지 않은 인증번호 입니다.');
-            updateValid('code', false);
-            updateValid('checkCodeBtn', false);
-          }
-        } else {
-          console.log('휴대폰 번호로 아이디 찾기 인증번호 확인');
-          try {
-            const response =
-              await verificationAPI.checkAuthenticationNumberByPhonenumber({
-                phonenumber: value,
-                code,
-              });
-            if (response.status === 200) {
-              updateMessage('codeMessage', '인증 완료 되었습니다.');
-              updateValid('code', true);
-              updateValid('checkCodeBtn', true);
-            }
-          } catch (error: any) {
-            updateMessage('codeMessage', '올바르지 않은 인증번호 입니다.');
-            updateValid('code', false);
-            updateValid('checkCodeBtn', false);
-          }
-        }
-      } else if (findOption === 'password') {
-        if (option === 'email') {
-          console.log('이메일로 비밀번호 찾기 인증번호 확인');
-          try {
-            const response =
-              await verificationAPI.checkAuthenticationNumberByEmail({
-                email: value,
-                code,
-              });
-            console.log(response);
-            if (response.status === 200) {
-              updateMessage('codeMessage', '인증 완료 되었습니다.');
-              updateValid('code', true);
-              updateValid('checkCodeBtn', true);
-            }
-          } catch (error: any) {
-            console.log(error);
-            if (error.message === '새로운 인증번호를 받아주세요') {
-              updateMessage('codeMessage', error.message);
-            } else {
-              updateMessage('codeMessage', '올바르지 않은 인증번호 입니다.');
-            }
-            updateValid('code', false);
-            updateValid('checkCodeBtn', false);
-          }
-        } else {
-          console.log('휴대폰 번호로 아이디 찾기 인증번호 확인');
-          try {
-            const response =
-              await verificationAPI.checkAuthenticationNumberByPhonenumber({
-                phonenumber: value,
-                code,
-              });
-            if (response.status === 200) {
-              updateMessage('codeMessage', '인증 완료 되었습니다.');
-              updateValid('code', true);
-              updateValid('checkCodeBtn', true);
-            }
-          } catch (error: any) {
-            updateMessage('codeMessage', '올바르지 않은 인증번호 입니다.');
-            updateValid('code', false);
-            updateValid('checkCodeBtn', false);
-          }
-        }
-      }
-    } else {
-      try {
-        console.log('회원가입 휴대폰 인증 확인');
-        const response =
-          await verificationAPI.checkAuthenticationNumberByPhonenumber({
-            phonenumber: value,
-            code,
-          });
-        if (response.status === 200) {
-          updateMessage('codeMessage', '인증 완료 되었습니다.');
-          updateValid('code', true);
-          updateValid('checkCodeBtn', true);
-        }
-      } catch (error: any) {
+    } catch (error: any) {
+      console.log(error);
+      if (error.message === '새로운 인증번호를 받아주세요') {
+        updateMessage('codeMessage', error.message);
+      } else {
         updateMessage('codeMessage', '올바르지 않은 인증번호 입니다.');
-        updateValid('code', false);
-        updateValid('checkCodeBtn', false);
       }
-    }
-  };
-
-  // 인증번호
-  const handleGetAuthenticationNumber = (
-    e: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    console.log(`인증번호 받기 : ${id}`);
-    const {name} = e.target as HTMLButtonElement;
-    if (name === 'phonenumberCodeBtn') {
-      // requestAuthenticationNumber(
-      //   page || '',
-      //   authenticationForm.phonenumber || '',
-      //   findOption,
-      //   option,
-      //   id
-      // );
-      requestAuthenticationNumber(authenticationForm.phonenumber || '');
-    } else {
-      // requestAuthenticationNumber(
-      //   page || '',
-      //   authenticationForm.email || '',
-      //   findOption,
-      //   option,
-      //   id
-      // );
-      requestAuthenticationNumber(authenticationForm.email || '');
-    }
-  };
-
-  // 인증번호 확인
-  const handleCheckAuthenticationNumber = (
-    e: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    const {name} = e.target as HTMLButtonElement;
-    if (name === 'phonenumberCheckBtn') {
-      console.log('휴대폰 번호 인증번호 확인 클릭');
-      verifyAuthenticationNumber(
-        authenticationForm.phonenumber || '',
-        authenticationForm.code || ''
-      );
-    } else {
-      console.log('이메일 인증번호 확인 클릭');
-      verifyAuthenticationNumber(
-        authenticationForm.email || '',
-        authenticationForm.code || ''
-      );
+      updateValid('code', false);
+      updateValid('checkCodeBtn', false);
     }
   };
 
@@ -372,11 +218,6 @@ const AuthenticationNumber = ({
               인증번호
             </St.Button>
           </St.Field>
-          {/* {validState.codeBtn && validState.phonenumber ? (
-            <SuccessMessage>{messageState.phonenumberMessage}</SuccessMessage>
-          ) : (
-            <ErrorMessage>{messageState.phonenumberMessage}</ErrorMessage>
-          )} */}
           {validState.codeBtn && validState.phonenumber && (
             <SuccessMessage>{messageState.phonenumberMessage}</SuccessMessage>
           )}

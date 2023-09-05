@@ -5,7 +5,7 @@ import {RootState} from 'redux/store';
 import {getCookie} from 'utils/cookies';
 import {redirect} from 'utils/redirect';
 import {BrandLogo, Kakao, Naver, Google} from 'asset';
-import {LoginFormType} from 'types';
+import {SignupFormType, LoginFormType} from 'types';
 import {PasswordInput, Modal} from 'components';
 import {Input} from 'style/Common';
 import {loginLoading} from '../../redux/reducer/loginReducer';
@@ -44,6 +44,13 @@ const LoginForm = () => {
       ...prev,
       [name]: value,
     }));
+  };
+
+  const getPassword = (value: SignupFormType) => {
+    console.log(value);
+    Object.keys(value).forEach((name) => {
+      loginForm.password = value.password;
+    });
   };
 
   const getRecaptcha = async (value: string) => {
