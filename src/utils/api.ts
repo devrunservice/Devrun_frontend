@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
-  CreateUser,
   LoginFormType,
   tmi,
   RequestPayResponse,
@@ -9,26 +8,26 @@ import {
 } from 'types';
 import * as I from 'types';
 
-import {baseAxios, authAxios, imageAxios} from './instance';
+import {baseAxios, authAxios, imageAxios, refreshAxios} from './instance';
 
 export const signup = {
   // 회원가입
-  createUser: async (code: string, params: CreateUser) => {
+  createUser: async (code: string, params: SignupFormType) => {
     const response = await baseAxios.post(`/signup/okay?code=${code}`, params);
     return response;
   },
   // 아이디 중복확인
-  getDuplicatedId: async (params: CreateUser) => {
+  getDuplicatedId: async (params: SignupFormType) => {
     const response = await baseAxios.post(`/checkID`, params);
     return response;
   },
   // 이메일 중복확인
-  getDuplicatedEmail: async (params: CreateUser) => {
+  getDuplicatedEmail: async (params: SignupFormType) => {
     const response = await baseAxios.post(`/checkEmail`, params);
     return response;
   },
   // 휴대폰 중복확인
-  getDuplicatedPhonnumber: async (params: CreateUser) => {
+  getDuplicatedPhonnumber: async (params: SignupFormType) => {
     const response = await baseAxios.post('/checkPhone', params);
     return response;
   },
@@ -36,12 +35,12 @@ export const signup = {
 
 export const verificationAPI = {
   // 휴대폰 인증번호 받기
-  getAuthenticationNumberbyPhonenumber: async (params: CreateUser) => {
+  getAuthenticationNumberbyPhonenumber: async (params: SignupFormType) => {
     const response = await baseAxios.post(`/auth/phone/`, params);
     return response;
   },
   // 휴대폰 인증번호 확인
-  checkAuthenticationNumberByPhonenumber: async (params: CreateUser) => {
+  checkAuthenticationNumberByPhonenumber: async (params: SignupFormType) => {
     const response = await baseAxios.post(`/verify/phone`, params);
     return response;
   },
@@ -72,7 +71,7 @@ export const login = {
     //   },
     // };
     // const response = await baseAxios.post('/logout', null, config);
-    const response = await baseAxios.post('/authz/logout');
+    const response = await refreshAxios.post('/authz/logout');
     return response;
   },
   refreshAccessToken: async (params: string) => {
@@ -118,7 +117,7 @@ export const findAccount = {
     return response;
   },
   checkIdPhonenumberMatched: async (id: string, params: SignupFormType) => {
-    const response = await baseAxios.post(`/user/${id}/verify/phone`, params);
+    const response = await baseAxios.post(`/users/${id}/verify/phone`, params);
     console.log(response);
     return response;
   },
