@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Input } from "style/Common";
-import * as St from "./styles";
+import React, {useState} from 'react';
+import {AiOutlineEye, AiOutlineEyeInvisible} from 'react-icons/ai';
+import {Input} from 'style/Common';
+import * as St from './styles';
 
 interface PasswordInputProps {
   name?: string;
@@ -25,7 +25,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
   return (
     <St.PwdWrapper>
       <Input
-        type={showPwd ? "text" : "password"}
+        type={showPwd ? 'text' : 'password'}
         name={name}
         value={value}
         placeholder={placeholder}

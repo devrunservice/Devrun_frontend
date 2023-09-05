@@ -11,21 +11,10 @@ export interface SignupFormType {
   phonenumber?: string;
   code?: string;
   allChecked?: boolean;
-  acChecked?: boolean;
-  tosChecked?: boolean;
-  pcChecked?: boolean;
-  mcChecked?: boolean;
-}
-
-// 회원가입 데이터 전송 시 타입
-export interface CreateUser {
-  id?: string;
-  password?: string;
-  name?: string;
-  email?: string;
-  birthday?: string;
-  phonenumber?: string;
-  code?: string;
+  // acChecked?: boolean;
+  // tosChecked?: boolean;
+  // pcChecked?: boolean;
+  // mcChecked?: boolean;
   ageConsent?: boolean;
   termsOfService?: boolean;
   privacyConsent?: boolean;
@@ -205,13 +194,13 @@ export interface Table {
   num: number;
   view?: number;
   completion?: string;
-  link?:string
+  link?: string;
 }
 
 export interface TableCommon {
   $cursor?: boolean;
   $color?: boolean;
-  $view?:boolean;
+  $view?: boolean;
 }
 export interface ReceiptTable {
   data: Receipt[];
