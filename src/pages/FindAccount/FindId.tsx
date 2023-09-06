@@ -6,11 +6,11 @@ import * as St from './styles';
 
 const FindId = () => {
   const moveToFindId = () => {
-    redirect('/findaccount:id');
+    redirect('/findaccount/id');
   };
 
   const moveToFindPassword = () => {
-    redirect('/findaccount:password');
+    redirect('/findaccount/password');
   };
   return (
     <St.Section>

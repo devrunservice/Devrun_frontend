@@ -155,7 +155,23 @@ const AuthenticationNumber = ({
               }
             }
           } else if (option === 'email') {
-            getAuthenticationNumber(authenticationForm.email || '');
+            if (id) {
+              const response = await findAccount.checkIdEmailMatched(id, {
+                email: authenticationForm.email || '',
+              });
+              console.log(response);
+              if (response.data === true) {
+                getAuthenticationNumber(authenticationForm.email || '');
+              } else if (response.data === false) {
+                dispatch(openModal('정보가 등록된 계정과 일치하지 않습니다.'));
+                // updateMessage(
+                //   'phonenumberMessage',
+                //   '정보가 등록된 계정과 일치하지 않습니다.'
+                // );
+                updateValid('phonenumber', false);
+                updateValid('codeBtn', false);
+              }
+            }
           }
         }
       }

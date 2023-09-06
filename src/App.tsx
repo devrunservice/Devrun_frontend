@@ -8,19 +8,21 @@ const App = () => {
   const hideHeader =
     location.pathname === '/signup' ||
     location.pathname === '/signupconfirm' ||
+    location.pathname === '/signupcompletion' ||
     location.pathname === '/login' ||
     location.pathname === '/auth/kakao/callback/login' ||
-    location.pathname === '/findaccount:id' ||
-    location.pathname === '/findaccount:password' ||
+    location.pathname === '/findaccount/id' ||
+    location.pathname === '/findaccount/password' ||
     location.pathname === '/auth/kakao/callback';
 
   const hideFooter =
     location.pathname === '/signup' ||
     location.pathname === '/signupconfirm' ||
+    location.pathname === '/signupcompletion' ||
     location.pathname === '/login' ||
     location.pathname === '/auth/kakao/callback/login' ||
-    location.pathname === '/findaccount:id' ||
-    location.pathname === '/findaccount:password' ||
+    location.pathname === '/findaccount/id' ||
+    location.pathname === '/findaccount/password' ||
     location.pathname === '/auth/kakao/callback';
 
   const myPage =

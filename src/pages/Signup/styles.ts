@@ -1,20 +1,20 @@
-import { styled } from "styled-components";
-import { Input } from "style/Common";
+import {styled} from 'styled-components';
+import {FlexRow, Input} from 'style/Common';
 
 // Gray 배경 컴포넌트
-export const Section = styled.div`
+export const Section = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 100vh;
   background-color: ${(props) => props.theme.bgGrayColor};
   overflow: auto;
 `;
 
 // white 배경 컴포넌트
 export const Container = styled.div`
-  width: 400px;
+  width: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -97,9 +97,56 @@ export const CancelBtn = styled(Button)`
   width: 100%;
 `;
 
+// 회원가입 이메일 인증 style
 export const SignupBtn = styled(Button)`
   color: ${(props) => props.theme.textWhite};
   background-color: ${(props) => props.theme.brandColor};
   padding: 0.8rem 0;
   width: 100%;
+`;
+
+export const Image = styled.div`
+  text-align: center;
+`;
+
+export const TextArea = styled.div`
+  text-align: center;
+
+  & > h2 {
+    padding-bottom: 0.5rem;
+  }
+
+  & > p {
+    padding-bottom: 0.5rem;
+  }
+`;
+
+export const EmailBtn = styled(Button)`
+  color: ${(props) => props.theme.textWhite};
+  background-color: ${(props) => props.theme.brandColor};
+  margin: 0.5rem 0;
+  padding: 0.8rem 0;
+  width: 100%;
+`;
+
+// 회원가입 완료 페이지 style
+export const ButtonWrapper = styled(FlexRow)`
+  justify-content: space-around;
+  margin: 1rem 0;
+`;
+
+export const LoginBtn = styled(Button)`
+  color: ${(props) => props.theme.textWhite};
+  background-color: ${(props) => props.theme.brandColor};
+  margin: 0.5rem 0;
+  padding: 0.8rem 0;
+  width: 45%;
+`;
+
+export const HomeBtn = styled(Button)`
+  background-color: #f0f0f0;
+  color: ${(props) => props.theme.black};
+  margin: 0.5rem 0;
+  padding: 0.8rem 0;
+  width: 45%;
 `;
