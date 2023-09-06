@@ -31,6 +31,14 @@ export const signup = {
     const response = await baseAxios.post('/checkPhone', params);
     return response;
   },
+  sendVerificationEmail: async (params: SignupFormType) => {
+    const response = await baseAxios.post(
+      '/signup/resend/confirm-email',
+      params
+    );
+    console.log(response);
+    return response;
+  },
 };
 
 export const verificationAPI = {
@@ -118,6 +126,11 @@ export const findAccount = {
   },
   checkIdPhonenumberMatched: async (id: string, params: SignupFormType) => {
     const response = await baseAxios.post(`/users/${id}/verify/phone`, params);
+    console.log(response);
+    return response;
+  },
+  checkIdEmailMatched: async (id: string, params: SignupFormType) => {
+    const response = await baseAxios.post(`/users/${id}/verify/email`, params);
     console.log(response);
     return response;
   },

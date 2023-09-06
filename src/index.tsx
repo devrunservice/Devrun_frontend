@@ -28,8 +28,9 @@ const router = createBrowserRouter([
       {path: 'auth/kakao/callback', element: <Route.Auth2RedirectHandler />},
       {path: 'signup', element: <Route.Signup />},
       {path: 'signupconfirm', element: <Route.SignupConfirm />},
-      {path: 'findaccount:id', element: <Route.FindId />},
-      {path: 'findaccount:password', element: <Route.FindPassword />},
+      {path: 'Signupcompletion', element: <Route.SignupCompletion />},
+      {path: 'findaccount/id', element: <Route.FindId />},
+      {path: 'findaccount/password', element: <Route.FindPassword />},
       {path: 'basket', element: protectedRoute(<Route.Basket />)},
       {path: 'notice', element: protectedRoute(<Route.Notice />)},
       {

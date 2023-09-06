@@ -6,6 +6,7 @@ export {default as Auth2RedirectHandler} from './Login/Auth2RedirectHandler';
 export {default as NotFound} from './NotFound/NotFound';
 export {default as Signup} from './Signup/Signup';
 export {default as SignupConfirm} from './Signup/SignupConfirm';
+export {default as SignupCompletion} from './Signup/SignupCompletion';
 export {default as DetailPage} from './DetailPage/DetailPage';
 export {default as CreateVideo} from './CreateVideo/CreateVideo';
 export {default as FindId} from './FindAccount/FindId';
