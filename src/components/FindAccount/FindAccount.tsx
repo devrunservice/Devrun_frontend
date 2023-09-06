@@ -73,18 +73,6 @@ const FindAccount = ({findOption}: {findOption: string}) => {
     setIsCheckBtnClicked(isClicked);
   };
 
-  const getPassword = (value: SignupFormType) => {
-    Object.keys(value).forEach((name) => {
-      if (name === 'password') {
-        findAccountForm.password = value.password;
-        console.log(findAccountForm.password);
-      } else if (name === 'passwordConfirm') {
-        findAccountForm.passwordConfirm = value.passwordConfirm;
-        console.log(findAccountForm.passwordConfirm);
-      }
-    });
-  };
-
   // getting values when input values are being changed
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;
@@ -98,94 +86,63 @@ const FindAccount = ({findOption}: {findOption: string}) => {
     const {name} = e.target as HTMLButtonElement;
 
     if (name === 'findIdBtn') {
-      if (option === 'phonenumber') {
-        try {
-          const response = await findAccount.findIdByPhonenumber({
-            phonenumber: findAccountForm.phonenumber,
-            code: findAccountForm.code,
-          });
-          console.log(response);
-
-          if (response.status === 200) {
-            dispatch(openModal('휴대폰 번호로 아이디가 전송되었습니다.'));
-            navigate('/login');
-          }
-        } catch (error: any) {
-          console.log(error);
-          dispatch(openModal(error.message));
-        }
-      } else {
-        // 이메일로 아이디 찾기
-        try {
-          const response = await findAccount.findIdByEmail({
-            // id: findAccountForm.id,
-            email: findAccountForm.email,
-            code: findAccountForm.code,
-          });
-          console.log(response);
-          if (response.status === 200) {
-            dispatch(openModal('이메일로 아이디가 전송되었습니다.'));
-            navigate('/login');
-          }
-        } catch (error: any) {
-          console.log(error);
-          dispatch(openModal(error.message));
-        }
-      }
-    } else if (name === 'findPasswordBtn') {
-      if (option === 'phonenumber') {
-        console.log('휴대폰 번호로 비밀번호 찾기');
-        console.log(findAccountForm);
-        try {
-          if (findAccountForm.id) {
-            const response = await findAccount.findPasswordByPhonenumber(
-              findAccountForm.id,
-              {
-                password: findAccountForm.password,
+      try {
+        const response =
+          option === 'phonenumber'
+            ? await findAccount.findIdByPhonenumber({
                 phonenumber: findAccountForm.phonenumber,
                 code: findAccountForm.code,
-              }
-            );
-            console.log(response);
-            if (response.status === 200) {
-              dispatch(
-                openModal(
-                  '비밀번호 변경이 완료되었습니다./다시 로그인 해주세요'
-                )
-              );
-              navigate('/login');
-            }
-          }
-        } catch (error: any) {
-          console.log(error.message);
-          dispatch(openModal(error.message));
-        }
-      } else {
-        console.log('이메일로 비밀번호 찾기');
-        try {
-          if (findAccountForm.id) {
-            const response = await findAccount.findPasswordByPhonenumber(
-              findAccountForm.id,
-              {
-                password: findAccountForm.password,
-                email: findAccountForm.phonenumber,
+              })
+            : await findAccount.findIdByEmail({
+                // id: findAccountForm.id,
+                email: findAccountForm.email,
                 code: findAccountForm.code,
-              }
-            );
-            console.log(response);
-            if (response.status === 200) {
-              dispatch(
-                openModal(
-                  '비밀번호 변경이 완료되었습니다./다시 로그인 해주세요'
-                )
-              );
-              navigate('/login');
-            }
+              });
+        console.log(response);
+        if (response.status === 200) {
+          if (option === 'phonenumber') {
+            dispatch(openModal('휴대폰 번호로 아이디가 전송되었습니다.'));
+          } else {
+            dispatch(openModal('이메일로 아이디가 전송되었습니다.'));
           }
-        } catch (error: any) {
-          console.log(error.message);
-          dispatch(openModal(error.message));
+          navigate('/login');
         }
+      } catch (error: any) {
+        console.log(error);
+        dispatch(openModal(error.message));
+      }
+    } else if (name === 'findPasswordBtn') {
+      try {
+        if (findAccountForm.id) {
+          const response =
+            option === 'phonenumber'
+              ? await findAccount.findPasswordByPhonenumber(
+                  findAccountForm.id,
+                  {
+                    password: findAccountForm.password,
+                    phonenumber: findAccountForm.phonenumber,
+                    code: findAccountForm.code,
+                  }
+                )
+              : await findAccount.findPasswordByPhonenumber(
+                  findAccountForm.id,
+                  {
+                    password: findAccountForm.password,
+                    email: findAccountForm.email,
+                    code: findAccountForm.code,
+                  }
+                );
+          console.log(response);
+          if (response.status === 200) {
+            dispatch(
+              openModal('비밀번호 변경이 완료되었습니다./다시 로그인 해주세요')
+            );
+            navigate('/login');
+          }
+        }
+      } catch (error: any) {
+        console.log(error.message);
+        dispatch(openModal(error.message));
       }
     }
   };
@@ -275,8 +232,8 @@ const FindAccount = ({findOption}: {findOption: string}) => {
             비밀번호 찾기
           </St.Button>
         )}
-        <St.CancelBtn type="button" onClick={() => navigate('/login')}>
-          취소
+        <St.CancelBtn type="button" onClick={() => navigate('/')}>
+          메인화면
         </St.CancelBtn>
       </form>
     </>

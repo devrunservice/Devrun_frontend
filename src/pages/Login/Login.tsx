@@ -104,7 +104,7 @@ const LoginForm = () => {
           <St.Button
             type="button"
             onClick={() => {
-              redirect('/findaccount:id');
+              redirect('/findaccount/id');
             }}
           >
             아이디 찾기
@@ -113,7 +113,7 @@ const LoginForm = () => {
           <St.Button
             type="button"
             onClick={() => {
-              redirect('/findaccount:password');
+              redirect('/findaccount/password');
             }}
           >
             비밀번호 찾기
@@ -136,12 +136,12 @@ const LoginForm = () => {
               <St.Button>
                 <Kakao onClick={() => handleSocialLogin('kakao')} />
               </St.Button>
-              <St.Button>
+              {/* <St.Button>
                 <Naver onClick={() => handleSocialLogin('naver')} />
               </St.Button>
               <St.Button>
                 <Google onClick={() => handleSocialLogin('google')} />
-              </St.Button>
+              </St.Button> */}
             </St.SocialLoginBtn>
           </St.SocialLogin>
         )}

@@ -87,7 +87,7 @@ const Signup = () => {
       if (response.status === 200) {
         dispatch(setSignupSuccess(true));
         // dispatch(openModal('회원가입이 완료되었습니다.'));
-        // navigate('/login');
+        navigate('/signupconfirm');
       }
     } catch (error: any) {
       console.error(error);
