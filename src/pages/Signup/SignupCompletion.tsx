@@ -5,7 +5,7 @@ import * as St from './styles';
 
 const SignupCompletion = () => {
   return (
-    <St.Section>
+    <St.Section page="signupCompletion">
       <St.Container>
         <St.Image>
           <Signup />
