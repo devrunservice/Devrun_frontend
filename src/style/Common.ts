@@ -80,3 +80,9 @@ export const Button = styled.button<I.Active>`
   border: 1px solid
     ${(props: any) => (props.$active ? "" : props.theme.brandColor)};
 `;
+export const TitleTop = styled.h4`
+  margin-bottom: 30px;
+  font-size: ${(props: any) => props.theme.size25};
+  font-weight: ${(props: any) => props.theme.bold};
+  color: ${(props: any) => props.theme.black};
+`;

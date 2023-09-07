@@ -28,29 +28,14 @@ function* loginSaga(
 ): Generator<any, void, any> {
   try {
     const response = yield call(login.checkLoginUser, action.payload);
-    console.log(response);
+    console.log(response)
     const accessToken = response.data.Access_token.substr(7);
-    // const refreshToken = response.data.Refresh_token.substr(7);
-    const offset = 1000 * 60 * 60 * 9;
-    const expirationDate = new Date(new Date().getTime() + offset);
-    expirationDate.setMinutes(expirationDate.getMinutes() + 1);
-    // 만료된 토큰
-    // const accessToken =
-    //   "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiYmIyMjIiLCJpYXQiOjE2OTAzNzcwODAsImV4cCI6MTY5MDQ2MzQ4MH0.RbkMntKliTUQK5mSjBcfjY9-X46n1tiXklFJddBnImgc3ctpEiv95tHivqMeDj6xbqZW9NMC_wD1TNFbwtIIpw";
-    // const refreshToken =
-    //   "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiYmIyMjIiLCJuYW1lIjoi7ZmN6ri464-ZIiwianRpIjoiMjk4MTVhYTYtOTlhNS00NmJkLWE0YTktNTgyNmQ0YzQwMzA4IiwiZXhwIjoxNjkwMzc3OTgwfQ.qgpP8Oa79AkKggbb3jQ-IkKuN-Lp_jrHN-S6XNnKtQSPcy2lspxPH5cgyhHrWsIfPqunOSCqV9-k-DAv8Qp8AA";
+  
     setCookie('accessToken', accessToken, {
       path: '/',
       // https 일때만 통신할 수 있는 것 https일때 true로 바꿔줄것!
       secure: true,
-      // 쿠키 훔쳐가는거 막음 로컬에서는 사용이 안된다함
-      // httpOnly: true,
-      // expires: expirationDate,
     });
-    // setCookie("refreshToken", refreshToken, {
-    //   path: "/",
-    //   secure: true,
-    // });
     removeCookie('easyLoginToken', {path: '/', secure: true});
     yield put(loginSuccess(response));
     yield call(redirect, '/home');

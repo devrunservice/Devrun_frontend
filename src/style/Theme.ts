@@ -70,6 +70,7 @@ export const defaultTheme: DefaultTheme = {
   size40: "40px",
   size45: "45px",
   size50: "50px",
+  size60: "60px",
   size85: "85px",
   size90: "90px",
   size95: "95px",

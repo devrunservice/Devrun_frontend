@@ -11,6 +11,12 @@ import * as S from "style/Common";
 import * as St from "./style";
 
 
+interface BasketState {
+  price: number;
+  discount: number;
+  discounts: number;
+}
+
 const dataLists = [
   { id: 1, name: "aaa", paid_amount: 80 },
   { id: 2, name: "bbb", paid_amount: 20 },
@@ -18,6 +24,7 @@ const dataLists = [
 ];
 
 const Basket = () => {
+
   const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.userReducer.data);
   const { mypoint,setMypoint, priceDot,  stringPoint } = usePrice();
@@ -36,7 +43,7 @@ const Basket = () => {
    0
  );
   
- const [price, setPrice] = useState<I.Basket>({
+ const [price, setPrice] = useState<BasketState>({
    price: checkPrice,
    discount: 0,
    discounts: 0,

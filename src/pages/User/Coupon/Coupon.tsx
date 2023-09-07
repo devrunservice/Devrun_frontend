@@ -1,5 +1,4 @@
 import React, { ChangeEvent, useState } from "react";
-import { UserTop } from "components";
 import { mypage } from "utils/api";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
@@ -16,7 +15,7 @@ const Coupon = () => {
   console.log(code)
   return (
     <section>
-      <UserTop title="쿠폰함" />
+      {/* <UserTop title="쿠폰함" /> */}
 
       <input type="text" onChange={couponHandler}/>
       <button onClick={couponBtn} type="button">버튼</button>

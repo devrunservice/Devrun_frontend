@@ -111,6 +111,7 @@ export interface ITmiData {
   birthday: string;
   phonenumber: string;
   role: string;
+  userNo:number;
 }
 
 export interface ITmi {
@@ -187,75 +188,8 @@ export interface videoFileType {
   name: string;
 }
 
-export interface RefType {}
 
-export interface Receipt {
-  merchantUid: string;
-  name: string;
-  paidamount: number;
-  receipturl: string;
-  payno: number;
-  status: string;
-}
 
-export interface Table {
-  name?: string;
-  date?: string;
-  title: string;
-  num: number;
-  view?: number;
-  completion?: string;
-  link?:string
-}
-
-export interface TableCommon {
-  $cursor?: boolean;
-  $color?: boolean;
-  $view?:boolean;
-}
-export interface ReceiptTable {
-  data: Receipt[];
-  offset: number;
-  limit: number;
-  setData: React.Dispatch<React.SetStateAction<Receipt[]>>;
-}
-export interface UserTop {
-  title: string;
-  sub?: string;
-  count?: Receipt[] | string;
-}
-// 페이지네이션
-export interface Pagination {
-  activePage: number;
-  setActivePage: (page: number) => void;
-  limit: number;
-  data?: Receipt[];
-}
-
-export interface Coupon {
-  couponCode: string;
-  amount: number;
-}
-
-export interface Basket {
-  price: number;
-  discount: number;
-  discounts: number;
-}
-
-// 댓글
-export interface Comment {
-  comment: string;
-  comments: string;
-}
-
-export interface IPriceButton {
-  active: boolean;
-}
-// 마이페이지 검색
-export interface MySearch {
-  search: string;
-}
 
 // 결제창
 export interface RequestPayAdd {
@@ -361,10 +295,7 @@ export interface Refund {
   amount: number;
 }
 
-export interface Selet {
-  seletsBoolean: boolean;
-  seletes: string;
-}
+
 export interface Active {
   $active: boolean;
 }
@@ -377,19 +308,59 @@ export interface bastetUser {
   };
 }
 
+
+
+// 유저 쿠폰발급
+
 export interface CouponGet {
   code: string;
   id: string;
 }
 
-export interface CouponRegistration {
-  setCoupon: React.Dispatch<React.SetStateAction<boolean>>;
+// 구매내역 
+
+export interface ReceiptList {
+  buyername: string;
+  merchantUid: string;
+  name: string;
+  paidamount: number;
+  paymentDate: string;
+  payno: number;
+  receipturl: string;
+  status: string;
+  userpayno: number;
+}
+export interface Receipt {
+  content: ReceiptList[];
+  totalElements: number;
+  totalPages: number;
+}
+export interface ReceiptTable {
+  data: Receipt;
+  offset: number;
 }
 
-export interface CouponDate {
-  day: number;
-  year: number;
-  month: number;
+
+// 멘토 쿠폰리스트
+export interface MentoCouponlist {
+  couponcode: string;
+  discountrate: number;
+  expirydate: string;
+  issueddate: string;
+  issuedno: number;
+  quantity: number;
+  state: string;
+  lecturename: string;
+}
+
+export interface MentoCoupon {
+  content: MentoCouponlist[];
+  totalElements: number;
+  totalPages: number;
+}
+
+export interface mentoGetCoupon {
+  pageno: number;
 }
 export interface createCoupon {
   discountrate: number;
@@ -399,5 +370,69 @@ export interface createCoupon {
   quantity: number;
   coupontype: string;
   target: string;
-  // validityperiod:number
+}
+
+export interface activeCoupon {
+  code: string;
+}
+
+
+export interface Table {
+  data: MentoCoupon;
+  title: string;
+  offset: number;
+  dataList:()=>void
+}
+
+// 페이지네이션
+export interface Pagination {
+  pageno: number;
+  setPageno: (page: number) => void;
+  data: Receipt | MentoCoupon;
+  title?:string
+}
+export interface ReceiptPage {
+  pageno: number;
+}
+
+export interface TableCommon {
+  $cursor?: boolean;
+  $color?: boolean;
+  $view?: boolean;
+}
+
+export interface UserTop {
+  title: string;
+  sub?: string;
+  count?: number;
+}
+
+export interface Coupon {
+  couponCode: string;
+  amount: number;
+}
+
+// 댓글
+export interface Comment {
+  comment: string;
+  comments: string;
+}
+
+export interface IPriceButton {
+  active: boolean;
+}
+// 마이페이지 검색
+export interface MySearch {
+  search: string;
+}
+
+// 공지사항
+export interface notice {
+  path:string
+}
+export interface noticeWrite {
+  noticeNo: number;
+  title: string;
+  content: string;
+  userNo: number;
 }

@@ -1,14 +1,12 @@
 import {useState} from "react";
 
 const usePage = ()=>{
-    const limit = 10
-    const [activePage, setActivePage] = useState<number>(1);
-    const offset = (activePage - 1) * limit;
+    const [pageno, setPageno] = useState<number>(1);
+    const offset = (pageno - 1) * 10;
     return {
-      limit,
-      activePage,
+      pageno,
       offset,
-      setActivePage,
+      setPageno,
     };
 }
 export default usePage;

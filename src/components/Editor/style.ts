@@ -2,7 +2,6 @@ import { styled } from "styled-components";
 import ReactQuill from "react-quill";
 
 
-export const EditorWrap = styled.div``;
 export const Editor = styled(ReactQuill)`
   .ql-editor {
     min-height: 500px;

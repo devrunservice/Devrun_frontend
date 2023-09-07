@@ -6,18 +6,12 @@ import {getCookie, removeCookie, setCookie} from './cookies';
 
 export const baseAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
-  headers: {
-    'Content-type': 'application/json',
-  },
+  withCredentials: true,
 });
 
 export const authAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
   withCredentials: true,
-  headers: {
-    'Content-type': 'application/json',
-    'Access-Control-Allow-Origin': `${process.env.REACT_APP_SERVER_URL}`,
-  },
 });
 
 export const imageAxios = axios.create({
@@ -28,9 +22,6 @@ export const imageAxios = axios.create({
 export const refreshAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
   withCredentials: true,
-  headers: {
-    'Access-Control-Allow-Origin': `${process.env.REACT_APP_SERVER_URL}`,
-  },
 });
 
 baseAxios.interceptors.request.use(
@@ -211,11 +202,9 @@ baseAxios.interceptors.response.use(
 authAxios.interceptors.response.use(
   (response) => response,
   async (error) => {
-    console.log(error);
     const errorMessage = error.response.data.message;
     const errorStatus = error.response.status;
     const originalRequest = error.config;
-    const refreshToken = getCookie('refreshToken');
     let response;
     let newAccessToken;
     // let newRefreshToken;
@@ -224,22 +213,13 @@ authAxios.interceptors.response.use(
       case 401:
         switch (errorMessage) {
           case 'Token is expired':
-            // response = await baseAxios.post("/token/refresh", null, {
-            //   headers: { Refresh_token: `Bearer ${refreshToken}` },
-            // });
-
-            response = await refreshAxios.post('/authz/token/refresh');
+            response = await refreshAxios.post("/authz/token/refresh");
             console.log(response);
             newAccessToken = response.data.Access_token.substr(7);
-            // newRefreshToken = response.data.Refresh_token.substr(7);
             setCookie('accessToken', newAccessToken, {
               path: '/',
               secure: true,
             });
-            // setCookie("refreshToken", newRefreshToken, {
-            //   path: "/",
-            //   secure: true,
-            // });
             originalRequest.headers.Access_token = `Bearer ${newAccessToken}`;
             return axios(originalRequest);
           default:
@@ -248,14 +228,25 @@ authAxios.interceptors.response.use(
         break;
       case 403:
         switch (errorMessage) {
-          case 'Signature validation failed':
-            return Promise.reject(
+          case "Signature validation failed":
+            Promise.reject(
               new Error(`오류가 감지되었습니다. 로그인을 다시 해주세요.`)
             );
-          case 'Access Denied':
-            return Promise.reject(new Error('알 수 없는 오류가 발생했습니다.'));
-          case 'Logout user':
-            return Promise.reject(new Error('이미 로그아웃 됐습니다.'));
+            break;
+          case "Access Denied":
+            response = await refreshAxios.post("/authz/token/refresh");
+            console.log(response);
+            newAccessToken = response.data.Access_token.substr(7);
+            setCookie("accessToken", newAccessToken, {
+              path: "/",
+              secure: true,
+            });
+            originalRequest.headers.Access_token = `Bearer ${newAccessToken}`;
+            axios(originalRequest);
+            break;
+          case "Logout user":
+            Promise.reject(new Error("이미 로그아웃 됐습니다."));
+            break;
           default:
             break;
         }
@@ -264,6 +255,7 @@ authAxios.interceptors.response.use(
         switch (errorMessage) {
           case 'This email is duplicated':
             return Promise.reject(new Error('이메일이 중복되었습니다.'));
+            
           default:
             break;
         }

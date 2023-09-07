@@ -65,10 +65,12 @@ const MypageNav = () => {
             >
               구매 내역
             </St.AsideBtn>
-            {/* <St.AsideBtn onClick={() => navigate("")}>문의 내역</St.AsideBtn> */}
+            
           </St.AsideUl>
         </>
       )}
+
+
       {userData.role === "MENTO" && (
         <St.AsideUl>
           <St.AsideTit>강의관리</St.AsideTit>
