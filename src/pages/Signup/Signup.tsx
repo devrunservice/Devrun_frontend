@@ -160,7 +160,7 @@ const Signup = () => {
   };
 
   return (
-    <St.Section>
+    <St.Section page="signup">
       <St.Container>
         <St.H1>회원가입</St.H1>
         <form onSubmit={handleSubmit}>

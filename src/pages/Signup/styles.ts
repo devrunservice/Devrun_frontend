@@ -2,12 +2,12 @@ import {styled} from 'styled-components';
 import {FlexRow, Input} from 'style/Common';
 
 // Gray 배경 컴포넌트
-export const Section = styled.section`
+export const Section = styled.section<{page: string}>`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: ${(props) => (props.page !== 'signup' ? '100vh' : 'auto')};
   background-color: ${(props) => props.theme.bgGrayColor};
   overflow: auto;
 `;
