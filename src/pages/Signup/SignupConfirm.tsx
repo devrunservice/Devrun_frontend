@@ -12,7 +12,7 @@ const SignupConfirm = () => {
   };
 
   return (
-    <St.Section>
+    <St.Section page="signupConfirm">
       <St.Container>
         <St.Image>
           <Email />
