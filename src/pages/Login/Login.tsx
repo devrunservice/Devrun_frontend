@@ -6,7 +6,7 @@ import {getCookie} from 'utils/cookies';
 import {redirect} from 'utils/redirect';
 import { login } from "utils/api";
 import {BrandLogo, Kakao, Naver, Google} from 'asset';
-import {LoginFormType} from 'types';
+import {SignupFormType, LoginFormType} from 'types';
 import {PasswordInput, Modal} from 'components';
 import {Input} from 'style/Common';
 
@@ -48,6 +48,13 @@ const LoginForm = () => {
       ...prev,
       [name]: value,
     }));
+  };
+
+  const getPassword = (value: SignupFormType) => {
+    console.log(value);
+    Object.keys(value).forEach((name) => {
+      loginForm.password = value.password;
+    });
   };
 
   const getRecaptcha = async (value: string) => {
@@ -101,7 +108,7 @@ const LoginForm = () => {
           <St.Button
             type="button"
             onClick={() => {
-              redirect('/findaccount:id');
+              redirect('/findaccount/id');
             }}
           >
             아이디 찾기
@@ -110,7 +117,7 @@ const LoginForm = () => {
           <St.Button
             type="button"
             onClick={() => {
-              redirect('/findaccount:password');
+              redirect('/findaccount/password');
             }}
           >
             비밀번호 찾기
@@ -133,12 +140,12 @@ const LoginForm = () => {
               <St.Button>
                 <Kakao onClick={() => handleSocialLogin('kakao')} />
               </St.Button>
-              <St.Button>
+              {/* <St.Button>
                 <Naver onClick={() => handleSocialLogin('naver')} />
               </St.Button>
               <St.Button>
                 <Google onClick={() => handleSocialLogin('google')} />
-              </St.Button>
+              </St.Button> */}
             </St.SocialLoginBtn>
           </St.SocialLogin>
         )}

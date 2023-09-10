@@ -20,7 +20,7 @@ export const TableLi = styled.li<I.TableCommon>`
     border-top: 1px solid ${(props: any) => props.theme.borderC};
     background: ${(props: any) => props.theme.bgGrayColor};
   }
-  &:nth-child(1) p{
+  &:nth-child(1) div {
     text-align: center;
   }
 `;
@@ -29,7 +29,7 @@ const common = css`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  font-size: ${(props: any) => props.theme.size14};
+  font-size: 0.875rem
 `;
 
 export const Num = styled.div`
@@ -70,8 +70,8 @@ export const Button = styled.button<I.TableCommon>`
 
 
 export const SwitchBtn = styled.div<I.TableCommon>`
-  width: ${(props: any) => props.theme.size50};
-  height: ${(props: any) => props.theme.size25};
+  width: 3.125rem;
+  height: 1.5625rem;
   background: ${(props: any) =>
     props.$view ? props.theme.bgNavcolor : props.theme.borderC};
   border-radius: 25px;
@@ -84,7 +84,7 @@ export const ToggleBtn = styled.div<I.TableCommon>`
   top: 0;
   bottom: 0;
   margin: auto 0;
-  right: 2px;
+  right: 3px;
   width: 21px;
   height: 21px;
   border-radius: 50%;
@@ -92,5 +92,5 @@ export const ToggleBtn = styled.div<I.TableCommon>`
   background: ${(props: any) =>
     props.$view ? props.theme.brandColor : props.theme.textColor};
   transform: ${(props: any) =>
-    props.$view ? "translateX(0px);" : "translateX(-26px);"};
+    props.$view ? "translateX(0px)" : "translateX(-23px)"};
 `;

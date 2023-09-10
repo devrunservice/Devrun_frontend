@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import {styled} from 'styled-components';
 
 // Gray 배경 컴포넌트
 export const Section = styled.div`
@@ -22,6 +22,12 @@ export const Container = styled.div`
   background-color: ${(props) => props.theme.bgColor};
   border-radius: 10px;
   border: ${(props) => props.theme.borderC} 1px solid;
+`;
+
+export const LogoBtn = styled.button`
+  text-align: center;
+  /* margin-bottom: 1.5rem; */
+  background: none;
 `;
 
 // 아이디, 비밀번호 찾기

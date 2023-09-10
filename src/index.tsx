@@ -1,21 +1,17 @@
-import React, { ReactNode } from "react";
-import ReactDOM from "react-dom/client";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Navigate,
-} from "react-router-dom";
-import { ThemeProvider } from "styled-components";
-import { GlobalStyle, defaultTheme } from "style/Theme";
-import { getCookie } from "utils/cookies";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import * as Route from "pages";
-import store, { persistor } from "./redux/store";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+import React, {ReactNode} from 'react';
+import ReactDOM from 'react-dom/client';
+import {createBrowserRouter, RouterProvider, Navigate} from 'react-router-dom';
+import {ThemeProvider} from 'styled-components';
+import {GlobalStyle, defaultTheme} from 'style/Theme';
+import {getCookie} from 'utils/cookies';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
+import * as Route from 'pages';
+import store, {persistor} from './redux/store';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 
-const ACCESS_TOKEN = getCookie("accessToken");
+const ACCESS_TOKEN = getCookie('accessToken');
 
 const protectedRoute = (component: ReactNode) =>
   ACCESS_TOKEN ? component : <Navigate replace to="/login" />;
@@ -31,15 +27,17 @@ const router = createBrowserRouter([
       { path: "login", element: <Route.Login /> },
       { path: "auth/kakao/callback", element: <Route.Auth2RedirectHandler /> },
       { path: "signup", element: <Route.Signup /> },
-      { path: "findaccount:id", element: <Route.FindId /> },
-      { path: "findaccount:password", element: <Route.FindPassword /> },
+      { path: "signupconfirm", element: <Route.SignupConfirm /> },
+      { path: "Signupcompletion", element: <Route.SignupCompletion /> },
+      { path: "findaccount/id", element: <Route.FindId /> },
+      { path: "findaccount/password", element: <Route.FindPassword /> },
       { path: "basket", element: protectedRoute(<Route.Basket />) },
-      { path: "notice", element: (<Route.Notice />) },
+      { path: "notice", element: protectedRoute(<Route.Notice />) },
       {
         path: "noticeWrite",
-        element: (<Route.NoticeWrite />),
+        element: protectedRoute(<Route.NoticeWrite />),
       },
-      { path: "noticeDetail", element: (<Route.NoticeDetail />) },
+      { path: "noticeDetail", element: protectedRoute(<Route.NoticeDetail />) },
       { path: "lecture", element: <Route.Lecture /> },
       { path: "detail", element: <Route.DetailPage /> },
       { path: "createVideo", element: <Route.CreateVideo /> },
@@ -52,6 +50,7 @@ const router = createBrowserRouter([
       { path: "coupon", element: <Route.Coupon /> },
       { path: "Receipt", element: <Route.Receipt /> },
       { path: "learning", element: <Route.Learning /> },
+      { path: "point", element: <Route.Point /> },
       { path: "createcoupon", element: <Route.CreateCoupon /> },
       {
         path: "createVideo",
@@ -66,7 +65,7 @@ const router = createBrowserRouter([
 ]);
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement,
+  document.getElementById('root') as HTMLElement
 );
 root.render(
   <ThemeProvider theme={defaultTheme}>
@@ -76,7 +75,7 @@ root.render(
         <RouterProvider router={router} />
       </PersistGate>
     </Provider>
-  </ThemeProvider>,
+  </ThemeProvider>
 );
 
 reportWebVitals();

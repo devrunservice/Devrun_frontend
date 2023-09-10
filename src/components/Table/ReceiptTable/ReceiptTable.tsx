@@ -1,10 +1,10 @@
 import React from "react";
 import { Cart } from "utils/api";
 import * as I from "types";
-import * as St from "./style";
+import * as St from "../style";
 
-const ReceiptTable = (props: I.ReceiptTable) => {
-  const receipt = (item: string ) => {
+const ReceiptTable = (props: I.Receipts) => {
+  const receipt = (item: string) => {
     const windowFeatures =
       "width=420,height=512,menubar=no,toolbar=no,location=no,resizable=yes,scrollbars=yes";
     window.open(item, "_blank", windowFeatures);
@@ -67,5 +67,5 @@ const ReceiptTable = (props: I.ReceiptTable) => {
       })}
     </St.ReceiptTable>
   );
-}
+};
 export default ReceiptTable;

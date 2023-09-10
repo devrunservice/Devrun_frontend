@@ -1,6 +1,5 @@
 import React, {  useState, useEffect } from "react";
 import { Learn, SearchBar } from "components";
-import * as S from "../styles";
 import * as St from "./style";
 
 const Learning = () => {
@@ -21,10 +20,10 @@ useEffect(() => {
   };
   return (
     <section>
-      <S.Top>
-        <S.Title>내 학습 관리</S.Title>
+      <St.Top>
+        <St.Title>내 학습 관리</St.Title>
         <SearchBar />
-      </S.Top>
+      </St.Top>
       <St.LearnCon>
         <St.TapWrap>
           <St.Left>

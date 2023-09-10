@@ -1,9 +1,14 @@
 import React from "react";
-import * as I from "types";
 import * as St from "./style";
 
 
-const UserTop = (props: I.UserTop) => (
+interface Top {
+  title: string;
+  sub?: string;
+  count?: number;
+}
+
+const UserTop = (props: Top) => (
   <St.Title>
     {props.title}
     <St.Number>

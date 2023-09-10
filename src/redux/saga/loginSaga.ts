@@ -28,7 +28,6 @@ function* loginSaga(
 ): Generator<any, void, any> {
   try {
     const response = yield call(login.checkLoginUser, action.payload);
-    console.log(response)
     const accessToken = response.data.Access_token.substr(7);
   
     setCookie('accessToken', accessToken, {
@@ -70,9 +69,7 @@ function* kakaoLoginSaga(
 ): Generator<any, void, any> {
   try {
     // 인가 코드 pass
-    console.log('카카오 로그인 사가 작동');
     const response = yield call(login.checkKakaoLogin, action.payload);
-    console.log(response);
     const easyLoginToken = response.data.Easylogin_token;
     if (easyLoginToken) {
       setCookie('easyLoginToken', easyLoginToken.substr(7), {
@@ -99,7 +96,6 @@ function* kakaoLoginSaga(
       yield call(redirect, '/home');
     }
   } catch (error) {
-    console.log(error);
     yield put(kakaoFail(error));
     yield put(openModal(error));
   }

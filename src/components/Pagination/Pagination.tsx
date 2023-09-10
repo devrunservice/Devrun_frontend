@@ -4,7 +4,7 @@ import { PageNext, PagePrev } from "asset";
 import * as St from "./style";
 
 const Pagination = (props: I.Pagination) => {
-  const lastPage = props.data.totalPages || 0;
+  const lastPage = props.data?.totalPages || 0;
   const onClickPage = useCallback(
     (pageNumber: number) => {
       props.setPageno(pageNumber);

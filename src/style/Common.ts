@@ -32,7 +32,7 @@ export const Input = styled.input`
 
 // 에러 메세지
 export const ErrorMessage = styled.p`
-  font-size: ${(props) => props.theme.size14};
+  font-size: 0.875rem;
   color: ${(props) => props.theme.textRed};
   margin: 0.25rem 0;
 `;
@@ -43,16 +43,16 @@ export const SuccessMessage = styled(ErrorMessage)`
 `;
 
 export const Inner = styled.div`
-  width: 1200px;
+  width: 75rem;
   margin: 0 auto;
-  padding: 60px 0 100px;
+  padding: 3.75rem 0 6.25rem;
 `;
 
 // 마이페이지 화면 분할
 export const AppSection = styled.div`
   display: flex;
   padding: 4rem 0;
-  width: 1200px;
+  width: 75rem;
   margin: 0 auto;
   .left-panel {
     flex: 2;
@@ -65,14 +65,14 @@ export const AppSection = styled.div`
 export const ButtonWrap = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-top: 30px;
-  gap: 10px;
+  margin-top: 1.875rem;
+  gap: 0.625rem;
 `;
 export const Button = styled.button<I.Active>`
-  width: ${(props: any) => props.theme.size90};
-  border-radius: 5px;
-  height: ${(props: any) => props.theme.size40};
-  font-size: ${(props: any) => props.theme.size14};
+  width: 5.625rem;
+  border-radius: 0.3125rem;
+  height: 3rem;
+  font-size: 0.875rem;
   color: ${(props: any) =>
     props.$active ? props.theme.textWhite : props.theme.brandColor};
   background: ${(props: any) =>
@@ -81,8 +81,8 @@ export const Button = styled.button<I.Active>`
     ${(props: any) => (props.$active ? "" : props.theme.brandColor)};
 `;
 export const TitleTop = styled.h4`
-  margin-bottom: 30px;
-  font-size: ${(props: any) => props.theme.size25};
-  font-weight: ${(props: any) => props.theme.bold};
+  margin-bottom: 1.875rem;
+  font-size: 1.5625rem;
+  font-weight: 700;
   color: ${(props: any) => props.theme.black};
 `;

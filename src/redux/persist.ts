@@ -7,6 +7,9 @@ import loginReducer from "./reducer/loginReducer";
 import createVideoSlice from "./reducer/createVideoSlice";
 import mypageReducer from "./reducer/mypageReducer";
 import validationReducer from "./reducer/validationReducer";
+import mentoCouponReducer from "./reducer/mentoCouponReducer"
+import couponReducer from "./reducer/couponReducer"
+import pointReducer from "./reducer/pointReducer";
 
 const persistConfig = {
   key: "root",
@@ -21,6 +24,9 @@ const rootReducer = combineReducers({
   createVideoSlice,
   mypageReducer,
   validationReducer,
+  mentoCouponReducer,
+  couponReducer,
+  pointReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

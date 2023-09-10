@@ -1,15 +1,16 @@
-import React from "react";
-import { redirect } from "utils/redirect";
-import FindAccount from "components/FindAccount/FindAccount";
-import * as St from "./styles";
+import React from 'react';
+// import {BrandLogo} from 'asset';
+import {redirect} from 'utils/redirect';
+import FindAccount from 'components/FindAccount/FindAccount';
+import * as St from './styles';
 
 const FindId = () => {
   const moveToFindId = () => {
-    redirect("/findaccount:id");
+    redirect('/findaccount/id');
   };
 
   const moveToFindPassword = () => {
-    redirect("/findaccount:password");
+    redirect('/findaccount/password');
   };
   return (
     <St.Section>

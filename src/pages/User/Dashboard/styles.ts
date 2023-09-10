@@ -4,13 +4,13 @@ export const WelcomeMessage = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-  font-size: ${(props) => props.theme.size18};
-  font-weight: ${(props) => props.theme.bold};
+  font-size: 1.125rem;
+  font-weight: 700;
   margin-bottom: 1rem;
 
   & > div:nth-child(1) {
-    font-size: ${(props) => props.theme.size25};
-    font-weight: ${(props) => props.theme.bold};
+    font-size:1.5625rem
+    font-weight: 700;
     color: ${(props) => props.theme.brandColor};
     text-decoration: underline;
     text-underline-offset: 0.4rem;

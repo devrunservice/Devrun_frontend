@@ -127,7 +127,7 @@ const CouponPop = (props: CouponRegistration) => {
           date.day === 0||
           Number(quantity) ===0
         )return alert("빈칸을 작성해주세요");
-          const creates: I.createCoupon = {
+          const creates: I.CreateCoupon = {
             discountrate: discountrate,
             issueduser: 999,
             issueddate: `${getYear}-${getMonths}-${getDays}`,

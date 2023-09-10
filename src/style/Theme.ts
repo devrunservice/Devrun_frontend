@@ -35,8 +35,8 @@ export const GlobalStyle = createGlobalStyle`
     body {
         color: ${({ theme }) => theme.textColor};
         background-color: ${({ theme }) => theme.bgColor};
-        font-size:${({ theme }) => theme.size16};
-        font-weight:${({ theme }) => theme.regular};
+        font-size:1rem;
+        font-weight:400;
         font-family: 'Pretendard';
         display: flex;
         flex-direction: column;
@@ -49,33 +49,13 @@ export const GlobalStyle = createGlobalStyle`
     }
     button{
         cursor: pointer;
-        font-size:${({ theme }) => theme.size14};
+        font-size:0.875rem;
         color: ${({ theme }) => theme.black};
         border: 0;
     }
 `;
 
 export const defaultTheme: DefaultTheme = {
-  regular: "400",
-  medium: "500",
-  semiBold: "600",
-  bold: "700",
-  size12: "12px",
-  size14: "14px",
-  size16: "16px",
-  size18: "18px",
-  size20: "20px",
-  size25: "25px",
-  size35: "35px",
-  size40: "40px",
-  size45: "45px",
-  size50: "50px",
-  size60: "60px",
-  size85: "85px",
-  size90: "90px",
-  size95: "95px",
-  size120: "120px",
-  size100: "100%",
   bgColor: "#fff",
   bgGrayColor: "#f7f7f7",
   bgBlack: "#333",
@@ -87,6 +67,7 @@ export const defaultTheme: DefaultTheme = {
   textYello: "#FFC821",
   textWhite: "#fff",
   borderC: "#ccc",
+  borderD: "#ddd",
   black: "#171717",
   border49: "#494949",
 };

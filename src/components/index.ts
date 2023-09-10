@@ -17,10 +17,15 @@ export { default as List } from "./List/List";
 export { default as Learn } from "./Learn/Learn";
 export { default as Spinner } from "./Spinner/Spinner";
 export { default as ImageUploader } from "./ImageUploader/ImageUploader";
-export { default as ReceiptTable } from "./Table/ReceiptTable";
-export { default as Table } from "./Table/Table";
+export { default as ReceiptTable } from "./Table/ReceiptTable/ReceiptTable";
+export { default as MentoTable } from "./Table/MentoTable/MentoTable";
+export { default as NoticeTable } from "./Table/NoticeTable/NoticeTable";
+export { default as CertTable } from "./Table/CertTable/CertTable";
 export { default as SearchBar } from "./SearchBar/SearchBar";
 export { default as UserTop } from "./UserTop/UserTop";
 export { default as UserInfo } from "./Basket/UserInfo/UserInfo";
 export { default as Product } from "./Basket/Product/Product";
 export { default as ProfileForm } from "./ProfileForm/ProfileForm";
+export { default as CouponList } from "./CouponList/CouponList";
+
+;

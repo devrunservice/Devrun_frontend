@@ -44,14 +44,9 @@ const Profile = () => {
   });
 
   // 이미지
-
   const handleChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const formData = new FormData();
-
     if (e.target.files) {
-      console.log(e.target.files);
       const file = e.target.files[0];
-      console.log(file);
       if (file.size > 1024 * 1024 * 1) {
         dispatch(openModal('이미지 용량을 초과하였습니다.'));
         // alert('이미지 용량을 초과하였습니다.');
@@ -69,7 +64,6 @@ const Profile = () => {
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const {name, id} = e.target as HTMLButtonElement;
-    console.log(id);
     setIsInput((prev) => ({...prev, [name]: !prev[name]}));
 
     if (id === 'cancelBtn') {
@@ -114,7 +108,6 @@ const Profile = () => {
       });
       dispatch(updateProfileImageLoading(formData));
       updateValidFields([{name: 'profileImage', value: false}]);
-      // dispatch(updateValidState({name: 'profileImage', value: false}));
     }
   };
 
@@ -290,7 +283,7 @@ const Profile = () => {
           </div>
 
           <AuthenticationNumber
-            page="signup"
+            page="profileUpdate"
             option="phonenumber"
             getAuthenticationForm={getAuthenticationForm}
           />

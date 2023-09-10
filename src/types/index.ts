@@ -1,8 +1,8 @@
-import React from 'react';
+
 
 // 회원가입 타입
 export interface SignupFormType {
-  id?: string | undefined;
+  id?: string;
   password?: string;
   passwordConfirm?: string;
   name?: string;
@@ -11,21 +11,10 @@ export interface SignupFormType {
   phonenumber?: string;
   code?: string;
   allChecked?: boolean;
-  acChecked?: boolean;
-  tosChecked?: boolean;
-  pcChecked?: boolean;
-  mcChecked?: boolean;
-}
-
-// 회원가입 데이터 전송 시 타입
-export interface CreateUser {
-  id?: string;
-  password?: string;
-  name?: string;
-  email?: string;
-  birthday?: string;
-  phonenumber?: string;
-  code?: string;
+  // acChecked?: boolean;
+  // tosChecked?: boolean;
+  // pcChecked?: boolean;
+  // mcChecked?: boolean;
   ageConsent?: boolean;
   termsOfService?: boolean;
   privacyConsent?: boolean;
@@ -188,6 +177,22 @@ export interface videoFileType {
   name: string;
 }
 
+export interface RefType {}
+
+
+
+
+export interface TableCommon {
+  $cursor?: boolean;
+  $color?: boolean;
+  $view?: boolean;
+}
+
+// 없앨꺼
+export interface Coupon {
+  couponCode: string;
+  amount: number;
+}
 
 
 
@@ -296,17 +301,6 @@ export interface Refund {
 }
 
 
-export interface Active {
-  $active: boolean;
-}
-
-export interface bastetUser {
-  user: {
-    name: string;
-    email: string;
-    phonenumber: string;
-  };
-}
 
 
 
@@ -316,6 +310,37 @@ export interface CouponGet {
   code: string;
   id: string;
 }
+export interface UserCouponList {
+  couponcode?: string;
+  discountrate: number;
+  expirydate: string;
+  issueddate?: string;
+  issuedno?: number;
+  lecturename: string;
+  state: string;
+}
+export interface UserCoupon {
+  content: UserCouponList[];
+}
+// 포인트내역
+
+export interface PointList {
+  updatetime: string;
+  pointupdown: number;
+  pointno: number;
+  explanation: string;
+}
+export interface Point {
+  content: PointList[];
+  totalElements: number;
+  totalPages: number;
+}
+export interface Points {
+  data: Point;
+  loading?: boolean;
+  error?: Error | null;
+}
+
 
 // 구매내역 
 
@@ -331,15 +356,14 @@ export interface ReceiptList {
   userpayno: number;
 }
 export interface Receipt {
+
   content: ReceiptList[];
   totalElements: number;
   totalPages: number;
 }
-export interface ReceiptTable {
+export interface Receipts {
   data: Receipt;
-  offset: number;
 }
-
 
 // 멘토 쿠폰리스트
 export interface MentoCouponlist {
@@ -352,17 +376,24 @@ export interface MentoCouponlist {
   state: string;
   lecturename: string;
 }
-
-export interface MentoCoupon {
-  content: MentoCouponlist[];
+interface MentoCoupon{
+  content:MentoCouponlist[];
   totalElements: number;
   totalPages: number;
 }
 
-export interface mentoGetCoupon {
+export interface MentoCoupons {
+  data: MentoCoupon;
+  loading?: boolean;
+  error?: Error | null;
+  activate?: null;
+  
+}
+
+export interface PageNo {
   pageno: number;
 }
-export interface createCoupon {
+export interface CreateCoupon {
   discountrate: number;
   issueduser: number;
   issueddate: string;
@@ -372,50 +403,34 @@ export interface createCoupon {
   target: string;
 }
 
-export interface activeCoupon {
+export interface ActiveCoupon {
   code: string;
+  index:number
 }
 
 
-export interface Table {
-  data: MentoCoupon;
-  title: string;
-  offset: number;
-  dataList:()=>void
+// 지울꺼
+export interface Table{
+  data: string;
+  title: string 
 }
+
 
 // 페이지네이션
 export interface Pagination {
+  data?: MentoCoupon | Receipt;
   pageno: number;
   setPageno: (page: number) => void;
-  data: Receipt | MentoCoupon;
-  title?:string
-}
-export interface ReceiptPage {
-  pageno: number;
-}
-
-export interface TableCommon {
-  $cursor?: boolean;
-  $color?: boolean;
-  $view?: boolean;
-}
-
-export interface UserTop {
-  title: string;
-  sub?: string;
-  count?: number;
-}
-
-export interface Coupon {
-  couponCode: string;
-  amount: number;
+  title?: string;
 }
 
 // 댓글
 export interface Comment {
   comment: string;
   comments: string;
+}
+export interface Active {
+  $active: boolean;
 }
 
 export interface IPriceButton {
@@ -427,12 +442,14 @@ export interface MySearch {
 }
 
 // 공지사항
-export interface notice {
-  path:string
+
+export interface noticeUpload {
+  path: string;
+  formData: FormData;
 }
 export interface noticeWrite {
   noticeNo: number;
   title: string;
   content: string;
-  userNo: number;
+  id: string;
 }

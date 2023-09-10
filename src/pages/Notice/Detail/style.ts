@@ -3,8 +3,8 @@ import { BsCheckAll } from "react-icons/bs";
 
 export const Title = styled.h4`
   margin-bottom: 30px;
-  font-size: ${(props: any) => props.theme.size25};
-  font-weight: ${(props: any) => props.theme.bold};
+  font-size: 1.5625rem;
+  font-weight: 700
   color: ${(props: any) => props.theme.black};
 `;
 export const Top = styled.div`
@@ -15,8 +15,8 @@ export const Top = styled.div`
 `;
 export const Left = styled.em`
   display: block;
-  font-size: ${(props: any) => props.theme.size20};
-  font-weight: ${(props: any) => props.theme.semiBold};
+  font-size: 1.25
+  font-weight: 600
   color: ${(props: any) => props.theme.black};
 `;
 export const Right = styled.div`
@@ -43,5 +43,5 @@ export const Content = styled.div`
 `
 export const NameCheack = styled(BsCheckAll)`
   color: ${(props: any) => props.theme.brandColor};
-  font-size: ${(props: any) => props.theme.size20};
+  font-size: 1.25
 `;
