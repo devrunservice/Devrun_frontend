@@ -10,6 +10,7 @@ export const baseAxios = axios.create({
 export const authAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
   withCredentials: true,
+  headers: { "Content-type": "application/json" },
 });
 
 export const imageAxios = axios.create({

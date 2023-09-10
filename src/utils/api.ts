@@ -137,11 +137,12 @@ export const findAccount = {
 
 // 로그인한 유저정보
 export const userData = {
-  createUser: () => {
-    const response = authAxios.get("/tmi");
+  createUser: (params: I.tmi) => {
+    const response = authAxios.get('/tmi', {params: {id: params}});
     return response;
   },
 };
+
 
 // 마이페이지 정보
 export const mypage = {

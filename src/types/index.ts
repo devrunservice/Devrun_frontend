@@ -100,15 +100,18 @@ export interface ITmiData {
   birthday: string;
   phonenumber: string;
   role: string;
-  userNo:number;
+  userNo: number
 }
 
 export interface ITmi {
   loading: boolean;
   data: ITmiData;
-  error: Error | null | string;
+  error: string | null | undefined;
 }
 
+export interface tmi {
+  id: string;
+}
 
 export interface CheckValidationReducerType {
   message: {

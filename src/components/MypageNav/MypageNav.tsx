@@ -1,18 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import * as St from "./style";
-import { userTmiFulfilled } from "../../redux/reducer/userReducer";
 
 const MypageNav = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch()
   const local = window.location.pathname;
   const userData = useSelector((state: RootState) => state.userReducer.data);
-  useEffect(()=>{
-    dispatch(userTmiFulfilled(null));
-  },[])
   return (
     <St.Aside>
       {userData.role === "STUDENT" && (
