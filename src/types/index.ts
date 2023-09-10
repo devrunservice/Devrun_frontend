@@ -106,12 +106,9 @@ export interface ITmiData {
 export interface ITmi {
   loading: boolean;
   data: ITmiData;
-  error: string | null | undefined;
+  error: Error | null | string;
 }
 
-export interface tmi {
-  id: string;
-}
 
 export interface CheckValidationReducerType {
   message: {

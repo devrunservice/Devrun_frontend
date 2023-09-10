@@ -2,7 +2,7 @@
 
 import * as I from 'types';
 
-import {baseAxios, authAxios, imageAxios, refreshAxios} from './instance';
+import {baseAxios, authAxios, imageAxios} from './instance';
 
 export const signup = {
   // 회원가입
@@ -137,8 +137,8 @@ export const findAccount = {
 
 // 로그인한 유저정보
 export const userData = {
-  createUser: (params: I.tmi) => {
-    const response = authAxios.get("/tmi", { params: { id: params } });
+  createUser: () => {
+    const response = authAxios.get("/tmi");
     return response;
   },
 };
