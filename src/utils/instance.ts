@@ -5,33 +5,19 @@ import {getCookie, removeCookie, setCookie} from './cookies';
 export const baseAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
   withCredentials: true,
-  headers: {
-    'Content-type': 'application/json',
-    'Access-Control-Allow-Origin': `${process.env.REACT_APP_SERVER_URL}`,
-  },
 });
 
 export const authAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
   withCredentials: true,
-  headers: {
-    'Content-type': 'application/json',
-    'Access-Control-Allow-Origin': `${process.env.REACT_APP_SERVER_URL}`,
-  },
 });
 
 export const imageAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
-  headers: {'Content-Type': 'multipart/form-data'},
+  headers: { "Content-Type": "multipart/form-data" },
+  withCredentials: true,
 });
 
-export const refreshAxios = axios.create({
-  baseURL: `${process.env.REACT_APP_SERVER_URL}`,
-  withCredentials: true,
-  headers: {
-    'Access-Control-Allow-Origin': `${process.env.REACT_APP_SERVER_URL}`,
-  },
-});
 
 baseAxios.interceptors.request.use(
   (config) => {
@@ -244,11 +230,9 @@ baseAxios.interceptors.response.use(
 authAxios.interceptors.response.use(
   (response) => response,
   async (error) => {
-    console.log(error);
     const errorMessage = error.response.data.message;
     const errorStatus = error.response.status;
     const originalRequest = error.config;
-    const refreshToken = getCookie('refreshToken');
     let response;
     let newAccessToken;
     // let newRefreshToken;
@@ -264,15 +248,10 @@ authAxios.interceptors.response.use(
             response = await baseAxios.post('/authz/token/refresh');
             console.log(response);
             newAccessToken = response.data.Access_token.substr(7);
-            // newRefreshToken = response.data.Refresh_token.substr(7);
             setCookie('accessToken', newAccessToken, {
               path: '/',
               secure: true,
             });
-            // setCookie("refreshToken", newRefreshToken, {
-            //   path: "/",
-            //   secure: true,
-            // });
             originalRequest.headers.Access_token = `Bearer ${newAccessToken}`;
             return axios(originalRequest);
           default:
@@ -302,6 +281,7 @@ authAxios.interceptors.response.use(
         switch (errorMessage) {
           case 'This email is duplicated':
             return Promise.reject(new Error('이메일이 중복되었습니다.'));
+            
           default:
             break;
         }

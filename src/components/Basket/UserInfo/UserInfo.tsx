@@ -1,8 +1,11 @@
 import React from "react";
-import { bastetUser } from "types";
+import { MypageType } from "types";
 import * as St from "./style";
 
 
+interface bastetUser {
+  user: MypageType;
+}
 
 const UserInfo = (props: bastetUser) => (
   <>

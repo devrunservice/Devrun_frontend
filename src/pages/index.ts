@@ -21,7 +21,10 @@ export {default as Questions} from './User/Questions/Questions';
 export {default as Coupon} from './User/Coupon/Coupon';
 export {default as Receipt} from './User/Receipt/Receipt';
 export {default as Learning} from './User/Learning/Learning';
+export { default as Point } from "./User/Point/Point";
 export {default as NoticeWrite} from './Notice/Write/Write';
 export {default as NoticeDetail} from './Notice/Detail/Detail';
 export {default as Notice} from './Notice/Notice/Notice';
 export {default as CreateCoupon} from './Create/Coupon/Coupon';
+
+;

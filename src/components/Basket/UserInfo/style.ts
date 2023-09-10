@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 
 export const InfoWrap = styled.p`
   position: relative;
-  margin-bottom: 15px;
+  margin-bottom: 1rem;
   line-height: 1;
   color: ${(props: any) => props.theme.black};
 
@@ -13,10 +13,10 @@ export const InfoWrap = styled.p`
 `;
 export const Info = styled.span`
   position: absolute;
-  width: calc(100% - 120px);
+  width: calc(100% - 7.5rem);
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  left: 120px;
+  left: 7.5rem;
   top: 0;
 `;

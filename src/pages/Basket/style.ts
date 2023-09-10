@@ -14,9 +14,9 @@ export const WhiteSmallBg = styled.div`
   }
 `;
 export const Title = styled.h4`
-  font-size: ${(props: any) => props.theme.size20};
+  font-size: 1.25rem;
   color: ${(props: any) => props.theme.black};
-  font-weight: ${(props: any) => props.theme.bold};
+  font-weight: 700;
   margin-bottom: 25px;
   line-height: 1;
 `;
@@ -32,8 +32,8 @@ export const Left = styled.div`
 `;
 export const CheckBox = styled.input`
   appearance: none;
-  width: 16px;
-  height: 16px;
+  width: 1rem;
+  height: 1rem;
   border-radius: 3px;
   cursor: pointer;
   border: 1px solid ${(props: any) => props.theme.borderC};
@@ -73,7 +73,7 @@ export const Product = styled.ul`
 
 export const SubTitle = styled.em`
   color: ${(props: any) => props.theme.black};
-  font-weight: ${(props: any) => props.theme.medium};
+  font-weight: 500;
   line-height: 1;
 `;
 export const Count = styled.p``;
@@ -88,7 +88,7 @@ export const SelectBox = styled.div`
 export const SelectLabel = styled.label<I.Active>`
   width: 100%;
   border: 1px solid ${(props: any) => props.theme.borderC};
-  font-size: ${(props: any) => props.theme.size14};
+  font-size: 0.875rem;
   border-radius: ${(props: any) => (props.$active ? "5px 5px 0 0" : "5px")};
   display: block;
   padding: 0 10px;
@@ -107,19 +107,19 @@ export const Arr = styled(Arrow)<I.Active>`
 `;
 export const SelectBoxUi = styled.ul`
   border: 1px solid ${(props: any) => props.theme.borderC};
-  font-size: ${(props: any) => props.theme.size14};
+  font-size: 0.875rem;
   background: ${(props: any) => props.theme.bgColor};
   color: ${(props: any) => props.theme.black};
   position: absolute;
   width: 100%;
   padding: 15px 15px;
   top: 44px;
-  border-radius: 0 0 10px 10px
+  border-radius: 0 0 10px 10px;
 `;
 
 export const SelectBoxLi = styled.li`
   margin-bottom: 13px;
-  font-size: ${(props: any) => props.theme.size14};
+  font-size: 0.875rem;
   cursor: pointer;
   color: ${(props: any) => props.theme.black};
   &:last-child {
@@ -132,7 +132,7 @@ export const PointInput = styled.input`
   line-height: 45px;
   height: 45px;
   border: 1px solid ${(props: any) => props.theme.borderC};
-  font-size: ${(props: any) => props.theme.size14};
+  font-size: 0.875rem;
   border-radius: 5px;
   padding: 0 10px;
   color: ${(props: any) => props.theme.black};
@@ -156,7 +156,7 @@ export const DisCountInfo = styled.div`
 `;
 export const DisCountInfoLeft = styled.p`
   color: ${(props: any) => props.theme.textRed};
-  font-size: ${(props: any) => props.theme.size14};
+  font-size: 0.875rem;
   display: flex;
   align-items: center;
 `;
@@ -166,7 +166,7 @@ export const CouponDisCount = styled(Coupon)`
 
 export const DisCountInfoRight = styled.p`
   color: ${(props: any) => props.theme.textRed};
-  font-size: ${(props: any) => props.theme.size14};
+  font-size: 0.875rem;
 `;
 export const TotalWrap = styled.div`
   margin-top: 20px;
@@ -178,23 +178,23 @@ export const TotalWrap = styled.div`
 `;
 export const Total = styled.p`
   color: ${(props: any) => props.theme.black};
-  font-weight: ${(props: any) => props.theme.bold};
-  font-size: ${(props: any) => props.theme.size18};
+  font-weight: 700;
+  font-size: 1.125rem;
 `;
 export const Privacy = styled.p`
   margin-top: 10px;
-  font-size: ${(props: any) => props.theme.size14};
+  font-size: 0.875rem;
   > span {
     text-decoration: underline;
   }
 `;
 export const Button = styled.button`
-  width: ${(props: any) => props.theme.size100};
+  width: 100%;
   border-radius: 5px;
   height: 40px;
   margin: 20px auto 0;
   display: block;
-  font-size: ${(props: any) => props.theme.size14};
+  font-size: 0.875rem;
   color: ${(props: any) => props.theme.textWhite};
   background: ${(props: any) => props.theme.brandColor};
 `;

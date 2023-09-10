@@ -18,7 +18,7 @@ const protectedRoute = (component: ReactNode) =>
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <App />,
     errorElement: <Route.NotFound />,
     children: [
@@ -48,25 +48,26 @@ const router = createBrowserRouter([
       {path: 'basket', element: protectedRoute(<Route.Basket />)},
       {path: 'notice', element: protectedRoute(<Route.Notice />)},
       {
-        path: 'noticeWrite',
+        path: "noticeWrite",
         element: protectedRoute(<Route.NoticeWrite />),
       },
-      {path: 'noticeDetail', element: protectedRoute(<Route.NoticeDetail />)},
-      {path: 'lecture', element: <Route.Lecture />},
-      {path: 'detail', element: <Route.DetailPage />},
-      {path: 'createVideo', element: <Route.CreateVideo />},
-      {path: 'profile', element: <Route.Profile />},
-      {path: 'dashboard', element: <Route.Dashboard />},
-      {path: 'notes', element: <Route.Notes />},
-      {path: 'questions', element: <Route.Questions />},
-      {path: 'cert', element: <Route.Cert />},
-      {path: 'certDetail', element: <Route.CertDetail />},
-      {path: 'coupon', element: <Route.Coupon />},
-      {path: 'Receipt', element: <Route.Receipt />},
-      {path: 'learning', element: <Route.Learning />},
-      {path: 'createcoupon', element: <Route.CreateCoupon />},
+      { path: "noticeDetail", element: protectedRoute(<Route.NoticeDetail />) },
+      { path: "lecture", element: <Route.Lecture /> },
+      { path: "detail", element: <Route.DetailPage /> },
+      { path: "createVideo", element: <Route.CreateVideo /> },
+      { path: "profile", element: <Route.Profile /> },
+      { path: "dashboard", element: <Route.Dashboard /> },
+      { path: "notes", element: <Route.Notes /> },
+      { path: "questions", element: <Route.Questions /> },
+      { path: "cert", element: <Route.Cert /> },
+      { path: "certDetail", element: <Route.CertDetail /> },
+      { path: "coupon", element: <Route.Coupon /> },
+      { path: "Receipt", element: <Route.Receipt /> },
+      { path: "learning", element: <Route.Learning /> },
+      { path: "point", element: <Route.Point /> },
+      { path: "createcoupon", element: <Route.CreateCoupon /> },
       {
-        path: 'createVideo',
+        path: "createVideo",
         element: ACCESS_TOKEN ? (
           <Route.CreateVideo />
         ) : (

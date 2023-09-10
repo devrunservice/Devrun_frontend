@@ -21,8 +21,8 @@ export const Img = styled.img`
 export const TitleText = styled.div`
   margin: 20px 0 15px;
   color: ${(props: any) => props.theme.black};
-  font-size: ${(props: any) => props.theme.size16};
-  font-weight: ${(props: any) => props.theme.semiBold};
+  font-size: 1rem;
+  font-weight: 600
   line-height: 22px;
   height: 44px;
   overflow: hidden;
@@ -34,7 +34,7 @@ export const TitleText = styled.div`
 export const TextWrap = styled.div`
   display: flex;
   justify-content: space-between;
-  font-size: ${(props: any) => props.theme.size14};
+  font-size: 0.875rem
   line-height: 1;
 `;
 export const Progress = styled.p``;

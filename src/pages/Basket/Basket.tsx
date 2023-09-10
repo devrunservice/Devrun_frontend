@@ -1,15 +1,29 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { ChangeEvent, useCallback, useEffect,  useState } from "react";
-import { useSelector } from "react-redux";
+import React, {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
+import { useSelector,useDispatch } from "react-redux";
 import { RootState } from "redux/store";
 import { useNavigate } from "react-router-dom";
-import { Cart } from "utils/api";
 import { usePrice, useSelet, useCheck } from "hooks";
+import { decode } from "utils/decode";
+import { Cart } from "utils/api";
 import { Product, UserInfo } from "components";
 import * as I from "types";
 import * as S from "style/Common";
 import * as St from "./style";
+import {
+  getDataLoading,
+} from "../../redux/reducer/mypageReducer";
 
+interface BasketState {
+  price: number;
+  discount: number;
+  discounts: number;
+}
 
 const dataLists = [
   { id: 1, name: "aaa", paid_amount: 80 },
@@ -18,8 +32,15 @@ const dataLists = [
 ];
 
 const Basket = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state: RootState) => state.userReducer.data);
+  const userData = useSelector((state: RootState) => state.mypageReducer.data);
+  const userNum = useSelector((state: RootState) => state.userReducer.data);
+  useEffect(() => {
+     const userId = decode("accessToken");
+     dispatch(getDataLoading({ id: userId }));
+   }, [userData]);
+  console.log(userNum);
   const { mypoint,setMypoint, priceDot,  stringPoint } = usePrice();
   const { seletRef, selets, setSelets, seletLabelRef } = useSelet();
   const {
@@ -36,7 +57,7 @@ const Basket = () => {
    0
  );
   
- const [price, setPrice] = useState<I.Basket>({
+ const [price, setPrice] = useState<BasketState>({
    price: checkPrice,
    discount: 0,
    discounts: 0,
@@ -125,13 +146,19 @@ const Basket = () => {
         pg_provider: response.pg_provider,
         receipt_url: response.receipt_url,
         imp_uid: response.imp_uid,
+        userno: userNum.userNo,
       };
       return index === 0 ? { ...baseData, mypoint: mypoint } : baseData;
     });
     const res = await Cart.callbak({ imp_uid });
     if (paid_amount === res.data.response.amount && success) {
-      await Cart.save(payload);
-      navigate("/learning");
+      try {
+         await Cart.save(payload);
+         navigate("/learning");
+      } catch (error) {
+         alert("결제를 실패했습니다.");
+      }
+     
     } else {
       alert("결제를 취소했습니다.");
     }
@@ -153,9 +180,10 @@ const Basket = () => {
         checkList.length > 1
           ? `${checkList[0].name} 외 ${checkList.length - 1}개`
           : ` ${checkList[0].name}`, // 주문명
-      buyer_name: user.name, // 구매자 이름
-      buyer_tel: user.phonenumber, // 구매자 전화번호
-      buyer_email: user.email, // 구매자 이메일
+      buyer_name: userData.name, // 구매자 이름
+      buyer_tel: "01032633143", // 구매자 전화번호
+      buyer_email: userData.email, // 구매자 이메일
+      
     };
     /* 4. 결제 창 호출하기 */
     IMP.request_pay(data, callback);
@@ -240,7 +268,7 @@ const Basket = () => {
         </St.WhiteSmallBg>
         <St.WhiteSmallBg>
           <St.Title>구매자 정보</St.Title>
-          <UserInfo user={user} />
+          <UserInfo user={userData} />
         </St.WhiteSmallBg>
         <St.WhiteSmallBg>
           <St.Title>할인정보</St.Title>
