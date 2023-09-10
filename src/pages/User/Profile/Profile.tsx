@@ -233,7 +233,6 @@ const Profile = () => {
           <DuplicationForm
             title="이메일"
             inputName="email"
-            btnName="emailDuplicationBtn"
             placeholder="이메일"
             getDuplicationForm={getDuplicationForm}
           />

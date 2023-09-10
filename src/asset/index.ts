@@ -26,4 +26,5 @@ export {ReactComponent as Trash} from './images/trash.svg';
 export {ReactComponent as Close} from './images/close.svg';
 export {ReactComponent as Stamp} from './images/Stamp.svg';
 export {ReactComponent as Email} from './images/Email.svg';
-export {ReactComponent as Signup} from './images/Signup.svg';
+export {ReactComponent as SignupFailure} from './images/SignupFailure.svg';
+export {ReactComponent as SignupSuccess} from './images/SignupSuccess.svg';

@@ -33,8 +33,14 @@ export const signup = {
   },
   sendVerificationEmail: async (params: SignupFormType) => {
     const response = await baseAxios.post(
-      '/signup/resend/confirm-email',
-      params
+      `/signup/resend/confirm-email?email=${params.email}&id=${params.id}`
+    );
+    console.log(response);
+    return response;
+  },
+  checkVerificationEmail: async (id: string, key: string) => {
+    const response = await baseAxios.post(
+      `/verify/signupEmail?id=${id}&key=${key}`
     );
     console.log(response);
     return response;
@@ -79,7 +85,8 @@ export const login = {
     //   },
     // };
     // const response = await baseAxios.post('/logout', null, config);
-    const response = await refreshAxios.post('/authz/logout');
+    const response = await baseAxios.post('/authz/logout');
+    console.log(response);
     return response;
   },
   refreshAccessToken: async (params: string) => {

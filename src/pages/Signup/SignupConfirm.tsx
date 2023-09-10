@@ -1,15 +1,22 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import {useParams} from 'react-router-dom';
 import {Email} from 'asset';
+import {crypto} from 'utils/crypto';
+import {Modal, EmailVerification} from 'components';
 import * as St from './styles';
 
 const SignupConfirm = () => {
-  const handleClick = () => {
-    // signup.sendVerificationEmail({
-    //   id,
-    //   email,
-    // });
-  };
+  const {user} = useParams();
+  console.log(user);
+
+  const [userData, setUserData] = useState();
+
+  useEffect(() => {
+    const decryptedUserData = user ? crypto.decryptedUserData(user) : null;
+    setUserData(decryptedUserData);
+    console.log(userData);
+  }, []);
 
   return (
     <St.Section page="signupConfirm">
@@ -25,8 +32,9 @@ const SignupConfirm = () => {
           <p>1시간 이내 회원가입 완료를 위한 이메일 인증을 진행 해 주세요.</p>
           <p>문의 사항은 devrun66@gmail.com 으로 보내주시기 바랍니다.</p>
         </St.TextArea>
-        <St.EmailBtn onClick={handleClick}>이메일 다시 보내기</St.EmailBtn>
+        {userData && <EmailVerification userData={userData} />}
       </St.Container>
+      <Modal page="signupconfirm" />
     </St.Section>
   );
 };

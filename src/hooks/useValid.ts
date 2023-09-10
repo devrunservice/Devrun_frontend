@@ -10,12 +10,14 @@ import {
 } from '../redux/reducer/validationReducer';
 
 const useValid = (form: SignupFormType) => {
+  console.log(form);
   const dispatch = useDispatch();
   const validState = useSelector(
     (state: RootState) => state.validationReducer.validState
   );
 
   const updateValid = (name: string, state: boolean) => {
+    console.log(name, status);
     dispatch(updateValidState({name, value: state}));
   };
   const updateMessage = (name: string, message: string) => {
@@ -83,10 +85,6 @@ const useValid = (form: SignupFormType) => {
       updateValid('password', true);
     }
 
-    console.log(
-      `password: ${form.password}, passwordConfirm: ${form.passwordConfirm}`
-    );
-
     if (form.password !== form.passwordConfirm) {
       updateMessage('passwordConfirmMessage', '비밀번호가 일치하지 않습니다.');
       updateValid('passwordConfirm', false);
@@ -98,6 +96,7 @@ const useValid = (form: SignupFormType) => {
   // 이메일 유효성 검사
   useEffect(() => {
     const regex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+    console.log(form.email);
 
     if (!regex.test(form.email || '')) {
       updateMessage('emailMessage', '올바른 이메일 형식이 아닙니다.');
