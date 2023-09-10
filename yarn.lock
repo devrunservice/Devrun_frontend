@@ -3024,6 +3024,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/crypto-js@npm:^4.1.2":
+  version: 4.1.2
+  resolution: "@types/crypto-js@npm:4.1.2"
+  checksum: 9a39c6627186f53a1885647889ee376f5858604316023ff2c8226869ad51c9c57ff49bd730deaa751f729fbf611296896e1392862752c5ae9fadf61c64ef3fd2
+  languageName: node
+  linkType: hard
+
 "@types/emscripten@npm:^1.39.6":
   version: 1.39.6
   resolution: "@types/emscripten@npm:1.39.6"
@@ -5456,6 +5463,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"crypto-js@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "crypto-js@npm:4.1.1"
+  checksum: b3747c12ee3a7632fab3b3e171ea50f78b182545f0714f6d3e7e2858385f0f4101a15f2517e033802ce9d12ba50a391575ff4638c9de3dd9b2c4bc47768d5425
+  languageName: node
+  linkType: hard
+
 "crypto-random-string@npm:^2.0.0":
   version: 2.0.0
   resolution: "crypto-random-string@npm:2.0.0"
@@ -6033,6 +6047,7 @@ __metadata:
     "@testing-library/react": ^13.0.0
     "@testing-library/user-event": ^13.2.1
     "@types/base-64": ^1.0.0
+    "@types/crypto-js": ^4.1.2
     "@types/file-saver": ^2.0.5
     "@types/html2canvas": ^1.0.0
     "@types/jest": ^29.5.2
@@ -6052,6 +6067,7 @@ __metadata:
     axios: ^1.4.0
     base-64: ^1.0.0
     chart.js: ^4.3.0
+    crypto-js: ^4.1.1
     eslint: ^8.43.0
     eslint-config-airbnb: ^19.0.4
     eslint-config-airbnb-typescript: ^17.0.0

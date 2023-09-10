@@ -32,7 +32,7 @@ const Modal = ({page}: {page?: string}) => {
   );
 
   const handleKeyUp = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
+    if (e.key === 'Escape' || e.key === 'Enter') {
       dispatch(closeModal());
     }
   };
@@ -47,7 +47,13 @@ const Modal = ({page}: {page?: string}) => {
     }
 
     // 토큰 조작 및 Refresh Token 만료 및 알 수 없는 에러가 발생했을 시
-    if (page === 'home') {
+    // if (page === 'home') {
+    //   dispatch(logoutLoading());
+    // }
+    if (
+      modalMessage1 === '알 수 없는 오류가 발생했습니다.' ||
+      modalMessage1 === '이미 로그인 된 다른 기기가 있습니다.'
+    ) {
       dispatch(logoutLoading());
     }
 
