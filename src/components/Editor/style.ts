@@ -2,23 +2,23 @@ import { styled } from "styled-components";
 import ReactQuill from "react-quill";
 
 
-export const EditorWrap = styled.div``;
 export const Editor = styled(ReactQuill)`
+  min-height: 31.25rem;
   .ql-editor {
-    min-height: 500px;
+    min-height: 31.25rem;
   }
-  .ql-toolbar.ql-snow,
-  .ql-container.ql-snow {
-    border: 1px solid #ddd;
+  .qeSL .ql-toolbar.ql-snow,
+  .qeSL .ql-container.ql-snow {
+    border: 1px solid ${(props: any) => props.theme.borderC};
   }
 `;
 
 export const TitleInput = styled.input`
-  width: ${(props: any) => props.theme.size100};
-  height: 50px;
+  width: 100%;
+  height: 3.125rem;
   border: 1px solid ${(props: any) => props.theme.borderC};
   border-bottom: 0;
-  padding: 12px 15px;
+  padding: 0.75rem 1rem;
   outline: 0;
 `;
 

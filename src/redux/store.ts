@@ -14,7 +14,12 @@ import {
   watchUpdateEmailSaga,
   watchUpdatePhonenumberSaga,
   watchUpdateProfileImageSaga,
+  
 } from "./saga/mypageSaga";
+import mentoCouponSaga from "./saga/mentoCouponSaga";
+import couponSaga from "./saga/couponSaga";
+import pointSaga from "./saga/pointSaga";
+
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -28,6 +33,9 @@ export function* rootSaga() {
     watchUpdateEmailSaga(),
     watchUpdatePhonenumberSaga(),
     watchUpdateProfileImageSaga(),
+    mentoCouponSaga(),
+    couponSaga(),
+    pointSaga()
   ]);
 }
 

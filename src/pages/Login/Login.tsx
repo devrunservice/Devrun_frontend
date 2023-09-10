@@ -1,15 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {getCookie} from 'utils/cookies';
 import {redirect} from 'utils/redirect';
+import { login } from "utils/api";
 import {BrandLogo, Kakao, Naver, Google} from 'asset';
 import {SignupFormType, LoginFormType} from 'types';
 import {PasswordInput, Modal} from 'components';
 import {Input} from 'style/Common';
-import {loginLoading} from '../../redux/reducer/loginReducer';
+
 import * as St from './styles';
+
+import { loginLoading } from "../../redux/reducer/loginReducer";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -23,7 +26,7 @@ const LoginForm = () => {
   const loginErrorMessage = useSelector(
     (state: RootState) => state.userReducer.error
   );
-
+  
   const easyLoginToken = getCookie('easyLoginToken');
 
   const isFormValid = loginForm.id !== '' && loginForm.password !== '';
@@ -36,6 +39,7 @@ const LoginForm = () => {
         password: loginForm.password,
       })
     );
+    
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

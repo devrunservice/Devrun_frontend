@@ -36,7 +36,8 @@ const App = () => {
     location.pathname === '/questions' ||
     location.pathname === '/coupon' ||
     location.pathname === '/receipt' ||
-    location.pathname === '/createcoupon';
+    location.pathname === '/createcoupon'||
+     location.pathname === '/point';
 
   return (
     <>

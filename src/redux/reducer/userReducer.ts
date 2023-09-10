@@ -10,6 +10,7 @@ const initialState: ITmi = {
     birthday: "",
     phonenumber: "",
     role: "",
+    userNo:0,
   },
   error: null,
   loading: false,
@@ -31,6 +32,7 @@ const userTmiSlice = createSlice({
       state.data.birthday = action.payload.data.birthday.split("T")[0];
       state.data.phonenumber = action.payload.data.phonenumber;
       state.data.role = action.payload.data.role;
+      state.data.userNo = action.payload.data.userNo;
     },
     userTmiRejected: (state, action) => {
       console.log(action);

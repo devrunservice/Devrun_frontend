@@ -76,7 +76,7 @@ export const InputNotice = styled.p`
   align-items: center;
   color: #555555;
   margin-top: 10px;
-  font-size: ${(props) => props.theme.size14};
+  font-size: 0.875rem;
   svg {
     margin-right: 5px;
   }

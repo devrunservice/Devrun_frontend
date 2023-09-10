@@ -41,7 +41,7 @@ const Header = () => {
       <Modal page="home" />
       <St.InnerHeader>
         <St.NavWrap>
-          <St.LogoIcon onClick={() => navigate('/')}>
+          <St.LogoIcon onClick={() => navigate("/")}>
             <img src={Logo} alt="로고" />
           </St.LogoIcon>
           <St.CategoryWrap>
@@ -91,7 +91,7 @@ const Header = () => {
                       </St.TextWrap>
                     </St.CartLi>
                   </St.CartUl>
-                  <St.CartButton onClick={() => navigate('/basket')}>
+                  <St.CartButton onClick={() => navigate("/basket")}>
                     장바구니에서 전체보기
                   </St.CartButton>
                 </St.CartHover>
@@ -103,7 +103,7 @@ const Header = () => {
                 <St.Dropdown>
                   <St.DropdownTop>
                     <St.DropdownItemWrapper>
-                      <St.DropdownItemBtn onClick={() => navigate('/profile')}>
+                      <St.DropdownItemBtn onClick={() => navigate("/profile")}>
                         {userData.id}
                       </St.DropdownItemBtn>
                       {/* <p>{userData.role}</p> */}
@@ -121,7 +121,7 @@ const Header = () => {
                 로그인
               </Button>
               <Button
-                onClick={() => navigate('/signup')}
+                onClick={() => navigate("/signup")}
                 type="button"
                 $active={false}
               >

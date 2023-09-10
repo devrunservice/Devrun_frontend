@@ -1,12 +1,18 @@
 import  { useState, useRef, useEffect, useCallback } from "react";
-import * as I from "types"
+
+
+interface Selet {
+  seletsBoolean: boolean;
+  seletes: string;
+}
+
 
 const useSelet = () => {
   // 셀렉트박스 닫을때.
   const seletRef = useRef<HTMLUListElement>(null);
   const seletLabelRef = useRef<HTMLLabelElement>(null);
   ;
-  const [selets, setSelets] = useState<I.Selet>({
+  const [selets, setSelets] = useState<Selet>({
     seletsBoolean: false,
     seletes: "",
   });

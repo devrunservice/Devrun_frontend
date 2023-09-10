@@ -27,11 +27,9 @@ const mypageReduer = createSlice({
   initialState,
   reducers: {
     getDataLoading: (state, action) => {
-      console.log('Try to get user data');
       state.loading = true;
     },
     getDataSuccess: (state, action) => {
-      console.log('Success to get user data');
       state.loading = false;
       state.data.id = action.payload.data.id;
       state.data.name = action.payload.data.name;
@@ -55,7 +53,6 @@ const mypageReduer = createSlice({
     },
     updateEmailFail: (state, action) => {
       state.loading = false;
-      console.log(action.payload);
       state.error = action.payload;
     },
     updatePhonenumberLoading: (state, action) => {
@@ -70,11 +67,9 @@ const mypageReduer = createSlice({
       state.error = action.payload;
     },
     updateProfileImageLoading: (state, action) => {
-      console.log('이미지 수정 리듀서 시작');
       state.loading = true;
     },
     updateProfileImageSuccess: (state, action) => {
-      console.log(action.payload);
       state.loading = false;
       state.data.profileImage = action.payload.data.profileimg;
     },
