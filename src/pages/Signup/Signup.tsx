@@ -6,6 +6,7 @@ import {RootState} from 'redux/store';
 import useValid from 'hooks/useValid';
 import useCheckbox from 'hooks/useCheckbox';
 import {signup} from 'utils/api';
+import {crypto} from 'utils/crypto';
 import {
   PasswordInput,
   AuthenticationNumber,
@@ -87,7 +88,11 @@ const Signup = () => {
       if (response.status === 200) {
         dispatch(setSignupSuccess(true));
         // dispatch(openModal('회원가입이 완료되었습니다.'));
-        navigate('/signupconfirm');
+        const params = crypto.encryptedUserData({
+          id: signupForm.id,
+          email: signupForm.email,
+        });
+        navigate(`/signupconfirm/${params}`);
       }
     } catch (error: any) {
       console.error(error);
@@ -159,6 +164,15 @@ const Signup = () => {
     }
   };
 
+  useEffect(() => {
+    const params = crypto.encryptedUserData({
+      id: signupForm.id,
+      email: signupForm.email,
+    });
+    console.log(params);
+    console.log(params && crypto.decryptedUserData(params));
+  }, [signupForm.id, signupForm.email]);
+
   return (
     <St.Section page="signup">
       <St.Container>
@@ -168,7 +182,6 @@ const Signup = () => {
           <DuplicationForm
             title="아이디"
             inputName="id"
-            btnName="idDuplicationBtn"
             placeholder="영문, 숫자 5-13자"
             getDuplicationForm={getDuplicationForm}
           />
@@ -212,8 +225,7 @@ const Signup = () => {
           <DuplicationForm
             title="이메일"
             inputName="email"
-            btnName="emailDuplicationBtn"
-            placeholder="이메일"
+            placeholder="이메일 입력"
             getDuplicationForm={getDuplicationForm}
           />
 

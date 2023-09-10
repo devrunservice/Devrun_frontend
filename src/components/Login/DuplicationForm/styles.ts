@@ -1,5 +1,5 @@
-import { styled } from "styled-components";
-import { Input } from "style/Common";
+import {styled} from 'styled-components';
+import {Input} from 'style/Common';
 
 export const Button = styled.button`
   /* width: 100%; */
@@ -14,18 +14,32 @@ export const InputField = styled.div`
   margin-bottom: 0.6rem;
 `;
 
-export const Field = styled.div`
+export const Field = styled.div<{option?: string}>`
   display: flex;
+  justify-content: ${(props) => props.option === 'email' && 'space-around'};
+  align-items: ${(props) => props.option === 'email' && 'center'};
   margin-bottom: 0.6rem;
 
   & > ${Input} {
-    width: 75%;
-    margin: 0 1.5rem 0 0;
+    width: ${(props) => (props.option === 'email' ? '32%' : '75%')};
+    margin-right: ${(props) => props.option !== 'email' && '1.5rem'};
+  }
+
+  & > select {
+    width: ${(props) => (props.option === 'email' ? '32%' : '0')};
+    height: 3rem;
+    border-radius: 5px;
   }
 
   & > ${Button} {
     width: 25%;
+    height: 3rem;
     color: ${(props) => props.theme.textWhite};
     background-color: ${(props) => props.theme.brandColor};
+  }
+
+  & > p {
+    width: ${(props) => (props.option === 'email' ? '5%' : '0')};
+    text-align: center;
   }
 `;
