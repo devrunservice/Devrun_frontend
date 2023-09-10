@@ -18,10 +18,6 @@ export const imageAxios = axios.create({
   withCredentials: true,
 });
 
-export const refreshAxios = axios.create({
-  baseURL: `${process.env.REACT_APP_SERVER_URL}`,
-  withCredentials: true,
-});
 
 baseAxios.interceptors.request.use(
   (config) => {
@@ -96,12 +92,27 @@ baseAxios.interceptors.response.use(
             );
           case 'Refresh token is required':
           case 'Unauthorized request':
+          case 'Member not found':
             return Promise.reject(new Error('알 수 없는 오류가 발생했습니다.'));
           case 'KakaoLogin failed':
           case 'Invalid request':
             return Promise.reject(
               new Error(
                 '카카오 로그인 과정에서 오류가 발생했습니다./처음부터 다시 시도해주세요.'
+              )
+            );
+          case 'Either Email or Phonenumber should be provided, not both or none.':
+            return Promise.reject(new Error('모든 양식을 작성해주세요.'));
+          case 'Invalid key':
+            return Promise.reject(
+              new Error(
+                '알 수 없는 에러가 발생했습니다./devrun66@gmail.com로 문의 바랍니다.'
+              )
+            );
+          case 'Verification expired':
+            return Promise.reject(
+              new Error(
+                '이메일 인증 시간이 초과되었습니다/devrun66@gmail.com로 문의 바랍니다.'
               )
             );
           default:
@@ -152,8 +163,24 @@ baseAxios.interceptors.response.use(
             return Promise.reject(new Error('알 수 없는 오류가 발생했습니다.'));
           case 'Login attempts exceeded':
             return Promise.reject(new Error('로그인 횟수를 초과했습니다.'));
+          case 'Verification failed':
+            return Promise.reject(
+              new Error(
+                '잘못된 인증번호 입니다./인증번호 확인 후 다시 입력하여 주십시오.'
+              )
+            );
           case 'Verification failed Email':
-            return Promise.reject(new Error('잘못된 정보입니다.'));
+            return Promise.reject(
+              new Error(
+                '알 수 없는 오류가 발생했습니다./인증번호를 다시 받아주세요.'
+              )
+            );
+          case 'Failed to send email':
+            return Promise.reject(
+              new Error(
+                '인증 메일 전송에 실패했습니다./인증번호를 다시 받아주세요.'
+              )
+            );
           default:
             break;
         }
@@ -214,7 +241,12 @@ authAxios.interceptors.response.use(
       case 401:
         switch (errorMessage) {
           case 'Token is expired':
-            response = await refreshAxios.post("/authz/token/refresh");
+            // response = await baseAxios.post("/token/refresh", null, {
+            //   headers: { Refresh_token: `Bearer ${refreshToken}` },
+            // });
+
+            response = await baseAxios.post('/authz/token/refresh');
+            console.log(response);
             newAccessToken = response.data.Access_token.substr(7);
             setCookie('accessToken', newAccessToken, {
               path: '/',
@@ -238,7 +270,9 @@ authAxios.interceptors.response.use(
           case 'Logout user':
             return Promise.reject(new Error('이미 로그아웃 됐습니다.'));
           case 'Duplicate login detected':
-            return Promise.reject(new Error('이미 로그인이 되어 있습니다.'));
+            return Promise.reject(
+              new Error('이미 로그인 된 다른 기기가 있습니다.')
+            );
           default:
             break;
         }

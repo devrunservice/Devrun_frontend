@@ -22,17 +22,31 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <Route.NotFound />,
     children: [
-      { index: true, element: <Route.HomePage /> },
-      { path: "home", element: <Route.HomePage /> },
-      { path: "login", element: <Route.Login /> },
-      { path: "auth/kakao/callback", element: <Route.Auth2RedirectHandler /> },
-      { path: "signup", element: <Route.Signup /> },
-      { path: "signupconfirm", element: <Route.SignupConfirm /> },
-      { path: "Signupcompletion", element: <Route.SignupCompletion /> },
-      { path: "findaccount/id", element: <Route.FindId /> },
-      { path: "findaccount/password", element: <Route.FindPassword /> },
-      { path: "basket", element: protectedRoute(<Route.Basket />) },
-      { path: "notice", element: protectedRoute(<Route.Notice />) },
+      {index: true, element: <Route.HomePage />},
+      {
+        path: 'home',
+        element: ACCESS_TOKEN ? (
+          <Route.HomePage />
+        ) : (
+          <Navigate replace to="/login" />
+        ),
+      },
+      {path: 'login', element: <Route.Login />},
+      {path: 'auth/kakao/callback', element: <Route.Auth2RedirectHandler />},
+      {path: 'signup', element: <Route.Signup />},
+      {path: 'signupconfirm/:user', element: <Route.SignupConfirm />},
+      {
+        path: 'signupverification',
+        element: <Route.Signup2RedirectHandler />,
+      },
+      {
+        path: 'Signupcompletion',
+        element: <Route.SignupCompletion />,
+      },
+      {path: 'findaccount/id', element: <Route.FindId />},
+      {path: 'findaccount/password', element: <Route.FindPassword />},
+      {path: 'basket', element: protectedRoute(<Route.Basket />)},
+      {path: 'notice', element: protectedRoute(<Route.Notice />)},
       {
         path: "noticeWrite",
         element: protectedRoute(<Route.NoticeWrite />),

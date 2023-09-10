@@ -9,9 +9,10 @@ import {redirect} from 'utils/redirect';
 import NoImg from 'asset/images/NoImg.jpg';
 import Logo from 'asset/images/Logo.png';
 import Modal from 'components/Login/Modal/Modal';
-import { Button } from 'style/Common';
+import {Button} from 'style/Common';
 import * as St from './style';
-import {userTmiPending} from '../../redux/reducer/userReducer';
+// import {userTmiPending} from '../../redux/reducer/userReducer';
+import {getDataLoading} from '../../redux/reducer/mypageReducer';
 import {logoutLoading} from '../../redux/reducer/loginReducer';
 
 const Header = () => {
@@ -20,13 +21,14 @@ const Header = () => {
 
   const [cookie, setCookie] = useState<boolean>(false);
 
-  const userData = useSelector((state: RootState) => state.userReducer.data);
-  
+  const userData = useSelector((state: RootState) => state.mypageReducer.data);
+
   useEffect(() => {
     if (getCookie('accessToken')) {
       setCookie(true);
       const userId = decode('accessToken');
-      dispatch(userTmiPending(userId));
+      dispatch(getDataLoading({id: userId}));
+      console.log(userData);
     }
   }, []);
 
@@ -104,7 +106,7 @@ const Header = () => {
                       <St.DropdownItemBtn onClick={() => navigate("/profile")}>
                         {userData.id}
                       </St.DropdownItemBtn>
-                      <p>{userData.role}</p>
+                      {/* <p>{userData.role}</p> */}
                     </St.DropdownItemWrapper>
                     <St.DropdownItemBtn onClick={handleLogout}>
                       로그아웃
@@ -115,7 +117,7 @@ const Header = () => {
             </St.NavWrap>
           ) : (
             <St.ButtonWrap>
-              <Button onClick={() => redirect("/login")} type="button" $active>
+              <Button onClick={() => redirect('/login')} type="button" $active>
                 로그인
               </Button>
               <Button

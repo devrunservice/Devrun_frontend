@@ -7,6 +7,7 @@ export { default as Editor } from "./Editor/Editor";
 export { default as Comment } from "./Comment/Comment";
 export { default as CreateNewVideo } from "./CreateNewVideo/CreateNewVideo";
 export { default as CreateVideoTwo } from "./CreateVideoTwo/CreateVideoTwo";
+export { default as EmailVerification } from "./Signup/EmailVerification";
 export { default as PasswordInput } from "./Login/PasswordInput/PasswordInput";
 export { default as AuthenticationNumber } from "./Login/AuthenticationNumber/AuthenticationNumber";
 export { default as DuplicationForm } from "./Login/DuplicationForm/DuplicationForm";
@@ -27,5 +28,3 @@ export { default as UserInfo } from "./Basket/UserInfo/UserInfo";
 export { default as Product } from "./Basket/Product/Product";
 export { default as ProfileForm } from "./ProfileForm/ProfileForm";
 export { default as CouponList } from "./CouponList/CouponList";
-
-;
