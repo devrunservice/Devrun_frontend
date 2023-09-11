@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import * as St from "./style";
 
@@ -53,6 +53,7 @@ const MypageNav = () => {
             >
               수료증
             </St.AsideBtn>
+
             <St.AsideBtn
               onClick={() => navigate("/coupon")}
               $active={local === "/coupon"}
@@ -60,15 +61,21 @@ const MypageNav = () => {
               쿠폰함
             </St.AsideBtn>
             <St.AsideBtn
+              onClick={() => navigate("/point")}
+              $active={local === "/point"}
+            >
+              포인트
+            </St.AsideBtn>
+            <St.AsideBtn
               onClick={() => navigate("/receipt")}
               $active={local === "/receipt"}
             >
               구매 내역
             </St.AsideBtn>
-            {/* <St.AsideBtn onClick={() => navigate("")}>문의 내역</St.AsideBtn> */}
           </St.AsideUl>
         </>
       )}
+
       {userData.role === "MENTO" && (
         <St.AsideUl>
           <St.AsideTit>강의관리</St.AsideTit>

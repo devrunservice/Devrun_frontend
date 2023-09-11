@@ -13,37 +13,37 @@ export const TapWrap = styled.div`
 `;
 export const Left = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 0.625rem;
   align-items: center;
 `;
 export const Btn = styled.button<I.Active>`
   border-radius: 5px;
-  width: ${(props: any) => props.theme.size85};
+  width: 5.3125rem;
   color: ${(props: any) =>
     props.$active ? props.theme.textWhite : props.theme.brandColor};
   border: 1px solid ${(props: any) => props.theme.brandColor};
 
   background: ${(props: any) =>
     props.$active ? props.theme.brandColor : props.theme.textWhite};
-  height: 40px;
+  height: 2.5rem;
 `;
 export const Tap = styled.div<I.Active>`
-  width: ${(props: any) => props.theme.size95};
+  width: 5.9375rem;
   border: 1px solid ${(props: any) => props.theme.borderC};
-  height: 40px;
+  height: 2.5rem;
   position: relative;
   box-sizing: content-box;
   border-radius: ${(props: any) => (props.$active ? "5px 5px 0 0" : "5px")};
 `;
 export const TapLabel = styled.p`
-  font-size: ${(props: any) => props.theme.size14};
-  line-height: 40px;
-  padding-left: 10px;
+  font-size: 0.875rem;
+  line-height: 2.5rem;
+  padding-left: 0.625rem;
   cursor: pointer;
 `;
 export const Arr = styled(Arrow)<I.Active>`
   position: absolute;
-  right: 10px;
+  right: 0.625rem;
   bottom: 0;
   top: 0;
   margin: auto 0;
@@ -53,23 +53,40 @@ export const Arr = styled(Arrow)<I.Active>`
 export const TapUl = styled.ul`
   position: absolute;
   border: 1px solid ${(props: any) => props.theme.borderC};
-  width: ${(props: any) => props.theme.size100};
-  top: 40px;
-  padding: 8px 0;
+  width: 100%;
+  top: 2.5rem;
+  padding: 0.625rem 0;
   box-sizing: content-box;
   left: -1px;
 `;
 export const TapLi = styled.li`
-  font-size: ${(props: any) => props.theme.size14};
+  font-size: 0.875rem
   cursor: pointer;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 10px;
+  height: 2rem;
+  line-height: 2rem;
+  padding-left: 0.625rem;
 `;
 
 export const LearnUl = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
-  min-height: 861px;
+  gap: 1.875rem;
+  min-height: 53.8125rem;
+`;
+
+
+export const Top = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  margin-bottom: 1.875rem;
+`;
+export const Title = styled.h4`
+  line-height: 1;
+  font-size: 1.5625rem;
+  font-weight: 700;
+  color: ${(props: any) => props.theme.black};
+  display: flex;
+  align-items: flex-end;
 `;

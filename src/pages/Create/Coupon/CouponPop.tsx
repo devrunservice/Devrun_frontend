@@ -10,8 +10,16 @@ import * as I from "types"
 import * as St from "./style"
 
 
+interface CouponDate {
+  day: number;
+  year: number;
+  month: number;
+}
+interface CouponRegistration {
+  setCoupon: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-const CouponPop = (props: I.CouponRegistration) => {
+const CouponPop = (props: CouponRegistration) => {
   const { seletRef, selets, setSelets, seletLabelRef } = useSelet();
     const { getYear, getMonth, getdate } = useDate();
     const closeBtn = useCallback(() => {
@@ -36,7 +44,7 @@ const CouponPop = (props: I.CouponRegistration) => {
     const yearRef = useRef<HTMLInputElement>(null);
     const monthRef = useRef<HTMLInputElement>(null);
     const dayRef = useRef<HTMLInputElement>(null);
-    const [date, setdate] = useState<I.CouponDate>({
+    const [date, setdate] = useState<CouponDate>({
         day:0,
         year:0,
         month:0
@@ -119,7 +127,7 @@ const CouponPop = (props: I.CouponRegistration) => {
           date.day === 0||
           Number(quantity) ===0
         )return alert("빈칸을 작성해주세요");
-          const creates: I.createCoupon = {
+          const creates: I.CreateCoupon = {
             discountrate: discountrate,
             issueduser: 999,
             issueddate: `${getYear}-${getMonths}-${getDays}`,

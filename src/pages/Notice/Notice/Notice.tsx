@@ -1,35 +1,39 @@
-import React from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useState,useEffect,useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { Table, Pagination } from "components";
+import { Pagination, UserTop, NoticeTable } from "components";
 import usePage from "hooks/usePage";
+import { notice } from "utils/api";
 import * as S from "style/Common";
-import * as St from "./style";
 
 const Notice = () => {
   const navigate = useNavigate();
-  const { activePage, setActivePage, limit } = usePage();
+  const { pageno, setPageno } = usePage();
+  const [data, setData] = useState();
+  const dataList = useCallback(async () => {
+    const res = await notice.list();
+    setData(res.data);
+  }, [ data]);
+  useEffect(() => {
+    dataList();
+  }, []);
+  console.log(data);
   return (
     <S.Inner>
-      <St.Title>공지사항</St.Title>
-      <Table
-        link="공지사항"
-        name="사람이름"
-        date="2023.07.21"
-        title="1"
-        view={1}
-        num={1}
-      />
+      <UserTop title="공지사항" sub="전체" />
 
-      <St.ButtonWrap>
-        <S.Button $active type="button" onClick={() => navigate("/noticeWrite")}>
+      <NoticeTable title="공지사항" data="as" />
+
+      <S.ButtonWrap>
+        <S.Button
+          $active
+          type="button"
+          onClick={() => navigate("/noticeWrite")}
+        >
           글쓰기
         </S.Button>
-      </St.ButtonWrap>
-      <Pagination
-        activePage={activePage}
-        setActivePage={setActivePage}
-        limit={limit}
-      />
+      </S.ButtonWrap>
+      {/* <Pagination pageno={pageno} setPageno={setPageno} data={data} /> */}
     </S.Inner>
   );
 };

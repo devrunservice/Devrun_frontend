@@ -24,7 +24,6 @@ function* getUserDataSaga(
 ): Generator<any, void, any> {
   try {
     const response = yield call(mypage.profile, action.payload);
-    console.log(response);
     yield put(getDataSuccess(response));
   } catch (error: any) {
     console.log(error);
@@ -38,7 +37,6 @@ function* updateEmailSaga(
 ): Generator<any, void, any> {
   try {
     const response = yield call(mypage.updateEmail, action.payload);
-    console.log(response);
     yield put(updateEmailSuccess(response));
   } catch (error: any) {
     yield put(updateEmailFail(error));
@@ -50,7 +48,6 @@ function* updatePhonenumberSaga(
 ): Generator<any, void, any> {
   try {
     const response = yield call(mypage.updatePhonenumber, action.payload);
-    console.log(response);
     yield put(updatePhonenumberSuccess(response));
   } catch (error) {
     yield put(updatePhonenumberFail(error));
@@ -62,12 +59,9 @@ function* updateProfileImageSaga(
   action: PayloadAction<FormData>
 ): Generator<any, void, any> {
   try {
-    console.log('이미지 수정 사가 시작');
     const response = yield call(mypage.updateProfileImage, action.payload);
-    console.log(response);
     yield put(updateProfileImageSuccess(response));
   } catch (error) {
-    console.log(error);
     yield put(updateProfileImageFail(error));
     yield put(openModal(error));
   }

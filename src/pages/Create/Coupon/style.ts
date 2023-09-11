@@ -28,8 +28,8 @@ export const PopupBg = styled.div`
   cursor:pointer
 `
 export const Popup = styled.div`
-  width: 400px;
-  height: 510px;
+  width: 25rem;
+  height: 34.0625rem;
   background: ${(props: any) => props.theme.bgColor};
   position: absolute;
   top: 0;
@@ -37,12 +37,12 @@ export const Popup = styled.div`
   left: 0;
   right: 0;
   margin: auto;
-  border-radius:10px;
+  border-radius: 10px;
 `;
 export const Title = styled.h4`
   color: ${(props: any) => props.theme.black};
-  font-weight: ${(props: any) => props.theme.semiBold};
-  font-size: ${(props: any) => props.theme.size16};
+  font-weight: 600;
+  font-size: 1rem;
   margin: 1.25rem 1.25rem;
   display: flex;
   align-items: center;
@@ -72,11 +72,11 @@ export const PopCon = styled.form`
 `;
 
 export const Label = styled.label`
-  font-size: ${(props: any) => props.theme.size14};
+  font-size: 0.875rem;
   color: ${(props: any) => props.theme.black};
-  font-weight: ${(props: any) => props.theme.medium};
+  font-weight: 500;
   line-height:1;
-  margin-bottom:13px;
+  margin-bottom:1rem;
   display:block;
 `;
 export const InputWrap = styled.div`
@@ -90,8 +90,8 @@ export const InputWrap = styled.div`
 
 export const Input = styled.input`
   width: 100%;
-  height: ${(props: any) => props.theme.size40};
-  padding: 0 10px;
+  height: 2.5rem;
+  padding: 0 0.625rem;
   border: 1px solid ${(props: any) => props.theme.borderC};
   outline: 0;
   border-radius: 5px;
@@ -113,18 +113,18 @@ export const Btn = styled(Button)`
 export const SelectTitle = styled.label<I.Active>`
   width: 100%;
   border: 1px solid ${(props: any) => props.theme.borderC};
-  font-size: ${(props: any) => props.theme.size14};
+  font-size: 0.875rem;
   border-radius: ${(props: any) => (props.$active ? "5px 5px 0 0" : "5px")};
   display: block;
-  padding: 0 10px;
-  line-height: 40px;
-  height: 40px;
+  padding: 0 0.625rem;
+  line-height: 2.5rem;
+  height: 2.5rem;
   cursor: pointer;
 `;
 
 export const Arr = styled(Arrow)<I.Active>`
   position: absolute;
-  right: 10px;
+  right: 0.625rem;
   bottom: 0;
   top: 0;
   margin: auto 0;
@@ -132,24 +132,24 @@ export const Arr = styled(Arrow)<I.Active>`
   transition: all 0.3s;
 `;
 export const SelectBox = styled.div`
-  margin: 15px 0 20px;
+  margin: 1rem 0 2.5rem;
   position: relative;
 `;
 export const SelectBoxUi = styled.ul`
   border: 1px solid ${(props: any) => props.theme.borderC};
-  font-size: ${(props: any) => props.theme.size14};
+  font-size: 0.875rem;
   background: ${(props: any) => props.theme.bgColor};
   color: ${(props: any) => props.theme.black};
   position: absolute;
   width: 100%;
-  padding: 15px 15px;
-  top: 39px;
+  padding: 1rem 1rem;
+  top: 2.4375rem;
   border-radius: 0 0 5px 5px;
 `;
 
 export const SelectBoxLi = styled.li`
   margin-bottom: 13px;
-  font-size: ${(props: any) => props.theme.size14};
+  font-size: 0.875rem
   cursor: pointer;
   color: ${(props: any) => props.theme.black};
   &:last-child {

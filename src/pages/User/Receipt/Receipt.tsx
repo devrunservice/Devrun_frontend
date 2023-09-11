@@ -1,41 +1,29 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useState } from "react";
+
+import React, { useCallback, useState, useEffect } from "react";
 import { mypage } from "utils/api";
-import { ReceiptTable, Pagination, UserTop } from "components";
-import * as I from "types"
+import { ReceiptTable, UserTop, Pagination } from "components";
+import * as I from "types";
 import usePage from "hooks/usePage";
 
 const Receipt = () => {
-  const [data, setData] = useState<I.Receipt[]>([]);
-  const { limit, activePage, offset, setActivePage } = usePage();
-  // 반환값
+  const [data, setData] = useState<I.Receipt>();
+  const { pageno, setPageno } = usePage();
+  const dataList = useCallback(async () => {
+    const res = await mypage.pay({ pageno });
+    setData(res.data);
+  }, [pageno, data]);
   useEffect(() => {
-    const payList = async () => {
-      try {
-        const res = await mypage.pay();
-        setData(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    payList();
-  }, []);
-  
+    dataList();
+  }, [pageno]);
   return (
     <section>
-      <UserTop title="구매내역" count={data} sub="전체" />
-      <ReceiptTable
-        data={data}
-        offset={offset}
-        limit={limit}
-        setData={setData}
-      />
-      <Pagination
-        data={data}
-        limit={limit}
-        activePage={activePage}
-        setActivePage={setActivePage}
-      />
+      {typeof data !== "undefined" && (
+        <>
+          <UserTop title="구매내역" count={data.totalElements} sub="전체" />
+          <ReceiptTable data={data} />
+          <Pagination pageno={pageno} setPageno={setPageno} data={data} />
+        </>
+      )}
     </section>
   );
 };

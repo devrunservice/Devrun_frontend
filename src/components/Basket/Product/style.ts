@@ -3,7 +3,7 @@ import Checked from "asset/images/Checked.png";
 
 export const ProductLi = styled.li`
   border-bottom: 1px dashed #ddd;
-  padding: 20px 0;
+  padding: 1.25rem 0;
   display: flex;
   &:last-child {
     border-bottom: 1px solid #ddd;
@@ -11,8 +11,8 @@ export const ProductLi = styled.li`
 `;
 export const CheckBox = styled.input`
   appearance: none;
-  width: 16px;
-  height: 16px;
+  width: 1rem;
+  height: 1rem;
   border-radius: 3px;
   cursor: pointer;
   border: 1px solid ${(props: any) => props.theme.borderC};
@@ -27,14 +27,14 @@ export const CheckBox = styled.input`
 export const ContentBox = styled.label`
   display: flex;
   align-items: center;
-  width: calc(100% - 16px);
+  width: calc(100% - 1rem);
 `;
 export const ImgWrap = styled.div`
-  width: 170px;
-  height: 95px;
+  width: 10.625rem;
+  height: 5.9375rem;
   overflow: hidden;
-  border-radius: 5px;
-  margin: 0 20px 0 5px;
+  border-radius: 0.3125rem;
+  margin: 0 1.25rem 0 0.3125rem;
 `;
 
 export const Img = styled.img`
@@ -45,7 +45,7 @@ export const Img = styled.img`
   max-width: 100%;
 `;
 export const TextBox = styled.div`
-  width: calc(100% - 212px);
+  width: calc(100% - 13.25rem);
   display: flex;
 `;
 export const TextLeft = styled.div`
@@ -58,8 +58,8 @@ export const TitleText = styled.em`
   overflow: hidden;
   white-space: nowrap;
   color: ${(props: any) => props.theme.black};
-  font-weight: ${(props: any) => props.theme.medium};
-  margin-bottom: 10px;
+  font-weight: 500;
+  margin-bottom: 0.625rem;
   line-height: 1;
 `;
 export const SubText = styled.p`
@@ -68,11 +68,11 @@ export const SubText = styled.p`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  margin-bottom: 18px;
+  margin-bottom: 1.125rem;
   line-height: 1;
 `;
 export const Writer = styled.p`
-  font-size: ${(props: any) => props.theme.size14};
+  font-size: 0.875rem
   line-height: 1;
 `;
 export const Hours = styled.span`
@@ -85,13 +85,13 @@ export const TextRight = styled.div`
 export const Discount = styled.span`
   margin-right: 8px;
   color: ${(props: any) => props.theme.textRed};
-  font-weight: ${(props: any) => props.theme.semiBold};
-  font-size: ${(props: any) => props.theme.size14};
+  font-weight: 600;
+  font-size: 0.875rem;
   line-height: 1;
 `;
 export const DiscountNum = styled.span`
   position: relative;
-  font-size: ${(props: any) => props.theme.size14};
+  font-size: 0.875rem;
   line-height: 1;
   &::after {
     position: absolute;
@@ -106,9 +106,9 @@ export const DiscountNum = styled.span`
   }
 `;
 export const Money = styled.p`
-  font-size: ${(props: any) => props.theme.size18};
+  font-size: 1.125rem;
   color: ${(props: any) => props.theme.black};
-  font-weight: ${(props: any) => props.theme.bold};
-  margin-top: 10px;
+  font-weight: 700;
+  margin-top: 0.625rem;
   line-height: 1;
 `;

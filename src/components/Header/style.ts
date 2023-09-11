@@ -11,7 +11,7 @@ export const HeaderWrap = styled.div`
 export const InnerHeader = styled(Inner)`
   display: flex;
   justify-content: space-between;
-  height: 80px;
+  height: 5rem;
   padding: 0;
 `;
 export const NavWrap = styled.div`
@@ -23,39 +23,37 @@ export const LogoIcon = styled.div`
 `;
 
 export const CategoryWrap = styled.div`
-  margin-left: 60px;
+  margin-left: 3.75rem;
   display: flex;
-  gap: 40px;
+  gap: 2.5rem;
 `;
 export const CategoryLi = styled.p`
-  font-weight: ${(props: any) => props.theme.semiBold};
+  font-weight: 600;
   color: ${(props: any) => props.theme.black};
 `;
 export const CategoryIcon = styled(Category)`
-  margin-right: 8px;
+  margin-right: 0.5rem;
 `;
 
 export const SearchBox = styled.div`
   position: relative;
-  margin-right: 20px;
+  margin-right: 1.25rem;
   display: flex;
   align-items: center;
 `;
 export const SearchInput = styled.input`
   border: 1px solid ${(props: any) => props.theme.borderC};
-  &::placeholder {
-    ${(props: any) => props.theme.textGrayB0};
-  }
-  border-radius: 50px;
-  height: 45px;
-  padding: 0 18px;
-  width: 320px;
+
+  border-radius: 3.125rem;
+  height: 2.8125rem;
+  padding: 0 1.125rem;
+  width: 20rem;
   outline: 0;
 `;
 export const SearchIcon = styled(Search)`
   position: absolute;
   margin: auto 0;
-  right: 18px;
+  right: 1.125rem;
   top: 0;
   bottom: 0;
   cursor: pointer;
@@ -64,12 +62,12 @@ export const SearchIcon = styled(Search)`
 export const ButtonWrap = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.625rem;
 `;
 
 
 export const HeaderIcon = styled.div`
-  width: 50px;
+  width: 3.125rem;
   position: relative;
   &:hover div {
     visibility: visible;
@@ -77,7 +75,7 @@ export const HeaderIcon = styled.div`
 `;
 export const Icon = styled.div`
   text-align: center;
-  line-height: 80px;
+  line-height: 5rem;
   font-size: 0;
 `;
 const Icons = css`
@@ -87,43 +85,43 @@ const Icons = css`
 `;
 export const Cart = styled(BsCart3)`
   ${Icons}
-  font-size: 22px;
-  top: 11px;
+  font-size: 1.375rem;
+  top: 0.6875rem;
 `;
 export const Person = styled(BsPerson)`
   ${Icons}
-  font-size: 23px;
-  top: 13px;
+  font-size: 1.4375rem;
+  top: 0.8125rem;
 `;
 const common = css`
   width: 0;
   height: 0;
-  border-width: 0 15px 13px 15px;
+  border-width: 0 0.9375rem 0.8125rem 0.9375rem;
   border-style: solid;
   content: "";
   position: absolute;
-  right: 8px;
+  right: 0.5rem;
 `;
 
 export const CartHover = styled.div`
   position: absolute;
   visibility: hidden;
-  width: 440px;
-  top: 75px;
+  width: 27.5rem;
+  top: 4.6875rem;
   right: 0;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   background: ${(props: any) => props.theme.bgColor};
   border: 1px solid ${(props: any) => props.theme.borderC};
   z-index: 99;
-  padding: 25px 25px;
+  padding: 1.5625rem 1.5625rem;
   &::after {
-    top: -14px;
+    top: -0.875rem;
     border-color: ${(props: any) => props.theme.borderC} transparent;
     ${common}
   }
   &::before {
     border-color: ${(props: any) => props.theme.bgColor} transparent;
-    top: -13px;
+    top: -0.8125rem;
     z-index: 1;
     ${common}
   }
@@ -133,15 +131,15 @@ export const CartTop = styled.div`
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid ${(props: any) => props.theme.borderC};
-  padding-bottom: 20px;
+  padding-bottom: 1.25rem;
 `;
 export const CartTitle = styled.em`
-  font-weight: ${(props: any) => props.theme.semiBold};
+  font-weight: 600;
   color: ${(props: any) => props.theme.black};
 `;
 export const CartNum = styled.span`
   color: ${(props: any) => props.theme.brandColor};
-  font-weight: ${(props: any) => props.theme.semiBold};
+  font-weight: 600;
 `;
 export const CartPrice = styled.em``;
 export const CartUl = styled.ul`
@@ -151,13 +149,13 @@ export const CartUl = styled.ul`
 export const CartLi = styled.li`
   display: flex;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 1.25rem;
 `;
 export const ImgWrap = styled.div`
-  width: 170px;
-  height: 95px;
+  width: 10.625rem;
+  height: 5.9375rem;
   overflow: hidden;
-  border-radius: 5px;
+  border-radius: 0.3125rem;
 `;
 export const Img = styled.img`
   width: inherit;
@@ -168,8 +166,8 @@ export const Img = styled.img`
 `;
 
 export const TextWrap = styled.div`
-  width: calc(100% - 170px);
-  padding-left: 20px;
+  width: calc(100% - 10.625rem);
+  padding-left: 1.25rem;
 `;
 export const LectureTitle = styled.em`
   display: block;
@@ -178,8 +176,8 @@ export const LectureTitle = styled.em`
   overflow: hidden;
   white-space: nowrap;
   color: ${(props: any) => props.theme.black};
-  font-weight: ${(props: any) => props.theme.medium};
-  margin-bottom: 10px;
+  font-weight: 500;
+  margin-bottom: 0.625rem;
   line-height: 1;
 `;
 export const LectureSub = styled.p`
@@ -187,28 +185,28 @@ export const LectureSub = styled.p`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  margin-bottom: 18px;
+  margin-bottom: 1.125rem;
   line-height: 1;
 `;
 export const LecturePrice = styled.p`
   color: ${(props: any) => props.theme.black};
-  font-weight: ${(props: any) => props.theme.medium};
+  font-weight: 500;
   line-height: 1;
 `;
 export const CartButton = styled.button`
   display: block;
-  margin: 20px auto 0;
+  margin: 1.25rem auto 0;
   background: ${(props: any) => props.theme.brandColor};
   color: ${(props: any) => props.theme.textWhite};
-  font-size: ${(props: any) => props.theme.size14};
-  width: ${(props: any) => props.theme.size100};
-  border-radius: 5px;
-  height: 40px;
+  font-size: 0.875rem;
+  width: 100%;
+  border-radius: 0.3125rem;
+  height: 2.5rem;
 `;
 
 export const Dropdown = styled(CartHover)`
   visibility: hidden;
-  width: 250px;
+  width: 15.625rem;
 
   & button:nth-child(1) {
     font-size: ${(props) => props.theme.size18};
@@ -223,7 +221,7 @@ export const Dropdown = styled(CartHover)`
   }
 
   & p {
-    font-size: ${(props) => props.theme.size12};
+    font-size:0.75rem;;
   }
 `;
 
