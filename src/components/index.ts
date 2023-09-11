@@ -22,6 +22,9 @@ export {default as ReceiptTable} from './Table/ReceiptTable/ReceiptTable';
 export {default as MentoTable} from './Table/MentoTable/MentoTable';
 export {default as NoticeTable} from './Table/NoticeTable/NoticeTable';
 export {default as CertTable} from './Table/CertTable/CertTable';
+export { default as PointTable } from "./Table/PointTable/PointTable";
+;
+
 export {default as SearchBar} from './SearchBar/SearchBar';
 export {default as UserTop} from './UserTop/UserTop';
 export {default as UserInfo} from './Basket/UserInfo/UserInfo';

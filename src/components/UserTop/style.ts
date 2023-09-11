@@ -10,7 +10,7 @@ export const Title = styled.h4`
 `;
 export const Number = styled.p`
   margin-left: 20px;
-  font-weight: ${(props: any) => props.theme.regular};
+  font-weight: 500;
   font-size: 1rem;
 `;
 export const NumCount = styled.span`

@@ -22,36 +22,40 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <Route.NotFound />,
     children: [
-      {index: true, element: <Route.HomePage />},
+      { index: true, element: <Route.HomePage /> },
       {
-        path: 'home',
+        path: "home",
         element: ACCESS_TOKEN ? (
           <Route.HomePage />
         ) : (
           <Navigate replace to="/login" />
         ),
       },
-      {path: 'login', element: <Route.Login />},
-      {path: 'auth/kakao/callback', element: <Route.Auth2RedirectHandler />},
-      {path: 'signup', element: <Route.Signup />},
-      {path: 'signupconfirm/:user', element: <Route.SignupConfirm />},
+      { path: "login", element: <Route.Login /> },
+      { path: "auth/kakao/callback", element: <Route.Auth2RedirectHandler /> },
+      { path: "signup", element: <Route.Signup /> },
+      { path: "signupconfirm/:user", element: <Route.SignupConfirm /> },
       {
-        path: 'signupverification',
+        path: "signupverification",
         element: <Route.Signup2RedirectHandler />,
       },
       {
-        path: 'Signupcompletion',
+        path: "Signupcompletion",
         element: <Route.SignupCompletion />,
       },
-      {path: 'findaccount/id', element: <Route.FindId />},
-      {path: 'findaccount/password', element: <Route.FindPassword />},
-      {path: 'basket', element: protectedRoute(<Route.Basket />)},
-      {path: 'notice', element: protectedRoute(<Route.Notice />)},
+      { path: "findaccount/id", element: <Route.FindId /> },
+      { path: "findaccount/password", element: <Route.FindPassword /> },
+      { path: "basket", element: protectedRoute(<Route.Basket />) },
+
       {
         path: "noticeWrite",
         element: protectedRoute(<Route.NoticeWrite />),
       },
-      { path: "noticeDetail", element: protectedRoute(<Route.NoticeDetail />) },
+      { path: "notice", element: protectedRoute(<Route.Notice />) },
+      {
+        path: "notice/:noticeNo",
+        element: protectedRoute(<Route.NoticeDetail />),
+      },
       { path: "lecture", element: <Route.Lecture /> },
       { path: "detail", element: <Route.DetailPage /> },
       { path: "createVideo", element: <Route.CreateVideo /> },
