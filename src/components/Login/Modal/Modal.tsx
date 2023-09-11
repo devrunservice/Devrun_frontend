@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
@@ -46,13 +46,10 @@ const Modal = ({page}: {page?: string}) => {
       navigate('/login');
     }
 
-    // 토큰 조작 및 Refresh Token 만료 및 알 수 없는 에러가 발생했을 시
-    // if (page === 'home') {
-    //   dispatch(logoutLoading());
-    // }
     if (
       modalMessage1 === '알 수 없는 오류가 발생했습니다.' ||
-      modalMessage1 === '이미 로그인 된 다른 기기가 있습니다.'
+      modalMessage1 === '이미 로그인 된 다른 기기가 있습니다.' ||
+      modalMessage1 === '오류가 감지되었습니다.'
     ) {
       dispatch(logoutLoading());
     }

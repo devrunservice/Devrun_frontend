@@ -285,9 +285,7 @@ authAxios.interceptors.response.use(
         switch (errorMessage) {
           case 'Signature validation failed':
           case 'Invalid token signature algorithm':
-            return Promise.reject(
-              new Error(`오류가 감지되었습니다. 로그인을 다시 해주세요.`)
-            );
+            return Promise.reject(new Error(`오류가 감지되었습니다.`));
           case 'Access Denied':
             return Promise.reject(new Error('알 수 없는 오류가 발생했습니다.'));
           case 'Logout user':
