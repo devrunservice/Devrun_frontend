@@ -321,6 +321,7 @@ export interface PointList {
   pointupdown: number;
   pointno: number;
   explanation: string;
+  productname:string;
 }
 export interface Point {
   content: PointList[];
@@ -328,7 +329,8 @@ export interface Point {
   totalPages: number;
 }
 export interface Points {
-  data: Point;
+  mypoint?:number
+  pointHistoryPage: Point;
   loading?: boolean;
   error?: Error | null;
 }
@@ -355,6 +357,7 @@ export interface Receipt {
 }
 export interface Receipts {
   data: Receipt;
+  setData: React.Dispatch<React.SetStateAction<Receipt | undefined>>;
 }
 
 // 멘토 쿠폰리스트
@@ -400,20 +403,11 @@ export interface ActiveCoupon {
   index:number
 }
 
-
-// 지울꺼
-export interface Table{
-  data: string;
-  title: string 
-}
-
-
 // 페이지네이션
 export interface Pagination {
-  data?: MentoCoupon | Receipt;
+  data?: MentoCoupon | Receipt | Point | Notice;
   pageno: number;
   setPageno: (page: number) => void;
-  title?: string;
 }
 
 // 댓글
@@ -444,4 +438,30 @@ export interface noticeWrite {
   title: string;
   content: string;
   id: string;
+}
+
+
+
+// 공지사항
+
+export interface NoticeList {
+  content: string;
+  createdDate: string;
+  id: string;
+  modifiedDate: string;
+  noticeNo: number;
+  status: string;
+  title: string;
+  userNo: number;
+  viewCount: number;
+}
+export interface Notice {
+  content: NoticeList[];
+  totalElements: number;
+  totalPages: number;
+}
+export interface Notices {
+  data: Notice;
+  loading?: boolean;
+  error?: Error | null;
 }

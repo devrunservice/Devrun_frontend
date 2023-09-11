@@ -3,13 +3,15 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Points } from "types";
 
 const initialState: Points = {
-  data: {
+  mypoint: 0,
+  pointHistoryPage: {
     content: [
       {
         updatetime: "",
         pointupdown: 0,
         pointno: 0,
         explanation: "",
+        productname:"",
       },
     ],
     totalElements: 0,
@@ -29,7 +31,8 @@ const pointReducer = createSlice({
     },
     pointSuccess: (state, action) => {
       state.loading = false;
-      state.data = action.payload.data;
+      state.pointHistoryPage = action.payload.data.pointHistoryPage;
+      state.mypoint = action.payload.data.mypoint;
       return state;
     },
     pointFail: (state, action) => {

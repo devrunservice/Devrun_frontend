@@ -71,7 +71,6 @@ const Editor = (props: path) => {
     }),
     []
   );
-  console.log(content);
   const onWrite = useCallback(async () => {
     if (content.trim() === "" && title.trim() === "")
       return alert("제목과 내용을 작성해주세요");

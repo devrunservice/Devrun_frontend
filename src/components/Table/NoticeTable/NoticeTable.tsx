@@ -4,20 +4,33 @@ import { useNavigate } from "react-router-dom";
 import * as I from "types";
 import * as St from "../style";
 
-const NoticeTable = (props: I.Table) => {
+const NoticeTable = (props: I.Notices) => {
   const navigate = useNavigate();
-  const navi = useCallback(() => {
-    navigate("/noticeDetail");
+  const navi = useCallback((v: I.NoticeList) => {
+    navigate(`/notice/${v.noticeNo}`);
   }, []);
   return (
     <St.Table>
-      <St.TableLi onClick={() => navi()} $cursor>
+      <St.TableLi >
         <St.Num>No</St.Num>
-        <St.Text $view={false}>제목</St.Text>
+        <St.Text>제목</St.Text>
         <St.CommonLi>작성자</St.CommonLi>
         <St.CommonLi>작성일</St.CommonLi>
-        <St.View $view={false}>조회수</St.View>
-      </St.TableLi>
+        <St.View>조회수</St.View>
+      </St.TableLi> 
+       {props.data.content.map((v)=>{
+        return (
+          <St.TableLi onClick={() => navi(v)} $cursor key={v.noticeNo}>
+            <St.Num>{v.noticeNo}</St.Num>
+            <St.Text $view={false}>{v.title}</St.Text>
+            <St.CommonLi>{v.id}</St.CommonLi>
+            <St.CommonLi>{v.createdDate.slice(0, 10)}</St.CommonLi>
+            <St.View $view={false}>{v.viewCount}</St.View>
+          </St.TableLi>
+        );
+       
+      })}
+      
     </St.Table>
   );
 };

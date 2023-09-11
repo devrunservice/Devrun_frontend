@@ -24,16 +24,15 @@ interface BasketState {
 }
 
 const dataLists = [
-  { id: 1, name: "aaa", paid_amount: 80 },
-  { id: 2, name: "bbb", paid_amount: 20 },
-  { id: 3, name: "ccc", paid_amount: 40 },
+  { id: 1, name: "aaa", paid_amount: 100 },
+  { id: 2, name: "bbb", paid_amount: 100 },
+  { id: 3, name: "ccc", paid_amount: 100 },
 ];
 
 const Basket = () => {
   const navigate = useNavigate();
   const userData = useSelector((state: RootState) => state.mypageReducer.data);
   const userNum = useSelector((state: RootState) => state.userReducer.data);
-  console.log(userData);
   const { mypoint,setMypoint, priceDot,  stringPoint } = usePrice();
   const { seletRef, selets, setSelets, seletLabelRef } = useSelet();
   const {
@@ -118,7 +117,6 @@ const Basket = () => {
     reselectionList();
     setPrevList(checkList);
   }, [price.price]);
-  
   
   
 
