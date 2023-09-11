@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import useValid from 'hooks/useValid';
 import {findAccount, signup, verificationAPI} from 'utils/api';
-import Modal from 'components/Login/Modal/Modal';
+import {Modal, Timer} from 'components';
 import {ErrorMessage, Input, SuccessMessage} from 'style/Common';
 import {SignupFormType} from 'types';
 import {openModal} from '../../../redux/reducer/modalReducer';
@@ -19,7 +19,7 @@ const AuthenticationNumber = ({
   findOption?: string;
   option: string;
   id?: string;
-  page?: string;
+  page: string;
   getAuthenticationForm: (values: SignupFormType, isClicked: boolean) => void;
 }) => {
   const dispatch = useDispatch();
@@ -78,10 +78,7 @@ const AuthenticationNumber = ({
             });
       if (response.status === 200) {
         console.log('인증번호 요청 완료');
-        updateMessage(
-          'phonenumberMessage',
-          '인증번호가 요청되었습니다. 5분 이내에 입력해주세요.'
-        );
+        updateMessage('phonenumberMessage', '인증번호가 요청되었습니다.');
         updateValid('phonenumber', true);
         updateValid('codeBtn', true);
       }
@@ -132,8 +129,8 @@ const AuthenticationNumber = ({
             getAuthenticationNumber(authenticationForm.email || '');
           }
         } else if (findOption === 'password') {
-          console.log('휴대폰 번호로 비밀번호 찾기');
           if (option === 'phonenumber') {
+            console.log('휴대폰 번호로 비밀번호 찾기');
             // 휴대폰으로 비밀번호 찾기일 때
             if (id) {
               const response = await findAccount.checkIdPhonenumberMatched(id, {
@@ -153,8 +150,11 @@ const AuthenticationNumber = ({
                 updateValid('phonenumber', false);
                 updateValid('codeBtn', false);
               }
+            } else {
+              dispatch(openModal('아이디를 입력해주세요.'));
             }
           } else if (option === 'email') {
+            console.log('이메일로 비밀번호 찾기');
             if (id) {
               const response = await findAccount.checkIdEmailMatched(id, {
                 email: authenticationForm.email || '',
@@ -171,6 +171,8 @@ const AuthenticationNumber = ({
                 updateValid('phonenumber', false);
                 updateValid('codeBtn', false);
               }
+            } else {
+              dispatch(openModal('아이디를 입력해주세요.'));
             }
           }
         }
@@ -243,23 +245,26 @@ const AuthenticationNumber = ({
               <ErrorMessage>{messageState.phonenumberMessage}</ErrorMessage>
             )}
           <Modal page="findPassword" />
-          <St.Field>
-            <Input
-              type="text"
-              name="code"
-              value={authenticationForm.code}
-              placeholder="인증번호 입력"
-              onChange={handleInputChange}
-              required
-            />
-            <St.Button
-              type="button"
-              name="phonenumberCheckBtn"
-              onClick={handleCheckAuthenticationNumber}
-            >
-              확인
-            </St.Button>
-          </St.Field>
+          {validState.codeBtn && (
+            <St.Field option="authenticationInput">
+              <Input
+                type="text"
+                name="code"
+                value={authenticationForm.code}
+                placeholder="인증번호 입력"
+                onChange={handleInputChange}
+                required
+              />
+              <Timer page={page} />
+              <St.Button
+                type="button"
+                name="phonenumberCheckBtn"
+                onClick={handleCheckAuthenticationNumber}
+              >
+                확인
+              </St.Button>
+            </St.Field>
+          )}
           {validState.checkCodeBtn && validState.code ? (
             <SuccessMessage>{messageState.codeMessage}</SuccessMessage>
           ) : (
@@ -287,12 +292,6 @@ const AuthenticationNumber = ({
               인증번호
             </St.Button>
           </St.Field>
-          {/* {isValid.codeBtn && isValid.email ? (
-            <SuccessMessage>{validMessage.emailMessage}</SuccessMessage>
-          ) : (
-            <ErrorMessage>{validMessage.emailMessage}</ErrorMessage>
-          )} */}
-
           {authenticationForm.email && validState.email === false && (
             <ErrorMessage>{messageState.emailMessage}</ErrorMessage>
           )}
@@ -304,24 +303,26 @@ const AuthenticationNumber = ({
             !validState.codeBtn && (
               <ErrorMessage>{messageState.phonenumberMessage}</ErrorMessage>
             )}
-
-          <St.Field>
-            <Input
-              type="text"
-              name="code"
-              value={authenticationForm.code}
-              placeholder="인증번호 입력"
-              onChange={handleInputChange}
-              required
-            />
-            <St.Button
-              type="button"
-              name="emailCheckBtn"
-              onClick={handleCheckAuthenticationNumber}
-            >
-              확인
-            </St.Button>
-          </St.Field>
+          {validState.codeBtn && (
+            <St.Field option="authenticationInput">
+              <Input
+                type="text"
+                name="code"
+                value={authenticationForm.code}
+                placeholder="인증번호 입력"
+                onChange={handleInputChange}
+                required
+              />
+              <Timer page={page} />
+              <St.Button
+                type="button"
+                name="emailCheckBtn"
+                onClick={handleCheckAuthenticationNumber}
+              >
+                확인
+              </St.Button>
+            </St.Field>
+          )}
           {validState.checkCodeBtn && validState.code ? (
             <SuccessMessage>{messageState.codeMessage}</SuccessMessage>
           ) : (
@@ -329,6 +330,7 @@ const AuthenticationNumber = ({
           )}
         </>
       )}
+      <Modal />
     </St.InputField>
   );
 };
