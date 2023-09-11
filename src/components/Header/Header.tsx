@@ -11,8 +11,7 @@ import Logo from 'asset/images/Logo.png';
 import Modal from 'components/Login/Modal/Modal';
 import {Button} from 'style/Common';
 import * as St from './style';
-// import {userTmiPending} from '../../redux/reducer/userReducer';
-import {getDataLoading} from '../../redux/reducer/mypageReducer';
+import { userInfoLoading } from "../../redux/reducer/userReducer";
 import {logoutLoading} from '../../redux/reducer/loginReducer';
 
 const Header = () => {
@@ -21,17 +20,14 @@ const Header = () => {
 
   const [cookie, setCookie] = useState<boolean>(false);
 
-  const userData = useSelector((state: RootState) => state.mypageReducer.data);
+  const {data} = useSelector((state: RootState) => state.userReducer);
 
   useEffect(() => {
-    if (getCookie('accessToken')) {
+    if (getCookie("accessToken")) {
+      dispatch(userInfoLoading(null));
       setCookie(true);
-      const userId = decode('accessToken');
-      dispatch(getDataLoading({id: userId}));
-      console.log(userData);
     }
   }, []);
-
   const handleLogout = () => {
     dispatch(logoutLoading());
   };
@@ -104,7 +100,7 @@ const Header = () => {
                   <St.DropdownTop>
                     <St.DropdownItemWrapper>
                       <St.DropdownItemBtn onClick={() => navigate("/profile")}>
-                        {userData.id}
+                        {data.id}
                       </St.DropdownItemBtn>
                       {/* <p>{userData.role}</p> */}
                     </St.DropdownItemWrapper>

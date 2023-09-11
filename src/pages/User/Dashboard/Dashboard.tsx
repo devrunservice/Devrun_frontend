@@ -48,7 +48,7 @@ const Dashboard = () => {
     },
   ]);
 
-  const userData = useSelector((state: RootState) => state.userReducer.data);
+  const {data} = useSelector((state: RootState) => state.mypageReducer);
 
   const handleMoreBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { name } = e.target as HTMLButtonElement;
@@ -65,7 +65,7 @@ const Dashboard = () => {
   return (
     <section>
       <St.WelcomeMessage>
-        <div>{userData.name}</div>
+        <div>{data.name}</div>
         <div>&nbsp;님, </div>
         <div>&nbsp; 반갑습니다 🏃‍♂️</div>
       </St.WelcomeMessage>

@@ -137,10 +137,12 @@ export const findAccount = {
 
 // 로그인한 유저정보
 export const userData = {
-  createUser: (params: I.tmi) => {
-    const response = authAxios.get('/tmi', {params: {id: params}});
-    return response;
-  },
+
+  userInfo:()=>{
+    const response = authAxios.get("/users/login-info")
+    console.log(response)
+    return response
+  }
 };
 
 
@@ -205,12 +207,6 @@ export const Cart = {
   },
 };
 
-export const Search = {
-  mygage: (params: I.MySearch) => {
-    const response = authAxios.get('/params', {params: {params}});
-    return response;
-  },
-};
 
 export const create = {
   coupon: (params: I.CreateCoupon) => {

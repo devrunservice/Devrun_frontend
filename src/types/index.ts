@@ -93,24 +93,16 @@ export interface ProfileInputType {
   [key: string]: boolean;
 }
 
-export interface ITmiData {
+export interface UserInfoList {
   id: string;
-  email: string;
-  name: string;
-  birthday: string;
-  phonenumber: string;
   role: string;
   userNo: number
 }
 
-export interface ITmi {
+export interface Userinfo {
   loading: boolean;
-  data: ITmiData;
+  data: UserInfoList;
   error: string | null | undefined;
-}
-
-export interface tmi {
-  id: string;
 }
 
 export interface CheckValidationReducerType {

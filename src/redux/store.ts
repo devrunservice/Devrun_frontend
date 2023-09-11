@@ -8,7 +8,7 @@ import {
   watchLogoutSaga,
 } from "./saga/loginSaga";
 import rootReducer from "./persist";
-import { watchFetchDataSaga } from "./saga/userSaga";
+
 import {
   watchgetUserDataSaga,
   watchUpdateEmailSaga,
@@ -19,7 +19,7 @@ import {
 import mentoCouponSaga from "./saga/mentoCouponSaga";
 import couponSaga from "./saga/couponSaga";
 import pointSaga from "./saga/pointSaga";
-
+import userInfoSaga from "./saga/userSaga";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -28,14 +28,14 @@ export function* rootSaga() {
     watchLoginSaga(),
     watchLogoutSaga(),
     watchKakaoLoginSaga(),
-    watchFetchDataSaga(),
     watchgetUserDataSaga(),
     watchUpdateEmailSaga(),
     watchUpdatePhonenumberSaga(),
     watchUpdateProfileImageSaga(),
+    userInfoSaga(),
     mentoCouponSaga(),
     couponSaga(),
-    pointSaga()
+    pointSaga(),
   ]);
 }
 

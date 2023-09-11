@@ -15,9 +15,7 @@ import { Product, UserInfo } from "components";
 import * as I from "types";
 import * as S from "style/Common";
 import * as St from "./style";
-import {
-  getDataLoading,
-} from "../../redux/reducer/mypageReducer";
+
 
 interface BasketState {
   price: number;
@@ -32,15 +30,10 @@ const dataLists = [
 ];
 
 const Basket = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const userData = useSelector((state: RootState) => state.mypageReducer.data);
   const userNum = useSelector((state: RootState) => state.userReducer.data);
-  useEffect(() => {
-     const userId = decode("accessToken");
-     dispatch(getDataLoading({ id: userId }));
-   }, [userData]);
-  console.log(userNum);
+
   const { mypoint,setMypoint, priceDot,  stringPoint } = usePrice();
   const { seletRef, selets, setSelets, seletLabelRef } = useSelet();
   const {

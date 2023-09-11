@@ -1,32 +1,26 @@
-import { call, put, takeLatest } from "redux-saga/effects";
-import { PayloadAction } from "@reduxjs/toolkit";
-import { tmi } from "types";
+import { call, fork, put, takeLatest, all } from "redux-saga/effects";
 import { userData } from "utils/api";
 import {
-  userTmiPending,
-  userTmiFulfilled,
-  userTmiRejected,
+  userInfoLoading,
+  userInfoSuccess,
+  userInfofail,
 } from "../reducer/userReducer";
 import { openModal } from "../reducer/modalReducer";
 
-// call-데이터 부름  put - 데이터 내보냄
-// takeEvery - 여러번 반복작업을 해야할때 순서 상관없이 모두 추가해야할떄
-// takeLatest - 여러번 반복작업하는데 최종작업만 반영됨.
-// fork - 비동기 작업을 해야할때
-function* fetchDataSaga(action: PayloadAction<tmi>): Generator<any, void, any> {
+
+function* userInfo(): Generator<any, void, any> {
   try {
     // 데이터를 옴
-    const response = yield call(userData.createUser, action.payload);
-    console.log(response);
-    // 성공적으로 데이터를 가져왔다면 성공 action에 내보냄.
-    yield put(userTmiFulfilled(response));
+    const response = yield call(userData.userInfo);
+    yield put(userInfoSuccess(response));
   } catch (error: any) {
-    // 데이터가져오는게 실패했다면 실패 action에 내보냄.
-    yield put(userTmiRejected(error));
+    yield put(userInfofail(error));
     yield put(openModal(error.message));
   }
 }
-
-export function* watchFetchDataSaga() {
-  yield takeLatest(userTmiPending.type, fetchDataSaga);
+function* watchUserInfo() {
+  yield takeLatest(userInfoLoading, userInfo);
+}
+export default function* userInfoSaga(){
+  yield all([fork(watchUserInfo)]);
 }
