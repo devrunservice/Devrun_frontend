@@ -33,7 +33,7 @@ const Basket = () => {
   const navigate = useNavigate();
   const userData = useSelector((state: RootState) => state.mypageReducer.data);
   const userNum = useSelector((state: RootState) => state.userReducer.data);
-
+  console.log(userData);
   const { mypoint,setMypoint, priceDot,  stringPoint } = usePrice();
   const { seletRef, selets, setSelets, seletLabelRef } = useSelet();
   const {

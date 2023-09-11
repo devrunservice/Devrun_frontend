@@ -12,6 +12,7 @@ import Modal from 'components/Login/Modal/Modal';
 import {Button} from 'style/Common';
 import * as St from './style';
 import { userInfoLoading } from "../../redux/reducer/userReducer";
+import { getDataLoading } from "../../redux/reducer/mypageReducer";
 import {logoutLoading} from '../../redux/reducer/loginReducer';
 
 const Header = () => {
@@ -22,12 +23,17 @@ const Header = () => {
 
   const {data} = useSelector((state: RootState) => state.userReducer);
 
-  useEffect(() => {
-    if (getCookie("accessToken")) {
-      dispatch(userInfoLoading(null));
-      setCookie(true);
-    }
-  }, []);
+   useEffect(() => {
+     if (getCookie("accessToken")) {
+       
+       const userId = decode("accessToken");
+       dispatch(getDataLoading({ id: userId }));
+       dispatch(userInfoLoading(null));
+       setCookie(true);
+     }
+   }, []);
+
+
   const handleLogout = () => {
     dispatch(logoutLoading());
   };

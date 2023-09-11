@@ -140,7 +140,6 @@ export const userData = {
 
   userInfo:()=>{
     const response = authAxios.get("/users/login-info")
-    console.log(response)
     return response
   }
 };
