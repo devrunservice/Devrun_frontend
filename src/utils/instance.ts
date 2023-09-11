@@ -129,6 +129,8 @@ baseAxios.interceptors.response.use(
                 '이메일 인증 시간이 초과되었습니다/devrun66@gmail.com로 문의 바랍니다.'
               )
             );
+          case "Can't Find Data, Check Your Request. -By DevRun":
+            return Promise.reject(new Error('정보를 찾을 수 없습니다.'));
           default:
             break;
         }

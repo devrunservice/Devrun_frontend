@@ -1,13 +1,13 @@
-import { styled } from "styled-components";
-import { Input } from "style/Common";
-import { PropsType } from "types";
+import {styled} from 'styled-components';
+import {Input} from 'style/Common';
+import {PropsType} from 'types';
 
 // p 태그
 export const P = styled.p<PropsType>`
   color: ${(props) => props.theme.black};
   margin-bottom: 0.6rem;
   font-weight: ${(props) =>
-    props.page === "profileUpdate" && props.theme.semiBold};
+    props.page === 'profileUpdate' && props.theme.semiBold};
 `;
 
 export const Button = styled.button`
@@ -25,12 +25,18 @@ export const InputField = styled.div`
 `;
 
 // 휴대폰 번호 input, button
-export const Field = styled.div`
+export const Field = styled.div<{option?: string}>`
   display: flex;
+  position: ${(props) =>
+    props.option === 'authenticationInput' ? 'relative' : 'none'};
+  /* align-items: ${(props) =>
+    props.option === 'authenticationInput' ? 'center' : 'none'}; */
   margin-bottom: 0.6rem;
 
   & > ${Input} {
     width: 75%;
+    /* width: ${(props) =>
+      props.option === 'authenticationInput' ? '60%' : '75%'}; */
     margin: 0 1.5rem 0 0;
   }
 

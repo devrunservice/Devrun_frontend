@@ -25,3 +25,4 @@ export {default as UserTop} from './UserTop/UserTop';
 export {default as UserInfo} from './Basket/UserInfo/UserInfo';
 export {default as Product} from './Basket/Product/Product';
 export {default as ProfileForm} from './ProfileForm/ProfileForm';
+export {default as Timer} from './Timer/Timer';
