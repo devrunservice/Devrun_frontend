@@ -4,6 +4,7 @@ import {useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {Recaptcha} from 'components';
+import {getCookie} from 'utils/cookies';
 import * as St from './styles';
 import {closeModal} from '../../../redux/reducer/modalReducer';
 import {logoutLoading} from '../../../redux/reducer/loginReducer';

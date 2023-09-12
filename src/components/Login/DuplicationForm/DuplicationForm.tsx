@@ -2,6 +2,7 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
+import {signup} from 'utils/api';
 import useValid from 'hooks/useValid';
 import {SignupFormType} from 'types';
 import {ErrorMessage, Input, SuccessMessage, Title} from 'style/Common';
@@ -18,13 +19,15 @@ const DuplicationForm = ({
   placeholder: string;
   getDuplicationForm: (value: SignupFormType) => void;
 }) => {
-  const [email, setEmail] = useState('');
   const [id, setId] = useState('');
+  const [email, setEmail] = useState('');
   const [domain, setDomain] = useState('');
 
-  const {checkDuplicated} = id
+  const {updateValid, updateMessage} = id
     ? useValid({id: id})
     : useValid({email: `${email}@${domain}`});
+
+  // useValid(id ? {id: id} : {email: `${email}@${domain}`});
 
   const validState = useSelector(
     (state: RootState) => state.validationReducer.validState
@@ -49,6 +52,31 @@ const DuplicationForm = ({
     }
   };
 
+  const checkDuplicated = async (
+    option: string,
+    korean: string,
+    value: string
+  ) => {
+    const response =
+      option === 'id'
+        ? await signup.getDuplicatedId({id: value})
+        : await signup.getDuplicatedEmail({email: value});
+    console.log(response);
+    if (response.data === 0) {
+      updateMessage(
+        `${option}DuplicationMessage`,
+        `사용 가능한 ${korean}입니다.`
+      );
+      updateValid(`${option}Duplication`, true);
+    } else if (response.data === 1) {
+      updateMessage(
+        `${option}DuplicationMessage`,
+        `이미 사용중인 ${korean}입니다.`
+      );
+      updateValid(`${option}Duplication`, false);
+    }
+  };
+
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const {name} = e.target as HTMLButtonElement;
     if (name === 'idDuplicationBtn') {
@@ -59,15 +87,8 @@ const DuplicationForm = ({
   };
 
   useEffect(() => {
-    if (id) {
-      getDuplicationForm({
-        id,
-      });
-    } else {
-      getDuplicationForm({
-        email: `${email}@${domain}`,
-      });
-    }
+    const data = id ? {id} : {email: `${email}@${domain}`};
+    getDuplicationForm(data);
   }, [id, email, domain]);
 
   return (
@@ -93,12 +114,15 @@ const DuplicationForm = ({
               중복확인
             </St.Button>
           </St.Field>
+          {/* 유효성 검사 에러 메세지 */}
           {id && validState.id === false && (
             <ErrorMessage>{messageState.idMessage}</ErrorMessage>
           )}
+          {/* 중복확인 성공 메세지 */}
           {id && validState.idDuplication && (
             <SuccessMessage>{messageState.idDuplicationMessage}</SuccessMessage>
           )}
+          {/* 중복확인 실패 메세지 */}
           {id !== '' && !validState.idDuplication && (
             <ErrorMessage>{messageState.idDuplicationMessage}</ErrorMessage>
           )}

@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { createSlice } from "@reduxjs/toolkit";
-import { Userinfo } from "types";
+import {createSlice} from '@reduxjs/toolkit';
+import {Userinfo} from 'types';
 
 const initialState: Userinfo = {
   data: {
-    id: "",
-    role: "",
+    id: '',
+    role: '',
     userNo: 0,
   },
   error: null,
   loading: false,
 };
 
-const userTmiSlice = createSlice({
-  name: "data",
+const userInfoSlice = createSlice({
+  name: 'data',
   initialState,
   reducers: {
     userInfoLoading: (state, action) => {
@@ -33,5 +33,6 @@ const userTmiSlice = createSlice({
   },
 });
 
-export const { userInfoLoading, userInfoSuccess, userInfofail } = userTmiSlice.actions;
-export default userTmiSlice.reducer;
+export const {userInfoLoading, userInfoSuccess, userInfofail} =
+  userInfoSlice.actions;
+export default userInfoSlice.reducer;
