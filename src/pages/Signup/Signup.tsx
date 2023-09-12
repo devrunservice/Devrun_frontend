@@ -14,7 +14,7 @@ import {
   DuplicationForm,
 } from 'components';
 import {SignupFormType} from 'types';
-import {Title, ErrorMessage, Input, SuccessMessage} from 'style/Common';
+import {Title, ErrorMessage, Input} from 'style/Common';
 import * as St from './styles';
 import {openModal, setSignupSuccess} from '../../redux/reducer/modalReducer';
 
@@ -54,8 +54,6 @@ const Signup = () => {
     privacyConsent: false,
     marketConsent: false,
   });
-
-  // console.log(isValid);
 
   // 만 19세 이상 가입
   // hooks로 빼기
@@ -117,17 +115,6 @@ const Signup = () => {
     });
   };
 
-  // 비밀번호, 비밀번호 확인 값 가져오기
-  const getPassword = (value: SignupFormType) => {
-    Object.keys(value).forEach((name) => {
-      if (name === 'password') {
-        signupForm.password = value.password;
-      } else if (name === 'passwordConfirm') {
-        signupForm.passwordConfirm = value.passwordConfirm;
-      }
-    });
-  };
-
   // 휴대폰 번호 및 인증번호 값 가져오기
   const getAuthenticationForm = (values: SignupFormType) => {
     signupForm.phonenumber = values.phonenumber;
@@ -169,8 +156,6 @@ const Signup = () => {
       id: signupForm.id,
       email: signupForm.email,
     });
-    console.log(params);
-    console.log(params && crypto.decryptedUserData(params));
   }, [signupForm.id, signupForm.email]);
 
   return (
