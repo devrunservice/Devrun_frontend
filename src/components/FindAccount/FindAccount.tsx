@@ -94,6 +94,7 @@ const FindAccount = ({findOption}: {findOption: string}) => {
                 code: findAccountForm.code,
               })
             : await findAccount.findIdByEmail({
+                // id: findAccountForm.id,
                 email: findAccountForm.email,
                 code: findAccountForm.code,
               });
@@ -180,19 +181,17 @@ const FindAccount = ({findOption}: {findOption: string}) => {
 
       {/* Finding Account Form */}
       <form onSubmit={handleSubmit}>
-        {findOption === 'password' && (
-          <St.InputField>
-            <St.P>아이디</St.P>
-            <Input
-              type="text"
-              name="id"
-              value={findAccountForm.id}
-              placeholder="영어, 숫자를 포함한 5 ~ 13자로 입력해주세요."
-              onChange={handleChange}
-              required
-            />
-          </St.InputField>
-        )}
+        <St.InputField>
+          <St.P>아이디</St.P>
+          <Input
+            type="text"
+            name="id"
+            value={findAccountForm.id}
+            placeholder="영어, 숫자를 포함한 5 ~ 13자로 입력해주세요."
+            onChange={handleChange}
+            required
+          />
+        </St.InputField>
         <AuthenticationNumber
           findOption={findOption}
           option={option}
