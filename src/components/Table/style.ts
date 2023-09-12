@@ -52,6 +52,14 @@ export const View = styled.div<I.TableCommon>`
 export const Title = styled(Text)<I.TableCommon>`
   width: ${(props: any) => (props.$view ? "42.5%" : "19%")};
 `;
+export const PointTitle = styled(Text)`
+  width: calc(100% - 18.5%);
+`;
+export const PointSpan = styled.span<I.TableCommon>`
+  color: ${(props: any) =>
+      props.$color ? props.theme.brandColor : props.theme.textRed};
+  font-weight:500;
+`
 export const PayBtn = styled(View)`
   width: 18%;
   display: flex;

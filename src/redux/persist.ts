@@ -10,6 +10,7 @@ import mentoCouponReducer from "./reducer/mentoCouponReducer"
 import couponReducer from "./reducer/couponReducer"
 import pointReducer from "./reducer/pointReducer";
 import userReducer from "./reducer/userReducer";
+import noticeReducer from "./reducer/noticeReducer";
 
 const persistConfig = {
   key: "root",
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   mentoCouponReducer,
   couponReducer,
   pointReducer,
+  noticeReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

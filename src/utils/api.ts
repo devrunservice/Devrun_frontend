@@ -171,7 +171,6 @@ export const mypage = {
     return response;
   },
   point: (params: I.PageNo) => {
-    console.log(params)
     const response = authAxios.get(
       `/PointHistory?page=${params}&size=10`
     );
@@ -226,15 +225,15 @@ export const create = {
 
 export const notice = {
   img: (params: I.noticeUpload) => {
-    const response = imageAxios.post(`/${params.path}/upload`,params.formData);
+    const response = imageAxios.post(`/${params.path}/upload`, params.formData);
     return response;
   },
   write: (params: I.noticeWrite) => {
     const response = authAxios.post("/notice/write", params);
     return response;
   },
-  list: () => {
-    const response = authAxios.get("/notices");
+  list: (params: I.PageNo) => {
+    const response = authAxios.get(`/notice/${params}`);
     return response;
   },
 };

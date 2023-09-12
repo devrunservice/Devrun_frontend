@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import * as I from "types";
 import * as St from "../style";
 
-const CertTable = (props: I.Table) => {
+const CertTable = () => {
   const navigate = useNavigate();
   const navi = useCallback(() => {
     navigate("/CertDetail");

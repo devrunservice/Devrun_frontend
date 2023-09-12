@@ -7,7 +7,6 @@ import { pointLoading, pointSuccess, pointFail } from "../reducer/pointReducer";
 
 function* point(action: PayloadAction<PageNo>):Generator<any,void,any> {
     try {
-        console.log(action);
         const response = yield call(mypage.point, action.payload);
          yield put(pointSuccess(response));
     } catch (error) {

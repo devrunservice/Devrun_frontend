@@ -10,7 +10,7 @@ const Cert = () => {
   return (
     <section>
       <UserTop title="수료증" sub="전체" />
-      <CertTable title="수료증" data="as" />
+      <CertTable  />
 
       {/* <Pagination
         pageno={pageno}

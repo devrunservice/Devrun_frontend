@@ -1,26 +1,41 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Cart } from "utils/api";
 import * as I from "types";
 import * as St from "../style";
 
 const ReceiptTable = (props: I.Receipts) => {
-  const receipt = (item: string) => {
+  const receiptBtn = useCallback((item: string) => {
     const windowFeatures =
       "width=420,height=512,menubar=no,toolbar=no,location=no,resizable=yes,scrollbars=yes";
     window.open(item, "_blank", windowFeatures);
-  };
-  const basketBtn = async (merchantUid: string, amount: number) => {
-    if (window.confirm("환불하시겠습니까?")) {
-      const pay: I.Refund = {
-        merchant_uid: merchantUid,
-        amount: amount,
-      };
-      await Cart.refund(pay);
-      alert("환불되었습니다.");
-    } else {
-      alert("취소되었습니다.");
-    }
-  };
+  }, []);
+  const basketBtn = useCallback(
+    async (merchantUid: string, amount: number, userpayno:number) => {
+      try {
+        if (window.confirm("환불하시겠습니까?")) {
+          const pay: I.Refund = {
+            merchant_uid: merchantUid,
+            amount: amount,
+          };
+          const response = await Cart.refund(pay);
+          if (response.data === "환불이 성공적으로 처리되었습니다.") {
+            alert("환불되었습니다.");
+            const resfunds = props.data?.content.map((item) =>
+              item.userpayno === userpayno ? { ...item, status: "1" } : item,
+            );
+            props.setData({ ...props.data, content: resfunds });
+            
+          }
+        } else {
+          alert("취소되었습니다.");
+        }
+      } catch (error) {
+        alert("환불실패했습니다");
+      }
+    },
+    []
+  );
+
 
   return (
     <St.ReceiptTable>
@@ -47,7 +62,9 @@ const ReceiptTable = (props: I.Receipts) => {
                 <St.Button
                   type="button"
                   $color
-                  onClick={() => basketBtn(v.merchantUid, v.paidamount)}
+                  onClick={() =>
+                    basketBtn(v.merchantUid, v.paidamount, v.userpayno)
+                  }
                 >
                   환불
                 </St.Button>
@@ -56,7 +73,7 @@ const ReceiptTable = (props: I.Receipts) => {
                 <St.Button
                   type="button"
                   $color={false}
-                  onClick={() => receipt(v.receipturl)}
+                  onClick={() => receiptBtn(v.receipturl)}
                 >
                   거래명세서
                 </St.Button>
