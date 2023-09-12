@@ -121,15 +121,6 @@ const Profile = () => {
     // setProfileForm((prev) => ({ ...prev, email: value }));
   };
 
-  useEffect(() => {
-    const userId = decode('accessToken');
-    dispatch(getDataLoading({id: userId}));
-    setProfileForm((prev) => ({
-      ...prev,
-      profilePreview: userData.profilePreview,
-    }));
-  }, [userData]);
-
   return (
     <St.Section>
       <St.Title>프로필</St.Title>

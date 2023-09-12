@@ -5,13 +5,14 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {getCookie} from 'utils/cookies';
 import {decode} from 'utils/decode';
+import {redirect} from 'utils/redirect';
 import NoImg from 'asset/images/NoImg.jpg';
 import Logo from 'asset/images/Logo.png';
 import Modal from 'components/Login/Modal/Modal';
 import {Button} from 'style/Common';
 import * as St from './style';
-import {userInfoLoading} from '../../redux/reducer/userReducer';
-import {getDataLoading} from '../../redux/reducer/mypageReducer';
+import { userInfoLoading } from "../../redux/reducer/userReducer";
+import { getDataLoading } from "../../redux/reducer/mypageReducer";
 import {logoutLoading} from '../../redux/reducer/loginReducer';
 
 const Header = () => {
@@ -22,18 +23,19 @@ const Header = () => {
 
   const {data} = useSelector((state: RootState) => state.userReducer);
 
-  useEffect(() => {
-    if (getCookie('accessToken')) {
-      // const userId = decode('accessToken');
-      // dispatch(getDataLoading({id: userId}));
-      dispatch(userInfoLoading(null));
-      setCookie(true);
-    }
-  }, []);
+   useEffect(() => {
+     if (getCookie("accessToken")) {
+       
+       const userId = decode("accessToken");
+       dispatch(getDataLoading({ id: userId }));
+       dispatch(userInfoLoading(null));
+       setCookie(true);
+     }
+   }, []);
+
 
   const handleLogout = () => {
     dispatch(logoutLoading());
-    setCookie(false);
   };
 
   return (
@@ -41,7 +43,7 @@ const Header = () => {
       <Modal page="home" />
       <St.InnerHeader>
         <St.NavWrap>
-          <St.LogoIcon onClick={() => navigate('/')}>
+          <St.LogoIcon onClick={() => navigate("/")}>
             <img src={Logo} alt="로고" />
           </St.LogoIcon>
           <St.CategoryWrap>
@@ -91,7 +93,7 @@ const Header = () => {
                       </St.TextWrap>
                     </St.CartLi>
                   </St.CartUl>
-                  <St.CartButton onClick={() => navigate('/basket')}>
+                  <St.CartButton onClick={() => navigate("/basket")}>
                     장바구니에서 전체보기
                   </St.CartButton>
                 </St.CartHover>
@@ -103,10 +105,10 @@ const Header = () => {
                 <St.Dropdown>
                   <St.DropdownTop>
                     <St.DropdownItemWrapper>
-                      <St.DropdownItemBtn onClick={() => navigate('/profile')}>
+                      <St.DropdownItemBtn onClick={() => navigate("/profile")}>
                         {data.id}
                       </St.DropdownItemBtn>
-                      <p>{data.role}</p>
+                      {/* <p>{userData.role}</p> */}
                     </St.DropdownItemWrapper>
                     <St.DropdownItemBtn onClick={handleLogout}>
                       로그아웃
@@ -117,11 +119,11 @@ const Header = () => {
             </St.NavWrap>
           ) : (
             <St.ButtonWrap>
-              <Button onClick={() => navigate('/login')} type="button" $active>
+              <Button onClick={() => redirect('/login')} type="button" $active>
                 로그인
               </Button>
               <Button
-                onClick={() => navigate('/signup')}
+                onClick={() => navigate("/signup")}
                 type="button"
                 $active={false}
               >
