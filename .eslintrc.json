@@ -48,7 +48,8 @@
     "no-plusplus": "off",
     "no-new": "off",
     "react/destructuring-assignment": [0, "always"],
-    "arrow-body-style": "off"
+    "arrow-body-style": "off",
+    "no-nested-ternary": "off"
   },
 
   "settings": {

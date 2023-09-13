@@ -48,7 +48,7 @@ const Header = () => {
             </St.CategoryLi>
             <St.CategoryLi>DEVRUN 깜짝특가</St.CategoryLi>
             <St.CategoryLi>BEST</St.CategoryLi>
-            <St.CategoryLi>고객센터</St.CategoryLi>
+            <St.CategoryLi onClick={()=> navigate("/createVideo")}>강의 등록</St.CategoryLi>
           </St.CategoryWrap>
         </St.NavWrap>
         <St.NavWrap>

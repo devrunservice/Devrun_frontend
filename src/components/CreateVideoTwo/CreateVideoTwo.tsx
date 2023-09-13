@@ -74,6 +74,7 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
 
   /* 등록하기 */
   const postVideo = () => {
+    console.log('videoStore',videoStore)
     if (
       videoStore.lectureName === '' || 
       videoStore.lectureThumbnail === '' ||
@@ -91,10 +92,9 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
     formData.append('lectureTag', JSON.stringify(videoStore.lectureTag))
     formData.append('lectureIntro', videoStore.lectureIntro)
     formData.append('lectureSectionList', JSON.stringify(videoStore.lectureSectionList))
-    formData.append('lectureThumbnail', videoStore.lectureThumbnail)
+    formData.append('image', videoStore.lectureThumbnail)
     videoStore.videoList?.forEach(list=> {
-      const stringifyVideo = JSON.stringify(list)
-      formData.append('videoList', stringifyVideo)
+      formData.append('videoFileList', JSON.stringify(list))
     })
     axios.post(url, formData, {
       headers: {
@@ -103,7 +103,7 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
     }).then(res=>{
       console.log(res)
     }).catch(err=>{
-      console.log(err)
+      console.log('err',err)
     })
   }
 
