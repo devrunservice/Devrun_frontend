@@ -261,7 +261,7 @@ const AuthenticationNumber = ({
               </St.Button>
             </St.Field>
           )}
-          {validState.checkCodeBtn && validState.code ? (
+          {validState.codeBtn && validState.checkCodeBtn && validState.code ? (
             <SuccessMessage>{messageState.codeMessage}</SuccessMessage>
           ) : (
             <ErrorMessage>{messageState.codeMessage}</ErrorMessage>
