@@ -230,7 +230,7 @@ const FindAccount = ({findOption}: {findOption: string}) => {
           </St.Button>
         ) : (
           <St.Button type="submit" name="findPasswordBtn" onClick={handleClick}>
-            비밀번호 찾기
+            비밀번호 변경
           </St.Button>
         )}
         <St.CancelBtn type="button" onClick={() => navigate('/')}>

@@ -57,6 +57,7 @@ const DuplicationForm = ({
     korean: string,
     value: string
   ) => {
+    updateValid(`${option}Duplication`, false);
     const response =
       option === 'id'
         ? await signup.getDuplicatedId({id: value})
@@ -75,14 +76,17 @@ const DuplicationForm = ({
       );
       updateValid(`${option}Duplication`, false);
     }
+    console.log('hi');
   };
 
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const {name} = e.target as HTMLButtonElement;
     if (name === 'idDuplicationBtn') {
       checkDuplicated('id', '아이디', id || '');
+      updateValid('idDuplication', true);
     } else if (name === 'emailDuplicationBtn') {
       checkDuplicated('email', '이메일', `${email}@${domain}` || '');
+      updateValid('emailDuplication', true);
     }
   };
 

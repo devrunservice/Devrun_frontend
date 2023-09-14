@@ -5,7 +5,7 @@ import {SignupFormType} from 'types';
 import * as St from './styles';
 import {openModal} from '../../redux/reducer/modalReducer';
 
-const EmailVerification = ({userData}: {userData: SignupFormType}) => {
+const EmailVerification = ({userData}: {userData: SignupFormType | string}) => {
   const dispatch = useDispatch();
 
   const handleClick = async () => {

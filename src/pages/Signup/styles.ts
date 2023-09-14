@@ -83,8 +83,9 @@ export const Ul = styled.ul`
 `;
 
 export const Li = styled.li`
-  margin-bottom: 0.5rem;
   display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
 `;
 
 export const Checkbox = styled.input`

@@ -1,28 +1,36 @@
 import CryptoJS from 'crypto-js';
 import {SignupFormType} from 'types';
 
-const SECRETKEY = process.env.REACT_APP_CRYPTO_SECRET_KEY;
-// const PRIVATEKEY = SECRETKEY;
-
 export const crypto = {
-  encryptedUserData: (userData: SignupFormType) => {
-    if (!userData || !SECRETKEY) {
+  encryptedUserData: (userData: SignupFormType, secretKey: string) => {
+    console.log(userData);
+    if (!userData || !secretKey) {
       return null;
     }
     const encrypted = CryptoJS.AES.encrypt(
       JSON.stringify(userData),
-      SECRETKEY
+      secretKey
     ).toString();
-    return encrypted;
+    return CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(encrypted));
   },
 
-  decryptedUserData: (userData: string) => {
-    if (!userData || !SECRETKEY) {
+  decryptedUserData: (userData: string, secretKey: string) => {
+    console.log(userData);
+    if (!userData || !secretKey) {
       return null;
     }
 
-    const bytes = CryptoJS.AES.decrypt(userData, SECRETKEY);
-    const decrypted = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-    return decrypted;
+    try {
+      const bytes = CryptoJS.enc.Base64.parse(userData).toString(
+        CryptoJS.enc.Utf8
+      );
+      const decrypted = CryptoJS.AES.decrypt(bytes, secretKey).toString(
+        CryptoJS.enc.Utf8
+      );
+      console.log(JSON.parse(decrypted));
+      return JSON.parse(decrypted);
+    } catch (error) {
+      console.log(error);
+    }
   },
 };
