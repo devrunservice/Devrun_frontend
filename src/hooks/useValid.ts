@@ -35,10 +35,6 @@ const useValid = (form: SignupFormType) => {
       updateValid('id', true);
     }
 
-    // if (validState.idDuplication || !validState.idDuplication) {
-    //   updateMessage('idDuplicationMessage', '중복확인을 해주세요');
-    //   updateValid('idDuplication', false);
-    // }
     if (validState.id || !validState.id) {
       updateMessage('idDuplicationMessage', '중복확인을 해주세요');
       updateValid('idDuplication', false);
@@ -78,11 +74,12 @@ const useValid = (form: SignupFormType) => {
       updateValid('email', true);
     }
 
-    if (validState.emailDuplication || !validState.emailDuplication) {
+    if (validState.email || validState.email) {
       updateMessage('emailDuplicationMessage', '중복확인을 해주세요.');
       updateValid('emailDuplication', false);
     }
 
+    // 이메일로 계정찾기 부분
     if (
       (!validState.email && validState.codeBtn) ||
       (validState.email && validState.codeBtn)
@@ -103,17 +100,15 @@ const useValid = (form: SignupFormType) => {
       updateValid('phonenumber', true);
     }
 
-    if (
-      (!validState.phonenumber && validState.codeBtn) ||
-      (validState.phonenumber && validState.codeBtn)
-    ) {
+    if (validState.phonenumber || !validState.phonenumber) {
       updateMessage('phonenumberMessage', '인증번호를 다시 받아주세요.');
+      updateMessage('codeMessage', '');
       updateValid('codeBtn', false);
+      updateValid('checkCodeBtn', false);
     }
   }, [form.phonenumber]);
 
   return {
-    // checkDuplicated,
     updateValid,
     updateMessage,
   };

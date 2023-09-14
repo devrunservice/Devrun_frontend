@@ -1,25 +1,35 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, {useState, useEffect} from 'react';
-import {useParams} from 'react-router-dom';
+import React, {useState} from 'react';
+import {useSearchParams} from 'react-router-dom';
 import {Email} from 'asset';
 import {crypto} from 'utils/crypto';
 import {Modal, EmailVerification} from 'components';
+import {SignupFormType} from 'types';
 import * as St from './styles';
 
 const SignupConfirm = () => {
-  const {user} = useParams();
-  console.log(user);
+  const [searchParams] = useSearchParams();
+  // const id = crypto.decryptedUserData(
+  //   searchParams.get('id') || '',
+  //   process.env.REACT_APP_CRYPTO_SECRET_KEY || ''
+  // );
+  // const email = crypto.decryptedUserData(
+  //   searchParams.get('email') || '',
+  //   process.env.REACT_APP_CRYPTO_SECRET_KEY || ''
+  // );
+  // console.log(id, email);
+  // const data = searchParams.get('data');
+  const data =
+    '3szRWBM3hEelXaQGu6C3vcthxwtYehVx4vCwYo_sHPaQs_SIkTJvITbfsNCHcSWmryD2HcvfueyElDEb98KnaOO7jfim3jyuizJLua21cXjPLrVkeMBTAsuOQmlB-eqd';
 
-  const [userData, setUserData] = useState();
-
-  useEffect(() => {
-    const decryptedUserData = user ? crypto.decryptedUserData(user) : null;
-    setUserData(decryptedUserData);
-    console.log(userData);
-  }, []);
+  const decryptedUserData = crypto.decryptedUserData(
+    searchParams.get('data') || '',
+    process.env.REACT_APP_CRYPTO_SECRET_KEY || ''
+  );
+  console.log(decryptedUserData);
 
   return (
-    <St.Section page="signupConfirm">
+    <St.Section page="signupconfirm">
       <St.Container>
         <St.Image>
           <Email />
@@ -32,7 +42,10 @@ const SignupConfirm = () => {
           <p>1시간 이내 회원가입 완료를 위한 이메일 인증을 진행 해 주세요.</p>
           <p>문의 사항은 devrun66@gmail.com 으로 보내주시기 바랍니다.</p>
         </St.TextArea>
-        {userData && <EmailVerification userData={userData} />}
+        {decryptedUserData && (
+          <EmailVerification userData={decryptedUserData} />
+        )}
+        {data && <EmailVerification userData={data} />}
       </St.Container>
       <Modal page="signupconfirm" />
     </St.Section>
