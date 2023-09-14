@@ -18,15 +18,13 @@ const SignupConfirm = () => {
   //   process.env.REACT_APP_CRYPTO_SECRET_KEY || ''
   // );
   // console.log(id, email);
-  // const data = searchParams.get('data');
-  const data =
-    '3szRWBM3hEelXaQGu6C3vcthxwtYehVx4vCwYo_sHPaQs_SIkTJvITbfsNCHcSWmryD2HcvfueyElDEb98KnaOO7jfim3jyuizJLua21cXjPLrVkeMBTAsuOQmlB-eqd';
+  const data = searchParams.get('data');
 
-  const decryptedUserData = crypto.decryptedUserData(
-    searchParams.get('data') || '',
-    process.env.REACT_APP_CRYPTO_SECRET_KEY || ''
-  );
-  console.log(decryptedUserData);
+  // const decryptedUserData = crypto.decryptedUserData(
+  //   searchParams.get('data') || '',
+  //   process.env.REACT_APP_CRYPTO_SECRET_KEY || ''
+  // );
+  // console.log(decryptedUserData);
 
   return (
     <St.Section page="signupconfirm">
@@ -42,9 +40,9 @@ const SignupConfirm = () => {
           <p>1시간 이내 회원가입 완료를 위한 이메일 인증을 진행 해 주세요.</p>
           <p>문의 사항은 devrun66@gmail.com 으로 보내주시기 바랍니다.</p>
         </St.TextArea>
-        {decryptedUserData && (
+        {/* {decryptedUserData && (
           <EmailVerification userData={decryptedUserData} />
-        )}
+        )} */}
         {data && <EmailVerification userData={data} />}
       </St.Container>
       <Modal page="signupconfirm" />
