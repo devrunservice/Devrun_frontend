@@ -2,26 +2,16 @@
 import React, {useState} from 'react';
 import {useSearchParams} from 'react-router-dom';
 import {Email} from 'asset';
-import {crypto} from 'utils/crypto';
+import {redirect} from 'utils/redirect';
 import {Modal, EmailVerification} from 'components';
-import {SignupFormType} from 'types';
 import * as St from './styles';
 
 const SignupConfirm = () => {
   const [searchParams] = useSearchParams();
-  // const id = crypto.decryptedUserData(
-  //   searchParams.get('id') || '',
-  //   process.env.REACT_APP_CRYPTO_SECRET_KEY || ''
-  // );
-  // const email = crypto.decryptedUserData(
-  //   searchParams.get('email') || '',
-  //   process.env.REACT_APP_CRYPTO_SECRET_KEY || ''
-  // );
-  // console.log(id, email);
   const data = searchParams.get('data');
 
   // const decryptedUserData = crypto.decryptedUserData(
-  //   searchParams.get('data') || '',
+  //   data || '',
   //   process.env.REACT_APP_CRYPTO_SECRET_KEY || ''
   // );
   // console.log(decryptedUserData);
@@ -43,7 +33,10 @@ const SignupConfirm = () => {
         {/* {decryptedUserData && (
           <EmailVerification userData={decryptedUserData} />
         )} */}
-        {data && <EmailVerification userData={data} />}
+        <St.ButtonWrapper>
+          {data && <EmailVerification status="confirm" userData={data} />}
+          <St.HomeBtn onClick={() => redirect('/home')}>메인화면</St.HomeBtn>
+        </St.ButtonWrapper>
       </St.Container>
       <Modal page="signupconfirm" />
     </St.Section>
