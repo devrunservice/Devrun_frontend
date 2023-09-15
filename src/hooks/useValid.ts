@@ -99,13 +99,15 @@ const useValid = (form: SignupFormType) => {
     } else {
       updateValid('phonenumber', true);
     }
+    console.log('hi');
 
-    if (validState.phonenumber || !validState.phonenumber) {
-      updateMessage('phonenumberMessage', '인증번호를 다시 받아주세요.');
+    if (validState.codeBtn || !validState.codeBtn) {
+      updateMessage('phonenumberMessage', '인증번호를 받아주세요.');
       updateMessage('codeMessage', '');
       updateValid('codeBtn', false);
       updateValid('checkCodeBtn', false);
     }
+    console.log(validState);
   }, [form.phonenumber]);
 
   return {

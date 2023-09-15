@@ -319,7 +319,7 @@ const Signup = () => {
             회원가입
           </St.SignupBtn>
           <St.CancelBtn type="button" onClick={() => navigate('/')}>
-            취소
+            메인화면
           </St.CancelBtn>
         </form>
         <Modal page="signup" />
