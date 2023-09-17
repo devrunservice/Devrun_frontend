@@ -12,9 +12,10 @@ import {
   AuthenticationNumber,
   Modal,
   DuplicationForm,
+  Agreement,
 } from 'components';
 import {SignupFormType} from 'types';
-import {Title, ErrorMessage, Input, SuccessMessage} from 'style/Common';
+import {Title, ErrorMessage, Input} from 'style/Common';
 import * as St from './styles';
 import {openModal, setSignupSuccess} from '../../redux/reducer/modalReducer';
 
@@ -55,7 +56,11 @@ const Signup = () => {
     marketConsent: false,
   });
 
-  // console.log(isValid);
+  const disabledBtn =
+    !validState.idDuplication ||
+    !validState.emailDuplication ||
+    !validState.codeBtn ||
+    !validState.checkCodeBtn;
 
   // 만 19세 이상 가입
   // hooks로 빼기
@@ -70,7 +75,6 @@ const Signup = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(signupForm);
     try {
       const response = await signup.createUser(signupForm.code || '', {
         id: signupForm.id,
@@ -79,6 +83,7 @@ const Signup = () => {
         email: signupForm.email,
         birthday: signupForm.birthday,
         phonenumber: signupForm.phonenumber,
+        code: signupForm.code,
         ageConsent: signupForm.ageConsent,
         termsOfService: signupForm.termsOfService,
         privacyConsent: signupForm.privacyConsent,
@@ -86,13 +91,25 @@ const Signup = () => {
       });
       console.log(response);
       if (response.status === 200) {
-        dispatch(setSignupSuccess(true));
+        // dispatch(setSignupSuccess(true));
         // dispatch(openModal('회원가입이 완료되었습니다.'));
-        const params = crypto.encryptedUserData({
-          id: signupForm.id,
-          email: signupForm.email,
-        });
-        navigate(`/signupconfirm/${params}`);
+        const params = crypto.encryptedUserData(
+          {
+            id: signupForm.id,
+            email: signupForm.email,
+          },
+          process.env.REACT_APP_CRYPTO_SECRET_KEY || ''
+        );
+        // const encryptedId = crypto.encryptedUserData(
+        //   signupForm.id || '',
+        //   process.env.REACT_APP_CRYPTO_SECRET_KEY || ''
+        // );
+        // const encryptedEmail = crypto.encryptedUserData(
+        //   signupForm.email || '',
+        //   process.env.REACT_APP_CRYPTO_SECRET_KEY || ''
+        // );
+        // navigate(`/signupconfirm?id=${encryptedId}&email=${encryptedEmail}`);
+        navigate(`/signupconfirm?data=${params}`);
       }
     } catch (error: any) {
       console.error(error);
@@ -113,17 +130,6 @@ const Signup = () => {
         signupForm.id = value.id;
       } else if (name === 'email') {
         signupForm.email = value.email;
-      }
-    });
-  };
-
-  // 비밀번호, 비밀번호 확인 값 가져오기
-  const getPassword = (value: SignupFormType) => {
-    Object.keys(value).forEach((name) => {
-      if (name === 'password') {
-        signupForm.password = value.password;
-      } else if (name === 'passwordConfirm') {
-        signupForm.passwordConfirm = value.passwordConfirm;
       }
     });
   };
@@ -163,15 +169,6 @@ const Signup = () => {
       setSignupForm((prev) => ({...prev, [id]: checked}));
     }
   };
-
-  useEffect(() => {
-    const params = crypto.encryptedUserData({
-      id: signupForm.id,
-      email: signupForm.email,
-    });
-    console.log(params);
-    console.log(params && crypto.decryptedUserData(params));
-  }, [signupForm.id, signupForm.email]);
 
   return (
     <St.Section page="signup">
@@ -250,63 +247,77 @@ const Signup = () => {
           {/* 약관 동의 */}
           <St.Ul>
             <St.Li>
-              <St.Checkbox
-                type="checkbox"
-                id="allChecked"
-                checked={checkboxes.allChecked}
-                onChange={handleChecked}
-              />
-              <label htmlFor="allChecked">전체동의</label>
+              <div>
+                <St.Checkbox
+                  type="checkbox"
+                  id="allChecked"
+                  checked={checkboxes.allChecked}
+                  onChange={handleChecked}
+                />
+                <label htmlFor="allChecked">전체동의</label>
+              </div>
             </St.Li>
             <hr />
             <St.Li>
-              <St.Checkbox
-                type="checkbox"
-                id="ageConsent"
-                checked={checkboxes.ageConsent}
-                onChange={handleChecked}
-                required
-              />
-              <label htmlFor="ageConsent">만 19세 이상입니다. (필수)</label>
+              <div>
+                <St.Checkbox
+                  type="checkbox"
+                  id="ageConsent"
+                  checked={checkboxes.ageConsent}
+                  onChange={handleChecked}
+                />
+                <label htmlFor="ageConsent">만 19세 이상입니다. (필수)</label>
+              </div>
             </St.Li>
             <St.Li>
-              <St.Checkbox
-                type="checkbox"
-                id="termsOfService"
-                checked={checkboxes.termsOfService}
-                onChange={handleChecked}
-                required
-              />
-              <label htmlFor="termsOfService">
-                서비스 이용약관 동의 (필수)
-              </label>
+              <div>
+                <St.Checkbox
+                  type="checkbox"
+                  id="termsOfService"
+                  checked={checkboxes.termsOfService}
+                  onChange={handleChecked}
+                  required
+                />
+                <label htmlFor="termsOfService">
+                  서비스 이용약관 동의 (필수)
+                </label>
+              </div>
+              <Agreement title="termsOfService" />
             </St.Li>
             <St.Li>
-              <St.Checkbox
-                type="checkbox"
-                id="privacyConsent"
-                checked={checkboxes.privacyConsent}
-                onChange={handleChecked}
-                required
-              />
-              <label htmlFor="privacyConsent">
-                개인정보 수집 및 이용 동의 (필수)
-              </label>
+              <div>
+                <St.Checkbox
+                  type="checkbox"
+                  id="privacyConsent"
+                  checked={checkboxes.privacyConsent}
+                  onChange={handleChecked}
+                  required
+                />
+                <label htmlFor="privacyConsent">
+                  개인정보 수집 및 이용 동의 (필수)
+                </label>
+              </div>
+              <Agreement title="privacyConsent" />
             </St.Li>
             <St.Li>
-              <St.Checkbox
-                type="checkbox"
-                id="marketConsent"
-                checked={checkboxes.marketConsent}
-                onChange={handleChecked}
-              />
-              <label htmlFor="marketConsent">
-                마케팅 활용 동의 및 광고 수신 동의 (선택)
-              </label>
+              <div>
+                <St.Checkbox
+                  type="checkbox"
+                  id="marketConsent"
+                  checked={checkboxes.marketConsent}
+                  onChange={handleChecked}
+                />
+                <label htmlFor="marketConsent">
+                  마케팅 활용 동의 및 광고 수신 동의 (선택)
+                </label>
+              </div>
+              <Agreement title="marketConsent" />
             </St.Li>
           </St.Ul>
           {/* 회원가입 버튼 */}
-          <St.SignupBtn type="submit">회원가입</St.SignupBtn>
+          <St.SignupBtn type="submit" disabled={disabledBtn}>
+            회원가입
+          </St.SignupBtn>
           <St.CancelBtn type="button" onClick={() => navigate('/')}>
             취소
           </St.CancelBtn>

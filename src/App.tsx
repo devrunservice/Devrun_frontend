@@ -7,7 +7,7 @@ const App = () => {
   const location = useLocation();
   const hideHeader =
     location.pathname === '/signup' ||
-    location.pathname === '/signupconfirm/:user' ||
+    location.pathname === '/signupconfirm' ||
     location.pathname === '/signupcompletion' ||
     location.pathname === '/login' ||
     location.pathname === '/auth/kakao/callback/login' ||
@@ -17,7 +17,7 @@ const App = () => {
 
   const hideFooter =
     location.pathname === '/signup' ||
-    location.pathname === '/signupconfirm/:user' ||
+    location.pathname === '/signupconfirm' ||
     location.pathname === '/signupcompletion' ||
     location.pathname === '/login' ||
     location.pathname === '/auth/kakao/callback/login' ||
@@ -36,8 +36,8 @@ const App = () => {
     location.pathname === '/questions' ||
     location.pathname === '/coupon' ||
     location.pathname === '/receipt' ||
-    location.pathname === '/createcoupon'||
-     location.pathname === '/point';
+    location.pathname === '/createcoupon' ||
+    location.pathname === '/point';
 
   return (
     <>

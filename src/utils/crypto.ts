@@ -1,28 +1,54 @@
 import CryptoJS from 'crypto-js';
 import {SignupFormType} from 'types';
 
-const SECRETKEY = process.env.REACT_APP_CRYPTO_SECRET_KEY;
-// const PRIVATEKEY = SECRETKEY;
-
 export const crypto = {
-  encryptedUserData: (userData: SignupFormType) => {
-    if (!userData || !SECRETKEY) {
+  encryptedUserData: (userData: SignupFormType, secretKey: string) => {
+    console.log(userData);
+    if (!userData || !secretKey) {
       return null;
     }
-    const encrypted = CryptoJS.AES.encrypt(
-      JSON.stringify(userData),
-      SECRETKEY
-    ).toString();
-    return encrypted;
+    const key = CryptoJS.enc.Utf8.parse(secretKey.substring(0, 16));
+    const userDataAsString = JSON.stringify(userData);
+    const encrypted = CryptoJS.AES.encrypt(userDataAsString, key, {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.Pkcs7,
+    }).toString();
+    // const utf8 = CryptoJS.enc.Base64.stringify(
+    //   CryptoJS.enc.Utf8.parse(encrypted)
+    // );
+    const urlSafeBase64 = encrypted
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+      .replace(/=+$/, '');
+    return urlSafeBase64;
   },
 
-  decryptedUserData: (userData: string) => {
-    if (!userData || !SECRETKEY) {
+  decryptedUserData: (userData: string, secretKey: string) => {
+    console.log(userData);
+    if (!userData || !secretKey) {
       return null;
     }
 
-    const bytes = CryptoJS.AES.decrypt(userData, SECRETKEY);
-    const decrypted = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-    return decrypted;
+    try {
+      const key = CryptoJS.enc.Utf8.parse(secretKey.substring(0, 16));
+
+      const base64Data = userData
+        .replace(/-/g, '+')
+        .replace(/_/g, '/')
+        .padEnd((userData.length + 3) & ~3, '=');
+
+      // const utf8 = CryptoJS.enc.Base64.parse(base64Data).toString(
+      //   CryptoJS.enc.Utf8
+      // );
+
+      const decrypted = CryptoJS.AES.decrypt(base64Data, key, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7,
+      }).toString(CryptoJS.enc.Utf8);
+
+      return JSON.parse(decrypted);
+    } catch (error) {
+      console.log(error);
+    }
   },
 };

@@ -7,7 +7,7 @@ import {baseAxios, authAxios, imageAxios} from './instance';
 export const signup = {
   // 회원가입
   createUser: async (code: string, params: I.SignupFormType) => {
-    const response = await baseAxios.post(`/signup/okay?code=${code}`, params);
+    const response = await baseAxios.post(`/signup/okay`, params);
     return response;
   },
   // 아이디 중복확인
@@ -22,12 +22,16 @@ export const signup = {
   },
   // 휴대폰 중복확인
   getDuplicatedPhonnumber: async (params: I.SignupFormType) => {
-    const response = await baseAxios.post("/checkPhone", params);
+    const response = await baseAxios.post('/checkPhone', params);
     return response;
   },
-  sendVerificationEmail: async (params: I.SignupFormType) => {
+  sendVerificationEmail: async (params: I.SignupFormType | string) => {
+    // const response = await baseAxios.post(
+    //   `/signup/resend/confirm-email?email=${params.email}&id=${params.id}`
+    // );
+    console.log(params);
     const response = await baseAxios.post(
-      `/signup/resend/confirm-email?email=${params.email}&id=${params.id}`
+      `/signup/resend/confirm-email?data=${params}`
     );
     console.log(response);
     return response;
@@ -54,14 +58,14 @@ export const verificationAPI = {
   },
   // 이메일 인증번호 받기
   getAuthenticationNumberByEmail: async (params: I.SignupFormType) => {
-    const response = await baseAxios.post("/auth/email", params);
+    const response = await baseAxios.post('/auth/email', params);
     console.log(response);
     console.log(params);
     return response;
   },
   // 이메일 인증번호 확인
   checkAuthenticationNumberByEmail: async (params: I.SignupFormType) => {
-    const response = await baseAxios.post("/verify/email", params);
+    const response = await baseAxios.post('/verify/email', params);
     console.log(response);
     return response;
   },
@@ -69,7 +73,7 @@ export const verificationAPI = {
 
 export const login = {
   checkLoginUser: async (params: I.LoginFormType) => {
-    const response = await baseAxios.post("/login", params);
+    const response = await baseAxios.post('/login', params);
     return response;
   },
   checkLogout: async () => {
@@ -89,7 +93,7 @@ export const login = {
         Refresh_token: `${params}`,
       },
     };
-    const response = await authAxios.post("/authz/token/refresh", null, config);
+    const response = await authAxios.post('/authz/token/refresh', null, config);
     return response.data.Access_token;
   },
   checkKakaoLogin: async (params: string) => {
@@ -108,15 +112,15 @@ export const findAccount = {
   // 휴대폰 번호로 아이디 찾기
   findIdByPhonenumber: async (params: I.SignupFormType) => {
     console.log(params);
-    const response = await baseAxios.post("/find-id/send-phone", params);
+    const response = await baseAxios.post('/find-id/send-phone', params);
     return response;
   },
   findIdByEmail: async (params: I.SignupFormType) => {
-    const response = await baseAxios.post("/find-id/send-email", params);
+    const response = await baseAxios.post('/find-id/send-email', params);
     return response;
   },
   findPasswordByEmail: async (params: I.SignupFormType) => {
-    const response = await baseAxios.post("/find/password/email", params);
+    const response = await baseAxios.post('/find/password/email', params);
     return response;
   },
   findPasswordByPhonenumber: async (id: string, params: I.SignupFormType) => {
@@ -137,13 +141,11 @@ export const findAccount = {
 
 // 로그인한 유저정보
 export const userData = {
-
-  userInfo:()=>{
-    const response = authAxios.get("/users/login-info")
-    return response
-  }
+  userInfo: () => {
+    const response = authAxios.get('/users/login-info');
+    return response;
+  },
 };
-
 
 // 마이페이지 정보
 export const mypage = {
@@ -177,7 +179,7 @@ export const mypage = {
     return response;
   },
   coupon: (params: I.CouponGet) => {
-    const response = authAxios.post("/coupon/registrate", params);
+    const response = authAxios.post('/coupon/registrate', params);
     return response;
   },
   couponGet: () => {
@@ -214,10 +216,9 @@ export const Cart = {
   },
 };
 
-
 export const create = {
   coupon: (params: I.CreateCoupon) => {
-    const response = authAxios.post("/coupon/publish", params);
+    const response = authAxios.post('/coupon/publish', params);
     return response;
   },
   couponGet: (params: I.PageNo) => {

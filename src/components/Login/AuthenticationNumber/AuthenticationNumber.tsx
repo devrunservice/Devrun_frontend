@@ -29,10 +29,6 @@ const AuthenticationNumber = ({
     code: '',
   });
 
-  console.log(
-    `페이지 : ${page}, 계정 찾기 종류 : ${findOption}, 휴대폰 or 이메일 : ${option}`
-  );
-
   const validState = useSelector(
     (state: RootState) => state.validationReducer.validState
   );
@@ -265,7 +261,7 @@ const AuthenticationNumber = ({
               </St.Button>
             </St.Field>
           )}
-          {validState.checkCodeBtn && validState.code ? (
+          {validState.codeBtn && validState.checkCodeBtn && validState.code ? (
             <SuccessMessage>{messageState.codeMessage}</SuccessMessage>
           ) : (
             <ErrorMessage>{messageState.codeMessage}</ErrorMessage>

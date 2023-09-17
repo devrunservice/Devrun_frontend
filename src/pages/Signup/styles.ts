@@ -83,8 +83,9 @@ export const Ul = styled.ul`
 `;
 
 export const Li = styled.li`
-  margin-bottom: 0.5rem;
   display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
 `;
 
 export const Checkbox = styled.input`
@@ -143,10 +144,10 @@ export const LoginBtn = styled(Button)`
   width: 45%;
 `;
 
-export const HomeBtn = styled(Button)`
+export const HomeBtn = styled(Button)<{status?: string}>`
   background-color: #f0f0f0;
   color: ${(props) => props.theme.black};
   margin: 0.5rem 0;
   padding: 0.8rem 0;
-  width: 45%;
+  width: ${(props) => (props.status === 'expired' ? '100%' : '45%')};
 `;

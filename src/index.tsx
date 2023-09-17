@@ -18,42 +18,42 @@ const protectedRoute = (component: ReactNode) =>
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <App />,
     errorElement: <Route.NotFound />,
     children: [
-      { index: true, element: <Route.HomePage /> },
+      {index: true, element: <Route.HomePage />},
       {
-        path: "home",
+        path: 'home',
         element: ACCESS_TOKEN ? (
           <Route.HomePage />
         ) : (
           <Navigate replace to="/login" />
         ),
       },
-      { path: "login", element: <Route.Login /> },
-      { path: "auth/kakao/callback", element: <Route.Auth2RedirectHandler /> },
-      { path: "signup", element: <Route.Signup /> },
-      { path: "signupconfirm/:user", element: <Route.SignupConfirm /> },
+      {path: 'login', element: <Route.Login />},
+      {path: 'auth/kakao/callback', element: <Route.Auth2RedirectHandler />},
+      {path: 'signup', element: <Route.Signup />},
+      {path: 'signupconfirm', element: <Route.SignupConfirm />},
       {
-        path: "signupverification",
+        path: 'signupverification',
         element: <Route.Signup2RedirectHandler />,
       },
       {
-        path: "Signupcompletion",
+        path: 'signupcompletion',
         element: <Route.SignupCompletion />,
       },
-      { path: "findaccount/id", element: <Route.FindId /> },
-      { path: "findaccount/password", element: <Route.FindPassword /> },
-      { path: "basket", element: protectedRoute(<Route.Basket />) },
+      {path: 'findaccount/id', element: <Route.FindId />},
+      {path: 'findaccount/password', element: <Route.FindPassword />},
+      {path: 'basket', element: protectedRoute(<Route.Basket />)},
 
       {
-        path: "noticeWrite",
+        path: 'noticeWrite',
         element: protectedRoute(<Route.NoticeWrite />),
       },
-      { path: "notice", element: protectedRoute(<Route.Notice />) },
+      {path: 'notice', element: protectedRoute(<Route.Notice />)},
       {
-        path: "notice/:noticeNo",
+        path: 'notice/:noticeNo',
         element: protectedRoute(<Route.NoticeDetail />),
       },
       {
@@ -75,7 +75,7 @@ const router = createBrowserRouter([
       { path: "point", element: <Route.Point /> },
       { path: "createcoupon", element: <Route.CreateCoupon /> },
       {
-        path: "createVideo",
+        path: 'createVideo',
         element: ACCESS_TOKEN ? (
           <Route.CreateVideo />
         ) : (

@@ -15,7 +15,7 @@ const initialState: ValidationReducerType = {
     passwordConfirm: false,
     email: false,
     name: false,
-    // birthday: false,
+    birthday: false,
     phonenumber: false,
     code: false,
     codeBtn: false,

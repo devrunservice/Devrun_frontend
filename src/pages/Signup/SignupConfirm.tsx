@@ -1,25 +1,23 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, {useState, useEffect} from 'react';
-import {useParams} from 'react-router-dom';
+import React, {useState} from 'react';
+import {useSearchParams} from 'react-router-dom';
 import {Email} from 'asset';
-import {crypto} from 'utils/crypto';
+import {redirect} from 'utils/redirect';
 import {Modal, EmailVerification} from 'components';
 import * as St from './styles';
 
 const SignupConfirm = () => {
-  const {user} = useParams();
-  console.log(user);
+  const [searchParams] = useSearchParams();
+  const data = searchParams.get('data');
 
-  const [userData, setUserData] = useState();
-
-  useEffect(() => {
-    const decryptedUserData = user ? crypto.decryptedUserData(user) : null;
-    setUserData(decryptedUserData);
-    console.log(userData);
-  }, []);
+  // const decryptedUserData = crypto.decryptedUserData(
+  //   data || '',
+  //   process.env.REACT_APP_CRYPTO_SECRET_KEY || ''
+  // );
+  // console.log(decryptedUserData);
 
   return (
-    <St.Section page="signupConfirm">
+    <St.Section page="signupconfirm">
       <St.Container>
         <St.Image>
           <Email />
@@ -32,7 +30,13 @@ const SignupConfirm = () => {
           <p>1시간 이내 회원가입 완료를 위한 이메일 인증을 진행 해 주세요.</p>
           <p>문의 사항은 devrun66@gmail.com 으로 보내주시기 바랍니다.</p>
         </St.TextArea>
-        {userData && <EmailVerification userData={userData} />}
+        {/* {decryptedUserData && (
+          <EmailVerification userData={decryptedUserData} />
+        )} */}
+        <St.ButtonWrapper>
+          {data && <EmailVerification status="confirm" userData={data} />}
+          <St.HomeBtn onClick={() => redirect('/home')}>메인화면</St.HomeBtn>
+        </St.ButtonWrapper>
       </St.Container>
       <Modal page="signupconfirm" />
     </St.Section>
