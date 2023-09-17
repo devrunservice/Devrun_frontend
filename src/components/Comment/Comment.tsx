@@ -1,135 +1,283 @@
-import React,{ ChangeEvent, useState } from "react";
-import { RxDotsVertical } from "react-icons/rx";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, {  useCallback, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "redux/store";
+import { notice } from "utils/api";
 import NoImg from "asset/images/NoImg.jpg";
-import * as I from "types";
+import { useInput } from "hooks";
+import { CommentsList } from "types";
 import { Button } from "style/Common";
 import * as St from "./style";
+
+import {
+  commentPostLoading,
+  commentGetLoading,
+  commentRetouchLoading,
+} from "../../redux/reducer/noticeReducer";
 
 
 
 
 const Comment = () => {
-  
-  const [comment, setComment] = useState<I.Comment>({
-    comment: "",
-    comments: "",
-  });  
-
-  const [love, setLove] = useState<boolean>(false);
-  const loveBtn = () => setLove(!love);
-
-  const [write, setWrite] = useState<boolean>(false);
-  const writeBtn = () => {
-    setWrite(!write);
-    setComment({ ...comment, comments: "" });
+  const dispatch = useDispatch();
+  const param = useParams();
+  const { datas } = useSelector((state: RootState) => state.noticeReducer);
+  const { comments } = useSelector((state: RootState) => state.noticeReducer);
+  const { commentRe } = useSelector((state: RootState) => state.noticeReducer);
+  const [comment, onChangeComment, setComment] = useInput("");
+  const [commentTwo, onChangeCommentTwo, setCommentTwo] = useInput("");
+  const [writes, setWrites] = useState<number | null>(null);
+  console.log(datas);
+  useEffect(() => {
+    dispatch(commentGetLoading(param));
+  }, [comments, commentRe]);
+  const onComment = useCallback(async () => {
+    if (comment.trim() === "") return alert("댓글을 적어주세요");
+    try {
+      await dispatch(
+        commentPostLoading({ content: comment, noticeNo: param.noticeNo })
+      );
+      setComment("");
+    } catch (error) {
+      alert("댓글등록에 실패했습니다");
+    }
+  }, [comment]);
+  // 댓글 수정
+  const onCommentRe = useCallback(
+    async (v: number, num: number, i: number) => {
+      if (commentTwo.trim() === "") return alert("수정할 댓글을 적어주세요");
+      try {
+        await dispatch(
+          commentRetouchLoading({
+            content: commentTwo,
+            commentNo: v,
+            parentCommentNo: num,
+            noticeNo: i,
+          })
+        );
+        setCommentTwo("");
+      } catch (error) {
+        alert("댓글등록에 실패했습니다");
+      }
+    },
+    [commentTwo]
+  );
+  // 댓글수정 버튼
+  const commentsWrite = useCallback(
+    (Index: number) => {
+      if (datas?.data.some((v: CommentsList) => v.commentNo === Index)) {
+         if (writes === Index) {
+           setWrites(null); // 같은 댓글을 다시 클릭하면 닫음
+         } else {
+           setWrites(Index); // 다른 댓글을 클릭하면 열고 선택된 댓글 번호 저장
+         }
+      }
+    },
+    [datas?.data, writes]
+  );
+  // 댓글취소 버튼
+  const onCommentClose = useCallback(
+    (Index: number) => {
+      if (datas?.data.some((v) => v.commentNo === Index)) {
+        setWrites(null);
+        setCommentTwo("");
+      }
+    },
+    [writes, datas?.data]
+  );
+  const time = (createdDate:string) => {
+    const currentTime = new Date();
+    const creatTime = new Date(createdDate);
+    const differenTime = currentTime.getTime() - creatTime.getTime();
+    // 밀리초를 분, 일 등으로 변환
+    const secondsDifference = Math.floor(differenTime / 1000);
+    const minutesDifference = Math.floor(secondsDifference / 60);
+    const hoursDifference = Math.floor(minutesDifference / 60);
+    const daysDifference = Math.floor(hoursDifference / 24);
+    if (daysDifference > 0) return `${daysDifference}일 전`;
+    if (hoursDifference > 0) return `${hoursDifference}시간 전`;
+    if (minutesDifference > 0) return `${minutesDifference}분 전`;
+    if(secondsDifference > 0) return `${secondsDifference}초 전`;
   };
 
-  const commentRegBtn = () => {
-    setWrite(!write);
-    setComment({ ...comment, comments: "" });
-  }
- 
   return (
-    <St.CommentWrap>
-      <St.Top>
-        <St.CommentTitle>
-          댓글
-          <St.CommentCount>
-            총 <St.Comments>56</St.Comments>개
-          </St.CommentCount>
-        </St.CommentTitle>
-        <St.CommentBox
-          onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-            setComment({ ...comment, comment: e.target.value })
-          }
-          maxLength={500}
-          value={comment.comment}
-        />
-        <St.ButtonWrap>
-          <St.CommentNum>{comment.comment.length} / 500</St.CommentNum>
-          <Button
-            $active={false}
-            onClick={() => setComment({ ...comment, comment: "" })}
-          >
-            취소
-          </Button>
-          <Button $active>등록</Button>
-        </St.ButtonWrap>
-      </St.Top>
+    <>
+      <St.CommentTitle>
+        댓글
+        <St.CommentCount>
+          총 <St.Comments>{datas?.data.length}</St.Comments>개
+        </St.CommentCount>
+      </St.CommentTitle>
+      <St.CommentBox
+        onChange={onChangeComment}
+        maxLength={500}
+        value={comment}
+      />
+      <St.ButtonWrap>
+        <St.CommentNum>{comment.length} / 500</St.CommentNum>
+        <Button $active={false} onClick={() => setComment("")} type="button">
+          취소
+        </Button>
+        <Button $active type="button" onClick={onComment}>
+          등록
+        </Button>
+      </St.ButtonWrap>
+
       <St.CommentUl>
-        <St.CommentLi>
-          <St.CommentTop>
-            <St.CommentLeft>
-              <St.CommentImgBox>
-                <St.CommentImg src={NoImg} alt="유저 이미지" />
-              </St.CommentImgBox>
-              <St.CommentName>작성자명</St.CommentName>
-            </St.CommentLeft>
-            <St.ToggleBtn>
-              <RxDotsVertical />
-            </St.ToggleBtn>
-          </St.CommentTop>
-          <St.CommentText>
-            두기 심장은 기쁘며, 놀이 피에 없으면 인생에 보배를 하였으며,
-            때문이다. 찾아 구하기 인류의 품고 자신과 부패를 이상의 위하여서.
-            우리의 인간에 유소년에게서 지혜는 능히 피가 약동하다. 충분히
-            동산에는 현저하게 바이며, 온갖 행복스럽고 오아이스도 끓는다. 위하여,
-            청춘 내는 많이 든 얼음과 사막이다. 보는 거선의 품었기 피는 있다.
-            못할 청춘의 있으며, 꾸며 예가 이상은 이는 힘있다. 수 열락의 이상의
-            그들의 있는 것이다. 별과 과실이 인도하겠다는 인생을 광야에서
-            교향악이다. 구하지 청춘에서만 이 목숨이 아름답고 같은 착목한는 간에
-            것이다. 얼마나 무한한 실로 부패뿐이다. 기관과 속에 인간이 풍부하게
-            있으랴? 불러 두손을 것은 뿐이다. 위하여서, 아름답고 오아이스도
-            무엇을 굳세게 그들은 황금시대다. 노래하며 그들의 이성은 힘차게 길을
-            많이 아름다우냐? 노년에게서 사라지지 찬미를 커다란 때에, 같은 충분히
-            귀는 속에 뿐이다. 밥을 생의 있음으로써 보이는 얼마나 하는 이것이다.
-            같지 청춘 목숨을 투명하되 얼마나 피부가 가는 있다. 실현에 목숨이
-            그들은 심장의 피부가 꽃이 바이며, 봄바람이다. 인간은 길지 청춘에서만
-            위하여서, 이것이다. 곳으로 착목한는 보이는 되는 지혜는 풀밭에
-            인도하겠다는 것은 이것이다. 있을 생명을 발휘하기 열매를 그와 고행을
-            대중을 천하를 실현에 끓는다. 유소년에게서 이상 보는 보라. 만천하의
-            별과 반짝이는 장식하는 못할 인생의 청춘을 이것이다. 가는 열매를
-            위하여 이상은 피고 구하지 충분히 이상의 황금시대다. 튼튼하며, 피가
-            석가는 장식하는 대고, 이상은 그러므로 길지 것이다. 그러므로 무엇이
-            같이 얼음과 현저하게 싸인 눈에 끓는 얼음에 사막이다. 가슴에 풀이 든
-            피어나는 것이다. 인간의 부패를 구할 힘차게 그들의 이상 이상을 고행을
-            약동하다. 원질이 이상을 무엇이 같이, 봄바람이다.
-          </St.CommentText>
-          <St.CommentBottom>
-            <St.CommentLoveIcon onClick={() => loveBtn()}>
-              {love ? <St.LoveFill /> : <St.LoveBorder />}
-              <St.CommentLoveNum>2</St.CommentLoveNum>
-            </St.CommentLoveIcon>
-            <St.CommentDate>2023. 05. 15</St.CommentDate>
-            <St.CommentWrite onClick={() => writeBtn()}>
-              댓글쓰기
-            </St.CommentWrite>
-          </St.CommentBottom>
-          {write && (
-            <St.CommentWriteWrap>
-              <St.CommentBox
-                onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-                  setComment({ ...comment, comments: e.target.value })
-                }
-                maxLength={500}
-                value={comment.comments}
-              />
-              <St.ButtonWrap>
-                <St.CommentNum>{comment.comments.length} / 500</St.CommentNum>
-                <Button $active={false} onClick={() => writeBtn()}>
-                  취소
-                </Button>
-                <Button $active onClick={() => commentRegBtn()}>
-                  등록
-                </Button>
-              </St.ButtonWrap>
-            </St.CommentWriteWrap>
-          )}
-          <St.CommentWriteWrap>aaa</St.CommentWriteWrap>
-          <St.CommentWriteWrap>aaa</St.CommentWriteWrap>
-        </St.CommentLi>
+        {datas &&
+          datas?.data
+            .filter((i: CommentsList) => i.parentCommentNo === 0)
+            .map((v: CommentsList) => {
+              return (
+                <St.CommentLi key={v.commentNo}>
+                  <St.CommentTop>
+                    <div>
+                      <St.CommentImgBox>
+                        <St.CommentImg src={NoImg} alt="유저 이미지" />
+                      </St.CommentImgBox>
+
+                      <St.CommentName>asd</St.CommentName>
+                      <St.CommentTime>
+                        {v.modifiedDate !== null
+                          ? `${time(v.modifiedDate)} 수정`
+                          : time(v.createdDate)}
+                      </St.CommentTime>
+                    </div>
+                    <div>
+                      <St.CommentRe
+                        onClick={() => commentsWrite(v.commentNo)}
+                      >
+                        수정
+                      </St.CommentRe>
+                      <St.CommentRemove
+                        onClick={() => commentsWrite(v.commentNo)}
+                      >
+                        삭제
+                      </St.CommentRemove>
+                      <St.CommentWrite
+                        onClick={() => commentsWrite(v.commentNo)}
+                      >
+                        댓글달기
+                      </St.CommentWrite>
+                    </div>
+                  </St.CommentTop>
+                  <St.CommentText>{v.content}</St.CommentText>
+
+                  {writes === v.commentNo && (
+                    <St.CommentWriteWrap>
+                      <St.CommentBox
+                        onChange={onChangeCommentTwo}
+                        maxLength={350}
+                        value={commentTwo !== "" ? commentTwo : v.content}
+                      />
+                      <St.ButtonWrapCommnet>
+                        <St.CommentNum>{commentTwo.length} / 350</St.CommentNum>
+                        <Button
+                          $active={false}
+                          onClick={() => onCommentClose(v.commentNo)}
+                          type="button"
+                        >
+                          취소
+                        </Button>
+                        <Button
+                          $active
+                          onClick={() =>
+                            onCommentRe(
+                              v.commentNo,
+                              v.parentCommentNo,
+                              v.noticeNo
+                            )
+                          }
+                          type="button"
+                        >
+                          등록
+                        </Button>
+                      </St.ButtonWrapCommnet>
+                    </St.CommentWriteWrap>
+                  )}
+                  <ul>
+                    {datas?.data
+                      .filter(
+                        (k: CommentsList) => k.parentCommentNo === v.commentNo
+                      )
+                      .map((q: CommentsList) => {
+                        return (
+                          <St.Reply key={q.commentNo}>
+                            <St.ReplyIcon />
+                            <div>
+                              <St.CommentTop>
+                                <div>
+                                  <St.CommentImgBox>
+                                    <St.CommentImg
+                                      src={NoImg}
+                                      alt="유저 이미지"
+                                    />
+                                  </St.CommentImgBox>
+
+                                  <St.CommentName>asd</St.CommentName>
+                                  <p>{time(q.createdDate)}</p>
+                                </div>
+                                <div>
+                                  <St.CommentRe
+                                    onClick={() => commentsWrite(q.commentNo)}
+                                  >
+                                    수정
+                                  </St.CommentRe>
+                                  <St.CommentRemove
+                                    onClick={() => commentsWrite(q.commentNo)}
+                                  >
+                                    삭제
+                                  </St.CommentRemove>
+                                </div>
+                              </St.CommentTop>
+                              <St.CommentText>{q.content}</St.CommentText>
+                            </div>
+                            {writes === q.commentNo && (
+                              <St.CommentWriteWrap>
+                                <St.CommentBox
+                                  onChange={onChangeCommentTwo}
+                                  maxLength={350}
+                                  value={
+                                    commentTwo !== "" ? commentTwo : q.content
+                                  }
+                                />
+                                <St.ButtonWrapCommnet>
+                                  <St.CommentNum>
+                                    {commentTwo.length} / 350
+                                  </St.CommentNum>
+                                  <Button
+                                    $active={false}
+                                    onClick={() => onCommentClose(q.commentNo)}
+                                    type="button"
+                                  >
+                                    취소
+                                  </Button>
+                                  <Button
+                                    $active
+                                    onClick={() =>
+                                      onCommentRe(
+                                        q.commentNo,
+                                        q.parentCommentNo,
+                                        q.noticeNo
+                                      )
+                                    }
+                                    type="button"
+                                  >
+                                    등록
+                                  </Button>
+                                </St.ButtonWrapCommnet>
+                              </St.CommentWriteWrap>
+                            )}
+                          </St.Reply>
+                        );
+                      })}
+                  </ul>
+                </St.CommentLi>
+              );
+            })}
       </St.CommentUl>
-    </St.CommentWrap>
+    </>
   );
 };
 export default Comment;

@@ -30,6 +30,7 @@ export const PopupBg = styled.div`
 export const Popup = styled.div`
   width: 25rem;
   height: 34.0625rem;
+  padding: 1.5625rem 1.5625rem;
   background: ${(props: any) => props.theme.bgColor};
   position: absolute;
   top: 0;
@@ -42,8 +43,7 @@ export const Popup = styled.div`
 export const Title = styled.h4`
   color: ${(props: any) => props.theme.black};
   font-weight: 600;
-  font-size: 1rem;
-  margin: 1.25rem 1.25rem;
+  margin-bottom: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -53,7 +53,7 @@ export const Deletes = styled(Delete)`
   cursor: pointer;
 `;
 export const PopCon = styled.form`
-  padding: 1.5rem 1.25rem;
+  padding-top: 1.5rem;
   border-top: 1px solid ${(props: any) => props.theme.borderC};
   > div {
     margin-top: 1.5rem;

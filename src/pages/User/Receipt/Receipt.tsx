@@ -15,7 +15,6 @@ const Receipt = () => {
     };
     dataList();
   }, [pageno]);
-  console.log(data)
   return (
     <section>
       {typeof data !== "undefined" && (

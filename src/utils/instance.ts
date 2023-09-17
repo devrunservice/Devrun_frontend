@@ -65,7 +65,6 @@ baseAxios.interceptors.response.use(
 
     switch (errorStatus) {
       case 303:
-        console.log(errorMessage.message);
         switch (errorMessage.message) {
           case 'No linked account found. Please link your account.':
             return error.response;

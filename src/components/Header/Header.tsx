@@ -53,7 +53,9 @@ const Header = () => {
             </St.CategoryLi>
             <St.CategoryLi>DEVRUN 깜짝특가</St.CategoryLi>
             <St.CategoryLi>BEST</St.CategoryLi>
-            <St.CategoryLi>고객센터</St.CategoryLi>
+            <St.CategoryLi onClick={() => navigate("/notice")}>
+              공지사항
+            </St.CategoryLi>
           </St.CategoryWrap>
         </St.NavWrap>
         <St.NavWrap>
@@ -119,7 +121,7 @@ const Header = () => {
             </St.NavWrap>
           ) : (
             <St.ButtonWrap>
-              <Button onClick={() => redirect('/login')} type="button" $active>
+              <Button onClick={() => redirect("/login")} type="button" $active>
                 로그인
               </Button>
               <Button

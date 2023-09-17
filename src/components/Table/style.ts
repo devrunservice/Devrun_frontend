@@ -3,8 +3,8 @@ import * as I from "types";
 
 
 export const Table = styled.ul`
-  min-height: 38.25rem;
-  margin-top: 1.875rem
+  min-height: 37.1875rem;
+  margin-top: 1.875rem;
 `;
 export const ReceiptTable = styled(Table)`
   min-height: 45.06rem;
@@ -13,7 +13,7 @@ export const TableLi = styled.li<I.TableCommon>`
   border-bottom: 1px solid ${(props: any) => props.theme.borderC};
   display: flex;
   align-items: center;
-  padding: 1rem 0;
+  padding: 1.25rem 0;
   text-align: center;
   cursor: ${(props: any) => (props.$cursor ? "pointer" : "")};
   &:nth-child(1) {

@@ -10,12 +10,13 @@ const ReceiptTable = (props: I.Receipts) => {
     window.open(item, "_blank", windowFeatures);
   }, []);
   const basketBtn = useCallback(
-    async (merchantUid: string, amount: number, userpayno:number) => {
+    async (merchantUid: string, amount: number, userpayno:number,name:string) => {
       try {
         if (window.confirm("환불하시겠습니까?")) {
           const pay: I.Refund = {
             merchant_uid: merchantUid,
             amount: amount,
+            name: name,
           };
           const response = await Cart.refund(pay);
           if (response.data === "환불이 성공적으로 처리되었습니다.") {
@@ -63,7 +64,7 @@ const ReceiptTable = (props: I.Receipts) => {
                   type="button"
                   $color
                   onClick={() =>
-                    basketBtn(v.merchantUid, v.paidamount, v.userpayno)
+                    basketBtn(v.merchantUid, v.paidamount, v.userpayno,v.name)
                   }
                 >
                   환불

@@ -17,7 +17,6 @@ const Point = () => {
   useEffect(() => {
     dispatch(pointLoading(pageno));
   }, [pageno]);
-  console.log(pointHistoryPage);
   return (
     <>
       <UserTop title="포인트" sub="총 보유포인트" count={mypoint} />

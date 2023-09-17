@@ -14,10 +14,11 @@ const Notice = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate();
   const {data} = useSelector((state:RootState)=>state.noticeReducer)
+  const { write } = useSelector((state: RootState) => state.noticeReducer);
   const { pageno, setPageno } = usePage();
   useEffect(() => {
     dispatch(noticeListLoading(pageno));
-  }, [pageno]);
+  }, [pageno, write]);
   return (
     <S.Inner>
       <UserTop title="공지사항" sub="전체" />
