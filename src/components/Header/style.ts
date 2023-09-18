@@ -30,6 +30,7 @@ export const CategoryWrap = styled.div`
 export const CategoryLi = styled.p`
   font-weight: 600;
   color: ${(props: any) => props.theme.black};
+  cursor: pointer;
 `;
 export const CategoryIcon = styled(Category)`
   margin-right: 0.5rem;

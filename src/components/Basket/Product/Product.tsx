@@ -1,29 +1,25 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { ChangeEvent } from "react";
-import NoImg from "asset/images/NoImg.jpg";
-import { useCheck } from "hooks";
+import React from "react";
 import * as I from "types";
 import * as St from "./style";
 
 const Product = (props: I.basketProduct) => (
-  <St.ProductLi key={props.item.id}>
+  <St.ProductLi>
     <St.CheckBox
       type="checkbox"
-      name={`${props.item.id}`}
-      id={`${props.item.id}`}
+      name={`${props.item.lecture_name}`}
+      id={`${props.item.lecture_name}`}
       checked={props.checked}
-      onChange={() =>
-        props.singleCheck(props.item.id, props.item.paid_amount)
-      }
+      onChange={() => props.singleCheck(props.item.lecture_name,props.item.lecture_intro,props.item.lecture_price,props.item.lecture_thumbnail)}
     />
-    <St.ContentBox htmlFor={`${props.item.id}`}>
+    <St.ContentBox htmlFor={`${props.item.lecture_name}`}>
       <St.ImgWrap>
-        <St.Img src={NoImg} alt="" />
+        <St.Img src={props.item.lecture_thumbnail} alt="" />
       </St.ImgWrap>
       <St.TextBox>
         <St.TextLeft>
-          <St.TitleText>성대</St.TitleText>
-          <St.SubText>유라니 남친</St.SubText>
+          <St.TitleText>{props.item.lecture_name}</St.TitleText>
+          <St.SubText>{props.item.lecture_intro}</St.SubText>
           <St.Writer>
             강사명 · <St.Hours>무제한 수강</St.Hours>
           </St.Writer>
@@ -31,7 +27,7 @@ const Product = (props: I.basketProduct) => (
         <St.TextRight>
           <St.Discount>25%</St.Discount>
           <St.DiscountNum>88,000원</St.DiscountNum>
-          <St.Money>66,000원</St.Money>
+          <St.Money>{props.item.lecture_price}원</St.Money>
         </St.TextRight>
       </St.TextBox>
     </St.ContentBox>

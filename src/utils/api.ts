@@ -173,7 +173,9 @@ export const mypage = {
     return response;
   },
   point: (params: I.PageNo) => {
-    const response = authAxios.get(`/PointHistory?page=${params}&size=10`);
+    const response = authAxios.get(
+      `/PointHistory?page=${params}&size=1`
+    );
     return response;
   },
   coupon: (params: I.CouponGet) => {
@@ -192,15 +194,24 @@ export const Cart = {
     return response;
   },
   save: (params: I.bastetCheck[]) => {
-    const response = authAxios.post('/savePaymentInfo', params);
+    const response = authAxios.post("/savePaymentInfo", params);
     return response;
   },
-  coupon: (params: I.Coupon) => {
+  coupon: (params: I.LectureInfoList[]) => {
     const response = authAxios.post(`/applyCoupon`, params);
     return response;
   },
   refund: (params: I.Refund) => {
-    const response = authAxios.post('/payment', params);
+    const response = authAxios.post("/payment", params);
+    return response;
+  },
+
+  delete: (params: I.LectureInfoList[]) => {
+    const response = authAxios.post("/cart/delete", params);
+    return response;
+  },
+  list: () => {
+    const response = authAxios.get(`/cart`);
     return response;
   },
 };
@@ -223,16 +234,43 @@ export const create = {
 };
 
 export const notice = {
-  img: (params: I.noticeUpload) => {
+  img: (params: I.NoticeUpload) => {
     const response = imageAxios.post(`/${params.path}/upload`, params.formData);
     return response;
   },
-  write: (params: I.noticeWrite) => {
-    const response = authAxios.post('/notice/write', params);
+  write: (params: I.NoticeWrite) => {
+    const response = authAxios.post("/notice/write", params);
     return response;
   },
   list: (params: I.PageNo) => {
     const response = authAxios.get(`/notice/${params}`);
+    return response;
+  },
+  detail: (params: I.NoticeNum) => {
+    const response = authAxios.get(`/notice/detail/${params.noticeNo}`);
+    return response;
+  },
+  retouch: (params: I.NoticeWrite) => {
+    const response = authAxios.put(`/notice/edit/${params.noticeNo}`, {
+      title: params.title,
+      content: params.content,
+    });
+    return response;
+  },
+  comment: (params: I.Comment) => {
+    const response = authAxios.post("/comment/write", params);
+    return response;
+  },
+  commentRetouch: (params: I.CommentRetouch) => {
+    const response = authAxios.put(`/comment/edit/${params.commentNo}`, {
+      content: params.content,
+      parentCommentNo: params.parentCommentNo,
+      noticeNo:params.noticeNo
+    });
+    return response;
+  },
+  commentList: (params: I.NoticeNum) => {
+    const response = authAxios.get(`/comments/${params.noticeNo}`);
     return response;
   },
 };

@@ -1,28 +1,35 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useCallback, useMemo, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import ReactQuill from "react-quill";
-import { formats, toolbarOptions } from "utils/editor";
+import { toolbarOptions, formats } from "utils/editor";
 import { notice } from "utils/api";
-import { useInput } from "hooks";
 import * as I from "types";
 import "react-quill/dist/quill.snow.css";
 import * as S from "style/Common";
 import * as St from "./style";
+import {
+  noticeWriteLoading,
+  noticeRetouchLoading,
+} from "../../redux/reducer/noticeReducer";
+
 
 interface path {
   path: string;
+  title: string;
 }
 
-
 const Editor = (props: path) => {
+  const dispatch = useDispatch()
+  const params = useParams()
+  const noticeNo = props.title === "공지수정" ? params.noticeNo : 0;
   const { data } = useSelector((state: RootState) => state.userReducer);
   const navigate = useNavigate();
   const quillRef = useRef<ReactQuill>(null);
   const [content, setContent] = useState<string>("");
-  const [title, onTitle] = useInput("");
+  const [title, setTitle] = useState("");
 
   const onImage = () => {
     // quill 현재위치
@@ -33,6 +40,7 @@ const Editor = (props: path) => {
 
     input.onchange = async () => {
       const file = input.files;
+      console.log(file);
       if (file !== null) {
         if (file[0].size > 1024 * 1024 * 2) {
           alert("이미지 용량을 초과하였습니다.");
@@ -60,6 +68,18 @@ const Editor = (props: path) => {
       }
     };
   };
+  const onTitle = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      
+      if (e.target.value.length > 128) {
+        alert("128자 이내로 작성해주세요");
+        setTitle("");
+      }else{
+        setTitle(e.target.value);
+      }
+    },
+    [title]
+  );
   const modules = useMemo(
     () => ({
       toolbar: {
@@ -68,31 +88,50 @@ const Editor = (props: path) => {
           image: onImage,
         },
       },
+     
     }),
     []
   );
   const onWrite = useCallback(async () => {
-    if (content.trim() === "" && title.trim() === "")
+    if (content.trim() === "" || title.trim() === "")
       return alert("제목과 내용을 작성해주세요");
-    const writeData: I.noticeWrite = {
-      noticeNo: 0,
+    const writeData: I.NoticeWrite = {
+      noticeNo: noticeNo,
       title: title,
       content: content,
       id: data.id,
     };
-    try {
-      await notice.write(writeData);
-      navigate("/notice");
-    } catch (error) {
-      alert("게시물업로드가 실패했습니다.");
+    if (props.title === "공지작성"){
+       try {
+        await dispatch(noticeWriteLoading(writeData))
+        await navigate(`/notice`);
+       } catch (error) {
+         alert("게시물업로드가 실패했습니다.");
+       }
+    }else{
+       try {
+       await dispatch(noticeRetouchLoading(writeData));
+         await navigate(`/notice/${params.noticeNo}`);
+       } catch (error) {
+         alert("게시물업로드가 실패했습니다.");
+       }
     }
+     
   }, [content, title]);
+  const onExit = useCallback(()=>{
+    if(props.title === "공지작성"){
+      navigate("/notice")
+    }else{
+      navigate(`/notice/${params.noticeNo}`);
+    }
+  },[])
   return (
     <>
       <St.TitleInput
         type="text"
-        placeholder="제목을 적어주세요"
+        placeholder="제목을 128자 이내로 작성해주세요"
         onChange={onTitle}
+        value={title}
       />
       <St.Editor
         placeholder="내용을 적어주세요"
@@ -100,9 +139,10 @@ const Editor = (props: path) => {
         ref={quillRef}
         onChange={setContent}
         modules={modules}
+        formats={formats}
       />
       <S.ButtonWrap>
-        <S.Button onClick={() => navigate("/notice")} $active={false}>
+        <S.Button onClick={() => onExit()} $active={false}>
           나가기
         </S.Button>
         <S.Button onClick={() => onWrite()} $active>

@@ -1,20 +1,14 @@
 import { styled } from "styled-components";
-import { BsHeart, BsHeartFill } from "react-icons/bs";
+import { BsArrowReturnRight } from "react-icons/bs";
 
 
-export const CommentWrap = styled.div`
-  margin-top: 3.75rem;
-  padding-top: 3.125rem;
-  border-top: 1px solid ${(props: any) => props.theme.borderC};
-`;
-export const Top = styled.div``
 export const CommentTitle = styled.em`
   color: ${(props: any) => props.theme.black};
   font-weight: 600;
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   display: flex;
   align-items: flex-end;
-  margin-bottom: 1.5625rem;
+  margin-bottom: 1rem;
 `;
 export const CommentCount = styled.p`
   margin-left: 0.625rem;
@@ -26,14 +20,12 @@ export const Comments = styled.span`
   font-weight: 500;
 `;
 export const CommentBox = styled.textarea`
-  width: 100%
+  width: 100%;
   border: 1px solid ${(props: any) => props.theme.borderC};
-  font-size: 1rem;
   outline: 0;
-  height: 6.25rem;
+  height: 10.625rem;
   padding: 1.25rem;
-  
-  border-radius: 0.3125;
+  border-radius: 0.3125rem;
   resize: none;
 `;
 
@@ -43,6 +35,12 @@ export const ButtonWrap = styled.div`
   justify-content: flex-end;
   margin-top: 1.25rem;
   gap: 0.625rem;
+`;
+export const ButtonWrapCommnet = styled(ButtonWrap)`
+  margin: 0;
+  right: 1.25rem;
+  bottom: 1.6rem;
+  position: absolute;
 `;
 export const CommentNum = styled.p`
   font-size: 0.875rem
@@ -55,7 +53,6 @@ export const CommentUl = styled.ul`
 `;
 export const CommentLi = styled.li`
   border-bottom: 1px solid ${(props: any) => props.theme.borderC};
-  padding-bottom: 1.875rem;
   margin-bottom: 1.875rem;
   &:last-child {
     margin-bottom: 0px;
@@ -63,11 +60,14 @@ export const CommentLi = styled.li`
 `;
 export const CommentTop = styled.div`
   display: flex;
-  justify-content: space-between;
-`;
-export const CommentLeft = styled.div`
-  display: flex;
+  gap: 0.625rem;
   align-items: center;
+  justify-content: space-between;
+  > div:nth-child(1) {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
 `;
 export const CommentImgBox = styled.div`
   width: 2.5rem;
@@ -92,64 +92,47 @@ export const CommentImg = styled.img`
 export const CommentName = styled.p`
   color: ${(props: any) => props.theme.black};
   font-weight: 500;
-  margin-left: 0.625rem;
 `;
-export const ToggleBtn = styled.button`
-  background: none;
+export const CommentTime = styled.p`
+  font-size: 0.875rem;
+  margin-left: 0.875rem;
 `;
 
 export const CommentText = styled.p`
   color: ${(props: any) => props.theme.black};
-  margin: 1.25rem 0;
+  margin: 1.25rem 0 1.875rem;
   line-height: 1.5;
 `;
 
-export const CommentBottom = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 15px;
-`;
 
-export const CommentLoveIcon = styled.div`
-  cursor: pointer;
-  font-size: 0;
-  display: flex;
-  align-items: center;
-`;
-export const LoveBorder = styled(BsHeart)`
-  stroke: ${(props: any) => props.theme.borderC};
-  font-size: 1rem;
-`;
-export const LoveFill = styled(BsHeartFill)`
-  fill: ${(props: any) => props.theme.textRed};
-  font-size: 1rem;
-`;
-export const CommentLoveNum = styled.span`
-  margin-left: 0.3125rem;
-  font-size: 1rem;
-`;
-export const CommentDate = styled.p``;
-export const CommentWrite = styled.p`
+export const CommentWrite = styled.button`
   font-weight: 500;
+  color: ${(props: any) => props.theme.black};
+  background: none;
+`;
+export const CommentRe = styled(CommentWrite)`
   color: ${(props: any) => props.theme.brandColor};
-  cursor: pointer;
+`;
+export const CommentRemove = styled(CommentWrite)`
+  color: ${(props: any) => props.theme.textRed};
+`;
+export const CommentWriteWrap = styled.form`
+  margin: 1.875rem 0;
+  position: relative;
 `;
 
-export const CommentWriteWrap = styled.div`
-  background: ${(props: any) => props.theme.bgGrayColor};
-  padding: 1.875rem 1.875rem;
-  margin-top: 1.875rem;
+export const Reply = styled.li`
+  border-top: 1px dashed ${(props: any) => props.theme.borderC};
+  margin: 1.25rem 0 0 1.25rem;
+  padding-top: 1.25rem;
   position: relative;
-  &::after {
-    position: absolute;
-    left: 0;
-    top: -2.5rem;
-    width: 0;
-    height: 0;
-    border-bottom: 1.25rem solid ${(props: any) => props.theme.bgGrayColor};
-    border-top: 1.25rem solid transparent;
-    border-left: 1.25rem solid transparent;
-    border-right: 1.25rem solid transparent;
-    content: "";
+  > div {
+    width: calc(100% - 16px);
+    padding-left: 1.875rem;
   }
+`;
+export const ReplyIcon = styled(BsArrowReturnRight)`
+  position: absolute;
+  top: 1.25rem;
+  left: 0;
 `;

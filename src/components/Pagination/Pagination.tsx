@@ -21,16 +21,16 @@ const Pagination = (props: I.Pagination) => {
         <PagePrev />
       </St.PagingArr>
       {Array.from({ length: lastPage }).map((_, index) => {
-        return (
-          <St.Paging
-            key={index + 1}
-            $active={index + 1 === props.pageno}
-            onClick={() => onClickPage(index + 1)}
-          >
-            {index + 1}
-          </St.Paging>
-        );
-      })}
+          return (
+            <St.Paging
+              key={index + 1}
+              $active={index + 1 === props.pageno}
+              onClick={() => onClickPage(index + 1)}
+            >
+              {index + 1}
+            </St.Paging>
+          );
+        })}
       <St.PagingArr
         onClick={() => props.setPageno(props.pageno + 1)}
         disabled={props.pageno === lastPage}

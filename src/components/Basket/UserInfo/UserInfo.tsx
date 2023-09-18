@@ -1,23 +1,28 @@
 import React from "react";
-import { MypageType } from "types";
+import { BuyerInfo } from "types";
 import * as St from "./style";
 
-
-interface bastetUser {
-  user: MypageType;
+interface cart {
+  info: BuyerInfo;
 }
 
-const UserInfo = (props: bastetUser) => (
+
+const UserInfo = ({ info }: cart) => (
   <>
     <St.InfoWrap>
-      이름 <St.Info>{props.user.name}</St.Info>
+      이름 <St.Info>{info.userName}</St.Info>
     </St.InfoWrap>
     <St.InfoWrap>
-      이메일 <St.Info>{props.user.email}</St.Info>
+      이메일 <St.Info>{info.userEmail}</St.Info>
     </St.InfoWrap>
     <St.InfoWrap>
-      휴대폰 번호 <St.Info>{props.user.phonenumber}</St.Info>
+      휴대폰 번호 <St.Info>{info.userPhonumber}</St.Info>
     </St.InfoWrap>
   </>
 );
+   
+  
 export default UserInfo;
+
+
+

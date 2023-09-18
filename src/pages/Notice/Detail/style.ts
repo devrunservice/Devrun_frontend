@@ -1,5 +1,8 @@
 import { styled } from "styled-components";
+import { ButtonWrap } from "style/Common";
 import { BsCheckAll } from "react-icons/bs";
+
+
 
 export const Title = styled.h4`
   margin-bottom: 1.875rem;
@@ -11,7 +14,7 @@ export const Top = styled.div`
   border-bottom: 1px solid ${(props: any) => props.theme.borderC};
   border-top: 1px solid ${(props: any) => props.theme.borderC};
   padding: 1.875rem 0;
-  margin-bottom: 2.5rem;
+  
 `;
 export const Left = styled.em`
   display: block;
@@ -23,10 +26,10 @@ export const Right = styled.div`
   margin-top: 1.25rem;
   display: flex;
   align-items: center;
+  gap: 1rem;
 `;
 export const Name = styled.p`
   color: ${(props: any) => props.theme.black};
-  margin-right: 1rem;
   display: flex;
   align-items: center;
   svg {
@@ -39,8 +42,19 @@ export const Date = styled.p`
 export const Content = styled.div`
   width: 100%;
   min-height: 31.25rem;
+  > pre {
+    white-space: break-spaces;
+  }
+
+  padding-top: 2.5rem ;
+  
 `;
 export const NameCheack = styled(BsCheckAll)`
   color: ${(props: any) => props.theme.brandColor};
   font-size: 1.25rem;
+`;
+export const BtnWrap = styled(ButtonWrap)`
+  border-bottom: 1px solid ${(props: any) => props.theme.borderC};
+  padding-bottom: 2.5rem;
+  margin-bottom: 3.75rem;
 `;

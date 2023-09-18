@@ -26,7 +26,6 @@ function* getUserDataSaga(
     const response = yield call(mypage.profile, action.payload);
     yield put(getDataSuccess(response));
   } catch (error: any) {
-    console.log(error);
     yield put(openModal(error.message));
     yield put(getDataFail(error));
   }
