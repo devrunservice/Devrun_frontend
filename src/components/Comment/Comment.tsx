@@ -3,9 +3,8 @@ import React, {  useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
-import { notice } from "utils/api";
 import NoImg from "asset/images/NoImg.jpg";
-import { useInput } from "hooks";
+import { useDate, useInput } from "hooks";
 import { CommentsList } from "types";
 import { Button } from "style/Common";
 import * as St from "./style";
@@ -17,42 +16,47 @@ import {
 } from "../../redux/reducer/noticeReducer";
 
 
+interface Id {
+  id:string
+}
 
-
-const Comment = () => {
+const Comment = (props:Id) => {
   const dispatch = useDispatch();
   const param = useParams();
-  const { datas } = useSelector((state: RootState) => state.noticeReducer);
-  const { comments } = useSelector((state: RootState) => state.noticeReducer);
-  const { commentRe } = useSelector((state: RootState) => state.noticeReducer);
+  const { time } = useDate();
+  const {  commentRe ,datas} = useSelector((state: RootState) => state.noticeReducer)
   const [comment, onChangeComment, setComment] = useInput("");
   const [commentTwo, onChangeCommentTwo, setCommentTwo] = useInput("");
   const [writes, setWrites] = useState<number | null>(null);
-  console.log(datas);
+  const [writesTwo, setWritesTwo] = useState<number | null>(null);
   useEffect(() => {
     dispatch(commentGetLoading(param));
-  }, [comments, commentRe]);
+  }, [commentRe]);
+
   const onComment = useCallback(async () => {
     if (comment.trim() === "") return alert("댓글을 적어주세요");
     try {
       await dispatch(
-        commentPostLoading({ content: comment, noticeNo: param.noticeNo })
+        commentPostLoading({
+          content: comment,
+          noticeNo: param.noticeNo,
+          id: props.id,
+        })
       );
       setComment("");
     } catch (error) {
       alert("댓글등록에 실패했습니다");
     }
   }, [comment]);
-  // 댓글 수정
+  // 댓글 수정데이터 날라가는거
   const onCommentRe = useCallback(
-    async (v: number, num: number, i: number) => {
+    async (v: number,  i: number) => {
       if (commentTwo.trim() === "") return alert("수정할 댓글을 적어주세요");
       try {
         await dispatch(
           commentRetouchLoading({
             content: commentTwo,
             commentNo: v,
-            parentCommentNo: num,
             noticeNo: i,
           })
         );
@@ -68,10 +72,28 @@ const Comment = () => {
     (Index: number) => {
       if (datas?.data.some((v: CommentsList) => v.commentNo === Index)) {
          if (writes === Index) {
+          console.log(Index);
            setWrites(null); // 같은 댓글을 다시 클릭하면 닫음
          } else {
+          setWritesTwo(null);
            setWrites(Index); // 다른 댓글을 클릭하면 열고 선택된 댓글 번호 저장
          }
+      }
+    },
+    [datas?.data, writes]
+  );
+  
+  // 대댓글 버튼
+  const commentsBtn = useCallback(
+    (Index: number) => {
+      if (datas?.data.some((v: CommentsList) => v.commentNo === Index)) {
+        if (writesTwo === Index) {
+          console.log(Index);
+          setWritesTwo(null); // 같은 댓글을 다시 클릭하면 닫음
+        } else {
+           setWrites(null);
+          setWritesTwo(Index); // 다른 댓글을 클릭하면 열고 선택된 댓글 번호 저장
+        }
       }
     },
     [datas?.data, writes]
@@ -86,20 +108,7 @@ const Comment = () => {
     },
     [writes, datas?.data]
   );
-  const time = (createdDate:string) => {
-    const currentTime = new Date();
-    const creatTime = new Date(createdDate);
-    const differenTime = currentTime.getTime() - creatTime.getTime();
-    // 밀리초를 분, 일 등으로 변환
-    const secondsDifference = Math.floor(differenTime / 1000);
-    const minutesDifference = Math.floor(secondsDifference / 60);
-    const hoursDifference = Math.floor(minutesDifference / 60);
-    const daysDifference = Math.floor(hoursDifference / 24);
-    if (daysDifference > 0) return `${daysDifference}일 전`;
-    if (hoursDifference > 0) return `${hoursDifference}시간 전`;
-    if (minutesDifference > 0) return `${minutesDifference}분 전`;
-    if(secondsDifference > 0) return `${secondsDifference}초 전`;
-  };
+  
 
   return (
     <>
@@ -134,10 +143,13 @@ const Comment = () => {
                   <St.CommentTop>
                     <div>
                       <St.CommentImgBox>
-                        <St.CommentImg src={NoImg} alt="유저 이미지" />
+                        <St.CommentImg
+                          src={`https://devrun-dev-bucket.s3.ap-northeast-2.amazonaws.com/${v.profileimgsrc}`}
+                          alt="유저 이미지"
+                        />
                       </St.CommentImgBox>
 
-                      <St.CommentName>asd</St.CommentName>
+                      <St.CommentName>{v.id}</St.CommentName>
                       <St.CommentTime>
                         {v.modifiedDate !== null
                           ? `${time(v.modifiedDate)} 수정`
@@ -145,19 +157,11 @@ const Comment = () => {
                       </St.CommentTime>
                     </div>
                     <div>
-                      <St.CommentRe
-                        onClick={() => commentsWrite(v.commentNo)}
-                      >
+                      <St.CommentRe onClick={() => commentsWrite(v.commentNo)}>
                         수정
                       </St.CommentRe>
-                      <St.CommentRemove
-                        onClick={() => commentsWrite(v.commentNo)}
-                      >
-                        삭제
-                      </St.CommentRemove>
-                      <St.CommentWrite
-                        onClick={() => commentsWrite(v.commentNo)}
-                      >
+                      <St.CommentRemove>삭제</St.CommentRemove>
+                      <St.CommentWrite onClick={() => commentsBtn(v.commentNo)}>
                         댓글달기
                       </St.CommentWrite>
                     </div>
@@ -182,13 +186,34 @@ const Comment = () => {
                         </Button>
                         <Button
                           $active
-                          onClick={() =>
-                            onCommentRe(
-                              v.commentNo,
-                              v.parentCommentNo,
-                              v.noticeNo
-                            )
-                          }
+                          onClick={() => onCommentRe(v.commentNo, v.noticeNo)}
+                          type="button"
+                        >
+                          등록
+                        </Button>
+                      </St.ButtonWrapCommnet>
+                    </St.CommentWriteWrap>
+                  )}
+
+                  {writesTwo === v.commentNo && (
+                    <St.CommentWriteWrap>
+                      <St.CommentBox
+                        onChange={onChangeCommentTwo}
+                        maxLength={350}
+                        value={commentTwo}
+                      />
+                      <St.ButtonWrapCommnet>
+                        <St.CommentNum>{commentTwo.length} / 350</St.CommentNum>
+                        <Button
+                          $active={false}
+                          onClick={() => onCommentClose(v.commentNo)}
+                          type="button"
+                        >
+                          취소
+                        </Button>
+                        <Button
+                          $active
+                          onClick={() => onCommentRe(v.commentNo, v.noticeNo)}
                           type="button"
                         >
                           등록
@@ -256,11 +281,7 @@ const Comment = () => {
                                   <Button
                                     $active
                                     onClick={() =>
-                                      onCommentRe(
-                                        q.commentNo,
-                                        q.parentCommentNo,
-                                        q.noticeNo
-                                      )
+                                      onCommentRe(q.commentNo, q.noticeNo)
                                     }
                                     type="button"
                                   >

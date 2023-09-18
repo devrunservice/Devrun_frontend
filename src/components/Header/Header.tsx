@@ -20,7 +20,6 @@ const Header = () => {
   const [cookie, setCookie] = useState<boolean>(false);
 
   const {data} = useSelector((state: RootState) => state.userReducer);
-
   useEffect(() => {
     if (getCookie('accessToken')) {
       dispatch(userInfoLoading(null));

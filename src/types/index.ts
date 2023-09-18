@@ -283,11 +283,11 @@ export interface CouponGet {
   id: string;
 }
 export interface UserCouponList {
-  couponcode?: string;
+  couponcode: string;
   discountrate: number;
   expirydate: string;
-  issueddate?: string;
-  issuedno?: number;
+  issueddate: string;
+  issuedno: number;
   lecturename: string;
   state: string;
 }
@@ -427,9 +427,12 @@ export interface CommentsList {
   commentNo: number;
   content: string;
   createdDate: string;
+  id: string;
   modifiedDate: string;
   noticeNo: number;
   parentCommentNo: number;
+  profileimgsrc: string;
+  userNo: number;
 }
 export interface Comments {
   data: CommentsList[];
@@ -480,19 +483,25 @@ export interface BuyerInfo {
   userName: string;
   userPhonumber: string;
   userPoint: number;
+  userNo: number;
 }
 export interface CouponListInCart {
   discountrate: number;
   expirydate: string;
   lecturename: string;
   state: string;
+  couponcode:string;
 }
 export interface LectureInfoList {
   lecture_intro: string;
   lecture_name: string;
   lecture_price: number;
   lecture_thumbnail: string;
+  couponCode?:string
 }
+
+
+
 
 export interface Cart {
   buyerInfo: BuyerInfo;
@@ -501,6 +510,7 @@ export interface Cart {
 }
 export interface Carts {
   data: Cart;
+  deletes: string;
   loading?: boolean;
   error?: Error | null;
 }
@@ -515,7 +525,11 @@ export interface basketProduct {
     lecture_thumbnail:string
   ) => void;
 }
-
+export interface BasketState {
+  price: number;
+  discount: number;
+  couponName:string;
+}
 export interface bastetCheck extends LectureInfoList {
   buyer_email: string;
   buyer_name: string;

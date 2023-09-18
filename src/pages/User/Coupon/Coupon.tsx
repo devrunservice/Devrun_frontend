@@ -69,6 +69,9 @@ const Coupon = () => {
                 lecturename={v.lecturename}
                 expirydate={v.expirydate}
                 state={v.state}
+                couponcode={v.couponcode}
+                issueddate={v.issueddate}
+                issuedno={v.issuedno}
               />
             );
           })}
@@ -83,6 +86,9 @@ const Coupon = () => {
                   lecturename={v.lecturename}
                   expirydate={v.expirydate}
                   state={v.state}
+                  couponcode={v.couponcode}
+                  issueddate={v.issueddate}
+                  issuedno={v.issuedno}
                 />
               );
             })}
@@ -97,6 +103,9 @@ const Coupon = () => {
                   lecturename={v.lecturename}
                   expirydate={v.expirydate}
                   state={v.state}
+                  couponcode={v.couponcode}
+                  issueddate={v.issueddate}
+                  issuedno={v.issuedno}
                 />
               );
             })}

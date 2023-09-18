@@ -17,8 +17,9 @@ const Detail = () => {
   const navigate = useNavigate();
   const noticeNo = useParams();
   const dispatch = useDispatch()
-  const { content } = useSelector((state: RootState) => state.noticeReducer);
-  const { write } = useSelector((state: RootState) => state.noticeReducer);
+  const { content, write } = useSelector(
+    (state: RootState) => state.noticeReducer
+  );
   useEffect(() => {
     dispatch(noticeDetailLoading(noticeNo));
   }, [write]);
@@ -63,7 +64,7 @@ const Detail = () => {
                 수정하기
               </S.Button>
             </St.BtnWrap>
-            <Comment  />
+            <Comment id={content.id} />
           </>
         )}
       </S.Inner>

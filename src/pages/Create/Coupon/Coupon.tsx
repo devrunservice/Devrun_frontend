@@ -2,7 +2,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
-import usePage from "hooks/usePage";
 import { UserTop, Pagination, MentoTable } from "components";
 import { Button } from "style/Common";
 import CouponPop from "./CouponPop";
@@ -13,7 +12,7 @@ import { couponLoading } from "../../../redux/reducer/mentoCouponReducer";
 
 const Coupon = () => {
   const dispatch = useDispatch();  
-  const { pageno, setPageno } = usePage();
+  const [pageno, setPageno] = useState<number>(1);
   const [coupon, setCoupon] = useState<boolean>(false);
   const couponBtn = useCallback(() => {
     setCoupon(true);

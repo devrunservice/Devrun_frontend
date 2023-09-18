@@ -3,12 +3,10 @@ import React, { useState, useEffect } from "react";
 import { mypage } from "utils/api";
 import { ReceiptTable, UserTop, Pagination } from "components";
 import * as I from "types";
-import usePage from "hooks/usePage";
 
 const Receipt = () => {
   const [data, setData] = useState<I.Receipt>();
-  const { pageno, setPageno } = usePage();
-  useEffect( () => {
+const [pageno, setPageno] = useState<number>(1);  useEffect( () => {
     const dataList = async () => {
       const res = await mypage.pay({ pageno });
       setData(res.data);

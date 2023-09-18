@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {  useState } from "react";
-import usePage from "hooks/usePage";
 import { Pagination, CertTable, UserTop } from "components";
 
 const Cert = () => {
-  const { pageno, setPageno} = usePage();
-
+const [pageno, setPageno] = useState<number>(1);
   // 수료 여부 제목 수료날짜 순서 버튼
   return (
     <section>

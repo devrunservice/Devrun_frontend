@@ -9,6 +9,9 @@ import {
   cartDeleteLoading,
   cartDeleteSuccess,
   cartDeleteFail,
+  cartCouponLoading,
+  cartCouponSuccess,
+  cartCouponFail,
 } from "../reducer/cartReducer";
 
 
@@ -33,7 +36,17 @@ function* cartDelete(
     yield put(cartDeleteFail(error));
   }
 }
-
+function* cartCoupon(
+  action: PayloadAction<LectureInfoList[]>
+): Generator<any, void, any> {
+  try {
+    const response = yield call(Cart.coupon, action.payload);
+    console.log(response);
+    yield put(cartCouponSuccess(response));
+  } catch (error) {
+    yield put(cartCouponFail(error));
+  }
+}
 
 function* watchCartInfo(){
     yield takeLatest(cartInfoLoading, cartInfo);
@@ -41,6 +54,13 @@ function* watchCartInfo(){
 function* watchCartDelete() {
   yield takeLatest(cartDeleteLoading, cartDelete);
 }
+function* watchCartCoupon() {
+  yield takeLatest(cartCouponLoading, cartCoupon);
+}
 export default function* cartSaga(){
-    yield all([fork(watchCartInfo), fork(watchCartDelete)]);
+    yield all([
+      fork(watchCartInfo),
+      fork(watchCartDelete),
+      fork(watchCartCoupon),
+    ]);
 }

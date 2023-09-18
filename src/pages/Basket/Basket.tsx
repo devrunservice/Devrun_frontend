@@ -13,29 +13,19 @@ import * as I from "types";
 import * as S from "style/Common";
 import * as St from "./style";
 import { cartInfoLoading } from "../../redux/reducer/cartReducer";
-import { couponListLoading } from "../../redux/reducer/couponReducer";
 
 
-interface BasketState {
-  price: number;
-  discount: number;
-  coupon:string;
-}
 
 const Basket = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userNum = useSelector((state: RootState) => state.userReducer.data);
-  const info = useSelector((state: RootState) => state.cartReducer.data);
-  const coupon = useSelector((state: RootState) => state.couponReducer.data);
+  const { data } = useSelector((state: RootState) => state.cartReducer)
+  console.log(data)
   const [openCoupon, setOpenCoupon] = useState(false)
   useEffect(() => {
     dispatch(cartInfoLoading(null));
-    dispatch(couponListLoading(null));
   }, []);
-
-  const [checkList, setCheckList] = useState<I.LectureInfoList[]>(info.lectureInfoList); 
-  const [prevList, setPrevList] = useState<I.LectureInfoList[]>(  info.lectureInfoList);
+  const [checkList, setCheckList] = useState<I.LectureInfoList[]>(data.lectureInfoList); 
   const singleCheck = (
     lecture_name: string,
     lecture_intro: string,
@@ -53,21 +43,17 @@ const Basket = () => {
   };
   // 무조건 전체 선택
   useEffect(() => {
-    setCheckList(info.lectureInfoList);
-  }, [info.lectureInfoList]);
+    setCheckList(data.lectureInfoList);
+  }, [data.lectureInfoList]);
 
-  // 선택 추가 / 선택 제거
-  const addlist = checkList.find((item) => !prevList.includes(item));
-  const removelist = prevList.find((item) => !checkList.includes(item));
+  
   const total = checkList.reduce((current, account) => current + account.lecture_price, 0);
-  const [price, setPrice] = useState<BasketState>({
-    price: checkList.reduce(
-      (curren, account) => curren + account.lecture_price,
-      0
-    ),
+  const [price, setPrice] = useState<I.BasketState>({
+    price: total,
     discount: 0,
-    coupon: "",
+    couponName: "",
   });
+  // 가격
   useEffect(() => {
     setPrice({ ...price, price: total });
   }, [total]);
@@ -77,26 +63,33 @@ const Basket = () => {
   const onPoint = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = parseFloat(e.target.value.replace(/[^\d.]/g, ""));
-      console.log(value);
       const v = isNaN(value)
         ? 0
         : Math.min(
             value,
-            Math.min(info.buyerInfo.userPoint, price.price - price.discount)
+            Math.min(data.buyerInfo.userPoint, price.price - price.discount)
           );
       setPoint(v);
     },
-    [price.price]
+    [price.price, price.discount, data]
   );
+  useEffect(() => {
+    if (price.couponName !== "" || checkList.length < 0) setPoint(0);
+  }, [price.couponName, checkList]);
 
+
+  // 삭제 
   const onDelete = useCallback(async() => {
     if (window.confirm("해당강의를 삭제하시겠습니까?")) {
       const response = await Cart.delete(checkList);
-      console.log(response);
+      alert(response);
     }else{
       alert("취소되었습니다.");
     }
   }, [checkList]);
+
+
+
   // 콜백 함수 정의
   // const callback = async (response: I.RequestPayResponse) => {
   //   const { imp_uid, paid_amount, success } = response;
@@ -131,70 +124,33 @@ const Basket = () => {
   //   }
   // };
 
-  // const basketBtn = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   // 가맹점 식별코드
-  //   if (!window.IMP) return;
-  //   const { IMP } = window;
-  //   IMP.init("imp75220550");
-  //   /* 2. 결제 데이터 정의하기 */
-  //   const data: I.RequestPayParams = {
-  //     pg: "html5_inicis", // PG사
-  //     pay_method: "card", // 결제수단
-  //     merchant_uid: `merchant_${new Date().getTime()}`, // 주문번호
-  //     amount: price.price - mypoint - price.discounts, // 결제금액
-  //     // name:
-  //     //   checkList.length > 1
-  //     //     ? `${checkList[0].lecture_name} 외 ${checkList.length - 1}개`
-  //     //     : ` ${checkList[0].lecture_name}`, // 주문명
-  //     buyer_name: info.buyerInfo.userName, // 구매자 이름
-  //     buyer_tel: info.buyerInfo.userPhonumber, // 구매자 전화번호
-  //     buyer_email: info.buyerInfo.userEmail, // 구매자 이메일
-  //   };
-  //   /* 4. 결제 창 호출하기 */
-  //   IMP.request_pay(data);
-  // };
-  // const couponBtn = useCallback(
-  //   async (item: string) => {
-  //     if (checkList.length === 0 && item !== "쿠폰을 선택해주세요") {
-  //       setSelets({
-  //         ...selets,
-  //         seletes: "쿠폰을 선택해주세요",
-  //         seletsBoolean: false,
-  //       });
-  //       alert("상품을 선택해주세요");
-  //     } else if (item !== "쿠폰을 선택해주세요") {
-  //       const data: I.Coupon = {
-  //         couponCode: item,
-  //         amount: price.price,
-  //       };
-  //       const res = await Cart.coupon(data);
-  //       setPrice({
-  //         ...price,
-  //         discount: res.data,
-  //         price: price.price,
-  //       });
-  //       setSelets({
-  //         seletes: item,
-  //         seletsBoolean: !selets.seletsBoolean,
-  //       });
-  //     } else {
-  //       setPrice({
-  //         ...price,
-  //         price: price.price,
-  //         discount: 0,
-  //       });
-  //       setSelets({
-  //         seletes: item,
-  //         seletsBoolean: !selets.seletsBoolean,
-  //       });
-  //     }
-  //   },
-  //   [selets, checkList, price]
-  // );
+  const basketBtn = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // 가맹점 식별코드
+    if (!window.IMP) return;
+    const { IMP } = window;
+    IMP.init("imp75220550");
+    /* 2. 결제 데이터 정의하기 */
+    const payload: I.RequestPayParams = {
+      pg: "html5_inicis", // PG사
+      pay_method: "card", // 결제수단
+      merchant_uid: `merchant_${new Date().getTime()}`, // 주문번호
+      amount: price.price - point - price.discount, // 결제금액
+      name:
+        checkList.length > 1
+          ? `${checkList[0].lecture_name} 외 ${checkList.length - 1}개`
+          : ` ${checkList[0].lecture_name}`, // 주문명
+      buyer_name: data.buyerInfo.userName, // 구매자 이름
+      buyer_tel: data.buyerInfo.userPhonumber, // 구매자 전화번호
+      buyer_email: data.buyerInfo.userEmail, // 구매자 이메일
+    };
+    /* 4. 결제 창 호출하기 */
+    IMP.request_pay(payload);
+  };
+
   return (
     <S.Inner>
-      <St.BasketForm>
+      <St.BasketForm onSubmit={basketBtn}>
         <St.BasketLeft>
           <St.Title>수강바구니</St.Title>
           <St.SelectWarp>
@@ -203,16 +159,16 @@ const Basket = () => {
                 type="checkbox"
                 name="selectAll"
                 id="selectAll"
-                checked={checkList.length === info.lectureInfoList.length}
+                checked={checkList.length === data.lectureInfoList.length}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   e.target.checked
-                    ? setCheckList(info.lectureInfoList)
+                    ? setCheckList(data.lectureInfoList)
                     : setCheckList([])
                 }
               />
               <St.CheckLabel htmlFor="selectAll">
                 전체선택 <span>{checkList.length}</span> /
-                {info.lectureInfoList.length}
+                {data.lectureInfoList.length}
               </St.CheckLabel>
             </div>
             <St.Right type="button" onClick={() => onDelete()}>
@@ -221,7 +177,7 @@ const Basket = () => {
             </St.Right>
           </St.SelectWarp>
           <St.Product>
-            {info.lectureInfoList.map((v, index) => {
+            {data.lectureInfoList.map((v, index) => {
               return (
                 <Product
                   item={v}
@@ -237,7 +193,7 @@ const Basket = () => {
         </St.BasketLeft>
         <St.BasketRight>
           <St.TitleSub>구매자 정보</St.TitleSub>
-          <UserInfo info={info.buyerInfo} />
+          <UserInfo info={data.buyerInfo} />
           <St.TitleSub>할인정보</St.TitleSub>
           <St.InfoWrap>
             <em>쿠폰</em>
@@ -245,7 +201,7 @@ const Basket = () => {
               사용가능{" "}
               <span>
                 {
-                  coupon.content.filter(
+                  data.couponListInCart.filter(
                     (v) =>
                       v.state === "ACTIVE" &&
                       checkList.some(
@@ -257,13 +213,21 @@ const Basket = () => {
             </p>
           </St.InfoWrap>
           <St.Coupon onClick={() => setOpenCoupon(true)} type="button">
-            {price.coupon || "쿠폰을 선택해주세요"}
+            {price.couponName || "쿠폰을 선택해주세요"}
           </St.Coupon>
-          {openCoupon && <CouponPop setOpenCoupon={setOpenCoupon} />}
+          {openCoupon && (
+            <CouponPop
+              setOpenCoupon={setOpenCoupon}
+              checkList={checkList}
+              info={data}
+              setPrice={setPrice}
+              price={price}
+            />
+          )}
           <St.InfoWrap>
             <em>포인트</em>
             <p>
-              보유 <span>{info.buyerInfo.userPoint}</span>
+              보유 <span>{data.buyerInfo.userPoint}</span>
             </p>
           </St.InfoWrap>
           <St.PointInput

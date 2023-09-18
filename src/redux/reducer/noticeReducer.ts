@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Notices } from "types";
 
 const initialState: Notices = {
+  // 리스트
   data: {
     content: [
       {
@@ -20,6 +21,7 @@ const initialState: Notices = {
     totalElements: 0,
     totalPages: 0,
   },
+  // 뷰 페이지 
   content: {
     content: "",
     createdDate: "",
@@ -31,33 +33,44 @@ const initialState: Notices = {
     userNo: 0,
     viewCount: 0,
   },
+  // 댓글 불러오기
   datas: {
     data: [
       {
         commentNo: 0,
         content: "",
         createdDate: "",
+        id: "",
         modifiedDate: "",
         noticeNo: 0,
         parentCommentNo: 0,
+        profileimgsrc: "",
+        userNo: 0,
       },
     ],
   },
+  // 댓글 처음 작성
   comments: {
     commentNo: 0,
     content: "",
     createdDate: "",
+    id: "",
     modifiedDate: "",
     noticeNo: 0,
     parentCommentNo: 0,
+    profileimgsrc: "",
+    userNo: 0,
   },
   commentRe: {
     commentNo: 0,
     content: "",
     createdDate: "",
+    id: "",
     modifiedDate: "",
     noticeNo: 0,
     parentCommentNo: 0,
+    profileimgsrc: "",
+    userNo: 0,
   },
   write: "",
   loading: false,

@@ -197,7 +197,7 @@ export const Cart = {
     const response = authAxios.post("/savePaymentInfo", params);
     return response;
   },
-  coupon: (params: I.Coupon) => {
+  coupon: (params: I.LectureInfoList[]) => {
     const response = authAxios.post(`/applyCoupon`, params);
     return response;
   },

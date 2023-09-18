@@ -11,6 +11,7 @@ const initialState: Carts = {
       userName: "",
       userPhonumber: "",
       userPoint: 0,
+      userNo: 0,
     },
     couponListInCart: [
       {
@@ -18,6 +19,7 @@ const initialState: Carts = {
         expirydate: "",
         lecturename: "",
         state: "",
+        couponcode:"",
       },
     ],
     lectureInfoList: [
@@ -29,6 +31,7 @@ const initialState: Carts = {
       },
     ],
   },
+  deletes:"",
   loading: false,
   error: null,
 };
@@ -58,9 +61,23 @@ const cartReducer = createSlice({
     cartDeleteSuccess: (state, action) => {
       state.loading = false;
       state.error = null;
-      state.data = action.payload.data;
+      state.deletes = action.payload;
     },
     cartDeleteFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+
+    cartCouponLoading: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
+    cartCouponSuccess: (state, action) => {
+      state.loading = false;
+      state.error = null;
+      state.deletes = action.payload;
+    },
+    cartCouponFail: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
@@ -73,6 +90,9 @@ export const {
   cartDeleteLoading,
   cartDeleteSuccess,
   cartDeleteFail,
+  cartCouponLoading,
+  cartCouponSuccess,
+  cartCouponFail,
 } = cartReducer.actions;
 
 export default cartReducer.reducer;
