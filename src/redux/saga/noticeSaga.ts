@@ -75,7 +75,6 @@ function* commentPost(
 ): Generator<any, void, any> {
   try {
     const response = yield call(notice.comment, action.payload);
-    console.log(action);
 
     yield put(commentPostSuccess(response));
   } catch (error) {

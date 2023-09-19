@@ -11,7 +11,13 @@ const Pagination = (props: I.Pagination) => {
     },
     [props.pageno]
   );
-
+   const itemsPerPage = 10;
+   const currentGroup = Math.ceil(props.pageno / itemsPerPage)
+   const firstPageInGroup = (currentGroup - 1) * itemsPerPage + 1;
+   const lastPageInGroup = Math.min(
+     currentGroup * itemsPerPage,
+     props.data?.totalPages || 0
+   );
   return (
     <St.PagingWrap>
       <St.PagingArr
@@ -20,17 +26,20 @@ const Pagination = (props: I.Pagination) => {
       >
         <PagePrev />
       </St.PagingArr>
-      {Array.from({ length: lastPage }).map((_, index) => {
+      {Array.from({ length: lastPageInGroup - firstPageInGroup + 1 }).map(
+        (_, index) => {
+          const pageNumber = firstPageInGroup + index;
           return (
             <St.Paging
-              key={index + 1}
-              $active={index + 1 === props.pageno}
-              onClick={() => onClickPage(index + 1)}
+              key={pageNumber}
+              $active={pageNumber === props.pageno}
+              onClick={() => onClickPage(pageNumber)}
             >
-              {index + 1}
+              {pageNumber}
             </St.Paging>
           );
-        })}
+        }
+      )}
       <St.PagingArr
         onClick={() => props.setPageno(props.pageno + 1)}
         disabled={props.pageno === lastPage}

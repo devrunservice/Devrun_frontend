@@ -3,7 +3,6 @@ import React, {  useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
-import NoImg from "asset/images/NoImg.jpg";
 import { useDate, useInput } from "hooks";
 import { CommentsList } from "types";
 import { Button } from "style/Common";
@@ -24,14 +23,16 @@ const Comment = (props:Id) => {
   const dispatch = useDispatch();
   const param = useParams();
   const { time } = useDate();
-  const {  commentRe ,datas} = useSelector((state: RootState) => state.noticeReducer)
+  const { commentRe, datas, comments } = useSelector(
+    (state: RootState) => state.noticeReducer
+  );
   const [comment, onChangeComment, setComment] = useInput("");
   const [commentTwo, onChangeCommentTwo, setCommentTwo] = useInput("");
   const [writes, setWrites] = useState<number | null>(null);
   const [writesTwo, setWritesTwo] = useState<number | null>(null);
   useEffect(() => {
     dispatch(commentGetLoading(param));
-  }, [commentRe]);
+  }, [commentRe, comments]);
 
   const onComment = useCallback(async () => {
     if (comment.trim() === "") return alert("댓글을 적어주세요");
@@ -50,14 +51,13 @@ const Comment = (props:Id) => {
   }, [comment]);
   // 댓글 수정데이터 날라가는거
   const onCommentRe = useCallback(
-    async (v: number,  i: number) => {
+    async (v: number) => {
       if (commentTwo.trim() === "") return alert("수정할 댓글을 적어주세요");
       try {
         await dispatch(
           commentRetouchLoading({
             content: commentTwo,
             commentNo: v,
-            noticeNo: i,
           })
         );
         setCommentTwo("");
@@ -67,46 +67,69 @@ const Comment = (props:Id) => {
     },
     [commentTwo]
   );
+    // 대댓글 달기 
+  const onComments = useCallback(
+    async (v: number, i: number) => {
+      if (commentTwo.trim() === "") return alert("대댓글을 적어주세요");
+      try {
+        await dispatch(
+          commentPostLoading({
+            content: commentTwo,
+            parentCommentNo: v,
+            noticeNo: i,
+            id: props.id,
+          })
+        );
+        setCommentTwo("");
+        setWritesTwo(null)
+      } catch (error) {
+        alert("댓글등록에 실패했습니다");
+      }
+    },
+    [commentTwo]
+  );
+
   // 댓글수정 버튼
   const commentsWrite = useCallback(
     (Index: number) => {
       if (datas?.data.some((v: CommentsList) => v.commentNo === Index)) {
          if (writes === Index) {
-          console.log(Index);
-           setWrites(null); // 같은 댓글을 다시 클릭하면 닫음
+           // 같은 댓글을 다시 클릭하면 닫음
+           setWrites(null);
          } else {
-          setWritesTwo(null);
-           setWrites(Index); // 다른 댓글을 클릭하면 열고 선택된 댓글 번호 저장
+           // 다른 댓글을 클릭하면 열고 선택된 댓글 번호 저장 처음에는 index랑 writes랑 다르니까 번호를 저장하네.
+           setWritesTwo(null);
+           setWrites(Index);
          }
       }
     },
     [datas?.data, writes]
   );
-  
+
   // 대댓글 버튼
   const commentsBtn = useCallback(
     (Index: number) => {
       if (datas?.data.some((v: CommentsList) => v.commentNo === Index)) {
         if (writesTwo === Index) {
-          console.log(Index);
           setWritesTwo(null); // 같은 댓글을 다시 클릭하면 닫음
         } else {
-           setWrites(null);
+          setWrites(null);
           setWritesTwo(Index); // 다른 댓글을 클릭하면 열고 선택된 댓글 번호 저장
         }
       }
     },
-    [datas?.data, writes]
+    [datas?.data, writesTwo]
   );
   // 댓글취소 버튼
   const onCommentClose = useCallback(
     (Index: number) => {
       if (datas?.data.some((v) => v.commentNo === Index)) {
+        setWritesTwo(null);
         setWrites(null);
         setCommentTwo("");
       }
     },
-    [writes, datas?.data]
+    [writes, datas?.data, writesTwo]
   );
   
 
@@ -186,7 +209,7 @@ const Comment = (props:Id) => {
                         </Button>
                         <Button
                           $active
-                          onClick={() => onCommentRe(v.commentNo, v.noticeNo)}
+                          onClick={() => onCommentRe(v.commentNo)}
                           type="button"
                         >
                           등록
@@ -213,7 +236,7 @@ const Comment = (props:Id) => {
                         </Button>
                         <Button
                           $active
-                          onClick={() => onCommentRe(v.commentNo, v.noticeNo)}
+                          onClick={() => onComments(v.commentNo, v.noticeNo)}
                           type="button"
                         >
                           등록
@@ -235,12 +258,12 @@ const Comment = (props:Id) => {
                                 <div>
                                   <St.CommentImgBox>
                                     <St.CommentImg
-                                      src={NoImg}
+                                      src={`https://devrun-dev-bucket.s3.ap-northeast-2.amazonaws.com/${q.profileimgsrc}`}
                                       alt="유저 이미지"
                                     />
                                   </St.CommentImgBox>
 
-                                  <St.CommentName>asd</St.CommentName>
+                                  <St.CommentName>{q.id}</St.CommentName>
                                   <p>{time(q.createdDate)}</p>
                                 </div>
                                 <div>
@@ -280,9 +303,7 @@ const Comment = (props:Id) => {
                                   </Button>
                                   <Button
                                     $active
-                                    onClick={() =>
-                                      onCommentRe(q.commentNo, q.noticeNo)
-                                    }
+                                    onClick={() => onCommentRe(q.commentNo)}
                                     type="button"
                                   >
                                     등록

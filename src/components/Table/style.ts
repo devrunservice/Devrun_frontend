@@ -3,11 +3,11 @@ import * as I from "types";
 
 
 export const Table = styled.ul`
-  min-height: 37.1875rem;
+  min-height: 42.6875rem;
   margin-top: 1.875rem;
 `;
 export const ReceiptTable = styled(Table)`
-  min-height: 45.06rem;
+  min-height: 52.6875rem;
 `;
 export const TableLi = styled.li<I.TableCommon>`
   border-bottom: 1px solid ${(props: any) => props.theme.borderC};
@@ -53,7 +53,7 @@ export const Title = styled(Text)<I.TableCommon>`
   width: ${(props: any) => (props.$view ? "42.5%" : "19%")};
 `;
 export const PointTitle = styled(Text)`
-  width: calc(100% - 18.5%);
+  width: calc(100% - 20.5%);
 `;
 export const PointSpan = styled.span<I.TableCommon>`
   color: ${(props: any) =>

@@ -174,7 +174,7 @@ export const mypage = {
   },
   point: (params: I.PageNo) => {
     const response = authAxios.get(
-      `/PointHistory?page=${params}&size=1`
+      `/PointHistory?page=${params}&size=10`
     );
     return response;
   },
@@ -264,8 +264,6 @@ export const notice = {
   commentRetouch: (params: I.CommentRetouch) => {
     const response = authAxios.put(`/comment/edit/${params.commentNo}`, {
       content: params.content,
-      parentCommentNo: params.parentCommentNo,
-      noticeNo:params.noticeNo
     });
     return response;
   },

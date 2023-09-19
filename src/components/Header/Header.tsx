@@ -4,14 +4,13 @@ import {useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {getCookie} from 'utils/cookies';
-import {decode} from 'utils/decode';
-import NoImg from 'asset/images/NoImg.jpg';
 import Logo from 'asset/images/Logo.png';
 import Modal from 'components/Login/Modal/Modal';
 import {Button} from 'style/Common';
 import * as St from './style';
 import {userInfoLoading} from '../../redux/reducer/userReducer';
 import {logoutLoading} from '../../redux/reducer/loginReducer';
+import { cartInfoLoading } from "../../redux/reducer/cartReducer";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -31,6 +30,11 @@ const Header = () => {
     dispatch(logoutLoading());
     setCookie(false);
   };
+
+  useEffect(() => {
+    dispatch(cartInfoLoading(null));
+  }, []);
+
 
   return (
     <St.HeaderWrap>
@@ -77,9 +81,9 @@ const Header = () => {
                   </St.CartTop>
                   <St.CartUl>
                     <St.CartLi>
-                      <St.ImgWrap>
+                      {/* <St.ImgWrap>
                         <St.Img src={NoImg} alt="" />
-                      </St.ImgWrap>
+                      </St.ImgWrap> */}
                       <St.TextWrap>
                         <St.LectureTitle>
                           제목입니다 제목입니다잇

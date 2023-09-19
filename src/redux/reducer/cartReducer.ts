@@ -19,7 +19,7 @@ const initialState: Carts = {
         expirydate: "",
         lecturename: "",
         state: "",
-        couponcode:"",
+        couponcode: "",
       },
     ],
     lectureInfoList: [
@@ -31,7 +31,11 @@ const initialState: Carts = {
       },
     ],
   },
-  deletes:"",
+  couponPrice: {
+    discountprice: [],
+    prices: [],
+  },
+  deletes: "",
   loading: false,
   error: null,
 };
@@ -75,7 +79,7 @@ const cartReducer = createSlice({
     cartCouponSuccess: (state, action) => {
       state.loading = false;
       state.error = null;
-      state.deletes = action.payload;
+      state.couponPrice = action.payload.data;
     },
     cartCouponFail: (state, action) => {
       state.loading = false;
