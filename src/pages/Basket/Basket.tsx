@@ -12,19 +12,17 @@ import { Cart } from "utils/api";
 import * as I from "types";
 import * as S from "style/Common";
 import * as St from "./style";
-import { cartInfoLoading } from "../../redux/reducer/cartReducer";
 
 
 
 const Basket = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { data } = useSelector((state: RootState) => state.cartReducer)
-  console.log(data)
+  const priceDot = (num: number) =>
+    num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const { data,couponPrice } = useSelector((state: RootState) => state.cartReducer)
   const [openCoupon, setOpenCoupon] = useState(false)
-  useEffect(() => {
-    dispatch(cartInfoLoading(null));
-  }, []);
+  
   const [checkList, setCheckList] = useState<I.LectureInfoList[]>(data.lectureInfoList); 
   const singleCheck = (
     lecture_name: string,
@@ -46,17 +44,28 @@ const Basket = () => {
     setCheckList(data.lectureInfoList);
   }, [data.lectureInfoList]);
 
-  
   const total = checkList.reduce((current, account) => current + account.lecture_price, 0);
+
   const [price, setPrice] = useState<I.BasketState>({
     price: total,
-    discount: 0,
+    discount:  0,
     couponName: "",
+    discountrate: 0,
   });
+    const couponList = checkList.some((c) => c.lecture_name === price.couponName ); 
   // 가격
   useEffect(() => {
     setPrice({ ...price, price: total });
-  }, [total]);
+    if (price.couponName === "" || !couponList) {
+      setPrice({ ...price, price: total, discount: 0, couponName: "" });
+    } else if (couponPrice.discountprice) {
+      setPrice({
+        ...price,
+        price: total,
+        discount: couponPrice.discountprice[0],
+      });
+    }
+  }, [total, price.couponName, checkList, couponPrice]);
   
   // 포인트
   const [point, setPoint] = useState(0);
@@ -77,7 +86,6 @@ const Basket = () => {
     if (price.couponName !== "" || checkList.length < 0) setPoint(0);
   }, [price.couponName, checkList]);
 
-
   // 삭제 
   const onDelete = useCallback(async() => {
     if (window.confirm("해당강의를 삭제하시겠습니까?")) {
@@ -89,40 +97,41 @@ const Basket = () => {
   }, [checkList]);
 
 
-
   // 콜백 함수 정의
-  // const callback = async (response: I.RequestPayResponse) => {
-  //   const { imp_uid, paid_amount, success } = response;
+  const callback = async (response: I.RequestPayResponse) => {
+    const { imp_uid, paid_amount, success } = response;
 
-  //   const payload: I.bastetCheck[] = checkList.map((item, index) => {
-  //     const baseData = {
-  //       name: item.lecture_name,
-  //       paid_amount: item.lecture_price,
-  //       buyer_email: response.buyer_email,
-  //       buyer_name: response.buyer_name,
-  //       buyer_tel: response.buyer_tel,
-  //       pay_method: response.pay_method,
-  //       merchant_uid: response.merchant_uid,
-  //       pg_provider: response.pg_provider,
-  //       receipt_url: response.receipt_url,
-  //       imp_uid: response.imp_uid,
-  //       userno: userNum.userNo,
-  //     };
-  //     return index === 0 ? { ...baseData, mypoint: mypoint } : baseData;
-  //   });
-  //   const res = await Cart.callbak({ imp_uid });
-  //   if (paid_amount === res.data.response.amount && success) {
-  //     try {
-  //        await Cart.save(payload);
-  //        navigate("/learning");
-  //     } catch (error) {
-  //        alert("결제를 실패했습니다.");
-  //     }
+    const payload: I.bastetCheck[] = checkList.map((item, index) => {
+      const baseData = {
+        lecture_intro: item.lecture_intro,
+        lecture_thumbnail: item.lecture_thumbnail,
+        name: item.lecture_name,
+        paid_amount: item.lecture_price,
+        buyer_email: response.buyer_email || "",
+        buyer_name: response.buyer_name || "",
+        buyer_tel: response.buyer_tel || "",
+        pay_method: response.pay_method || "",
+        merchant_uid: response.merchant_uid || "",
+        pg_provider: response.pg_provider || "",
+        receipt_url: response.receipt_url || "",
+        imp_uid: response.imp_uid || "",
+        userno: data.buyerInfo.userNo,
+      };
+      return index === 0 ? { ...baseData, mypoint: point } : baseData;
+    });
+    const res = await Cart.callbak({ imp_uid });
+    if (paid_amount === res.data.response.amount && success) {
+      try {
+         await Cart.save(payload);
+         navigate("/learning");
+      } catch (error) {
+         alert("결제를 실패했습니다.");
+      }
 
-  //   } else {
-  //     alert("결제를 취소했습니다.");
-  //   }
-  // };
+    } else {
+      alert("결제를 취소했습니다.");
+    }
+  };
 
   const basketBtn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -145,9 +154,8 @@ const Basket = () => {
       buyer_email: data.buyerInfo.userEmail, // 구매자 이메일
     };
     /* 4. 결제 창 호출하기 */
-    IMP.request_pay(payload);
+    IMP.request_pay(payload, callback);
   };
-
   return (
     <S.Inner>
       <St.BasketForm onSubmit={basketBtn}>
@@ -186,6 +194,8 @@ const Basket = () => {
                     (c) => c.lecture_name === v.lecture_name
                   )}
                   singleCheck={singleCheck}
+                  name={price.couponName}
+                  dis={price.discountrate}
                 />
               );
             })}
@@ -227,12 +237,11 @@ const Basket = () => {
           <St.InfoWrap>
             <em>포인트</em>
             <p>
-              보유 <span>{data.buyerInfo.userPoint}</span>
+              보유 <span>{priceDot(data.buyerInfo.userPoint)}</span>
             </p>
           </St.InfoWrap>
           <St.PointInput
             type="text"
-            placeholder="1000포인트 이상 사용가능"
             onChange={onPoint}
             value={point}
           />
@@ -241,6 +250,21 @@ const Basket = () => {
             회원 본인은 주문내용을 확인했으며,
             <span>구매조건 및 개인정보처리방침</span>과 결제에 동의합니다.
           </St.Privacy>
+          <St.Price>
+            <span>선택상품 금액</span>
+            <span>{priceDot(price.price)}원</span>
+          </St.Price>
+          <St.Discount>
+            <span>할인금액</span>
+            <span>
+              {price.discount > 0 ? `-${priceDot(price.discount + point)}` : 0}
+              원
+            </span>
+          </St.Discount>
+          <St.TotalPrice>
+            <span>총 결제금액</span>
+            <span>{priceDot(price.price - price.discount - point)}원</span>
+          </St.TotalPrice>
           <St.Button>결제하기</St.Button>
         </St.BasketRight>
       </St.BasketForm>

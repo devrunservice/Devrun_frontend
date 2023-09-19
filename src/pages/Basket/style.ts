@@ -151,3 +151,28 @@ export const Button = styled.button`
   color: ${(props: any) => props.theme.textWhite};
   background: ${(props: any) => props.theme.brandColor};
 `;
+export const Price = styled.p`
+  margin-top: 0.625rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1;
+  display:flex;
+  justify-content: space-between;
+`;
+export const Discount = styled.p`
+  margin-top: 0.625rem;
+  font-size: 0.875rem;
+  line-height: 1;
+  font-weight: 500;
+  color: ${(props: any) => props.theme.textRed};
+  display: flex;
+  justify-content: space-between;
+`;
+export const TotalPrice = styled.p`
+  line-height: 1;
+  margin-top: 1rem;
+  font-weight: 600;
+  color: ${(props: any) => props.theme.black};
+  display: flex;
+  justify-content: space-between;
+`;

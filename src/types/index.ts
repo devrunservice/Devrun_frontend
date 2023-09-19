@@ -473,8 +473,6 @@ export interface Comment {
 export interface CommentRetouch {
   content: string;
   commentNo: number;
-  parentCommentNo: number;
-  noticeNo: number;
 }
 
 
@@ -497,7 +495,7 @@ export interface LectureInfoList {
   lecture_name: string;
   lecture_price: number;
   lecture_thumbnail: string;
-  couponCode?:string
+  
 }
 
 
@@ -510,27 +508,38 @@ export interface Cart {
 }
 export interface Carts {
   data: Cart;
+  couponPrice: {
+    discountprice: number[];
+    prices: number[];
+  };
   deletes: string;
   loading?: boolean;
   error?: Error | null;
 }
 
 export interface basketProduct {
+  name: string;
   item: LectureInfoList;
+  dis: number;
   checked: boolean;
   singleCheck: (
     lecture_name: string,
     lecture_intro: string,
     lecture_price: number,
-    lecture_thumbnail:string
+    lecture_thumbnail: string
   ) => void;
 }
 export interface BasketState {
   price: number;
   discount: number;
-  couponName:string;
+  couponName: string;
+  discountrate: number;
 }
-export interface bastetCheck extends LectureInfoList {
+export interface bastetCheck {
+  lecture_intro: string;
+  name: string;
+  paid_amount: number;
+  lecture_thumbnail: string;
   buyer_email: string;
   buyer_name: string;
   buyer_tel: string;

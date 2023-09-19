@@ -28,16 +28,19 @@ const CouponPop = ({
     setOpenCoupon(false);
   }, []);
   const onCoupon = useCallback(
-    async (couponCode:string, n: string) => {
-      setPrice({ ...price, couponName: n });
+    async (couponCode: string, n: string, discountrate: number) => {
+      setPrice({
+        ...price,
+        couponName: n,
+        discountrate: discountrate,
+      });
       const updataCheckList = checkList.map((v) => ({
         ...v,
         couponCode: couponCode,
       }));
       try {
-        const res = await dispatch(cartCouponLoading(updataCheckList));
-        console.log(res)
-      } catch (error) { 
+        await dispatch(cartCouponLoading(updataCheckList));
+      } catch (error) {
         alert("쿠폰을 다시 선택해주세요");
       }
     },
@@ -76,7 +79,7 @@ const CouponPop = ({
                     type="radio"
                     name="coupon"
                     id="none"
-                    onClick={() => onCoupon("", "")}
+                    onClick={() => onCoupon("", "",0)}
                     checked={price.couponName === ""}
                     onChange={(e:React.ChangeEvent<HTMLInputElement>)=>e.target.checked}
                   />
@@ -101,7 +104,7 @@ const CouponPop = ({
                           name="coupon"
                           id={`${c.couponcode}`}
                           checked={price.couponName === c.lecturename}
-                          onClick={() => onCoupon(c.couponcode, c.lecturename)}
+                          onClick={() => onCoupon(c.couponcode, c.lecturename,c.discountrate)}
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                             e.target.checked
                           }
