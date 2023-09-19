@@ -41,7 +41,6 @@ function* cartCoupon(
 ): Generator<any, void, any> {
   try {
     const response = yield call(Cart.coupon, action.payload);
-    console.log(response);
     yield put(cartCouponSuccess(response));
   } catch (error) {
     yield put(cartCouponFail(error));

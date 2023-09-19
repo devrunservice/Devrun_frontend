@@ -83,10 +83,11 @@ export const TextRight = styled.div`
   text-align: right;
 `;
 export const Discount = styled.span`
-  margin-right: 8px;
+  margin-right: 0.5rem;
   color: ${(props: any) => props.theme.textRed};
   font-weight: 600;
   font-size: 0.875rem;
+  margin-bottom: 0.625rem;
   line-height: 1;
 `;
 export const DiscountNum = styled.span`
@@ -109,6 +110,6 @@ export const Money = styled.p`
   font-size: 1.125rem;
   color: ${(props: any) => props.theme.black};
   font-weight: 700;
-  margin-top: 0.625rem;
+  
   line-height: 1;
 `;
