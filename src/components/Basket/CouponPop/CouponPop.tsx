@@ -33,6 +33,7 @@ const CouponPop = ({
         ...price,
         couponName: n,
         discountrate: discountrate,
+        couponCode: couponCode,
       });
       const updataCheckList = checkList.map((v) => ({
         ...v,
