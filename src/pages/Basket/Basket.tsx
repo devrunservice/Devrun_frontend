@@ -116,7 +116,7 @@ const Basket = () => {
         receipt_url: response.receipt_url || "",
         imp_uid: response.imp_uid || "",
         userno: data.buyerInfo.userNo,
-        couponCode: price.couponCode,
+        couponCode: price.couponCode || "",
       };
       return index === 0 ? { ...baseData, mypoint: point } : baseData;
     });
