@@ -99,7 +99,6 @@ const useValid = (form: SignupFormType) => {
     } else {
       updateValid('phonenumber', true);
     }
-    console.log('hi');
 
     if (validState.codeBtn || !validState.codeBtn) {
       updateMessage('phonenumberMessage', '인증번호를 받아주세요.');
@@ -107,7 +106,6 @@ const useValid = (form: SignupFormType) => {
       updateValid('codeBtn', false);
       updateValid('checkCodeBtn', false);
     }
-    console.log(validState);
   }, [form.phonenumber]);
 
   return {

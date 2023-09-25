@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {useNavigate} from 'react-router-dom';
 import {RootState} from 'redux/store';
 import {getCookie} from 'utils/cookies';
 import {redirect} from 'utils/redirect';
-import { login } from "utils/api";
+import {login} from 'utils/api';
 import {BrandLogo, Kakao, Naver, Google} from 'asset';
 import {SignupFormType, LoginFormType} from 'types';
 import {PasswordInput, Modal} from 'components';
@@ -12,9 +13,10 @@ import {Input} from 'style/Common';
 
 import * as St from './styles';
 
-import { loginLoading } from "../../redux/reducer/loginReducer";
+import {loginLoading} from '../../redux/reducer/loginReducer';
 
 const LoginForm = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [loginForm, setLoginForm] = useState<LoginFormType>({
@@ -26,7 +28,7 @@ const LoginForm = () => {
   const loginErrorMessage = useSelector(
     (state: RootState) => state.userReducer.error
   );
-  
+
   const easyLoginToken = getCookie('easyLoginToken');
 
   const isFormValid = loginForm.id !== '' && loginForm.password !== '';
@@ -39,7 +41,6 @@ const LoginForm = () => {
         password: loginForm.password,
       })
     );
-    
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -108,7 +109,7 @@ const LoginForm = () => {
           <St.Button
             type="button"
             onClick={() => {
-              redirect('/findaccount/id');
+              navigate('/findaccount/id');
             }}
           >
             아이디 찾기
@@ -117,7 +118,7 @@ const LoginForm = () => {
           <St.Button
             type="button"
             onClick={() => {
-              redirect('/findaccount/password');
+              navigate('/findaccount/password');
             }}
           >
             비밀번호 찾기
@@ -126,7 +127,7 @@ const LoginForm = () => {
           <St.Button
             type="button"
             onClick={() => {
-              redirect('/signup');
+              navigate('/signup');
             }}
           >
             회원가입

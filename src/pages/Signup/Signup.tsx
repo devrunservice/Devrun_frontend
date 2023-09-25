@@ -214,7 +214,7 @@ const Signup = () => {
               value={signupForm.name}
               placeholder="홍길동"
               onChange={handleChange}
-              required
+              // required
             />
           </St.InputField>
 
@@ -235,7 +235,7 @@ const Signup = () => {
               value={signupForm.birthday}
               max={minDate}
               onChange={handleChangeBday}
-              required
+              // required
             />
           </St.InputField>
           {/* 휴대폰 번호 input */}
@@ -276,7 +276,7 @@ const Signup = () => {
                   id="termsOfService"
                   checked={checkboxes.termsOfService}
                   onChange={handleChecked}
-                  required
+                  // required
                 />
                 <label htmlFor="termsOfService">
                   서비스 이용약관 동의 (필수)
@@ -291,7 +291,7 @@ const Signup = () => {
                   id="privacyConsent"
                   checked={checkboxes.privacyConsent}
                   onChange={handleChecked}
-                  required
+                  // required
                 />
                 <label htmlFor="privacyConsent">
                   개인정보 수집 및 이용 동의 (필수)
@@ -315,9 +315,7 @@ const Signup = () => {
             </St.Li>
           </St.Ul>
           {/* 회원가입 버튼 */}
-          <St.SignupBtn type="submit" disabled={disabledBtn}>
-            회원가입
-          </St.SignupBtn>
+          <St.SignupBtn type="submit">회원가입</St.SignupBtn>
           <St.CancelBtn type="button" onClick={() => navigate('/')}>
             메인화면
           </St.CancelBtn>
