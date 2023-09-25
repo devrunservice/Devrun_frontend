@@ -534,6 +534,7 @@ export interface BasketState {
   discount: number;
   couponName: string;
   discountrate: number;
+  couponCode:string
 }
 export interface bastetCheck {
   lecture_intro: string;

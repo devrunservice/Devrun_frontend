@@ -48,8 +48,9 @@ const Basket = () => {
 
   const [price, setPrice] = useState<I.BasketState>({
     price: total,
-    discount:  0,
+    discount: 0,
     couponName: "",
+    couponCode: "",
     discountrate: 0,
   });
     const couponList = checkList.some((c) => c.lecture_name === price.couponName ); 
@@ -66,7 +67,6 @@ const Basket = () => {
       });
     }
   }, [total, price.couponName, checkList, couponPrice]);
-  
   // 포인트
   const [point, setPoint] = useState(0);
   const onPoint = useCallback(
@@ -116,6 +116,7 @@ const Basket = () => {
         receipt_url: response.receipt_url || "",
         imp_uid: response.imp_uid || "",
         userno: data.buyerInfo.userNo,
+        couponCode: price.couponCode,
       };
       return index === 0 ? { ...baseData, mypoint: point } : baseData;
     });
@@ -175,8 +176,7 @@ const Basket = () => {
                 }
               />
               <St.CheckLabel htmlFor="selectAll">
-                전체선택 <span>{checkList.length}</span> /
-                {data.lectureInfoList.length}
+                전체선택 <span>{checkList.length}</span> / {data.lectureInfoList.length}
               </St.CheckLabel>
             </div>
             <St.Right type="button" onClick={() => onDelete()}>
