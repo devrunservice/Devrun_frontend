@@ -11,6 +11,7 @@ import couponReducer from "./reducer/couponReducer"
 import pointReducer from "./reducer/pointReducer";
 import userReducer from "./reducer/userReducer";
 import noticeReducer from "./reducer/noticeReducer";
+import cartReducer from "./reducer/cartReducer";
 
 const persistConfig = {
   key: "root",
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   couponReducer,
   pointReducer,
   noticeReducer,
+  cartReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

@@ -249,28 +249,7 @@ export interface RequestPayResponse extends IRequestPayResponse {
   receipt_url?: string;
 }
 
-export interface basketProduct {
-  item: {
-    id: number;
-    paid_amount: number;
-  };
-  checked: boolean;
-  singleCheck: (id: number, paid_amount: number) => void;
-}
 
-export interface bastetCheck {
-  id: number;
-  name?: string;
-  paid_amount: number;
-  buyer_email?: string;
-  buyer_name?: string;
-  buyer_tel?: string;
-  pay_method?: string;
-  merchant_uid?: string;
-  pg_provider?: string;
-  receipt_url?: string;
-  imp_uid?: string | null;
-}
 
 export type RequestPayResponseCallback = (response: RequestPayResponse) => void;
 export interface Iamport {
@@ -290,6 +269,7 @@ declare global {
 export interface Refund {
   merchant_uid: string;
   amount: number;
+  name:string;
 }
 
 
@@ -303,11 +283,11 @@ export interface CouponGet {
   id: string;
 }
 export interface UserCouponList {
-  couponcode?: string;
+  couponcode: string;
   discountrate: number;
   expirydate: string;
-  issueddate?: string;
-  issuedno?: number;
+  issueddate: string;
+  issuedno: number;
   lecturename: string;
   state: string;
 }
@@ -410,11 +390,7 @@ export interface Pagination {
   setPageno: (page: number) => void;
 }
 
-// 댓글
-export interface Comment {
-  comment: string;
-  comments: string;
-}
+
 export interface Active {
   $active: boolean;
 }
@@ -425,19 +401,6 @@ export interface IPriceButton {
 // 마이페이지 검색
 export interface MySearch {
   search: string;
-}
-
-// 공지사항
-
-export interface noticeUpload {
-  path: string;
-  formData: FormData;
-}
-export interface noticeWrite {
-  noticeNo: number;
-  title: string;
-  content: string;
-  id: string;
 }
 
 
@@ -460,8 +423,130 @@ export interface Notice {
   totalElements: number;
   totalPages: number;
 }
+export interface CommentsList {
+  commentNo: number;
+  content: string;
+  createdDate: string;
+  id: string;
+  modifiedDate: string;
+  noticeNo: number;
+  parentCommentNo: number;
+  profileimgsrc: string;
+  userNo: number;
+}
+export interface Comments {
+  data: CommentsList[];
+}
+
+
 export interface Notices {
   data: Notice;
   loading?: boolean;
   error?: Error | null;
+  content?: NoticeList;
+  write?: string;
+  datas?: Comments;
+  comments?: CommentsList;
+  commentRe?: CommentsList;
+}
+export interface NoticeNum {
+  noticeNo: number;
+}
+
+export interface NoticeUpload {
+  path: string;
+  formData: FormData;
+}
+export interface NoticeWrite {
+  noticeNo: string | number | undefined;
+  title: string;
+  content: string;
+  id: string;
+}
+
+
+// 댓글
+export interface Comment {
+  content: string;
+  noticeNo: string;
+}
+export interface CommentRetouch {
+  content: string;
+  commentNo: number;
+}
+
+
+export interface BuyerInfo {
+  userEmail: string;
+  userName: string;
+  userPhonumber: string;
+  userPoint: number;
+  userNo: number;
+}
+export interface CouponListInCart {
+  discountrate: number;
+  expirydate: string;
+  lecturename: string;
+  state: string;
+  couponcode:string;
+}
+export interface LectureInfoList {
+  lecture_intro: string;
+  lecture_name: string;
+  lecture_price: number;
+  lecture_thumbnail: string;
+  
+}
+
+
+
+
+export interface Cart {
+  buyerInfo: BuyerInfo;
+  couponListInCart: CouponListInCart[];
+  lectureInfoList: LectureInfoList[]
+}
+export interface Carts {
+  data: Cart;
+  couponPrice: {
+    discountprice: number[];
+    prices: number[];
+  };
+  deletes: string;
+  loading?: boolean;
+  error?: Error | null;
+}
+
+export interface basketProduct {
+  name: string;
+  item: LectureInfoList;
+  dis: number;
+  checked: boolean;
+  singleCheck: (
+    lecture_name: string,
+    lecture_intro: string,
+    lecture_price: number,
+    lecture_thumbnail: string
+  ) => void;
+}
+export interface BasketState {
+  price: number;
+  discount: number;
+  couponName: string;
+  discountrate: number;
+  couponCode:string
+}
+export interface bastetCheck {
+  lecture_intro: string;
+  name: string;
+  paid_amount: number;
+  lecture_thumbnail: string;
+  buyer_email: string;
+  buyer_name: string;
+  buyer_tel: string;
+  pay_method: string;
+  merchant_uid: string;
+  pg_provider: string;
+  receipt_url: string;
+  imp_uid: string | null;
 }

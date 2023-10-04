@@ -6,9 +6,12 @@ import * as St from "../style";
 
 const NoticeTable = (props: I.Notices) => {
   const navigate = useNavigate();
-  const navi = useCallback((v: I.NoticeList) => {
-    navigate(`/notice/${v.noticeNo}`);
-  }, []);
+  const navi = useCallback(
+    (v:number) => {
+      navigate(`/notice/${v}`);
+    },
+    [navigate]
+  );
   return (
     <St.Table>
       <St.TableLi >
@@ -20,7 +23,7 @@ const NoticeTable = (props: I.Notices) => {
       </St.TableLi> 
        {props.data.content.map((v)=>{
         return (
-          <St.TableLi onClick={() => navi(v)} $cursor key={v.noticeNo}>
+          <St.TableLi onClick={() => navi(v.noticeNo)} $cursor key={v.noticeNo}>
             <St.Num>{v.noticeNo}</St.Num>
             <St.Text $view={false}>{v.title}</St.Text>
             <St.CommonLi>{v.id}</St.CommonLi>

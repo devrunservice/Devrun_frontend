@@ -16,6 +16,7 @@
     "base-64": "^1.0.0",
     "chart.js": "^4.3.0",
     "crypto-js": "^4.1.1",
+    "dompurify": "^3.0.5",
     "file-saver": "^2.0.5",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
@@ -69,6 +70,7 @@
     ]
   },
   "devDependencies": {
+    "@types/dompurify": "^3.0.2",
     "@types/file-saver": "^2.0.5",
     "@types/html2canvas": "^1.0.0",
     "@types/jest": "^29.5.2",

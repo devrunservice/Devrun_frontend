@@ -21,6 +21,7 @@ import couponSaga from "./saga/couponSaga";
 import pointSaga from "./saga/pointSaga";
 import userInfoSaga from "./saga/userSaga";
 import noticeSaga from "./saga/noticeSaga";
+import cartSaga from "./saga/cartSaga";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -38,6 +39,7 @@ export function* rootSaga() {
     couponSaga(),
     pointSaga(),
     noticeSaga(),
+    cartSaga(),
   ]);
 }
 
