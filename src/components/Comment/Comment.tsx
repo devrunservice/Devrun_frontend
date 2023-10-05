@@ -12,6 +12,7 @@ import {
   commentPostLoading,
   commentGetLoading,
   commentRetouchLoading,
+  commentDelLoading,
 } from "../../redux/reducer/noticeReducer";
 
 
@@ -22,10 +23,10 @@ interface Id {
 const Comment = (props:Id) => {
   const dispatch = useDispatch();
   const param = useParams();
-  const { time } = useDate();
   const { commentRe, datas, comments } = useSelector(
     (state: RootState) => state.noticeReducer
   );
+  const { data } = useSelector((state: RootState) => state.userReducer);
   const [comment, onChangeComment, setComment] = useInput("");
   const [commentTwo, onChangeCommentTwo, setCommentTwo] = useInput("");
   const [writes, setWrites] = useState<number | null>(null);
@@ -33,7 +34,7 @@ const Comment = (props:Id) => {
   useEffect(() => {
     dispatch(commentGetLoading(param));
   }, [commentRe, comments]);
-
+  const { time } = useDate();
   const onComment = useCallback(async () => {
     if (comment.trim() === "") return alert("댓글을 적어주세요");
     try {
@@ -90,7 +91,7 @@ const Comment = (props:Id) => {
   );
 
   // 댓글수정 버튼
-  const commentsWrite = useCallback(
+  const onCommentsWrite = useCallback(
     (Index: number) => {
       if (datas?.data.some((v: CommentsList) => v.commentNo === Index)) {
          if (writes === Index) {
@@ -107,14 +108,16 @@ const Comment = (props:Id) => {
   );
 
   // 대댓글 버튼
-  const commentsBtn = useCallback(
+  const onCommentsBtn = useCallback(
     (Index: number) => {
       if (datas?.data.some((v: CommentsList) => v.commentNo === Index)) {
         if (writesTwo === Index) {
           setWritesTwo(null); // 같은 댓글을 다시 클릭하면 닫음
+          setCommentTwo("")
         } else {
           setWrites(null);
           setWritesTwo(Index); // 다른 댓글을 클릭하면 열고 선택된 댓글 번호 저장
+          setCommentTwo("");
         }
       }
     },
@@ -131,7 +134,10 @@ const Comment = (props:Id) => {
     },
     [writes, datas?.data, writesTwo]
   );
-  
+  // 댓글 삭제 버튼 
+  const onCommentsDel = useCallback((commentNo: number, id: string) => {
+    dispatch(commentDelLoading({ commentNo, id }));
+  }, []);
 
   return (
     <>
@@ -158,7 +164,7 @@ const Comment = (props:Id) => {
 
       <St.CommentUl>
         {datas &&
-          datas?.data
+          datas.data
             .filter((i: CommentsList) => i.parentCommentNo === 0)
             .map((v: CommentsList) => {
               return (
@@ -175,16 +181,29 @@ const Comment = (props:Id) => {
                       <St.CommentName>{v.id}</St.CommentName>
                       <St.CommentTime>
                         {v.modifiedDate !== null
-                          ? `${time(v.modifiedDate)} 수정`
-                          : time(v.createdDate)}
+                          ? `${time(v.modifiedDate) || "0초전"} 수정`
+                          : time(v.createdDate) || "0초전"}
                       </St.CommentTime>
                     </div>
                     <div>
-                      <St.CommentRe onClick={() => commentsWrite(v.commentNo)}>
-                        수정
-                      </St.CommentRe>
-                      <St.CommentRemove>삭제</St.CommentRemove>
-                      <St.CommentWrite onClick={() => commentsBtn(v.commentNo)}>
+                      {data.id === v.id && (
+                        <>
+                          <St.CommentRe
+                            onClick={() => onCommentsWrite(v.commentNo)}
+                          >
+                            수정
+                          </St.CommentRe>
+                          <St.CommentRemove
+                            onClick={() => onCommentsDel(v.commentNo, v.id)}
+                          >
+                            삭제
+                          </St.CommentRemove>
+                        </>
+                      )}
+
+                      <St.CommentWrite
+                        onClick={() => onCommentsBtn(v.commentNo)}
+                      >
                         댓글달기
                       </St.CommentWrite>
                     </div>
@@ -193,13 +212,13 @@ const Comment = (props:Id) => {
 
                   {writes === v.commentNo && (
                     <St.CommentWriteWrap>
-                      <St.CommentBox
+                      <St.CommentBoxRe
                         onChange={onChangeCommentTwo}
-                        maxLength={350}
+                        maxLength={500}
                         value={commentTwo !== "" ? commentTwo : v.content}
                       />
                       <St.ButtonWrapCommnet>
-                        <St.CommentNum>{commentTwo.length} / 350</St.CommentNum>
+                        <St.CommentNum>{commentTwo.length} / 500</St.CommentNum>
                         <Button
                           $active={false}
                           onClick={() => onCommentClose(v.commentNo)}
@@ -220,13 +239,13 @@ const Comment = (props:Id) => {
 
                   {writesTwo === v.commentNo && (
                     <St.CommentWriteWrap>
-                      <St.CommentBox
+                      <St.CommentBoxRe
                         onChange={onChangeCommentTwo}
-                        maxLength={350}
+                        maxLength={500}
                         value={commentTwo}
                       />
                       <St.ButtonWrapCommnet>
-                        <St.CommentNum>{commentTwo.length} / 350</St.CommentNum>
+                        <St.CommentNum>{commentTwo.length} / 500</St.CommentNum>
                         <Button
                           $active={false}
                           onClick={() => onCommentClose(v.commentNo)}
@@ -264,35 +283,45 @@ const Comment = (props:Id) => {
                                   </St.CommentImgBox>
 
                                   <St.CommentName>{q.id}</St.CommentName>
-                                  <p>{time(q.createdDate)}</p>
+                                  <St.CommentTime>
+                                    {q.modifiedDate !== null
+                                      ? `${time(q.modifiedDate)} 수정`
+                                      : time(q.createdDate)}
+                                  </St.CommentTime>
                                 </div>
-                                <div>
-                                  <St.CommentRe
-                                    onClick={() => commentsWrite(q.commentNo)}
-                                  >
-                                    수정
-                                  </St.CommentRe>
-                                  <St.CommentRemove
-                                    onClick={() => commentsWrite(q.commentNo)}
-                                  >
-                                    삭제
-                                  </St.CommentRemove>
-                                </div>
+                                {data.id === q.id && (
+                                  <div>
+                                    <St.CommentRe
+                                      onClick={() =>
+                                        onCommentsWrite(q.commentNo)
+                                      }
+                                    >
+                                      수정
+                                    </St.CommentRe>
+                                    <St.CommentRemove
+                                      onClick={() =>
+                                        onCommentsDel(q.commentNo, q.id)
+                                      }
+                                    >
+                                      삭제
+                                    </St.CommentRemove>
+                                  </div>
+                                )}
                               </St.CommentTop>
                               <St.CommentText>{q.content}</St.CommentText>
                             </div>
                             {writes === q.commentNo && (
                               <St.CommentWriteWrap>
-                                <St.CommentBox
+                                <St.CommentBoxRe
                                   onChange={onChangeCommentTwo}
-                                  maxLength={350}
+                                  maxLength={500}
                                   value={
                                     commentTwo !== "" ? commentTwo : q.content
                                   }
                                 />
                                 <St.ButtonWrapCommnet>
                                   <St.CommentNum>
-                                    {commentTwo.length} / 350
+                                    {commentTwo.length} / 500
                                   </St.CommentNum>
                                   <Button
                                     $active={false}

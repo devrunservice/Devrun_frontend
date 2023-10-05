@@ -4,12 +4,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import ReactQuill from "react-quill";
-import { toolbarOptions, formats } from "utils/editor";
+
 import { notice } from "utils/api";
 import * as I from "types";
 import "react-quill/dist/quill.snow.css";
 import * as S from "style/Common";
 import * as St from "./style";
+import QuillToolbar, { formats } from "./QuillToolbar";
 import {
   noticeWriteLoading,
   noticeRetouchLoading,
@@ -18,19 +19,18 @@ import {
 
 interface path {
   path: string;
-  title: string;
+  tap: string;
 }
 
 const Editor = (props: path) => {
   const dispatch = useDispatch()
   const params = useParams()
-  const noticeNo = props.title === "공지수정" ? params.noticeNo : 0;
+  const noticeNo = props.tap === "공지수정" ? params.noticeNo : 0;
   const { data } = useSelector((state: RootState) => state.userReducer);
   const navigate = useNavigate();
   const quillRef = useRef<ReactQuill>(null);
   const [content, setContent] = useState<string>("");
   const [title, setTitle] = useState("");
-
   const onImage = () => {
     // quill 현재위치
     const input = document.createElement("input");
@@ -83,12 +83,11 @@ const Editor = (props: path) => {
   const modules = useMemo(
     () => ({
       toolbar: {
-        container: toolbarOptions,
+        container: "#toolbar",
         handlers: {
           image: onImage,
         },
       },
-     
     }),
     []
   );
@@ -101,27 +100,27 @@ const Editor = (props: path) => {
       content: content,
       id: data.id,
     };
-    if (props.title === "공지작성"){
-       try {
+    if (props.tap === "공지작성") {
+      try {
         await dispatch(noticeWriteLoading(writeData))
         await navigate(`/notice`);
-       } catch (error) {
-         alert("게시물업로드가 실패했습니다.");
-       }
-    }else{
-       try {
-       await dispatch(noticeRetouchLoading(writeData));
-         await navigate(`/notice/${params.noticeNo}`);
-       } catch (error) {
-         alert("게시물업로드가 실패했습니다.");
-       }
+      } catch (error) {
+        alert("게시물업로드가 실패했습니다.");
+      }
+    } else {
+      try {
+        await dispatch(noticeRetouchLoading(writeData));
+        await navigate(`/notice/${params.noticeNo}`);
+      } catch (error) {
+        alert("게시물수정을 실패했습니다.");
+      }
     }
      
-  }, [content, title]);
+  }, [content, title,props.tap]);
   const onExit = useCallback(()=>{
-    if(props.title === "공지작성"){
-      navigate("/notice")
-    }else{
+    if (props.tap === "공지작성") {
+      navigate("/notice");
+    } else {
       navigate(`/notice/${params.noticeNo}`);
     }
   },[])
@@ -133,6 +132,7 @@ const Editor = (props: path) => {
         onChange={onTitle}
         value={title}
       />
+      <QuillToolbar />
       <St.Editor
         placeholder="내용을 적어주세요"
         theme="snow"

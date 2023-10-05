@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import DOMPurify from "dompurify";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,11 +7,10 @@ import { RootState } from "redux/store";
 import { Comment } from "components";
 import * as S from "style/Common";
 import * as St from "./style";
-import { noticeDetailLoading } from "../../../redux/reducer/noticeReducer";
-
-
-
-
+import {
+  noticeDetailLoading,
+  noticeDelLoading,
+} from "../../../redux/reducer/noticeReducer";
 
 const Detail = () => {
   const navigate = useNavigate();
@@ -20,9 +19,20 @@ const Detail = () => {
   const { content, write } = useSelector(
     (state: RootState) => state.noticeReducer
   );
+   const { data } = useSelector((state: RootState) => state.userReducer);
   useEffect(() => {
     dispatch(noticeDetailLoading(noticeNo));
   }, [write]);
+  const delButton = useCallback(()=>{
+    if(window.confirm("해당게시물을 삭제하시겠습니까?")){
+      dispatch(noticeDelLoading(noticeNo));
+      alert("삭제되었습니다.")
+      navigate("/notice");
+    }else{
+      alert("취소되었습니다.")
+    }
+    
+  },[])
     return (
       <S.Inner>
         <St.Title>공지사항</St.Title>
@@ -56,13 +66,22 @@ const Detail = () => {
               >
                 목록
               </S.Button>
-              <S.Button
-                $active
-                type="button"
-                onClick={() => navigate(`/notice/${noticeNo.noticeNo}/retouch`)}
-              >
-                수정하기
-              </S.Button>
+              {data.role === "ADMIN" && (
+                <>
+                  <S.Button
+                    $active
+                    type="button"
+                    onClick={() =>
+                      navigate(`/notice/${noticeNo.noticeNo}/retouch`)
+                    }
+                  >
+                    수정하기
+                  </S.Button>
+                  <St.DelButton type="button" onClick={() => delButton()}>
+                    삭제하기
+                  </St.DelButton>
+                </>
+              )}
             </St.BtnWrap>
             <Comment id={content.id} />
           </>
