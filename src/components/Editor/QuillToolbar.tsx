@@ -62,9 +62,9 @@ const color = [
   "#3d1466",
 ];
 
-
+// 글꼴
 const FontFamily = Quill.import("formats/font");
-FontFamily.whitelist = ["KoPubWorldDotum", "NotoSansKR"];
+FontFamily.whitelist = ["dotum", "gullim", "batang", "NanumGothic"];
 Quill.register(FontFamily, true);
 
 // 폰트사이즈
@@ -84,9 +84,9 @@ Quill.register(fontSize, true);
 const QuillToolbar = () => (
   <div id="toolbar">
     <span className="ql-formats">
-      <select className="ql-font" defaultValue="arial">
+      <select className="ql-font" defaultValue="dotum">
         {FontFamily.whitelist.map((v: string) => (
-          <option value={v} key={v} selected={v === "arial"}>
+          <option value={v} key={v} selected={v === "dotum"}>
             {v}
           </option>
         ))}
