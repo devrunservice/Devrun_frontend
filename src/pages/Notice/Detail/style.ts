@@ -58,3 +58,12 @@ export const BtnWrap = styled(ButtonWrap)`
   padding-bottom: 2.5rem;
   margin-bottom: 3.75rem;
 `;
+
+export const DelButton = styled.button`
+  background: ${(props: any) => props.theme.textRed};
+  color: ${(props: any) => props.theme.textWhite};
+  width: 5.625rem;
+  border-radius: 0.3125rem;
+  height: 3rem;
+  font-size: 0.875rem;
+`;

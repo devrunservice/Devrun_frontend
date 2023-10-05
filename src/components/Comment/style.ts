@@ -23,10 +23,13 @@ export const CommentBox = styled.textarea`
   width: 100%;
   border: 1px solid ${(props: any) => props.theme.borderC};
   outline: 0;
-  height: 10.625rem;
+  height: 7.625rem;
   padding: 1.25rem;
   border-radius: 0.3125rem;
   resize: none;
+`;
+export const CommentBoxRe = styled(CommentBox)`
+  height: 12.625rem;
 `;
 
 export const ButtonWrap = styled.div`
@@ -95,7 +98,6 @@ export const CommentName = styled.p`
 `;
 export const CommentTime = styled.p`
   font-size: 0.875rem;
-  margin-left: 0.875rem;
 `;
 
 export const CommentText = styled.p`

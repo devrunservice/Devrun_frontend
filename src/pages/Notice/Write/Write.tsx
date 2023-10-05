@@ -7,7 +7,7 @@ const Write = () => {
   return (
     <S.Inner>
       <S.TitleTop>공지사항</S.TitleTop>
-      <Editor path="notice" title="공지작성" />
+      <Editor path="notice" tap="공지작성" />
     </S.Inner>
   );
 }
