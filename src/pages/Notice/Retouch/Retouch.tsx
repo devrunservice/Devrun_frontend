@@ -6,7 +6,7 @@ const Retouch = () => {
   return (
     <S.Inner>
       <S.TitleTop>공지사항</S.TitleTop>
-      <Editor path="notice" title="공지수정" />
+      <Editor path="notice" tap="공지수정" />
     </S.Inner>
   );
 };

@@ -1,6 +1,13 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { all, call, fork, takeLatest, put } from "redux-saga/effects";
-import { PageNo, NoticeNum, NoticeWrite, Comment, CommentRetouch } from "types";
+import {
+  PageNo,
+  NoticeNum,
+  NoticeWrite,
+  Comment,
+  CommentRetouch,
+  CommentDel,
+} from "types";
 import { notice } from "utils/api";
 import {
   noticeListLoading,
@@ -15,6 +22,9 @@ import {
   noticeRetouchLoading,
   noticeRetouchSuccess,
   noticeRetouchFail,
+  noticeDelLoading,
+  noticeDelSuccess,
+  noticeDelFail,
   commentPostLoading,
   commentPostSuccess,
   commentPostFail,
@@ -24,6 +34,9 @@ import {
   commentRetouchLoading,
   commentRetouchSuccess,
   commentRetouchFail,
+  commentDelLoading,
+  commentDelSuccess,
+  commentDelFail,
 } from "../reducer/noticeReducer";
 
 
@@ -53,6 +66,7 @@ function* noticeDetail(
   try {
     
     const response = yield call(notice.detail, action.payload);
+    
     yield put(noticeDetailSuccuss(response));
   } catch (error) {
     yield put(noticeDetailFail(error));
@@ -69,18 +83,30 @@ function* noticeRetouch(
     yield put(noticeRetouchFail(error));
   }
 }
-
-function* commentPost(
-  action: PayloadAction<Comment>
+function* noticeDel(
+  action: PayloadAction<NoticeWrite>
 ): Generator<any, void, any> {
   try {
-    const response = yield call(notice.comment, action.payload);
-
-    yield put(commentPostSuccess(response));
+    const response = yield call(notice.deletNotice, action.payload);
+    
+    yield put(noticeDelSuccess(response));
   } catch (error) {
-    yield put(commentPostFail(error));
+    yield put(noticeDelFail(error));
   }
 }
+
+
+  function* commentPost(
+    action: PayloadAction<Comment>
+  ): Generator<any, void, any> {
+    try {
+      const response = yield call(notice.comment, action.payload);
+
+      yield put(commentPostSuccess(response));
+    } catch (error) {
+      yield put(commentPostFail(error));
+    }
+  };
 
 function* commentGet(
   action: PayloadAction<NoticeNum>
@@ -98,18 +124,27 @@ function* commentRetouch(
 ): Generator<any, void, any> {
   try {
     const response = yield call(notice.commentRetouch, action.payload);
-    console.log(response);
     yield put(commentRetouchSuccess(response));
   } catch (error) {
     yield put(commentRetouchFail(error));
   }
 }
 
-;
+function* commentDel(
+  action: PayloadAction<CommentDel>
+): Generator<any, void, any> {
+  try {
+    const response = yield call(notice.commentDel, action.payload);
+    console.log(action.payload);
+    yield put(commentDelSuccess(response));
+  } catch (error) {
+    yield put(commentDelFail(error));
+  }
+}
 
 function* watchNoticeList() {
-  yield takeLatest(noticeListLoading, noticeList);
-}
+      yield takeLatest(noticeListLoading, noticeList);
+    };
 function* watchNoticeDetail() {
   yield takeLatest(noticeDetailLoading, noticeDetail);
 }
@@ -118,6 +153,9 @@ function* watchNoticeWrite(){
 }
 function* watchNoticeRetouch() {
   yield takeLatest(noticeRetouchLoading, noticeRetouch);
+}
+function* watchNoticeDel() {
+  yield takeLatest(noticeDelLoading, noticeDel);
 }
 function* watchCommentPost() {
   yield takeLatest(commentPostLoading, commentPost);
@@ -129,6 +167,9 @@ function* watchCommentGet() {
 function* watchCommentRetouch() {
   yield takeLatest(commentRetouchLoading, commentRetouch);
 }
+function* watchCommentDel() {
+  yield takeLatest(commentDelLoading, commentDel);
+}
 export default function* noticeSaga(){
     yield all([
       fork(watchNoticeList),
@@ -138,5 +179,7 @@ export default function* noticeSaga(){
       fork(watchCommentPost),
       fork(watchCommentGet),
       fork(watchCommentRetouch),
+      fork(watchCommentDel),
+      fork(watchNoticeDel),
     ]);
 }

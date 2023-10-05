@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
-import { Notices } from "types";
+import { Notices,CommentsList } from "types";
 
 const initialState: Notices = {
   // 리스트
@@ -21,7 +21,7 @@ const initialState: Notices = {
     totalElements: 0,
     totalPages: 0,
   },
-  // 뷰 페이지 
+  // 뷰 페이지
   content: {
     content: "",
     createdDate: "",
@@ -72,6 +72,7 @@ const initialState: Notices = {
     profileimgsrc: "",
     userNo: 0,
   },
+  del: "",
   write: "",
   loading: false,
   error: null,
@@ -100,7 +101,6 @@ const noticeReducer = createSlice({
     },
     noticeDetailSuccuss: (state, action) => {
       state.loading = false;
-
       state.content = action.payload.data;
       return state;
     },
@@ -133,6 +133,19 @@ const noticeReducer = createSlice({
       return state;
     },
     noticeRetouchFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    noticeDelLoading: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
+    noticeDelSuccess: (state, action) => {
+      state.loading = false;
+      state.del = action.payload.del;
+      return state;
+    },
+    noticeDelFail: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
@@ -178,6 +191,23 @@ const noticeReducer = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+
+    commentDelLoading: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
+    commentDelSuccess: (state, action) => {
+      state.loading = false;
+      console.log(action.payload);
+      state.datas.data = state.datas?.data.filter(
+        (v) => v.commentNo !== action.payload.data.commentNo
+      );
+      return state;
+    },
+    commentDelFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 
@@ -194,6 +224,9 @@ export const {
   noticeRetouchLoading,
   noticeRetouchSuccess,
   noticeRetouchFail,
+  noticeDelLoading,
+  noticeDelSuccess,
+  noticeDelFail,
   commentPostFail,
   commentPostLoading,
   commentPostSuccess,
@@ -203,6 +236,9 @@ export const {
   commentRetouchLoading,
   commentRetouchSuccess,
   commentRetouchFail,
+  commentDelLoading,
+  commentDelSuccess,
+  commentDelFail,
 } = noticeReducer.actions;
 
 export default noticeReducer.reducer;

@@ -443,11 +443,15 @@ export interface Notices {
   data: Notice;
   loading?: boolean;
   error?: Error | null;
-  content?: NoticeList;
-  write?: string;
-  datas?: Comments;
-  comments?: CommentsList;
-  commentRe?: CommentsList;
+  content: NoticeList;
+  write: string;
+  datas: Comments;
+  del: "";
+  comments: CommentsList;
+  commentRe: CommentsList;
+}
+export interface NoticesTabel {
+  data: Notice;
 }
 export interface NoticeNum {
   noticeNo: number;
@@ -474,7 +478,10 @@ export interface CommentRetouch {
   content: string;
   commentNo: number;
 }
-
+export interface CommentDel {
+  id: string;
+  commentNo: number;
+}
 
 export interface BuyerInfo {
   userEmail: string;
