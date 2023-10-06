@@ -20,7 +20,7 @@ const Notice = () => {
   }, [pageno, write]);
   return (
     <S.Inner>
-      <UserTop title="공지사항" sub="전체" />
+      <UserTop title="공지사항" sub="전체" count={data.totalElements}/>
 
       <NoticeTable data={data} />
 
