@@ -22,6 +22,7 @@ const Header = () => {
   useEffect(() => {
     if (getCookie('accessToken')) {
       dispatch(userInfoLoading(null));
+      dispatch(cartInfoLoading(null));
       setCookie(true);
     }
   }, []);
@@ -30,10 +31,6 @@ const Header = () => {
     dispatch(logoutLoading());
     setCookie(false);
   };
-
-  useEffect(() => {
-    dispatch(cartInfoLoading(null));
-  }, []);
 
 
   return (
@@ -47,7 +44,7 @@ const Header = () => {
           <St.CategoryWrap>
             <St.CategoryLi>
               <St.CategoryIcon />
-              카테고리1
+              카테고리
             </St.CategoryLi>
             <St.CategoryLi>DEVRUN 깜짝특가</St.CategoryLi>
             <St.CategoryLi>BEST</St.CategoryLi>

@@ -64,7 +64,7 @@ const color = [
 
 // 글꼴
 const FontFamily = Quill.import("formats/font");
-FontFamily.whitelist = ["dotum", "gullim", "batang", "NanumGothic"];
+FontFamily.whitelist = ["Nanum", "Pretendard", "Roboto"];
 Quill.register(FontFamily, true);
 
 // 폰트사이즈
@@ -84,9 +84,9 @@ Quill.register(fontSize, true);
 const QuillToolbar = () => (
   <div id="toolbar">
     <span className="ql-formats">
-      <select className="ql-font" defaultValue="dotum">
+      <select className="ql-font" defaultValue="Nanum">
         {FontFamily.whitelist.map((v: string) => (
-          <option value={v} key={v} selected={v === "dotum"}>
+          <option value={v} key={v} selected={v === "Nanum"}>
             {v}
           </option>
         ))}
@@ -98,6 +98,22 @@ const QuillToolbar = () => (
           </option>
         ))}
       </select>
+    </span>
+    <span className="ql-formats">
+      <button className="ql-bold">asd</button>
+      <button className="ql-italic">asd</button>
+      <button className="ql-underline">asd</button>
+      <button className="ql-strike">asd</button>
+      <button className="ql-blockquote">asd</button>
+    </span>
+    <span className="ql-formats">
+      <select className="ql-color">asd</select>
+      <select className="ql-background">asd</select>
+    </span>
+
+    <span className="ql-formats">
+      <button className="ql-image">asd</button>
+      <button className="ql-video">asd</button>
     </span>
   </div>
 );

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useCallback, useMemo, useRef, useState } from "react";
+import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import ReactQuill from "react-quill";
-
 import { notice } from "utils/api";
 import * as I from "types";
 import "react-quill/dist/quill.snow.css";
@@ -15,6 +15,7 @@ import {
   noticeWriteLoading,
   noticeRetouchLoading,
 } from "../../redux/reducer/noticeReducer";
+
 
 
 interface path {
@@ -31,6 +32,7 @@ const Editor = (props: path) => {
   const quillRef = useRef<ReactQuill>(null);
   const [content, setContent] = useState<string>("");
   const [title, setTitle] = useState("");
+
   const onImage = () => {
     // quill 현재위치
     const input = document.createElement("input");
@@ -40,27 +42,34 @@ const Editor = (props: path) => {
 
     input.onchange = async () => {
       const file = input.files;
-      console.log(file);
+      
       if (file !== null) {
         if (file[0].size > 1024 * 1024 * 2) {
           alert("이미지 용량을 초과하였습니다.");
+          
         } else {
           const formData = new FormData();
           formData.append("file", file[0], "image.jpg");
           try {
-            const res = await notice.img({ path: props.path, formData });
-            const url = res.data.fileURL;
-            const range = quillRef.current?.getEditor().getSelection()?.index;
-            if (range !== null && range !== undefined) {
-              const quill = quillRef.current?.getEditor();
-              quill?.setSelection(range, 1);
-              quill?.clipboard.dangerouslyPasteHTML(
-                range,
-                `<img src=${url} alt="이미지 태그가 삽입됩니다." />`
-              );
-            }
+            const res = await notice.getUrl({
+                path: props.path,
+                fileName: file[0].name.slice(0,-4),
+                fileExt: file[0].type.slice(-3),
+              });
+            const img = await notice.postUrl({
+              url: res.data.presignUrl,
+              file: file[0],
+            });
+            console.log(img)
+            // const range = quillRef.current?.getEditor().getSelection()?.index;
+            
+            // if (range !== null && range !== undefined) {
+            //   const quill = quillRef.current?.getEditor();
+            //   quill?.setSelection(range, 1);
+            //   quill?.clipboard.dangerouslyPasteHTML( range, `<img src=${url} alt="이미지 태그가 삽입됩니다." />` );
+            // }
 
-            return { ...res, success: true };
+            // return { ...res, success: true };
           } catch (error) {
             alert("이미지 업로드에 실패했습니다.")
           }
