@@ -10,7 +10,7 @@ import {Button} from 'style/Common';
 import * as St from './style';
 import {userInfoLoading} from '../../redux/reducer/userReducer';
 import {logoutLoading} from '../../redux/reducer/loginReducer';
-import { cartInfoLoading } from "../../redux/reducer/cartReducer";
+// import { cartInfoLoading } from "../../redux/reducer/cartReducer";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -31,9 +31,9 @@ const Header = () => {
     setCookie(false);
   };
 
-  useEffect(() => {
-    dispatch(cartInfoLoading(null));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(cartInfoLoading(null));
+  // }, []);
 
 
   return (

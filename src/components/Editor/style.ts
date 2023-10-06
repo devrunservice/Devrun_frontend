@@ -11,6 +11,18 @@ export const Editor = styled(ReactQuill)`
   .qeSL .ql-container.ql-snow {
     border: 1px solid ${(props: any) => props.theme.borderC};
   }
+  .ql-font-Nanum {
+    font-family: "Nanum Gothic", sans-serif;
+    font-weight: 400;
+  }
+  .ql-font-Pretendard {
+    font-family: "Pretendard";
+    font-weight: 400;
+  }
+  .ql-font-Roboto {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+  }
 `;
 
 export const TitleInput = styled.input`
