@@ -99,6 +99,22 @@ const QuillToolbar = () => (
         ))}
       </select>
     </span>
+    <span className="ql-formats">
+      <button className="ql-bold">asd</button>
+      <button className="ql-italic">asd</button>
+      <button className="ql-underline">asd</button>
+      <button className="ql-strike">asd</button>
+      <button className="ql-blockquote">asd</button>
+    </span>
+    <span className="ql-formats">
+      <select className="ql-color">asd</select>
+      <select className="ql-background">asd</select>
+    </span>
+
+    <span className="ql-formats">
+      <button className="ql-image">asd</button>
+      <button className="ql-video">asd</button>
+    </span>
   </div>
 );
 

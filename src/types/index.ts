@@ -461,6 +461,16 @@ export interface NoticeUpload {
   path: string;
   formData: FormData;
 }
+export interface NoticeUrl {
+  path: string;
+  fileName: string;
+  fileExt:string
+}
+export interface NoticePostUrl {
+  url: string;
+  file: File;
+}
+
 export interface NoticeWrite {
   noticeNo: string | number | undefined;
   title: string;
