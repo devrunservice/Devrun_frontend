@@ -12,6 +12,7 @@
     "@types/react-google-recaptcha": "^2.1.5",
     "@types/react-recaptcha-v3": "^1.1.2",
     "@types/redux-persist": "^4.3.1",
+    "aws-sdk": "^2.1471.0",
     "axios": "^1.4.0",
     "base-64": "^1.0.0",
     "chart.js": "^4.3.0",
@@ -70,6 +71,7 @@
     ]
   },
   "devDependencies": {
+    "@types/aws-sdk": "^2.7.0",
     "@types/dompurify": "^3.0.2",
     "@types/file-saver": "^2.0.5",
     "@types/html2canvas": "^1.0.0",

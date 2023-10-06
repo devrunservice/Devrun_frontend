@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
+import axios from 'axios';
 import * as I from 'types';
 
 import {baseAxios, authAxios, imageAxios} from './instance';
@@ -232,10 +233,31 @@ export const create = {
     return response;
   },
 };
-
+const headers = {
+  "Content-Type": "image/png",
+};
 export const notice = {
   img: (params: I.NoticeUpload) => {
     const response = imageAxios.post(`/${params.path}/upload`, params.formData);
+    return response;
+  },
+  getUrl: (params: I.NoticeUrl) => {
+    const response = authAxios.post(`/${params.path}/presignurl`, {
+      fileName: params.fileName,
+      fileExt: params.fileExt,
+    });
+    return response;
+  },
+  
+  postUrl:(params:I.NoticePostUrl)=>{
+    const response = axios.request({
+      method: "put",
+      url: params.url,
+      data: params.file,
+      maxRedirects: 5,
+      validateStatus: null,
+      headers: headers,
+    });
     return response;
   },
   write: (params: I.NoticeWrite) => {
@@ -277,7 +299,7 @@ export const notice = {
   },
   commentDel: (params: I.CommentDel) => {
     const response = authAxios.delete(`/comment/delete/${params.commentNo}`, {
-      data:params,
+      data: params,
     });
     return response;
   },

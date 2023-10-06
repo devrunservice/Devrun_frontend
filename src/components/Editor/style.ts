@@ -7,21 +7,29 @@ export const Editor = styled(ReactQuill)`
   .ql-editor {
     min-height: 31.25rem;
   }
-  .qeSL .ql-toolbar.ql-snow,
-  .qeSL .ql-container.ql-snow {
-    border: 1px solid ${(props: any) => props.theme.borderC};
+  .ql-toolbar.ql-snow,
+  .ql-container.ql-snow {
+    border-top: 0;
   }
-  .ql-font-Nanum {
+  p {
     font-family: "Nanum Gothic", sans-serif;
-    font-weight: 400;
   }
   .ql-font-Pretendard {
     font-family: "Pretendard";
-    font-weight: 400;
   }
   .ql-font-Roboto {
     font-family: "Roboto", sans-serif;
-    font-weight: 400;
+  }
+  strong {
+    font-weight: 700;
+  }
+  em {
+    font-style: italic;
+  }
+  .ql-formats button,
+  .ql-formats .ql-color,
+  .ql-formats .ql-background {
+    font-size: 0;
   }
 `;
 
