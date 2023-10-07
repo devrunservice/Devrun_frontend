@@ -71,10 +71,24 @@ const QuillToolbar = () => (
       <button className="ql-blockquote">asd</button>
     </span>
     <span className="ql-formats">
+      <select className="ql-align">asd</select>
       <select className="ql-color">asd</select>
       <select className="ql-background">asd</select>
     </span>
-
+    <span className="ql-formats">
+      <button className="ql-list" value="ordered">
+        asd
+      </button>
+      <button className="ql-list" value="bullet">
+        asd
+      </button>
+      <button className="ql-indent" value="-1">
+        asd
+      </button>
+      <button className="ql-indent" value="+1">
+        asd
+      </button>
+    </span>
     <span className="ql-formats">
       <button className="ql-image">asd</button>
     </span>

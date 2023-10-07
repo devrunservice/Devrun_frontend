@@ -52,7 +52,7 @@ const Editor = (props: path) => {
             const res = await notice.getUrl({
               path: props.path,
               fileName: file[0].name.split(".")[0],
-              fileExt: file[0].name.split(".")[1],
+              fileExt: file[0].type.split("/")[1],
             });
              await notice.postUrl({
               url: res.data.presignUrl,

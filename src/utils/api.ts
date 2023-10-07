@@ -256,10 +256,6 @@ export const notice = {
     });
     return response;
   },
-  getImgUrl: (params: I.NoticePostUrl) => {
-    const response = authAxios.get(`/${params.url}`);
-    return response;
-  },
   write: (params: I.NoticeWrite) => {
     const response = authAxios.post("/notice/write", params);
     return response;

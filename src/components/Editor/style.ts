@@ -3,9 +3,9 @@ import ReactQuill from "react-quill";
 
 
 export const Editor = styled(ReactQuill)`
-  min-height: 31.25rem;
   .ql-editor {
     min-height: 31.25rem;
+    padding: 1.25rem 1.25rem;
   }
   .ql-toolbar.ql-snow,
   .ql-container.ql-snow {
