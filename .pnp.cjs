@@ -50,8 +50,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/testing-library__jest-dom", "npm:5.14.7"],\
             ["@typescript-eslint/eslint-plugin", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:5.61.0"],\
             ["@typescript-eslint/parser", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:5.61.0"],\
-            ["@xeger/quill-image-actions", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:0.7.1"],\
-            ["@xeger/quill-image-formats", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:0.7.1"],\
             ["@yarnpkg/sdks", "npm:3.0.0-rc.48"],\
             ["axios", "npm:1.4.0"],\
             ["base-64", "npm:1.0.0"],\
@@ -6032,53 +6030,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["@xeger/quill-image-actions", [\
-        ["npm:0.7.1", {\
-          "packageLocation": "./.yarn/cache/@xeger-quill-image-actions-npm-0.7.1-1b0c8f68aa-6b2a11a242.zip/node_modules/@xeger/quill-image-actions/",\
-          "packageDependencies": [\
-            ["@xeger/quill-image-actions", "npm:0.7.1"]\
-          ],\
-          "linkType": "SOFT"\
-        }],\
-        ["virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:0.7.1", {\
-          "packageLocation": "./.yarn/__virtual__/@xeger-quill-image-actions-virtual-82366f76c5/0/cache/@xeger-quill-image-actions-npm-0.7.1-1b0c8f68aa-6b2a11a242.zip/node_modules/@xeger/quill-image-actions/",\
-          "packageDependencies": [\
-            ["@xeger/quill-image-actions", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:0.7.1"],\
-            ["@types/quill", null],\
-            ["core-js", "npm:3.33.0"],\
-            ["deepmerge", "npm:4.3.1"],\
-            ["quill", null]\
-          ],\
-          "packagePeers": [\
-            "@types/quill",\
-            "quill"\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["@xeger/quill-image-formats", [\
-        ["npm:0.7.1", {\
-          "packageLocation": "./.yarn/cache/@xeger-quill-image-formats-npm-0.7.1-ad2acf7b1f-b31ee5a84f.zip/node_modules/@xeger/quill-image-formats/",\
-          "packageDependencies": [\
-            ["@xeger/quill-image-formats", "npm:0.7.1"]\
-          ],\
-          "linkType": "SOFT"\
-        }],\
-        ["virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:0.7.1", {\
-          "packageLocation": "./.yarn/__virtual__/@xeger-quill-image-formats-virtual-cfd6570072/0/cache/@xeger-quill-image-formats-npm-0.7.1-ad2acf7b1f-b31ee5a84f.zip/node_modules/@xeger/quill-image-formats/",\
-          "packageDependencies": [\
-            ["@xeger/quill-image-formats", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:0.7.1"],\
-            ["@types/quill", null],\
-            ["core-js", "npm:3.33.0"],\
-            ["quill", null]\
-          ],\
-          "packagePeers": [\
-            "@types/quill",\
-            "quill"\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["@xtuc/ieee754", [\
         ["npm:1.2.0", {\
           "packageLocation": "./.yarn/cache/@xtuc-ieee754-npm-1.2.0-ec0ce4e025-ac56d4ca6e.zip/node_modules/@xtuc/ieee754/",\
@@ -8033,13 +7984,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["core-js", "npm:3.31.1"]\
           ],\
           "linkType": "HARD"\
-        }],\
-        ["npm:3.33.0", {\
-          "packageLocation": "./.yarn/unplugged/core-js-npm-3.33.0-44b65b93c9/node_modules/core-js/",\
-          "packageDependencies": [\
-            ["core-js", "npm:3.33.0"]\
-          ],\
-          "linkType": "HARD"\
         }]\
       ]],\
       ["core-js-compat", [\
@@ -8911,8 +8855,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/testing-library__jest-dom", "npm:5.14.7"],\
             ["@typescript-eslint/eslint-plugin", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:5.61.0"],\
             ["@typescript-eslint/parser", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:5.61.0"],\
-            ["@xeger/quill-image-actions", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:0.7.1"],\
-            ["@xeger/quill-image-formats", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:0.7.1"],\
             ["@yarnpkg/sdks", "npm:3.0.0-rc.48"],\
             ["axios", "npm:1.4.0"],\
             ["base-64", "npm:1.0.0"],\

@@ -5,8 +5,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import ReactQuill, { Quill } from "react-quill";
-import { ImageActions } from "@xeger/quill-image-actions";
-import { ImageFormats } from "@xeger/quill-image-formats";
 import { notice } from "utils/api";
 import * as I from "types";
 import "react-quill/dist/quill.snow.css";
@@ -17,9 +15,6 @@ import {
   noticeWriteLoading,
   noticeRetouchLoading,
 } from "../../redux/reducer/noticeReducer";
-
-Quill.register("modules/imageActions", ImageActions);
-Quill.register("modules/imageFormats", ImageFormats);
 
 interface path {
   path: string;
@@ -47,27 +42,25 @@ const Editor = (props: path) => {
 
     input.onchange = async () => {
       const file = input.files;
-      
       if (file !== null) {
         if (file[0].size > 1024 * 1024 * 2) {
           alert("이미지 용량을 초과하였습니다.");
           
         } else {
-          const formData = new FormData();
-          formData.append("file", file[0], "image.jpg");
+
           try {
             const res = await notice.getUrl({
-                path: props.path,
-                fileName: file[0].name.slice(0,-4),
-                fileExt: file[0].type.slice(-3),
-              });
-            const saveImg = await notice.postUrl({
+              path: props.path,
+              fileName: file[0].name.split(".")[0],
+              fileExt: file[0].name.split(".")[1],
+            });
+             await notice.postUrl({
               url: res.data.presignUrl,
               file: file[0],
             });
             const imgUrl = res.data.presignUrl.split("?")[0]
             const range = quillRef.current?.getEditor().getSelection()?.index;
-            
+
             if (range !== null && range !== undefined) {
               const quill = quillRef.current?.getEditor();
               quill?.setSelection(range, 1);
@@ -99,8 +92,6 @@ const Editor = (props: path) => {
   );
   const modules = useMemo(
     () => ({
-      imageActions: {},
-      imageFormats: {},
       toolbar: {
         container: "#toolbar",
         handlers: {
