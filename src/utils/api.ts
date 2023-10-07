@@ -237,10 +237,6 @@ const headers = {
   "Content-Type": "image/png",
 };
 export const notice = {
-  img: (params: I.NoticeUpload) => {
-    const response = imageAxios.post(`/${params.path}/upload`, params.formData);
-    return response;
-  },
   getUrl: (params: I.NoticeUrl) => {
     const response = authAxios.post(`/${params.path}/presignurl`, {
       fileName: params.fileName,
@@ -248,8 +244,8 @@ export const notice = {
     });
     return response;
   },
-  
-  postUrl:(params:I.NoticePostUrl)=>{
+
+  postUrl: (params: I.NoticePostUrl) => {
     const response = axios.request({
       method: "put",
       url: params.url,
@@ -258,6 +254,10 @@ export const notice = {
       validateStatus: null,
       headers: headers,
     });
+    return response;
+  },
+  getImgUrl: (params: I.NoticePostUrl) => {
+    const response = authAxios.get(`/${params.url}`);
     return response;
   },
   write: (params: I.NoticeWrite) => {
