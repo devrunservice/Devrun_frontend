@@ -4,7 +4,9 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
-import ReactQuill from "react-quill";
+import ReactQuill, { Quill } from "react-quill";
+import { ImageActions } from "@xeger/quill-image-actions";
+import { ImageFormats } from "@xeger/quill-image-formats";
 import { notice } from "utils/api";
 import * as I from "types";
 import "react-quill/dist/quill.snow.css";
@@ -16,12 +18,15 @@ import {
   noticeRetouchLoading,
 } from "../../redux/reducer/noticeReducer";
 
-
+Quill.register("modules/imageActions", ImageActions);
+Quill.register("modules/imageFormats", ImageFormats);
 
 interface path {
   path: string;
   tap: string;
 }
+
+
 
 const Editor = (props: path) => {
   const dispatch = useDispatch()
@@ -61,9 +66,6 @@ const Editor = (props: path) => {
               file: file[0],
             });
             const imgUrl = res.data.presignUrl.split("?")[0]
-            console.log("res",res)
-            console.log("saveImg", saveImg);
-            console.log("imgUrl", imgUrl);
             const range = quillRef.current?.getEditor().getSelection()?.index;
             
             if (range !== null && range !== undefined) {
@@ -97,6 +99,8 @@ const Editor = (props: path) => {
   );
   const modules = useMemo(
     () => ({
+      imageActions: {},
+      imageFormats: {},
       toolbar: {
         container: "#toolbar",
         handlers: {
