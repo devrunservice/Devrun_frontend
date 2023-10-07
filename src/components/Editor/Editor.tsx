@@ -60,24 +60,22 @@ const Editor = (props: path) => {
               url: res.data.presignUrl,
               file: file[0],
             });
-            const getImg = await notice.getImgUrl({
-              url: res.data.presignUrl,
-            });
+            const imgUrl = res.data.presignUrl.split("?")[0]
             console.log("res",res)
             console.log("saveImg", saveImg);
-            console.log("getImg", getImg);
-            // const range = quillRef.current?.getEditor().getSelection()?.index;
+            console.log("imgUrl", imgUrl);
+            const range = quillRef.current?.getEditor().getSelection()?.index;
             
-            // if (range !== null && range !== undefined) {
-            //   const quill = quillRef.current?.getEditor();
-            //   quill?.setSelection(range, 1);
-            //   quill?.clipboard.dangerouslyPasteHTML(
-            //     range,
-            //     `<img src=${res.data.presignUrl} alt="이미지 태그가 삽입됩니다." />`
-            //   );
-            // }
+            if (range !== null && range !== undefined) {
+              const quill = quillRef.current?.getEditor();
+              quill?.setSelection(range, 1);
+              quill?.clipboard.dangerouslyPasteHTML(
+                range,
+                `<img src=${imgUrl} alt="이미지 태그가 삽입됩니다." />`
+              );
+            }
 
-            // return { ...res, success: true };
+            return { ...res, success: true };
           } catch (error) {
             alert("이미지 업로드에 실패했습니다.")
           }
