@@ -180,14 +180,17 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
     formData.append("lectureCategory.lectureMidCategory", "밥 ");
     formData.append("lectureSectionList.SectionNumber", "1 ");
     formData.append("lectureSectionList.SectionTitle", "너구리 라면 ");
-    formData.append("videoList.videoTitle", "너구리  끓이는 법 ");
+    formData.append("videoList[0].videoTitle", "너구리  끓이는 법 ");
+    formData.append("videoList[1].videoTitle", "너구리  끓이는 법 ");
     formData.append("videoList[0].SectionNumber", "25");
     formData.append("videoList[0].SectionTitle", "불닭  끓이는 법 ");
     formData.append("videoList[1].SectionNumber", "25");
     formData.append("videoList[1].SectionTitle", "ㅁㄴㅇㅇ  끓이는 법 ");
     console.log('token',getCookie('googleToken'))
+    console.log('googleURL',googleStore.urlToken)
     // formData.append("accessToken", "eyJhbGciOiJSUzI1NiIsImtpZCI6ImM2MjYzZDA5NzQ1YjUwMzJlNTdmYTZlMWQwNDFiNzdhNTQwNjZkYmQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIzODU0ODE1OTIwNzctNmlyZ210dXNsMTNqc3JlcWlzNDNiOGU3NnBjazU4MmEuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIzODU0ODE1OTIwNzctNmlyZ210dXNsMTNqc3JlcWlzNDNiOGU3NnBjazU4MmEuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDkxODIxNDMyMTUwNDUzMTg2MzIiLCJlbWFpbCI6InNreWhuMDIwN0BnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmJmIjoxNjk2NjY5NDEzLCJuYW1lIjoi7J207ZWY64qYIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0tSUHotUkV0RWRoY3lJTWl3Q09GMnlEUl81eGQ1ZzRaSGxnZ2t5YnZjTz1zOTYtYyIsImdpdmVuX25hbWUiOiLtlZjripgiLCJmYW1pbHlfbmFtZSI6IuydtCIsImxvY2FsZSI6ImtvIiwiaWF0IjoxNjk2NjY5NzEzLCJleHAiOjE2OTY2NzMzMTMsImp0aSI6ImNiZmE1ODEzMjA0MmFhODI1MTU4Mjc4ZWU0YTkyZGViN2EyYTA0ODAifQ.geazA7A6SoFDZQng8pik8Gtql-k8_Z8UC-Upw3e4lnFV9BxsvUwgU489Q4pgg77jHlCgojY4_1vqZvsg78GC5Cx5apIzh2T3s1L0zxg3l15tLcK4Q1h9gw2TpTvpYRFnt8BP3Juax3zensR2_RNZXfDLbqjKpHzIiaZ1IgZPX9fdSUd1KFH5Cx9YjknPC7KR03s1ZKDD7k3035kSJVEeggX8N4AoGH8h_M2pS4Y70F33di2pzeGk1zmFl8WeA0Z6cgoMK4Guixmuo11GrBY4GCb9ubCzd0EOLEB7yOnjTObr22hjIEWS5CyxqjjgofvQZJ6XZV_hwEcbCpFJVpkp1w");
-    formData.append("accessToken", token);
+    // formData.append("accessToken", token);
+    formData.append("accessToken", googleStore.urlToken);
     const newVideoList = videoStore.videoList?.map(list=>{
       const { file } = list
       console.log('file',file)

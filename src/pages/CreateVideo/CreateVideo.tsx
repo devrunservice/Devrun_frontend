@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CreateNewVideo,CreateVideoTwo } from 'components';
 import { useDispatch/* , useSelector */ } from 'react-redux';
 // import { RootState } from 'redux/store';
 import GoogleLoginButton from 'components/GoogleLogin/GoogleLogin';
 import { getCookie, setCookie } from 'utils/cookies';
+// import {setUrlToken} from '../../redux/reducer/googleLoginReducer'
 import axios from 'axios';
-import { setGoogleLogin, getGoogleToken} from '../../redux/reducer/googleLoginReducer'
+import { setGoogleLogin, getGoogleToken ,setUrlToken} from '../../redux/reducer/googleLoginReducer'
 
 export interface ButtonProps {
   ChangePage: React.ButtonHTMLAttributes<HTMLButtonElement>
@@ -43,6 +44,8 @@ const CreateVideo = () => {
   //   // //   // window.location.reload()
   //   // // })
   // }
+
+  
   const successGoogleLogin = (res: any) => {
     const token = res.credential
     const googleAuthUrl = 'https://accounts.google.com/o/oauth2/auth';
@@ -57,6 +60,17 @@ const CreateVideo = () => {
     window.location.href = authUrl;
     setCookie('googleToken', token)
   };
+
+  useEffect(()=> {
+    const getUrl = window.location.href
+    const urlParams = new URLSearchParams(getUrl.split('#')[1]); // # 이후의 쿼리 파라미터들을 추출
+    const accessToken = urlParams.get('access_token');
+    const tokenType = urlParams.get('token_type');
+    console.log('accessToken',accessToken)
+    console.log('tokenType',tokenType)
+    dispatch(setUrlToken(accessToken))
+  },[])
+
   const hasToken = !! getCookie('googleToken')
   
   console.log('ttttt',hasToken)
