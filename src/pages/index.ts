@@ -27,5 +27,5 @@ export { default as NoticeRetouch } from "./Notice/Retouch/Retouch";
 export {default as NoticeDetail} from './Notice/Detail/Detail';
 export {default as Notice} from './Notice/Notice/Notice';
 export {default as CreateCoupon} from './Create/Coupon/Coupon';
-
-;
+export { default as VideoView } from "./VideoView/VideoView";
+;;

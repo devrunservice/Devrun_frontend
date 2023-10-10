@@ -13,17 +13,19 @@ const App = () => {
     location.pathname === '/auth/kakao/callback/login' ||
     location.pathname === '/findaccount/id' ||
     location.pathname === '/findaccount/password' ||
-    location.pathname === '/auth/kakao/callback';
+    location.pathname === '/auth/kakao/callback'||
+    location.pathname === '/videoView';
 
   const hideFooter =
-    location.pathname === '/signup' ||
-    location.pathname === '/signupconfirm' ||
-    location.pathname === '/signupcompletion' ||
-    location.pathname === '/login' ||
-    location.pathname === '/auth/kakao/callback/login' ||
-    location.pathname === '/findaccount/id' ||
-    location.pathname === '/findaccount/password' ||
-    location.pathname === '/auth/kakao/callback';
+    location.pathname === "/signup" ||
+    location.pathname === "/signupconfirm" ||
+    location.pathname === "/signupcompletion" ||
+    location.pathname === "/login" ||
+    location.pathname === "/auth/kakao/callback/login" ||
+    location.pathname === "/findaccount/id" ||
+    location.pathname === "/findaccount/password" ||
+    location.pathname === "/auth/kakao/callback" ||
+    location.pathname === "/videoView";
 
   const myPage =
     location.pathname === '/profile' ||
