@@ -5,12 +5,12 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {getCookie} from 'utils/cookies';
 import Logo from 'asset/images/Logo.png';
-import Modal from 'components/Login/Modal/Modal';
+import {Modal, Timer} from 'components';
 import {Button} from 'style/Common';
 import * as St from './style';
 import {userInfoLoading} from '../../redux/reducer/userReducer';
 import {logoutLoading} from '../../redux/reducer/loginReducer';
-import { cartInfoLoading } from "../../redux/reducer/cartReducer";
+import {cartInfoLoading} from '../../redux/reducer/cartReducer';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -35,10 +35,10 @@ const Header = () => {
     dispatch(cartInfoLoading(null));
   }, []);
 
-
   return (
     <St.HeaderWrap>
       <Modal page="home" />
+      <Timer page="home" />
       <St.InnerHeader>
         <St.NavWrap>
           <St.LogoIcon onClick={() => navigate('/')}>
@@ -51,7 +51,7 @@ const Header = () => {
             </St.CategoryLi>
             <St.CategoryLi>DEVRUN 깜짝특가</St.CategoryLi>
             <St.CategoryLi>BEST</St.CategoryLi>
-            <St.CategoryLi onClick={() => navigate("/notice")}>
+            <St.CategoryLi onClick={() => navigate('/notice')}>
               공지사항
             </St.CategoryLi>
           </St.CategoryWrap>
