@@ -13,7 +13,7 @@ const initialState:CreateLectureType = {
   lectureTag: [], 
   lectureIntro: '', 
   lectureSectionList: [{lectureSectionId:1, sectionTitle:''}],
-  videoList:[{lectureSectionId:1, file:undefined, videoNo:1, videoTitle:''}]
+  videoList:[{lectureSectionId:1, file:null, videoNo:1, videoTitle:''}]
 }
 const createVideoSlice = createSlice({
   name: 'createVideoSlice',

@@ -176,7 +176,8 @@ export interface SectionType {
 export interface VideoType {
   lectureSectionId: number,
   videoNo: number,
-  file:videoFileType|undefined
+  // file:videoFileType|undefined
+  file: videoFileType | null | undefined
   videoTitle: string
 }
 export interface videoFileType {

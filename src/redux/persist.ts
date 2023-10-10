@@ -4,9 +4,10 @@ import { combineReducers } from "@reduxjs/toolkit";
 import modalReducer from "./reducer/modalReducer";
 import userReducer from "./reducer/userReducer";
 import loginReducer from "./reducer/loginReducer";
-import createVideoSlice from "./reducer/createVideoSlice";
+import createVideoSlice from "./reducer/createVideoReducer";
 import mypageReducer from "./reducer/mypageReducer";
 import validationReducer from "./reducer/validationReducer";
+import googleLoginSlice from './reducer/googleLoginReducer'
 
 const persistConfig = {
   key: "root",
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   createVideoSlice,
   mypageReducer,
   validationReducer,
+  googleLoginSlice,
 });
 
 export default persistReducer(persistConfig, rootReducer);

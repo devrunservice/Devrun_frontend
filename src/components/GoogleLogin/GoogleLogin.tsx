@@ -3,7 +3,7 @@ import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import * as St from "./style";
 
 interface GoogleProps {
-    successGoogleLogin:() => void
+    successGoogleLogin:(res: any) => void
 }
 
 const GoogleLoginButton:React.FC<GoogleProps> = ({successGoogleLogin}) => {
@@ -13,8 +13,8 @@ const GoogleLoginButton:React.FC<GoogleProps> = ({successGoogleLogin}) => {
             <St.GoogleLoginWrap>
                 <GoogleOAuthProvider clientId={clientId}>
                     <GoogleLogin
+                        // onSuccess={successGoogleLogin}
                         onSuccess={successGoogleLogin}
-                        
                         // onError={(err:any) => {
                         //     console.log(err);
                         // }}

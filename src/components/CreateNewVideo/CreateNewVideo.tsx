@@ -1,12 +1,13 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Close, Exclamation } from 'asset';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
-import { deleteTag, onCategoryType, onImageUrl, onImageFile, onLectureIntro, onLectureCategory, /* onLectureIntroduce, */ onLectureName, onLecturePrice, onLectureTag } from '../../redux/reducer/createVideoSlice';
+import axios from 'axios';
+import { deleteTag, onCategoryType, onImageUrl, onImageFile, onLectureIntro, onLectureCategory, /* onLectureIntroduce, */ onLectureName, onLecturePrice, onLectureTag } from '../../redux/reducer/createVideoReducer';
 import * as St from './style'
 
 export interface StyledButtonProps {
-  active: boolean;
+  active: string;
 }
 
 const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
@@ -17,6 +18,30 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
   /* 가격 무료 유료 선택 */
   const [isActive, setIsActive] = useState<boolean>(false)
   const [priceState, setPriceState] = useState<boolean>(false)
+  const [isCategory, setIsCategory] = useState<any[]>([])
+
+  const getCategory = () => {
+    const url = 'https://devrun.site/lectureregist/categories'
+    axios.get(url).then(res=>{
+      console.log(res.data)
+      setIsCategory([...res.data])
+      console.log('isCategory',isCategory)
+    })
+  }
+  // const getSectionNum = () => {
+  //   const url = 'https://devrun.site/lectureregist/lastsectionid'
+  //   axios.get(url).then(res=>console.log(res))
+  // }
+
+  useEffect(()=> {
+    getCategory()
+    // getSectionNum()
+  }, [])
+  
+  useEffect(() => {
+    console.log('isCategory', isCategory);
+  }, [isCategory]); // isCategory 상태가 변경될 때만 로그를 출력
+  
   const freePayment = () => {
     setIsActive(false)
     setPriceState(false)
@@ -26,7 +51,6 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
     setIsActive(true)
     setPriceState(true)
   }
-
   /* 강의제목 */
   const nameInput = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(onLectureName(e.target.value))
@@ -63,6 +87,7 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
   const changeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(onLectureCategory(e.target.value))      
   }
+
 
   /* 태그 */
   const [tagInput, setTagInput] = useState('')
@@ -175,8 +200,13 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
         <St.ArticleTitle>강좌 카테고리</St.ArticleTitle>
         <div>
           <St.CategorySelect value={videoStore.lectureCategory.lectureBigCategory} onChange={changeType}>
-            <option value="front">프론트엔드</option>
-            <option value="back">백엔드</option>
+            {
+              isCategory.map((option, index)=> (
+                <option key={index} value={option.lectureBigCategory}>{option.lectureBigCategory}</option>
+              ))
+            }
+            {/* <option value="front">프론트엔드</option>
+            <option value="back">백엔드</option> */}
           </St.CategorySelect>
           {
             videoStore.lectureCategory.lectureBigCategory === 'front' 
