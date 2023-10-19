@@ -2,7 +2,6 @@ import React from "react";
 import * as St from "./style";
 
 const Learn = () => (
-  
   <St.LearnLi>
     <St.ImgWrap>
       <St.Img src="" alt="강의제목" />
@@ -16,12 +15,14 @@ const Learn = () => (
     </St.TitleText>
 
     <St.TextWrap>
-      <St.Progress>진도율 ( 55% )</St.Progress>
-      <St.Date>기한 : 2023-12-31</St.Date>
+      <p>진도율 ( 55% )</p>
+      <p>기한 : 2023-12-31</p>
     </St.TextWrap>
-    <St.Gauge style={{ background: "#5F4B8B", width: "50%" }} />
+    <St.Gauge>
+      <span style={{ background: "#5F4B8B", width: "50%" }} />
+    </St.Gauge>
   </St.LearnLi>
-)
+);
 
 
 export default Learn;

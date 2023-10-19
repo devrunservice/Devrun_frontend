@@ -157,10 +157,11 @@ export interface SectionType {
   sectionTitle: string;
 }
 export interface VideoType {
-  lectureSectionId: number;
-  videoNo: number;
-  file: videoFileType | undefined;
-  videoTitle: string;
+  lectureSectionId: number,
+  videoNo: number,
+  // file:videoFileType|undefined
+  file: videoFileType | null | undefined
+  videoTitle: string
 }
 export interface videoFileType {
   fileBits: BlobPart[];
