@@ -149,18 +149,20 @@ export interface CreateLectureType {
   videoList?: VideoType[];
 }
 export interface category {
-  lectureBigCategory: string;
-  lectureMidCategory: string;
+  lectureBigCategory:string 
+  lectureMidCategory: string
+  categoryNo: number
 }
 export interface SectionType {
   lectureSectionId: number;
   sectionTitle: string;
 }
 export interface VideoType {
-  lectureSectionId: number;
-  videoNo: number;
-  file: videoFileType | undefined;
-  videoTitle: string;
+  lectureSectionId: number,
+  videoNo: number,
+  file: Blob | string
+  // file: videoFileType | null | undefined
+  videoTitle: string
 }
 export interface videoFileType {
   fileBits: BlobPart[];

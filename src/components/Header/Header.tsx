@@ -51,6 +51,7 @@ const Header = () => {
             <St.CategoryLi onClick={() => navigate("/notice")}>
               공지사항
             </St.CategoryLi>
+            <St.CategoryLi onClick={()=> navigate("/createVideo")}>강의 등록</St.CategoryLi>
           </St.CategoryWrap>
         </St.NavWrap>
         <St.NavWrap>

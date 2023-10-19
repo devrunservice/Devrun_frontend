@@ -7,13 +7,14 @@ const initialState:CreateLectureType = {
   lectureThumbnail: '', 
   lectureThumbnailUrl: '',
   lectureCategory: {
-    lectureBigCategory: 'front',
-    lectureMidCategory: 'html'
+    lectureBigCategory: '음식',
+    lectureMidCategory: '',
+    categoryNo: 1,
   },
   lectureTag: [], 
   lectureIntro: '', 
   lectureSectionList: [{lectureSectionId:1, sectionTitle:''}],
-  videoList:[{lectureSectionId:1, file:undefined, videoNo:1, videoTitle:''}]
+  videoList:[{lectureSectionId:1, file: '', videoNo:1, videoTitle:''}]
 }
 const createVideoSlice = createSlice({
   name: 'createVideoSlice',
@@ -31,8 +32,15 @@ const createVideoSlice = createSlice({
     onImageUrl: (state,action) => {
       state.lectureThumbnailUrl = action.payload
     },
-    onCategoryType:(state, action) => {
+    bigCategoryType:(state, action) => {
       state.lectureCategory.lectureBigCategory = action.payload
+    },
+    midCategoryType:(state, action) => {
+      console.log('pay',action.payload)
+      state.lectureCategory.lectureMidCategory = action.payload
+    },
+    setCategoryNo:(state, action) => {
+      state.lectureCategory.categoryNo = action.payload
     },
     onLectureCategory: (state, action) => {
       state.lectureCategory.lectureMidCategory = action.payload
@@ -88,5 +96,5 @@ const createVideoSlice = createSlice({
   }
 })
 
-export const {addSection, changeClassTitle, addClass, deleteClass, changeTitle, changeVideoFile, setSection, setClass, deleteSection, deleteTag, onCategoryType, onImageFile, onLectureName, onLecturePrice, onImageUrl, onLectureCategory, onLectureTag, onLectureIntro} = createVideoSlice.actions
+export const {addSection, changeClassTitle, setCategoryNo, addClass, deleteClass, changeTitle, changeVideoFile, setSection, setClass, deleteSection, deleteTag, bigCategoryType, midCategoryType, onImageFile, onLectureName, onLecturePrice, onImageUrl, onLectureCategory, onLectureTag, onLectureIntro} = createVideoSlice.actions
 export default createVideoSlice.reducer
