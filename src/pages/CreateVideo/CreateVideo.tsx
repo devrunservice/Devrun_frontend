@@ -5,8 +5,8 @@ import { useDispatch/* , useSelector */ } from 'react-redux';
 import GoogleLoginButton from 'components/GoogleLogin/GoogleLogin';
 import { getCookie, setCookie } from 'utils/cookies';
 // import {setUrlToken} from '../../redux/reducer/googleLoginReducer'
-import axios from 'axios';
-import { setGoogleLogin, getGoogleToken ,setUrlToken} from '../../redux/reducer/googleLoginReducer'
+// import axios from 'axios';
+import { /* setGoogleLogin, getGoogleToken, */ setUrlToken} from '../../redux/reducer/googleLoginReducer'
 
 export interface ButtonProps {
   ChangePage: React.ButtonHTMLAttributes<HTMLButtonElement>

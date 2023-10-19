@@ -3,7 +3,7 @@ import { Close, Exclamation } from 'asset';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 import axios from 'axios';
-import { deleteTag, onCategoryType, onImageUrl, onImageFile, onLectureIntro, onLectureCategory, /* onLectureIntroduce, */ onLectureName, onLecturePrice, onLectureTag } from '../../redux/reducer/createVideoReducer';
+import { deleteTag, bigCategoryType, midCategoryType, setCategoryNo, onImageUrl, onImageFile, onLectureIntro, /* onLectureCategory, */ /* onLectureIntroduce, */ onLectureName, onLecturePrice, onLectureTag } from '../../redux/reducer/createVideoReducer';
 import * as St from './style'
 
 export interface StyledButtonProps {
@@ -38,9 +38,9 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
     // getSectionNum()
   }, [])
   
-  useEffect(() => {
-    console.log('isCategory', isCategory);
-  }, [isCategory]); // isCategory 상태가 변경될 때만 로그를 출력
+  // useEffect(() => {
+  //   console.log('isCategory', isCategory);
+  // }, [isCategory]); 
   
   const freePayment = () => {
     setIsActive(false)
@@ -80,13 +80,22 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
   }
 
   /* 카테고리 */
+  // const [isMid, setIsMid] = useState('')
   const changeType = (e: React.ChangeEvent<HTMLSelectElement>) => {
     console.log(e.target.value)
-    dispatch(onCategoryType(e.target.value))
+    // const selectedBigCategory = e.target.value;
+    // setIsMid(selectedBigCategory)
+    dispatch(bigCategoryType(e.target.value))
   }
-  const changeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(onLectureCategory(e.target.value))      
+  const changeMid = (e:React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(midCategoryType(e.target.value))
+    const result = isCategory.filter(list=>list.lectureMidCategory === e.target.value)[0].categoryNo
+    console.log('result', result)
+    dispatch(setCategoryNo(result))
   }
+  // const changeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   dispatch(onLectureCategory(e.target.value))      
+  // }
 
 
   /* 태그 */
@@ -124,7 +133,20 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
   const explanationInput = (e: any) => {
     dispatch(onLectureIntro(e.target.value))
   }
+  
+  const renderOptions = () => {
+    return isCategory
+      .filter((option, index, self) => 
+        index === self.findIndex(item => item.lectureBigCategory === option.lectureBigCategory)
+      )
+      .map((option, index) => (
+        <option key={index} value={option.lectureBigCategory}>{option.lectureBigCategory}</option>
+      ));
+
+  };
   /* 소개영상 */
+
+
 
   return (
     <St.CreateVideoWrap>
@@ -200,34 +222,21 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
         <St.ArticleTitle>강좌 카테고리</St.ArticleTitle>
         <div>
           <St.CategorySelect value={videoStore.lectureCategory.lectureBigCategory} onChange={changeType}>
-            {
-              isCategory.map((option, index)=> (
-                <option key={index} value={option.lectureBigCategory}>{option.lectureBigCategory}</option>
+            {renderOptions()}
+          </St.CategorySelect>
+          <St.CategorySelect value={videoStore.lectureCategory.lectureMidCategory} onChange={changeMid}>
+            {isCategory
+              .filter((option) => option.lectureBigCategory === videoStore.lectureCategory.lectureBigCategory)
+              .map((option, index) => (
+                <option key={index} value={option.lectureMidCategory}>
+                  {option.lectureMidCategory}
+                </option>
               ))
             }
-            {/* <option value="front">프론트엔드</option>
-            <option value="back">백엔드</option> */}
           </St.CategorySelect>
-          {
-            videoStore.lectureCategory.lectureBigCategory === 'front' 
-            ?
-            <St.CategorySelect value={videoStore.lectureCategory.lectureMidCategory} onChange={changeCategory}>
-              <option value="html">HTML/CSS</option>
-              <option value="javascript">JavaScript</option>
-              <option value="react">React</option>
-              <option value="vue">Vue</option>
-              <option value="angular">Angular</option>
-            </St.CategorySelect> 
-            : 
-            <St.CategorySelect value={videoStore.lectureCategory.lectureMidCategory} onChange={changeCategory}>
-              <option value="c#">C#</option>
-              <option value="spring">Spring</option>
-              <option value="java">Java</option>
-            </St.CategorySelect>
-          }
         </div>
       </St.CreateVideoArticle>
-
+            <div>{videoStore.lectureCategory.lectureMidCategory}</div>
       <St.CreateVideoArticle>
         <St.MBThirty>
           <St.ArticleTitle>태그</St.ArticleTitle>

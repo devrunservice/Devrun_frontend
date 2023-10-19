@@ -1,17 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CurriculumSection from 'components/CurriculumSection/CurriculumSection';
 import { PlusCircle } from 'asset';
 import { RootState } from 'redux/store';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import Spinner from 'components/FullSpinner/FullSpinner';
+import CommonModal from 'components/CommonModal/CommonModal';
+import { getCookie } from 'utils/cookies';
 import axios from 'axios';
 import {  addClass, addSection, changeTitle, setClass,  deleteClass, deleteSection, changeVideoFile, changeClassTitle } from '../../redux/reducer/createVideoReducer';
 import * as St from '../CreateNewVideo/style'
-import { getCookie, setCookie } from 'utils/cookies';
 
 const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const videoStore = useSelector((state:RootState)=>state.createVideoSlice)
   const googleStore = useSelector((state:RootState)=>state.googleLoginSlice)
+
+  /* 로딩여부 */
+  const [loading, setLoading] = useState(false)
+
+  /* 모달창 커스텀 */
+  const [modal, setModal] = useState(false)
+  const [text, setText] = useState('')
+  const [btNum, setBtNum] = useState (1)
+  const [flag, setFlag] = useState('')
+
   /* 강의 수업추가 */
   const addClasses = (id: number) => {
     if(videoStore.videoList) {
@@ -59,6 +73,7 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
   const changeClassTitles = (e:React.ChangeEvent<HTMLInputElement>, id:number) => {
     dispatch(changeClassTitle({id, value:e.target.value}))
   }
+
   /* 비디오 추가 */
   const changeVideoFiles = (e:React.ChangeEvent<HTMLInputElement>, id:number) => {
     const {files} = e.target
@@ -71,149 +86,73 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
     }
   }
 
-  /* 등록하기 */
-  // const postVideo = () => {
-  //   console.log('videoStore',videoStore)
-  //   console.log('google', googleStore.googleToken)
-  //   if (
-  //     videoStore.lectureName === '' || 
-  //     videoStore.lectureThumbnail === '' ||
-  //     videoStore.lectureThumbnailUrl === '' ||
-  //     videoStore.lectureSectionList[0].sectionTitle === '')
-  //     {
-  //       return alert('모든 항목을 채워주세요')
-  //     } 
-
-  //   const url = 'https://devrun.site/lectureregitest'
-  //   const formData = new FormData();
-  //   formData.append('lectureName', videoStore.lectureName)
-  //   formData.append('lecturePrice', videoStore.lecturePrice.toString())
-  //   formData.append('lectureThumbnailFile', videoStore.lectureThumbnail)
-  //   // formData.append('lectureCategory.lectureBigCategory', JSON.stringify(videoStore.lectureCategory.lectureBigCategory))
-  //   // formData.append('lectureCategory.lectureMidCategory', JSON.stringify(videoStore.lectureCategory.lectureMidCategory))
-  //   formData.append('lectureCategory.lectureBigCategory', '음식')
-  //   formData.append('lectureCategory.lectureMidCategory', '밥')
-  //   formData.append('lectureCategory.categoryNo', '1')
-  //   // formData.append('lectureTag', JSON.stringify(videoStore.lectureTag))
-  //   formData.append('lectureTag', '태그')
-  //   formData.append('lectureIntro', videoStore.lectureIntro)
-  //   // formData.append('lectureSectionList', JSON.stringify(videoStore.lectureSectionList))
-
-  //   /* 임시로 하나씩만 넣기 */
-  //   formData.append('lectureSectionList.SectionNumber', '123' )
-  //   formData.append('lectureSectionList.SectionTitle', 'title')
-  //   // formData.append('lectureSectionList.SectionNumber', JSON.stringify(videoStore.lectureSectionList[0].lectureSectionId))
-  //   // formData.append('lectureSectionList.SectionTitle', JSON.stringify(videoStore.lectureSectionList[0].sectionTitle))
-  //   /*  */
-
-  //   // formData.append('sectionid', '16')
-  //   formData.append('accessToken', googleStore.googleToken)
-    
-  //   const newVideoList = videoStore.videoList?.map(list=>{
-  //     const { file } = list
-  //     return file
-  //   })
-  //   formData.append('videoList.videofile', JSON.stringify(newVideoList))
-  //   // formData.append('videoList.videofile', JSON.stringify(newVideoList))
-  //   // formData.append('videoList.videofile', videoStore.videoList[0].file)
-    
-    
-  //   // formData.append('videoList.videoTitle', videoStore.videoList[0].videoNo)
-  //   if (videoStore.videoList !== undefined) {
-  //     formData.append('videoList.videoTitle', String(videoStore.videoList[0].videoTitle));
-  //   } else {
-  //     alert('비디오를 추가해주세요')
-  //   }
-  //   formData.append('videoList.SectionNumber', '123')
-  //   formData.append('videoList.SectionTitle', 'title')
-  //   // formData.append('videoList.SectionNumber', JSON.stringify(videoStore.lectureSectionList[0].lectureSectionId))
-  //   // formData.append('videoList.SectionTitle', JSON.stringify(videoStore.lectureSectionList[0].sectionTitle))
-  //   formData.append("lectureStart", "1");
-  //   formData.append("lectureEdit", "0");
-    
-  //   // formData.append('videoList[0].videoTitle', '2')
-  //   // const newVideoList = videoStore.videoList?.map(list=>{
-  //   //   const { videoNo, ...rest} = list
-  //   //   return rest
-  //   // })
-  //   // formData.append('videoList', JSON.stringify(newVideoList))
-
-
-  //   // videoStore.videoList?.forEach(list=> {
-  //   //   formData.append('videoFileList', JSON.stringify(list))
-  //   // })
-  //   axios.post(url, formData, {
-  //     headers: {
-  //       "Content-Type": "multipart/form-data"
-  //     }
-  //   }).then(res=>{
-  //     console.log(res)
-  //   }).catch(err=>{
-  //     console.log('err',err)
-  //   })
-  // }
-
+  /* 강의등록 */
   const postVideo = () => {
-    const token = getCookie('googleToken')
-    console.log('여기 토근',token)
-    console.log('videoStore',videoStore)
-    console.log('google', googleStore.googleToken)
+    const token = getCookie('accessToken')
     if (
       videoStore.lectureName === '' || 
       videoStore.lectureThumbnail === '' ||
       videoStore.lectureThumbnailUrl === '' ||
       videoStore.lectureSectionList[0].sectionTitle === '')
       {
-        return alert('모든 항목을 채워주세요')
+        setText('모든 항목을 채워주세요')
+        setBtNum(1)
+        setFlag('blank')
+        setModal(true)
+        return
       } 
 
+    setLoading(true)
     const url = 'https://devrun.site/lectureregitest'
     const formData = new FormData();
     formData.append("lectureName", videoStore.lectureName);
     formData.append("lectureIntro", videoStore.lectureIntro);
     formData.append("lecturePrice", videoStore.lecturePrice.toString());
-    // formData.append("lectureStart", "1");
-    // formData.append("lectureEdit", "0");
     formData.append("lectureThumbnailFile", videoStore.lectureThumbnail);
-    formData.append("lectureTag", "라면 , 라멘 ,  누들면 ");
-    formData.append("lectureCategory.categoryNo", "1");
-    formData.append("lectureCategory.lectureMidCategory", "밥 ");
-    formData.append("lectureSectionList.SectionNumber", "1 ");
-    formData.append("lectureSectionList.SectionTitle", "너구리 라면 ");
-    formData.append("videoList[0].videoTitle", "너구리  끓이는 법 ");
-    formData.append("videoList[1].videoTitle", "너구리  끓이는 법 ");
-    formData.append("videoList[0].SectionNumber", "25");
-    formData.append("videoList[0].SectionTitle", "불닭  끓이는 법 ");
-    formData.append("videoList[1].SectionNumber", "25");
-    formData.append("videoList[1].SectionTitle", "ㅁㄴㅇㅇ  끓이는 법 ");
-    console.log('token',getCookie('googleToken'))
-    console.log('googleURL',googleStore.urlToken)
-    // formData.append("accessToken", "eyJhbGciOiJSUzI1NiIsImtpZCI6ImM2MjYzZDA5NzQ1YjUwMzJlNTdmYTZlMWQwNDFiNzdhNTQwNjZkYmQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIzODU0ODE1OTIwNzctNmlyZ210dXNsMTNqc3JlcWlzNDNiOGU3NnBjazU4MmEuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIzODU0ODE1OTIwNzctNmlyZ210dXNsMTNqc3JlcWlzNDNiOGU3NnBjazU4MmEuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDkxODIxNDMyMTUwNDUzMTg2MzIiLCJlbWFpbCI6InNreWhuMDIwN0BnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmJmIjoxNjk2NjY5NDEzLCJuYW1lIjoi7J207ZWY64qYIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0tSUHotUkV0RWRoY3lJTWl3Q09GMnlEUl81eGQ1ZzRaSGxnZ2t5YnZjTz1zOTYtYyIsImdpdmVuX25hbWUiOiLtlZjripgiLCJmYW1pbHlfbmFtZSI6IuydtCIsImxvY2FsZSI6ImtvIiwiaWF0IjoxNjk2NjY5NzEzLCJleHAiOjE2OTY2NzMzMTMsImp0aSI6ImNiZmE1ODEzMjA0MmFhODI1MTU4Mjc4ZWU0YTkyZGViN2EyYTA0ODAifQ.geazA7A6SoFDZQng8pik8Gtql-k8_Z8UC-Upw3e4lnFV9BxsvUwgU489Q4pgg77jHlCgojY4_1vqZvsg78GC5Cx5apIzh2T3s1L0zxg3l15tLcK4Q1h9gw2TpTvpYRFnt8BP3Juax3zensR2_RNZXfDLbqjKpHzIiaZ1IgZPX9fdSUd1KFH5Cx9YjknPC7KR03s1ZKDD7k3035kSJVEeggX8N4AoGH8h_M2pS4Y70F33di2pzeGk1zmFl8WeA0Z6cgoMK4Guixmuo11GrBY4GCb9ubCzd0EOLEB7yOnjTObr22hjIEWS5CyxqjjgofvQZJ6XZV_hwEcbCpFJVpkp1w");
-    // formData.append("accessToken", token);
-    formData.append("accessToken", googleStore.urlToken);
-    const newVideoList = videoStore.videoList?.map(list=>{
-      const { file } = list
-      console.log('file',file)
-      return file
+    const lectureTagString = videoStore.lectureTag.join(', ')
+    formData.append("lectureTag", lectureTagString);
+    formData.append("lectureCategory.lectureBigCategory", videoStore.lectureCategory.lectureBigCategory);
+    formData.append("lectureCategory.lectureMidCategory", videoStore.lectureCategory.lectureMidCategory);
+    formData.append("lectureCategory.categoryNo", videoStore.lectureCategory.categoryNo.toString());
+    videoStore.lectureSectionList.forEach((list, index) => {
+      formData.append(`lectureSectionList[${index}].SectionNumber`, list.lectureSectionId.toString());
+      formData.append(`lectureSectionList[${index}].SectionTitle`, list.sectionTitle);
+      formData.append(`videoList[${index}].SectionTitle`, list.sectionTitle)
+    });
+    videoStore.videoList?.forEach((list, index) => {
+      formData.append(`videoList[${index}].videoTitle`, list.videoTitle)
+      formData.append(`videoList[${index}].SectionNumber`, list.lectureSectionId.toString())
+      formData.append(`videoList[${index}].videofile`, list.file)
     })
-    console.log('newVideoList',newVideoList)
-    // console.log('videoStore.videoList[0].file', newVideoList)
-    // console.log('videoStore.videoList[0].file',videoStore.videoList[0].file)
-    // formData.append("videoList.videofile", newVideoList);
-    // formData.append("videoList.videofile", videoStore.videoList[0].file);
-    formData.append("videoList[0].videofile", videoStore.videoList[0].file);
-    formData.append("videoList[1].videofile", videoStore.videoList[1].file);
-    // formData.append("videoList.videofile", videoStore.lectureThumbnail);
-    formData.append("lectureCategory.lectureBigCategory", "음식 ");
+    formData.append("accessToken", googleStore.urlToken);
+    formData.append("jstToken", token )
     axios.post(url, formData, {
       headers: {
         "Content-Type": "multipart/form-data"
       }
-    }).then(res=>{
-      console.log(res)
-    }).catch(err=>{
-      console.log('err',err)
+    }).then(()=>{
+      setLoading(false)
+      setText('등록에 성공했습니다. 내 강의 페이지로 이동합니다')
+      setFlag('success')
+      setBtNum(1)
+      setModal(true)
+    }).catch(()=>{
+      setText('등록에 실패했습니다. 다시 시도해주세요')
+      setBtNum(1)
+      setFlag('fail')
+      setModal(true)
+      setLoading(false)
     })
+  }
+
+  const closeModalCancel = () => {
+    setModal(false)
+  }
+  const closeModalAccept = (value:string) => {
+    setModal(false)
+    if(value === 'success') {
+      navigate('/')
+    }
   }
 
   return (
@@ -244,6 +183,8 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
           <St.NextCreateBtn onClick={postVideo}>등록</St.NextCreateBtn>
         </div>
       </St.CreateVideoArticle>
+      { modal && <CommonModal text={text} btNum={btNum} flag={flag} closeModalAccept={closeModalAccept} closeModalCancel={closeModalCancel}/> }
+      {loading && <Spinner />}
     </St.CreateVideoWrap>
   )
 }
