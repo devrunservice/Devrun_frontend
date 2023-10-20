@@ -1,77 +1,74 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { RootState } from "redux/store";
-import { useSelector } from "react-redux";
-import { LectureCard, List } from "components";
-import * as St from "./styles";
+import React, {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from 'redux/store';
+import {decode} from 'utils/decode';
+import {Learn, List} from 'components';
+import * as St from './styles';
+import {myInfoLoading} from '../../../redux/reducer/mypageReducer';
+import {learningLoading} from '../../../redux/reducer/learningReducer';
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const [courses, setCourses] = useState([
-    {
-      title: "강좌명",
-      name: "강사명",
-      progress: 75,
-    },
-    {
-      title: "강좌명",
-      name: "강사명",
-      progress: 60,
-    },
-    {
-      title: "강좌명",
-      name: "강사명",
-      progress: 40,
-    },
-  ]);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const userId = decode('accessToken');
+    dispatch(myInfoLoading({id: userId}));
+    dispatch(learningLoading(null));
+  }, []);
+
+  const userInfo = useSelector((state: RootState) => state.mypageReducer.data);
+  const courses = useSelector((state: RootState) => state.learningReducer.data);
+
+  console.log(courses);
+
   const [notes, setNotes] = useState([
     {
-      title: "강의명",
+      title: '강의명',
     },
     {
-      title: "강의명",
+      title: '강의명',
     },
     {
-      title: "강의명",
+      title: '강의명',
     },
   ]);
   const [questions, setQuestions] = useState([
     {
-      title: "질문명",
+      title: '질문명',
     },
     {
-      title: "질문명",
+      title: '질문명',
     },
     {
-      title: "질문명",
+      title: '질문명',
     },
   ]);
 
-  const {data} = useSelector((state: RootState) => state.mypageReducer);
-
   const handleMoreBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const { name } = e.target as HTMLButtonElement;
+    const {name} = e.target as HTMLButtonElement;
 
-    if (name === "coursesBtn") {
-      navigate("/learning");
-    } else if (name === "notesBtn") {
-      navigate("/notes");
+    if (name === 'coursesBtn') {
+      navigate('/learning');
+    } else if (name === 'notesBtn') {
+      navigate('/notes');
     } else {
-      navigate("/questions");
+      navigate('/questions');
     }
   };
 
   return (
     <section>
       <St.WelcomeMessage>
-        <div>{data.name}</div>
+        <div>{userInfo.name}</div>
         <div>&nbsp;님, </div>
         <div>&nbsp; 반갑습니다 🏃‍♂️</div>
       </St.WelcomeMessage>
 
       {/* 학습 중인 강의 */}
-      <div>
+      <St.LearningWrapper>
         <St.TitleWrapper>
           <p>학습 중인 강의</p>
           <St.MoreBtn type="button" name="coursesBtn" onClick={handleMoreBtn}>
@@ -79,16 +76,18 @@ const Dashboard = () => {
           </St.MoreBtn>
         </St.TitleWrapper>
         <St.ListWrapper>
-          {courses.map((course, index) => (
-            <LectureCard
+          {courses.slice(0, 3).map((course, index) => (
+            <Learn
               key={index}
-              category="dashboard"
               title={course.title}
-              progress={course.progress}
+              thumbnail={course.thumbnail}
+              progressRate={course.progressRate}
+              rating={course.rating}
+              lectureUrl={course.lectureUrl}
             />
           ))}
         </St.ListWrapper>
-      </div>
+      </St.LearningWrapper>
 
       {/* 강의 노트 & 작성한 질문 */}
       <St.Wrapper>

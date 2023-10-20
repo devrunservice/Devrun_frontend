@@ -6,7 +6,7 @@ import {baseAxios, authAxios, imageAxios} from './instance';
 
 export const signup = {
   // 회원가입
-  createUser: async (code: string, params: I.SignupFormType) => {
+  createUser: async (params: I.SignupFormType) => {
     const response = await baseAxios.post(`/signup/okay`, params);
     return response;
   },
@@ -26,21 +26,15 @@ export const signup = {
     return response;
   },
   sendVerificationEmail: async (params: I.SignupFormType | string) => {
-    // const response = await baseAxios.post(
-    //   `/signup/resend/confirm-email?email=${params.email}&id=${params.id}`
-    // );
-    console.log(params);
     const response = await baseAxios.post(
       `/signup/resend/confirm-email?data=${params}`
     );
-    console.log(response);
     return response;
   },
   checkVerificationEmail: async (id: string, key: string) => {
     const response = await baseAxios.post(
       `/verify/signupEmail?id=${id}&key=${key}`
     );
-    console.log(response);
     return response;
   },
 };
@@ -59,14 +53,12 @@ export const verificationAPI = {
   // 이메일 인증번호 받기
   getAuthenticationNumberByEmail: async (params: I.SignupFormType) => {
     const response = await baseAxios.post('/auth/email', params);
-    console.log(response);
     console.log(params);
     return response;
   },
   // 이메일 인증번호 확인
   checkAuthenticationNumberByEmail: async (params: I.SignupFormType) => {
     const response = await baseAxios.post('/verify/email', params);
-    console.log(response);
     return response;
   },
 };
@@ -77,24 +69,13 @@ export const login = {
     return response;
   },
   checkLogout: async () => {
-    // const config = {
-    //   headers: {
-    //     Refresh_token: `Bearer ${params}`,
-    //   },
-    // };
-    // const response = await baseAxios.post('/logout', null, config);
     const response = await baseAxios.post('/authz/logout');
     console.log(response);
     return response;
   },
-  refreshAccessToken: async (params: string) => {
-    const config = {
-      headers: {
-        Refresh_token: `${params}`,
-      },
-    };
-    const response = await authAxios.post('/authz/token/refresh', null, config);
-    return response.data.Access_token;
+  refreshAccessToken: async () => {
+    const response = await authAxios.post('/authz/token/refresh');
+    return response;
   },
   checkKakaoLogin: async (params: string) => {
     const response = await baseAxios.get(`/auth/kakao/callback?code=${params}`);
@@ -162,8 +143,11 @@ export const mypage = {
     return response;
   },
   updateProfileImage: async (params: FormData) => {
-    console.log(params);
     const response = await imageAxios.post(`/edit/profileimg`, params);
+    return response;
+  },
+  learning: async (params: string) => {
+    const response = await authAxios.get('/mylecturelist');
     return response;
   },
   pay: (params: I.PageNo) => {
@@ -173,9 +157,7 @@ export const mypage = {
     return response;
   },
   point: (params: I.PageNo) => {
-    const response = authAxios.get(
-      `/PointHistory?page=${params}&size=10`
-    );
+    const response = authAxios.get(`/PointHistory?page=${params}&size=10`);
     return response;
   },
   coupon: (params: I.CouponGet) => {
@@ -194,7 +176,7 @@ export const Cart = {
     return response;
   },
   save: (params: I.bastetCheck[]) => {
-    const response = authAxios.post("/savePaymentInfo", params);
+    const response = authAxios.post('/savePaymentInfo', params);
     return response;
   },
   coupon: (params: I.LectureInfoList[]) => {
@@ -202,12 +184,12 @@ export const Cart = {
     return response;
   },
   refund: (params: I.Refund) => {
-    const response = authAxios.post("/payment", params);
+    const response = authAxios.post('/payment', params);
     return response;
   },
 
   delete: (params: I.LectureInfoList[]) => {
-    const response = authAxios.post("/cart/delete", params);
+    const response = authAxios.post('/cart/delete', params);
     return response;
   },
   list: () => {
@@ -239,7 +221,7 @@ export const notice = {
     return response;
   },
   write: (params: I.NoticeWrite) => {
-    const response = authAxios.post("/notice/write", params);
+    const response = authAxios.post('/notice/write', params);
     return response;
   },
   list: (params: I.PageNo) => {
@@ -258,7 +240,7 @@ export const notice = {
     return response;
   },
   comment: (params: I.Comment) => {
-    const response = authAxios.post("/comment/write", params);
+    const response = authAxios.post('/comment/write', params);
     return response;
   },
   commentRetouch: (params: I.CommentRetouch) => {

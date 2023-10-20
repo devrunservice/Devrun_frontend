@@ -9,10 +9,6 @@ export interface SignupFormType {
   phonenumber?: string;
   code?: string;
   allChecked?: boolean;
-  // acChecked?: boolean;
-  // tosChecked?: boolean;
-  // pcChecked?: boolean;
-  // mcChecked?: boolean;
   ageConsent?: boolean;
   termsOfService?: boolean;
   privacyConsent?: boolean;
@@ -90,6 +86,15 @@ export interface ProfileInputType {
   emailBtn: boolean;
   phonenumberBtn: boolean;
   [key: string]: boolean;
+}
+
+export interface LearningType {
+  title?: string;
+  mentoName?: string;
+  thumbnail?: string;
+  progressRate?: number;
+  rating?: number;
+  lectureUrl?: string;
 }
 
 export interface UserInfoList {
