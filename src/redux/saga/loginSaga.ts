@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import {call, put, takeLatest} from 'redux-saga/effects';
+import {call, all, fork, put, takeLatest} from 'redux-saga/effects';
 import {PayloadAction} from '@reduxjs/toolkit';
 import {login} from 'utils/api';
-import {getCookie, removeCookie, setCookie} from 'utils/cookies';
+import {removeCookie, setCookie} from 'utils/cookies';
 import {redirect} from 'utils/redirect';
-import {decode} from 'utils/decode';
 import {LoginFormType} from 'types';
 import {
   openModal,
@@ -29,7 +28,7 @@ function* loginSaga(
   try {
     const response = yield call(login.checkLoginUser, action.payload);
     const accessToken = response.data.Access_token.substr(7);
-  
+
     setCookie('accessToken', accessToken, {
       path: '/',
       // https 일때만 통신할 수 있는 것 https일때 true로 바꿔줄것!
@@ -51,16 +50,12 @@ function* loginSaga(
 
 function* logoutSaga(): Generator<any, void, any> {
   try {
-    const refreshCookie = getCookie('refreshToken');
-    // const response = yield call(login.checkLogout, refreshCookie);
     const response = yield call(login.checkLogout);
     yield put(logoutSuccess(response));
     removeCookie('accessToken', {path: '/'});
-    // removeCookie('refreshToken', {path: '/'});
     yield call(redirect, '/');
   } catch (error) {
     yield put(logoutFail(error));
-    // yield call(redirect, '/home');
   }
 }
 
@@ -88,10 +83,6 @@ function* kakaoLoginSaga(
         path: '/',
         secure: true,
       });
-      // setCookie("refreshToken", response.data.Refresh_token.substr(7), {
-      //   path: "/",
-      //   secure: true,
-      // });
       yield put(loginSuccess(response));
       yield call(redirect, '/home');
     }
@@ -111,4 +102,12 @@ export function* watchLogoutSaga() {
 
 export function* watchKakaoLoginSaga() {
   yield takeLatest(kakaoLoading.type, kakaoLoginSaga);
+}
+
+export default function* authSaga() {
+  yield all([
+    fork(watchLoginSaga),
+    fork(watchLogoutSaga),
+    fork(watchKakaoLoginSaga),
+  ]);
 }

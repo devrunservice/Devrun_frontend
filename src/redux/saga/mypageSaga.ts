@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import {call, put, takeLatest} from 'redux-saga/effects';
+import {call, put, takeLatest, all, fork} from 'redux-saga/effects';
 import {PayloadAction} from '@reduxjs/toolkit';
 import {mypage} from 'utils/api';
 import {MypageType} from 'types';
 import {
-  getDataLoading,
-  getDataSuccess,
-  getDataFail,
+  myInfoLoading,
+  myInfoSuccess,
+  myInfoFail,
   updateEmailSuccess,
   updateEmailFail,
   updateEmailLoading,
@@ -19,15 +19,13 @@ import {
 } from '../reducer/mypageReducer';
 import {openModal} from '../reducer/modalReducer';
 
-function* getUserDataSaga(
-  action: PayloadAction<MypageType>
-): Generator<any, void, any> {
+function* myInfo(action: PayloadAction<MypageType>): Generator<any, void, any> {
   try {
     const response = yield call(mypage.profile, action.payload);
-    yield put(getDataSuccess(response));
+    yield put(myInfoSuccess(response));
   } catch (error: any) {
     yield put(openModal(error.message));
-    yield put(getDataFail(error));
+    yield put(myInfoFail(error));
   }
 }
 
@@ -67,7 +65,7 @@ function* updateProfileImageSaga(
 }
 
 export function* watchgetUserDataSaga() {
-  yield takeLatest(getDataLoading.type, getUserDataSaga);
+  yield takeLatest(myInfoLoading.type, myInfo);
 }
 
 export function* watchUpdateEmailSaga() {
@@ -80,4 +78,13 @@ export function* watchUpdatePhonenumberSaga() {
 
 export function* watchUpdateProfileImageSaga() {
   yield takeLatest(updateProfileImageLoading.type, updateProfileImageSaga);
+}
+
+export default function* mypageSaga() {
+  yield all([
+    fork(watchgetUserDataSaga),
+    fork(watchUpdateEmailSaga),
+    fork(watchUpdatePhonenumberSaga),
+    fork(watchUpdateProfileImageSaga),
+  ]);
 }

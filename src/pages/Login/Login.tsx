@@ -10,9 +10,7 @@ import {BrandLogo, Kakao, Naver, Google} from 'asset';
 import {SignupFormType, LoginFormType} from 'types';
 import {PasswordInput, Modal} from 'components';
 import {Input} from 'style/Common';
-
 import * as St from './styles';
-
 import {loginLoading} from '../../redux/reducer/loginReducer';
 
 const LoginForm = () => {
@@ -49,13 +47,6 @@ const LoginForm = () => {
       ...prev,
       [name]: value,
     }));
-  };
-
-  const getPassword = (value: SignupFormType) => {
-    console.log(value);
-    Object.keys(value).forEach((name) => {
-      loginForm.password = value.password;
-    });
   };
 
   const getRecaptcha = async (value: string) => {

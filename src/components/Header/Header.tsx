@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {getCookie} from 'utils/cookies';
 import Logo from 'asset/images/Logo.png';
-import {Modal, Timer} from 'components';
+import {Modal} from 'components';
 import {Button} from 'style/Common';
 import * as St from './style';
 import {userInfoLoading} from '../../redux/reducer/userReducer';
@@ -38,7 +38,6 @@ const Header = () => {
   return (
     <St.HeaderWrap>
       <Modal page="home" />
-      <Timer page="home" />
       <St.InnerHeader>
         <St.NavWrap>
           <St.LogoIcon onClick={() => navigate('/')}>
@@ -105,7 +104,9 @@ const Header = () => {
                 <St.Dropdown>
                   <St.DropdownTop>
                     <St.DropdownItemWrapper>
-                      <St.DropdownItemBtn onClick={() => navigate('/profile')}>
+                      <St.DropdownItemBtn
+                        onClick={() => navigate('/dashboard')}
+                      >
                         {data.id}
                       </St.DropdownItemBtn>
                       <p>{data.role}</p>

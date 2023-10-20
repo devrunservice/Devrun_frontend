@@ -76,7 +76,7 @@ const Signup = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await signup.createUser(signupForm.code || '', {
+      const response = await signup.createUser({
         id: signupForm.id,
         password: signupForm.password,
         name: signupForm.name,
