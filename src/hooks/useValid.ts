@@ -100,8 +100,8 @@ const useValid = (form: SignupFormType) => {
       updateValid('phonenumber', true);
     }
 
-    if (validState.phonenumber || !validState.phonenumber) {
-      updateMessage('phonenumberMessage', '인증번호를 다시 받아주세요.');
+    if (validState.codeBtn || !validState.codeBtn) {
+      updateMessage('phonenumberMessage', '인증번호를 받아주세요.');
       updateMessage('codeMessage', '');
       updateValid('codeBtn', false);
       updateValid('checkCodeBtn', false);

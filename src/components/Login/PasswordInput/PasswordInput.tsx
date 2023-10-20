@@ -30,7 +30,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
         value={value}
         placeholder={placeholder}
         onChange={onChange}
-        required
+        // required
       />
       <St.Icons onClick={handleClick}>
         {showPwd ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}

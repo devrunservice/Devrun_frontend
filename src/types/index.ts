@@ -1,5 +1,3 @@
-
-
 // 회원가입 타입
 export interface SignupFormType {
   id?: string;
@@ -11,10 +9,6 @@ export interface SignupFormType {
   phonenumber?: string;
   code?: string;
   allChecked?: boolean;
-  // acChecked?: boolean;
-  // tosChecked?: boolean;
-  // pcChecked?: boolean;
-  // mcChecked?: boolean;
   ageConsent?: boolean;
   termsOfService?: boolean;
   privacyConsent?: boolean;
@@ -67,6 +61,7 @@ export interface LoginFormType {
   id: string;
   password?: string;
   recaptcha?: string;
+  loginTime?: Date | number;
 }
 
 // 마이페이지 타입
@@ -93,10 +88,19 @@ export interface ProfileInputType {
   [key: string]: boolean;
 }
 
+export interface LearningType {
+  title?: string;
+  mentoName?: string;
+  thumbnail?: string;
+  progressRate?: number;
+  rating?: number;
+  lectureUrl?: string;
+}
+
 export interface UserInfoList {
   id: string;
   role: string;
-  userNo: number
+  userNo: number;
 }
 
 export interface Userinfo {
@@ -149,20 +153,20 @@ export interface CreateLectureType {
   videoList?: VideoType[];
 }
 export interface category {
-  lectureBigCategory:string 
-  lectureMidCategory: string
-  categoryNo: number
+  lectureBigCategory: string;
+  lectureMidCategory: string;
+  categoryNo: number;
 }
 export interface SectionType {
   lectureSectionId: number;
   sectionTitle: string;
 }
 export interface VideoType {
-  lectureSectionId: number,
-  videoNo: number,
-  file: Blob | string
+  lectureSectionId: number;
+  videoNo: number;
+  file: Blob | string;
   // file: videoFileType | null | undefined
-  videoTitle: string
+  videoTitle: string;
 }
 export interface videoFileType {
   fileBits: BlobPart[];
@@ -172,9 +176,6 @@ export interface videoFileType {
 }
 
 export interface RefType {}
-
-
-
 
 export interface TableCommon {
   $cursor?: boolean;
@@ -187,8 +188,6 @@ export interface Coupon {
   couponCode: string;
   amount: number;
 }
-
-
 
 // 결제창
 export interface RequestPayAdd {
@@ -251,8 +250,6 @@ export interface RequestPayResponse extends IRequestPayResponse {
   receipt_url?: string;
 }
 
-
-
 export type RequestPayResponseCallback = (response: RequestPayResponse) => void;
 export interface Iamport {
   init: (accountID: string) => void;
@@ -271,12 +268,8 @@ declare global {
 export interface Refund {
   merchant_uid: string;
   amount: number;
-  name:string;
+  name: string;
 }
-
-
-
-
 
 // 유저 쿠폰발급
 
@@ -303,7 +296,7 @@ export interface PointList {
   pointupdown: number;
   pointno: number;
   explanation: string;
-  productname:string;
+  productname: string;
 }
 export interface Point {
   content: PointList[];
@@ -311,14 +304,13 @@ export interface Point {
   totalPages: number;
 }
 export interface Points {
-  mypoint?:number
+  mypoint?: number;
   pointHistoryPage: Point;
   loading?: boolean;
   error?: Error | null;
 }
 
-
-// 구매내역 
+// 구매내역
 
 export interface ReceiptList {
   buyername: string;
@@ -332,7 +324,6 @@ export interface ReceiptList {
   userpayno: number;
 }
 export interface Receipt {
-
   content: ReceiptList[];
   totalElements: number;
   totalPages: number;
@@ -353,8 +344,8 @@ export interface MentoCouponlist {
   state: string;
   lecturename: string;
 }
-interface MentoCoupon{
-  content:MentoCouponlist[];
+interface MentoCoupon {
+  content: MentoCouponlist[];
   totalElements: number;
   totalPages: number;
 }
@@ -364,7 +355,6 @@ export interface MentoCoupons {
   loading?: boolean;
   error?: Error | null;
   activate?: null;
-  
 }
 
 export interface PageNo {
@@ -382,7 +372,7 @@ export interface CreateCoupon {
 
 export interface ActiveCoupon {
   code: string;
-  index:number
+  index: number;
 }
 
 // 페이지네이션
@@ -391,7 +381,6 @@ export interface Pagination {
   pageno: number;
   setPageno: (page: number) => void;
 }
-
 
 export interface Active {
   $active: boolean;
@@ -404,8 +393,6 @@ export interface IPriceButton {
 export interface MySearch {
   search: string;
 }
-
-
 
 // 공지사항
 
@@ -440,7 +427,6 @@ export interface Comments {
   data: CommentsList[];
 }
 
-
 export interface Notices {
   data: Notice;
   loading?: boolean;
@@ -448,7 +434,7 @@ export interface Notices {
   content: NoticeList;
   write: string;
   datas: Comments;
-  del: "";
+  del: '';
   comments: CommentsList;
   commentRe: CommentsList;
 }
@@ -462,7 +448,7 @@ export interface NoticeNum {
 export interface NoticeUrl {
   path: string;
   fileName: string;
-  fileExt:string
+  fileExt: string;
 }
 export interface NoticePostUrl {
   url: string;
@@ -475,7 +461,6 @@ export interface NoticeWrite {
   content: string;
   id: string;
 }
-
 
 // 댓글
 export interface Comment {
@@ -503,23 +488,19 @@ export interface CouponListInCart {
   expirydate: string;
   lecturename: string;
   state: string;
-  couponcode:string;
+  couponcode: string;
 }
 export interface LectureInfoList {
   lecture_intro: string;
   lecture_name: string;
   lecture_price: number;
   lecture_thumbnail: string;
-  
 }
-
-
-
 
 export interface Cart {
   buyerInfo: BuyerInfo;
   couponListInCart: CouponListInCart[];
-  lectureInfoList: LectureInfoList[]
+  lectureInfoList: LectureInfoList[];
 }
 export interface Carts {
   data: Cart;
@@ -549,7 +530,7 @@ export interface BasketState {
   discount: number;
   couponName: string;
   discountrate: number;
-  couponCode:string
+  couponCode: string;
 }
 export interface bastetCheck {
   lecture_intro: string;

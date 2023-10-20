@@ -5,12 +5,12 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {getCookie} from 'utils/cookies';
 import Logo from 'asset/images/Logo.png';
-import Modal from 'components/Login/Modal/Modal';
+import {Modal} from 'components';
 import {Button} from 'style/Common';
 import * as St from './style';
 import {userInfoLoading} from '../../redux/reducer/userReducer';
 import {logoutLoading} from '../../redux/reducer/loginReducer';
-import { cartInfoLoading } from "../../redux/reducer/cartReducer";
+import {cartInfoLoading} from '../../redux/reducer/cartReducer';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -32,7 +32,6 @@ const Header = () => {
     setCookie(false);
   };
 
-
   return (
     <St.HeaderWrap>
       <Modal page="home" />
@@ -48,10 +47,12 @@ const Header = () => {
             </St.CategoryLi>
             <St.CategoryLi>DEVRUN 깜짝특가</St.CategoryLi>
             <St.CategoryLi>BEST</St.CategoryLi>
-            <St.CategoryLi onClick={() => navigate("/notice")}>
+            <St.CategoryLi onClick={() => navigate('/notice')}>
               공지사항
             </St.CategoryLi>
-            <St.CategoryLi onClick={()=> navigate("/createVideo")}>강의 등록</St.CategoryLi>
+            <St.CategoryLi onClick={() => navigate('/createVideo')}>
+              강의 등록
+            </St.CategoryLi>
           </St.CategoryWrap>
         </St.NavWrap>
         <St.NavWrap>
@@ -103,7 +104,9 @@ const Header = () => {
                 <St.Dropdown>
                   <St.DropdownTop>
                     <St.DropdownItemWrapper>
-                      <St.DropdownItemBtn onClick={() => navigate('/profile')}>
+                      <St.DropdownItemBtn
+                        onClick={() => navigate('/dashboard')}
+                      >
                         {data.id}
                       </St.DropdownItemBtn>
                       <p>{data.role}</p>

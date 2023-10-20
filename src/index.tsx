@@ -36,10 +36,6 @@ const router = createBrowserRouter([
       {path: 'signup', element: <Route.Signup />},
       {path: 'signupconfirm', element: <Route.SignupConfirm />},
       {
-        path: 'signupverification',
-        element: <Route.Signup2RedirectHandler />,
-      },
-      {
         path: 'signupcompletion',
         element: <Route.SignupCompletion />,
       },

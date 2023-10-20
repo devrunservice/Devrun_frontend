@@ -8,7 +8,7 @@ import {MypageType, ProfileInputType, ValidFieldType} from 'types';
 import {Exclamation} from 'asset';
 import {Title} from 'style/Common';
 import {
-  getDataLoading,
+  myInfoLoading,
   updateEmailLoading,
   updatePhonenumberLoading,
   updateProfileImageLoading,
@@ -23,7 +23,7 @@ import * as St from './styles';
 const Profile = () => {
   const dispatch = useDispatch();
 
-  const userData = useSelector((state: RootState) => state.mypageReducer.data);
+  const userInfo = useSelector((state: RootState) => state.mypageReducer.data);
   const validState = useSelector(
     (state: RootState) => state.validationReducer.validState
   );
@@ -64,6 +64,10 @@ const Profile = () => {
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const {name, id} = e.target as HTMLButtonElement;
+    // setTimeout(
+    //   () => setIsInput((prev) => ({...prev, [name]: !prev[name]})),
+    //   3000
+    // );
     setIsInput((prev) => ({...prev, [name]: !prev[name]}));
 
     if (id === 'cancelBtn') {
@@ -123,12 +127,12 @@ const Profile = () => {
 
   useEffect(() => {
     const userId = decode('accessToken');
-    dispatch(getDataLoading({id: userId}));
+    dispatch(myInfoLoading({id: userId}));
     setProfileForm((prev) => ({
       ...prev,
-      profilePreview: userData.profilePreview,
+      profilePreview: userInfo.profilePreview,
     }));
-  }, [userData]);
+  }, [userInfo]);
 
   return (
     <St.Section>
@@ -137,7 +141,7 @@ const Profile = () => {
         {!isInput.profileImageBtn ? (
           <St.InputWrapper>
             <St.Imgbox>
-              <img src={userData.profilePreview} alt="profile" />
+              <img src={userInfo.profilePreview} alt="profile" />
             </St.Imgbox>
             <St.ChangeBtn name="profileImageBtn" onClick={handleClick}>
               수정
@@ -193,14 +197,14 @@ const Profile = () => {
       <St.InputField>
         <Title>이름</Title>
         <St.InputWrapper>
-          <St.P>{userData.name}</St.P>
+          <St.P>{userInfo.name}</St.P>
         </St.InputWrapper>
       </St.InputField>
       <St.Hr />
       <St.InputField>
         <Title>아이디</Title>
         <St.InputWrapper>
-          <St.P>{userData.id}</St.P>
+          <St.P>{userInfo.id}</St.P>
         </St.InputWrapper>
       </St.InputField>
       <St.Hr />
@@ -209,7 +213,7 @@ const Profile = () => {
         <St.InputField>
           <Title>이메일</Title>
           <St.InputWrapper>
-            <St.P>{userData.email}</St.P>
+            <St.P>{userInfo.email}</St.P>
             <St.ChangeBtn name="emailBtn" onClick={handleClick}>
               수정
             </St.ChangeBtn>
@@ -243,7 +247,7 @@ const Profile = () => {
       <St.InputField>
         <Title>생년월일</Title>
         <St.InputWrapper>
-          <St.P>{userData.birthday}</St.P>
+          <St.P>{userInfo.birthday}</St.P>
         </St.InputWrapper>
       </St.InputField>
       <St.Hr />
@@ -251,7 +255,7 @@ const Profile = () => {
         <St.InputField>
           <Title>휴대폰번호</Title>
           <St.InputWrapper>
-            <St.P>{userData.phonenumber}</St.P>
+            <St.P>{userInfo.phonenumber}</St.P>
             <St.ChangeBtn name="phonenumberBtn" onClick={handleClick}>
               수정
             </St.ChangeBtn>

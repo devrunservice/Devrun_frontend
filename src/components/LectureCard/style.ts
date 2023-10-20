@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import {styled} from 'styled-components';
 
 export const List = styled.li`
   color: ${(props) => props.theme.black};
@@ -30,7 +30,7 @@ export const ListTeacher = styled.span`
   &::after {
     width: 1px;
     height: 80%;
-    content: "";
+    content: '';
     position: absolute;
     left: 0px;
     top: 50%;
@@ -49,5 +49,21 @@ export const Progress = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  font-size:0.75rem;;
+  font-size: 0.75rem;
+`;
+
+export const Gauge = styled.div`
+  width: 100%;
+  height: 5px;
+  border-radius: 5px;
+  position: relative;
+  margin-top: 4px;
+  &:after {
+    background: ${(props: any) => props.theme.bgGrayColor};
+    content: '';
+    width: 280px;
+    position: absolute;
+    height: 100%;
+    z-index: -1;
+  }
 `;
