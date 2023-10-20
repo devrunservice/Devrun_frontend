@@ -26,10 +26,10 @@ const mypageReduer = createSlice({
   name: 'mypageReducer',
   initialState,
   reducers: {
-    getDataLoading: (state, action) => {
+    myInfoLoading: (state, action) => {
       state.loading = true;
     },
-    getDataSuccess: (state, action) => {
+    myInfoSuccess: (state, action) => {
       state.loading = false;
       state.data.id = action.payload.data.id;
       state.data.name = action.payload.data.name;
@@ -38,7 +38,7 @@ const mypageReduer = createSlice({
       state.data.phonenumber = action.payload.data.phonenumber;
       state.data.profilePreview = action.payload.data.profileimgsrc;
     },
-    getDataFail: (state, action) => {
+    myInfoFail: (state, action) => {
       console.log('Fail to get user data');
       state.loading = false;
       state.error = action.payload;
@@ -81,9 +81,9 @@ const mypageReduer = createSlice({
 });
 
 export const {
-  getDataLoading,
-  getDataSuccess,
-  getDataFail,
+  myInfoLoading,
+  myInfoSuccess,
+  myInfoFail,
   updateEmailLoading,
   updateEmailSuccess,
   updateEmailFail,
