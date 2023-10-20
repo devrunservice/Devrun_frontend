@@ -45,12 +45,12 @@ const router = createBrowserRouter([
 
       {
         path: 'noticeWrite',
-        element: protectedRoute(<Route.NoticeWrite />),
+        element: (<Route.NoticeWrite />),
       },
-      {path: 'notice', element: protectedRoute(<Route.Notice />)},
+      {path: 'notice', element: (<Route.Notice />)},
       {
         path: 'notice/:noticeNo',
-        element: protectedRoute(<Route.NoticeDetail />),
+        element: (<Route.NoticeDetail />),
       },
       {
         path: "notice/:noticeNo/retouch",

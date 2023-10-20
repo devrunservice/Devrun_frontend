@@ -1,30 +1,32 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useCallback, useMemo, useRef, useState } from "react";
+import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
-import ReactQuill from "react-quill";
-import { toolbarOptions, formats } from "utils/editor";
+import ReactQuill, { Quill } from "react-quill";
 import { notice } from "utils/api";
 import * as I from "types";
 import "react-quill/dist/quill.snow.css";
 import * as S from "style/Common";
 import * as St from "./style";
+import QuillToolbar, { formats } from "./QuillToolbar";
 import {
   noticeWriteLoading,
   noticeRetouchLoading,
 } from "../../redux/reducer/noticeReducer";
 
-
 interface path {
   path: string;
-  title: string;
+  tap: string;
 }
+
+
 
 const Editor = (props: path) => {
   const dispatch = useDispatch()
   const params = useParams()
-  const noticeNo = props.title === "공지수정" ? params.noticeNo : 0;
+  const noticeNo = props.tap === "공지수정" ? params.noticeNo : 0;
   const { data } = useSelector((state: RootState) => state.userReducer);
   const navigate = useNavigate();
   const quillRef = useRef<ReactQuill>(null);
@@ -40,23 +42,31 @@ const Editor = (props: path) => {
 
     input.onchange = async () => {
       const file = input.files;
-      console.log(file);
       if (file !== null) {
         if (file[0].size > 1024 * 1024 * 2) {
           alert("이미지 용량을 초과하였습니다.");
+          
         } else {
-          const formData = new FormData();
-          formData.append("file", file[0], "image.jpg");
+
           try {
-            const res = await notice.img({ path: props.path, formData });
-            const url = res.data.fileURL;
+            const res = await notice.getUrl({
+              path: props.path,
+              fileName: file[0].name.split(".")[0],
+              fileExt: file[0].type.split("/")[1],
+            });
+             await notice.postUrl({
+              url: res.data.presignUrl,
+              file: file[0],
+            });
+            const imgUrl = res.data.presignUrl.split("?")[0]
             const range = quillRef.current?.getEditor().getSelection()?.index;
+
             if (range !== null && range !== undefined) {
               const quill = quillRef.current?.getEditor();
               quill?.setSelection(range, 1);
               quill?.clipboard.dangerouslyPasteHTML(
                 range,
-                `<img src=${url} alt="이미지 태그가 삽입됩니다." />`
+                `<img src=${imgUrl} alt="이미지 태그가 삽입됩니다." />`
               );
             }
 
@@ -83,12 +93,11 @@ const Editor = (props: path) => {
   const modules = useMemo(
     () => ({
       toolbar: {
-        container: toolbarOptions,
+        container: "#toolbar",
         handlers: {
           image: onImage,
         },
       },
-     
     }),
     []
   );
@@ -101,27 +110,27 @@ const Editor = (props: path) => {
       content: content,
       id: data.id,
     };
-    if (props.title === "공지작성"){
-       try {
+    if (props.tap === "공지작성") {
+      try {
         await dispatch(noticeWriteLoading(writeData))
         await navigate(`/notice`);
-       } catch (error) {
-         alert("게시물업로드가 실패했습니다.");
-       }
-    }else{
-       try {
-       await dispatch(noticeRetouchLoading(writeData));
-         await navigate(`/notice/${params.noticeNo}`);
-       } catch (error) {
-         alert("게시물업로드가 실패했습니다.");
-       }
+      } catch (error) {
+        alert("게시물업로드가 실패했습니다.");
+      }
+    } else {
+      try {
+        await dispatch(noticeRetouchLoading(writeData));
+        await navigate(`/notice/${params.noticeNo}`);
+      } catch (error) {
+        alert("게시물수정을 실패했습니다.");
+      }
     }
      
-  }, [content, title]);
+  }, [content, title,props.tap]);
   const onExit = useCallback(()=>{
-    if(props.title === "공지작성"){
-      navigate("/notice")
-    }else{
+    if (props.tap === "공지작성") {
+      navigate("/notice");
+    } else {
       navigate(`/notice/${params.noticeNo}`);
     }
   },[])
@@ -133,6 +142,7 @@ const Editor = (props: path) => {
         onChange={onTitle}
         value={title}
       />
+      <QuillToolbar />
       <St.Editor
         placeholder="내용을 적어주세요"
         theme="snow"

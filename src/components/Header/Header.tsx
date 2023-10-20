@@ -22,6 +22,7 @@ const Header = () => {
   useEffect(() => {
     if (getCookie('accessToken')) {
       dispatch(userInfoLoading(null));
+      dispatch(cartInfoLoading(null));
       setCookie(true);
     }
   }, []);
@@ -30,10 +31,6 @@ const Header = () => {
     dispatch(logoutLoading());
     setCookie(false);
   };
-
-  useEffect(() => {
-    dispatch(cartInfoLoading(null));
-  }, []);
 
   return (
     <St.HeaderWrap>
@@ -52,6 +49,9 @@ const Header = () => {
             <St.CategoryLi>BEST</St.CategoryLi>
             <St.CategoryLi onClick={() => navigate('/notice')}>
               공지사항
+            </St.CategoryLi>
+            <St.CategoryLi onClick={() => navigate('/createVideo')}>
+              강의 등록
             </St.CategoryLi>
           </St.CategoryWrap>
         </St.NavWrap>

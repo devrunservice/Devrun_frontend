@@ -2494,6 +2494,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-oauth/google@npm:latest":
+  version: 0.11.1
+  resolution: "@react-oauth/google@npm:0.11.1"
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: b27031d55a82d70a32c5d15ca0c71caec70f766f5c118570bb6b273c0f2c4256d574fd59012716dbcdf7a8d0c909736846ed82c32458c792e60430957c32a1f4
+  languageName: node
+  linkType: hard
+
 "@redux-saga/core@npm:^1.2.3":
   version: 1.2.3
   resolution: "@redux-saga/core@npm:1.2.3"
@@ -6051,6 +6061,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "devrun_frontend@workspace:."
   dependencies:
+    "@react-oauth/google": latest
     "@reduxjs/toolkit": ^1.9.5
     "@testing-library/jest-dom": ^5.14.1
     "@testing-library/react": ^13.0.0

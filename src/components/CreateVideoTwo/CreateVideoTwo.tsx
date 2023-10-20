@@ -1,18 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CurriculumSection from 'components/CurriculumSection/CurriculumSection';
 import { PlusCircle } from 'asset';
 import { RootState } from 'redux/store';
-// import {createVideo} from 'api'
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-// import { CreateLectureType } from 'types';
+import Spinner from 'components/FullSpinner/FullSpinner';
+import CommonModal from 'components/CommonModal/CommonModal';
+import { getCookie } from 'utils/cookies';
 import axios from 'axios';
-import {  addClass, addSection, changeTitle, setClass,  deleteClass, deleteSection, changeVideoFile, changeClassTitle } from '../../redux/reducer/createVideoSlice';
+import {  addClass, addSection, changeTitle, setClass,  deleteClass, deleteSection, changeVideoFile, changeClassTitle } from '../../redux/reducer/createVideoReducer';
 import * as St from '../CreateNewVideo/style'
 
 const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const videoStore = useSelector((state:RootState)=>state.createVideoSlice)
-  
+  const googleStore = useSelector((state:RootState)=>state.googleLoginSlice)
+
+  /* 로딩여부 */
+  const [loading, setLoading] = useState(false)
+
+  /* 모달창 커스텀 */
+  const [modal, setModal] = useState(false)
+  const [text, setText] = useState('')
+  const [btNum, setBtNum] = useState (1)
+  const [flag, setFlag] = useState('')
+
   /* 강의 수업추가 */
   const addClasses = (id: number) => {
     if(videoStore.videoList) {
@@ -60,6 +73,7 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
   const changeClassTitles = (e:React.ChangeEvent<HTMLInputElement>, id:number) => {
     dispatch(changeClassTitle({id, value:e.target.value}))
   }
+
   /* 비디오 추가 */
   const changeVideoFiles = (e:React.ChangeEvent<HTMLInputElement>, id:number) => {
     const {files} = e.target
@@ -72,39 +86,73 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
     }
   }
 
-  /* 등록하기 */
+  /* 강의등록 */
   const postVideo = () => {
+    const token = getCookie('accessToken')
     if (
       videoStore.lectureName === '' || 
       videoStore.lectureThumbnail === '' ||
       videoStore.lectureThumbnailUrl === '' ||
       videoStore.lectureSectionList[0].sectionTitle === '')
       {
-        return alert('모든 항목을 채워주세요')
+        setText('모든 항목을 채워주세요')
+        setBtNum(1)
+        setFlag('blank')
+        setModal(true)
+        return
       } 
 
-    const url = 'https://devrun.site/lectureregist'
+    setLoading(true)
+    const url = 'https://devrun.site/lectureregitest'
     const formData = new FormData();
-    formData.append('lectureName', videoStore.lectureName)
-    formData.append('lecturePrice', videoStore.lecturePrice.toString())
-    formData.append('lectureCategory', JSON.stringify(videoStore.lectureCategory))
-    formData.append('lectureTag', JSON.stringify(videoStore.lectureTag))
-    formData.append('lectureIntro', videoStore.lectureIntro)
-    formData.append('lectureSectionList', JSON.stringify(videoStore.lectureSectionList))
-    formData.append('lectureThumbnail', videoStore.lectureThumbnail)
-    videoStore.videoList?.forEach(list=> {
-      const stringifyVideo = JSON.stringify(list)
-      formData.append('videoList', stringifyVideo)
+    formData.append("lectureName", videoStore.lectureName);
+    formData.append("lectureIntro", videoStore.lectureIntro);
+    formData.append("lecturePrice", videoStore.lecturePrice.toString());
+    formData.append("lectureThumbnailFile", videoStore.lectureThumbnail);
+    const lectureTagString = videoStore.lectureTag.join(', ')
+    formData.append("lectureTag", lectureTagString);
+    formData.append("lectureCategory.lectureBigCategory", videoStore.lectureCategory.lectureBigCategory);
+    formData.append("lectureCategory.lectureMidCategory", videoStore.lectureCategory.lectureMidCategory);
+    formData.append("lectureCategory.categoryNo", videoStore.lectureCategory.categoryNo.toString());
+    videoStore.lectureSectionList.forEach((list, index) => {
+      formData.append(`lectureSectionList[${index}].SectionNumber`, list.lectureSectionId.toString());
+      formData.append(`lectureSectionList[${index}].SectionTitle`, list.sectionTitle);
+      formData.append(`videoList[${index}].SectionTitle`, list.sectionTitle)
+    });
+    videoStore.videoList?.forEach((list, index) => {
+      formData.append(`videoList[${index}].videoTitle`, list.videoTitle)
+      formData.append(`videoList[${index}].SectionNumber`, list.lectureSectionId.toString())
+      formData.append(`videoList[${index}].videofile`, list.file)
     })
+    formData.append("accessToken", googleStore.urlToken);
+    formData.append("jstToken", token )
     axios.post(url, formData, {
       headers: {
         "Content-Type": "multipart/form-data"
       }
-    }).then(res=>{
-      console.log(res)
-    }).catch(err=>{
-      console.log(err)
+    }).then(()=>{
+      setLoading(false)
+      setText('등록에 성공했습니다. 내 강의 페이지로 이동합니다')
+      setFlag('success')
+      setBtNum(1)
+      setModal(true)
+    }).catch(()=>{
+      setText('등록에 실패했습니다. 다시 시도해주세요')
+      setBtNum(1)
+      setFlag('fail')
+      setModal(true)
+      setLoading(false)
     })
+  }
+
+  const closeModalCancel = () => {
+    setModal(false)
+  }
+  const closeModalAccept = (value:string) => {
+    setModal(false)
+    if(value === 'success') {
+      navigate('/')
+    }
   }
 
   return (
@@ -135,6 +183,8 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
           <St.NextCreateBtn onClick={postVideo}>등록</St.NextCreateBtn>
         </div>
       </St.CreateVideoArticle>
+      { modal && <CommonModal text={text} btNum={btNum} flag={flag} closeModalAccept={closeModalAccept} closeModalCancel={closeModalCancel}/> }
+      {loading && <Spinner />}
     </St.CreateVideoWrap>
   )
 }

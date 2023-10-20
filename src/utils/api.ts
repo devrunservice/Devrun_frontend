@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
+import axios from 'axios';
 import * as I from 'types';
 
 import {baseAxios, authAxios, imageAxios} from './instance';
@@ -214,10 +215,27 @@ export const create = {
     return response;
   },
 };
-
+const headers = {
+  "Content-Type": "image/png",
+};
 export const notice = {
-  img: (params: I.NoticeUpload) => {
-    const response = imageAxios.post(`/${params.path}/upload`, params.formData);
+  getUrl: (params: I.NoticeUrl) => {
+    const response = authAxios.post(`/${params.path}/presignurl`, {
+      fileName: params.fileName,
+      fileExt: params.fileExt,
+    });
+    return response;
+  },
+
+  postUrl: (params: I.NoticePostUrl) => {
+    const response = axios.request({
+      method: "put",
+      url: params.url,
+      data: params.file,
+      maxRedirects: 5,
+      validateStatus: null,
+      headers: headers,
+    });
     return response;
   },
   write: (params: I.NoticeWrite) => {
@@ -225,11 +243,11 @@ export const notice = {
     return response;
   },
   list: (params: I.PageNo) => {
-    const response = authAxios.get(`/notice/${params}`);
+    const response = baseAxios.get(`/notices/${params}`);
     return response;
   },
   detail: (params: I.NoticeNum) => {
-    const response = authAxios.get(`/notice/detail/${params.noticeNo}`);
+    const response = baseAxios.get(`/notices/detail/${params.noticeNo}`);
     return response;
   },
   retouch: (params: I.NoticeWrite) => {
@@ -237,6 +255,10 @@ export const notice = {
       title: params.title,
       content: params.content,
     });
+    return response;
+  },
+  deletNotice: (params: I.NoticeWrite) => {
+    const response = authAxios.delete(`/notice/delete/${params.noticeNo}`);
     return response;
   },
   comment: (params: I.Comment) => {
@@ -250,7 +272,13 @@ export const notice = {
     return response;
   },
   commentList: (params: I.NoticeNum) => {
-    const response = authAxios.get(`/comments/${params.noticeNo}`);
+    const response = baseAxios.get(`/comments/${params.noticeNo}`);
+    return response;
+  },
+  commentDel: (params: I.CommentDel) => {
+    const response = authAxios.delete(`/comment/delete/${params.commentNo}`, {
+      data: params,
+    });
     return response;
   },
 };

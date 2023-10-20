@@ -3,7 +3,7 @@ import storage from 'redux-persist/lib/storage';
 import {combineReducers} from '@reduxjs/toolkit';
 import modalReducer from './reducer/modalReducer';
 import loginReducer from './reducer/loginReducer';
-import createVideoSlice from './reducer/createVideoSlice';
+import createVideoSlice from './reducer/createVideoReducer';
 import mypageReducer from './reducer/mypageReducer';
 import learningReducer from './reducer/learningReducer';
 import validationReducer from './reducer/validationReducer';
@@ -13,6 +13,7 @@ import pointReducer from './reducer/pointReducer';
 import userReducer from './reducer/userReducer';
 import noticeReducer from './reducer/noticeReducer';
 import cartReducer from './reducer/cartReducer';
+import googleLoginSlice from './reducer/googleLoginReducer';
 
 const persistConfig = {
   key: 'root',
@@ -33,6 +34,7 @@ const rootReducer = combineReducers({
   pointReducer,
   noticeReducer,
   cartReducer,
+  googleLoginSlice,
 });
 
 export default persistReducer(persistConfig, rootReducer);

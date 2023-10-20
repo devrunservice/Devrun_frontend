@@ -12,27 +12,32 @@ import { noticeListLoading } from "../../../redux/reducer/noticeReducer";
 const Notice = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate();
-  const {data} = useSelector((state:RootState)=>state.noticeReducer)
-  const { write } = useSelector((state: RootState) => state.noticeReducer);
+  const { data, write } = useSelector(
+    (state: RootState) => state.noticeReducer
+  );
+  const user = useSelector((state: RootState) => state.userReducer.data);
+
   const [pageno, setPageno] = useState<number>(1);
   useEffect(() => {
     dispatch(noticeListLoading(pageno));
   }, [pageno, write]);
   return (
     <S.Inner>
-      <UserTop title="공지사항" sub="전체" />
+      <UserTop title="공지사항" sub="전체" count={data.totalElements} />
 
       <NoticeTable data={data} />
+      {user.role === "ADMIN" && (
+        <S.ButtonWrap>
+          <S.Button
+            $active
+            type="button"
+            onClick={() => navigate("/noticeWrite")}
+          >
+            글쓰기
+          </S.Button>
+        </S.ButtonWrap>
+      )}
 
-      <S.ButtonWrap>
-        <S.Button
-          $active
-          type="button"
-          onClick={() => navigate("/noticeWrite")}
-        >
-          글쓰기
-        </S.Button>
-      </S.ButtonWrap>
       <Pagination pageno={pageno} setPageno={setPageno} data={data} />
     </S.Inner>
   );

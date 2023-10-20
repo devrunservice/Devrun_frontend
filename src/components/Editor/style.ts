@@ -3,13 +3,33 @@ import ReactQuill from "react-quill";
 
 
 export const Editor = styled(ReactQuill)`
-  min-height: 31.25rem;
   .ql-editor {
     min-height: 31.25rem;
+    padding: 1.25rem 1.25rem;
   }
-  .qeSL .ql-toolbar.ql-snow,
-  .qeSL .ql-container.ql-snow {
-    border: 1px solid ${(props: any) => props.theme.borderC};
+  .ql-toolbar.ql-snow,
+  .ql-container.ql-snow {
+    border-top: 0;
+  }
+  p {
+    font-family: "Nanum Gothic", sans-serif;
+  }
+  .ql-font-Pretendard {
+    font-family: "Pretendard";
+  }
+  .ql-font-Roboto {
+    font-family: "Roboto", sans-serif;
+  }
+  strong {
+    font-weight: 700;
+  }
+  em {
+    font-style: italic;
+  }
+  .ql-formats button,
+  .ql-formats .ql-color,
+  .ql-formats .ql-background {
+    font-size: 0;
   }
 `;
 

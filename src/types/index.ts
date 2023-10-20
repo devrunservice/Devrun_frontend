@@ -155,6 +155,7 @@ export interface CreateLectureType {
 export interface category {
   lectureBigCategory: string;
   lectureMidCategory: string;
+  categoryNo: number;
 }
 export interface SectionType {
   lectureSectionId: number;
@@ -163,7 +164,8 @@ export interface SectionType {
 export interface VideoType {
   lectureSectionId: number;
   videoNo: number;
-  file: videoFileType | undefined;
+  file: Blob | string;
+  // file: videoFileType | null | undefined
   videoTitle: string;
 }
 export interface videoFileType {
@@ -429,20 +431,30 @@ export interface Notices {
   data: Notice;
   loading?: boolean;
   error?: Error | null;
-  content?: NoticeList;
-  write?: string;
-  datas?: Comments;
-  comments?: CommentsList;
-  commentRe?: CommentsList;
+  content: NoticeList;
+  write: string;
+  datas: Comments;
+  del: '';
+  comments: CommentsList;
+  commentRe: CommentsList;
+}
+export interface NoticesTabel {
+  data: Notice;
 }
 export interface NoticeNum {
   noticeNo: number;
 }
 
-export interface NoticeUpload {
+export interface NoticeUrl {
   path: string;
-  formData: FormData;
+  fileName: string;
+  fileExt: string;
 }
+export interface NoticePostUrl {
+  url: string;
+  file?: File;
+}
+
 export interface NoticeWrite {
   noticeNo: string | number | undefined;
   title: string;
@@ -457,6 +469,10 @@ export interface Comment {
 }
 export interface CommentRetouch {
   content: string;
+  commentNo: number;
+}
+export interface CommentDel {
+  id: string;
   commentNo: number;
 }
 
