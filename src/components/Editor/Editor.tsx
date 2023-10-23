@@ -17,6 +17,7 @@ import {
   noticeRetouchLoading,
 } from "../../redux/reducer/noticeReducer";
 
+declare module "quill-image-resize-module-react";
 
 Quill.register("modules/imageResize", ImageResize);
 
