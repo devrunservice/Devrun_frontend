@@ -4,7 +4,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { useNavigate } from "react-router-dom";
 import { Product, UserInfo, CouponPop } from "components";
@@ -17,7 +17,6 @@ import * as St from "./style";
 
 const Basket = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const priceDot = (num: number) =>
     num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   const { data,couponPrice } = useSelector((state: RootState) => state.cartReducer)

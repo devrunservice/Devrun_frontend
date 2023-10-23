@@ -12,7 +12,10 @@ export const authAxios = axios.create({
   withCredentials: true,
   headers: {'Content-type': 'application/json'},
 });
-
+export const imageTypeAxios = axios.create({
+  withCredentials: true,
+  headers: { "Content-Type": "image/*" },
+});
 export const imageAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
   headers: {'Content-Type': 'multipart/form-data'},

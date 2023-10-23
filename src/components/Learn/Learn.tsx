@@ -20,8 +20,8 @@ const Learn: React.FC<LearningType> = ({
       <St.TitleText>{title}</St.TitleText>
 
       <St.TextWrap>
-        <St.Progress>{`진도율 ( ${rating}% )`}</St.Progress>
-        <St.Date>기한 : 무제한</St.Date>
+        <p>{`진도율 ( ${rating}% )`}</p>
+        <p>기한 : 무제한</p>
       </St.TextWrap>
       <St.Gauge style={{background: '#5F4B8B', width: `${rating}%`}} />
     </St.LearnLi>

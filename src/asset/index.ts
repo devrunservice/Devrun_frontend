@@ -28,3 +28,12 @@ export {ReactComponent as Stamp} from './images/Stamp.svg';
 export {ReactComponent as Email} from './images/Email.svg';
 export {ReactComponent as SignupFailure} from './images/SignupFailure.svg';
 export {ReactComponent as SignupSuccess} from './images/SignupSuccess.svg';
+
+export { ReactComponent as CertIcon } from "./images/CertIcon.svg";
+export { ReactComponent as GameIcon } from "./images/GameIcon.svg";
+export { ReactComponent as JavaIcon } from "./images/JavaIcon.svg";
+export { ReactComponent as JsIcon } from "./images/JsIcon.svg";
+export { ReactComponent as MobileIcon } from "./images/MobileIcon.svg";
+export { ReactComponent as NetworkIcon } from "./images/NetworkIcon.svg";
+export { ReactComponent as ReactIcon } from "./images/ReactIcon.svg";
+export { ReactComponent as SQLIcon } from "./images/SQLIcon.svg";

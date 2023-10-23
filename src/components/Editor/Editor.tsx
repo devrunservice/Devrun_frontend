@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import ReactQuill, { Quill } from "react-quill";
+import ImageResize from "quill-image-resize-module-react";
 import { notice } from "utils/api";
 import * as I from "types";
 import "react-quill/dist/quill.snow.css";
@@ -15,6 +16,9 @@ import {
   noticeWriteLoading,
   noticeRetouchLoading,
 } from "../../redux/reducer/noticeReducer";
+
+
+Quill.register("modules/imageResize", ImageResize);
 
 interface path {
   path: string;
@@ -97,6 +101,10 @@ const Editor = (props: path) => {
         handlers: {
           image: onImage,
         },
+      },
+      imageResize: {
+        parchment: Quill.import("parchment"),
+        modules: ["Resize", "DisplaySize", "Toolbar"],
       },
     }),
     []
