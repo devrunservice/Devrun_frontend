@@ -25,9 +25,7 @@
     "**/*.ts",
     "**/*.tsx",
     "src",
-    "asset/custom.d.ts",
-    "types/Types.d.ts",
-    "utils/metaTag.tsx"
+    "asset/custom.d.ts"
   ],
   "use": ["@svg/webpack"]
 }
