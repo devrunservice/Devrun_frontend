@@ -1,7 +1,6 @@
 import React from 'react';
 import { Outlet, useLocation } from "react-router-dom";
-import {Footer, Header, MypageNav} from 'components';
-import MetaTag from "utils/metaTag";
+import {Footer, Header, MypageNav,MetaTag} from 'components';
 import * as St from 'style/Common';
 
 

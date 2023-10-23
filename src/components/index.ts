@@ -34,3 +34,4 @@ export {default as ProfileForm} from './ProfileForm/ProfileForm';
 export {default as CouponList} from './CouponList/CouponList';
 export {default as Timer} from './Timer/Timer';
 export { default as CurriculumSection } from "./CurriculumSection/CurriculumSection";
+export { default as MetaTag } from "./MetaTag/MetaTag";
