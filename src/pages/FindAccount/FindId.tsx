@@ -1,16 +1,18 @@
 import React from 'react';
 // import {BrandLogo} from 'asset';
-import {redirect} from 'utils/redirect';
+import {useNavigate} from 'react-router-dom';
 import FindAccount from 'components/FindAccount/FindAccount';
 import * as St from './styles';
 
 const FindId = () => {
+  const navigate = useNavigate();
+
   const moveToFindId = () => {
-    redirect('/findaccount/id');
+    navigate('/findaccount/id');
   };
 
   const moveToFindPassword = () => {
-    redirect('/findaccount/password');
+    navigate('/findaccount/password');
   };
   return (
     <St.Section>

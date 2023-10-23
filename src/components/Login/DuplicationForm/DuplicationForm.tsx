@@ -107,7 +107,7 @@ const DuplicationForm = ({
               value={id}
               placeholder={placeholder}
               onChange={handleChange}
-              required
+              // required
             />
             <St.Button
               type="button"
@@ -140,7 +140,7 @@ const DuplicationForm = ({
               value={email}
               placeholder={placeholder}
               onChange={handleChange}
-              required
+              // required
             />
             <p>@</p>
             <select name="domainList" onChange={handleChange}>

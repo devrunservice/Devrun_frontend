@@ -32,14 +32,10 @@ const router = createBrowserRouter([
           <Navigate replace to="/login" />
         ),
       },
-      { path: "login", element: <Route.Login /> },
-      { path: "auth/kakao/callback", element: <Route.Auth2RedirectHandler /> },
-      { path: "signup", element: <Route.Signup /> },
-      { path: "signupconfirm", element: <Route.SignupConfirm /> },
-      {
-        path: "signupverification",
-        element: <Route.Signup2RedirectHandler />,
-      },
+      {path: 'login', element: <Route.Login />},
+      {path: 'auth/kakao/callback', element: <Route.Auth2RedirectHandler />},
+      {path: 'signup', element: <Route.Signup />},
+      {path: 'signupconfirm', element: <Route.SignupConfirm />},
       {
         path: "signupcompletion",
         element: <Route.SignupCompletion />,

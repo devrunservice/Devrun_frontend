@@ -10,7 +10,7 @@ export const baseAxios = axios.create({
 export const authAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
   withCredentials: true,
-  headers: { "Content-type": "application/json" },
+  headers: {'Content-type': 'application/json'},
 });
 export const imageTypeAxios = axios.create({
   withCredentials: true,
@@ -18,10 +18,9 @@ export const imageTypeAxios = axios.create({
 });
 export const imageAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,
-  headers: { "Content-Type": "multipart/form-data" },
+  headers: {'Content-Type': 'multipart/form-data'},
   withCredentials: true,
 });
-
 
 baseAxios.interceptors.request.use(
   (config) => {
@@ -83,6 +82,8 @@ baseAxios.interceptors.response.use(
             );
           case 'information cannot be null or empty':
             return Promise.reject(new Error('회원가입 양식을 작성해주세요.'));
+          case 'User has not agreed to the terms':
+            return Promise.reject(new Error('약관동의를 진행해주세요.'));
           case 'Already linked to another user':
             return Promise.reject(
               new Error('로그인 되어있는 계정이 있습니다.')
@@ -158,8 +159,6 @@ baseAxios.interceptors.response.use(
 
       case 403:
         switch (errorMessage) {
-          case 'User has not agreed to the terms':
-            return Promise.reject(new Error('약관동의를 진행해주세요.'));
           case 'Account has been withdrawn':
             return Promise.reject(new Error('탈퇴한 회원입니다.'));
           case 'Verification failed Phonenumber':
@@ -284,7 +283,7 @@ authAxios.interceptors.response.use(
         switch (errorMessage) {
           case 'This email is duplicated':
             return Promise.reject(new Error('이메일이 중복되었습니다.'));
-            
+
           default:
             break;
         }

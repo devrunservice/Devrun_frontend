@@ -36,8 +36,6 @@ const AuthenticationNumber = ({
     (state: RootState) => state.validationReducer.messageState
   );
 
-  // const {requestAuthenticationNumber, verifyAuthenticationNumber} =
-  //   useValid(authenticationForm);
   const {updateValid, updateMessage} = useValid(authenticationForm);
 
   useEffect(() => {
@@ -50,6 +48,15 @@ const AuthenticationNumber = ({
       validState.checkCodeBtn
     );
   }, [authenticationForm, validState.checkCodeBtn]);
+
+  useEffect(() => {
+    setAuthenticationForm({
+      ...authenticationForm,
+      phonenumber: '',
+      email: '',
+      code: '',
+    });
+  }, [option]);
 
   // console.log(isValid);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -221,7 +228,7 @@ const AuthenticationNumber = ({
               value={authenticationForm.phonenumber}
               placeholder="휴대폰 번호 '-' 제외하고 입력"
               onChange={handleInputChange}
-              required
+              // required
             />
             <St.Button
               type="button"
@@ -249,7 +256,7 @@ const AuthenticationNumber = ({
                 value={authenticationForm.code}
                 placeholder="인증번호 입력"
                 onChange={handleInputChange}
-                required
+                // required
               />
               <Timer page={page} />
               <St.Button
@@ -277,7 +284,7 @@ const AuthenticationNumber = ({
               value={authenticationForm.email}
               placeholder="이메일"
               onChange={handleInputChange}
-              required
+              // required
             />
             <St.Button
               type="button"
@@ -307,7 +314,7 @@ const AuthenticationNumber = ({
                 value={authenticationForm.code}
                 placeholder="인증번호 입력"
                 onChange={handleInputChange}
-                required
+                // required
               />
               <Timer page={page} />
               <St.Button

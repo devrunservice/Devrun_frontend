@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
@@ -51,11 +51,24 @@ const FindAccount = ({findOption}: {findOption: string}) => {
       setOption('phonenumber');
       setIsChecked((prev) => ({...prev, phonenumberRadioBox: true}));
       setIsChecked((prev) => ({...prev, emailRadioBox: false}));
+      setFindAccountForm({
+        ...findAccountForm,
+        id: '',
+        phonenumber: '',
+        email: '',
+      });
     } else {
       setOption('email');
       setIsChecked((prev) => ({...prev, phonenumberRadioBox: false}));
       setIsChecked((prev) => ({...prev, emailRadioBox: true}));
+      setFindAccountForm({
+        ...findAccountForm,
+        id: '',
+        phonenumber: '',
+        email: '',
+      });
     }
+    console.log(findAccountForm);
   };
 
   // 휴대폰 번호 및 인증번호 값 가져오기
@@ -169,14 +182,6 @@ const FindAccount = ({findOption}: {findOption: string}) => {
           <p>이메일</p>
         </St.Option>
       </St.OptionWrapper>
-
-      {/* <Input
-          type="text"
-          placeholder="이름"
-          isPwd={false}
-          value={name}
-          handleChange={onNameHandler}
-        /> */}
 
       {/* Finding Account Form */}
       <form onSubmit={handleSubmit}>

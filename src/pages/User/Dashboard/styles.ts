@@ -1,4 +1,4 @@
-import { styled } from "styled-components";
+import {styled} from 'styled-components';
 
 export const WelcomeMessage = styled.div`
   display: flex;
@@ -9,12 +9,16 @@ export const WelcomeMessage = styled.div`
   margin-bottom: 1rem;
 
   & > div:nth-child(1) {
-    font-size:1.5625rem
+    font-size: 1.5625rem;
     font-weight: 700;
     color: ${(props) => props.theme.brandColor};
     text-decoration: underline;
     text-underline-offset: 0.4rem;
   }
+`;
+
+export const LearningWrapper = styled.div`
+  margin-bottom: 48px;
 `;
 
 export const TitleWrapper = styled.div`
