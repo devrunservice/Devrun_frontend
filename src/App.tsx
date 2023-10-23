@@ -1,8 +1,9 @@
 import React from 'react';
 import { Outlet, useLocation } from "react-router-dom";
 import {Footer, Header, MypageNav} from 'components';
+import MetaTag from "MetaTag";
 import * as St from 'style/Common';
-import MetaTag from "./utils/MetaTag";
+
 
 const App = () => {
   const location = useLocation();
