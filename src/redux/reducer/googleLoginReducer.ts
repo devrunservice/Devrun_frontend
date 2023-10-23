@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   googleLogin: false,
-  googleToken: ''
+  googleToken: '',
+  urlToken: ''
 }
 
 const googleLoginSlice = createSlice({
@@ -15,8 +16,11 @@ const googleLoginSlice = createSlice({
     getGoogleToken: (state, action) => {
       state.googleToken = action.payload
       console.log('goo t',action.payload)
+    },
+    setUrlToken: (state, action) => {
+      state.urlToken = action.payload
     }
   }
 })
-export const { setGoogleLogin, getGoogleToken} = googleLoginSlice.actions
+export const { setGoogleLogin, getGoogleToken, setUrlToken} = googleLoginSlice.actions
 export default googleLoginSlice.reducer

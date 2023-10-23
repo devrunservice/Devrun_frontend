@@ -232,6 +232,11 @@ export const create = {
     return response;
   },
 };
+
+
+const headers = {
+  "Content-Type": "image/*",
+};
 export const notice = {
   getUrl: (params: I.NoticeUrl) => {
     const response = authAxios.post(`/${params.path}/presignurl`, {
@@ -248,6 +253,7 @@ export const notice = {
       data: params.file,
       maxRedirects: 5,
       validateStatus: null,
+      headers: headers,
     });
     return response;
   },

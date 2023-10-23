@@ -50,7 +50,6 @@ const CurriculumSection:React.FC<curriculumPropsType> = ({list, index, changeCla
                 value={item.videoTitle||''}
                 onChange={(event)=>changeClassTitles(event, item.videoNo)}
               />
-              {/* {item.file === undefined||item.file === null ? '제목없음' : item.file.name.split('.')[0]} */}
               <p>URL</p>
               <St.FileInput 
                 onChange={(event:any)=>changeVideoFiles(event, item.videoNo)} 
@@ -59,7 +58,6 @@ const CurriculumSection:React.FC<curriculumPropsType> = ({list, index, changeCla
                 name="url" 
                 accept="video/*"
                 style={{width:'600px'}}
-                // value={item.file === undefined||item.file === null ? '제목없음' : item.file.name.split('.')[0]}
               /> 
             </div>
             <St.FlexLine>
@@ -69,8 +67,6 @@ const CurriculumSection:React.FC<curriculumPropsType> = ({list, index, changeCla
           ) : null
         ))      
       }
-
-      
     </St.CurriculumSectionWrap>
   )
 };

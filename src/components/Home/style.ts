@@ -1,4 +1,5 @@
 import {styled} from 'styled-components'
+import { Search, Arrow } from "asset";
 import MainVisual from "asset/images/MainVisual.jpg";
 
 
@@ -39,6 +40,42 @@ export const FullWidthImg = styled.div`
   background-repeat: no-repeat;
 `;
 
+export const SearchTitle = styled(ListTitle)`
+  font-size: 1.5625rem;
+  text-align:center;
+`;
+
+export const SearchBox = styled.div`
+  position: relative;
+  width: 40rem;
+  margin: 0 auto;
+`;
+export const SearchInput = styled.input`
+  border: 1px solid ${(props: any) => props.theme.borderC};
+  border-radius: 3.125rem;
+  height: 3.75rem;
+  padding: 0 4rem 0 1.5625rem;
+  width: 100%;
+  outline: 0;
+  margin-bottom: 2rem;
+  background: ${(props: any) => props.theme.bgNavcolor};
+  font-size: 1rem;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.5s;
+  &:hover ,&:focus{
+    background: ${(props: any) => props.theme.bgColor};
+  }
+`;
+export const SearchIcon = styled(Search)`
+  position: absolute;
+  margin: auto 0;
+  right: 1.5625rem;
+  top: 1rem;
+  cursor: pointer;
+  
+`;
+
+
 export const Section = styled.ul`
   display: flex;
   justify-content: space-between;
@@ -56,7 +93,7 @@ export const SectionLi = styled.li`
 `;
 export const CategoryIcon = styled.div`
   position: relative;
-  width: 3.125rem;
+  width: 2.5rem;
   > svg {
     width: inherit;
     height: inherit;
@@ -138,4 +175,58 @@ export const Gauge = styled.div`
     left: 0;
     position: absolute;
   }
+`;
+export const NoticeBg = styled.div`
+  background: ${(props: any) => props.theme.bgGrayColor};
+  width:100%;
+`;
+export const Notice = styled.div`
+  margin: 0 auto;
+  width: 1200px;
+  display: flex;
+  gap: 2rem;
+  padding: 2.4rem 0;
+`;
+export const NoticeLeft = styled.p`
+  color: ${(props: any) => props.theme.black};
+  font-weight: 600;
+  line-height: 1;
+  width:4rem;
+`;
+export const NoticeRightUl = styled.ul`
+  width:calc(100% - 6rem)
+`;
+export const NoticeRightLi = styled.li`
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid ${(props: any) => props.theme.borderD};
+  line-height: 1;
+  padding-bottom: 0.875rem;
+  margin-bottom: 0.875rem;
+  cursor: pointer;
+  &:last-child {
+    border-bottom: 0px solid ${(props: any) => props.theme.borderD};
+    padding-bottom: 0rem;
+    margin-bottom: 0rem;
+  }
+  > p {
+    width: calc(100% - 9.5%);
+    padding-right: 2rem;
+    font-size: 0.875rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  > span {
+    width: 9.5%;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+`;
+
+export const Arr = styled(Arrow)`
+  transform: rotateZ(-90deg);
+  font-size:0;
 `;

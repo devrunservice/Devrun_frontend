@@ -2,6 +2,7 @@ import React, {ReactNode} from 'react';
 import ReactDOM from 'react-dom/client';
 import {createBrowserRouter, RouterProvider, Navigate} from 'react-router-dom';
 import {ThemeProvider} from 'styled-components';
+import { HelmetProvider } from 'react-helmet-async';
 import {GlobalStyle, defaultTheme} from 'style/Theme';
 import {getCookie} from 'utils/cookies';
 import {Provider} from 'react-redux';
@@ -87,18 +88,29 @@ const router = createBrowserRouter([
   },
 ]);
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
+const rootElement = document.getElementById("root") as HTMLElement;
+
+
+const element = (
   <ThemeProvider theme={defaultTheme}>
     <GlobalStyle />
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <RouterProvider router={router} />
-      </PersistGate>
-    </Provider>
+    <HelmetProvider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <RouterProvider router={router} />
+        </PersistGate>
+      </Provider>
+    </HelmetProvider>
   </ThemeProvider>
 );
+
+if (rootElement.hasChildNodes()) {
+  ReactDOM.hydrateRoot(rootElement, element);
+} else {
+  ReactDOM.createRoot(rootElement).render(element);
+}
+
+
+
 
 reportWebVitals();

@@ -49,8 +49,7 @@
     "no-new": "off",
     "react/destructuring-assignment": [0, "always"],
     "arrow-body-style": "off",
-    "no-bitwise": "off"
-    ,
+    "no-bitwise": "off",
     "no-nested-ternary": "off"
   },
 

@@ -4,6 +4,7 @@ import { IPriceButton } from "types";
 export const CreateVideoWrap = styled.section`
   width: 1200px;
   margin: 0 auto;
+  min-height: calc(100vh - 260px);
 `
 export const CreateVideoArticle = styled.article`
   border-bottom: 1px solid #ddd;
