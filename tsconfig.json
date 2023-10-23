@@ -21,6 +21,13 @@
     "strictNullChecks": true,
     "typeRoots": ["./@types", "./node_modules/@types"]
   },
-  "include": ["**/*.ts", "**/*.tsx", "src", "asset/custom.d.ts"],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "src",
+    "asset/custom.d.ts",
+    "types/Types.d.ts",
+    "utils/metaTag.tsx"
+  ],
   "use": ["@svg/webpack"]
 }
