@@ -72,7 +72,7 @@ export const SubText = styled.p`
   line-height: 1;
 `;
 export const Writer = styled.p`
-  font-size: 0.875rem
+  font-size: 0.875rem;
   line-height: 1;
 `;
 export const Hours = styled.span`

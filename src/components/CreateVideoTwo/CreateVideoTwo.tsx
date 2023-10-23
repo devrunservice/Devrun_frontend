@@ -28,46 +28,57 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
 
   /* 강의 수업추가 */
   const addClasses = (id: number) => {
-    if(videoStore.videoList) {
-      const maxSectionId = videoStore.videoList.reduce((max, section) =>
-        section.videoNo > max ? section.videoNo : max,
+    if (videoStore.videoList) {
+      const maxSectionId = videoStore.videoList.reduce(
+        (max, section) => (section.videoNo > max ? section.videoNo : max),
         -1
       );
-      dispatch(addClass({videoNo:maxSectionId + 1, lectureSectionId:id}))
+      dispatch(addClass({ videoNo: maxSectionId + 1, lectureSectionId: id }));
     }
   };
 
   /* 강의 섹션추가 */
   const addSections = () => {
-    const maxSectionId = videoStore.lectureSectionList.reduce((max, section) =>
-      section.lectureSectionId > max ? section.lectureSectionId : max,
+    const maxSectionId = videoStore.lectureSectionList.reduce(
+      (max, section) =>
+        section.lectureSectionId > max ? section.lectureSectionId : max,
       -1
     );
-    dispatch(addSection({ lectureSectionId: maxSectionId + 1, sectionTitle: '' }));
+    dispatch(
+      addSection({ lectureSectionId: maxSectionId + 1, sectionTitle: "" })
+    );
     addClasses(Number(maxSectionId + 1));
   };
 
   /* 강의 섹션삭제 */
   const deleteSections = (listIndex: number) => {
-    dispatch(setClass(
-      videoStore.videoList?.filter(list=> list.lectureSectionId !== listIndex + 1)
-    ))
-    dispatch(deleteSection(
-      videoStore.lectureSectionList.filter((_list:any, index:number)=>index !== listIndex)
-    ))
-  }
+    dispatch(
+      setClass(
+        videoStore.videoList?.filter(
+          (list) => list.lectureSectionId !== listIndex + 1
+        )
+      )
+    );
+    dispatch(
+      deleteSection(
+        videoStore.lectureSectionList.filter(
+          (_list: any, index: number) => index !== listIndex
+        )
+      )
+    );
+  };
 
   /* 강의 수업삭제 */
-  const deleteClasses = (id:number) => {
-    dispatch(deleteClass(
-      videoStore.videoList?.filter(list=>list.videoNo !== id)
-    ))
-  }
+  const deleteClasses = (id: number) => {
+    dispatch(
+      deleteClass(videoStore.videoList?.filter((list) => list.videoNo !== id))
+    );
+  };
 
   /* 섹션 제목 변경 */
-  const changeTitles = (e:React.ChangeEvent<HTMLInputElement>, id:number) => {
-    dispatch(changeTitle({id, value: e.target.value}))
-  }
+  const changeTitles = (e: React.ChangeEvent<HTMLInputElement>, id: number) => {
+    dispatch(changeTitle({ id, value: e.target.value }));
+  };
 
   /* 수업 제목 변경 */
   const changeClassTitles = (e:React.ChangeEvent<HTMLInputElement>, id:number) => {
@@ -75,16 +86,21 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
   }
 
   /* 비디오 추가 */
-  const changeVideoFiles = (e:React.ChangeEvent<HTMLInputElement>, id:number) => {
-    const {files} = e.target
+  const changeVideoFiles = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    id: number
+  ) => {
+    const { files } = e.target;
     if (files && files.length > 0) {
       const file = files[0];
-      dispatch(changeVideoFile({
-        file,
-        id
-      }))
+      dispatch(
+        changeVideoFile({
+          file,
+          id,
+        })
+      );
     }
-  }
+  };
 
   /* 강의등록 */
   const postVideo = () => {
@@ -161,32 +177,34 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
         <St.ArticleTitle>
           <span>커리큘럼 등록</span>
           <button onClick={addSections}>
-            <PlusCircle/>섹션추가하기
+            <PlusCircle />
+            섹션추가하기
           </button>
         </St.ArticleTitle>
-        {
-          videoStore.lectureSectionList.map((list: any, index:number)=>(
-            <CurriculumSection 
-              list={list} key={list.lectureSectionId}
-              index={index}
-              deleteSections={deleteSections}
-              addClasses={addClasses}
-              deleteClasses={deleteClasses}
-              changeTitles={changeTitles}
-              changeVideoFiles={changeVideoFiles}
-              changeClassTitles={changeClassTitles}
-            />
-          ))
-        }
+        {videoStore.lectureSectionList.map((list: any, index: number) => (
+          <CurriculumSection
+            list={list}
+            key={list.lectureSectionId}
+            index={index}
+            deleteSections={deleteSections}
+            addClasses={addClasses}
+            deleteClasses={deleteClasses}
+            changeTitles={changeTitles}
+            changeVideoFiles={changeVideoFiles}
+            changeClassTitles={changeClassTitles}
+          />
+        ))}
         <div>
-          <St.OtherBtn onClick={()=>PrevPage()} type="button">이전</St.OtherBtn>
+          <St.OtherBtn onClick={() => PrevPage()} type="button">
+            이전
+          </St.OtherBtn>
           <St.NextCreateBtn onClick={postVideo}>등록</St.NextCreateBtn>
         </div>
       </St.CreateVideoArticle>
       { modal && <CommonModal text={text} btNum={btNum} flag={flag} closeModalAccept={closeModalAccept} closeModalCancel={closeModalCancel}/> }
       {loading && <Spinner />}
     </St.CreateVideoWrap>
-  )
-}
+  );
+};
 
 export default CreateVideoTwo;

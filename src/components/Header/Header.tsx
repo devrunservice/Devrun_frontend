@@ -37,7 +37,7 @@ const Header = () => {
       <Modal page="home" />
       <St.InnerHeader>
         <St.NavWrap>
-          <St.LogoIcon onClick={() => navigate('/')}>
+          <St.LogoIcon onClick={() => navigate("/")}>
             <img src={Logo} alt="로고" />
           </St.LogoIcon>
           <St.CategoryWrap>
@@ -45,9 +45,7 @@ const Header = () => {
               <St.CategoryIcon />
               카테고리
             </St.CategoryLi>
-            <St.CategoryLi>DEVRUN 깜짝특가</St.CategoryLi>
-            <St.CategoryLi>BEST</St.CategoryLi>
-            <St.CategoryLi onClick={() => navigate('/notice')}>
+            <St.CategoryLi onClick={() => navigate("/notice")}>
               공지사항
             </St.CategoryLi>
             <St.CategoryLi onClick={() => navigate('/createVideo')}>
@@ -92,7 +90,7 @@ const Header = () => {
                       </St.TextWrap>
                     </St.CartLi>
                   </St.CartUl>
-                  <St.CartButton onClick={() => navigate('/basket')}>
+                  <St.CartButton onClick={() => navigate("/basket")}>
                     장바구니에서 전체보기
                   </St.CartButton>
                 </St.CartHover>
@@ -120,11 +118,11 @@ const Header = () => {
             </St.NavWrap>
           ) : (
             <St.ButtonWrap>
-              <Button onClick={() => navigate('/login')} type="button" $active>
+              <Button onClick={() => navigate("/login")} type="button" $active>
                 로그인
               </Button>
               <Button
-                onClick={() => navigate('/signup')}
+                onClick={() => navigate("/signup")}
                 type="button"
                 $active={false}
               >

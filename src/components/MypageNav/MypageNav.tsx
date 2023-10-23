@@ -1,17 +1,13 @@
-import React from 'react';
-import {useNavigate} from 'react-router-dom';
-import {useSelector} from 'react-redux';
-import {RootState} from 'redux/store';
-import * as St from './style';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import * as St from "./style";
 
 const MypageNav = () => {
   const navigate = useNavigate();
   const local = window.location.pathname;
-  const userData = useSelector((state: RootState) => state.userReducer.data);
   return (
     <St.Aside>
-      {userData.role === 'STUDENT' && (
-        <>
+      
           <St.AsideUl>
             <St.AsideTit>학습 관리</St.AsideTit>
             <St.AsideBtn
@@ -73,10 +69,9 @@ const MypageNav = () => {
               구매 내역
             </St.AsideBtn>
           </St.AsideUl>
-        </>
-      )}
+       
 
-      {userData.role === 'MENTO' && (
+      {/* {userData.role === "MENTO" && (
         <St.AsideUl>
           <St.AsideTit>강의관리</St.AsideTit>
           <St.AsideBtn
@@ -86,7 +81,7 @@ const MypageNav = () => {
             쿠폰 관리
           </St.AsideBtn>
         </St.AsideUl>
-      )}
+      )} */}
     </St.Aside>
   );
 };

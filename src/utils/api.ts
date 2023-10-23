@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import axios from 'axios';
 import * as I from 'types';
 
-import {baseAxios, authAxios, imageAxios} from './instance';
+import { baseAxios, authAxios, imageAxios, imageTypeAxios } from "./instance";
 
 export const signup = {
   // 회원가입
@@ -215,8 +214,10 @@ export const create = {
     return response;
   },
 };
+
+
 const headers = {
-  "Content-Type": "image/png",
+  "Content-Type": "image/*",
 };
 export const notice = {
   getUrl: (params: I.NoticeUrl) => {
@@ -228,7 +229,7 @@ export const notice = {
   },
 
   postUrl: (params: I.NoticePostUrl) => {
-    const response = axios.request({
+    const response = imageTypeAxios.request({
       method: "put",
       url: params.url,
       data: params.file,
@@ -282,5 +283,13 @@ export const notice = {
     return response;
   },
 };
+
+export const cata = {
+  getCata: () => {
+    const response = authAxios.get("/lectureregist/categories");
+    return response;
+  },
+};
+
 
 /* eslint-disable @typescript-eslint/no-unused-vars */

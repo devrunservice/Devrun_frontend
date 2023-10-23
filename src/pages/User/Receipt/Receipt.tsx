@@ -6,7 +6,8 @@ import * as I from "types";
 
 const Receipt = () => {
   const [data, setData] = useState<I.Receipt>();
-const [pageno, setPageno] = useState<number>(1);  useEffect( () => {
+const [pageno, setPageno] = useState<number>(1);  
+useEffect( () => {
     const dataList = async () => {
       const res = await mypage.pay({ pageno });
       setData(res.data);
