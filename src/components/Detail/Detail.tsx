@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import LectureCard from "components/LectureCard/LectureCard";
-import { ListWrap } from "components/Home/style";
+import { ListWrap } from "pages/HomePage/style";
 import { HeartFill, Link, Circle, MoreBtn } from "asset";
 import Curriculum from "components/Curriculum/Curriculum";
 import { Swiper, SwiperSlide } from "swiper/react";
