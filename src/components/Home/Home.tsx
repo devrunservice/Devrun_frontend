@@ -13,7 +13,7 @@ import {
   ReactIcon,
 } from "asset";
 import { Swiper, SwiperSlide } from "swiper/react";
-import * as St from "./style";
+import * as St from "../../pages/HomePage/style";
 import "swiper/swiper.css";
 
 
