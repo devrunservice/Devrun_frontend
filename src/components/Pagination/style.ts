@@ -15,7 +15,7 @@ export const PagingArr = styled.button`
   font-size: 0.75rem;
 
   &:hover {
-    background: ${(props: any) => props.theme.brandColor};
+    background: ${(props: any) => props.theme.mainColor};
     color: ${(props: any) => props.theme.textWhite};
   }
   > svg {
@@ -27,7 +27,7 @@ export const PagingArr = styled.button`
 `;
 export const Paging = styled.button<I.Active>`
   background: ${(props) =>
-    props.$active ? props.theme.brandColor : props.theme.bgGrayColor};
+    props.$active ? props.theme.mainColor : props.theme.bgGrayColor};
   color: ${(props) =>
     props.$active ? props.theme.textWhite : props.theme.textColor};
   width: 2.5rem;

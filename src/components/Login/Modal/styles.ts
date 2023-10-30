@@ -39,7 +39,7 @@ export const Button = styled.button`
   border: none;
   border-radius: 5px;
   color: ${(props) => props.theme.textWhite};
-  background-color: ${(props) => props.theme.brandColor};
+  background-color: ${(props) => props.theme.mainColor};
   cursor: pointer;
 `;
 

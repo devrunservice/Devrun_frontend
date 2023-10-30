@@ -58,7 +58,7 @@ const Detail = () => {
                 __html: DOMPurify.sanitize(content.content),
               }}
             />
-            <St.BtnWrap>
+            <St.BtnWrap $active={false}>
               <S.Button
                 $active={false}
                 type="button"

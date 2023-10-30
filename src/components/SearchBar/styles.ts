@@ -17,5 +17,5 @@ export const SearchBtn = styled.button`
   border-radius: 5px;
   width: 20%;
   color: ${(props) => props.theme.textWhite};
-  background-color: ${(props) => props.theme.brandColor};
+  background-color: ${(props) => props.theme.mainColor};
 `;

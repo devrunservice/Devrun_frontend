@@ -20,7 +20,7 @@ export const Button = styled.button`
 
 export const EmailBtn = styled(Button)<{status: string}>`
   color: ${(props) => props.theme.textWhite};
-  background-color: ${(props) => props.theme.brandColor};
+  background-color: ${(props) => props.theme.mainColor};
   margin: 0.5rem 0;
   padding: 0.8rem 0;
   width: 100%;
@@ -31,7 +31,7 @@ export const EmailBtn = styled(Button)<{status: string}>`
 // 약관동의
 export const AgreementBtn = styled.button`
   background-color: transparent;
-  color: ${(props) => props.theme.brandColor};
+  color: ${(props) => props.theme.mainColor};
   padding: 0;
   font-size: 1rem;
 `;

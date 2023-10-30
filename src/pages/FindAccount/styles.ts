@@ -42,7 +42,7 @@ export const Button = styled.button`
   border: none;
   border-radius: 5px;
   color: ${(props) => props.theme.textWhite};
-  background-color: ${(props) => props.theme.brandColor};
+  background-color: ${(props) => props.theme.mainColor};
   padding: 0.8rem 0;
   cursor: pointer;
 `;
@@ -61,12 +61,12 @@ export const MenuIdBtn = styled(Button)`
   &.id {
     color: ${(props) => props.theme.black};
     background-color: ${(props) => props.theme.bgColor};
-    border: ${(props) => props.theme.brandColor} 2px solid;
+    border: ${(props) => props.theme.mainColor} 2px solid;
     border-bottom: 0;
   }
   &.password {
     color: ${(props) => props.theme.textWhite};
-    background-color: ${(props) => props.theme.brandColor};
+    background-color: ${(props) => props.theme.mainColor};
   }
 `;
 
@@ -76,12 +76,12 @@ export const MenuPasswordBtn = styled(Button)`
   width: 100%;
   &.id {
     color: ${(props) => props.theme.textWhite};
-    background-color: ${(props) => props.theme.brandColor};
+    background-color: ${(props) => props.theme.mainColor};
   }
   &.password {
     color: ${(props) => props.theme.black};
     background-color: ${(props) => props.theme.bgColor};
-    border: ${(props) => props.theme.brandColor} 2px solid;
+    border: ${(props) => props.theme.mainColor} 2px solid;
     border-bottom: 0;
   }
 `;

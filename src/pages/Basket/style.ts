@@ -39,9 +39,9 @@ export const CheckBox = styled.input`
   cursor: pointer;
   border: 1px solid ${(props: any) => props.theme.borderC};
   &:checked {
-    background: ${(props: any) => props.theme.brandColor} url("${Checked}")
+    background: ${(props: any) => props.theme.mainColor} url("${Checked}")
       center center no-repeat;
-    border: 1px solid ${(props: any) => props.theme.brandColor};
+    border: 1px solid ${(props: any) => props.theme.mainColor};
   }
 `;
 
@@ -50,7 +50,7 @@ export const CheckLabel = styled.label`
   padding-left: 5px;
   cursor: pointer;
   > span {
-    color: ${(props: any) => props.theme.brandColor};
+    color: ${(props: any) => props.theme.mainColor};
   }
 `;
 
@@ -100,7 +100,7 @@ export const InfoWrap = styled.div`
   > p {
   }
   > p > span {
-    color: ${(props: any) => props.theme.brandColor};
+    color: ${(props: any) => props.theme.mainColor};
   }
 `;
 
@@ -116,7 +116,7 @@ export const PointInput = styled.input`
   color: ${(props: any) => props.theme.black};
   outline: 0;
   &:focus {
-    border: 1px solid ${(props: any) => props.theme.brandColor};
+    border: 1px solid ${(props: any) => props.theme.mainColor};
   }
   &::placeholder {
     color: ${(props: any) => props.theme.textColor};
@@ -149,7 +149,7 @@ export const Button = styled.button`
   display: block;
   font-size: 0.875rem;
   color: ${(props: any) => props.theme.textWhite};
-  background: ${(props: any) => props.theme.brandColor};
+  background: ${(props: any) => props.theme.mainColor};
 `;
 export const Price = styled.p`
   margin-top: 0.625rem;

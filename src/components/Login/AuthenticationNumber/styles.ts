@@ -43,6 +43,6 @@ export const Field = styled.div<{option?: string}>`
   & > ${Button} {
     width: 25%;
     color: ${(props) => props.theme.textWhite};
-    background-color: ${(props) => props.theme.brandColor};
+    background-color: ${(props) => props.theme.mainColor};
   }
 `;

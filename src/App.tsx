@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Outlet, useLocation } from "react-router-dom";
 import {Footer, Header, MypageNav} from 'components';
 import MetaTag from 'MetaTag';
@@ -7,6 +7,11 @@ import * as St from 'style/Common';
 
 const App = () => {
   const location = useLocation();
+  useEffect(() => {
+    window.scroll(0,0)
+  }, [location]);
+
+
   const hideHeader =
     location.pathname === '/signup' ||
     location.pathname === '/signupconfirm' ||
@@ -30,18 +35,20 @@ const App = () => {
     location.pathname === "/videoView";
 
   const myPage =
-    location.pathname === '/profile' ||
-    location.pathname === '/profileupdate' ||
-    location.pathname === '/cert' ||
-    location.pathname === '/CertDetail' ||
-    location.pathname === '/dashboard' ||
-    location.pathname === '/learning' ||
-    location.pathname === '/notes' ||
-    location.pathname === '/questions' ||
-    location.pathname === '/coupon' ||
-    location.pathname === '/receipt' ||
-    location.pathname === '/createcoupon' ||
-    location.pathname === '/point';
+    location.pathname === "/profile" ||
+    location.pathname === "/profileupdate" ||
+    location.pathname === "/cert" ||
+    location.pathname === "/CertDetail" ||
+    location.pathname === "/dashboard" ||
+    location.pathname === "/learning" ||
+    location.pathname === "/notes" ||
+    location.pathname === "/questions" ||
+    location.pathname === "/coupon" ||
+    location.pathname === "/receipt" ||
+    location.pathname === "/createcoupon" ||
+    location.pathname === "/point" ||
+    location.pathname === "/createVideo" ||
+    location.pathname === "/lecture";
 
   return (
     <>
@@ -57,10 +64,10 @@ const App = () => {
         <Outlet />
       ) : (
         <St.AppSection>
-          <div className="left-panel">
+          <div >
             <MypageNav />
           </div>
-          <div className="right-panel">
+          <div>
             <Outlet />
           </div>
         </St.AppSection>

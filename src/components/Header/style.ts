@@ -139,7 +139,7 @@ export const CartTitle = styled.em`
   color: ${(props: any) => props.theme.black};
 `;
 export const CartNum = styled.span`
-  color: ${(props: any) => props.theme.brandColor};
+  color: ${(props: any) => props.theme.mainColor};
   font-weight: 600;
 `;
 export const CartPrice = styled.em``;
@@ -197,7 +197,7 @@ export const LecturePrice = styled.p`
 export const CartButton = styled.button`
   display: block;
   margin: 1.25rem auto 0;
-  background: ${(props: any) => props.theme.brandColor};
+  background: ${(props: any) => props.theme.mainColor};
   color: ${(props: any) => props.theme.textWhite};
   font-size: 0.875rem;
   width: 100%;
@@ -218,7 +218,7 @@ export const Dropdown = styled(CartHover)`
   }
 
   & button:nth-child(2) {
-    color: ${(props) => props.theme.brandColor};
+    color: ${(props) => props.theme.mainColor};
   }
 
   & p {

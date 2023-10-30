@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { PiArrowLineLeftBold, PiArrowLineRightBold } from "react-icons/pi";
 import { BiLike } from "react-icons/bi";
+import { LuFolderEdit, LuStickyNote } from "react-icons/lu";
+import { Curriculum, Note } from "components";
 import * as St from "./style"
 
 
 
+
 const VideoView = ()=>{
-    console.log("콘솔")
+    const [open, setOpen] = useState({
+      curriculumOpen:false,
+      note:false
+    });
+    const onCurriculum = useCallback(() => {
+      setOpen({ ...open, curriculumOpen: !open.curriculumOpen, note:false });
+    }, [open]);
+    const onNote = useCallback(() => {
+      setOpen({ ...open, curriculumOpen: false, note: !open.note });
+    }, [open]);
     return (
       <St.VideoViewWrap>
         <St.Left>
@@ -53,7 +65,26 @@ const VideoView = ()=>{
             </button>
           </St.Bottom>
         </St.Left>
-        <St.Right>탭버튼</St.Right>
+        <St.Right>
+          <St.Button onClick={() => onCurriculum()}>
+            <LuFolderEdit />
+            <p>커리큘럼</p>
+          </St.Button>
+          <St.Button onClick={() => onNote()}>
+            <LuStickyNote />
+            <p>노트</p>
+          </St.Button>
+        </St.Right>
+        {open.curriculumOpen && (
+          <St.CurriculumWrap>
+            <Curriculum onCurriculum={onCurriculum} />
+          </St.CurriculumWrap>
+        )}
+        {open.note && (
+          <St.CurriculumWrap>
+            <Note onNote={onNote} />
+          </St.CurriculumWrap>
+        )}
       </St.VideoViewWrap>
     );
 }

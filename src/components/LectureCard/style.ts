@@ -3,7 +3,8 @@ import { AiFillStar } from "react-icons/ai";
 
 
 export const List = styled.li`
-  cursor:pointer
+  cursor:pointer;
+  width: 285px;
 `;
 export const ListThumbnail = styled.div`
   border-radius: 10px;
@@ -53,7 +54,7 @@ export const Price = styled.p`
   font-size: 0.875rem;
   color: ${(props) => props.theme.black};
   > span {
-    color: ${(props) => props.theme.brandColor};
+    color: ${(props) => props.theme.mainColor};
     font-size: 1.125rem;
     font-weight: 700;
   }

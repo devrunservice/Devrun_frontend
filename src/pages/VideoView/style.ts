@@ -1,12 +1,13 @@
 import { styled } from "styled-components";
 import { BiArrowBack } from "react-icons/bi";
 
+
 export const VideoViewWrap = styled.div`
     position:relative;
 `
 export const Left = styled.div`
-    width:calc(100% - 60px);
-    margin-right:60px;
+    width:calc(100% - 70px);
+    margin-right:70px;
 `;
 export const Top = styled.div`
   height: 3.75rem;
@@ -100,8 +101,41 @@ export const Bottom = styled.div`
 export const Right = styled.div`
     position:fixed;
     right:0;
-    width:60px;
+    top:0;
+    width:70px;
+    height:100vh;
+`; 
+
+export const Button = styled.button`
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid ${(props: any) => props.theme.borderD};
+  background: none;
+  width: 100%;
+  > p {
+    font-size: 0.75rem;
+    line-height: 1;
+    margin-top: 0.5rem;
+  }
+  > svg {
+    color: ${(props: any) => props.theme.textColor};
+    font-size: 1.375rem;
+  }
+  &:hover p,
+  &:hover svg {
+    color: ${(props: any) => props.theme.mainColor};
+  }
 `;
-
-
-;
+export const CurriculumWrap = styled.aside`
+  position: fixed;
+  right: 70px;
+  height: 100vh;
+  top: 0;
+  z-index: 1;
+  width: 500px;
+  background: ${(props: any) => props.theme.bgColor};
+  border-right: 1px solid ${(props: any) => props.theme.borderD};
+`;

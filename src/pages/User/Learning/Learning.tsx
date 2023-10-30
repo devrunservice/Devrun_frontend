@@ -10,7 +10,6 @@ const Learning = () => {
 
   useEffect(() => {
     dispatch(learningLoading(null));
-    window.scrollTo(0, 0);
   }, []);
 
   const courses = useSelector((state: RootState) => state.learningReducer.data);

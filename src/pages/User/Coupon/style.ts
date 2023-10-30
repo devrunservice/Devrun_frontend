@@ -28,7 +28,7 @@ export const Input = styled.input`
   padding: 0 0.625rem;
   border: 1px solid ${(props: any) => props.theme.borderC};
   &:focus {
-    border: 1px solid ${(props: any) => props.theme.brandColor};
+    border: 1px solid ${(props: any) => props.theme.mainColor};
   }
 `;
 export const Tap = styled.div`

@@ -28,6 +28,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {\
           "packageLocation": "./",\
           "packageDependencies": [\
+            ["@looop/quill-image-resize-module-react", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:3.1.5"],\
             ["@react-oauth/google", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:0.11.1"],\
             ["@reduxjs/toolkit", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:1.9.5"],\
             ["@testing-library/jest-dom", "npm:5.16.5"],\
@@ -69,6 +70,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["file-saver", "npm:2.0.5"],\
             ["html2canvas", "npm:1.4.1"],\
             ["jspdf", "npm:2.5.1"],\
+            ["quill-image-resize-module", "npm:3.0.0"],\
+            ["quill-image-resize-module-react", "npm:3.0.0"],\
             ["react", "npm:18.2.0"],\
             ["react-app", "npm:1.1.2"],\
             ["react-chartjs-2", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:5.2.0"],\
@@ -4094,6 +4097,32 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@leichtgewicht-ip-codec-npm-2.0.4-dd4d657af8-468de1f04d.zip/node_modules/@leichtgewicht/ip-codec/",\
           "packageDependencies": [\
             ["@leichtgewicht/ip-codec", "npm:2.0.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@looop/quill-image-resize-module-react", [\
+        ["npm:3.1.5", {\
+          "packageLocation": "./.yarn/cache/@looop-quill-image-resize-module-react-npm-3.1.5-7a7afd9595-6ae6c12ba8.zip/node_modules/@looop/quill-image-resize-module-react/",\
+          "packageDependencies": [\
+            ["@looop/quill-image-resize-module-react", "npm:3.1.5"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:3.1.5", {\
+          "packageLocation": "./.yarn/__virtual__/@looop-quill-image-resize-module-react-virtual-a3ab39a1eb/0/cache/@looop-quill-image-resize-module-react-npm-3.1.5-7a7afd9595-6ae6c12ba8.zip/node_modules/@looop/quill-image-resize-module-react/",\
+          "packageDependencies": [\
+            ["@looop/quill-image-resize-module-react", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:3.1.5"],\
+            ["@types/lodash", null],\
+            ["@types/quill", null],\
+            ["lodash", null],\
+            ["quill", null]\
+          ],\
+          "packagePeers": [\
+            "@types/lodash",\
+            "@types/quill",\
+            "lodash",\
+            "quill"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -8770,6 +8799,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["devrun_frontend", "workspace:."],\
+            ["@looop/quill-image-resize-module-react", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:3.1.5"],\
             ["@react-oauth/google", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:0.11.1"],\
             ["@reduxjs/toolkit", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:1.9.5"],\
             ["@testing-library/jest-dom", "npm:5.16.5"],\
@@ -8811,6 +8841,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["file-saver", "npm:2.0.5"],\
             ["html2canvas", "npm:1.4.1"],\
             ["jspdf", "npm:2.5.1"],\
+            ["quill-image-resize-module", "npm:3.0.0"],\
+            ["quill-image-resize-module-react", "npm:3.0.0"],\
             ["react", "npm:18.2.0"],\
             ["react-app", "npm:1.1.2"],\
             ["react-chartjs-2", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:5.2.0"],\
@@ -16484,6 +16516,30 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["quill-image-resize-module", [\
+        ["npm:3.0.0", {\
+          "packageLocation": "./.yarn/cache/quill-image-resize-module-npm-3.0.0-99809f38e6-2ebf085907.zip/node_modules/quill-image-resize-module/",\
+          "packageDependencies": [\
+            ["quill-image-resize-module", "npm:3.0.0"],\
+            ["lodash", "npm:4.17.21"],\
+            ["quill", "npm:1.3.7"],\
+            ["raw-loader", "npm:0.5.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["quill-image-resize-module-react", [\
+        ["npm:3.0.0", {\
+          "packageLocation": "./.yarn/cache/quill-image-resize-module-react-npm-3.0.0-d2780e4bfa-073b135c27.zip/node_modules/quill-image-resize-module-react/",\
+          "packageDependencies": [\
+            ["quill-image-resize-module-react", "npm:3.0.0"],\
+            ["lodash", "npm:4.17.21"],\
+            ["quill", "npm:1.3.7"],\
+            ["raw-loader", "npm:0.5.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["raf", [\
         ["npm:3.4.1", {\
           "packageLocation": "./.yarn/cache/raf-npm-3.4.1-c25d48d76e-50ba284e48.zip/node_modules/raf/",\
@@ -16522,6 +16578,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["http-errors", "npm:2.0.0"],\
             ["iconv-lite", "npm:0.4.24"],\
             ["unpipe", "npm:1.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["raw-loader", [\
+        ["npm:0.5.1", {\
+          "packageLocation": "./.yarn/cache/raw-loader-npm-0.5.1-842d4ead25-8051ec0b80.zip/node_modules/raw-loader/",\
+          "packageDependencies": [\
+            ["raw-loader", "npm:0.5.1"]\
           ],\
           "linkType": "HARD"\
         }]\
