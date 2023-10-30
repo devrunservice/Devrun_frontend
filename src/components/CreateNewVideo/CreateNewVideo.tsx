@@ -2,6 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Close, Exclamation } from 'asset';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
+import Quill from 'components/Quill/QuillComponent';
 import axios from 'axios';
 import { deleteTag, bigCategoryType, midCategoryType, setCategoryNo, onImageUrl, onImageFile, onLectureIntro, /* onLectureCategory, */ /* onLectureIntroduce, */ onLectureName, onLecturePrice, onLectureTag } from '../../redux/reducer/createVideoReducer';
 import * as St from './style'
@@ -275,7 +276,9 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
 
         <St.MBThirty>
           <St.ArticleTitle>강좌 소개</St.ArticleTitle>
-          <h1>에디터 들어갈부분</h1>
+          <div>
+            <Quill/>
+          </div>
         </St.MBThirty>
         <St.NextCreateBtn type="button" onClick={() => ChangePage()}>
           다음
