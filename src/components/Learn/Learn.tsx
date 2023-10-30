@@ -23,7 +23,9 @@ const Learn: React.FC<LearningType> = ({
         <p>{`진도율 ( ${rating}% )`}</p>
         <p>기한 : 무제한</p>
       </St.TextWrap>
-      <St.Gauge style={{background: '#5F4B8B', width: `${rating}%`}} />
+      <St.Gauge>
+        <span style={{ background: "#5F4B8B", width: `${rating}%`}} />
+      </St.Gauge>
     </St.LearnLi>
   );
 };

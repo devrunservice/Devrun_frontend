@@ -54,7 +54,7 @@ export const LoginBtn = styled(Button)`
   padding: 0.8rem 0;
   margin-bottom: 1.25rem;
   color: ${(props) => props.theme.textWhite};
-  background-color: ${(props) => props.theme.brandColor};
+  background-color: ${(props) => props.theme.mainColor};
 `;
 
 export const Recaptcha = styled.div`

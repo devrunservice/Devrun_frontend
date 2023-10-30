@@ -5,7 +5,7 @@ export const Coupon = styled.li<I.Active>`
   width: calc((100% - 2.625rem) / 3);
   border: 1px solid
     ${(props: any) =>
-      props.$active ? props.theme.brandColor : props.theme.borderD};
+      props.$active ? props.theme.mainColor : props.theme.borderD};
   border-radius: 5px;
   padding: 1.56rem 1.25rem;
 `;
@@ -35,7 +35,7 @@ export const Bottom = styled.div`
 `;
 export const Discountrate = styled.p<I.Active>`
   color: ${(props: any) =>
-    props.$active ? props.theme.brandColor : props.theme.borderD};
+    props.$active ? props.theme.mainColor : props.theme.borderD};
   font-size: 0.875rem;
   line-height: 1;
   & span {

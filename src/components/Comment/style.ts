@@ -16,7 +16,7 @@ export const CommentCount = styled.p`
   font-size: 1rem;
 `;
 export const Comments = styled.span`
-  color: ${(props: any) => props.theme.brandColor};
+  color: ${(props: any) => props.theme.mainColor};
   font-weight: 500;
 `;
 export const CommentBox = styled.textarea`
@@ -113,7 +113,7 @@ export const CommentWrite = styled.button`
   background: none;
 `;
 export const CommentRe = styled(CommentWrite)`
-  color: ${(props: any) => props.theme.brandColor};
+  color: ${(props: any) => props.theme.mainColor};
 `;
 export const CommentRemove = styled(CommentWrite)`
   color: ${(props: any) => props.theme.textRed};

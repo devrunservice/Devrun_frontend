@@ -37,3 +37,8 @@ export { ReactComponent as MobileIcon } from "./images/MobileIcon.svg";
 export { ReactComponent as NetworkIcon } from "./images/NetworkIcon.svg";
 export { ReactComponent as ReactIcon } from "./images/ReactIcon.svg";
 export { ReactComponent as SQLIcon } from "./images/SQLIcon.svg";
+export { ReactComponent as TestIcon } from "./images/TestIcon.svg";
+export { ReactComponent as AIIcon } from "./images/AIIcon.svg";
+export { ReactComponent as BlockIcon } from "./images/BlockIcon.svg";
+export { ReactComponent as DevIcon } from "./images/DevIcon.svg";
+export { ReactComponent as ScureIcon } from "./images/ScureIcon.svg";

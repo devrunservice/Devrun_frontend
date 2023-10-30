@@ -74,7 +74,6 @@ export const defaultTheme: DefaultTheme = {
   bg343a40: "#343a40",
   bg444: "#444",
   mainColor: "#604B8E",
-  brandColor: "#5F4B8B",
   textColor: "#676767",
   textRed: "#F03B43",
   textYello: "#FFC821",

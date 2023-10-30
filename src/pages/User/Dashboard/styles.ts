@@ -11,7 +11,7 @@ export const WelcomeMessage = styled.div`
   & > div:nth-child(1) {
     font-size: 1.5625rem;
     font-weight: 700;
-    color: ${(props) => props.theme.brandColor};
+    color: ${(props) => props.theme.mainColor};
     text-decoration: underline;
     text-underline-offset: 0.4rem;
   }

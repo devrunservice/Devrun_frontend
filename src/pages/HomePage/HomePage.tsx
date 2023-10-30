@@ -1,24 +1,33 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { LectureCard } from "components";
-import { useInput } from "hooks";
-import {
-  SQLIcon,
-  JavaIcon,
-  MobileIcon,
-  CertIcon,
-  GameIcon,
-  JsIcon,
-  NetworkIcon,
-  ReactIcon,
-} from "asset";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { RootState } from "redux/store";
 import { Swiper, SwiperSlide } from "swiper/react";
+
+import { useInput } from "hooks";
+import * as Img from "asset";
 import * as St from "./style";
 import "swiper/swiper.css";
+import { noticeListLoading } from "../../redux/reducer/noticeReducer";
 
 const HomePage = () => {
   const [test, setTest] = useState([1, 2, 3, 4, 1, 2, 3, 4]);
   const [search, onSearch] = useInput("");
+ 
+  const dispatch = useDispatch();
+  const { data } = useSelector( (state: RootState) => state.noticeReducer);
+  useEffect(() => {
+    dispatch(noticeListLoading(1));
+  }, []);
+  const navigate = useNavigate();
+  const navi = useCallback(
+    (v: number) => {
+      navigate(`/notice/${v}`);
+    },
+    [navigate]
+  );
   return (
     <>
       <St.EventBanner>
@@ -48,75 +57,75 @@ const HomePage = () => {
           <St.Section>
             <St.SectionLi>
               <St.CategoryIcon>
-                <JsIcon />
+                <Img.JsIcon />
               </St.CategoryIcon>
               <p># 개발기초</p>
             </St.SectionLi>
             <St.SectionLi>
               <St.CategoryIcon>
-                <ReactIcon />
+                <Img.ReactIcon />
               </St.CategoryIcon>
               <p># 프론트엔드</p>
             </St.SectionLi>
             <St.SectionLi>
               <St.CategoryIcon>
-                <SQLIcon />
+                <Img.SQLIcon />
               </St.CategoryIcon>
               <p># 데이터</p>
             </St.SectionLi>
             <St.SectionLi>
               <St.CategoryIcon>
-                <JavaIcon />
+                <Img.JavaIcon />
               </St.CategoryIcon>
               <p># 백엔드</p>
             </St.SectionLi>
 
             <St.SectionLi>
               <St.CategoryIcon>
-                <MobileIcon />
+                <Img.MobileIcon />
               </St.CategoryIcon>
               <p># 모바일</p>
             </St.SectionLi>
             <St.SectionLi>
               <St.CategoryIcon>
-                <NetworkIcon />
+                <Img.ScureIcon />
               </St.CategoryIcon>
               <p># 보안</p>
             </St.SectionLi>
             <St.SectionLi>
               <St.CategoryIcon>
-                <GameIcon />
+                <Img.GameIcon />
               </St.CategoryIcon>
               <p># 게임개발</p>
             </St.SectionLi>
 
             <St.SectionLi>
               <St.CategoryIcon>
-                <GameIcon />
+                <Img.DevIcon />
               </St.CategoryIcon>
               <p># 데프옵스</p>
             </St.SectionLi>
             <St.SectionLi>
               <St.CategoryIcon>
-                <GameIcon />
+                <Img.AIIcon />
               </St.CategoryIcon>
               <p># AI</p>
             </St.SectionLi>
             <St.SectionLi>
               <St.CategoryIcon>
-                <GameIcon />
+                <Img.BlockIcon />
               </St.CategoryIcon>
               <p># 블록체인</p>
             </St.SectionLi>
             <St.SectionLi>
               <St.CategoryIcon>
-                <CertIcon />
+                <Img.CertIcon />
               </St.CategoryIcon>
               <p># 자격증</p>
             </St.SectionLi>
             <St.SectionLi>
               <St.CategoryIcon>
-                <NetworkIcon />
+                <Img.TestIcon />
               </St.CategoryIcon>
               <p># 코딩테스트</p>
             </St.SectionLi>
@@ -164,7 +173,7 @@ const HomePage = () => {
               <St.ListWrap>
                 {test.map((list, index) => (
                   <SwiperSlide key={index}>
-                    <LectureCard category="home" />
+                    <LectureCard  />
                   </SwiperSlide>
                 ))}
               </St.ListWrap>
@@ -189,7 +198,7 @@ const HomePage = () => {
               <St.ListWrap>
                 {test.map((list, index) => (
                   <SwiperSlide key={index}>
-                    <LectureCard category="home" />
+                    <LectureCard />
                   </SwiperSlide>
                 ))}
               </St.ListWrap>
@@ -201,24 +210,20 @@ const HomePage = () => {
         <St.Notice>
           <St.NoticeLeft>공지사항</St.NoticeLeft>
           <St.NoticeRightUl>
-            <St.NoticeRightLi>
-              <p>제목</p>
-              <span>
-                2023-10-13 <St.Arr />
-              </span>
-            </St.NoticeRightLi>
-            <St.NoticeRightLi>
-              <p>제목</p>
-              <span>
-                2023-10-13 <St.Arr />
-              </span>
-            </St.NoticeRightLi>
-            <St.NoticeRightLi>
-              <p>제목</p>
-              <span>
-                2023-10-13 <St.Arr />
-              </span>
-            </St.NoticeRightLi>
+            {data.content.slice(0,3).map((v)=>{
+              return (
+                <St.NoticeRightLi
+                  key={v.noticeNo}
+                  onClick={() => navi(v.noticeNo)}
+                >
+                  <p>{v.title}</p>
+                  <span>
+                    {v.createdDate.slice(0, 10)} <St.Arr />
+                  </span>
+                </St.NoticeRightLi>
+              );
+            })}
+           
           </St.NoticeRightUl>
         </St.Notice>
       </St.NoticeBg>

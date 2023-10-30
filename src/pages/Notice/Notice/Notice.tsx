@@ -27,7 +27,7 @@ const Notice = () => {
 
       <NoticeTable data={data} />
       {user.role === "ADMIN" && (
-        <S.ButtonWrap>
+        <S.ButtonWrap $active={false}>
           <S.Button
             $active
             type="button"

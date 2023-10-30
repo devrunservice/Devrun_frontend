@@ -50,7 +50,7 @@ export const Content = styled.div`
   
 `;
 export const NameCheack = styled(BsCheckAll)`
-  color: ${(props: any) => props.theme.brandColor};
+  color: ${(props: any) => props.theme.mainColor};
   font-size: 1.25rem;
 `;
 export const BtnWrap = styled(ButtonWrap)`

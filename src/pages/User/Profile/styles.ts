@@ -30,7 +30,7 @@ export const Imgbox = styled.div`
   width: 110px;
   height: 110px;
   border-radius: 50%;
-  /* background: ${(props: any) => props.theme.brandColor}; */
+  /* background: ${(props: any) => props.theme.mainColor}; */
   overflow: hidden;
   img {
     width: inherit;
@@ -96,7 +96,7 @@ export const EditBtn = styled.div`
 `;
 
 export const ChangeBtn = styled.button`
-  color: ${(props: any) => props.theme.brandColor};
+  color: ${(props: any) => props.theme.mainColor};
   border: none;
   outline: none;
   background: transparent;

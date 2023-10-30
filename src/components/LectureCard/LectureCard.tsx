@@ -2,13 +2,8 @@
 import React from "react";
 import * as St from "./style";
 
-interface LectureCardType {
-  key?: number;
-  title?: string;
-  category: string;
-  progress?: number;
-}
-const LectureCard = ({ category, title, progress }: LectureCardType) => {
+
+const LectureCard = () => {
   const priceDot = (num: number) =>
     num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   return (
