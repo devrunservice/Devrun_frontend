@@ -17,9 +17,9 @@ export const CheckBox = styled.input`
   cursor: pointer;
   border: 1px solid ${(props: any) => props.theme.borderC};
   &:checked {
-    background: ${(props: any) => props.theme.brandColor} url("${Checked}")
+    background: ${(props: any) => props.theme.mainColor} url("${Checked}")
       center center no-repeat;
-    border: 1px solid ${(props: any) => props.theme.brandColor};
+    border: 1px solid ${(props: any) => props.theme.mainColor};
   }
 `;
 
@@ -76,7 +76,7 @@ export const Writer = styled.p`
   line-height: 1;
 `;
 export const Hours = styled.span`
-  color: ${(props: any) => props.theme.brandColor};
+  color: ${(props: any) => props.theme.mainColor};
 `;
 export const TextRight = styled.div`
   width: calc(100% - 65%);

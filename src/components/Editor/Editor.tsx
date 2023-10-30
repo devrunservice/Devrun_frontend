@@ -158,14 +158,23 @@ const Editor = (props: path) => {
         onChange={setContent}
         modules={modules}
         formats={formats}
+        $active={props.path === "Note"}
       />
-      <S.ButtonWrap>
-        <S.Button onClick={() => onExit()} $active={false}>
-          나가기
-        </S.Button>
-        <S.Button onClick={() => onWrite()} $active>
-          글쓰기
-        </S.Button>
+      <S.ButtonWrap $active={props.path === "Note"}>
+        {props.path === "Note" ? (
+          <S.Button onClick={() => onWrite()} $active>
+            노트쓰기
+          </S.Button>
+        ) : (
+          <>
+            <S.Button onClick={() => onExit()} $active={false}>
+              나가기
+            </S.Button>
+            <S.Button onClick={() => onWrite()} $active>
+              글쓰기
+            </S.Button>
+          </>
+        )}
       </S.ButtonWrap>
     </>
   );

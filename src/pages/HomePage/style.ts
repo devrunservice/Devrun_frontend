@@ -5,6 +5,7 @@ import MainVisual from "asset/images/MainVisual.jpg";
 
 export const MainBg = styled.div`
   max-width: 1200px;
+  width:100%;
   margin: 0 auto 100px;
 `
 export const SwiperBox = styled.div`
@@ -86,6 +87,7 @@ export const SectionLi = styled.li`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 80px;
   > p {
     color: ${(props: any) => props.theme.black};
     font-size: 0.875rem;
@@ -182,7 +184,8 @@ export const NoticeBg = styled.div`
 `;
 export const Notice = styled.div`
   margin: 0 auto;
-  width: 1200px;
+  max-width: 1200px;
+  width: 100%;
   display: flex;
   gap: 2rem;
   padding: 2.4rem 0;
@@ -222,7 +225,7 @@ export const NoticeRightLi = styled.li`
     font-size: 0.875rem;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
   }
 `;
 

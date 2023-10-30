@@ -35,7 +35,7 @@ const spinAnimation = keyframes`
 
 export const SpinnerIcon = styled.div`
   border: #f3f3f3 4px solid;
-  border-top: ${(props) => props.theme.brandColor} 4px solid;
+  border-top: ${(props) => props.theme.mainColor} 4px solid;
   border-radius: 50%;
   width: 40px;
   height: 40px;

@@ -108,11 +108,11 @@ export const CouponInput = styled.input`
   opacity: 0;
 
   &:checked + label {
-    border: 1px solid ${(props: any) => props.theme.brandColor};
+    border: 1px solid ${(props: any) => props.theme.mainColor};
     background: ${(props: any) => props.theme.bgNavcolor};
   }
   &:checked + label + span {
-    border: 4px solid ${(props: any) => props.theme.brandColor};
+    border: 4px solid ${(props: any) => props.theme.mainColor};
     background: ${(props: any) => props.theme.bgColor};
   }
 `;

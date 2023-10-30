@@ -14,6 +14,6 @@ export const Number = styled.p`
   font-size: 1rem;
 `;
 export const NumCount = styled.span`
-  color: ${(props: any) => props.theme.brandColor};
+  color: ${(props: any) => props.theme.mainColor};
   font-weight: 500;
 `;

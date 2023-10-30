@@ -22,7 +22,7 @@ export const P = styled.p`
 `;
 
 export const ChangeBtn = styled.button`
-  color: ${(props: any) => props.theme.brandColor};
+  color: ${(props: any) => props.theme.mainColor};
   border: none;
   outline: none;
   background: transparent;

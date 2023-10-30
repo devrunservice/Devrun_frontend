@@ -17,7 +17,7 @@ export const Button = styled.button`
   border: none;
   border-radius: 5px;
   color: ${(props) => props.theme.textWhite};
-  background-color: ${(props) => props.theme.brandColor};
+  background-color: ${(props) => props.theme.mainColor};
   padding: 0.8rem 0;
   cursor: pointer;
 `;
@@ -59,7 +59,7 @@ export const Field = styled.div`
   & > ${Button} {
     width: 25%;
     color: ${(props) => props.theme.textWhite};
-    background-color: ${(props) => props.theme.brandColor};
+    background-color: ${(props) => props.theme.mainColor};
   }
 `;
 

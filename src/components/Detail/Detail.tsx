@@ -215,7 +215,7 @@ const Detail = () => {
             <ListWrap>
               {test.map((list, index) => (
                 <SwiperSlide key={index}>
-                  <LectureCard category="detail" />
+                  <LectureCard  />
                 </SwiperSlide>
               ))}
             </ListWrap>

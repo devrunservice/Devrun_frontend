@@ -32,10 +32,10 @@ const router = createBrowserRouter([
           <Navigate replace to="/login" />
         ),
       },
-      {path: 'login', element: <Route.Login />},
-      {path: 'auth/kakao/callback', element: <Route.Auth2RedirectHandler />},
-      {path: 'signup', element: <Route.Signup />},
-      {path: 'signupconfirm', element: <Route.SignupConfirm />},
+      { path: "login", element: <Route.Login /> },
+      { path: "auth/kakao/callback", element: <Route.Auth2RedirectHandler /> },
+      { path: "signup", element: <Route.Signup /> },
+      { path: "signupconfirm", element: <Route.SignupConfirm /> },
       {
         path: "signupcompletion",
         element: <Route.SignupCompletion />,
@@ -59,7 +59,7 @@ const router = createBrowserRouter([
       },
       { path: "lecture", element: <Route.Lecture /> },
       { path: "detail", element: <Route.DetailPage /> },
-      { path: "createVideo", element: <Route.CreateVideo /> },
+      { path: "createVideo", element: (<Route.CreateVideo />) },
       { path: "profile", element: protectedRoute(<Route.Profile />) },
       { path: "dashboard", element: protectedRoute(<Route.Dashboard />) },
       { path: "notes", element: protectedRoute(<Route.Notes />) },
@@ -67,24 +67,18 @@ const router = createBrowserRouter([
       { path: "cert", element: protectedRoute(<Route.Cert />) },
       { path: "certDetail", element: protectedRoute(<Route.CertDetail />) },
       { path: "coupon", element: protectedRoute(<Route.Coupon />) },
-      { path: "Receipt", element: protectedRoute(<Route.Receipt />) },
+      { path: "receipt", element: (<Route.Receipt />) },
       { path: "learning", element: protectedRoute(<Route.Learning />) },
       { path: "point", element: protectedRoute(<Route.Point />) },
       { path: "createcoupon", element: protectedRoute(<Route.CreateCoupon />) },
       { path: "videoView", element: protectedRoute(<Route.VideoView />) },
-      {
-        path: "createVideo",
-        element: ACCESS_TOKEN ? (
-          <Route.CreateVideo />
-        ) : (
-          <Navigate replace to="/login" />
-        ),
-      },
     ],
   },
 ]);
 
 const rootElement = document.getElementById("root") as HTMLElement;
+
+
 
 
 const element = (

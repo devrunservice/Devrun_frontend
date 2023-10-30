@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 import { Quill } from "react-quill";
+import * as St from "./style";
 
 export const formats = [
   "header",
@@ -46,7 +47,7 @@ Quill.register(fontSize, true);
 
 
 const QuillToolbar = () => (
-  <div id="toolbar">
+  <St.Toolbar id="toolbar">
     <span className="ql-formats">
       <select className="ql-font" defaultValue="Nanum">
         {FontFamily.whitelist.map((v: string) => (
@@ -92,7 +93,7 @@ const QuillToolbar = () => (
     <span className="ql-formats">
       <button className="ql-image">asd</button>
     </span>
-  </div>
+  </St.Toolbar>
 );
 
 export default QuillToolbar;

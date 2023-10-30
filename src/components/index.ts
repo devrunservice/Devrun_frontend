@@ -1,4 +1,3 @@
-export {default as Home} from './Home/Home';
 export {default as Pagination} from './Pagination/Pagination';
 export {default as Footer} from './Footer/Footer';
 export {default as Header} from './Header/Header';
@@ -34,3 +33,5 @@ export {default as ProfileForm} from './ProfileForm/ProfileForm';
 export {default as CouponList} from './CouponList/CouponList';
 export {default as Timer} from './Timer/Timer';
 export { default as CurriculumSection } from "./CurriculumSection/CurriculumSection";
+export { default as Curriculum  } from "./Video/Curriculum/Curriculum";
+export { default as Note } from "./Video/Note/Note";

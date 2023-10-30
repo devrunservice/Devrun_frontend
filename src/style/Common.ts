@@ -39,11 +39,12 @@ export const ErrorMessage = styled.p`
 
 // 성공 메세지
 export const SuccessMessage = styled(ErrorMessage)`
-  color: ${(props) => props.theme.brandColor};
+  color: ${(props) => props.theme.mainColor};
 `;
 
 export const Inner = styled.div`
-  width: 75rem;
+  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   padding: 3.75rem 0 6.25rem;
 `;
@@ -52,20 +53,20 @@ export const Inner = styled.div`
 export const AppSection = styled.div`
   display: flex;
   padding: 4rem 0;
-  width: 75rem;
+  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
-  .left-panel {
+  > div:first-child {
     flex: 2;
   }
-
-  .right-panel {
+  > div:last-child {
     flex: 8;
   }
 `;
-export const ButtonWrap = styled.div`
+export const ButtonWrap = styled.div<I.Active>`
   display: flex;
   justify-content: flex-end;
-  margin-top: 1.875rem;
+  margin-top: ${(props: any) => (props.$active ? "1.25rem" : "1.875rem")};
   gap: 0.625rem;
 `;
 export const Button = styled.button<I.Active>`
@@ -74,11 +75,11 @@ export const Button = styled.button<I.Active>`
   height: 3rem;
   font-size: 0.875rem;
   color: ${(props: any) =>
-    props.$active ? props.theme.textWhite : props.theme.brandColor};
+    props.$active ? props.theme.textWhite : props.theme.mainColor};
   background: ${(props: any) =>
-    props.$active ? props.theme.brandColor : props.theme.bgColor};
+    props.$active ? props.theme.mainColor : props.theme.bgColor};
   border: 1px solid
-    ${(props: any) => (props.$active ? "" : props.theme.brandColor)};
+    ${(props: any) => (props.$active ? "" : props.theme.mainColor)};
 `;
 export const TitleTop = styled.h4`
   margin-bottom: 1.875rem;
