@@ -89,6 +89,7 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
   /* 강의등록 */
   const postVideo = () => {
     const token = getCookie('accessToken')
+    console.log(token)
     if (
       videoStore.lectureName === '' || 
       videoStore.lectureThumbnail === '' ||
@@ -125,7 +126,7 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
       formData.append(`videoList[${index}].videofile`, list.file)
     })
     formData.append("accessToken", googleStore.urlToken);
-    formData.append("jstToken", token )
+    formData.append("jwtToken", token )
     axios.post(url, formData, {
       headers: {
         "Content-Type": "multipart/form-data"

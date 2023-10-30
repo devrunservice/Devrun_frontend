@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-
 import LectureCard from "components/LectureCard/LectureCard";
 import { ListWrap } from "components/Home/style";
-import { HeartFill, Link, Circle, MoreBtn } from "asset";
+import { HeartFill, Link/* , Circle, MoreBtn */ } from "asset";
 import Curriculum from "components/Curriculum/Curriculum";
 import { Swiper, SwiperSlide } from "swiper/react";
 import * as St from "./style";
@@ -43,12 +42,14 @@ const Detail = () => {
 
       <St.DetailMainWrap>
         <St.DetailTab>
-          <St.DetailTabItem>카테고리</St.DetailTabItem>
+          {/* <St.DetailTabItem>카테고리</St.DetailTabItem> */}
           <St.DetailTabItem>커리큘럼</St.DetailTabItem>
           <St.DetailTabItem>수강평</St.DetailTabItem>
-          <St.DetailTabItem>질의응답</St.DetailTabItem>
-          <St.DetailTabItem>수강전 문의</St.DetailTabItem>
+          {/* <St.DetailTabItem>질의응답</St.DetailTabItem> */}
+          {/* <St.DetailTabItem>수강전 문의</St.DetailTabItem> */}
         </St.DetailTab>
+
+        <div>여기 컴포넌트로 나눠야할듯</div>
 
         <St.DraftArea>에디터영역</St.DraftArea>
         <St.SectionAreaWrap>
@@ -60,7 +61,7 @@ const Detail = () => {
           </ul>
         </St.SectionAreaWrap>
 
-        <St.SectionAreaWrap>
+        {/* <St.SectionAreaWrap>
           <St.SectionTitle>수강평</St.SectionTitle>
           <St.ReviewCreateArea>
             <textarea placeholder="수강평을 작성해 주세요." />
@@ -207,7 +208,7 @@ const Detail = () => {
             </St.CommentList>
             <St.MoreLectureBtn>수강평 더보기</St.MoreLectureBtn>
           </St.ReviewCreateArea>
-        </St.SectionAreaWrap>
+        </St.SectionAreaWrap> */}
         <St.SectionAreaWrap>
           <St.SectionTitle>다른 강의 함께 보기</St.SectionTitle>
           <Swiper spaceBetween={20} slidesPerView={4}>

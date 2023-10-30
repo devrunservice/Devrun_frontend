@@ -2373,6 +2373,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@looop/quill-image-resize-module-react@npm:^3.1.5":
+  version: 3.1.5
+  resolution: "@looop/quill-image-resize-module-react@npm:3.1.5"
+  peerDependencies:
+    lodash: ^4.17.20
+    quill: ^1.3.7
+  checksum: 6ae6c12ba821eddf91e8a909b5cfe0d0f9a48c9f2751e65780c590d446530614cca66589b65e767dbafed87c32cf3c3f0178597b98888df646492c3ed4daa94c
+  languageName: node
+  linkType: hard
+
 "@nicolo-ribaudo/chokidar-2@npm:2.1.8-no-fsevents.3":
   version: 2.1.8-no-fsevents.3
   resolution: "@nicolo-ribaudo/chokidar-2@npm:2.1.8-no-fsevents.3"
@@ -6061,6 +6071,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "devrun_frontend@workspace:."
   dependencies:
+    "@looop/quill-image-resize-module-react": ^3.1.5
     "@react-oauth/google": latest
     "@reduxjs/toolkit": ^1.9.5
     "@testing-library/jest-dom": ^5.14.1
@@ -6102,6 +6113,8 @@ __metadata:
     file-saver: ^2.0.5
     html2canvas: ^1.4.1
     jspdf: ^2.5.1
+    quill-image-resize-module: ^3.0.0
+    quill-image-resize-module-react: ^3.0.0
     react: ^18.2.0
     react-app: ^1.1.2
     react-chartjs-2: ^5.2.0
@@ -12051,7 +12064,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"quill@npm:^1.3.7":
+"quill-image-resize-module-react@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "quill-image-resize-module-react@npm:3.0.0"
+  dependencies:
+    lodash: ^4.17.4
+    quill: ^1.2.2
+    raw-loader: ^0.5.1
+  checksum: 073b135c274b8a538ab22d91afe2b7667608f9a489e7ee4ec0c10ae81f55c0ad724337f925a163274e41ddb5efa08f0d80c654ee2309caa07c43c0ad53895adb
+  languageName: node
+  linkType: hard
+
+"quill-image-resize-module@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "quill-image-resize-module@npm:3.0.0"
+  dependencies:
+    lodash: ^4.17.4
+    quill: ^1.2.2
+    raw-loader: ^0.5.1
+  checksum: 2ebf0859071ea4efba8114476589dfb4b2261f01534672eda9c05c1b572c142c8cf57b5b2cec83606f68437f9322e444fec91eef214ec4a84658e296b07c026b
+  languageName: node
+  linkType: hard
+
+"quill@npm:^1.2.2, quill@npm:^1.3.7":
   version: 1.3.7
   resolution: "quill@npm:1.3.7"
   dependencies:
@@ -12099,6 +12134,13 @@ __metadata:
     iconv-lite: 0.4.24
     unpipe: 1.0.0
   checksum: 5362adff1575d691bb3f75998803a0ffed8c64eabeaa06e54b4ada25a0cd1b2ae7f4f5ec46565d1bec337e08b5ac90c76eaa0758de6f72a633f025d754dec29e
+  languageName: node
+  linkType: hard
+
+"raw-loader@npm:^0.5.1":
+  version: 0.5.1
+  resolution: "raw-loader@npm:0.5.1"
+  checksum: 8051ec0b804ee72fbeee9a0f6183df8c0f764ba23a78ed5229c981cfb3a560dabc7926670fb0125b1c3831998d053ae39d578f3fb46187538226ceedad8cf1ab
   languageName: node
   linkType: hard
 
