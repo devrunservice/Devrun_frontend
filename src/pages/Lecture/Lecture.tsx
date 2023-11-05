@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from "react";
 import { Pagination, LectureCard } from "components";
 import * as St from "./style";
 
 const Lecture = () => {
-const [pageno, setPageno] = useState<number>(1);
-const tapList = [  {list: '학습순'}, { list: '신청순'},{list: '제목순'},];
+  const [pageno, setPageno] = useState<number>(1);
+  const tapList = [{ list: "학습순" }, { list: "신청순" }, { list: "제목순" }];
   const [tapOpen, setTapOpen] = useState<boolean>(false);
   const [tapLists, setTaplists] = useState(tapList[0].list);
   const tapOpsion = (item: string) => {
@@ -34,11 +35,11 @@ const tapList = [  {list: '학습순'}, { list: '신청순'},{list: '제목순'}
         </St.Tap>
       </St.Top>
       <St.LectureCardUl>
-        <LectureCard/>
+        <LectureCard />
       </St.LectureCardUl>
-      <Pagination pageno={pageno} setPageno={setPageno} />
+      {/* <Pagination pageno={pageno} setPageno={setPageno} /> */}
     </>
   );
-}
+};
 
-export default Lecture
+export default Lecture;

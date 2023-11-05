@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from 'redux/store';
-import {Learn, SearchBar, Pagination} from 'components';
-import * as St from './style';
-import {learningLoading} from '../../../redux/reducer/learningReducer';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "redux/store";
+import { Learn, SearchBar, Pagination } from "components";
+import * as St from "./style";
+import { learningLoading } from "../../../redux/reducer/learningReducer";
 
 const Learning = () => {
   const dispatch = useDispatch();
@@ -89,7 +90,7 @@ const Learning = () => {
           {tap === 3 && <Learn />}
         </St.LearnUl>
       </St.LearnCon>
-      <Pagination pageno={pageno} setPageno={setPageno} />
+      {/* <Pagination pageno={pageno} setPageno={setPageno} /> */}
     </section>
   );
 };

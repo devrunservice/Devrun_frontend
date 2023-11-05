@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useParams } from "react-router-dom";
 import {Footer, Header, MypageNav} from 'components';
 import MetaTag from 'MetaTag';
 import * as St from 'style/Common';
@@ -10,18 +10,17 @@ const App = () => {
   useEffect(() => {
     window.scroll(0,0)
   }, [location]);
-
-
+  const params = useParams()
   const hideHeader =
-    location.pathname === '/signup' ||
-    location.pathname === '/signupconfirm' ||
-    location.pathname === '/signupcompletion' ||
-    location.pathname === '/login' ||
-    location.pathname === '/auth/kakao/callback/login' ||
-    location.pathname === '/findaccount/id' ||
-    location.pathname === '/findaccount/password' ||
-    location.pathname === '/auth/kakao/callback'||
-    location.pathname === '/videoView';
+    location.pathname === "/signup" ||
+    location.pathname === "/signupconfirm" ||
+    location.pathname === "/signupcompletion" ||
+    location.pathname === "/login" ||
+    location.pathname === "/auth/kakao/callback/login" ||
+    location.pathname === "/findaccount/id" ||
+    location.pathname === "/findaccount/password" ||
+    location.pathname === "/auth/kakao/callback" ||
+    location.pathname === `/videoView/${params.lectureId}`;
 
   const hideFooter =
     location.pathname === "/signup" ||
@@ -32,7 +31,7 @@ const App = () => {
     location.pathname === "/findaccount/id" ||
     location.pathname === "/findaccount/password" ||
     location.pathname === "/auth/kakao/callback" ||
-    location.pathname === "/videoView";
+    location.pathname === `/videoView/${params.lectureId}`;
 
   const myPage =
     location.pathname === "/profile" ||

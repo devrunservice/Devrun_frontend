@@ -14,7 +14,7 @@ interface MetaTags {
 const MetaTag = (props: MetaTags) => (
   <Helmet>
     <meta charSet="utf-8" />
-    <title>DevRun</title>
+    <title>{props.title}</title>
     <meta property="keywords" content={props.content} data-rh="true" />
     <meta property="name" content={props.title} data-rh="true" />
     <meta property="description" content={props.description} data-rh="true" />

@@ -150,16 +150,7 @@ export const mypage = {
     const response = await authAxios.get('/mylecturelist');
     return response;
   },
-  pay: (params: I.PageNo) => {
-    const response = authAxios.get(
-      `/PaymentInfo?page=${params.pageno}&size=10`
-    );
-    return response;
-  },
-  point: (params: I.PageNo) => {
-    const response = authAxios.get(`/PointHistory?page=${params}&size=10`);
-    return response;
-  },
+
   coupon: (params: I.CouponGet) => {
     const response = authAxios.post('/coupon/registrate', params);
     return response;
@@ -291,5 +282,19 @@ export const cata = {
   },
 };
 
+export const video = {
+  getCurriculum: (params: I.Curriculum) => {
+    const response = authAxios.get(`/getMycoures`, {
+      params: { lectureId: params },
+    });
+    return response;
+  },
+  progress: (params: I.Progress) => {
+    const response = authAxios.post(`/lecture/progress`, params);
+    return response;
+  },
+};
+
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
+

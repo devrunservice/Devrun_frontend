@@ -34,7 +34,7 @@ const Coupon = () => {
             </Button>
           </St.CouponTop>
 
-          <MentoTable data={data}  />
+          <MentoTable data={data.content}  />
           <Pagination pageno={pageno} setPageno={setPageno} data={data} />
         </>
       )}

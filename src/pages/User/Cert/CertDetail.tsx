@@ -43,7 +43,7 @@ const CertDetail = () => {
 
   return (
     <section>
-      <UserTop title="수료증" />
+      {/* <UserTop title="수료증" /> */}
 
       <St.CertWrap>
         <St.Certbox ref={pdfCon}>

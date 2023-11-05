@@ -21,7 +21,6 @@ const Coupon = () => {
   useEffect(() => {
     dispatch(couponListLoading(null));
   }, []);
-  console.log(data)
   const [tap, setTap] = useState<number>(1);
   const couponBtn = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {

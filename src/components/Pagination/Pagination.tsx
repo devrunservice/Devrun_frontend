@@ -1,9 +1,18 @@
 import React, { useCallback } from "react";
-import * as I from "types";
 import { PageNext, PagePrev } from "asset";
 import * as St from "./style";
 
-const Pagination = (props: I.Pagination) => {
+
+interface Paginations {
+  data: {
+    totalElements: number;
+    totalPages: number;
+  };
+  pageno: number;
+  setPageno: (page: number) => void;
+}
+
+const Pagination = (props: Paginations) => {
   const lastPage = props.data?.totalPages || 0;
   const onClickPage = useCallback(
     (pageNumber: number) => {
@@ -11,13 +20,13 @@ const Pagination = (props: I.Pagination) => {
     },
     [props.pageno]
   );
-   const itemsPerPage = 10;
-   const currentGroup = Math.ceil(props.pageno / itemsPerPage)
-   const firstPageInGroup = (currentGroup - 1) * itemsPerPage + 1;
-   const lastPageInGroup = Math.min(
-     currentGroup * itemsPerPage,
-     props.data?.totalPages || 0
-   );
+  const itemsPerPage = 10;
+  const currentGroup = Math.ceil(props.pageno / itemsPerPage);
+  const firstPageInGroup = (currentGroup - 1) * itemsPerPage + 1;
+  const lastPageInGroup = Math.min(
+    currentGroup * itemsPerPage,
+    props.data?.totalPages || 0
+  );
   return (
     <St.PagingWrap>
       <St.PagingArr

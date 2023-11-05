@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import LectureCard from "components/LectureCard/LectureCard";
-import { ListWrap } from "components/Home/style";
 import { HeartFill, Link/* , Circle, MoreBtn */ } from "asset";
 import Curriculum from "components/Curriculum/Curriculum";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -212,13 +211,13 @@ const Detail = () => {
         <St.SectionAreaWrap>
           <St.SectionTitle>다른 강의 함께 보기</St.SectionTitle>
           <Swiper spaceBetween={20} slidesPerView={4}>
-            <ListWrap>
+            <St.ListWrap>
               {test.map((list, index) => (
                 <SwiperSlide key={index}>
-                  <LectureCard  />
+                  <LectureCard />
                 </SwiperSlide>
               ))}
-            </ListWrap>
+            </St.ListWrap>
           </Swiper>
         </St.SectionAreaWrap>
       </St.DetailMainWrap>

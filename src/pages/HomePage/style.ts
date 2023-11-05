@@ -15,7 +15,7 @@ display: grid;
 align-items: center;
 `
 export const ListTitle = styled.h3`
-  color: ${(props) => props.theme.black};
+  color: ${(props:any) => props.theme.black};
   font-weight: 700;
   font-size: 1.375rem;
   line-height: 1;
@@ -225,7 +225,7 @@ export const NoticeRightLi = styled.li`
     font-size: 0.875rem;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
   }
 `;
 
