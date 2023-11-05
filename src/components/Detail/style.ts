@@ -11,7 +11,7 @@ export const PreviewArea = styled.section`
 export const DetailThum = styled.div`
   position: relative;
   margin: 0 auto;
-  border: 3px solid ${props=>props.theme.mainColor};
+  border: 3px solid ${(props: any) => props.theme.mainColor};
   /* width, height 는 임시로 설정 */
   width: 1000px;
   height: 400px;
@@ -20,13 +20,13 @@ export const DetailThum = styled.div`
 `
 export const DetailInfo = styled.div`
   margin-top: 30px;
-  color: ${props=>props.theme.textWhite};
+  color: ${(props: any) => (props.$active ? "11.25rem" : "31.25rem")};
   text-align: center;
-`
+`;
 export const DetailInfoTitle = styled.div`
   margin-bottom: 20px;
-  font-weight: ${props=>props.theme.bold};
-`
+  font-weight: 700;
+`;
 export const DetailUtils = styled.div`
   display: flex;
   align-items: center;
@@ -228,6 +228,9 @@ export const MoreLectureBtn = styled.button`
   padding: 18px 0;
   background: #fff;
 `
-export const MoreLectureArea = styled.section`
+export const MoreLectureArea = styled.section``
 
+export const ListWrap = styled.div`
+  display: grid;
+  align-items: center;
 `

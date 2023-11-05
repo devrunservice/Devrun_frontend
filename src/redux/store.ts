@@ -8,10 +8,11 @@ import mypageSaga from './saga/mypageSaga';
 import learningSaga from './saga/learningSaga';
 import mentoCouponSaga from './saga/mentoCouponSaga';
 import couponSaga from './saga/couponSaga';
-import pointSaga from './saga/pointSaga';
 import userInfoSaga from './saga/userSaga';
 import noticeSaga from './saga/noticeSaga';
 import cartSaga from './saga/cartSaga';
+import videoViewSaga from "./saga/videoViewSaga";
+
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -23,9 +24,9 @@ export function* rootSaga() {
     userInfoSaga(),
     mentoCouponSaga(),
     couponSaga(),
-    pointSaga(),
     noticeSaga(),
     cartSaga(),
+    videoViewSaga(),
   ]);
 }
 

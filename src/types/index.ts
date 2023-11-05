@@ -265,11 +265,6 @@ declare global {
   }
 }
 
-export interface Refund {
-  merchant_uid: string;
-  amount: number;
-  name: string;
-}
 
 // 유저 쿠폰발급
 
@@ -289,25 +284,11 @@ export interface UserCouponList {
 export interface UserCoupon {
   content: UserCouponList[];
 }
-// 포인트내역
-
-export interface PointList {
-  updatetime: string;
-  pointupdown: number;
-  pointno: number;
-  explanation: string;
-  productname: string;
-}
-export interface Point {
-  content: PointList[];
-  totalElements: number;
-  totalPages: number;
-}
-export interface Points {
-  mypoint?: number;
-  pointHistoryPage: Point;
-  loading?: boolean;
-  error?: Error | null;
+// 환불
+export interface Refund {
+  merchant_uid: string;
+  amount: number;
+  name: string;
 }
 
 // 구매내역
@@ -323,15 +304,7 @@ export interface ReceiptList {
   status: string;
   userpayno: number;
 }
-export interface Receipt {
-  content: ReceiptList[];
-  totalElements: number;
-  totalPages: number;
-}
-export interface Receipts {
-  data: Receipt;
-  setData: React.Dispatch<React.SetStateAction<Receipt | undefined>>;
-}
+
 
 // 멘토 쿠폰리스트
 export interface MentoCouponlist {
@@ -344,18 +317,8 @@ export interface MentoCouponlist {
   state: string;
   lecturename: string;
 }
-interface MentoCoupon {
-  content: MentoCouponlist[];
-  totalElements: number;
-  totalPages: number;
-}
 
-export interface MentoCoupons {
-  data: MentoCoupon;
-  loading?: boolean;
-  error?: Error | null;
-  activate?: null;
-}
+
 
 export interface PageNo {
   pageno: number;
@@ -375,12 +338,6 @@ export interface ActiveCoupon {
   index: number;
 }
 
-// 페이지네이션
-export interface Pagination {
-  data?: MentoCoupon | Receipt | Point | Notice;
-  pageno: number;
-  setPageno: (page: number) => void;
-}
 
 export interface Active {
   $active: boolean;
@@ -545,4 +502,53 @@ export interface bastetCheck {
   pg_provider: string;
   receipt_url: string;
   imp_uid: string | null;
+}
+export interface Curriculum {
+  lectureId: number;
+}
+
+export interface Videos extends Curriculum {
+  videoId: number;
+}
+export interface Progress {
+  videoid: number;
+  currenttime:string
+}
+
+export interface VideoCurriculumVideoInfos{
+lastviewdate: string;
+  progress: number;
+  timecheck: number;
+  videoId: string;
+  videoTitle: string;
+  videoTotalPlayTime: number;
+}
+export interface VideoCurriculumVideoInfo {
+  sectionId: number;
+  sectionNumber: number;
+  sectionTitle: string;
+  videoInfo: VideoCurriculumVideoInfos[];
+}
+
+export interface VideoCurriculum {
+  lectureExpiryDate: string;
+  lectureId: number;
+  lectureName: string;
+  lectureRating: number;
+  lectureWholeProgess: number;
+  wholeRemainingTime: number;
+  wholeStudyTime:number;
+  sectionInfo: {
+    sectionId: number;
+    sectionNumber: number;
+    sectionTitle: string;
+    videoInfo: {
+      lastviewdate: string;
+      progress: number;
+      timecheck: number;
+      videoId: string;
+      videoTitle: string;
+      videoTotalPlayTime: number;
+    }[];
+  }[];
 }
