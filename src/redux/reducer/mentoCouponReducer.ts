@@ -1,21 +1,32 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
-import { MentoCoupons } from "types";
+
+
+
+
+interface MentoCoupons {
+  data: {
+    content: {
+      couponcode: string;
+      discountrate: number;
+      expirydate: string;
+      issueddate: string;
+      issuedno: number;
+      quantity: number;
+      state: string;
+      lecturename: string;
+    }[];
+    totalElements: number;
+    totalPages: number;
+  };
+  loading?: boolean;
+  error?: Error | null;
+  activate?: null;
+}
 
 const initialState: MentoCoupons = {
   data: {
-    content: [
-      {
-        couponcode: "",
-        discountrate: 0,
-        expirydate: "",
-        issueddate: "",
-        issuedno: 0,
-        quantity: 0,
-        state: "",
-        lecturename: "",
-      },
-    ],
+    content: [],
     totalElements: 0,
     totalPages: 0,
   },
@@ -49,17 +60,29 @@ const mentoCouponReducer = createSlice({
     couponActiveSuccess: (state, action) => {
       state.loading = false;
       state.activate = action.payload;
-      if (action.payload.response.data === "복구 처리 되었습니다."){
+      if (action.payload.response.data === "복구 처리 되었습니다.") {
         state.data.content[action.payload.index].state = "ACTIVE";
-      }else{
+      } else {
         state.data.content[action.payload.index].state = "REMOVED";
-      }      
+      }
     },
     couponActiveFail: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
-    
+    createCouponLoading: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
+    createCouponSuccess: (state, action) => {
+      state.loading = false;
+      state.data = action.payload.data;
+      return state;
+    },
+    createCouponFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 
@@ -70,6 +93,9 @@ export const {
   couponActiveLoading,
   couponActiveSuccess,
   couponActiveFail,
+  createCouponSuccess,
+  createCouponFail,
+  createCouponLoading,
 } = mentoCouponReducer.actions;
 
 export default mentoCouponReducer.reducer;

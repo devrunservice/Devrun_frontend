@@ -43,8 +43,8 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     body {
-        color: ${({ theme }) => theme.textColor};
-        background-color: ${({ theme }) => theme.bgColor};
+        color: ${({ theme }: any) => theme.textColor};
+        background-color: ${({ theme }: any) => theme.bgColor};
         font-size:1rem;
         font-weight:400;
         font-family: 'Pretendard';
@@ -60,7 +60,7 @@ export const GlobalStyle = createGlobalStyle`
     button{
         cursor: pointer;
         font-size:0.875rem;
-        color: ${({ theme }) => theme.textColor};
+        color: ${({ theme }: any) => theme.textColor};
         border: 0;
     }
 `;

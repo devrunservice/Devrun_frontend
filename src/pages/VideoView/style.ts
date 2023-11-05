@@ -24,14 +24,14 @@ export const TopLeft = styled.div`
   display: flex;
   align-items: center;
   gap: 0.625rem;
-  width:calc(100% - 21.875rem);
+  width: calc(100% - 28.125rem);
   overflow: hidden;
 `;
 export const TopRight = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: 21.875rem;
+  width: 28.125rem;
   padding-left: 2rem;
   gap: 1rem;
   > p {
@@ -73,6 +73,7 @@ export const Center = styled.div`
   height: calc(100vh - 6.875rem);
   position: relative;
   width: 100%;
+
   > iframe {
     height: 100%;
     width: 100%;
@@ -138,4 +139,6 @@ export const CurriculumWrap = styled.aside`
   width: 500px;
   background: ${(props: any) => props.theme.bgColor};
   border-right: 1px solid ${(props: any) => props.theme.borderD};
+  display: flex;
+  flex-direction: column;
 `;

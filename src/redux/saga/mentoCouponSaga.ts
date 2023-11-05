@@ -1,6 +1,6 @@
 import { takeLatest, all, fork, put, call } from "redux-saga/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { PageNo, ActiveCoupon } from "types";
+import { PageNo, ActiveCoupon, CreateCoupon } from "types";
 import { create } from "utils/api";
 import {
   couponLoading,
@@ -9,7 +9,9 @@ import {
   couponActiveLoading,
   couponActiveSuccess,
   couponActiveFail,
-
+  createCouponSuccess,
+  createCouponFail,
+  createCouponLoading,
 } from "../reducer/mentoCouponReducer";
 
 
@@ -34,7 +36,16 @@ function* couponActive(
     yield put(couponActiveFail(error));
   }
 }
-
+function* createCoupon(
+  action: PayloadAction<CreateCoupon>
+): Generator<any, void, any> {
+  try {
+    const response = yield call(create.coupon, action.payload);
+    yield put(createCouponSuccess(response));
+  } catch (error) {
+    yield put(createCouponFail(error));
+  }
+}
 
 function* watchCouponActive(){
     yield takeLatest(couponActiveLoading, couponActive);
@@ -42,6 +53,13 @@ function* watchCouponActive(){
 function* watchCoupon() {
   yield takeLatest(couponLoading, coupon);
 }
+function* watchCreateCoupon() {
+  yield takeLatest(createCouponLoading, createCoupon);
+}
 export default function* mentoCouponSaga(){
-    yield all([fork(watchCoupon), fork(watchCouponActive)]);
+    yield all([
+      fork(watchCoupon),
+      fork(watchCreateCoupon),
+      fork(watchCouponActive),
+    ]);
 }
