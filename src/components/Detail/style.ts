@@ -17,7 +17,7 @@ export const DetailThum = styled.div`
   height: 400px;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-`;
+`
 export const DetailInfo = styled.div`
   margin-top: 30px;
   color: ${(props: any) => (props.$active ? "11.25rem" : "31.25rem")};
@@ -165,6 +165,10 @@ export const ReviewCreateBtn = styled.button`
 export const CommentList = styled.li`
   border-top: 1px solid #ddd;
   padding-bottom: 30px;
+`
+export const ListWrap = styled.div`
+display: grid;
+align-items: center;
 `
 export const CommentInfoWrap = styled.div`
   display: flex;
