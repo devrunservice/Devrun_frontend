@@ -230,7 +230,3 @@ export const MoreLectureBtn = styled.button`
 `
 export const MoreLectureArea = styled.section``
 
-export const ListWrap = styled.div`
-  display: grid;
-  align-items: center;
-`
