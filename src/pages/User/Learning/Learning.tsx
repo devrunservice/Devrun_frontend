@@ -1,19 +1,21 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {Learn, SearchBar, Pagination} from 'components';
 import * as St from './style';
-import {learningLoading} from '../../../redux/reducer/learningReducer';
+import {learningLoading} from '../../../redux/reducer/dashboardReducer';
 
 const Learning = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(learningLoading(null));
-    window.scrollTo(0, 0);
+    dispatch(learningLoading({page: 1, status: 'all'}));
   }, []);
 
-  const courses = useSelector((state: RootState) => state.learningReducer.data);
+  const courses = useSelector(
+    (state: RootState) => state.dashboardReducer.learningData
+  );
 
   const [pageno, setPageno] = useState<number>(1);
   const [tap, SetTap] = useState<number>(1);
@@ -31,7 +33,7 @@ const Learning = () => {
 
   useEffect(() => {
     if (tap === 1) {
-      dispatch(learningLoading(null));
+      dispatch(learningLoading());
     } else if (tap === 2) {
       // dispatch(learningLoading(null));
     } else if (tap === 3) {
@@ -90,7 +92,7 @@ const Learning = () => {
           {tap === 3 && <Learn />}
         </St.LearnUl>
       </St.LearnCon>
-      <Pagination pageno={pageno} setPageno={setPageno} />
+      {/* <Pagination pageno={pageno} setPageno={setPageno} /> */}
     </section>
   );
 };

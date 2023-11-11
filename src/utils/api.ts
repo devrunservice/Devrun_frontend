@@ -2,7 +2,7 @@
 
 import * as I from 'types';
 
-import { baseAxios, authAxios, imageAxios, imageTypeAxios } from "./instance";
+import {baseAxios, authAxios, imageAxios, imageTypeAxios} from './instance';
 
 export const signup = {
   // 회원가입
@@ -146,8 +146,36 @@ export const mypage = {
     const response = await imageAxios.post(`/edit/profileimg`, params);
     return response;
   },
-  learning: async (params: string) => {
-    const response = await authAxios.get('/mylecturelist');
+  learning: async (params: I.NotePropsType) => {
+    const response = await authAxios.get(
+      `/mylecturelist?status=${params.status}&page=${params.page}`
+    );
+    return response;
+  },
+  noteLecture: async (params: I.NotePropsType) => {
+    const response = await authAxios.get(`lectureNoteQpen?page=${params.page}`);
+    return response;
+  },
+  noteList: async (params: I.NotePropsType) => {
+    const response = await authAxios.get(
+      `lectureNoteListQpen?noteId=${params.id}&page=${params.page}`
+    );
+    return response;
+  },
+  noteDetail: async (params: I.NotePropsType) => {
+    const response = await authAxios.get(
+      `lectureNoteDetailQpen?lectureId=${params.id}&page=${params.page}`
+    );
+    return response;
+  },
+  questionLecture: async (params: I.NotePropsType) => {
+    const response = await authAxios.get(
+      `lectureQaDetailQpen?page=${params.page}`
+    );
+    return response;
+  },
+  question: async () => {
+    const response = await authAxios.get(`lectureQaDetailQpen`);
     return response;
   },
   pay: (params: I.PageNo) => {
@@ -215,9 +243,8 @@ export const create = {
   },
 };
 
-
 const headers = {
-  "Content-Type": "image/*",
+  'Content-Type': 'image/*',
 };
 export const notice = {
   getUrl: (params: I.NoticeUrl) => {
@@ -230,7 +257,7 @@ export const notice = {
 
   postUrl: (params: I.NoticePostUrl) => {
     const response = imageTypeAxios.request({
-      method: "put",
+      method: 'put',
       url: params.url,
       data: params.file,
       maxRedirects: 5,
@@ -286,10 +313,50 @@ export const notice = {
 
 export const cata = {
   getCata: () => {
-    const response = authAxios.get("/lectureregist/categories");
+    const response = authAxios.get('/lectureregist/categories');
     return response;
   },
 };
 
+export const video = {
+  getCurriculum: (params: I.Curriculum) => {
+    const response = authAxios.get(`/getMycoures`, {
+      params: {lectureId: params},
+    });
+    return response;
+  },
+  progress: (params: I.Progress) => {
+    const response = authAxios.post(`/lecture/progress`, params);
+    return response;
+  },
+  saveNote: (params: I.Note) => {
+    const response = authAxios.post(`/lecturenote`, params);
+    return response;
+  },
+  getNote: (params: I.Curriculum) => {
+    const response = authAxios.get('/lectureNoteDetailOpen', {
+      params: {lectureId: params},
+    });
+    return response;
+  },
+  reNote: (params: I.ReNote) => {
+    const response = authAxios.post('/lecturenoteUpdate', params);
+    return response;
+  },
+};
+export const search = {
+  search: () => {
+    const response = baseAxios.get(`/q/lecture?bigcategory=&page=1`);
+    return response;
+  },
+  categorySearch: (params: I.Search) => {
+    const response = baseAxios.get(
+      `/q/lecture?bigcategory=${params.bigcategory}&page=${params.page}&order=${
+        params.order
+      }&q=${String(params.q)}`
+    );
+    return response;
+  },
+};
 
 /* eslint-disable @typescript-eslint/no-unused-vars */

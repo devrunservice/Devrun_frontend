@@ -11,20 +11,24 @@ export const WelcomeMessage = styled.div`
   & > div:nth-child(1) {
     font-size: 1.5625rem;
     font-weight: 700;
-    color: ${(props) => props.theme.brandColor};
+    color: ${(props) => props.theme.mainColor};
     text-decoration: underline;
     text-underline-offset: 0.4rem;
   }
 `;
 
 export const LearningWrapper = styled.div`
-  margin-bottom: 48px;
+  margin-bottom: 72px;
 `;
 
 export const TitleWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+`;
+
+export const Title = styled.p`
+  font-weight: 600;
 `;
 
 export const MoreBtn = styled.button`
@@ -36,12 +40,13 @@ export const ListWrapper = styled.ul`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.2rem;
+  margin: 8px 0;
 `;
 
-export const Wrapper = styled.div`
+export const NoteQuestionWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.2rem;
+  gap: 2rem;
 
   & > div:nth-child(1) {
     flex: 5;
@@ -49,4 +54,8 @@ export const Wrapper = styled.div`
   & > div:nth-child(2) {
     flex: 5;
   }
+`;
+
+export const ErrorMessage = styled.div`
+  text-align: center;
 `;

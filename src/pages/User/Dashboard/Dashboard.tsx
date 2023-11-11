@@ -4,10 +4,14 @@ import {useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {decode} from 'utils/decode';
-import {Learn, List} from 'components';
+import {Calender, Learn, List} from 'components';
 import * as St from './styles';
 import {myInfoLoading} from '../../../redux/reducer/mypageReducer';
-import {learningLoading} from '../../../redux/reducer/learningReducer';
+import {
+  learningLoading,
+  noteLectureLoading,
+  questionLectureLoading,
+} from '../../../redux/reducer/dashboardReducer';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -16,36 +20,21 @@ const Dashboard = () => {
   useEffect(() => {
     const userId = decode('accessToken');
     dispatch(myInfoLoading({id: userId}));
-    dispatch(learningLoading(null));
+    dispatch(learningLoading({page: 1, status: 'all'}));
+    dispatch(noteLectureLoading({page: 1}));
+    dispatch(questionLectureLoading({page: 1}));
   }, []);
 
   const userInfo = useSelector((state: RootState) => state.mypageReducer.data);
-  const courses = useSelector((state: RootState) => state.learningReducer.data);
-
-  console.log(courses);
-
-  const [notes, setNotes] = useState([
-    {
-      title: '강의명',
-    },
-    {
-      title: '강의명',
-    },
-    {
-      title: '강의명',
-    },
-  ]);
-  const [questions, setQuestions] = useState([
-    {
-      title: '질문명',
-    },
-    {
-      title: '질문명',
-    },
-    {
-      title: '질문명',
-    },
-  ]);
+  const courses = useSelector(
+    (state: RootState) => state.dashboardReducer.learningData
+  );
+  const noteLectures = useSelector(
+    (state: RootState) => state.dashboardReducer.noteLectureData
+  );
+  const noteQuestions = useSelector(
+    (state: RootState) => state.dashboardReducer.questionLectureData
+  );
 
   const handleMoreBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
     const {name} = e.target as HTMLButtonElement;
@@ -70,13 +59,13 @@ const Dashboard = () => {
       {/* 학습 중인 강의 */}
       <St.LearningWrapper>
         <St.TitleWrapper>
-          <p>학습 중인 강의</p>
+          <St.Title>학습 중인 강의</St.Title>
           <St.MoreBtn type="button" name="coursesBtn" onClick={handleMoreBtn}>
             더보기
           </St.MoreBtn>
         </St.TitleWrapper>
         <St.ListWrapper>
-          {courses.slice(0, 3).map((course, index) => (
+          {/* {courses.slice(0, 3).map((course, index) => (
             <Learn
               key={index}
               title={course.title}
@@ -85,28 +74,44 @@ const Dashboard = () => {
               rating={course.rating}
               lectureUrl={course.lectureUrl}
             />
-          ))}
+          ))} */}
         </St.ListWrapper>
       </St.LearningWrapper>
 
+      {/* 월간 학습 달력 */}
+      <Calender />
+
       {/* 강의 노트 & 작성한 질문 */}
-      <St.Wrapper>
+      <St.NoteQuestionWrapper>
         <div>
           <St.TitleWrapper>
-            <p>강의 노트</p>
+            <St.Title>강의 노트</St.Title>
             <St.MoreBtn type="button" name="notesBtn" onClick={handleMoreBtn}>
               더보기
             </St.MoreBtn>
           </St.TitleWrapper>
-          <ul>
-            {notes.map((note, index) => (
-              <List key={index} title={note.title} />
-            ))}
-          </ul>
+          {noteLectures.dtolist.length === 0 ? (
+            <St.ErrorMessage>수강한 강의가 없습니다.</St.ErrorMessage>
+          ) : noteLectures.dtolist.every((lecture) => lecture.count === 0) ? (
+            <St.ErrorMessage>작성한 노트가 없습니다.</St.ErrorMessage>
+          ) : (
+            <ul>
+              {noteLectures.dtolist.slice(0, 3).map((lecture) => (
+                <List
+                  key={lecture.lectureId}
+                  category="notes"
+                  lectureId={lecture.lectureId}
+                  lectureTitle={lecture.lectureTitle}
+                  lastStudyDate={lecture.lastStudyDate}
+                  count={lecture.count}
+                />
+              ))}
+            </ul>
+          )}
         </div>
         <div>
           <St.TitleWrapper>
-            <p>작성한 질문</p>
+            <St.Title>작성한 질문</St.Title>
             <St.MoreBtn
               type="button"
               name="questionsBtn"
@@ -116,12 +121,17 @@ const Dashboard = () => {
             </St.MoreBtn>
           </St.TitleWrapper>
           <ul>
-            {questions.map((question, index) => (
-              <List key={index} title={question.title} />
-            ))}
+            {/* {noteQuestions.slice(0, 3).map((question, index) => (
+              <List
+                key={index}
+                category="questions"
+                title={question.questionTitle}
+                date={question.date}
+              />
+            ))} */}
           </ul>
         </div>
-      </St.Wrapper>
+      </St.NoteQuestionWrapper>
     </section>
   );
 };
