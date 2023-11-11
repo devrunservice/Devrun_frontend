@@ -2,12 +2,22 @@ import React from "react";
 import * as St from "./style"
 
 interface Data {
-    text:string
+  title: string;
+  span: string;
+  img: JSX.Element;
 }
 
 
-const NoData = ({ text }: Data) => {
-  return <St.NoWrap>{text}</St.NoWrap>;
+const NoData = ({ title, img, span }: Data) => {
+  return (
+    <St.NoWrap>
+      <div>{img}</div>
+      <St.Title>
+        {title}
+        <St.P>{span}</St.P>
+      </St.Title>
+    </St.NoWrap>
+  );
 };
 
 export default NoData;
