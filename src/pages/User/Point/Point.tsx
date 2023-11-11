@@ -1,17 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "redux/store";
-import { UserTop, Pagination, PointTable } from "components";
-import { pointLoading } from "../../../redux/reducer/pointReducer";
-
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from 'redux/store';
+import {UserTop, Pagination, PointTable} from 'components';
+import {pointLoading} from '../../../redux/reducer/pointReducer';
 
 const Point = () => {
-    const dispatch = useDispatch()
-    const [pageno, setPageno] = useState<number>(1);  
-    const { pointHistoryPage, mypoint } = useSelector(
-      (state: RootState) => state.pointReducer
-    );
+  const dispatch = useDispatch();
+  const [pageno, setPageno] = useState<number>(1);
+  const {pointHistoryPage, mypoint} = useSelector(
+    (state: RootState) => state.pointReducer
+  );
 
   useEffect(() => {
     dispatch(pointLoading(pageno));
