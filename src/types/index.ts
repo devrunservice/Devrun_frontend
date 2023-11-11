@@ -69,7 +69,6 @@ export interface PropsType {
   page?: string;
   getImage?: void;
 }
-
 export interface MypageType {
   id?: string;
   name?: string;
@@ -80,14 +79,16 @@ export interface MypageType {
   profileImage?: File;
   profilePreview?: string;
 }
-
 export interface ProfileInputType {
   profileImageBtn: boolean;
   emailBtn: boolean;
   phonenumberBtn: boolean;
   [key: string]: boolean;
 }
-
+export interface LearningWrapperType {
+  dtolist: LearningType[];
+  totalPages: number;
+}
 export interface LearningType {
   title?: string;
   mentoName?: string;
@@ -95,6 +96,69 @@ export interface LearningType {
   progressRate?: number;
   rating?: number;
   lectureUrl?: string;
+}
+export interface NoteLectureWrapperType {
+  dtolist: LectureType[];
+  totalPages: number;
+}
+export interface LectureType {
+  key?: number;
+  lectureId: number;
+  lectureTitle: string;
+  lastStudyDate: string;
+  lectureThumbnail?: string;
+  count: number;
+  category?: string;
+}
+export interface NoteListWrapperType {
+  dtolist: NoteListType[];
+  totalPages: number;
+}
+export interface NotePropsType {
+  id?: number;
+  page?: number | string;
+  status?: string;
+}
+export interface NoteListType {
+  key: number;
+  noteId: number;
+  noteTitle: string;
+  videoId: string;
+  chapter: string;
+  subHeading: string;
+  date: string;
+  contentPreview: string;
+}
+export interface NoteDetailType {
+  noteId: number;
+  noteTitle: string;
+  videoId: string;
+  chapter: string;
+  subHeading: string;
+  date: string;
+  content: string;
+}
+export interface QuestionLectureWrapperType {
+  dtolist: LectureType[];
+  totalPages: number;
+}
+export interface QuestionType {
+  lectureQaNo: number;
+  lectureTitle: string;
+  mentoId: string;
+  questionContent: string;
+  questionDate: string;
+  questionTitle: string;
+}
+export interface CalenderHeaderType {
+  currentMonth: Date;
+  prevMonth: () => void;
+  nextMonth: () => void;
+}
+export interface CalenderDateType {
+  currentMonth: Date;
+  selectedDate: Date;
+  onDateClick: (date: Date) => void;
 }
 
 export interface UserInfoList {
@@ -545,4 +609,69 @@ export interface bastetCheck {
   pg_provider: string;
   receipt_url: string;
   imp_uid: string | null;
+}
+
+export interface Curriculum {
+  lectureId: number;
+}
+export interface Videos extends Curriculum {
+  videoId: number;
+}
+export interface Progress {
+  videoid: string;
+  currenttime: number;
+}
+export interface VideoCurriculumVideoInfos {
+  lastviewdate: string;
+  progress: number;
+  timecheck: number;
+  videoId: string;
+  videoTitle: string;
+  videoTotalPlayTime: number;
+}
+export interface VideoCurriculumVideoInfo {
+  sectionId: number;
+  sectionNumber: number;
+  sectionTitle: string;
+  videoInfo: VideoCurriculumVideoInfos[];
+}
+export interface VideoCurriculum {
+  lectureExpiryDate: string;
+  lectureId: number;
+  lectureName: string;
+  lectureRating: number;
+  lectureWholeProgess: number;
+  wholeRemainingTime: number;
+  wholeStudyTime: number;
+  sectionInfo: {
+    sectionId: number;
+    sectionNumber: number;
+    sectionTitle: string;
+    videoInfo: {
+      lastviewdate: string;
+      progress: number;
+      timecheck: number;
+      videoId: string;
+      videoTitle: string;
+      videoTotalPlayTime: number;
+    }[];
+  }[];
+}
+export interface Note {
+  noteContent: string;
+  noteTitle: string;
+  videoId: string;
+}
+export interface ReNote {
+  noteContent: string;
+  noteNo: number;
+  noteTitle: string;
+}
+
+// 마이페이지 검색
+export interface Search {
+  page: number;
+  bigcategory: string;
+  order: string;
+  q: string;
 }

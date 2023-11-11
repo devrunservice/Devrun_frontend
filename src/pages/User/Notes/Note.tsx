@@ -12,7 +12,7 @@ const Note = () => {
   const dispatch = useDispatch();
   const {lectureId} = useParams();
 
-  const [pageno, setPageno] = useState<number>(1);
+  const [pageno, setPageno] = useState<number>(0);
 
   useEffect(() => {
     dispatch(noteListLoading({page: pageno, id: lectureId}));

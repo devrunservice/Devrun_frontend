@@ -112,7 +112,7 @@ export function* watchQuestionSaga() {
   yield takeLatest(questionLoading.type, question);
 }
 
-export default function* learningSaga() {
+export default function* dashboardSaga() {
   yield all([
     fork(watchLearningSaga),
     fork(watchNoteLectureSaga),

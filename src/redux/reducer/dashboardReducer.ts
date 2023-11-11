@@ -1,39 +1,44 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {createSlice} from '@reduxjs/toolkit';
-import {
-  LearningType,
-  LectureWrapperType,
-  NoteListWrapperType,
-  NoteDetailType,
-  QuestionType,
-} from 'types';
+import * as I from 'types';
 
 export interface DashboardReducerType {
   loading: boolean;
-  learningData: LearningType[];
-  noteLectureData: LectureWrapperType;
-  noteListData: NoteListWrapperType;
-  noteDetailData: NoteDetailType[];
-  questionLectureData: LectureWrapperType;
-  questionData: QuestionType[];
+  learningData: I.LearningWrapperType;
+  noteLectureData: I.NoteLectureWrapperType;
+  noteListData: I.NoteListWrapperType;
+  noteDetailData: I.NoteDetailType;
+  questionLectureData: I.QuestionLectureWrapperType;
+  questionData: I.QuestionType[];
   error: Error | null;
 }
 
 const initialState: DashboardReducerType = {
   loading: false,
-  learningData: [],
+  learningData: {
+    dtolist: [],
+    totalPages: 0,
+  },
   noteLectureData: {
     dtolist: [],
-    totatalpages: 1,
+    totalPages: 0,
   },
   noteListData: {
     dtolist: [],
-    totatalpages: 1,
+    totalPages: 0,
   },
-  noteDetailData: [],
+  noteDetailData: {
+    noteId: 0,
+    noteTitle: '',
+    videoId: '',
+    chapter: '',
+    subHeading: '',
+    date: '',
+    content: '',
+  },
   questionLectureData: {
     dtolist: [],
-    totatalpages: 1,
+    totalPages: 0,
   },
   questionData: [],
   error: null,

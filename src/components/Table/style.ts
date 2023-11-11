@@ -1,6 +1,5 @@
-import { styled, css } from "styled-components";
-import * as I from "types"; 
-
+import {styled, css} from 'styled-components';
+import * as I from 'types';
 
 export const Table = styled.ul`
   min-height: 42.6875rem;
@@ -15,7 +14,7 @@ export const TableLi = styled.li<I.TableCommon>`
   align-items: center;
   padding: 1.25rem 0;
   text-align: center;
-  cursor: ${(props: any) => (props.$cursor ? "pointer" : "")};
+  cursor: ${(props: any) => (props.$cursor ? 'pointer' : '')};
   &:nth-child(1) {
     border-top: 1px solid ${(props: any) => props.theme.borderC};
     background: ${(props: any) => props.theme.bgGrayColor};
@@ -29,7 +28,7 @@ const common = css`
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  font-size: 0.875rem
+  font-size: 0.875rem;
 `;
 
 export const Num = styled.div`
@@ -37,7 +36,7 @@ export const Num = styled.div`
   ${common}
 `;
 export const Text = styled.div<I.TableCommon>`
-  width: ${(props: any) => (props.$view ? "62%" : "65.66%")};
+  width: ${(props: any) => (props.$view ? '62%' : '65.66%')};
   text-align: left;
   ${common}
 `;
@@ -46,27 +45,26 @@ export const CommonLi = styled.div`
   ${common}
 `;
 export const View = styled.div<I.TableCommon>`
-  width: ${(props: any) => (props.$view ? "12%" : "8.34%")};
+  width: ${(props: any) => (props.$view ? '12%' : '8.34%')};
   ${common}
 `;
 export const Title = styled(Text)<I.TableCommon>`
-  width: ${(props: any) => (props.$view ? "42.5%" : "19%")};
+  width: ${(props: any) => (props.$view ? '42.5%' : '19%')};
 `;
 export const PointTitle = styled(Text)`
   width: calc(100% - 20.5%);
 `;
 export const PointSpan = styled.span<I.TableCommon>`
   color: ${(props: any) =>
-      props.$color ? props.theme.brandColor : props.theme.textRed};
-  font-weight:500;
-`
+    props.$color ? props.theme.brandColor : props.theme.textRed};
+  font-weight: 500;
+`;
 export const PayBtn = styled(View)`
   width: 18%;
   display: flex;
   justify-content: center;
   gap: 5px;
 `;
-
 
 export const Button = styled.button<I.TableCommon>`
   background: ${(props: any) =>
@@ -75,7 +73,6 @@ export const Button = styled.button<I.TableCommon>`
   color: ${(props: any) => props.theme.textWhite};
   padding: 8px 10px;
 `;
-
 
 export const SwitchBtn = styled.div<I.TableCommon>`
   width: 3.125rem;
@@ -100,5 +97,55 @@ export const ToggleBtn = styled.div<I.TableCommon>`
   background: ${(props: any) =>
     props.$view ? props.theme.brandColor : props.theme.textColor};
   transform: ${(props: any) =>
-    props.$view ? "translateX(0px)" : "translateX(-23px)"};
+    props.$view ? 'translateX(0px)' : 'translateX(-23px)'};
+`;
+
+// 노트 테이블
+export const LectureLi = styled.li`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid ${(props) => props.theme.borderC};
+  cursor: pointer;
+  &:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+  }
+`;
+
+export const LectureInfo = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const LectureTitle = styled.p`
+  font-weight: 600;
+`;
+
+export const ImageWrapper = styled.div`
+  width: 150px;
+  height: 90px;
+  margin-right: 16px;
+  background-color: ${(props) => props.theme.bgGrayColor};
+  border-radius: 16px;
+  /* overflow: hidden; */
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    padding: 0;
+  }
+`;
+
+export const ArrowBtn = styled.div`
+  transform: rotate(270deg);
+`;
+
+export const NoteCardLi = styled.li`
+  width: 280px;
+  height: 300px;
+  background-color: ${(props) => props.theme.bgGrayColor};
+  border-radius: 16px;
 `;

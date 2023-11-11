@@ -5,7 +5,7 @@ import modalReducer from './reducer/modalReducer';
 import loginReducer from './reducer/loginReducer';
 import createVideoSlice from './reducer/createVideoReducer';
 import mypageReducer from './reducer/mypageReducer';
-import learningReducer from './reducer/learningReducer';
+import dashboardReducer from './reducer/dashboardReducer';
 import validationReducer from './reducer/validationReducer';
 import mentoCouponReducer from './reducer/mentoCouponReducer';
 import couponReducer from './reducer/couponReducer';
@@ -27,7 +27,7 @@ const rootReducer = combineReducers({
   userReducer,
   createVideoSlice,
   mypageReducer,
-  learningReducer,
+  dashboardReducer,
   validationReducer,
   mentoCouponReducer,
   couponReducer,

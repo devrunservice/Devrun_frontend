@@ -10,7 +10,7 @@ const Learning = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(learningLoading({page: 1, status: 'all'}));
+    dispatch(learningLoading({page: '1', status: 'all'}));
   }, []);
 
   const courses = useSelector(
@@ -33,11 +33,11 @@ const Learning = () => {
 
   useEffect(() => {
     if (tap === 1) {
-      dispatch(learningLoading());
+      dispatch(learningLoading({page: 1, status: 'all'}));
     } else if (tap === 2) {
-      // dispatch(learningLoading(null));
+      // dispatch(learningLoading({page: 1, status: 'learning'}));
     } else if (tap === 3) {
-      // dispatch(learningLoading(null));
+      // dispatch(learningLoading({page: 1, status: 'complete'}));
     }
   }, [tap]);
 
@@ -78,7 +78,7 @@ const Learning = () => {
         {/* </St.TapWrap> */}
         <St.LearnUl>
           {tap === 1 &&
-            courses.map((course, index) => (
+            courses.dtolist.map((course, index) => (
               <Learn
                 key={index}
                 title={course.title}

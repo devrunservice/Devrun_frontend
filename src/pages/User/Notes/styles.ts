@@ -26,3 +26,32 @@ export const NoteWrapper = styled.ul`
   gap: 1.875rem;
   min-height: 53.8125rem;
 `;
+
+export const NoteDetailSection = styled.section`
+  text-align: center;
+`;
+
+export const NoteDetailWrapper = styled.div`
+  border-bottom: 1px solid ${(props) => props.theme.borderC};
+  padding-bottom: 32px;
+`;
+
+export const NoteTitle = styled.p`
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 8px;
+`;
+
+export const NoteSubHeading = styled.p`
+  font-weight: 500;
+  margin-bottom: 8px;
+`;
+
+export const NoteDate = styled.p`
+  text-align: right;
+`;
+
+export const NoteEditBtn = styled.button`
+  background-color: transparent;
+  border: 1px solid ${(props) => props.theme.brandColor};
+`;

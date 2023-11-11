@@ -1,11 +1,12 @@
 import React from 'react';
-import { Outlet, useLocation } from "react-router-dom";
+import {Outlet, useLocation, useParams} from 'react-router-dom';
 import {Footer, Header, MypageNav} from 'components';
 import MetaTag from 'MetaTag';
 import * as St from 'style/Common';
 
-
 const App = () => {
+  const params = useParams();
+
   const location = useLocation();
   const hideHeader =
     location.pathname === '/signup' ||
@@ -15,19 +16,19 @@ const App = () => {
     location.pathname === '/auth/kakao/callback/login' ||
     location.pathname === '/findaccount/id' ||
     location.pathname === '/findaccount/password' ||
-    location.pathname === '/auth/kakao/callback'||
+    location.pathname === '/auth/kakao/callback' ||
     location.pathname === '/videoView';
 
   const hideFooter =
-    location.pathname === "/signup" ||
-    location.pathname === "/signupconfirm" ||
-    location.pathname === "/signupcompletion" ||
-    location.pathname === "/login" ||
-    location.pathname === "/auth/kakao/callback/login" ||
-    location.pathname === "/findaccount/id" ||
-    location.pathname === "/findaccount/password" ||
-    location.pathname === "/auth/kakao/callback" ||
-    location.pathname === "/videoView";
+    location.pathname === '/signup' ||
+    location.pathname === '/signupconfirm' ||
+    location.pathname === '/signupcompletion' ||
+    location.pathname === '/login' ||
+    location.pathname === '/auth/kakao/callback/login' ||
+    location.pathname === '/findaccount/id' ||
+    location.pathname === '/findaccount/password' ||
+    location.pathname === '/auth/kakao/callback' ||
+    location.pathname === '/videoView';
 
   const myPage =
     location.pathname === '/profile' ||
@@ -37,6 +38,8 @@ const App = () => {
     location.pathname === '/dashboard' ||
     location.pathname === '/learning' ||
     location.pathname === '/notes' ||
+    location.pathname === `/notes/${params.lectureId}` ||
+    location.pathname === `/notes/${params.lectureId}/${params.noteId}` ||
     location.pathname === '/questions' ||
     location.pathname === '/coupon' ||
     location.pathname === '/receipt' ||

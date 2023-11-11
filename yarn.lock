@@ -1621,6 +1621,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.21.0":
+  version: 7.23.2
+  resolution: "@babel/runtime@npm:7.23.2"
+  dependencies:
+    regenerator-runtime: ^0.14.0
+  checksum: 6c4df4839ec75ca10175f636d6362f91df8a3137f86b38f6cd3a4c90668a0fe8e9281d320958f4fbd43b394988958585a17c3aab2a4ea6bf7316b22916a371fb
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.22.5, @babel/template@npm:^7.3.3":
   version: 7.22.5
   resolution: "@babel/template@npm:7.22.5"
@@ -2306,13 +2315,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@kurkle/color@npm:^0.3.0":
-  version: 0.3.2
-  resolution: "@kurkle/color@npm:0.3.2"
-  checksum: 79e97b31f8f6efb28c69d373f94b0c7480226fe8ec95221f518ac998e156444a496727ce47de6d728eb5c3369288e794cba82cae34253deb0d472d3bfe080e49
-  languageName: node
-  linkType: hard
-
 "@leichtgewicht/ip-codec@npm:^2.0.1":
   version: 2.0.4
   resolution: "@leichtgewicht/ip-codec@npm:2.0.4"
@@ -2910,10 +2912,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/base-64@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@types/base-64@npm:1.0.0"
-  checksum: bcb1b52b404a0a6e3cfdefab6d2eb04a0a23dd3881890944f56e0885866b97e8b7e13988b2fd74359a1258b68c7e399d58c0e2aaed3f03fcd801af62a0040ee2
+"@types/base-64@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@types/base-64@npm:1.0.2"
+  checksum: bb7593c6de16c88a1bfed73a37c3be2e940921261bb7a160ab6d671f66d976b5426334ae9ce59553a10086db11e52af348813271a8b636e4f88e4cab8f27a3e4
   languageName: node
   linkType: hard
 
@@ -2974,10 +2976,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/crypto-js@npm:^4.1.2":
-  version: 4.1.2
-  resolution: "@types/crypto-js@npm:4.1.2"
-  checksum: 9a39c6627186f53a1885647889ee376f5858604316023ff2c8226869ad51c9c57ff49bd730deaa751f729fbf611296896e1392862752c5ae9fadf61c64ef3fd2
+"@types/crypto-js@npm:^4.2.1":
+  version: 4.2.1
+  resolution: "@types/crypto-js@npm:4.2.1"
+  checksum: 2111fb39a879e6c346a657cd4994534b8ff54d34dbfe45f82587e84165af0d9a3b8448c0d9a8ddabc81b5875295ea049462e7b969dbeb7cf24ae205e66dcf15a
   languageName: node
   linkType: hard
 
@@ -3282,21 +3284,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-google-recaptcha@npm:^2.1.5":
-  version: 2.1.5
-  resolution: "@types/react-google-recaptcha@npm:2.1.5"
+"@types/react-google-recaptcha@npm:^2.1.8":
+  version: 2.1.8
+  resolution: "@types/react-google-recaptcha@npm:2.1.8"
   dependencies:
     "@types/react": "*"
-  checksum: 8d0fa9e2ad8b3f135c423a196f7007650dc06bceeab3edf73176699189527f1befeefcf9c4289d9e3f1feb427d0034ca218331afa7e874d9e92ff81105a0a4ca
+  checksum: 9a19eceea432929588e0b9e3392905fcba92bdb6c9da66d4f54d66eefd0efca2d619371b6143b62462e3a96f8cfd74b9c8ef8dc13f2ac84dcab91ea5f04a3786
   languageName: node
   linkType: hard
 
-"@types/react-recaptcha-v3@npm:^1.1.2":
-  version: 1.1.2
-  resolution: "@types/react-recaptcha-v3@npm:1.1.2"
+"@types/react-recaptcha-v3@npm:^1.1.4":
+  version: 1.1.4
+  resolution: "@types/react-recaptcha-v3@npm:1.1.4"
   dependencies:
     "@types/react": "*"
-  checksum: 8414ffde3252af4b0aa014f02a8b0d2fbe4cd3cb1bb508ed167f7870b2b57b1645265e68d7f04a808fa19bc64353900506107db52dd4923f1a8a8c3ef7ec1d2a
+  checksum: 5892de22f0438da6d9c0a831dce5dcbb3436bc56807bede2f07fbc174334834f54ead9a4ebe49a07cd82b42f462178f6b9d64965b1dcc51513c9f8ba44cd1302
   languageName: node
   linkType: hard
 
@@ -5043,15 +5045,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chart.js@npm:^4.3.0":
-  version: 4.3.0
-  resolution: "chart.js@npm:4.3.0"
-  dependencies:
-    "@kurkle/color": ^0.3.0
-  checksum: 157ceaa3815665163cb30ccc221a5af40834dca940faa6ec02cb95406bf3e83c15c5f36ad950a1716c9d199e87f7b9be953227c4d9d445d593536175b47bbab8
-  languageName: node
-  linkType: hard
-
 "check-types@npm:^11.1.1":
   version: 11.2.2
   resolution: "check-types@npm:11.2.2"
@@ -5930,6 +5923,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"date-fns@npm:^2.30.0":
+  version: 2.30.0
+  resolution: "date-fns@npm:2.30.0"
+  dependencies:
+    "@babel/runtime": ^7.21.0
+  checksum: f7be01523282e9bb06c0cd2693d34f245247a29098527d4420628966a2d9aad154bd0e90a6b1cf66d37adcb769cd108cf8a7bd49d76db0fb119af5cdd13644f4
+  languageName: node
+  linkType: hard
+
 "debug@npm:2.6.9, debug@npm:^2.6.0, debug@npm:^2.6.9":
   version: 2.6.9
   resolution: "debug@npm:2.6.9"
@@ -6184,8 +6186,8 @@ __metadata:
     "@testing-library/jest-dom": ^5.14.1
     "@testing-library/react": ^13.0.0
     "@testing-library/user-event": ^13.2.1
-    "@types/base-64": ^1.0.0
-    "@types/crypto-js": ^4.1.2
+    "@types/base-64": ^1.0.2
+    "@types/crypto-js": ^4.2.1
     "@types/dompurify": ^3.0.2
     "@types/file-saver": ^2.0.5
     "@types/html2canvas": ^1.0.0
@@ -6194,8 +6196,8 @@ __metadata:
     "@types/node": ^20.3.1
     "@types/react": ^18.2.13
     "@types/react-dom": ^18.2.6
-    "@types/react-google-recaptcha": ^2.1.5
-    "@types/react-recaptcha-v3": ^1.1.2
+    "@types/react-google-recaptcha": ^2.1.8
+    "@types/react-recaptcha-v3": ^1.1.4
     "@types/react-router-dom": ^5.3.3
     "@types/redux-persist": ^4.3.1
     "@types/styled-components": ^5.1.26
@@ -6205,8 +6207,8 @@ __metadata:
     "@yarnpkg/sdks": ^3.0.0-rc.45
     axios: ^1.4.0
     base-64: ^1.0.0
-    chart.js: ^4.3.0
     crypto-js: ^4.1.1
+    date-fns: ^2.30.0
     dompurify: ^3.0.5
     eslint: ^8.43.0
     eslint-config-airbnb: ^19.0.4
@@ -13079,6 +13081,13 @@ __metadata:
   version: 0.13.11
   resolution: "regenerator-runtime@npm:0.13.11"
   checksum: 27481628d22a1c4e3ff551096a683b424242a216fee44685467307f14d58020af1e19660bf2e26064de946bad7eff28950eae9f8209d55723e2d9351e632bbb4
+  languageName: node
+  linkType: hard
+
+"regenerator-runtime@npm:^0.14.0":
+  version: 0.14.0
+  resolution: "regenerator-runtime@npm:0.14.0"
+  checksum: 1c977ad82a82a4412e4f639d65d22be376d3ebdd30da2c003eeafdaaacd03fc00c2320f18120007ee700900979284fc78a9f00da7fb593f6e6eeebc673fba9a3
   languageName: node
   linkType: hard
 

@@ -20,7 +20,7 @@ const Dashboard = () => {
   useEffect(() => {
     const userId = decode('accessToken');
     dispatch(myInfoLoading({id: userId}));
-    dispatch(learningLoading({page: 1, status: 'all'}));
+    dispatch(learningLoading({page: '1', status: 'all'}));
     dispatch(noteLectureLoading({page: 1}));
     dispatch(questionLectureLoading({page: 1}));
   }, []);
@@ -48,6 +48,8 @@ const Dashboard = () => {
     }
   };
 
+  console.log(courses);
+
   return (
     <section>
       <St.WelcomeMessage>
@@ -65,7 +67,7 @@ const Dashboard = () => {
           </St.MoreBtn>
         </St.TitleWrapper>
         <St.ListWrapper>
-          {/* {courses.slice(0, 3).map((course, index) => (
+          {courses.dtolist.slice(0, 3).map((course, index) => (
             <Learn
               key={index}
               title={course.title}
@@ -74,7 +76,7 @@ const Dashboard = () => {
               rating={course.rating}
               lectureUrl={course.lectureUrl}
             />
-          ))} */}
+          ))}
         </St.ListWrapper>
       </St.LearningWrapper>
 

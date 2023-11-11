@@ -10,7 +10,7 @@ import {noteLectureLoading} from '../../../redux/reducer/dashboardReducer';
 const Notes = () => {
   const dispatch = useDispatch();
 
-  const [pageno, setPageno] = useState<number>(1);
+  const [pageno, setPageno] = useState<number>(0);
 
   useEffect(() => {
     dispatch(noteLectureLoading({page: pageno}));

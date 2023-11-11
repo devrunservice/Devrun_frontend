@@ -25,7 +25,7 @@ const Notes = () => {
         <h1>작성한 질문</h1>
         {/* <SearchBar /> */}
       </TitleWrapper>
-      {questionLectures.dtolist.map((lecture) => (
+      {/* {questionLectures.dtolist.map((lecture) => (
         <LectureTable
           key={lecture.lectureId}
           lectureId={lecture.lectureId}
@@ -34,7 +34,7 @@ const Notes = () => {
           lastStudyDate={lecture.lastStudyDate}
           count={lecture.count}
         />
-      ))}
+      ))} */}
 
       {/* <Pagination pageno={pageno} setPageno={setPageno} data={questionLectures} /> */}
     </section>

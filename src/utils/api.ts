@@ -153,29 +153,32 @@ export const mypage = {
     return response;
   },
   noteLecture: async (params: I.NotePropsType) => {
-    const response = await authAxios.get(`lectureNoteQpen?page=${params.page}`);
+    const response = await authAxios.get(
+      `/lectureNoteOpen?page=${params.page}`
+    );
+    console.log(response);
     return response;
   },
   noteList: async (params: I.NotePropsType) => {
     const response = await authAxios.get(
-      `lectureNoteListQpen?noteId=${params.id}&page=${params.page}`
+      `/lectureNoteListOpen?noteId=${params.id}&page=${params.page}`
     );
     return response;
   },
   noteDetail: async (params: I.NotePropsType) => {
     const response = await authAxios.get(
-      `lectureNoteDetailQpen?lectureId=${params.id}&page=${params.page}`
+      `/lectureNoteDetailQpen?noteId=${params.id}`
     );
     return response;
   },
   questionLecture: async (params: I.NotePropsType) => {
     const response = await authAxios.get(
-      `lectureQaDetailQpen?page=${params.page}`
+      `/lectureQaDetailQpen?page=${params.page}`
     );
     return response;
   },
   question: async () => {
-    const response = await authAxios.get(`lectureQaDetailQpen`);
+    const response = await authAxios.get(`/lectureQaDetailQpen`);
     return response;
   },
   pay: (params: I.PageNo) => {

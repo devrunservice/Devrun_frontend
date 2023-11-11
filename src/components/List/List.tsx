@@ -1,15 +1,39 @@
-import React from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React from 'react';
+import {useNavigate} from 'react-router-dom';
+import {Arrow} from 'asset';
+import * as I from 'types';
+import {FlexColumn} from 'style/Common';
+import * as St from './styles';
 
-interface ListType {
-  key?: number;
-  title: string;
-}
+const List: React.FC<I.LectureType> = ({
+  category,
+  lectureId,
+  lectureTitle,
+  lastStudyDate,
+  count,
+}) => {
+  const navigate = useNavigate();
 
-const List: React.FC<ListType> = ({ title }) => (
-  <li>
-    <p>{title}</p>
-    <p>노트수3 · 작성일: 2023.06.13</p>
-  </li>
-);
+  const handleClick = () => {
+    navigate(`/notes/${lectureId}`);
+  };
+
+  return (
+    <St.DashboardLi onClick={handleClick}>
+      <FlexColumn>
+        <St.LectureTitle>{lectureTitle}</St.LectureTitle>
+        {category === 'notes' ? (
+          <p>{`노트수 ${count} · 작성일 : ${lastStudyDate}`}</p>
+        ) : (
+          <p>{`답변수 ${count} · 작성일 : ${lastStudyDate}`}</p>
+        )}
+      </FlexColumn>
+      <St.ArrowBtn>
+        <Arrow />
+      </St.ArrowBtn>
+    </St.DashboardLi>
+  );
+};
 
 export default List;
