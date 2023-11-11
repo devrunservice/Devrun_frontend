@@ -22,7 +22,7 @@ const EmailVerification = ({
     }
   };
   return (
-    <St.EmailBtn status={status} onClick={handleClick}>
+    <St.EmailBtn $status={status} onClick={handleClick}>
       이메일 다시 보내기
     </St.EmailBtn>
   );

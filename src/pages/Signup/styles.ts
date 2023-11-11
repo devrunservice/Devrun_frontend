@@ -2,12 +2,12 @@ import {styled} from 'styled-components';
 import {FlexRow, Input} from 'style/Common';
 
 // Gray 배경 컴포넌트
-export const Section = styled.section<{page: string}>`
+export const Section = styled.section<{$page: string}>`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: ${(props) => (props.page !== 'signup' ? '100vh' : 'auto')};
+  height: ${(props) => (props.$page !== 'signup' ? '100vh' : 'auto')};
   background-color: ${(props) => props.theme.bgGrayColor};
   overflow: auto;
 `;
@@ -144,10 +144,10 @@ export const LoginBtn = styled(Button)`
   width: 45%;
 `;
 
-export const HomeBtn = styled(Button)<{status?: string}>`
+export const HomeBtn = styled(Button)<{$status?: string}>`
   background-color: #f0f0f0;
   color: ${(props) => props.theme.black};
   margin: 0.5rem 0;
   padding: 0.8rem 0;
-  width: ${(props) => (props.status === 'expired' ? '100%' : '45%')};
+  width: ${(props) => (props.$status === 'expired' ? '100%' : '45%')};
 `;
