@@ -156,7 +156,6 @@ export const mypage = {
     const response = await authAxios.get(
       `/lectureNoteOpen?page=${params.page}`
     );
-    console.log(response);
     return response;
   },
   noteList: async (params: I.NotePropsType) => {

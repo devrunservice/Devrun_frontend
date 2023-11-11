@@ -23,11 +23,12 @@ const List: React.FC<I.LectureType> = ({
     <St.DashboardLi onClick={handleClick}>
       <FlexColumn>
         <St.LectureTitle>{lectureTitle}</St.LectureTitle>
-        {category === 'notes' ? (
-          <p>{`노트수 ${count} · 작성일 : ${lastStudyDate}`}</p>
-        ) : (
-          <p>{`답변수 ${count} · 작성일 : ${lastStudyDate}`}</p>
+        {category === 'notes' && (
+          <p>
+            노트 개수 {count} · 작성일 {lastStudyDate}
+          </p>
         )}
+        {category === 'questions' && <p>작성일 {lastStudyDate}</p>}
       </FlexColumn>
       <St.ArrowBtn>
         <Arrow />

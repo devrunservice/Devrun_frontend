@@ -21,12 +21,12 @@ const NoteCard: React.FC<I.NoteListType> = ({
   };
 
   return (
-    <St.NoteCardLi onClick={handleClick}>
-      <div>{noteTitle}</div>
-      <div>{`Chapter ${chapter} - ${subHeading}`}</div>
-      <div>{date}</div>
-      <div>{contentPreview}</div>
-    </St.NoteCardLi>
+    <St.NoteCard>
+      <St.NoteTitle>{noteTitle}</St.NoteTitle>
+      <St.NoteSubHeading>{`Chapter ${chapter} - ${subHeading}`}</St.NoteSubHeading>
+      <St.NoteDate>{date}</St.NoteDate>
+      <St.NotePreview>{`${contentPreview}...`}</St.NotePreview>
+    </St.NoteCard>
   );
 };
 

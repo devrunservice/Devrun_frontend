@@ -1,4 +1,5 @@
 import {styled, css} from 'styled-components';
+import {Arrow} from 'asset';
 import * as I from 'types';
 
 export const Table = styled.ul`
@@ -101,51 +102,85 @@ export const ToggleBtn = styled.div<I.TableCommon>`
 `;
 
 // 노트 테이블
+// 강의 노트
 export const LectureLi = styled.li`
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 32px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid ${(props) => props.theme.borderC};
+  padding: 16px;
+  margin-bottom: 16px;
+  border-bottom: ${(props) => `1px solid ${props.theme.borderD}`};
+  padding: 8px;
   cursor: pointer;
+
   &:last-child {
-    margin-bottom: 0;
     border-bottom: none;
   }
 `;
 
-export const LectureInfo = styled.div`
-  display: flex;
-  align-items: center;
+export const ImageWrapper = styled.div`
+  width: 120px;
+  height: 80px;
+  background-color: ${(props) => props.theme.bgGrayColor};
+  border-radius: 16px;
 `;
 
-export const LectureTitle = styled.p`
+export const Image = styled.img`
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+`;
+
+export const NoteWrapper = styled.div`
+  flex: 1 1 auto;
+  margin-left: 32px;
+`;
+
+export const LectureTitle = styled.div`
+  /* font-size: 18px; */
   font-weight: 600;
 `;
 
-export const ImageWrapper = styled.div`
-  width: 150px;
-  height: 90px;
-  margin-right: 16px;
-  background-color: ${(props) => props.theme.bgGrayColor};
-  border-radius: 16px;
-  /* overflow: hidden; */
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    padding: 0;
+export const InfoWrapper = styled.div`
+  display: flex;
+
+  & > div:nth-child(2) {
+    margin-left: 16px;
   }
 `;
 
-export const ArrowBtn = styled.div`
+export const RightArrow = styled(Arrow)`
+  width: 16px;
+  height: 16px;
   transform: rotate(270deg);
+  filter: invert(73%) sepia(100%) saturate(0%) hue-rotate(104deg)
+    brightness(91%);
 `;
 
-export const NoteCardLi = styled.li`
+export const NoteCard = styled.li`
   width: 280px;
-  height: 300px;
+  height: 267px;
+  padding: 8px 16px;
   background-color: ${(props) => props.theme.bgGrayColor};
   border-radius: 16px;
+`;
+
+export const NoteTitle = styled.p`
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+`;
+
+export const NoteSubHeading = styled.p`
+  text-align: center;
+  font-weight: 500;
+  margin: 4px 0;
+`;
+
+export const NoteDate = styled.p`
+  text-align: right;
+`;
+
+export const NotePreview = styled.p`
+  margin: 16px 0;
 `;

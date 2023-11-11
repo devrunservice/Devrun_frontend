@@ -19,19 +19,18 @@ const LectureTable: React.FC<I.LectureType> = ({
   };
 
   return (
-    <St.LectureLi onClick={handleClick}>
-      <St.LectureInfo>
-        <St.ImageWrapper>
-          <img src={lectureThumbnail} alt="lectureThumbnail" />
-        </St.ImageWrapper>
-        <div>
-          <St.LectureTitle>{lectureTitle}</St.LectureTitle>
-          <div>{`노트수 ${count} | 최근학습일 : ${lastStudyDate}`}</div>
-        </div>
-      </St.LectureInfo>
-      <St.ArrowBtn>
-        <Arrow />
-      </St.ArrowBtn>
+    <St.LectureLi onClick={() => handleClick()}>
+      <St.ImageWrapper>
+        <St.Image src={lectureThumbnail} alt="thumbnail" />
+      </St.ImageWrapper>
+      <St.NoteWrapper>
+        <St.LectureTitle>{lectureTitle}</St.LectureTitle>
+        <St.InfoWrapper>
+          <div>{`노트수 ${count}`}</div>
+          <div>{lastStudyDate}</div>
+        </St.InfoWrapper>
+      </St.NoteWrapper>
+      <St.RightArrow />
     </St.LectureLi>
   );
 };

@@ -5,11 +5,11 @@ export const DashboardLi = styled.li`
   justify-content: space-between;
   align-items: center;
   margin: 8px 0;
-  padding-bottom: 8px;
-  border-bottom: 1px solid ${(props) => props.theme.borderC};
+  border-bottom: ${(props) => `1px solid ${props.theme.borderD}`};
+  padding: 8px 0;
   cursor: pointer;
+
   &:last-child {
-    margin-bottom: 0;
     border-bottom: none;
   }
 `;
