@@ -57,7 +57,10 @@ const router = createBrowserRouter([
         path: "notice/:noticeNo/retouch",
         element: protectedRoute(<Route.NoticeRetouch />),
       },
-      { path: "lecture", element: <Route.Lecture /> },
+      {
+        path: "lecture/:lectureBigCategory",
+        element: <Route.Lecture />,
+      },
       { path: "detail", element: <Route.DetailPage /> },
       { path: "createVideo", element: <Route.CreateVideo /> },
       { path: "profile", element: protectedRoute(<Route.Profile />) },

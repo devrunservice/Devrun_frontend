@@ -74,7 +74,7 @@ export const Center = styled.div`
   position: relative;
   width: 100%;
 
-  > iframe {
+  > div > iframe , > div {
     height: 100%;
     width: 100%;
   }

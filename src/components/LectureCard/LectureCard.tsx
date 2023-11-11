@@ -2,32 +2,58 @@
 import React from "react";
 import * as St from "./style";
 
+interface LectureData {
+  lectureBigCategory: string;
+  lectureName: string;
+  lectureIntro: string;
+  lectureThumbnail: string;
+  lectureMidCategory: string;
+  mentoId: string;
+  lectureprice: number;
+  buycount: number;
+  rating: number;
+}
 
-const LectureCard = () => {
+const LectureCard = ({
+  lectureBigCategory,
+  lectureName,
+  lectureIntro,
+  lectureThumbnail,
+  lectureMidCategory,
+  mentoId,
+  lectureprice,
+  buycount,
+  rating,
+}: LectureData) => {
   const priceDot = (num: number) =>
     num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   return (
     <St.List>
-      <St.ListThumbnail />
-      <St.ListTextArea>
-        <St.ListTitle>
-          제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다제목입니다
-        </St.ListTitle>
+      <St.ListThumbnail>
+        <St.ListThumbnailImg src={lectureThumbnail} alt={lectureIntro} />
+      </St.ListThumbnail>
+      <div>
+        <St.ListTitle>{lectureName}</St.ListTitle>
         <St.ListText>
           <St.ListTeacher>
-            강사명
+            {mentoId}
             <span>
               <St.Star />
-              2.8
+              {rating}
             </span>
           </St.ListTeacher>
           <St.Price>
-            <span>{priceDot(500)}</span>원
+            <span>{priceDot(lectureprice)}</span>원
           </St.Price>
         </St.ListText>
-        <St.ListViewCount>카테고리명</St.ListViewCount>
-        <St.ListViewCount>550명 수강</St.ListViewCount>
-      </St.ListTextArea>
+        <St.ListViewCount>{lectureBigCategory}</St.ListViewCount>
+        <St.ListViewCount>{lectureMidCategory}</St.ListViewCount>
+        {buycount === 0 ? (
+          ""
+        ) : (
+          <St.ListViewCount>{priceDot(buycount)}명 수강</St.ListViewCount>
+        )}
+      </div>
     </St.List>
   );
 };

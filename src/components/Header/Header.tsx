@@ -6,17 +6,20 @@ import {RootState} from 'redux/store';
 import {getCookie} from 'utils/cookies';
 import Logo from 'asset/images/Logo.png';
 import {Modal} from 'components';
-
+import { useInput } from "hooks";
 import {Button} from 'style/Common';
 import * as St from './style';
 import { userInfoLoading } from "../../redux/reducer/userReducer";
 import { logoutLoading } from "../../redux/reducer/loginReducer";
 import { cartInfoLoading } from "../../redux/reducer/cartReducer";
+import {
+  categorySearchLoading,
+} from "../../redux/reducer/learningReducer";
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+const [search, onSearch, setSearch] = useInput("");
   const [cookie, setCookie] = useState<boolean>(false);
 
   const {data} = useSelector((state: RootState) => state.userReducer);
@@ -32,7 +35,21 @@ const Header = () => {
     dispatch(logoutLoading());
     setCookie(false);
   };
-
+  const searchBtn = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (search.trim === "") return alert("검색어를 적어주세요");
+    dispatch(
+      categorySearchLoading({
+        page: 1,
+        bigcategory: "",
+        order: "lecture_start",
+        q: search,
+      })
+    );
+    navigate(`/lecture/${search}`);
+    setSearch("");
+  };
+  
   return (
     <St.HeaderWrap>
       <Modal page="home" />
@@ -42,21 +59,27 @@ const Header = () => {
             <img src={Logo} alt="로고" />
           </St.LogoIcon>
           <St.CategoryWrap>
-            <St.CategoryLi>
+            <St.CategoryLi
+              onClick={() =>
+                navigate(`/lecture/${encodeURIComponent("전체강의")}`)
+              }
+            >
               강의
             </St.CategoryLi>
             <St.CategoryLi onClick={() => navigate("/notice")}>
               공지사항
             </St.CategoryLi>
-            <St.CategoryLi onClick={() => navigate('/createVideo')}>
+            <St.CategoryLi onClick={() => navigate("/createVideo")}>
               강의 등록
             </St.CategoryLi>
           </St.CategoryWrap>
         </St.NavWrap>
         <St.NavWrap>
-          <St.SearchBox>
+          <St.SearchBox onSubmit={searchBtn}>
             <St.SearchInput
               type="text"
+              onChange={onSearch}
+              value={search}
               placeholder="찾고 싶은 강의 주제를 입력해주세요"
             />
             <St.SearchIcon />
@@ -103,7 +126,7 @@ const Header = () => {
                   <St.DropdownTop>
                     <St.DropdownItemWrapper>
                       <St.DropdownItemBtn
-                        onClick={() => navigate('/dashboard')}
+                        onClick={() => navigate("/dashboard")}
                       >
                         {data.id}
                       </St.DropdownItemBtn>

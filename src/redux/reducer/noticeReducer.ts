@@ -16,6 +16,7 @@ const initialState: Notices = {
         title: "",
         userNo: 0,
         viewCount: 0,
+        order: 0,
       },
     ],
     totalElements: 0,
@@ -32,6 +33,7 @@ const initialState: Notices = {
     title: "",
     userNo: 0,
     viewCount: 0,
+    order: 0,
   },
   // 댓글 불러오기
   datas: {
@@ -198,7 +200,6 @@ const noticeReducer = createSlice({
     },
     commentDelSuccess: (state, action) => {
       state.loading = false;
-      console.log(action.payload);
       state.datas.data = state.datas?.data.filter(
         (v) => v.commentNo !== action.payload.data.commentNo
       );

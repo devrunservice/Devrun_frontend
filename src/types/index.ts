@@ -346,10 +346,7 @@ export interface Active {
 export interface IPriceButton {
   active: boolean;
 }
-// 마이페이지 검색
-export interface MySearch {
-  search: string;
-}
+
 
 // 공지사항
 
@@ -363,6 +360,7 @@ export interface NoticeList {
   title: string;
   userNo: number;
   viewCount: number;
+  order:number
 }
 export interface Notice {
   content: NoticeList[];
@@ -511,8 +509,8 @@ export interface Videos extends Curriculum {
   videoId: number;
 }
 export interface Progress {
-  videoid: number;
-  currenttime:string
+  videoid: string;
+  currenttime: number;
 }
 
 export interface VideoCurriculumVideoInfos{
@@ -552,3 +550,30 @@ export interface VideoCurriculum {
     }[];
   }[];
 }
+export interface Note {
+  noteContent: string;
+  noteTitle: string;
+  videoId: string;
+}
+export interface ReNote {
+  noteContent: string;
+  noteNo: number;
+  noteTitle: string;
+}
+// 마이페이지 검색
+
+export interface Search {
+  page: number;
+  bigcategory: string;
+  order:string
+  q:string
+}
+
+
+
+
+
+
+
+
+

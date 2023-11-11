@@ -13,23 +13,8 @@ const initialState: Carts = {
       userPoint: 0,
       userNo: 0,
     },
-    couponListInCart: [
-      {
-        discountrate: 0,
-        expirydate: "",
-        lecturename: "",
-        state: "",
-        couponcode: "",
-      },
-    ],
-    lectureInfoList: [
-      {
-        lecture_intro: "",
-        lecture_name: "",
-        lecture_price: 0,
-        lecture_thumbnail: "",
-      },
-    ],
+    couponListInCart: [],
+    lectureInfoList: [],
   },
   couponPrice: {
     discountprice: [],
