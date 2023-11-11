@@ -562,11 +562,14 @@ export interface ReNote {
 }
 // 마이페이지 검색
 
-export interface Search {
-  page: number;
+export interface MainList {
   bigcategory: string;
-  order:string
-  q:string
+}
+
+export interface Search extends MainList {
+  page: number;
+  order: string;
+  q: string;
 }
 
 

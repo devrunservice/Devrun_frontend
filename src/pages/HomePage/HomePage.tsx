@@ -11,7 +11,11 @@ import * as Img from "asset";
 import * as St from "./style";
 import "swiper/swiper.css";
 import { noticeListLoading } from "../../redux/reducer/noticeReducer";
-import { categorySearchLoading, mainLectureLoading } from "../../redux/reducer/learningReducer";
+import {
+  categorySearchLoading,
+  ratingLectureLoading,
+  buyLectureLoading,
+} from "../../redux/reducer/learningReducer";
 
 const HomePage = () => {
   const [test, setTest] = useState([1, 2, 3, 4, 1, 2, 3, 4]);
@@ -19,12 +23,13 @@ const HomePage = () => {
  
   const dispatch = useDispatch();
   const { data } = useSelector( (state: RootState) => state.noticeReducer);
-  const { lecture } = useSelector(
+  const { lecture: buy, data: rating } = useSelector(
     (state: RootState) => state.learningReducer
   );
   useEffect(() => {
     dispatch(noticeListLoading(1));
-    dispatch(mainLectureLoading(null));
+    dispatch(ratingLectureLoading("lecture_rating"));
+    dispatch(buyLectureLoading("buy_count"));
   }, []);
   const navigate = useNavigate();
   const navi = useCallback(
@@ -172,7 +177,7 @@ const HomePage = () => {
           <St.SwiperBox>
             <Swiper spaceBetween={20} slidesPerView={4}>
               <St.ListWrap>
-                {lecture.dtolist.map((v, index) => (
+                {buy.dtolist.map((v, index) => (
                   <SwiperSlide key={index}>
                     <LectureCard
                       lectureBigCategory={v.lectureBigCategory}
@@ -207,7 +212,7 @@ const HomePage = () => {
           <St.SwiperBox>
             <Swiper spaceBetween={20} slidesPerView={4}>
               <St.ListWrap>
-                {lecture.dtolist.map((v, index) => (
+                {rating.dtolist.map((v, index) => (
                   <SwiperSlide key={index}>
                     <LectureCard
                       lectureBigCategory={v.lectureBigCategory}

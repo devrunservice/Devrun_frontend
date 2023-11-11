@@ -2,63 +2,67 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {LearningType} from 'types';
 
-export interface LearningReducerType {
+interface Data {
+  dtolist: {
+    lectureBigCategory: string;
+    lectureIntro: string;
+    lectureMidCategory: string;
+    lectureName: string;
+    lectureThumbnail: string;
+    lectureprice: number;
+    mentoId: string;
+    buycount: number;
+    rating: number;
+  }[];
+  totalelements: number;
+  totalpages: number;
+}
+
+interface LearningReducerType {
   loading: boolean;
-  data: LearningType[];
   error: Error | null;
-  lecture: {
-    dtolist: {
-      lectureBigCategory: string;
-      lectureIntro: string;
-      lectureMidCategory: string;
-      lectureName: string;
-      lectureThumbnail: string;
-      lectureprice: number;
-      mentoId: string;
-      buycount: number;
-      rating: number;
-    }[];
-    totalelements: number;
-    totalpages: number;
-  };
+  data: Data;
+  lecture: Data;
 }
 
 const initialState: LearningReducerType = {
   loading: false,
-  data: [],
-  error: null,
+  data: {
+    dtolist: [],
+    totalelements: 0,
+    totalpages: 0,
+  },
   lecture: {
     dtolist: [],
     totalelements: 0,
     totalpages: 0,
   },
-
+  error: null,
 };
 
 const learningReducer = createSlice({
   name: "learningReducer",
   initialState,
   reducers: {
-    learningLoading: (state, action) => {
+    ratingLectureLoading: (state, action) => {
       state.loading = true;
     },
-    learningSuccess: (state, action) => {
+    ratingLectureFail: (state, action) => {
       state.loading = false;
       state.data = action.payload.data;
     },
-    learningFail: (state, action) => {
+    ratingLectureSuccess: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
-
-    mainLectureLoading: (state, action) => {
+    buyLectureLoading: (state, action) => {
       state.loading = true;
     },
-    mainLectureSuccess: (state, action) => {
+    buyLectureSuccess: (state, action) => {
       state.loading = false;
       state.lecture = action.payload.data;
     },
-    mainLectureFail: (state, action) => {
+    buyLectureFail: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
@@ -77,12 +81,12 @@ const learningReducer = createSlice({
 });
 
 export const {
-  learningLoading,
-  learningSuccess,
-  learningFail,
-  mainLectureSuccess,
-  mainLectureFail,
-  mainLectureLoading,
+  ratingLectureSuccess,
+  ratingLectureFail,
+  ratingLectureLoading,
+  buyLectureSuccess,
+  buyLectureFail,
+  buyLectureLoading,
   categorySearchSuccess,
   categorySearchFail,
   categorySearchLoading,

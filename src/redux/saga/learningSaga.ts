@@ -1,35 +1,39 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {call, put, takeLatest, all, fork} from 'redux-saga/effects';
 import {PayloadAction} from '@reduxjs/toolkit';
-import {mypage, search} from 'utils/api';
-import { LearningType, Search } from "types";
+import {search} from 'utils/api';
+import {  MainList, Search } from "types";
 import {
-  learningLoading,
-  learningSuccess,
-  learningFail,
-  mainLectureSuccess,
-  mainLectureFail,
-  mainLectureLoading,
+  ratingLectureSuccess,
+  ratingLectureFail,
+  ratingLectureLoading,
+  buyLectureSuccess,
+  buyLectureFail,
+  buyLectureLoading,
   categorySearchSuccess,
   categorySearchFail,
   categorySearchLoading,
 } from "../reducer/learningReducer";
 
-function* learning(action: PayloadAction<string>): Generator<any, void, any> {
+
+function* ratingLecture(
+  action: PayloadAction<MainList>
+): Generator<any, void, any> {
   try {
-    const response = yield call(mypage.learning, action.payload);
-    yield put(learningSuccess(response));
+    const response = yield call(search.search, action.payload);
+    yield put(ratingLectureSuccess(response));
   } catch (error: any) {
-    yield put(learningFail(error));
+    yield put(ratingLectureFail(error));
   }
 }
-
-function* mainLecture(): Generator<any, void, any> {
+function* buyLecture(
+  action: PayloadAction<MainList>
+): Generator<any, void, any> {
   try {
-    const response = yield call(search.search);
-    yield put(mainLectureSuccess(response));
+    const response = yield call(search.search, action.payload);
+    yield put(buyLectureSuccess(response));
   } catch (error: any) {
-    yield put(mainLectureFail(error));
+    yield put(buyLectureFail(error));
   }
 }
 
@@ -42,19 +46,20 @@ function* cateSearch(action: PayloadAction<Search>): Generator<any, void, any> {
   }
 }
 
-export function* watchLearningSaga() {
-  yield takeLatest(learningLoading.type, learning);
-}
+
 export function* watchCategorySearchSaga() {
   yield takeLatest(categorySearchLoading, cateSearch);
 }
-export function* watchMainLectureSaga() {
-  yield takeLatest(mainLectureLoading, mainLecture);
+export function* watchRatingLectureSaga() {
+  yield takeLatest(ratingLectureLoading, ratingLecture);
+}
+export function* watchBuyLectureSaga() {
+  yield takeLatest(buyLectureLoading, buyLecture);
 }
 export default function* learningSaga() {
   yield all([
-    fork(watchLearningSaga),
-    fork(watchMainLectureSaga),
+    fork(watchRatingLectureSaga),
     fork(watchCategorySearchSaga),
+    fork(watchBuyLectureSaga),
   ]);
 }

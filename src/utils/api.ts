@@ -309,13 +309,17 @@ export const video = {
   },
 };
 export const search = {
-  search: () => {
-    const response = baseAxios.get(`/q/lecture?bigcategory=&page=1`);
+  search: (params: I.MainList) => {
+    const response = baseAxios.get(
+      `/q/lecture?bigcategory=${params.bigcategory}&page=1`
+    );
     return response;
   },
   categorySearch: (params: I.Search) => {
     const response = baseAxios.get(
-      `/q/lecture?bigcategory=${params.bigcategory}&page=${params.page}&order=${params.order}&q=${String(params.q)}`
+      `/q/lecture?bigcategory=${params.bigcategory}&page=${params.page}&order=${
+        params.order
+      }&q=${String(params.q)}`
     );
     return response;
   },
