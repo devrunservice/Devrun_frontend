@@ -24,7 +24,7 @@ const NoticeTable = (props: I.NoticesTabel) => {
       {props.data.content.map((v) => {
         return (
           <St.TableLi onClick={() => navi(v.noticeNo)} $cursor key={v.noticeNo}>
-            <St.Num>{v.noticeNo}</St.Num>
+            <St.Num>{v.order}</St.Num>
             <St.Text $view={false}>{v.title}</St.Text>
             <St.CommonLi>{v.id}</St.CommonLi>
             <St.CommonLi>{v.createdDate.slice(0, 10)}</St.CommonLi>

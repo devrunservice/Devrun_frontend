@@ -5,9 +5,19 @@ import { VideoCurriculum } from "types";
 
 interface Video {
   data: VideoCurriculum;
-  progress:string;
+  note: string;
+  getNote: {
+    chapter: number;
+    content: string;
+    date: string;
+    noteId: number;
+    noteTitle: string;
+    subHeading: string;
+  }[];
+  progress: string;
   loading: boolean;
   error: null;
+  reNote: number;
 }
 
 const initialState: Video = {
@@ -23,7 +33,10 @@ const initialState: Video = {
   },
   loading: false,
   error: null,
-  progress:"",
+  progress: "",
+  note: "",
+  getNote: [],
+  reNote: 0,
 };
 
 const VideoViewReducer = createSlice({
@@ -56,6 +69,46 @@ const VideoViewReducer = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    saveNoteLoding: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
+    saveNoteSuccess: (state, action) => {
+      state.loading = false;
+      state.error = null;
+      state.note = action.payload.data;
+    },
+    saveNoteFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    getNoteLoding: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
+    getNoteSuccess: (state, action) => {
+      state.loading = false;
+      state.error = null;
+      state.getNote = action.payload.data;
+    },
+    getNoteFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+
+    reNoteLoding: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
+    reNoteSuccess: (state, action) => {
+      state.loading = false;
+      state.error = null;
+      state.reNote = action.payload.noteNo;
+    },
+    reNoteFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 
@@ -66,6 +119,15 @@ export const {
   progressSuccess,
   progressFail,
   progressLoding,
+  saveNoteSuccess,
+  saveNoteFail,
+  saveNoteLoding,
+  getNoteSuccess,
+  getNoteFail,
+  getNoteLoding,
+  reNoteLoding,
+  reNoteSuccess,
+  reNoteFail,
 } = VideoViewReducer.actions;
 
 export default VideoViewReducer.reducer;

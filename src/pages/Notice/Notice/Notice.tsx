@@ -38,7 +38,11 @@ const Notice = () => {
         </S.ButtonWrap>
       )}
 
-      <Pagination pageno={pageno} setPageno={setPageno} data={data} />
+      <Pagination
+        pageno={pageno}
+        setPageno={setPageno}
+        totalPages={data.totalPages}
+      />
     </S.Inner>
   );
 };

@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useCallback, useState, useEffect, useRef } from "react";
+import React, { useCallback, useState, useEffect } from "react";
+import YouTube from "react-youtube";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { Curriculum, Note } from "components";
+import { video } from "utils/api";
 import { useDate } from "hooks";
 import { VideoCurriculumVideoInfos } from "types";
 import { PiArrowLineLeftBold, PiArrowLineRightBold } from "react-icons/pi";
@@ -28,11 +30,12 @@ const VideoView = () => {
   const [lecture, setLecture] = useState<VideoCurriculumVideoInfos>({
     lastviewdate: "",
     progress: 0,
-    timecheck: 0,
+    timecheck: 10,
     videoId: "",
     videoTitle: "",
     videoTotalPlayTime: 0,
   });
+
   // 현재 내위치값
   const currentIndex = () => {
     let currentSectionInfoIndex = 0;
@@ -49,8 +52,10 @@ const VideoView = () => {
     }
     return { currentSectionInfoIndex, currentVideoinfoIndex };
   };
+  const { currentSectionInfoIndex, currentVideoinfoIndex } = currentIndex();
+  
   const onPrev = useCallback(() => {
-    const { currentSectionInfoIndex, currentVideoinfoIndex } = currentIndex();
+    
     if (currentVideoinfoIndex === 0) {
       const prevInfo =
         data.sectionInfo[currentSectionInfoIndex - 1].videoInfo[
@@ -66,7 +71,6 @@ const VideoView = () => {
     }
   }, [lecture]);
   const onNext = useCallback(() => {
-    const { currentSectionInfoIndex, currentVideoinfoIndex } = currentIndex();
     if (
       currentVideoinfoIndex ===
       data.sectionInfo[currentSectionInfoIndex].videoInfo.length - 1
@@ -88,27 +92,29 @@ const VideoView = () => {
   const onNote = useCallback(() => {
     setOpen({ ...open, curriculumOpen: false, note: !open.note });
   }, [open]);
-  const videoId = lecture.videoId;
 
-  const timeRef = useRef<HTMLIFrameElement>(null);
   const [time, setTime] = useState<number>(0);
-  const handleIframeLoad = () => {
-    const iframeDocument = timeRef.current?.contentDocument;
-    const player = iframeDocument?.querySelector("video");
-
-    player?.addEventListener("timeupdate", () => {
-      setTime(player.currentTime);
-    });
-  };
-  useEffect(() => {
+  const onPlayTime = (e: any) => {
     const postTime = setInterval(() => {
-      // dispatch(progressLoding(time));
-    }, 10000);
+      if (e.data === 1) {
+        const player = e.target.getCurrentTime();
+        setTime(player);
+      }
+    }, 60 * 60 * 30);
     return () => {
       clearInterval(postTime);
     };
-  }, [time]);
-  console.log(time);
+  };
+  useEffect(() => {
+    
+    dispatch(
+      progressLoding({
+        currenttime: Math.floor(time),
+        videoid: lecture.videoId,
+      })
+    );
+  }, [time, lecture.videoId]);
+  
   return (
     <St.VideoViewWrap>
       <St.Left>
@@ -132,10 +138,22 @@ const VideoView = () => {
           </St.TopRight>
         </St.Top>
         <St.Center>
-          <iframe
-            src={`https://www.youtube.com/embed/${videoId}`}
+          <YouTube
+            videoId={lecture.videoId}
+            onStateChange={onPlayTime}
             title={lecture.videoTitle}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            opts={{
+              playerVars: {
+                autoplay: 1,
+                rel: 0,
+                modestbranding: 1,
+              },
+            }}
+            // 이벤트 리스너
+            onEnd={(e: any) => {
+              e.target.stopVideo(0);
+              setTime(0);
+            }}
           />
         </St.Center>
         <St.Bottom>
@@ -175,7 +193,7 @@ const VideoView = () => {
       )}
       {open.note && (
         <St.CurriculumWrap>
-          <Note onNote={onNote} />
+          <Note onNote={onNote} videoid={lecture.videoId} lectureId ={data.lectureId} sectionNumber={data.sectionInfo[currentSectionInfoIndex].sectionNumber}/>
         </St.CurriculumWrap>
       )}
     </St.VideoViewWrap>

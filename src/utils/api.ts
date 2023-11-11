@@ -293,8 +293,33 @@ export const video = {
     const response = authAxios.post(`/lecture/progress`, params);
     return response;
   },
+  saveNote: (params: I.Note) => {
+    const response = authAxios.post(`/lecturenote`, params);
+    return response;
+  },
+  getNote: (params: I.Curriculum) => {
+    const response = authAxios.get("/lectureNoteDetailOpen", {
+      params: { lectureId: params },
+    });
+    return response;
+  },
+  reNote: (params: I.ReNote) => {
+    const response = authAxios.post("/lecturenoteUpdate", params);
+    return response;
+  },
 };
-
+export const search = {
+  search: () => {
+    const response = baseAxios.get(`/q/lecture?bigcategory=&page=1`);
+    return response;
+  },
+  categorySearch: (params: I.Search) => {
+    const response = baseAxios.get(
+      `/q/lecture?bigcategory=${params.bigcategory}&page=${params.page}&order=${params.order}&q=${String(params.q)}`
+    );
+    return response;
+  },
+};
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 

@@ -119,7 +119,7 @@ const CouponPop = (props: CouponRegistration) => {
     const getMonths = getMonth < 10 ? `0${getMonth}` : `${getMonth}`;
     const getDays = getdate < 10 ? `0${getdate}` : `${getdate}`;
     const onCreate = useCallback(
-      async (e: React.FormEvent<HTMLFormElement>) => {
+       (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (selets.seletes === "강의를 선택해주세요") return alert("강의를 선택해주세요");
         if (

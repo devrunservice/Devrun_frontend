@@ -14,14 +14,11 @@ const Point = () => {
       return (
         <>
           <UserTop title="포인트" sub="총 보유포인트" count={data.mypoint} />
-          <PointTable
-            data={data.pointHistoryPage.content}
-            
-          />
+          <PointTable data={data.pointHistoryPage.content} />
           <Pagination
             pageno={pageno}
             setPageno={setPageno}
-            data={data.pointHistoryPage}
+            totalPages={data.pointHistoryPage.totalPages}
           />
         </>
       );
