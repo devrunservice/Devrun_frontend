@@ -18,7 +18,11 @@ const Receipt = () => {
     <>
       <UserTop title="구매내역" count={data.totalElements} sub="전체" />
       <ReceiptTable data={data.content} setRefund={setRefund} />
-      <Pagination pageno={pageno} setPageno={setPageno} data={data} />
+      <Pagination
+        pageno={pageno}
+        setPageno={setPageno}
+        totalPages={data.totalPages}
+      />
     </>
   );
 };

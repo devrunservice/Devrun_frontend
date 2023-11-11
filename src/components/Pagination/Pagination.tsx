@@ -4,34 +4,31 @@ import * as St from "./style";
 
 
 interface Paginations {
-  data: {
-    totalElements: number;
-    totalPages: number;
-  };
+  totalPages: number;
   pageno: number;
   setPageno: (page: number) => void;
 }
 
-const Pagination = (props: Paginations) => {
-  const lastPage = props.data?.totalPages || 0;
+const Pagination = ({ totalPages, pageno, setPageno }: Paginations) => {
+  const lastPage = totalPages || 0;
   const onClickPage = useCallback(
     (pageNumber: number) => {
-      props.setPageno(pageNumber);
+      setPageno(pageNumber);
     },
-    [props.pageno]
+    [pageno]
   );
   const itemsPerPage = 10;
-  const currentGroup = Math.ceil(props.pageno / itemsPerPage);
+  const currentGroup = Math.ceil(pageno / itemsPerPage);
   const firstPageInGroup = (currentGroup - 1) * itemsPerPage + 1;
   const lastPageInGroup = Math.min(
     currentGroup * itemsPerPage,
-    props.data?.totalPages || 0
+    totalPages || 0
   );
   return (
     <St.PagingWrap>
       <St.PagingArr
-        onClick={() => props.setPageno(props.pageno - 1)}
-        disabled={props.pageno === 1}
+        onClick={() => setPageno(pageno - 1)}
+        disabled={pageno === 1}
       >
         <PagePrev />
       </St.PagingArr>
@@ -41,7 +38,7 @@ const Pagination = (props: Paginations) => {
           return (
             <St.Paging
               key={pageNumber}
-              $active={pageNumber === props.pageno}
+              $active={pageNumber === pageno}
               onClick={() => onClickPage(pageNumber)}
             >
               {pageNumber}
@@ -50,8 +47,8 @@ const Pagination = (props: Paginations) => {
         }
       )}
       <St.PagingArr
-        onClick={() => props.setPageno(props.pageno + 1)}
-        disabled={props.pageno === lastPage}
+        onClick={() =>setPageno(pageno + 1)}
+        disabled={pageno === lastPage}
       >
         <PageNext />
       </St.PagingArr>

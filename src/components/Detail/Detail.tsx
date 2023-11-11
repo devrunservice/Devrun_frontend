@@ -1,13 +1,12 @@
-import React, { useState } from "react";
-import LectureCard from "components/LectureCard/LectureCard";
+import React from "react";
+// import LectureCard from "components/LectureCard/LectureCard";
 import { HeartFill, Link/* , Circle, MoreBtn */ } from "asset";
 import Curriculum from "components/Curriculum/Curriculum";
-import { Swiper, SwiperSlide } from "swiper/react";
+// import { Swiper, SwiperSlide } from "swiper/react";
 import * as St from "./style";
 import "swiper/swiper.css";
 
 const Detail = () => {
-  const [test, setTest] = useState([1, 2, 34, 1, 2, 3, 4]); // eslint-disable-line
   return (
     <St.DetailWrap>
       <St.PreviewArea>
@@ -208,7 +207,7 @@ const Detail = () => {
             <St.MoreLectureBtn>수강평 더보기</St.MoreLectureBtn>
           </St.ReviewCreateArea>
         </St.SectionAreaWrap> */}
-        <St.SectionAreaWrap>
+        {/* <St.SectionAreaWrap>
           <St.SectionTitle>다른 강의 함께 보기</St.SectionTitle>
           <Swiper spaceBetween={20} slidesPerView={4}>
             <St.ListWrap>
@@ -219,7 +218,7 @@ const Detail = () => {
               ))}
             </St.ListWrap>
           </Swiper>
-        </St.SectionAreaWrap>
+        </St.SectionAreaWrap> */}
       </St.DetailMainWrap>
     </St.DetailWrap>
   );

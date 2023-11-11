@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect, useCallback } from "react";
-import { LectureCard } from "components";
+import { LectureCard, MainCategory } from "components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "redux/store";
@@ -11,15 +11,20 @@ import * as Img from "asset";
 import * as St from "./style";
 import "swiper/swiper.css";
 import { noticeListLoading } from "../../redux/reducer/noticeReducer";
+import { categorySearchLoading, mainLectureLoading } from "../../redux/reducer/learningReducer";
 
 const HomePage = () => {
   const [test, setTest] = useState([1, 2, 3, 4, 1, 2, 3, 4]);
-  const [search, onSearch] = useInput("");
+  const [search, onSearch,setSearch] = useInput("");
  
   const dispatch = useDispatch();
   const { data } = useSelector( (state: RootState) => state.noticeReducer);
+  const { lecture } = useSelector(
+    (state: RootState) => state.learningReducer
+  );
   useEffect(() => {
     dispatch(noticeListLoading(1));
+    dispatch(mainLectureLoading(null));
   }, []);
   const navigate = useNavigate();
   const navi = useCallback(
@@ -28,6 +33,21 @@ const HomePage = () => {
     },
     [navigate]
   );
+  const searchBtn = (e:React.FormEvent<HTMLFormElement>)=>{
+    e.preventDefault()
+    if (search.trim === "") return alert("검색어를 적어주세요")
+     dispatch(
+       categorySearchLoading({
+         page: 1,
+         bigcategory: "",
+         order: "lecture_start",
+         q: search,
+       })
+     );
+     navigate(`/lecture/${search}`);
+     setSearch("")
+  }
+  
   return (
     <>
       <St.EventBanner>
@@ -42,93 +62,74 @@ const HomePage = () => {
       <St.MainBg>
         <St.ListEachArea>
           <St.SearchTitle>원하시는 강의를 찾아보세요!</St.SearchTitle>
-          <St.SearchBox>
+          <St.SearchBox onSubmit={searchBtn}>
             <St.SearchInput
               type="text"
               onChange={onSearch}
               value={search}
               placeholder="찾고 싶은 강의 주제를 입력해주세요"
-              id="search"
             />
-            <label htmlFor="search">
+            <button>
               <St.SearchIcon />
-            </label>
+            </button>
           </St.SearchBox>
           <St.Section>
-            <St.SectionLi>
-              <St.CategoryIcon>
-                <Img.JsIcon />
-              </St.CategoryIcon>
-              <p># 개발기초</p>
-            </St.SectionLi>
-            <St.SectionLi>
-              <St.CategoryIcon>
-                <Img.ReactIcon />
-              </St.CategoryIcon>
-              <p># 프론트엔드</p>
-            </St.SectionLi>
-            <St.SectionLi>
-              <St.CategoryIcon>
-                <Img.SQLIcon />
-              </St.CategoryIcon>
-              <p># 데이터</p>
-            </St.SectionLi>
-            <St.SectionLi>
-              <St.CategoryIcon>
-                <Img.JavaIcon />
-              </St.CategoryIcon>
-              <p># 백엔드</p>
-            </St.SectionLi>
-
-            <St.SectionLi>
-              <St.CategoryIcon>
-                <Img.MobileIcon />
-              </St.CategoryIcon>
-              <p># 모바일</p>
-            </St.SectionLi>
-            <St.SectionLi>
-              <St.CategoryIcon>
-                <Img.ScureIcon />
-              </St.CategoryIcon>
-              <p># 보안</p>
-            </St.SectionLi>
-            <St.SectionLi>
-              <St.CategoryIcon>
-                <Img.GameIcon />
-              </St.CategoryIcon>
-              <p># 게임개발</p>
-            </St.SectionLi>
-
-            <St.SectionLi>
-              <St.CategoryIcon>
-                <Img.DevIcon />
-              </St.CategoryIcon>
-              <p># 데프옵스</p>
-            </St.SectionLi>
-            <St.SectionLi>
-              <St.CategoryIcon>
-                <Img.AIIcon />
-              </St.CategoryIcon>
-              <p># AI</p>
-            </St.SectionLi>
-            <St.SectionLi>
-              <St.CategoryIcon>
-                <Img.BlockIcon />
-              </St.CategoryIcon>
-              <p># 블록체인</p>
-            </St.SectionLi>
-            <St.SectionLi>
-              <St.CategoryIcon>
-                <Img.CertIcon />
-              </St.CategoryIcon>
-              <p># 자격증</p>
-            </St.SectionLi>
-            <St.SectionLi>
-              <St.CategoryIcon>
-                <Img.TestIcon />
-              </St.CategoryIcon>
-              <p># 코딩테스트</p>
-            </St.SectionLi>
+            <MainCategory
+              icon={<Img.JsIcon />}
+              label="# 개발기초"
+              location="개발기초"
+            />
+            <MainCategory
+              icon={<Img.ReactIcon />}
+              label="# 프론트엔드"
+              location="프론트엔드"
+            />
+            <MainCategory
+              icon={<Img.SQLIcon />}
+              label="# 데이터"
+              location="데이터"
+            />
+            <MainCategory
+              icon={<Img.JavaIcon />}
+              label="# 백엔드"
+              location="백엔드"
+            />
+            <MainCategory
+              icon={<Img.MobileIcon />}
+              label="# 모바일"
+              location="모바일"
+            />
+            <MainCategory
+              icon={<Img.ScureIcon />}
+              label="# 보안"
+              location="보안"
+            />
+            <MainCategory
+              icon={<Img.GameIcon />}
+              label="# 게임개발"
+              location="게임개발"
+            />
+            <MainCategory
+              icon={<Img.DevIcon />}
+              label="# 데프옵스"
+              location="데프옵스"
+            />
+            <MainCategory icon={<Img.AIIcon />} label="# AI" location="AI" />
+            <MainCategory
+              icon={<Img.BlockIcon />}
+              label="# 블록체인"
+              location="블록체인"
+            />
+            <MainCategory
+              icon={<Img.CertIcon />}
+              label="# 자격증"
+              location="자격증"
+            />
+            <MainCategory
+              icon={<Img.TestIcon />}
+              label="# 코딩테스트"
+              location="코딩테스트"
+            />
           </St.Section>
         </St.ListEachArea>
         <St.ListEachArea>
@@ -171,9 +172,19 @@ const HomePage = () => {
           <St.SwiperBox>
             <Swiper spaceBetween={20} slidesPerView={4}>
               <St.ListWrap>
-                {test.map((list, index) => (
+                {lecture.dtolist.map((v, index) => (
                   <SwiperSlide key={index}>
-                    <LectureCard  />
+                    <LectureCard
+                      lectureBigCategory={v.lectureBigCategory}
+                      lectureName={v.lectureName}
+                      lectureIntro={v.lectureIntro}
+                      lectureThumbnail={v.lectureThumbnail}
+                      lectureMidCategory={v.lectureMidCategory}
+                      mentoId={v.mentoId}
+                      lectureprice={v.lectureprice}
+                      buycount={v.buycount}
+                      rating={v.rating}
+                    />
                   </SwiperSlide>
                 ))}
               </St.ListWrap>
@@ -196,9 +207,19 @@ const HomePage = () => {
           <St.SwiperBox>
             <Swiper spaceBetween={20} slidesPerView={4}>
               <St.ListWrap>
-                {test.map((list, index) => (
+                {lecture.dtolist.map((v, index) => (
                   <SwiperSlide key={index}>
-                    <LectureCard />
+                    <LectureCard
+                      lectureBigCategory={v.lectureBigCategory}
+                      lectureName={v.lectureName}
+                      lectureIntro={v.lectureIntro}
+                      lectureThumbnail={v.lectureThumbnail}
+                      lectureMidCategory={v.lectureMidCategory}
+                      mentoId={v.mentoId}
+                      lectureprice={v.lectureprice}
+                      buycount={v.buycount}
+                      rating={v.rating}
+                    />
                   </SwiperSlide>
                 ))}
               </St.ListWrap>
@@ -210,7 +231,7 @@ const HomePage = () => {
         <St.Notice>
           <St.NoticeLeft>공지사항</St.NoticeLeft>
           <St.NoticeRightUl>
-            {data.content.slice(0,3).map((v)=>{
+            {data.content.slice(0, 3).map((v) => {
               return (
                 <St.NoticeRightLi
                   key={v.noticeNo}
@@ -223,7 +244,6 @@ const HomePage = () => {
                 </St.NoticeRightLi>
               );
             })}
-           
           </St.NoticeRightUl>
         </St.Notice>
       </St.NoticeBg>

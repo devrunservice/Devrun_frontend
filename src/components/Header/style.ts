@@ -36,7 +36,7 @@ export const CategoryIcon = styled(Category)`
   margin-right: 0.5rem;
 `;
 
-export const SearchBox = styled.div`
+export const SearchBox = styled.form`
   position: relative;
   margin-right: 1.25rem;
   display: flex;

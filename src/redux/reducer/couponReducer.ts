@@ -10,17 +10,7 @@ interface UserCoupons {
 
 const initialState: UserCoupons = {
   data: {
-    content: [
-      {
-        couponcode: "",
-        discountrate: 0,
-        expirydate: "",
-        issueddate: "",
-        issuedno: 0,
-        lecturename: "",
-        state: "",
-      },
-    ],
+    content: [],
   },
   loading: false,
   error: null,

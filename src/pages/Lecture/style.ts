@@ -6,11 +6,17 @@ import * as I from "types";
 export const Top = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 1.875rem;
+
 `;
 export const Title = styled.em`
-  font-weight: 600;
+  line-height: 1;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: ${(props: any) => props.theme.black};
   > span {
     color: ${(props: any) => props.theme.mainColor};
+    font-weight: 500;
   }
 `;
 
@@ -47,6 +53,7 @@ export const TapUl = styled.ul`
   padding: 0.625rem 0;
   box-sizing: content-box;
   left: -1px;
+  
 `;
 export const TapLi = styled.li`
   font-size: 0.875rem;
@@ -58,6 +65,11 @@ export const TapLi = styled.li`
 
 
 export const LectureCardUl = styled.ul`
-    display:flex;
-    gap:20px;
-`
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  min-height: 934px;
+  align-items: flex-start;
+  justify-content: space-between;
+  align-content: flex-start;
+`;

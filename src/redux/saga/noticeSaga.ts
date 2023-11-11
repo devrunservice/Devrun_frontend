@@ -135,7 +135,6 @@ function* commentDel(
 ): Generator<any, void, any> {
   try {
     const response = yield call(notice.commentDel, action.payload);
-    console.log(action.payload);
     yield put(commentDelSuccess(response));
   } catch (error) {
     yield put(commentDelFail(error));

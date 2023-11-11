@@ -10,6 +10,7 @@ const App = () => {
   useEffect(() => {
     window.scroll(0,0)
   }, [location]);
+
   const params = useParams()
   const hideHeader =
     location.pathname === "/signup" ||
@@ -47,7 +48,8 @@ const App = () => {
     location.pathname === "/createcoupon" ||
     location.pathname === "/point" ||
     location.pathname === "/createVideo" ||
-    location.pathname === "/lecture";
+    location.pathname ===
+      `/lecture/${encodeURIComponent(`${params.lectureBigCategory}`)}`;
 
   return (
     <>

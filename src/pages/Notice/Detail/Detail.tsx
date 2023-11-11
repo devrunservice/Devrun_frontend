@@ -16,9 +16,11 @@ const Detail = () => {
   const navigate = useNavigate();
   const noticeNo = useParams();
   const dispatch = useDispatch()
+  // 처음 데이터 수정된후 데이터
   const { content, write } = useSelector(
     (state: RootState) => state.noticeReducer
   );
+  console.log(content);
    const { data } = useSelector((state: RootState) => state.userReducer);
   useEffect(() => {
     dispatch(noticeDetailLoading(noticeNo));
@@ -83,7 +85,7 @@ const Detail = () => {
                 </>
               )}
             </St.BtnWrap>
-            <Comment id={content.id} />
+            <Comment  />
           </>
         )}
       </S.Inner>
