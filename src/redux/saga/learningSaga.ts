@@ -30,6 +30,7 @@ function* buyLecture(
   action: PayloadAction<MainList>
 ): Generator<any, void, any> {
   try {
+    
     const response = yield call(search.search, action.payload);
     yield put(buyLectureSuccess(response));
   } catch (error: any) {

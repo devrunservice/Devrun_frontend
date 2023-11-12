@@ -3,6 +3,7 @@ import React, {  useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
+import { getCookie } from "utils/cookies";
 import { useDate, useInput } from "hooks";
 import { CommentsList } from "types";
 import { Button } from "style/Common";

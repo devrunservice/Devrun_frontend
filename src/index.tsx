@@ -2,7 +2,7 @@ import React, {ReactNode} from 'react';
 import ReactDOM from 'react-dom/client';
 import {createBrowserRouter, RouterProvider, Navigate} from 'react-router-dom';
 import {ThemeProvider} from 'styled-components';
-import { HelmetProvider } from 'react-helmet-async';
+import {HelmetProvider} from 'react-helmet-async';
 import {GlobalStyle, defaultTheme} from 'style/Theme';
 import {getCookie} from 'utils/cookies';
 import {Provider} from 'react-redux';
@@ -19,13 +19,13 @@ const protectedRoute = (component: ReactNode) =>
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <App />,
     errorElement: <Route.NotFound />,
     children: [
-      { index: true, element: <Route.HomePage /> },
+      {index: true, element: <Route.HomePage />},
       {
-        path: "home",
+        path: 'home',
         element: ACCESS_TOKEN ? (
           <Route.HomePage />
         ) : (
@@ -37,24 +37,24 @@ const router = createBrowserRouter([
       { path: "signup", element: <Route.Signup /> },
       { path: "signupconfirm", element: <Route.SignupConfirm /> },
       {
-        path: "signupcompletion",
+        path: 'signupcompletion',
         element: <Route.SignupCompletion />,
       },
-      { path: "findaccount/id", element: <Route.FindId /> },
-      { path: "findaccount/password", element: <Route.FindPassword /> },
-      { path: "basket", element: protectedRoute(<Route.Basket />) },
+      {path: 'findaccount/id', element: <Route.FindId />},
+      {path: 'findaccount/password', element: <Route.FindPassword />},
+      {path: 'basket', element: protectedRoute(<Route.Basket />)},
 
       {
-        path: "noticeWrite",
+        path: 'noticeWrite',
         element: protectedRoute(<Route.NoticeWrite />),
       },
-      { path: "notice", element: <Route.Notice /> },
+      {path: 'notice', element: <Route.Notice />},
       {
-        path: "notice/:noticeNo",
+        path: 'notice/:noticeNo',
         element: <Route.NoticeDetail />,
       },
       {
-        path: "notice/:noticeNo/retouch",
+        path: 'notice/:noticeNo/retouch',
         element: protectedRoute(<Route.NoticeRetouch />),
       },
       {
@@ -74,14 +74,28 @@ const router = createBrowserRouter([
       { path: "createcoupon", element: protectedRoute(<Route.CreateCoupon />) },
       {
         path: "videoView/:lectureId",
-        element: protectedRoute(<Route.VideoView />),
+        element: protectedRoute(<Route.VideoView />)},
+      {path: 'dashboard', element: protectedRoute(<Route.Dashboard />)},
+      {path: 'notes', element: protectedRoute(<Route.Notes />)},
+      {path: 'notes/:lectureId', element: protectedRoute(<Route.Note />)},
+      {
+        path: 'notes/:lectureId/:noteId',
+        element: protectedRoute(<Route.NoteDetail />),
+      },
+      {path: 'questions', element: protectedRoute(<Route.Questions />)},
+      {
+        path: 'createVideo',
+        element: ACCESS_TOKEN ? (
+          <Route.CreateVideo />
+        ) : (
+          <Navigate replace to="/login" />
+        ),
       },
     ],
   },
 ]);
 
-const rootElement = document.getElementById("root") as HTMLElement;
-
+const rootElement = document.getElementById('root') as HTMLElement;
 
 
 
@@ -103,8 +117,5 @@ if (rootElement.hasChildNodes()) {
 } else {
   ReactDOM.createRoot(rootElement).render(element);
 }
-
-
-
 
 reportWebVitals();

@@ -5,12 +5,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "redux/store";
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import { getCookie } from "utils/cookies";
 import { useInput } from "hooks";
 import * as Img from "asset";
 import * as St from "./style";
 import "swiper/swiper.css";
 import { noticeListLoading } from "../../redux/reducer/noticeReducer";
+import {
+  learningLoading
+} from "../../redux/reducer/dashboardReducer";
 import {
   categorySearchLoading,
   ratingLectureLoading,
@@ -23,21 +26,21 @@ const HomePage = () => {
  
   const dispatch = useDispatch();
   const { data } = useSelector( (state: RootState) => state.noticeReducer);
+  const {learningData} = useSelector( (state: RootState) => state.dashboardReducer );
   const { lecture: buy, data: rating } = useSelector(
     (state: RootState) => state.learningReducer
   );
+  
   useEffect(() => {
     dispatch(noticeListLoading(1));
     dispatch(ratingLectureLoading({ order: "lecture_rating" }));
     dispatch(buyLectureLoading({ order: "buy_count" }));
+    if (getCookie("accessToken")) {
+     dispatch(learningLoading({ page: "1", status: "all" }));
+    }
   }, []);
   const navigate = useNavigate();
-  const navi = useCallback(
-    (v: number) => {
-      navigate(`/notice/${v}`);
-    },
-    [navigate]
-  );
+
   const searchBtn = (e:React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault()
     if (search.trim === "") return alert("검색어를 적어주세요")
@@ -136,41 +139,41 @@ const HomePage = () => {
             />
           </St.Section>
         </St.ListEachArea>
+        {learningData.dtolist.length !== 0 ? 
+        
         <St.ListEachArea>
           <St.ListTitle>학습중인 클래스</St.ListTitle>
           <St.ListUl>
-            <St.Listli>
-              <St.ListImg>
-                <St.Img src="" alt="강의제목" />
-              </St.ListImg>
-              <St.ListTextBox>
-                <St.ListEm>제목</St.ListEm>
-                <St.ListText>
-                  <span>진도율 ( 55% )</span>
-                  <span>기한 : 2023-12-31</span>
-                  <St.Gauge>
-                    <span style={{ background: "#5F4B8B", width: "50%" }} />
-                  </St.Gauge>
-                </St.ListText>
-              </St.ListTextBox>
-            </St.Listli>
-            <St.Listli>
-              <St.ListImg>
-                <St.Img src="" alt="강의제목" />
-              </St.ListImg>
-              <St.ListTextBox>
-                <St.ListEm>제목</St.ListEm>
-                <St.ListText>
-                  <span>진도율 ( 55% )</span>
-                  <span>기한 : 2023-12-31</span>
-                  <St.Gauge>
-                    <span style={{ background: "#5F4B8B", width: "50%" }} />
-                  </St.Gauge>
-                </St.ListText>
-              </St.ListTextBox>
-            </St.Listli>
+            {learningData.dtolist.slice(0,2).map((v,index)=> {
+              return (
+                <St.Listli
+                  key={index}
+                  onClick={() => navigate(`/videoView/${v.id}`)}
+                >
+                  <St.ListImg>
+                    <St.Img src={v.thumbnail} alt={v.title} />
+                  </St.ListImg>
+                  <St.ListTextBox>
+                    <St.ListEm>제목</St.ListEm>
+                    <St.ListText>
+                      <span>진도율 ( {v.progressRate}% )</span>
+                      <span>기한 : {v.expiryDate}</span>
+                      <St.Gauge>
+                        <span
+                          style={{
+                            background: "#5F4B8B",
+                            width: `${v.progressRate}%`,
+                          }}
+                        />
+                      </St.Gauge>
+                    </St.ListText>
+                  </St.ListTextBox>
+                </St.Listli>
+              );
+            })}
           </St.ListUl>
-        </St.ListEachArea>
+        </St.ListEachArea>: ""}
+       
         <St.ListEachArea>
           <St.ListTitle>실시간 인기 클래스</St.ListTitle>
           <St.SwiperBox>
@@ -239,7 +242,7 @@ const HomePage = () => {
               return (
                 <St.NoticeRightLi
                   key={v.noticeNo}
-                  onClick={() => navi(v.noticeNo)}
+                  onClick={() => navigate(`/notice/${v.noticeNo}`)}
                 >
                   <p>{v.title}</p>
                   <span>

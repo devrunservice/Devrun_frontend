@@ -82,7 +82,7 @@ export const Section = styled.ul`
   justify-content: space-between;
 `;
 
-export const ListUl = styled.ul`
+export const ListUl = styled.div`
   display: flex;
   gap: 1.25rem;
   align-items: center;
@@ -90,16 +90,19 @@ export const ListUl = styled.ul`
 
 
 
-export const Listli = styled.li`
+export const Listli = styled.button`
   border: 1px solid ${(props) => props.theme.borderD};
   border-radius: 10px;
   width: 36.875rem;
   display: flex;
   overflow: hidden;
+  background: none;
+  text-align: left;
+  padding: 0;
 `;
 export const ListImg = styled.div`
-  width: 15rem;
-  height: 8.4375rem;
+  width: 18rem;
+  height: 10.125rem;
   background: #f7f7f7;
   overflow: hidden;
 `;
@@ -111,8 +114,9 @@ export const Img = styled.img`
   max-width: 100%;
 `;
 export const ListTextBox = styled.div`
-  padding: 1.25rem;
-  width: calc(100% - 15rem);
+  padding: 1.9rem 1.5rem;
+  width: calc(100% - 18rem);
+  height: 100%;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -120,8 +124,10 @@ export const ListTextBox = styled.div`
   box-sizing: border-box;
 `;
 export const ListEm = styled.em`
-  display:block;
+  display: block;
+  margin-bottom: 1.5625rem;
   color: ${(props: any) => props.theme.black};
+  font-size: 1.125rem;
   font-weight: 600;
   line-height: 22px;
   height: 44px;

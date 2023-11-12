@@ -2,27 +2,42 @@
 import React, { useState } from "react";
 import useSWR from "swr";
 import { authAxios } from "utils/instance";
-import { ReceiptTable, UserTop, Pagination } from "components";
+import { ReceiptTable, UserTop, Pagination, NoData } from "components";
 import { ReceiptList } from "types";
+import { NoSearch } from "asset";
 
 const Receipt = () => {
   const fetcher = (url: string) => authAxios.get(url).then((res) => res.data);
   const [pageno, setPageno] = useState<number>(1);
   const [refund, setRefund] = useState<ReceiptList[]>();
-  const { data, isLoading } = useSWR(
+  const { data, isLoading, error } = useSWR(
     `/PaymentInfo?page=${pageno}&size=10`,
     fetcher
   );
   if (isLoading) return <div>asd</div>;
   return (
     <>
-      <UserTop title="구매내역" count={data.totalElements} sub="전체" />
-      <ReceiptTable data={data.content} setRefund={setRefund} />
-      <Pagination
-        pageno={pageno}
-        setPageno={setPageno}
-        totalPages={data.totalPages}
+      <UserTop
+        title="구매내역"
+        sub="전체"
+        count={error ? 0 : data.totalElements}
       />
+      {error ? (
+        <NoData
+          title="구매한 강의가 존재하지 않습니다"
+          span="강의를 구매해주세요"
+          img={<NoSearch />}
+        />
+      ) : (
+        <>
+          <ReceiptTable data={data.content} setRefund={setRefund} />
+          <Pagination
+            pageno={pageno}
+            setPageno={setPageno}
+            totalPages={data.totalPages}
+          />
+        </>
+      )}
     </>
   );
 };

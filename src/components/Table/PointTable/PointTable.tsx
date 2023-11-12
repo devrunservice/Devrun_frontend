@@ -13,14 +13,14 @@ interface point {
   }[];
 }
 
-const PointTable = (props: point) => (
+const PointTable = ({data}: point) => (
   <St.Table>
     <St.TableLi>
       <St.Num>No</St.Num>
       <St.PointTitle>제목</St.PointTitle>
       <St.CommonLi>날짜</St.CommonLi>
     </St.TableLi>
-    {props.data?.map((v) => {
+    {data?.map((v) => {
       return (
         <St.TableLi key={v.pointno}>
           <St.Num>{v.pointno}</St.Num>

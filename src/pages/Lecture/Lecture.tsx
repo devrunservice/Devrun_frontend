@@ -70,7 +70,15 @@ const Lecture = () => {
     <>
       <St.Top>
         <St.Title>
-          <span>{lecture.totalelements}</span>개의 강의
+          {lecture.message !== "Resource not exists" ? (
+            <>
+              <span>{lecture.totalelements}</span>개의 강의
+            </>
+          ) : (
+            <>
+              <span>0</span>개의 강의
+            </>
+          )}
         </St.Title>
         <St.Tap $active={tapOpen === true}>
           <St.TapLabel onClick={() => setTapOpen(!tapOpen)}>
@@ -91,7 +99,7 @@ const Lecture = () => {
           )}
         </St.Tap>
       </St.Top>
-      {lecture.dtolist.length !== 0 ? (
+      {lecture.message !== "Resource not exists" ? (
         <>
           <St.LectureCardUl>
             {lecture.dtolist.map((v, index) => {

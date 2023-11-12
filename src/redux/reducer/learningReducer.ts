@@ -16,14 +16,13 @@ interface Data {
   }[];
   totalelements: number;
   totalpages: number;
+  code: string;
+  message: string
 }
 
 interface LearningReducerType {
   loading: boolean;
-  error: {
-    code: string;
-    message: string;
-  };
+  error: Error | null;
   data: Data;
   lecture: Data;
 }
@@ -34,16 +33,17 @@ const initialState: LearningReducerType = {
     dtolist: [],
     totalelements: 0,
     totalpages: 0,
+    code: "",
+    message: "",
   },
   lecture: {
     dtolist: [],
     totalelements: 0,
     totalpages: 0,
-  },
-  error:{
     code: "",
     message: "",
   },
+  error: null,
 };
 
 const learningReducer = createSlice({
@@ -52,7 +52,7 @@ const learningReducer = createSlice({
   reducers: {
     ratingLectureLoading: (state, action) => {
       state.loading = true;
-      state.error = action.payload;
+      state.error = null
     },
     ratingLectureSuccess: (state, action) => {
       state.loading = false;
@@ -64,7 +64,7 @@ const learningReducer = createSlice({
     },
     buyLectureLoading: (state, action) => {
       state.loading = true;
-      state.error = action.payload;
+      state.error = null;
     },
     buyLectureSuccess: (state, action) => {
       state.loading = false;
@@ -76,7 +76,7 @@ const learningReducer = createSlice({
     },
     categorySearchLoading: (state, action) => {
       state.loading = true;
-      state.error = action.payload;
+      state.error = null;
     },
     categorySearchSuccess: (state, action) => {
       state.loading = false;
@@ -84,7 +84,6 @@ const learningReducer = createSlice({
     },
     categorySearchFail: (state, action) => {
       state.loading = false;
-      console.log(action.payload.code);
       state.error = action.payload;
     },
   },
@@ -103,3 +102,5 @@ export const {
 } = learningReducer.actions;
 
 export default learningReducer.reducer;
+
+

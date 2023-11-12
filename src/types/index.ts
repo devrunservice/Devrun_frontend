@@ -69,7 +69,6 @@ export interface PropsType {
   page?: string;
   getImage?: void;
 }
-
 export interface MypageType {
   id?: string;
   name?: string;
@@ -80,14 +79,16 @@ export interface MypageType {
   profileImage?: File;
   profilePreview?: string;
 }
-
 export interface ProfileInputType {
   profileImageBtn: boolean;
   emailBtn: boolean;
   phonenumberBtn: boolean;
   [key: string]: boolean;
 }
-
+export interface LearningWrapperType {
+  dtolist: LearningType[];
+  totalPages: number;
+}
 export interface LearningType {
   title?: string;
   mentoName?: string;
@@ -95,6 +96,71 @@ export interface LearningType {
   progressRate?: number;
   rating?: number;
   lectureUrl?: string;
+  expiryDate?:string
+  id?:number
+}
+export interface NoteLectureWrapperType {
+  dtolist: LectureType[];
+  totalPages: number;
+}
+export interface LectureType {
+  key?: number;
+  lectureId: number;
+  lectureTitle: string;
+  lastStudyDate: string;
+  lectureThumbnail?: string;
+  count: number;
+  category?: string;
+}
+export interface NoteListWrapperType {
+  dtolist: NoteListType[];
+  totalPages: number;
+}
+export interface NotePropsType {
+  id?: number;
+  page?: number | string;
+  status?: string;
+}
+export interface NoteListType {
+  key: number;
+  noteId: number;
+  noteTitle: string;
+  videoId: string;
+  chapter: string;
+  subHeading: string;
+  date: string;
+  contentPreview: string;
+}
+export interface NoteDetailType {
+  noteId: number;
+  noteTitle: string;
+  videoId: string;
+  chapter: string;
+  subHeading: string;
+  date: string;
+  content: string;
+}
+export interface QuestionLectureWrapperType {
+  dtolist: LectureType[];
+  totalPages: number;
+}
+export interface QuestionType {
+  lectureQaNo: number;
+  lectureTitle: string;
+  mentoId: string;
+  questionContent: string;
+  questionDate: string;
+  questionTitle: string;
+}
+export interface CalenderHeaderType {
+  currentMonth: Date;
+  prevMonth: () => void;
+  nextMonth: () => void;
+}
+export interface CalenderDateType {
+  currentMonth: Date;
+  selectedDate: Date;
+  onDateClick: (date: Date) => void;
 }
 
 export interface UserInfoList {
@@ -269,8 +335,7 @@ declare global {
 // 유저 쿠폰발급
 
 export interface CouponGet {
-  code: string;
-  id: string;
+  couponcode: string;
 }
 export interface UserCouponList {
   couponcode: string;
@@ -564,13 +629,10 @@ export interface Search extends MainList {
 
 
 export interface NotePropsType {
-  status:string;
-  id:number
-  page:number;
+  id?: number;
+  page?: number | string;
+  status?: string;
 }
-
-
-
 
 
 

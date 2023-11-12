@@ -6,6 +6,7 @@ interface UserCoupons {
   data: I.UserCoupon;
   loading: boolean;
   error: null;
+  code:string
 }
 
 const initialState: UserCoupons = {
@@ -14,6 +15,7 @@ const initialState: UserCoupons = {
   },
   loading: false,
   error: null,
+  code:""
 };
 
 const couponReducer = createSlice({
@@ -39,7 +41,7 @@ const couponReducer = createSlice({
     },
     couponGetSuccess: (state, action) => {
       state.loading = false;
-      state.data = action.payload.data;
+      state.code = action.payload
       state.error = null;
     },
     couponGetFail: (state, action) => {
