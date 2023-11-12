@@ -1,19 +1,27 @@
 import React, {useState} from 'react'
 import Curriculum from "components/Curriculum/Curriculum";
+import { DetailAPI } from "types";
 import * as St from "components/Detail/style";
 
-const DetailCurriculum = () => {
+interface dataProps {
+  data: DetailAPI,
+}
+
+const DetailCurriculum:React.FC<dataProps> = ({data}) => {
   const [test, setTest] = useState('')
-  console.log(test, setTest)
+  console.log('dataP',data)
   return (
     <>
       <St.DraftArea>에디터영역</St.DraftArea>
       <St.SectionAreaWrap>
         <St.SectionTitle>커리큘럼</St.SectionTitle>
         <ul>
-          <Curriculum />
-          <Curriculum />
-          <Curriculum />
+          {
+            data?.lectureSections?.map((list, index) => (
+              <Curriculum data={data} list={list} key={index}/>
+            ))
+          }
+          {/* <Curriculum data={data.lectureSections}/> */}
         </ul>
       </St.SectionAreaWrap>
     </>

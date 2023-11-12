@@ -17,6 +17,12 @@ export const DetailThum = styled.div`
   height: 400px;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  > img {
+    width: 100%;
+    max-width: 1000px;
+    max-height: 400px;
+    object-fit: contain;
+  }
 `
 export const DetailInfo = styled.div`
   margin-top: 30px;

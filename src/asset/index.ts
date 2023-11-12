@@ -42,3 +42,5 @@ export { ReactComponent as AIIcon } from "./images/AIIcon.svg";
 export { ReactComponent as BlockIcon } from "./images/BlockIcon.svg";
 export { ReactComponent as DevIcon } from "./images/DevIcon.svg";
 export { ReactComponent as ScureIcon } from "./images/ScureIcon.svg";
+export { ReactComponent as StarOn } from "./images/star_on.svg";
+export { ReactComponent as StarOff } from "./images/star_off.svg";

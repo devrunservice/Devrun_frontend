@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, createRef, useEffect, useRef, useState } from 'react';
 import { Close, Exclamation } from 'asset';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
@@ -15,6 +15,7 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
   const dispatch = useDispatch()
   const videoStore = useSelector((state:RootState)=>state.createVideoSlice)
   const tags = videoStore.lectureTag
+
   
   /* 가격 무료 유료 선택 */
   const [isActive, setIsActive] = useState<boolean>(false)
@@ -24,24 +25,15 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
   const getCategory = () => {
     const url = 'https://devrun.site/lectureregist/categories'
     axios.get(url).then(res=>{
-      console.log(res.data)
+      console.log('res',res)
       setIsCategory([...res.data])
-      console.log('isCategory',isCategory)
     })
   }
-  // const getSectionNum = () => {
-  //   const url = 'https://devrun.site/lectureregist/lastsectionid'
-  //   axios.get(url).then(res=>console.log(res))
-  // }
 
   useEffect(()=> {
     getCategory()
-    // getSectionNum()
   }, [])
-  
-  // useEffect(() => {
-  //   console.log('isCategory', isCategory);
-  // }, [isCategory]); 
+
   
   const freePayment = () => {
     setIsActive(false)
@@ -81,23 +73,16 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
   }
 
   /* 카테고리 */
-  // const [isMid, setIsMid] = useState('')
   const changeType = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value)
-    // const selectedBigCategory = e.target.value;
-    // setIsMid(selectedBigCategory)
     dispatch(bigCategoryType(e.target.value))
+    const result = isCategory.filter(list=>list.lectureBigCategory === e.target.value)[0].lectureMidCategory
+    dispatch(midCategoryType(result))
   }
   const changeMid = (e:React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(midCategoryType(e.target.value))
     const result = isCategory.filter(list=>list.lectureMidCategory === e.target.value)[0].categoryNo
-    console.log('result', result)
     dispatch(setCategoryNo(result))
   }
-  // const changeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  //   dispatch(onLectureCategory(e.target.value))      
-  // }
-
 
   /* 태그 */
   const [tagInput, setTagInput] = useState('')
@@ -143,12 +128,7 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
       .map((option, index) => (
         <option key={index} value={option.lectureBigCategory}>{option.lectureBigCategory}</option>
       ));
-
   };
-  /* 소개영상 */
-
-
-
   return (
     <St.CreateVideoWrap>
       <St.CreateVideoArticle>

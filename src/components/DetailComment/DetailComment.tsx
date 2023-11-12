@@ -1,11 +1,13 @@
 import React from 'react'
-import { HeartFill, Circle, MoreBtn } from "asset";
+// import { HeartFill, Circle, MoreBtn } from "asset";
+import Comment from 'components/Comment/Comment';
 import * as St from 'components/Detail/style'
 
 const DetailComment = () => {
   return (
     <St.SectionAreaWrap>
-          <St.SectionTitle>수강평</St.SectionTitle>
+      <Comment id={'detail'}/>
+          {/* <St.SectionTitle>수강평</St.SectionTitle>
           <St.ReviewCreateArea>
             <textarea placeholder="수강평을 작성해 주세요." />
             <St.ReviewCreateBtnArea>
@@ -150,7 +152,7 @@ const DetailComment = () => {
               </St.RecommentList>
             </St.CommentList>
             <St.MoreLectureBtn>수강평 더보기</St.MoreLectureBtn>
-          </St.ReviewCreateArea>
+          </St.ReviewCreateArea> */}
         </St.SectionAreaWrap> 
   )
 }

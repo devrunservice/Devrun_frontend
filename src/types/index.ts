@@ -167,6 +167,7 @@ export interface VideoType {
   file: Blob | string;
   // file: videoFileType | null | undefined
   videoTitle: string;
+  sectionTitle?: string
 }
 export interface videoFileType {
   fileBits: BlobPart[];
@@ -545,4 +546,54 @@ export interface bastetCheck {
   pg_provider: string;
   receipt_url: string;
   imp_uid: string | null;
+}
+
+/* 디테일 */
+export interface DetailAPI {
+  id: null | string
+  lectureCategory:{
+    categoryNo:number
+    lectureBigCategory: string
+    lectureMidCategory: string
+  },
+  lectureDiscount:null | string
+  lectureDiscountend:null | string
+  lectureDiscountrate:null | string
+  lectureDiscountstart:null | string
+  lectureEdit:null | string
+  lectureIntro: string
+  lectureName: string
+  lecturePrice:number
+  lectureRating:number
+  lectureSections:{
+    sectionNumber:number
+    sectionTitle:string
+    sectionid:number
+    videos:{
+      fileName:null | string
+      totalPlayTime:number
+      uploadDate:null | string
+      videoId: string
+      videoLink: string
+      videoNo:number
+      videoTitle: string
+    }[]
+  }[]
+  lectureStart: string
+  lectureStatus: string
+  lectureTag:{}
+  lectureThumbnail: string
+  lectureid:number
+  mentoId:{
+    birthday:string
+    id:string
+    name:string
+    kakaoEmailId:null | string
+    export:null | string
+    profileimgsrc:string
+    role:string
+    signupDate:string
+    status:string
+    userNo:number
+  }
 }

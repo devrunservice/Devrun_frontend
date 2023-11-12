@@ -1,16 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LectureCard from "components/LectureCard/LectureCard";
 // import { ListWrap } from "components/Home/style";
 import { HeartFill, Link/* , Circle, MoreBtn */ } from "asset";
 import DetailCurriculum from "components/DetailCurriculum/DetailCurriculum";
 import DetailComment from "components/DetailComment/DetailComment"
+import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { DetailAPI } from "types";
 import * as St from "./style";
 import "swiper/swiper.css";
+
 
 const Detail = () => {
   const [test, setTest] = useState([1, 2, 34, 1, 2, 3, 4]); // eslint-disable-line
   const [category, setCategory] = useState(1)
+  
+  const [data, setData] = useState<DetailAPI>()
+
+  const getDetail = () => {
+    const url = 'https://devrun.site/api/lectures/22'
+    axios.get(url).then(res=> {
+      console.log('res',res.data)
+      setData({...res.data})
+    }).catch(err=>console.log(err))
+  }
+  useEffect(()=> {
+    getDetail()
+  }, [])
   const changeCategory = (num:number) => {
     setCategory(num)
   }
@@ -18,17 +34,16 @@ const Detail = () => {
     <St.DetailWrap>
       <St.PreviewArea>
         <St.DetailThum>
-          아무래도 여기는 강의 썸네일이 들어가고 재생버튼을 가운데 둬야
-          할듯합니다. 재생버튼 클릭하면 미리보기 시작
+          <img src={data?.lectureThumbnail} alt="" />
         </St.DetailThum>
         <St.DetailInfo>
-          <St.DetailInfoTitle>제목들어갈곳</St.DetailInfoTitle>
+          <St.DetailInfoTitle>{data?.lectureName}</St.DetailInfoTitle>
           <St.DetailUtils>
-            <St.DetailUtilsItem>카테고리</St.DetailUtilsItem>
-            <St.DetailUtilsItem>강사명</St.DetailUtilsItem>
-            <St.DetailUtilsItem>
+            <St.DetailUtilsItem>{data?.lectureCategory.lectureMidCategory}</St.DetailUtilsItem>
+            <St.DetailUtilsItem>{data?.mentoId.name}</St.DetailUtilsItem>
+            {/* <St.DetailUtilsItem>
               <HeartFill /> 2
-            </St.DetailUtilsItem>
+            </St.DetailUtilsItem> */}
             <St.DetailUtilsItem>
               <Link href="/" />
               공유하기
@@ -38,9 +53,14 @@ const Detail = () => {
           <St.ShortSpacer />
 
           <St.DetailHashWrap>
-            <St.DetailHash>#</St.DetailHash>
-            <St.DetailHash>#</St.DetailHash>
-            <St.DetailHash>#</St.DetailHash>
+            {/* {
+              data.lectuerTag.map(list=> {
+                <St.DetailHash>#{list}</St.DetailHash>
+              })
+            } */}
+            {/* <St.DetailHash>#</St.DetailHash> */}
+            {/* <St.DetailHash>#</St.DetailHash> */}
+            {/* <St.DetailHash>#</St.DetailHash> */}
           </St.DetailHashWrap>
         </St.DetailInfo>
       </St.PreviewArea>
@@ -54,7 +74,7 @@ const Detail = () => {
           {/* <St.DetailTabItem>수강전 문의</St.DetailTabItem> */}
         </St.DetailTab>
         {
-          category === 1 ? <DetailCurriculum /> : <DetailComment />
+          category === 1 ? <DetailCurriculum data={data} /> : <DetailComment />
         }
         <St.SectionAreaWrap>
           <St.SectionTitle>다른 강의 함께 보기</St.SectionTitle>
