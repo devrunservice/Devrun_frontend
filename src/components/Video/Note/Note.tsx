@@ -19,7 +19,7 @@ interface INote {
 const Note = ({ onNote, videoid, lectureId, sectionNumber }: INote) => {
   const dispatch = useDispatch();
   const { getNote, reNote } = useSelector(
-    (state: RootState) => state.VideoViewSlice
+    (state: RootState) => state.videoViewReducer
   );
   useEffect(() => {
     dispatch(getNoteLoding(lectureId));

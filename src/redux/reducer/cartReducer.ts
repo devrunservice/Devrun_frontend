@@ -36,7 +36,7 @@ const cartReducer = createSlice({
     cartInfoSuccess: (state, action) => {
       state.loading = false;
       state.error = null;
-      state.data = action.payload.data;
+      state.data = action.payload.data
     },
     cartInfoFail: (state, action) => {
       state.loading = false;

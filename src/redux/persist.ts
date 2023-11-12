@@ -13,7 +13,7 @@ import userReducer from './reducer/userReducer';
 import noticeReducer from './reducer/noticeReducer';
 import cartReducer from './reducer/cartReducer';
 import googleLoginSlice from './reducer/googleLoginReducer';
-import VideoViewSlice from "./reducer/videoViewReducer";
+import videoViewReducer from "./reducer/videoViewReducer";
 
 const persistConfig = {
   key: 'root',
@@ -34,7 +34,7 @@ const rootReducer = combineReducers({
   noticeReducer,
   cartReducer,
   googleLoginSlice,
-  VideoViewSlice,
+  videoViewReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

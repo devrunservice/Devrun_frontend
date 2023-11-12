@@ -42,7 +42,7 @@ function* cateSearch(action: PayloadAction<Search>): Generator<any, void, any> {
     const response = yield call(search.categorySearch, action.payload);
     yield put(categorySearchSuccess(response));
   } catch (error: any) {
-    yield put(categorySearchFail(error));
+    yield put(categorySearchFail(error.message));
   }
 }
 

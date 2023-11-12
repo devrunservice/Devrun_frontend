@@ -64,9 +64,7 @@ const router = createBrowserRouter([
       { path: "detail", element: <Route.DetailPage /> },
       { path: "createVideo", element: <Route.CreateVideo /> },
       { path: "profile", element: protectedRoute(<Route.Profile />) },
-      { path: "dashboard", element: protectedRoute(<Route.Dashboard />) },
-      { path: "notes", element: protectedRoute(<Route.Notes />) },
-      { path: "questions", element: protectedRoute(<Route.Questions />) },
+      
       { path: "cert", element: protectedRoute(<Route.Cert />) },
       { path: "certDetail", element: protectedRoute(<Route.CertDetail />) },
       { path: "coupon", element: protectedRoute(<Route.Coupon />) },

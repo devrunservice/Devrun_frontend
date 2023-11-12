@@ -14,7 +14,7 @@ interface ICurriculum {
 }
 
 const Curriculum = ({ onCurriculum, setLecture, lecture }: ICurriculum) => {
-  const { data } = useSelector((state: RootState) => state.VideoViewSlice);
+  const { data } = useSelector((state: RootState) => state.videoViewReducer);
   const { videoTime } = useDate();
   const onVideoPlay = useCallback((l: VideoCurriculumVideoInfos) => {
     setLecture(l);

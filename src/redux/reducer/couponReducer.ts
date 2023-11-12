@@ -4,8 +4,8 @@ import * as I from "types"
 
 interface UserCoupons {
   data: I.UserCoupon;
-  loading?: boolean;
-  error?: null;
+  loading: boolean;
+  error: null;
 }
 
 const initialState: UserCoupons = {

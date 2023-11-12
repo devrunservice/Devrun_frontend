@@ -20,7 +20,10 @@ interface Data {
 
 interface LearningReducerType {
   loading: boolean;
-  error: Error | null;
+  error: {
+    code: string;
+    message: string;
+  };
   data: Data;
   lecture: Data;
 }
@@ -37,7 +40,10 @@ const initialState: LearningReducerType = {
     totalelements: 0,
     totalpages: 0,
   },
-  error: null,
+  error:{
+    code: "",
+    message: "",
+  },
 };
 
 const learningReducer = createSlice({
@@ -46,17 +52,19 @@ const learningReducer = createSlice({
   reducers: {
     ratingLectureLoading: (state, action) => {
       state.loading = true;
+      state.error = action.payload;
     },
-    ratingLectureFail: (state, action) => {
+    ratingLectureSuccess: (state, action) => {
       state.loading = false;
       state.data = action.payload.data;
     },
-    ratingLectureSuccess: (state, action) => {
+    ratingLectureFail: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
     buyLectureLoading: (state, action) => {
       state.loading = true;
+      state.error = action.payload;
     },
     buyLectureSuccess: (state, action) => {
       state.loading = false;
@@ -68,6 +76,7 @@ const learningReducer = createSlice({
     },
     categorySearchLoading: (state, action) => {
       state.loading = true;
+      state.error = action.payload;
     },
     categorySearchSuccess: (state, action) => {
       state.loading = false;
@@ -75,6 +84,7 @@ const learningReducer = createSlice({
     },
     categorySearchFail: (state, action) => {
       state.loading = false;
+      console.log(action.payload.code);
       state.error = action.payload;
     },
   },

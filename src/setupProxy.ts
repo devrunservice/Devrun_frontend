@@ -3,7 +3,7 @@ const { createProxyMiddleware } = require("http-proxy-middleware");
 
 module.exports = function (app: Express) {
   app.use(
-    "/pagead", // 프록시 경로
+    "/page", // 프록시 경로
     createProxyMiddleware({
       target: "https://googleads.g.doubleclick.net", // 대상 서버
       changeOrigin: true,

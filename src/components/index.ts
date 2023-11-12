@@ -38,4 +38,3 @@ export { default as Note } from "./Video/Note/Note";
 export { default as NoteDe } from "./Video/NoteDe/NoteDe";
 export { default as MainCategory } from "./MainIcon/MainIcon";
 export { default as NoData } from "./NoData/NoData";
-;;

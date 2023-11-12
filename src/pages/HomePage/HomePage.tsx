@@ -28,8 +28,8 @@ const HomePage = () => {
   );
   useEffect(() => {
     dispatch(noticeListLoading(1));
-    dispatch(ratingLectureLoading("lecture_rating"));
-    dispatch(buyLectureLoading("buy_count"));
+    dispatch(ratingLectureLoading({ order: "lecture_rating" }));
+    dispatch(buyLectureLoading({ order: "buy_count" }));
   }, []);
   const navigate = useNavigate();
   const navi = useCallback(
@@ -52,7 +52,6 @@ const HomePage = () => {
      navigate(`/lecture/${search}`);
      setSearch("")
   }
-  
   return (
     <>
       <St.EventBanner>

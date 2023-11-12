@@ -175,7 +175,8 @@ const Basket = () => {
                 }
               />
               <St.CheckLabel htmlFor="selectAll">
-                전체선택 <span>{checkList.length}</span> / {data.lectureInfoList.length}
+                전체선택 <span>{checkList.length}</span> /{" "}
+                {data.lectureInfoList.length}
               </St.CheckLabel>
             </div>
             <St.Right type="button" onClick={() => onDelete()}>
@@ -202,7 +203,11 @@ const Basket = () => {
         </St.BasketLeft>
         <St.BasketRight>
           <St.TitleSub>구매자 정보</St.TitleSub>
-          <UserInfo info={data.buyerInfo} />
+          <UserInfo
+            userName={data.buyerInfo.userName}
+            userEmail={data.buyerInfo.userEmail}
+            userPhonumber={data.buyerInfo.userPhonumber}
+          />
           <St.TitleSub>할인정보</St.TitleSub>
           <St.InfoWrap>
             <em>쿠폰</em>
@@ -228,7 +233,7 @@ const Basket = () => {
             <CouponPop
               setOpenCoupon={setOpenCoupon}
               checkList={checkList}
-              info={data}
+              couponListInCart={data.couponListInCart}
               setPrice={setPrice}
               price={price}
             />
@@ -239,12 +244,7 @@ const Basket = () => {
               보유 <span>{priceDot(data.buyerInfo.userPoint)}</span>
             </p>
           </St.InfoWrap>
-          <St.PointInput
-            type="text"
-            onChange={onPoint}
-            value={point}
-          />
-
+          <St.PointInput type="text" onChange={onPoint} value={point} />
           <St.Privacy>
             회원 본인은 주문내용을 확인했으며,
             <span>구매조건 및 개인정보처리방침</span>과 결제에 동의합니다.

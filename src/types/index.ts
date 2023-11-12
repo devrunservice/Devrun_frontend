@@ -430,13 +430,11 @@ export interface CommentDel {
   id: string;
   commentNo: number;
 }
-
-export interface BuyerInfo {
-  userEmail: string;
-  userName: string;
-  userPhonumber: string;
-  userPoint: number;
-  userNo: number;
+export interface LectureInfoList {
+  lecture_intro: string;
+  lecture_name: string;
+  lecture_price: number;
+  lecture_thumbnail: string;
 }
 export interface CouponListInCart {
   discountrate: number;
@@ -445,20 +443,19 @@ export interface CouponListInCart {
   state: string;
   couponcode: string;
 }
-export interface LectureInfoList {
-  lecture_intro: string;
-  lecture_name: string;
-  lecture_price: number;
-  lecture_thumbnail: string;
-}
 
-export interface Cart {
-  buyerInfo: BuyerInfo;
-  couponListInCart: CouponListInCart[];
-  lectureInfoList: LectureInfoList[];
-}
 export interface Carts {
-  data: Cart;
+  data: {
+    buyerInfo: {
+      userEmail: string;
+      userName: string;
+      userPhonumber: string;
+      userPoint: number;
+      userNo: number;
+    };
+    couponListInCart: CouponListInCart[];
+    lectureInfoList: LectureInfoList[];
+  };
   couponPrice: {
     discountprice: number[];
     prices: number[];
@@ -468,18 +465,7 @@ export interface Carts {
   error?: Error | null;
 }
 
-export interface basketProduct {
-  name: string;
-  item: LectureInfoList;
-  dis: number;
-  checked: boolean;
-  singleCheck: (
-    lecture_name: string,
-    lecture_intro: string,
-    lecture_price: number,
-    lecture_thumbnail: string
-  ) => void;
-}
+
 export interface BasketState {
   price: number;
   discount: number;
@@ -501,6 +487,8 @@ export interface bastetCheck {
   receipt_url: string;
   imp_uid: string | null;
 }
+
+
 export interface Curriculum {
   lectureId: number;
 }
@@ -563,16 +551,23 @@ export interface ReNote {
 // 마이페이지 검색
 
 export interface MainList {
-  bigcategory: string;
+  order: string;
 }
 
 export interface Search extends MainList {
   page: number;
-  order: string;
+  bigcategory: string;
+  
   q: string;
 }
 
 
+
+export interface NotePropsType {
+  status:string;
+  id:number
+  page:number;
+}
 
 
 
