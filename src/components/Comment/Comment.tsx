@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { useDate, useInput } from "hooks";
 import { CommentsList } from "types";
+import Grade from "components/grade/Grade";
 import { Button } from "style/Common";
 import * as St from "./style";
 
@@ -156,10 +157,13 @@ const Comment = () => {
   return (
     <>
       <St.CommentTitle>
-        댓글
-        <St.CommentCount>
-          총 <St.Comments>{datas?.data.length}</St.Comments>개
-        </St.CommentCount>
+        <div style={{display: 'flex', alignItems: 'center'}}>
+          댓글
+          <St.CommentCount>
+            총 <St.Comments>{datas?.data.length}</St.Comments>개
+          </St.CommentCount>
+        </div>
+        <Grade/>
       </St.CommentTitle>
       <St.CommentBox
         onChange={onChangeComment}

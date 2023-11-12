@@ -1,27 +1,46 @@
-import React from "react";
-// import LectureCard from "components/LectureCard/LectureCard";
+import React, { useEffect, useState } from "react";
+import LectureCard from "components/LectureCard/LectureCard";
+// import { ListWrap } from "components/Home/style";
 import { HeartFill, Link/* , Circle, MoreBtn */ } from "asset";
-import Curriculum from "components/Curriculum/Curriculum";
-// import { Swiper, SwiperSlide } from "swiper/react";
+import DetailCurriculum from "components/DetailCurriculum/DetailCurriculum";
+import DetailComment from "components/DetailComment/DetailComment"
+import axios from "axios";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { DetailAPI } from "types";
 import * as St from "./style";
 import "swiper/swiper.css";
 
+
 const Detail = () => {
+  const [test, setTest] = useState([1, 2, 34, 1, 2, 3, 4]); // eslint-disable-line
+  const [category, setCategory] = useState(1)
+  
+  const [data, setData] = useState<DetailAPI>()
+
+  const getDetail = () => {
+    const url = 'https://devrun.site/api/lectures/22'
+    axios.get(url).then(res=> {
+      console.log('res',res.data)
+      setData({...res.data})
+    }).catch(err=>console.log(err))
+  }
+  useEffect(()=> {
+    getDetail()
+  }, [])
+  const changeCategory = (num:number) => {
+    setCategory(num)
+  }
   return (
     <St.DetailWrap>
       <St.PreviewArea>
         <St.DetailThum>
-          아무래도 여기는 강의 썸네일이 들어가고 재생버튼을 가운데 둬야
-          할듯합니다. 재생버튼 클릭하면 미리보기 시작
+          <img src={data?.lectureThumbnail} alt="" />
         </St.DetailThum>
         <St.DetailInfo>
-          <St.DetailInfoTitle>제목들어갈곳</St.DetailInfoTitle>
+          <St.DetailInfoTitle>{data?.lectureName}</St.DetailInfoTitle>
           <St.DetailUtils>
-            <St.DetailUtilsItem>카테고리</St.DetailUtilsItem>
-            <St.DetailUtilsItem>강사명</St.DetailUtilsItem>
-            <St.DetailUtilsItem>
-              <HeartFill /> 2
-            </St.DetailUtilsItem>
+            <St.DetailUtilsItem>{data?.lectureCategory.lectureMidCategory}</St.DetailUtilsItem>
+            <St.DetailUtilsItem>{data?.mentoId.name}</St.DetailUtilsItem>
             <St.DetailUtilsItem>
               <Link href="/" />
               공유하기
@@ -31,9 +50,14 @@ const Detail = () => {
           <St.ShortSpacer />
 
           <St.DetailHashWrap>
-            <St.DetailHash>#</St.DetailHash>
-            <St.DetailHash>#</St.DetailHash>
-            <St.DetailHash>#</St.DetailHash>
+            {/* {
+              data.lectuerTag.map(list=> {
+                <St.DetailHash>#{list}</St.DetailHash>
+              })
+            } */}
+            {/* <St.DetailHash>#</St.DetailHash> */}
+            {/* <St.DetailHash>#</St.DetailHash> */}
+            {/* <St.DetailHash>#</St.DetailHash> */}
           </St.DetailHashWrap>
         </St.DetailInfo>
       </St.PreviewArea>
@@ -41,184 +65,14 @@ const Detail = () => {
       <St.DetailMainWrap>
         <St.DetailTab>
           {/* <St.DetailTabItem>카테고리</St.DetailTabItem> */}
-          <St.DetailTabItem>커리큘럼</St.DetailTabItem>
-          <St.DetailTabItem>수강평</St.DetailTabItem>
+          <St.DetailTabItem style={{fontWeight: category === 1 ? 'bold' : 'normal'}} onClick={()=>changeCategory(1)}>커리큘럼</St.DetailTabItem>
+          <St.DetailTabItem style={{fontWeight: category === 2 ? 'bold' : 'normal'}} onClick={()=>changeCategory(2)}>수강평</St.DetailTabItem>
           {/* <St.DetailTabItem>질의응답</St.DetailTabItem> */}
           {/* <St.DetailTabItem>수강전 문의</St.DetailTabItem> */}
         </St.DetailTab>
-
-        <div>여기 컴포넌트로 나눠야할듯</div>
-
-        <St.DraftArea>에디터영역</St.DraftArea>
-        <St.SectionAreaWrap>
-          <St.SectionTitle>커리큘럼</St.SectionTitle>
-          <ul>
-            <Curriculum />
-            <Curriculum />
-            <Curriculum />
-          </ul>
-        </St.SectionAreaWrap>
-
-        {/* <St.SectionAreaWrap>
-          <St.SectionTitle>수강평</St.SectionTitle>
-          <St.ReviewCreateArea>
-            <textarea placeholder="수강평을 작성해 주세요." />
-            <St.ReviewCreateBtnArea>
-              <span>0 / 300</span>
-              <St.ReviewCancelBtn>취소</St.ReviewCancelBtn>
-              <St.ReviewCreateBtn>등록</St.ReviewCreateBtn>
-            </St.ReviewCreateBtnArea>
-
-            <St.CommentList>
-              <St.CommentInfoWrap>
-                <div>
-                  <Circle />
-                  <span>작성자명</span>
-                </div>
-                <span>
-                  <MoreBtn />
-                </span>
-              </St.CommentInfoWrap>
-              <St.CommentArea>
-                댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성
-              </St.CommentArea>
-              <St.CommentUtils>
-                <div>
-                  <HeartFill />
-                  <span>2</span>
-                </div>
-                <St.CommentTime>
-                  2023.05.15 · <St.RecommentBtb>답글 작성</St.RecommentBtb>
-                </St.CommentTime>
-              </St.CommentUtils>
-
-              <St.RecommentList>
-                <St.CommentInfoWrap>
-                  <div>
-                    <Circle />
-                    <span>작성자명</span>
-                  </div>
-                  <span>
-                    <MoreBtn />
-                  </span>
-                </St.CommentInfoWrap>
-                <St.CommentArea>
-                  댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성
-                </St.CommentArea>
-                <St.CommentUtils>
-                  <div>
-                    <HeartFill />
-                    <span>2</span>
-                  </div>
-                  <St.CommentTime>2023.05.15</St.CommentTime>
-                </St.CommentUtils>
-              </St.RecommentList>
-            </St.CommentList>
-            <St.CommentList>
-              <St.CommentInfoWrap>
-                <div>
-                  <Circle />
-                  <span>작성자명</span>
-                </div>
-                <span>
-                  <MoreBtn />
-                </span>
-              </St.CommentInfoWrap>
-              <St.CommentArea>
-                댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성
-              </St.CommentArea>
-              <St.CommentUtils>
-                <div>
-                  <HeartFill />
-                  <span>2</span>
-                </div>
-                <St.CommentTime>
-                  2023.05.15 · <St.RecommentBtb>답글 작성</St.RecommentBtb>
-                </St.CommentTime>
-              </St.CommentUtils>
-
-              <St.RecommentList>
-                <St.CommentInfoWrap>
-                  <div>
-                    <Circle />
-                    <span>작성자명</span>
-                  </div>
-                  <span>
-                    <MoreBtn />
-                  </span>
-                </St.CommentInfoWrap>
-                <St.CommentArea>
-                  댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성
-                </St.CommentArea>
-                <St.CommentUtils>
-                  <div>
-                    <HeartFill />
-                    <span>2</span>
-                  </div>
-                  <St.CommentTime>2023.05.15</St.CommentTime>
-                </St.CommentUtils>
-              </St.RecommentList>
-            </St.CommentList>
-            <St.CommentList>
-              <St.CommentInfoWrap>
-                <div>
-                  <Circle />
-                  <span>작성자명</span>
-                </div>
-                <span>
-                  <MoreBtn />
-                </span>
-              </St.CommentInfoWrap>
-              <St.CommentArea>
-                댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성
-              </St.CommentArea>
-              <St.CommentUtils>
-                <div>
-                  <HeartFill />
-                  <span>2</span>
-                </div>
-                <St.CommentTime>
-                  2023.05.15 · <St.RecommentBtb>답글 작성</St.RecommentBtb>
-                </St.CommentTime>
-              </St.CommentUtils>
-
-              <St.RecommentList>
-                <St.CommentInfoWrap>
-                  <div>
-                    <Circle />
-                    <span>작성자명</span>
-                  </div>
-                  <span>
-                    <MoreBtn />
-                  </span>
-                </St.CommentInfoWrap>
-                <St.CommentArea>
-                  댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성댓글작성
-                </St.CommentArea>
-                <St.CommentUtils>
-                  <div>
-                    <HeartFill />
-                    <span>2</span>
-                  </div>
-                  <St.CommentTime>2023.05.15</St.CommentTime>
-                </St.CommentUtils>
-              </St.RecommentList>
-            </St.CommentList>
-            <St.MoreLectureBtn>수강평 더보기</St.MoreLectureBtn>
-          </St.ReviewCreateArea>
-        </St.SectionAreaWrap> */}
-        {/* <St.SectionAreaWrap>
-          <St.SectionTitle>다른 강의 함께 보기</St.SectionTitle>
-          <Swiper spaceBetween={20} slidesPerView={4}>
-            <St.ListWrap>
-              {test.map((list, index) => (
-                <SwiperSlide key={index}>
-                  <LectureCard />
-                </SwiperSlide>
-              ))}
-            </St.ListWrap>
-          </Swiper>
-        </St.SectionAreaWrap> */}
+        {
+          category === 1 ? <DetailCurriculum data={data} /> : <DetailComment />
+        }
       </St.DetailMainWrap>
     </St.DetailWrap>
   );

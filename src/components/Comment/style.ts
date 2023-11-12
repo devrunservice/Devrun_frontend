@@ -8,6 +8,7 @@ export const CommentTitle = styled.em`
   font-size: 1.125rem;
   display: flex;
   align-items: flex-end;
+  justify-content: space-between;
   margin-bottom: 1rem;
 `;
 export const CommentCount = styled.p`

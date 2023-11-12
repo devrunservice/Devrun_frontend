@@ -120,6 +120,7 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
       } 
 
     setLoading(true)
+    console.log('store',videoStore)
     const url = 'https://devrun.site/lectureregitest'
     const formData = new FormData();
     formData.append("lectureName", videoStore.lectureName);
@@ -128,15 +129,24 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
     formData.append("lectureThumbnailFile", videoStore.lectureThumbnail);
     const lectureTagString = videoStore.lectureTag.join(', ')
     formData.append("lectureTag", lectureTagString);
+    // formData.append("lectureCategory.lectureBigCategory", videoStore.lectureCategory.lectureBigCategory);
     formData.append("lectureCategory.lectureBigCategory", videoStore.lectureCategory.lectureBigCategory);
+    // formData.append("lectureCategory.lectureMidCategory", videoStore.lectureCategory.lectureMidCategory);
     formData.append("lectureCategory.lectureMidCategory", videoStore.lectureCategory.lectureMidCategory);
     formData.append("lectureCategory.categoryNo", videoStore.lectureCategory.categoryNo.toString());
     videoStore.lectureSectionList.forEach((list, index) => {
       formData.append(`lectureSectionList[${index}].SectionNumber`, list.lectureSectionId.toString());
       formData.append(`lectureSectionList[${index}].SectionTitle`, list.sectionTitle);
-      formData.append(`videoList[${index}].SectionTitle`, list.sectionTitle)
+      // formData.append(`videoList[${index}].SectionTitle`, list.sectionTitle)
     });
     videoStore.videoList?.forEach((list, index) => {
+      const section = videoStore.lectureSectionList.find(section => section.lectureSectionId === list.lectureSectionId);
+      // if(section) {
+      //   formData.append(`videoList[${index}].SectionTitle`, list.sectionTitle)
+      // } 
+      const sectionTitle = section ? section.sectionTitle : '';
+      console.log(sectionTitle)
+      formData.append(`videoList[${index}].SectionTitle`, sectionTitle)
       formData.append(`videoList[${index}].videoTitle`, list.videoTitle)
       formData.append(`videoList[${index}].SectionNumber`, list.lectureSectionId.toString())
       formData.append(`videoList[${index}].videofile`, list.file)
