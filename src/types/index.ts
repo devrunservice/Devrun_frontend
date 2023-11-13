@@ -90,14 +90,14 @@ export interface LearningWrapperType {
   totalPages: number;
 }
 export interface LearningType {
-  title?: string;
+  title: string;
   mentoName?: string;
-  thumbnail?: string;
-  progressRate?: number;
-  rating?: number;
-  lectureUrl?: string;
+  thumbnail: string;
+  progressRate: number;
+  rating: number;
+  lectureUrl: string;
   expiryDate?:string
-  id?:number
+  id:number
 }
 export interface NoteLectureWrapperType {
   dtolist: LectureType[];
@@ -233,6 +233,7 @@ export interface VideoType {
   file: Blob | string;
   // file: videoFileType | null | undefined
   videoTitle: string;
+  sectionTitle?: string
 }
 export interface videoFileType {
   fileBits: BlobPart[];
@@ -500,6 +501,7 @@ export interface LectureInfoList {
   lecture_name: string;
   lecture_price: number;
   lecture_thumbnail: string;
+  lecture_id?: number;
 }
 export interface CouponListInCart {
   discountrate: number;
@@ -526,6 +528,7 @@ export interface Carts {
     prices: number[];
   };
   deletes: string;
+  addCart:string;
   loading?: boolean;
   error?: Error | null;
 }
@@ -637,3 +640,139 @@ export interface NotePropsType {
 
 
 
+
+
+export interface Curriculum {
+  lectureId: number;
+}
+
+export interface Videos extends Curriculum {
+  videoId: number;
+}
+export interface Progress {
+  videoid: string;
+  currenttime: number;
+}
+
+export interface VideoCurriculumVideoInfos{
+lastviewdate: string;
+  progress: number;
+  timecheck: number;
+  videoId: string;
+  videoTitle: string;
+  videoTotalPlayTime: number;
+}
+export interface VideoCurriculumVideoInfo {
+  sectionId: number;
+  sectionNumber: number;
+  sectionTitle: string;
+  videoInfo: VideoCurriculumVideoInfos[];
+}
+
+export interface VideoCurriculum {
+  lectureExpiryDate: string;
+  lectureId: number;
+  lectureName: string;
+  lectureRating: number;
+  lectureWholeProgess: number;
+  wholeRemainingTime: number;
+  wholeStudyTime:number;
+  sectionInfo: {
+    sectionId: number;
+    sectionNumber: number;
+    sectionTitle: string;
+    videoInfo: {
+      lastviewdate: string;
+      progress: number;
+      timecheck: number;
+      videoId: string;
+      videoTitle: string;
+      videoTotalPlayTime: number;
+    }[];
+  }[];
+}
+export interface Note {
+  noteContent: string;
+  noteTitle: string;
+  videoId: string;
+}
+export interface ReNote {
+  noteContent: string;
+  noteNo: number;
+  noteTitle: string;
+}
+// 마이페이지 검색
+
+export interface MainList {
+  order: string;
+}
+
+export interface Search extends MainList {
+  page: number;
+  bigcategory: string;
+  
+  q: string;
+}
+
+
+
+export interface NotePropsType {
+  id?: number;
+  page?: number | string;
+  status?: string;
+}
+
+
+
+export interface LectureSections {
+  sectionNumber: number;
+  sectionTitle: string;
+  sectionid: number;
+  videos: {
+    fileName: null | string;
+    totalPlayTime: number;
+    uploadDate: null | string;
+    videoId: string;
+    videoLink: string;
+    videoNo: number;
+    videoTitle: string;
+  }[];
+}
+
+
+
+export interface Lectureid{
+  lectureid: number;
+}
+
+/* 디테일 */
+export interface DetailAPI {
+  lectureid: number;
+  lectureName: string;
+  lectureIntro: string;
+  lecturePrice: number;
+  lectureStart: string;
+  lectureEdit: null | string;
+  lectureDiscount: null | string;
+  lectureDiscountrate: null | string;
+  lectureDiscountstart: null | string;
+  lectureDiscountend: null | string;
+  lectureStatus: string;
+  lectureThumbnail: string;
+  lectureRating: number;
+  lectureTag: string[];
+  buyCount: number;
+
+  lectureCategory: {
+    categoryNo: number;
+    lectureBigCategory: string;
+    lectureMidCategory: string;
+  };
+  lectureSections: LectureSections[];
+  id: null | string;
+
+  mentoId:{
+    name:string
+  }
+
+}

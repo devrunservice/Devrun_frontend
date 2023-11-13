@@ -7,7 +7,7 @@ export {default as NotFound} from './NotFound/NotFound';
 export {default as Signup} from './Signup/Signup';
 export {default as SignupConfirm} from './Signup/SignupConfirm';
 export {default as SignupCompletion} from './Signup/SignupCompletion';
-export {default as DetailPage} from './DetailPage/DetailPage';
+export { default as Detailsell } from "./Detailsell/Detailsell";
 export {default as CreateVideo} from './CreateVideo/CreateVideo';
 export {default as FindId} from './FindAccount/FindId';
 export {default as FindPassword} from './FindAccount/FindPassword';
@@ -29,3 +29,5 @@ export {default as NoticeDetail} from './Notice/Detail/Detail';
 export {default as Notice} from './Notice/Notice/Notice';
 export {default as CreateCoupon} from './Create/Coupon/Coupon';
 export {default as VideoView} from './VideoView/VideoView';
+
+

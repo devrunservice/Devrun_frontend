@@ -75,6 +75,7 @@ const Dashboard = () => {
               progressRate={course.progressRate}
               rating={course.rating}
               lectureUrl={course.lectureUrl}
+              id={course.id}
             />
           ))}
         </St.ListWrapper>

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import {createSlice} from '@reduxjs/toolkit';
-import {LearningType} from 'types';
+import { createSlice } from '@reduxjs/toolkit';
+import { DetailAPI } from 'types';
 
 interface Data {
   dtolist: {
@@ -13,11 +13,12 @@ interface Data {
     mentoId: string;
     buycount: number;
     rating: number;
+    lectureId: number;
   }[];
   totalelements: number;
   totalpages: number;
   code: string;
-  message: string
+  message: string;
 }
 
 interface LearningReducerType {
@@ -25,6 +26,8 @@ interface LearningReducerType {
   error: Error | null;
   data: Data;
   lecture: Data;
+  lectureDetail: DetailAPI;
+  content:string
 }
 
 const initialState: LearningReducerType = {
@@ -44,6 +47,34 @@ const initialState: LearningReducerType = {
     message: "",
   },
   error: null,
+  lectureDetail: {
+    lectureid: 0,
+    lectureName: "",
+    lectureIntro: "",
+    lecturePrice: 0,
+    lectureStart: "",
+    lectureEdit: "",
+    lectureDiscount: "",
+    lectureDiscountrate: "",
+    lectureDiscountstart: "",
+    lectureDiscountend: "",
+    lectureStatus: "",
+    lectureThumbnail: "",
+    lectureRating: 0,
+    lectureTag: [],
+    buyCount: 0,
+    lectureCategory: {
+      categoryNo: 0,
+      lectureBigCategory: "",
+      lectureMidCategory: "",
+    },
+    lectureSections: [],
+    id: "",
+    mentoId: {
+      name: "",
+    },
+  },
+  content: "",
 };
 
 const learningReducer = createSlice({
@@ -52,7 +83,7 @@ const learningReducer = createSlice({
   reducers: {
     ratingLectureLoading: (state, action) => {
       state.loading = true;
-      state.error = null
+      state.error = null;
     },
     ratingLectureSuccess: (state, action) => {
       state.loading = false;
@@ -86,6 +117,32 @@ const learningReducer = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+
+    LectureDetailLoading: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
+    LectureDetailSuccess: (state, action) => {
+      state.loading = false;
+      state.lectureDetail = action.payload.data;
+    },
+    LectureDetailFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+
+    LectureDetailTextLoading: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
+    LectureDetailTextSuccess: (state, action) => {
+      state.loading = false;
+      state.content = action.payload.data.content;
+    },
+    LectureDetailTextFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 
@@ -99,6 +156,12 @@ export const {
   categorySearchSuccess,
   categorySearchFail,
   categorySearchLoading,
+  LectureDetailSuccess,
+  LectureDetailFail,
+  LectureDetailLoading,
+  LectureDetailTextSuccess,
+  LectureDetailTextFail,
+  LectureDetailTextLoading,
 } = learningReducer.actions;
 
 export default learningReducer.reducer;

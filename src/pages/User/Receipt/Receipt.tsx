@@ -10,7 +10,7 @@ const Receipt = () => {
   const fetcher = (url: string) => authAxios.get(url).then((res) => res.data);
   const [pageno, setPageno] = useState<number>(1);
   const [refund, setRefund] = useState<ReceiptList[]>();
-  const { data, isLoading, error } = useSWR(
+  const { data, isLoading } = useSWR(
     `/PaymentInfo?page=${pageno}&size=10`,
     fetcher
   );
@@ -20,9 +20,9 @@ const Receipt = () => {
       <UserTop
         title="구매내역"
         sub="전체"
-        count={error ? 0 : data.totalElements}
+        count={data === "결제 정보가 없습니다." ? 0 : data.totalElements}
       />
-      {error ? (
+      {data === "결제 정보가 없습니다." ? (
         <NoData
           title="구매한 강의가 존재하지 않습니다"
           span="강의를 구매해주세요"

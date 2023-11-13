@@ -19,13 +19,13 @@ const protectedRoute = (component: ReactNode) =>
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <App />,
     errorElement: <Route.NotFound />,
     children: [
-      {index: true, element: <Route.HomePage />},
+      { index: true, element: <Route.HomePage /> },
       {
-        path: 'home',
+        path: "home",
         element: ACCESS_TOKEN ? (
           <Route.HomePage />
         ) : (
@@ -37,34 +37,37 @@ const router = createBrowserRouter([
       { path: "signup", element: <Route.Signup /> },
       { path: "signupconfirm", element: <Route.SignupConfirm /> },
       {
-        path: 'signupcompletion',
+        path: "signupcompletion",
         element: <Route.SignupCompletion />,
       },
-      {path: 'findaccount/id', element: <Route.FindId />},
-      {path: 'findaccount/password', element: <Route.FindPassword />},
-      {path: 'basket', element: protectedRoute(<Route.Basket />)},
+      { path: "findaccount/id", element: <Route.FindId /> },
+      { path: "findaccount/password", element: <Route.FindPassword /> },
+      { path: "basket", element: protectedRoute(<Route.Basket />) },
 
       {
-        path: 'noticeWrite',
+        path: "noticeWrite",
         element: protectedRoute(<Route.NoticeWrite />),
       },
-      {path: 'notice', element: <Route.Notice />},
+      { path: "notice", element: <Route.Notice /> },
       {
-        path: 'notice/:noticeNo',
+        path: "notice/:noticeNo",
         element: <Route.NoticeDetail />,
       },
       {
-        path: 'notice/:noticeNo/retouch',
+        path: "notice/:noticeNo/retouch",
         element: protectedRoute(<Route.NoticeRetouch />),
       },
       {
         path: "lecture/:lectureBigCategory",
         element: <Route.Lecture />,
       },
-      { path: "detail", element: <Route.DetailPage /> },
+      {
+        path: "lectures/:lectureId",
+        element: <Route.Detailsell />,
+      },
       { path: "createVideo", element: <Route.CreateVideo /> },
       { path: "profile", element: protectedRoute(<Route.Profile />) },
-      
+
       { path: "cert", element: protectedRoute(<Route.Cert />) },
       { path: "certDetail", element: protectedRoute(<Route.CertDetail />) },
       { path: "coupon", element: protectedRoute(<Route.Coupon />) },
@@ -74,17 +77,18 @@ const router = createBrowserRouter([
       { path: "createcoupon", element: protectedRoute(<Route.CreateCoupon />) },
       {
         path: "videoView/:lectureId",
-        element: protectedRoute(<Route.VideoView />)},
-      {path: 'dashboard', element: protectedRoute(<Route.Dashboard />)},
-      {path: 'notes', element: protectedRoute(<Route.Notes />)},
-      {path: 'notes/:lectureId', element: protectedRoute(<Route.Note />)},
+        element: protectedRoute(<Route.VideoView />),
+      },
+      { path: "dashboard", element: protectedRoute(<Route.Dashboard />) },
+      { path: "notes", element: protectedRoute(<Route.Notes />) },
+      { path: "notes/:lectureId", element: protectedRoute(<Route.Note />) },
       {
-        path: 'notes/:lectureId/:noteId',
+        path: "notes/:lectureId/:noteId",
         element: protectedRoute(<Route.NoteDetail />),
       },
-      {path: 'questions', element: protectedRoute(<Route.Questions />)},
+      { path: "questions", element: protectedRoute(<Route.Questions />) },
       {
-        path: 'createVideo',
+        path: "createVideo",
         element: ACCESS_TOKEN ? (
           <Route.CreateVideo />
         ) : (

@@ -115,6 +115,7 @@ const Lecture = () => {
                   lectureprice={v.lectureprice}
                   buycount={v.buycount}
                   rating={v.rating}
+                  lectureId={v.lectureId}
                 />
               );
             })}

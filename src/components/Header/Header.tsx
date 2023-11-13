@@ -88,8 +88,8 @@ const [search, onSearch, setSearch] = useInput("");
           </St.SearchBox>
           {cookie ? (
             <St.NavWrap>
-              <St.HeaderIcon onClick={() => navigate("/basket")}>
-                <St.Icon>
+              <St.HeaderIcon>
+                <St.Icon onClick={() => navigate("/basket")}>
                   <St.Cart />
                 </St.Icon>
                 <St.CartHover>
@@ -115,7 +115,10 @@ const [search, onSearch, setSearch] = useInput("");
                       <St.CartUl>
                         {cart.lectureInfoList.map((v, index) => {
                           return (
-                            <St.CartLi key={index}>
+                            <St.CartLi
+                              key={index}
+                              onClick={() => navigate(`/lectures/${v.lecture_id}`)}
+                            >
                               <St.ImgWrap>
                                 <St.Img
                                   src={v.lecture_thumbnail}

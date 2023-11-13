@@ -10,6 +10,7 @@ const Learn: React.FC<LearningType> = ({
   progressRate,
   rating,
   lectureUrl,
+  id
 }) => {
   const navigate = useNavigate();
   return (

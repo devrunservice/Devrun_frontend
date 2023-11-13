@@ -55,6 +55,10 @@ const HomePage = () => {
      navigate(`/lecture/${search}`);
      setSearch("")
   }
+  const navi = (v:number)=>{
+    console.log(v)
+  }
+
   return (
     <>
       <St.EventBanner>
@@ -139,41 +143,40 @@ const HomePage = () => {
             />
           </St.Section>
         </St.ListEachArea>
-        {learningData.dtolist.length !== 0 ? 
-        
-        <St.ListEachArea>
-          <St.ListTitle>학습중인 클래스</St.ListTitle>
-          <St.ListUl>
-            {learningData.dtolist.slice(0,2).map((v,index)=> {
-              return (
-                <St.Listli
-                  key={index}
-                  onClick={() => navigate(`/videoView/${v.id}`)}
-                >
-                  <St.ListImg>
-                    <St.Img src={v.thumbnail} alt={v.title} />
-                  </St.ListImg>
-                  <St.ListTextBox>
-                    <St.ListEm>제목</St.ListEm>
-                    <St.ListText>
-                      <span>진도율 ( {v.progressRate}% )</span>
-                      <span>기한 : {v.expiryDate}</span>
-                      <St.Gauge>
-                        <span
-                          style={{
-                            background: "#5F4B8B",
-                            width: `${v.progressRate}%`,
-                          }}
-                        />
-                      </St.Gauge>
-                    </St.ListText>
-                  </St.ListTextBox>
-                </St.Listli>
-              );
-            })}
-          </St.ListUl>
-        </St.ListEachArea>: ""}
-       
+        {learningData.dtolist.length !== 0 ? (
+          <St.ListEachArea>
+            <St.ListTitle>학습중인 클래스</St.ListTitle>
+            <St.ListUl>
+              {learningData.dtolist.slice(0, 2).map((v, index) => {
+                return (
+                  <St.Listli key={index} onClick={() => navi(v.id)}>
+                    <St.ListImg>
+                      <St.Img src={v.thumbnail} alt={v.title} />
+                    </St.ListImg>
+                    <St.ListTextBox>
+                      <St.ListEm>제목</St.ListEm>
+                      <St.ListText>
+                        <span>진도율 ( {v.progressRate}% )</span>
+                        <span>기한 : 무제한</span>
+                        <St.Gauge>
+                          <span
+                            style={{
+                              background: "#5F4B8B",
+                              width: `${v.progressRate}%`,
+                            }}
+                          />
+                        </St.Gauge>
+                      </St.ListText>
+                    </St.ListTextBox>
+                  </St.Listli>
+                );
+              })}
+            </St.ListUl>
+          </St.ListEachArea>
+        ) : (
+          ""
+        )}
+
         <St.ListEachArea>
           <St.ListTitle>실시간 인기 클래스</St.ListTitle>
           <St.SwiperBox>
@@ -191,6 +194,7 @@ const HomePage = () => {
                       lectureprice={v.lectureprice}
                       buycount={v.buycount}
                       rating={v.rating}
+                      lectureId={v.lectureId}
                     />
                   </SwiperSlide>
                 ))}
@@ -226,6 +230,7 @@ const HomePage = () => {
                       lectureprice={v.lectureprice}
                       buycount={v.buycount}
                       rating={v.rating}
+                      lectureId={v.lectureId}
                     />
                   </SwiperSlide>
                 ))}

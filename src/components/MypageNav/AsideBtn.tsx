@@ -26,11 +26,10 @@ const AsideBtn = ({ name, path }: Btn) => {
     { name: "자격증", path: "자격증" },
     { name: "코딩테스트", path: "코딩테스트" },
   ];
-  const navi = (k:string) => {
-    if (lectureCategories.filter((v) => v.name === k))
-      return navigate(`${path}`);
-    if (lectureCategories.filter((v)=>v.name !== k)) return navigate(`/lecture/${encodeURIComponent(path)}`);
-     
+  const navi = (n: string) => {
+    const caregory = lectureCategories.find((v)=>v.name === n)
+    if (caregory) return navigate(`/lecture/${encodeURIComponent(path)}`);
+    return navigate(`${path}`);
   };
 
 

@@ -13,7 +13,7 @@ export const PagingArr = styled.button`
   height: 2.5rem;
   border-radius: 0.1875rem;
   font-size: 0.75rem;
-
+  background: ${(props) => props.theme.bgGrayColor};
   &:hover {
     background: ${(props: any) => props.theme.mainColor};
     color: ${(props: any) => props.theme.textWhite};

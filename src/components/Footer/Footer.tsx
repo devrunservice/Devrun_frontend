@@ -35,7 +35,7 @@ const Footer = () => (
         </St.Right>
       </St.Top>
       <St.Bottom>
-        <St.Info>(주) 데브런 대표자 : 박호연</St.Info>
+        <St.Info>(주) 데브런</St.Info>
         <St.Info>주소 : 서울시 강남구 어딘가 가고 싶다 </St.Info>
         <St.Info>E-mail : devrun66@gmail.com</St.Info>
         <St.Info>©2023 DEVRUN All rights reserved</St.Info>

@@ -197,7 +197,7 @@ export const Cart = {
     return response;
   },
   save: (params: I.bastetCheck[]) => {
-    const response = authAxios.post('/savePaymentInfo', params);
+    const response = authAxios.post("/savePaymentInfo", params);
     return response;
   },
   coupon: (params: I.LectureInfoList[]) => {
@@ -205,16 +205,20 @@ export const Cart = {
     return response;
   },
   refund: (params: I.Refund) => {
-    const response = authAxios.post('/payment', params);
+    const response = authAxios.post("/payment", params);
     return response;
   },
 
   delete: (params: I.LectureInfoList[]) => {
-    const response = authAxios.post('/cart/delete', params);
+    const response = authAxios.post("/cart/delete", params);
     return response;
   },
   list: () => {
     const response = authAxios.get(`/cart`);
+    return response;
+  },
+  add: (params: I.Curriculum) => {
+    const response = authAxios.post(`/cart/insert`,params.lectureId);
     return response;
   },
 };
@@ -352,7 +356,19 @@ export const search = {
     );
     return response;
   },
+  lectureDetail: (params: I.Lectureid) => {
+    const response = baseAxios.get(`/api/lectures/${params.lectureid}`);
+    return response;
+  },
+  lectureDetailtext: (params: I.Lectureid) => {
+    const response = baseAxios.get(
+      `/api/lectures/detailtest/${params.lectureid}`
+    );
+    return response;
+  },
 };
+
+
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
