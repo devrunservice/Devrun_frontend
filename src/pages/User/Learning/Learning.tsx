@@ -18,7 +18,7 @@ const Learning = () => {
   );
 
   const [pageno, setPageno] = useState<number>(1);
-  const [tap, SetTap] = useState<number>(1);
+  const [tap, setTap] = useState<number>(1);
   // const tapList = [
   //   {id: 0, list: '학습순'},
   //   {id: 1, list: '신청순'},
@@ -33,13 +33,28 @@ const Learning = () => {
 
   useEffect(() => {
     if (tap === 1) {
-      dispatch(learningLoading({page: 1, status: 'all'}));
+      dispatch(learningLoading({page: pageno, status: 'All'}));
     } else if (tap === 2) {
-      // dispatch(learningLoading({page: 1, status: 'learning'}));
+      dispatch(learningLoading({page: pageno, status: 'Inprogress'}));
     } else if (tap === 3) {
-      // dispatch(learningLoading({page: 1, status: 'complete'}));
+      dispatch(learningLoading({page: pageno, status: 'Completed'}));
     }
-  }, [tap]);
+  }, [tap, pageno]);
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const {name} = e.target as HTMLButtonElement;
+
+    if (name === 'all') {
+      setPageno(1);
+      setTap(1);
+    } else if (name === 'inProgress') {
+      setPageno(1);
+      setTap(2);
+    } else {
+      setPageno(1);
+      setTap(3);
+    }
+  };
 
   return (
     <section>
@@ -50,13 +65,13 @@ const Learning = () => {
       <St.LearnCon>
         {/* <St.TapWrap> */}
         <St.Left>
-          <St.Btn onClick={() => SetTap(1)} $active={tap === 1}>
+          <St.Btn name="all" onClick={handleClick} $active={tap === 1}>
             전체
           </St.Btn>
-          <St.Btn onClick={() => SetTap(2)} $active={tap === 2}>
+          <St.Btn name="inProgress" onClick={handleClick} $active={tap === 2}>
             학습중
           </St.Btn>
-          <St.Btn onClick={() => SetTap(3)} $active={tap === 3}>
+          <St.Btn name="completed" onClick={handleClick} $active={tap === 3}>
             완료
           </St.Btn>
         </St.Left>
@@ -78,21 +93,54 @@ const Learning = () => {
         {/* </St.TapWrap> */}
         <St.LearnUl>
           {tap === 1 &&
-            courses.dtolist.map((course, index) => (
+            courses.dtolist.map((course) => (
               <Learn
-                key={index}
+                key={course.id}
+                id={course.id}
                 title={course.title}
+                mentoName={course.mentoName}
                 thumbnail={course.thumbnail}
                 progressRate={course.progressRate}
                 rating={course.rating}
-                lectureUrl={course.lectureUrl}
+                lastViewDate={course.lastViewDate}
+                expiryDate={course.expiryDate}
               />
             ))}
-          {tap === 2 && <Learn />}
-          {tap === 3 && <Learn />}
+          {tap === 2 &&
+            courses.dtolist.map((course) => (
+              <Learn
+                key={course.id}
+                id={course.id}
+                title={course.title}
+                mentoName={course.mentoName}
+                thumbnail={course.thumbnail}
+                progressRate={course.progressRate}
+                rating={course.rating}
+                lastViewDate={course.lastViewDate}
+                expiryDate={course.expiryDate}
+              />
+            ))}
+          {tap === 3 &&
+            (courses.dtolist.length > 0 ? (
+              courses.dtolist.map((course, index) => (
+                <Learn
+                  key={course.id}
+                  id={course.id}
+                  title={course.title}
+                  mentoName={course.mentoName}
+                  thumbnail={course.thumbnail}
+                  progressRate={course.progressRate}
+                  rating={course.rating}
+                  lastViewDate={course.lastViewDate}
+                  expiryDate={course.expiryDate}
+                />
+              ))
+            ) : (
+              <St.ErrorMessage>완료한 강의가 없습니다.</St.ErrorMessage>
+            ))}
         </St.LearnUl>
       </St.LearnCon>
-      {/* <Pagination pageno={pageno} setPageno={setPageno} /> */}
+      <Pagination pageno={pageno} setPageno={setPageno} data={courses} />
     </section>
   );
 };

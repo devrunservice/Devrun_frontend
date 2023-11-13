@@ -150,23 +150,30 @@ export const mypage = {
     const response = await authAxios.get(
       `/mylecturelist?status=${params.status}&page=${params.page}`
     );
+    console.log(response);
+    return response;
+  },
+  getVideoId: async (params: number) => {
+    const response = await authAxios.post(`/lastvideo`, params);
+    console.log(response);
     return response;
   },
   noteLecture: async (params: I.NotePropsType) => {
     const response = await authAxios.get(
       `/lectureNoteOpen?page=${params.page}`
     );
+    console.log(response);
     return response;
   },
   noteList: async (params: I.NotePropsType) => {
     const response = await authAxios.get(
-      `/lectureNoteListOpen?noteId=${params.id}&page=${params.page}`
+      `/lectureNoteListOpen?lectureId=${params.id}&page=${params.page}`
     );
     return response;
   },
   noteDetail: async (params: I.NotePropsType) => {
     const response = await authAxios.get(
-      `/lectureNoteDetailQpen?noteId=${params.id}`
+      `/lectureNoteDetailOpen?noteId=${params.id}`
     );
     return response;
   },

@@ -67,21 +67,21 @@ const Dashboard = () => {
           </St.MoreBtn>
         </St.TitleWrapper>
         <St.ListWrapper>
-          {courses.dtolist.slice(0, 3).map((course, index) => (
+          {courses.dtolist.slice(0, 3).map((course) => (
             <Learn
-              key={index}
+              key={course.id}
+              id={course.id}
               title={course.title}
+              mentoName={course.mentoName}
               thumbnail={course.thumbnail}
               progressRate={course.progressRate}
               rating={course.rating}
-              lectureUrl={course.lectureUrl}
+              lastViewDate={course.lastViewDate}
+              expiryDate={course.expiryDate}
             />
           ))}
         </St.ListWrapper>
       </St.LearningWrapper>
-
-      {/* 월간 학습 달력 */}
-      <Calender />
 
       {/* 강의 노트 & 작성한 질문 */}
       <St.NoteQuestionWrapper>
@@ -134,6 +134,8 @@ const Dashboard = () => {
           </ul>
         </div>
       </St.NoteQuestionWrapper>
+      {/* 월간 학습 달력 */}
+      <Calender />
     </section>
   );
 };

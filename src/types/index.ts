@@ -90,12 +90,15 @@ export interface LearningWrapperType {
   totalPages: number;
 }
 export interface LearningType {
-  title?: string;
-  mentoName?: string;
-  thumbnail?: string;
-  progressRate?: number;
-  rating?: number;
-  lectureUrl?: string;
+  key?: number;
+  id: number;
+  title: string;
+  mentoName: string;
+  thumbnail: string;
+  progressRate: number;
+  rating: number;
+  lastViewDate: string;
+  expiryDate: string;
 }
 export interface NoteLectureWrapperType {
   dtolist: LectureType[];
@@ -441,7 +444,14 @@ export interface ActiveCoupon {
 
 // 페이지네이션
 export interface Pagination {
-  data?: MentoCoupon | Receipt | Point | Notice;
+  data?:
+    | MentoCoupon
+    | Receipt
+    | Point
+    | Notice
+    | LearningWrapperType
+    | NoteLectureWrapperType
+    | NoteListWrapperType;
   pageno: number;
   setPageno: (page: number) => void;
 }
