@@ -9,13 +9,9 @@ const useDate = () => {
     const min = Math.floor((total & 3600) / 60);
     const sec = total % 60;
 
-    if (hours > 0) {
-      return `${hours}시간 ${min}분 ${sec}초`;
-    } else if (min > 0) {
-      return `${min}분 ${sec}초`;
-    } else {
-      return `${sec}초`;
-    }
+    if (hours > 0) return `${hours}시간 ${min}분 ${sec}초`;
+    if (min > 0) return `${min}분 ${sec}초`;
+    return `${sec}초`;
   };
   const Dday = (createdDate: string) => {
     const currentTime = new Date();

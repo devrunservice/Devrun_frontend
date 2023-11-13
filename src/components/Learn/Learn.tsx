@@ -7,8 +7,10 @@ import * as St from './style';
 const Learn: React.FC<LearningType> = ({
   title,
   thumbnail,
+  progressRate,
   rating,
   lectureUrl,
+  id
 }) => {
   const navigate = useNavigate();
   return (
@@ -20,7 +22,7 @@ const Learn: React.FC<LearningType> = ({
       <St.TitleText>{title}</St.TitleText>
 
       <St.TextWrap>
-        <p>{`진도율 ( ${rating}% )`}</p>
+        <p>{`진도율 ( ${progressRate}% )`}</p>
         <p>기한 : 무제한</p>
       </St.TextWrap>
       <St.Gauge>

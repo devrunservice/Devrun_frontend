@@ -171,7 +171,7 @@ const Signup = () => {
   };
 
   return (
-    <St.Section page="signup">
+    <St.Section $page="signup">
       <St.Container>
         <St.H1>회원가입</St.H1>
         <form onSubmit={handleSubmit}>

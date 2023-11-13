@@ -85,7 +85,9 @@ const Detail = () => {
                 </>
               )}
             </St.BtnWrap>
-            <Comment  />
+            <Comment
+              text="댓글"
+            />
           </>
         )}
       </S.Inner>

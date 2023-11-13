@@ -14,11 +14,12 @@ interface ICurriculum {
 }
 
 const Curriculum = ({ onCurriculum, setLecture, lecture }: ICurriculum) => {
-  const { data } = useSelector((state: RootState) => state.VideoViewSlice);
+  const { data } = useSelector((state: RootState) => state.videoViewReducer);
   const { videoTime } = useDate();
   const onVideoPlay = useCallback((l: VideoCurriculumVideoInfos) => {
     setLecture(l);
   }, []);
+  console.log(data);
   return (
     <>
       <St.Top>
@@ -28,7 +29,7 @@ const Curriculum = ({ onCurriculum, setLecture, lecture }: ICurriculum) => {
         <St.SubTitle>{data.lectureName}</St.SubTitle>
         <St.SubContent>
           <p>
-            수강기한 : <span>{data.lectureExpiryDate.slice(0, 10)}</span>
+            수강기한 : <span>무제한</span>
           </p>
           <p>
             수강률 : <span>{data.lectureWholeProgess}%</span>

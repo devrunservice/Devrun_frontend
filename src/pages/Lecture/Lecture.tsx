@@ -4,6 +4,7 @@ import { useDispatch,useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { useParams } from "react-router-dom";
 import { Pagination, LectureCard, NoData } from "components";
+import {NoSearch} from "asset";
 import * as St from "./style";
 import { categorySearchLoading } from "../../redux/reducer/learningReducer";
 
@@ -18,6 +19,8 @@ const Lecture = () => {
   const tapList = [
     { list: "등록순", order: "lecture_start" },
     { list: "가격순", order: "lecture_Price" },
+    { list: "평점순", order: "lecture_rating" },
+    { list: "구매순", order: "buy_count" },
   ];
   const [tapOpen, setTapOpen] = useState<boolean>(false);
   const [option, setOption] = useState({
@@ -67,7 +70,15 @@ const Lecture = () => {
     <>
       <St.Top>
         <St.Title>
-          <span>{lecture.totalelements}</span>개의 강의
+          {lecture.message !== "Resource not exists" ? (
+            <>
+              <span>{lecture.totalelements}</span>개의 강의
+            </>
+          ) : (
+            <>
+              <span>0</span>개의 강의
+            </>
+          )}
         </St.Title>
         <St.Tap $active={tapOpen === true}>
           <St.TapLabel onClick={() => setTapOpen(!tapOpen)}>
@@ -88,33 +99,40 @@ const Lecture = () => {
           )}
         </St.Tap>
       </St.Top>
-      <St.LectureCardUl>
-        {lecture.dtolist ? (
-          lecture.dtolist.map((v, index) => {
-            return (
-              <LectureCard
-                key={index}
-                lectureBigCategory={v.lectureBigCategory}
-                lectureName={v.lectureName}
-                lectureIntro={v.lectureIntro}
-                lectureThumbnail={v.lectureThumbnail}
-                lectureMidCategory={v.lectureMidCategory}
-                mentoId={v.mentoId}
-                lectureprice={v.lectureprice}
-                buycount={v.buycount}
-                rating={v.rating}
-              />
-            );
-          })
-        ) : (
-          <NoData text="해당 강의가 존재하지 않습니다" />
-        )}
-      </St.LectureCardUl>
-      <Pagination
-        pageno={pageno}
-        setPageno={setPageno}
-        totalPages={lecture.totalpages}
-      />
+      {lecture.message !== "Resource not exists" ? (
+        <>
+          <St.LectureCardUl>
+            {lecture.dtolist.map((v, index) => {
+              return (
+                <LectureCard
+                  key={index}
+                  lectureBigCategory={v.lectureBigCategory}
+                  lectureName={v.lectureName}
+                  lectureIntro={v.lectureIntro}
+                  lectureThumbnail={v.lectureThumbnail}
+                  lectureMidCategory={v.lectureMidCategory}
+                  mentoId={v.mentoId}
+                  lectureprice={v.lectureprice}
+                  buycount={v.buycount}
+                  rating={v.rating}
+                  lectureId={v.lectureId}
+                />
+              );
+            })}
+          </St.LectureCardUl>
+          <Pagination
+            pageno={pageno}
+            setPageno={setPageno}
+            totalPages={lecture.totalpages}
+          />
+        </>
+      ) : (
+        <NoData
+          title="해당 강의가 존재하지 않습니다"
+          span="다른 검색어를 입력해주세요"
+          img={<NoSearch />}
+        />
+      )}
     </>
   );
 };

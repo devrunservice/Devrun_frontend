@@ -9,7 +9,7 @@ import { cartCouponLoading } from "../../../redux/reducer/cartReducer";
 interface Coupon {
   setOpenCoupon: React.Dispatch<React.SetStateAction<boolean>>;
   checkList: I.LectureInfoList[];
-  info: I.Cart;
+  couponListInCart: I.CouponListInCart[];
   setPrice: React.Dispatch<React.SetStateAction<I.BasketState>>;
   price: I.BasketState;
 }
@@ -20,9 +20,9 @@ const CouponPop = ({
   setPrice,
   price,
   checkList,
-  info,
+  couponListInCart,
 }: Coupon) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { Dday } = useDate();
   const closeBtn = useCallback(() => {
     setOpenCoupon(false);
@@ -45,7 +45,7 @@ const CouponPop = ({
         alert("쿠폰을 다시 선택해주세요");
       }
     },
-    [info.couponListInCart, checkList]
+    [couponListInCart, checkList]
   );
 
   return (
@@ -61,7 +61,7 @@ const CouponPop = ({
               사용 가능{" "}
               <span>
                 {
-                  info.couponListInCart.filter(
+                  couponListInCart.filter(
                     (v) =>
                       v.state === "ACTIVE" &&
                       checkList.some((l) => l.lecture_name === v.lecturename)
@@ -69,7 +69,7 @@ const CouponPop = ({
                 }
               </span>
             </St.Label>
-            {info.couponListInCart.filter(
+            {couponListInCart.filter(
               (v) =>
                 v.state === "ACTIVE" &&
                 checkList.some((l) => l.lecture_name === v.lecturename)
@@ -80,9 +80,11 @@ const CouponPop = ({
                     type="radio"
                     name="coupon"
                     id="none"
-                    onClick={() => onCoupon("", "",0)}
+                    onClick={() => onCoupon("", "", 0)}
                     checked={price.couponName === ""}
-                    onChange={(e:React.ChangeEvent<HTMLInputElement>)=>e.target.checked}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      e.target.checked
+                    }
                   />
 
                   <St.CouponLabel htmlFor="none" $active>
@@ -91,7 +93,7 @@ const CouponPop = ({
                   <St.CouponClick>1</St.CouponClick>
                 </St.CouponList>
 
-                {info.couponListInCart
+                {couponListInCart
                   .filter(
                     (v) =>
                       v.state === "ACTIVE" &&
@@ -105,7 +107,13 @@ const CouponPop = ({
                           name="coupon"
                           id={`${c.couponcode}`}
                           checked={price.couponName === c.lecturename}
-                          onClick={() => onCoupon(c.couponcode, c.lecturename,c.discountrate)}
+                          onClick={() =>
+                            onCoupon(
+                              c.couponcode,
+                              c.lecturename,
+                              c.discountrate
+                            )
+                          }
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                             e.target.checked
                           }
@@ -140,13 +148,13 @@ const CouponPop = ({
               사용 불가{" "}
               <span>
                 {
-                  info.couponListInCart.filter(
+                  couponListInCart.filter(
                     (v) =>
                       v.state === "ACTIVE" &&
                       !checkList.some(
                         (c) => c.lecture_name === v.lecturename
                       ) &&
-                      info.couponListInCart.some(
+                      couponListInCart.some(
                         (i) => i.lecturename === v.lecturename
                       )
                   ).length
@@ -154,12 +162,12 @@ const CouponPop = ({
               </span>
             </St.Label>
             <ul>
-              {info.couponListInCart
+              {couponListInCart
                 .filter(
                   (v) =>
                     v.state === "ACTIVE" &&
                     !checkList.some((c) => c.lecture_name === v.lecturename) &&
-                    info.couponListInCart.some(
+                    couponListInCart.some(
                       (i) => i.lecturename === v.lecturename
                     )
                 )

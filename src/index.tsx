@@ -2,7 +2,7 @@ import React, {ReactNode} from 'react';
 import ReactDOM from 'react-dom/client';
 import {createBrowserRouter, RouterProvider, Navigate} from 'react-router-dom';
 import {ThemeProvider} from 'styled-components';
-import { HelmetProvider } from 'react-helmet-async';
+import {HelmetProvider} from 'react-helmet-async';
 import {GlobalStyle, defaultTheme} from 'style/Theme';
 import {getCookie} from 'utils/cookies';
 import {Provider} from 'react-redux';
@@ -61,12 +61,13 @@ const router = createBrowserRouter([
         path: "lecture/:lectureBigCategory",
         element: <Route.Lecture />,
       },
-      { path: "detail", element: <Route.DetailPage /> },
+      {
+        path: "lectures/:lectureId",
+        element: <Route.Detailsell />,
+      },
       { path: "createVideo", element: <Route.CreateVideo /> },
       { path: "profile", element: protectedRoute(<Route.Profile />) },
-      { path: "dashboard", element: protectedRoute(<Route.Dashboard />) },
-      { path: "notes", element: protectedRoute(<Route.Notes />) },
-      { path: "questions", element: protectedRoute(<Route.Questions />) },
+
       { path: "cert", element: protectedRoute(<Route.Cert />) },
       { path: "certDetail", element: protectedRoute(<Route.CertDetail />) },
       { path: "coupon", element: protectedRoute(<Route.Coupon />) },
@@ -78,12 +79,27 @@ const router = createBrowserRouter([
         path: "videoView/:lectureId",
         element: protectedRoute(<Route.VideoView />),
       },
+      { path: "dashboard", element: protectedRoute(<Route.Dashboard />) },
+      { path: "notes", element: protectedRoute(<Route.Notes />) },
+      { path: "notes/:lectureId", element: protectedRoute(<Route.Note />) },
+      {
+        path: "notes/:lectureId/:noteId",
+        element: protectedRoute(<Route.NoteDetail />),
+      },
+      { path: "questions", element: protectedRoute(<Route.Questions />) },
+      {
+        path: "createVideo",
+        element: ACCESS_TOKEN ? (
+          <Route.CreateVideo />
+        ) : (
+          <Navigate replace to="/login" />
+        ),
+      },
     ],
   },
 ]);
 
-const rootElement = document.getElementById("root") as HTMLElement;
-
+const rootElement = document.getElementById('root') as HTMLElement;
 
 
 
@@ -105,8 +121,5 @@ if (rootElement.hasChildNodes()) {
 } else {
   ReactDOM.createRoot(rootElement).render(element);
 }
-
-
-
 
 reportWebVitals();

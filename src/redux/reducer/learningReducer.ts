@@ -1,69 +1,113 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import {createSlice} from '@reduxjs/toolkit';
-import {LearningType} from 'types';
+import { createSlice } from '@reduxjs/toolkit';
+import { DetailAPI } from 'types';
 
-export interface LearningReducerType {
+interface Data {
+  dtolist: {
+    lectureBigCategory: string;
+    lectureIntro: string;
+    lectureMidCategory: string;
+    lectureName: string;
+    lectureThumbnail: string;
+    lectureprice: number;
+    mentoId: string;
+    buycount: number;
+    rating: number;
+    lectureId: number;
+  }[];
+  totalelements: number;
+  totalpages: number;
+  code: string;
+  message: string;
+}
+
+interface LearningReducerType {
   loading: boolean;
-  data: LearningType[];
   error: Error | null;
-  lecture: {
-    dtolist: {
-      lectureBigCategory: string;
-      lectureIntro: string;
-      lectureMidCategory: string;
-      lectureName: string;
-      lectureThumbnail: string;
-      lectureprice: number;
-      mentoId: string;
-      buycount: number;
-      rating: number;
-    }[];
-    totalelements: number;
-    totalpages: number;
-  };
+  data: Data;
+  lecture: Data;
+  lectureDetail: DetailAPI;
+  content:string
 }
 
 const initialState: LearningReducerType = {
   loading: false,
-  data: [],
-  error: null,
+  data: {
+    dtolist: [],
+    totalelements: 0,
+    totalpages: 0,
+    code: "",
+    message: "",
+  },
   lecture: {
     dtolist: [],
     totalelements: 0,
     totalpages: 0,
+    code: "",
+    message: "",
   },
-
+  error: null,
+  lectureDetail: {
+    lectureid: 0,
+    lectureName: "",
+    lectureIntro: "",
+    lecturePrice: 0,
+    lectureStart: "",
+    lectureEdit: "",
+    lectureDiscount: "",
+    lectureDiscountrate: "",
+    lectureDiscountstart: "",
+    lectureDiscountend: "",
+    lectureStatus: "",
+    lectureThumbnail: "",
+    lectureRating: 0,
+    lectureTag: [],
+    buyCount: 0,
+    lectureCategory: {
+      categoryNo: 0,
+      lectureBigCategory: "",
+      lectureMidCategory: "",
+    },
+    lectureSections: [],
+    id: "",
+    mentoId: {
+      name: "",
+    },
+  },
+  content: "",
 };
 
 const learningReducer = createSlice({
   name: "learningReducer",
   initialState,
   reducers: {
-    learningLoading: (state, action) => {
+    ratingLectureLoading: (state, action) => {
       state.loading = true;
+      state.error = null;
     },
-    learningSuccess: (state, action) => {
+    ratingLectureSuccess: (state, action) => {
       state.loading = false;
       state.data = action.payload.data;
     },
-    learningFail: (state, action) => {
+    ratingLectureFail: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
-
-    mainLectureLoading: (state, action) => {
+    buyLectureLoading: (state, action) => {
       state.loading = true;
+      state.error = null;
     },
-    mainLectureSuccess: (state, action) => {
+    buyLectureSuccess: (state, action) => {
       state.loading = false;
       state.lecture = action.payload.data;
     },
-    mainLectureFail: (state, action) => {
+    buyLectureFail: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
     categorySearchLoading: (state, action) => {
       state.loading = true;
+      state.error = null;
     },
     categorySearchSuccess: (state, action) => {
       state.loading = false;
@@ -73,19 +117,53 @@ const learningReducer = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+
+    LectureDetailLoading: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
+    LectureDetailSuccess: (state, action) => {
+      state.loading = false;
+      state.lectureDetail = action.payload.data;
+    },
+    LectureDetailFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+
+    LectureDetailTextLoading: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
+    LectureDetailTextSuccess: (state, action) => {
+      state.loading = false;
+      state.content = action.payload.data.content;
+    },
+    LectureDetailTextFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 
 export const {
-  learningLoading,
-  learningSuccess,
-  learningFail,
-  mainLectureSuccess,
-  mainLectureFail,
-  mainLectureLoading,
+  ratingLectureSuccess,
+  ratingLectureFail,
+  ratingLectureLoading,
+  buyLectureSuccess,
+  buyLectureFail,
+  buyLectureLoading,
   categorySearchSuccess,
   categorySearchFail,
   categorySearchLoading,
+  LectureDetailSuccess,
+  LectureDetailFail,
+  LectureDetailLoading,
+  LectureDetailTextSuccess,
+  LectureDetailTextFail,
+  LectureDetailTextLoading,
 } = learningReducer.actions;
 
 export default learningReducer.reducer;
+
+

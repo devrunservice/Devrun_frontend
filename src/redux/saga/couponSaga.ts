@@ -16,7 +16,8 @@ function* couponGet(
 ): Generator<any, void, any> {
   try {
     const response = yield call(mypage.coupon, action.payload);
-    yield put(couponGetSuccess(response));
+    const {couponcode} = action.payload
+    yield put(couponGetSuccess({ response, couponcode }));
   } catch (error) {
     yield put(couponGetFail(error));
   }

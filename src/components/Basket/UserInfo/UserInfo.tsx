@@ -1,22 +1,23 @@
 import React from "react";
-import { BuyerInfo } from "types";
 import * as St from "./style";
 
 interface cart {
-  info: BuyerInfo;
+  userName: string;
+  userEmail: string;
+  userPhonumber: string;
 }
 
 
-const UserInfo = ({ info }: cart) => (
+const UserInfo = ({ userName, userEmail, userPhonumber }: cart) => (
   <>
     <St.InfoWrap>
-      이름 <St.Info>{info.userName}</St.Info>
+      이름 <St.Info>{userName}</St.Info>
     </St.InfoWrap>
     <St.InfoWrap>
-      이메일 <St.Info>{info.userEmail}</St.Info>
+      이메일 <St.Info>{userEmail}</St.Info>
     </St.InfoWrap>
     <St.InfoWrap>
-      휴대폰 번호 <St.Info>{info.userPhonumber}</St.Info>
+      휴대폰 번호 <St.Info>{userPhonumber}</St.Info>
     </St.InfoWrap>
   </>
 );

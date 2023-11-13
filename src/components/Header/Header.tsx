@@ -23,6 +23,7 @@ const [search, onSearch, setSearch] = useInput("");
   const [cookie, setCookie] = useState<boolean>(false);
 
   const {data} = useSelector((state: RootState) => state.userReducer);
+  const { data:cart } = useSelector((state: RootState) => state.cartReducer);
   useEffect(() => {
     if (getCookie('accessToken')) {
       dispatch(userInfoLoading(null));
@@ -49,7 +50,8 @@ const [search, onSearch, setSearch] = useInput("");
     navigate(`/lecture/${search}`);
     setSearch("");
   };
-  
+ const priceDot = (num: number) =>
+   num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   return (
     <St.HeaderWrap>
       <Modal page="home" />
@@ -87,35 +89,71 @@ const [search, onSearch, setSearch] = useInput("");
           {cookie ? (
             <St.NavWrap>
               <St.HeaderIcon>
-                <St.Icon>
+                <St.Icon onClick={() => navigate("/basket")}>
                   <St.Cart />
                 </St.Icon>
                 <St.CartHover>
                   <St.CartTop>
                     <St.CartTitle>
-                      수강바구니 <St.CartNum>1</St.CartNum>
+                      수강바구니{" "}
+                      <St.CartNum>{cart.lectureInfoList.length}</St.CartNum>
                     </St.CartTitle>
                     <St.CartPrice>
-                      총 결제금액 <St.CartNum>29,700</St.CartNum>원
+                      총 결제금액{" "}
+                      <St.CartNum>
+                        {priceDot(
+                          cart.lectureInfoList
+                            .map((v) => v.lecture_price)
+                            .reduce((a, b) => a + b, 0)
+                        )}
+                      </St.CartNum>
+                      원
                     </St.CartPrice>
                   </St.CartTop>
-                  <St.CartUl>
-                    <St.CartLi>
-                      {/* <St.ImgWrap>
-                        <St.Img src={NoImg} alt="" />
-                      </St.ImgWrap> */}
-                      <St.TextWrap>
-                        <St.LectureTitle>
-                          제목입니다 제목입니다잇
-                        </St.LectureTitle>
-                        <St.LectureSub>제목입니다 제목입니다잇</St.LectureSub>
-                        <St.LecturePrice>123</St.LecturePrice>
-                      </St.TextWrap>
-                    </St.CartLi>
-                  </St.CartUl>
-                  <St.CartButton onClick={() => navigate("/basket")}>
-                    장바구니에서 전체보기
-                  </St.CartButton>
+                  {cart.lectureInfoList.length !== 0 ? (
+                    <>
+                      <St.CartUl>
+                        {cart.lectureInfoList.map((v, index) => {
+                          return (
+                            <St.CartLi
+                              key={index}
+                              onClick={() => navigate(`/lectures/${v.lecture_id}`)}
+                            >
+                              <St.ImgWrap>
+                                <St.Img
+                                  src={v.lecture_thumbnail}
+                                  alt={v.lecture_intro}
+                                />
+                              </St.ImgWrap>
+                              <St.TextWrap>
+                                <St.LectureTitle>
+                                  {v.lecture_name}
+                                </St.LectureTitle>
+                                <St.LecturePrice>
+                                  <span>{priceDot(v.lecture_price)}</span>원
+                                </St.LecturePrice>
+                              </St.TextWrap>
+                            </St.CartLi>
+                          );
+                        })}
+                      </St.CartUl>
+                      <St.CartButton onClick={() => navigate("/basket")}>
+                        장바구니에서 전체보기
+                      </St.CartButton>
+                    </>
+                  ) : (
+                    <St.NoCart>
+                      <p>담긴 강의가 없습니다.</p>
+                      <span>나를 성장 시켜줄 좋은 지식들을 찾아보세요.</span>
+                      <button
+                        onClick={() =>
+                          navigate(`/lecture/${encodeURIComponent("전체강의")}`)
+                        }
+                      >
+                        전체강의 보기
+                      </button>
+                    </St.NoCart>
+                  )}
                 </St.CartHover>
               </St.HeaderIcon>
               <St.HeaderIcon>

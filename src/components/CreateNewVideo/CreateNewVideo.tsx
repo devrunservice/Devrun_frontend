@@ -1,4 +1,4 @@
-import React, { ChangeEvent, createRef, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent,  useEffect, useState } from 'react';
 import { Close, Exclamation } from 'asset';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
@@ -11,122 +11,127 @@ export interface StyledButtonProps {
   active: string;
 }
 
-const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
-  const dispatch = useDispatch()
-  const videoStore = useSelector((state:RootState)=>state.createVideoSlice)
-  const tags = videoStore.lectureTag
+const CreateNewVideo = ({ ChangePage }: { ChangePage: any }) => {
+  const dispatch = useDispatch();
+  const videoStore = useSelector((state: RootState) => state.createVideoSlice);
+  const tags = videoStore.lectureTag;
 
-  
   /* 가격 무료 유료 선택 */
-  const [isActive, setIsActive] = useState<boolean>(false)
-  const [priceState, setPriceState] = useState<boolean>(false)
-  const [isCategory, setIsCategory] = useState<any[]>([])
+  const [isActive, setIsActive] = useState<boolean>(false);
+  const [priceState, setPriceState] = useState<boolean>(false);
+  const [isCategory, setIsCategory] = useState<any[]>([]);
 
   const getCategory = () => {
-    const url = 'https://devrun.site/lectureregist/categories'
-    axios.get(url).then(res=>{
-      console.log('res',res)
-      setIsCategory([...res.data])
-    })
-  }
+    const url = "https://devrun.site/lectureregist/categories";
+    axios.get(url).then((res) => {
+      console.log("res", res);
+      setIsCategory([...res.data]);
+    });
+  };
 
-  useEffect(()=> {
-    getCategory()
-  }, [])
+  useEffect(() => {
+    getCategory();
+  }, []);
 
-  
   const freePayment = () => {
-    setIsActive(false)
-    setPriceState(false)
-    dispatch(onLecturePrice(0))
-  }
+    setIsActive(false);
+    setPriceState(false);
+    dispatch(onLecturePrice(0));
+  };
   const pricePayment = () => {
-    setIsActive(true)
-    setPriceState(true)
-  }
+    setIsActive(true);
+    setPriceState(true);
+  };
   /* 강의제목 */
   const nameInput = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(onLectureName(e.target.value))
-  }
+    dispatch(onLectureName(e.target.value));
+  };
   /* 가격 */
   const priceInput = (e: ChangeEvent<HTMLInputElement>) => {
-    const {value} = e.target;
-    dispatch(onLecturePrice(value))
-  }
+    const { value } = e.target;
+    dispatch(onLecturePrice(value));
+  };
 
   /* 이미지업로드 */
   const uploadImg = (e: ChangeEvent<HTMLInputElement>) => {
-    const {files} = e.target
-    if(!files) {
-      return
+    const { files } = e.target;
+    if (!files) {
+      return;
     }
     if (files.length > 0) {
       const file = files[0];
       if (file.size > 1024 * 1024 * 2) {
-        alert('이미지 용량을 초과하였습니다.');
+        alert("이미지 용량을 초과하였습니다.");
         return;
       }
       const url = URL.createObjectURL(file);
-      dispatch(onImageFile(files[0]))
-      dispatch(onImageUrl(url))
+      dispatch(onImageFile(files[0]));
+      dispatch(onImageUrl(url));
     }
-  }
+  };
 
   /* 카테고리 */
   const changeType = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(bigCategoryType(e.target.value))
-    const result = isCategory.filter(list=>list.lectureBigCategory === e.target.value)[0].lectureMidCategory
-    dispatch(midCategoryType(result))
-  }
-  const changeMid = (e:React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(midCategoryType(e.target.value))
-    const result = isCategory.filter(list=>list.lectureMidCategory === e.target.value)[0].categoryNo
-    dispatch(setCategoryNo(result))
-  }
+    dispatch(bigCategoryType(e.target.value));
+    const result = isCategory.filter(
+      (list) => list.lectureBigCategory === e.target.value
+    )[0].lectureMidCategory;
+    dispatch(midCategoryType(result));
+  };
+  const changeMid = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(midCategoryType(e.target.value));
+    const result = isCategory.filter(
+      (list) => list.lectureMidCategory === e.target.value
+    )[0].categoryNo;
+    dispatch(setCategoryNo(result));
+  };
 
   /* 태그 */
-  const [tagInput, setTagInput] = useState('')
+  const [tagInput, setTagInput] = useState("");
   const tagChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTagInput((e.target.value).trim())
-  }
+    setTagInput(e.target.value.trim());
+  };
   const tagKeyPressEvent = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if(e.key === 'Enter') {
-      if(tagInput === '') {
-        return
-      }
-      if(tags.some(tag=>tag === tagInput)) {
-        alert('해당 태그는 이미 추가하셨습니다.')
-        setTagInput('')
-        return
-      }
-      
-      if(tags.length > 10){  
-        alert('태그는 10개까지 작성 가능합니다.') 
+    if (e.key === "Enter") {
+      if (tagInput === "") {
         return;
       }
-      dispatch(onLectureTag([
-        tagInput
-      ]))
-      setTagInput('')
-      
+      if (tags.some((tag) => tag === tagInput)) {
+        alert("해당 태그는 이미 추가하셨습니다.");
+        setTagInput("");
+        return;
+      }
+
+      if (tags.length > 10) {
+        alert("태그는 10개까지 작성 가능합니다.");
+        return;
+      }
+      dispatch(onLectureTag([tagInput]));
+      setTagInput("");
     }
-  }
-  const deleteTags =(tag: number | string) => {
-    dispatch(deleteTag(tag))
-  }
+  };
+  const deleteTags = (tag: number | string) => {
+    dispatch(deleteTag(tag));
+  };
 
   /* 한줄설명 */
   const explanationInput = (e: any) => {
-    dispatch(onLectureIntro(e.target.value))
-  }
-  
+    dispatch(onLectureIntro(e.target.value));
+  };
+
   const renderOptions = () => {
     return isCategory
-      .filter((option, index, self) => 
-        index === self.findIndex(item => item.lectureBigCategory === option.lectureBigCategory)
+      .filter(
+        (option, index, self) =>
+          index ===
+          self.findIndex(
+            (item) => item.lectureBigCategory === option.lectureBigCategory
+          )
       )
       .map((option, index) => (
-        <option key={index} value={option.lectureBigCategory}>{option.lectureBigCategory}</option>
+        <option key={index} value={option.lectureBigCategory}>
+          {option.lectureBigCategory}
+        </option>
       ));
   };
   return (
@@ -165,7 +170,12 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
             </St.PriceBtn>
           </St.SelectPriceBtn>
           {priceState && (
-            <St.ShortInput onChange={priceInput} value={videoStore.lecturePrice} type="number" placeholder="0" />
+            <St.ShortInput
+              onChange={priceInput}
+              value={videoStore.lecturePrice}
+              type="number"
+              placeholder="0"
+            />
           )}
         </div>
       </St.CreateVideoArticle>
@@ -174,7 +184,9 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
         <St.ArticleTitle>강좌 이미지</St.ArticleTitle>
         <St.UploadArea>
           <St.LectureImageWrap>
-            {videoStore.lectureThumbnail && <img src={videoStore.lectureThumbnailUrl} alt="" />}
+            {videoStore.lectureThumbnail && (
+              <img src={videoStore.lectureThumbnailUrl} alt="" />
+            )}
           </St.LectureImageWrap>
           <St.UploadVideoWrap>
             <div>
@@ -202,22 +214,31 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
       <St.CreateVideoArticle>
         <St.ArticleTitle>강좌 카테고리</St.ArticleTitle>
         <div>
-          <St.CategorySelect value={videoStore.lectureCategory.lectureBigCategory} onChange={changeType}>
+          <St.CategorySelect
+            value={videoStore.lectureCategory.lectureBigCategory}
+            onChange={changeType}
+          >
             {renderOptions()}
           </St.CategorySelect>
-          <St.CategorySelect value={videoStore.lectureCategory.lectureMidCategory} onChange={changeMid}>
+          <St.CategorySelect
+            value={videoStore.lectureCategory.lectureMidCategory}
+            onChange={changeMid}
+          >
             {isCategory
-              .filter((option) => option.lectureBigCategory === videoStore.lectureCategory.lectureBigCategory)
+              .filter(
+                (option) =>
+                  option.lectureBigCategory ===
+                  videoStore.lectureCategory.lectureBigCategory
+              )
               .map((option, index) => (
                 <option key={index} value={option.lectureMidCategory}>
                   {option.lectureMidCategory}
                 </option>
-              ))
-            }
+              ))}
           </St.CategorySelect>
         </div>
       </St.CreateVideoArticle>
-            <div>{videoStore.lectureCategory.lectureMidCategory}</div>
+      <div>{videoStore.lectureCategory.lectureMidCategory}</div>
       <St.CreateVideoArticle>
         <St.MBThirty>
           <St.ArticleTitle>태그</St.ArticleTitle>
@@ -257,7 +278,7 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
         <St.MBThirty>
           <St.ArticleTitle>강좌 소개</St.ArticleTitle>
           <div>
-            <Quill/>
+            <Quill />
           </div>
         </St.MBThirty>
         <St.NextCreateBtn type="button" onClick={() => ChangePage()}>
@@ -266,5 +287,5 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
       </St.CreateVideoArticle>
     </St.CreateVideoWrap>
   );
-}
-export default CreateNewVideo
+};
+export default CreateNewVideo;
