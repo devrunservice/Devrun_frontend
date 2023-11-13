@@ -3,6 +3,8 @@ import React, {useEffect} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
+import DOMPurify from 'dompurify';
+import {mypage} from 'utils/api';
 import {Button} from 'style/Common';
 import * as St from './styles';
 import {noteDetailLoading} from '../../../redux/reducer/dashboardReducer';
@@ -20,22 +22,35 @@ const NoteDetail = () => {
     (state: RootState) => state.dashboardReducer.noteDetailData
   );
 
-  console.log(noteDetail);
+  const handleClick = async () => {
+    const response = await mypage.getVideoId(Number(lectureId));
+    navigate(`/videoView/${lectureId}/${response.data}`);
+  };
 
   return (
     <St.NoteDetailSection>
       <St.NoteDetailWrapper>
-        <St.NoteTitle>라면 맛있게 먹는 법</St.NoteTitle>
+        <St.NoteTitle>{noteDetail.noteTitle}</St.NoteTitle>
         <St.NoteSubHeading>{`Chapter ${noteDetail.chapter} - ${noteDetail.subHeading}`}</St.NoteSubHeading>
-        <St.NoteDate>2023-11-12</St.NoteDate>
+        <St.NoteDate>{noteDetail.date}</St.NoteDate>
       </St.NoteDetailWrapper>
-      <Button
-        $active={false}
-        type="button"
-        onClick={() => navigate(`/videoView/${lectureId}`)}
-      >
-        수정
-      </Button>
+      <St.NoteContent
+        dangerouslySetInnerHTML={{
+          __html: DOMPurify.sanitize(noteDetail.content),
+        }}
+      />
+      <St.NoteEditBtn>
+        <Button
+          $active={false}
+          type="button"
+          onClick={() => navigate(`/notes/${lectureId}`)}
+        >
+          목록
+        </Button>
+        <Button $active={false} type="button" onClick={handleClick}>
+          수정
+        </Button>
+      </St.NoteEditBtn>
     </St.NoteDetailSection>
   );
 };

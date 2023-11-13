@@ -21,7 +21,7 @@ const NoteCard: React.FC<I.NoteListType> = ({
   };
 
   return (
-    <St.NoteCard>
+    <St.NoteCard onClick={handleClick}>
       <St.NoteTitle>{noteTitle}</St.NoteTitle>
       <St.NoteSubHeading>{`Chapter ${chapter} - ${subHeading}`}</St.NoteSubHeading>
       <St.NoteDate>{date}</St.NoteDate>

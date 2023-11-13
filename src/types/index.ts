@@ -90,14 +90,15 @@ export interface LearningWrapperType {
   totalPages: number;
 }
 export interface LearningType {
+  key?: number;
+  id: number;
   title: string;
-  mentoName?: string;
+  mentoName: string;
   thumbnail: string;
   progressRate: number;
   rating: number;
-  lectureUrl: string;
-  expiryDate?:string
-  id:number
+  lastViewDate: string;
+  expiryDate: string;
 }
 export interface NoteLectureWrapperType {
   dtolist: LectureType[];
@@ -233,7 +234,7 @@ export interface VideoType {
   file: Blob | string;
   // file: videoFileType | null | undefined
   videoTitle: string;
-  sectionTitle?: string
+  sectionTitle?: string;
 }
 export interface videoFileType {
   fileBits: BlobPart[];
@@ -332,7 +333,6 @@ declare global {
   }
 }
 
-
 // 유저 쿠폰발급
 
 export interface CouponGet {
@@ -371,7 +371,6 @@ export interface ReceiptList {
   userpayno: number;
 }
 
-
 // 멘토 쿠폰리스트
 export interface MentoCouponlist {
   couponcode: string;
@@ -383,8 +382,6 @@ export interface MentoCouponlist {
   state: string;
   lecturename: string;
 }
-
-
 
 export interface PageNo {
   pageno: number;
@@ -404,7 +401,6 @@ export interface ActiveCoupon {
   index: number;
 }
 
-
 export interface Active {
   $active: boolean;
 }
@@ -412,7 +408,6 @@ export interface Active {
 export interface IPriceButton {
   active: boolean;
 }
-
 
 // 공지사항
 
@@ -426,7 +421,7 @@ export interface NoticeList {
   title: string;
   userNo: number;
   viewCount: number;
-  order:number
+  order: number;
 }
 export interface Notice {
   content: NoticeList[];
@@ -528,11 +523,10 @@ export interface Carts {
     prices: number[];
   };
   deletes: string;
-  addCart:string;
+  addCart: string;
   loading?: boolean;
   error?: Error | null;
 }
-
 
 export interface BasketState {
   price: number;
@@ -567,8 +561,8 @@ export interface Progress {
   currenttime: number;
 }
 
-export interface VideoCurriculumVideoInfos{
-lastviewdate: string;
+export interface VideoCurriculumVideoInfos {
+  lastviewdate: string;
   progress: number;
   timecheck: number;
   videoId: string;
@@ -589,7 +583,7 @@ export interface VideoCurriculum {
   lectureRating: number;
   lectureWholeProgess: number;
   wholeRemainingTime: number;
-  wholeStudyTime:number;
+  wholeStudyTime: number;
   sectionInfo: {
     sectionId: number;
     sectionNumber: number;
@@ -623,22 +617,15 @@ export interface MainList {
 export interface Search extends MainList {
   page: number;
   bigcategory: string;
-  
+
   q: string;
 }
-
-
 
 export interface NotePropsType {
   id?: number;
   page?: number | string;
   status?: string;
 }
-
-
-
-
-
 
 export interface Curriculum {
   lectureId: number;
@@ -652,8 +639,8 @@ export interface Progress {
   currenttime: number;
 }
 
-export interface VideoCurriculumVideoInfos{
-lastviewdate: string;
+export interface VideoCurriculumVideoInfos {
+  lastviewdate: string;
   progress: number;
   timecheck: number;
   videoId: string;
@@ -674,7 +661,7 @@ export interface VideoCurriculum {
   lectureRating: number;
   lectureWholeProgess: number;
   wholeRemainingTime: number;
-  wholeStudyTime:number;
+  wholeStudyTime: number;
   sectionInfo: {
     sectionId: number;
     sectionNumber: number;
@@ -708,19 +695,15 @@ export interface MainList {
 export interface Search extends MainList {
   page: number;
   bigcategory: string;
-  
+
   q: string;
 }
-
-
 
 export interface NotePropsType {
   id?: number;
   page?: number | string;
   status?: string;
 }
-
-
 
 export interface LectureSections {
   sectionNumber: number;
@@ -737,9 +720,7 @@ export interface LectureSections {
   }[];
 }
 
-
-
-export interface Lectureid{
+export interface Lectureid {
   lectureid: number;
 }
 
@@ -769,17 +750,7 @@ export interface DetailAPI {
   lectureSections: LectureSections[];
   id: null | string;
 
-  mentoId:{
-    name:string
-    
-  }
+  mentoId: {
+    name: string;
+  };
 }
-
-
-
-
-
-
-
-
-
