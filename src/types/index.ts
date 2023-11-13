@@ -771,13 +771,7 @@ export interface DetailAPI {
 
   mentoId:{
     name:string
-    kakaoEmailId:null | string
-    export:null | string
-    profileimgsrc:string
-    role:string
-    signupDate:string
-    status:string
-    userNo:number
+    
   }
 }
 

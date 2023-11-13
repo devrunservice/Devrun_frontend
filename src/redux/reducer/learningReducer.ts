@@ -137,7 +137,7 @@ const learningReducer = createSlice({
     },
     LectureDetailTextSuccess: (state, action) => {
       state.loading = false;
-      state.content = action.payload.data.content;
+      state.content = action.payload.data;
     },
     LectureDetailTextFail: (state, action) => {
       state.loading = false;
