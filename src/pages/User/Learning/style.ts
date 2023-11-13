@@ -1,5 +1,5 @@
 import {styled} from 'styled-components';
- import {Arrow} from 'asset';
+import {Arrow} from 'asset';
 import * as I from 'types';
 
 export const LearnCon = styled.div`
@@ -70,6 +70,7 @@ export const TapLi = styled.li`
 export const LearnUl = styled.div`
   display: flex;
   flex-wrap: wrap;
+  align-content: flex-start;
   gap: 1.875rem;
   min-height: 53.8125rem;
 `;
@@ -88,4 +89,9 @@ export const Title = styled.h4`
   color: ${(props: any) => props.theme.black};
   display: flex;
   align-items: flex-end;
+`;
+
+export const ErrorMessage = styled.div`
+  width: 100%;
+  text-align: center;
 `;

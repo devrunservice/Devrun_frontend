@@ -163,6 +163,7 @@ export const NoteCard = styled.li`
   padding: 8px 16px;
   background-color: ${(props) => props.theme.bgGrayColor};
   border-radius: 16px;
+  cursor: pointer;
 `;
 
 export const NoteTitle = styled.p`

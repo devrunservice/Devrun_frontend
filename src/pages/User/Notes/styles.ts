@@ -20,9 +20,10 @@ export const ErrorMessage = styled.div`
   margin-top: 32px;
 `;
 
-export const NoteWrapper = styled.ul`
+export const NoteUl = styled.ul`
   display: flex;
   flex-wrap: wrap;
+  align-content: flex-start;
   gap: 1.875rem;
   min-height: 53.8125rem;
 `;
@@ -34,6 +35,7 @@ export const NoteDetailSection = styled.section`
 export const NoteDetailWrapper = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.borderC};
   padding-bottom: 32px;
+  margin-bottom: 56px;
 `;
 
 export const NoteTitle = styled.p`
@@ -51,7 +53,16 @@ export const NoteDate = styled.p`
   text-align: right;
 `;
 
-export const NoteEditBtn = styled.button`
-  background-color: transparent;
-  border: 1px solid ${(props) => props.theme.brandColor};
+export const NoteContent = styled.div`
+  padding-top: 32px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid ${(props) => props.theme.borderC};
+`;
+
+export const NoteEditBtn = styled.div`
+  text-align: right;
+
+  & > button:nth-child(1) {
+    margin-right: 8px;
+  }
 `;

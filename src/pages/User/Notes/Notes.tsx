@@ -10,11 +10,11 @@ import {noteLectureLoading} from '../../../redux/reducer/dashboardReducer';
 const Notes = () => {
   const dispatch = useDispatch();
 
-  const [pageno, setPageno] = useState<number>(0);
+  const [pageno, setPageno] = useState<number>(1);
 
   useEffect(() => {
     dispatch(noteLectureLoading({page: pageno}));
-  }, []);
+  }, [pageno]);
 
   const noteLectures = useSelector(
     (state: RootState) => state.dashboardReducer.noteLectureData
@@ -45,7 +45,11 @@ const Notes = () => {
         </ul>
       )}
 
-      {/* <Pagination pageno={pageno} setPageno={setPageno} data={noteLectures} /> */}
+      <Pagination
+        pageno={pageno}
+        setPageno={setPageno}
+        totalPages={noteLectures.totalPages}
+      />
     </section>
   );
 };
