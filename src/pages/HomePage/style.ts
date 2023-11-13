@@ -5,6 +5,7 @@ import MainVisual from "asset/images/MainVisual.jpg";
 
 export const MainBg = styled.div`
   max-width: 1200px;
+  width:100%;
   margin: 0 auto 100px;
 `
 export const SwiperBox = styled.div`
@@ -14,7 +15,7 @@ display: grid;
 align-items: center;
 `
 export const ListTitle = styled.h3`
-  color: ${(props) => props.theme.black};
+  color: ${(props:any) => props.theme.black};
   font-weight: 700;
   font-size: 1.375rem;
   line-height: 1;
@@ -45,7 +46,7 @@ export const SearchTitle = styled(ListTitle)`
   text-align:center;
 `;
 
-export const SearchBox = styled.div`
+export const SearchBox = styled.form`
   position: relative;
   width: 40rem;
   margin: 0 auto;
@@ -80,29 +81,8 @@ export const Section = styled.ul`
   display: flex;
   justify-content: space-between;
 `;
-export const SectionLi = styled.li`
-  text-align: center;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  > p {
-    color: ${(props: any) => props.theme.black};
-    font-size: 0.875rem;
-  }
-`;
-export const CategoryIcon = styled.div`
-  position: relative;
-  width: 2.5rem;
-  > svg {
-    width: inherit;
-    height: inherit;
-    object-fit: cover;
-    padding: 0;
-    max-width: 100%;
-  }
-`;
-export const ListUl = styled.ul`
+
+export const ListUl = styled.div`
   display: flex;
   gap: 1.25rem;
   align-items: center;
@@ -110,16 +90,19 @@ export const ListUl = styled.ul`
 
 
 
-export const Listli = styled.li`
+export const Listli = styled.button`
   border: 1px solid ${(props) => props.theme.borderD};
   border-radius: 10px;
   width: 36.875rem;
   display: flex;
   overflow: hidden;
+  background: none;
+  text-align: left;
+  padding: 0;
 `;
 export const ListImg = styled.div`
-  width: 15rem;
-  height: 8.4375rem;
+  width: 18rem;
+  height: 10.125rem;
   background: #f7f7f7;
   overflow: hidden;
 `;
@@ -131,8 +114,9 @@ export const Img = styled.img`
   max-width: 100%;
 `;
 export const ListTextBox = styled.div`
-  padding: 1.25rem;
-  width: calc(100% - 15rem);
+  padding: 1.9rem 1.5rem;
+  width: calc(100% - 18rem);
+  height: 100%;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
@@ -140,8 +124,10 @@ export const ListTextBox = styled.div`
   box-sizing: border-box;
 `;
 export const ListEm = styled.em`
-  display:block;
+  display: block;
+  margin-bottom: 1.5625rem;
   color: ${(props: any) => props.theme.black};
+  font-size: 1.125rem;
   font-weight: 600;
   line-height: 22px;
   height: 44px;
@@ -182,7 +168,8 @@ export const NoticeBg = styled.div`
 `;
 export const Notice = styled.div`
   margin: 0 auto;
-  width: 1200px;
+  max-width: 1200px;
+  width: 100%;
   display: flex;
   gap: 2rem;
   padding: 2.4rem 0;

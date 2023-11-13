@@ -1,30 +1,42 @@
-import React, { useState } from 'react';
-import CurriculumSection from 'components/CurriculumSection/CurriculumSection';
-import { PlusCircle } from 'asset';
-import { RootState } from 'redux/store';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import Spinner from 'components/FullSpinner/FullSpinner';
-import CommonModal from 'components/CommonModal/CommonModal';
-import { getCookie } from 'utils/cookies';
-import axios from 'axios';
-import {  addClass, addSection, changeTitle, setClass,  deleteClass, deleteSection, changeVideoFile, changeClassTitle } from '../../redux/reducer/createVideoReducer';
-import * as St from '../CreateNewVideo/style'
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useState } from "react";
+import { CurriculumSection, FullSpinner, CommonModal } from "components";
+import { PlusCircle } from "asset";
+import axios from "axios";
+import { RootState } from "redux/store";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
-const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const videoStore = useSelector((state:RootState)=>state.createVideoSlice)
-  const googleStore = useSelector((state:RootState)=>state.googleLoginSlice)
+
+import { getCookie } from "utils/cookies";
+
+import * as St from "../CreateNewVideo/style";
+import {
+  addClass,
+  addSection,
+  changeTitle,
+  setClass,
+  deleteClass,
+  deleteSection,
+  changeVideoFile,
+  changeClassTitle,
+} from "../../redux/reducer/createVideoReducer";
+
+
+const CreateVideoTwo = ({ PrevPage }: { PrevPage: any }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const videoStore = useSelector((state: RootState) => state.createVideoSlice);
+  const googleStore = useSelector((state: RootState) => state.googleLoginSlice);
 
   /* 로딩여부 */
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   /* 모달창 커스텀 */
-  const [modal, setModal] = useState(false)
-  const [text, setText] = useState('')
-  const [btNum, setBtNum] = useState (1)
-  const [flag, setFlag] = useState('')
+  const [modal, setModal] = useState(false);
+  const [text, setText] = useState("");
+  const [btNum, setBtNum] = useState(1);
+  const [flag, setFlag] = useState("");
 
   /* 강의 수업추가 */
   const addClasses = (id: number) => {
@@ -81,9 +93,12 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
   };
 
   /* 수업 제목 변경 */
-  const changeClassTitles = (e:React.ChangeEvent<HTMLInputElement>, id:number) => {
-    dispatch(changeClassTitle({id, value:e.target.value}))
-  }
+  const changeClassTitles = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    id: number
+  ) => {
+    dispatch(changeClassTitle({ id, value: e.target.value }));
+  };
 
   /* 비디오 추가 */
   const changeVideoFiles = (
@@ -104,72 +119,98 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
 
   /* 강의등록 */
   const postVideo = () => {
-    const token = getCookie('accessToken')
+    const token = getCookie("accessToken");
+    console.log(token);
     if (
-      videoStore.lectureName === '' || 
-      videoStore.lectureThumbnail === '' ||
-      videoStore.lectureThumbnailUrl === '' ||
-      videoStore.lectureSectionList[0].sectionTitle === '')
-      {
-        setText('모든 항목을 채워주세요')
-        setBtNum(1)
-        setFlag('blank')
-        setModal(true)
-        return
-      } 
+      videoStore.lectureName === "" ||
+      videoStore.lectureThumbnail === "" ||
+      videoStore.lectureThumbnailUrl === "" ||
+      videoStore.lectureSectionList[0].sectionTitle === ""
+    ) {
+      setText("모든 항목을 채워주세요");
+      setBtNum(1);
+      setFlag("blank");
+      setModal(true);
+      return;
+    }
 
-    setLoading(true)
-    const url = 'https://devrun.site/lectureregitest'
+    setLoading(true);
+    console.log("store", videoStore);
+    const url = "https://devrun.site/lectureregitest";
     const formData = new FormData();
     formData.append("lectureName", videoStore.lectureName);
     formData.append("lectureIntro", videoStore.lectureIntro);
     formData.append("lecturePrice", videoStore.lecturePrice.toString());
     formData.append("lectureThumbnailFile", videoStore.lectureThumbnail);
-    const lectureTagString = videoStore.lectureTag.join(', ')
+    const lectureTagString = videoStore.lectureTag.join(", ");
     formData.append("lectureTag", lectureTagString);
-    formData.append("lectureCategory.lectureBigCategory", videoStore.lectureCategory.lectureBigCategory);
-    formData.append("lectureCategory.lectureMidCategory", videoStore.lectureCategory.lectureMidCategory);
-    formData.append("lectureCategory.categoryNo", videoStore.lectureCategory.categoryNo.toString());
+    // formData.append("lectureCategory.lectureBigCategory", videoStore.lectureCategory.lectureBigCategory);
+    formData.append(
+      "lectureCategory.lectureBigCategory",
+      videoStore.lectureCategory.lectureBigCategory
+    );
+    // formData.append("lectureCategory.lectureMidCategory", videoStore.lectureCategory.lectureMidCategory);
+    formData.append(
+      "lectureCategory.lectureMidCategory",
+      videoStore.lectureCategory.lectureMidCategory
+    );
+    formData.append(
+      "lectureCategory.categoryNo",
+      videoStore.lectureCategory.categoryNo.toString()
+    );
     videoStore.lectureSectionList.forEach((list, index) => {
-      formData.append(`lectureSectionList[${index}].SectionNumber`, list.lectureSectionId.toString());
-      formData.append(`lectureSectionList[${index}].SectionTitle`, list.sectionTitle);
-      formData.append(`videoList[${index}].SectionTitle`, list.sectionTitle)
+      formData.append(
+        `lectureSectionList[${index}].SectionNumber`,
+        list.lectureSectionId.toString()
+      );
+      formData.append(
+        `lectureSectionList[${index}].SectionTitle`,
+        list.sectionTitle
+      );
+      // formData.append(`videoList[${index}].SectionTitle`, list.sectionTitle)
     });
     videoStore.videoList?.forEach((list, index) => {
+      const sections = videoStore.lectureSectionList.find(section => section.lectureSectionId === list.lectureSectionId);
+      const sectionTitle = sections ? sections.sectionTitle : '';
+      console.log(sectionTitle)
+      formData.append(`videoList[${index}].SectionTitle`, sectionTitle)
       formData.append(`videoList[${index}].videoTitle`, list.videoTitle)
       formData.append(`videoList[${index}].SectionNumber`, list.lectureSectionId.toString())
       formData.append(`videoList[${index}].videofile`, list.file)
     })
     formData.append("accessToken", googleStore.urlToken);
-    formData.append("jstToken", token )
-    axios.post(url, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data"
-      }
-    }).then(()=>{
-      setLoading(false)
-      setText('등록에 성공했습니다. 내 강의 페이지로 이동합니다')
-      setFlag('success')
-      setBtNum(1)
-      setModal(true)
-    }).catch(()=>{
-      setText('등록에 실패했습니다. 다시 시도해주세요')
-      setBtNum(1)
-      setFlag('fail')
-      setModal(true)
-      setLoading(false)
-    })
-  }
+    formData.append("jwtToken", token);
+    axios
+      .post(url, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then(() => {
+        setLoading(false);
+        setText("등록에 성공했습니다. 내 강의 페이지로 이동합니다");
+        setFlag("success");
+        setBtNum(1);
+        setModal(true);
+      })
+      .catch(() => {
+        setText("등록에 실패했습니다. 다시 시도해주세요");
+        setBtNum(1);
+        setFlag("fail");
+        setModal(true);
+        setLoading(false);
+      });
+  };
 
   const closeModalCancel = () => {
-    setModal(false)
-  }
-  const closeModalAccept = (value:string) => {
-    setModal(false)
-    if(value === 'success') {
-      navigate('/')
+    setModal(false);
+  };
+  const closeModalAccept = (value: string) => {
+    setModal(false);
+    if (value === "success") {
+      navigate("/");
     }
-  }
+  };
 
   return (
     <St.CreateVideoWrap>
@@ -201,8 +242,16 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
           <St.NextCreateBtn onClick={postVideo}>등록</St.NextCreateBtn>
         </div>
       </St.CreateVideoArticle>
-      { modal && <CommonModal text={text} btNum={btNum} flag={flag} closeModalAccept={closeModalAccept} closeModalCancel={closeModalCancel}/> }
-      {loading && <Spinner />}
+      {modal && (
+        <CommonModal
+          text={text}
+          btNum={btNum}
+          flag={flag}
+          closeModalAccept={closeModalAccept}
+          closeModalCancel={closeModalCancel}
+        />
+      )}
+      {loading && <FullSpinner />}
     </St.CreateVideoWrap>
   );
 };

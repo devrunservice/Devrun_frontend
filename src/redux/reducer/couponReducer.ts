@@ -4,26 +4,18 @@ import * as I from "types"
 
 interface UserCoupons {
   data: I.UserCoupon;
-  loading?: boolean;
-  error?: null;
+  loading: boolean;
+  error: null;
+  code:string
 }
 
 const initialState: UserCoupons = {
   data: {
-    content: [
-      {
-        couponcode: "",
-        discountrate: 0,
-        expirydate: "",
-        issueddate: "",
-        issuedno: 0,
-        lecturename: "",
-        state: "",
-      },
-    ],
+    content: [],
   },
   loading: false,
   error: null,
+  code:""
 };
 
 const couponReducer = createSlice({
@@ -49,7 +41,7 @@ const couponReducer = createSlice({
     },
     couponGetSuccess: (state, action) => {
       state.loading = false;
-      state.data = action.payload.data;
+      state.code = action.payload
       state.error = null;
     },
     couponGetFail: (state, action) => {

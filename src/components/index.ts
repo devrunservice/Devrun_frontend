@@ -1,4 +1,3 @@
-export {default as Home} from './Home/Home';
 export {default as Pagination} from './Pagination/Pagination';
 export {default as Footer} from './Footer/Footer';
 export {default as Header} from './Header/Header';
@@ -35,8 +34,18 @@ export {default as CouponPop} from './Basket/CouponPop/CouponPop';
 export {default as ProfileForm} from './ProfileForm/ProfileForm';
 export {default as CouponList} from './CouponList/CouponList';
 export {default as Timer} from './Timer/Timer';
-export {default as CurriculumSection} from './CurriculumSection/CurriculumSection';
-export {default as Calender} from './Calender/Calender';
-export {default as RenderHeader} from './Calender/RenderHeader';
-export {default as RenderDays} from './Calender/RenderDays';
-export {default as RenderDates} from './Calender/RenderDates';
+export { default as CurriculumSection } from "./CurriculumSection/CurriculumSection";
+export { default as Curriculum  } from "./Video/Curriculum/Curriculum";
+export { default as Note } from "./Video/Note/Note";
+export { default as NoteDe } from "./Video/NoteDe/NoteDe";
+export { default as MainCategory } from "./MainIcon/MainIcon";
+export { default as NoData } from "./NoData/NoData";
+
+export { default as Calender } from "./Calender/Calender";
+export { default as RenderHeader } from "./Calender/RenderHeader";
+export { default as RenderDays } from "./Calender/RenderDays";
+export { default as RenderDates } from "./Calender/RenderDates";
+export { default as AsideBtn } from "./MypageNav/AsideBtn";
+export { default as FullSpinner } from "./FullSpinner/FullSpinner";
+export { default as CommonModal } from "./CommonModal/CommonModal";
+;

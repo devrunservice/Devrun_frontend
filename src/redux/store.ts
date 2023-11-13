@@ -7,10 +7,11 @@ import authSaga from './saga/loginSaga';
 import mypageSaga from './saga/mypageSaga';
 import mentoCouponSaga from './saga/mentoCouponSaga';
 import couponSaga from './saga/couponSaga';
-import pointSaga from './saga/pointSaga';
 import userInfoSaga from './saga/userSaga';
 import noticeSaga from './saga/noticeSaga';
 import cartSaga from './saga/cartSaga';
+import videoViewSaga from "./saga/videoViewSaga";
+import learningSaga from "./saga/learningSaga";
 import dashboardSaga from './saga/dashboardSaga';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -23,9 +24,10 @@ export function* rootSaga() {
     userInfoSaga(),
     mentoCouponSaga(),
     couponSaga(),
-    pointSaga(),
     noticeSaga(),
     cartSaga(),
+    videoViewSaga(),
+    learningSaga()
   ]);
 }
 

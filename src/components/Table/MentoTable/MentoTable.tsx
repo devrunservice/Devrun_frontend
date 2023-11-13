@@ -1,13 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
-import * as I from "types";
+import { MentoCouponlist } from "types";
 import * as St from "../style";
 import {
   couponActiveLoading,
 } from "../../../redux/reducer/mentoCouponReducer";
 
-const Table = (props: I.MentoCoupons) => {
+interface Coupon {
+  data: MentoCouponlist[]
+}
+
+
+const Table = ({ data }: Coupon) => {
   const dispatch = useDispatch();
 
   const toggleBtn = useCallback((code: string, index: number) => {
@@ -25,7 +30,7 @@ const Table = (props: I.MentoCoupons) => {
         <St.CommonLi>발급된 횟수</St.CommonLi>
         <St.View $view>활성여부</St.View>
       </St.TableLi>
-      {props.data.content?.map((v: I.MentoCouponlist, index) => {
+      {data?.map((v: MentoCouponlist, index) => {
         return (
           <St.TableLi key={v.issuedno}>
             <St.Num>{v.issuedno}</St.Num>

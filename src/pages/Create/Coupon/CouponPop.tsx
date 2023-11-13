@@ -5,10 +5,10 @@ import React, {
   useRef,
 } from "react";
 import { useInput, useDate, useSelet } from "hooks";
-import { create } from "utils/api";
+import { useDispatch } from "react-redux";
 import * as I from "types"
 import * as St from "./style"
-
+import { createCouponLoading } from "../../../redux/reducer/mentoCouponReducer";
 
 interface CouponDate {
   day: number;
@@ -20,6 +20,8 @@ interface CouponRegistration {
 }
 
 const CouponPop = (props: CouponRegistration) => {
+  const dispatch = useDispatch();
+
   const { seletRef, selets, setSelets, seletLabelRef } = useSelet();
     const { getYear, getMonth, getdate } = useDate();
     const closeBtn = useCallback(() => {
@@ -117,7 +119,7 @@ const CouponPop = (props: CouponRegistration) => {
     const getMonths = getMonth < 10 ? `0${getMonth}` : `${getMonth}`;
     const getDays = getdate < 10 ? `0${getdate}` : `${getdate}`;
     const onCreate = useCallback(
-      async (e: React.FormEvent<HTMLFormElement>) => {
+       (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (selets.seletes === "강의를 선택해주세요") return alert("강의를 선택해주세요");
         if (
@@ -137,7 +139,10 @@ const CouponPop = (props: CouponRegistration) => {
             target: selets.seletes,
           };
         try {
-          await create.coupon(creates);
+          
+          dispatch(createCouponLoading(creates));
+          alert("쿠폰을 생성하셨습니다.");
+          
           props.setCoupon(false);
         } catch (error) {
           alert("쿠폰생성에 실패하셨습니다.");

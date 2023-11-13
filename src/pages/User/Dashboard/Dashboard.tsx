@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {decode} from 'utils/decode';
 import {Calender, Learn, List} from 'components';
-import * as St from './styles';
+import * as St from './style';
 import {myInfoLoading} from '../../../redux/reducer/mypageReducer';
 import {
   learningLoading,

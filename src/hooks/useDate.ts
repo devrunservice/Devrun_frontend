@@ -4,7 +4,15 @@ const useDate = () => {
   const getYear = new Date().getFullYear();
   const getMonth = new Date().getMonth() + 1;
   const getdate = new Date().getDate();
+  const videoTime = (total: number) => {
+    const hours = Math.floor(total / 3600);
+    const min = Math.floor((total & 3600) / 60);
+    const sec = total % 60;
 
+    if (hours > 0) return `${hours}시간 ${min}분 ${sec}초`;
+    if (min > 0) return `${min}분 ${sec}초`;
+    return `${sec}초`;
+  };
   const Dday = (createdDate: string) => {
     const currentTime = new Date();
     const creatTime = new Date(createdDate);
@@ -30,6 +38,6 @@ const useDate = () => {
     if (minutesDifference > 0) return `${minutesDifference}분 전`;
     if (secondsDifference > 0) return `${secondsDifference}초 전`;
   };
-  return { getYear, getMonth, getdate, Dday, time };
+  return { getYear, getMonth, getdate, Dday, time, videoTime };
 };
 export default useDate;

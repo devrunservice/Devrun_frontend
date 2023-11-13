@@ -49,7 +49,11 @@ const Note = () => {
         </St.NoteUl>
       )}
 
-      <Pagination pageno={pageno} setPageno={setPageno} data={noteList} />
+      <Pagination
+        pageno={pageno}
+        setPageno={setPageno}
+        totalPages={noteList.totalPages}
+      />
     </section>
   );
 };

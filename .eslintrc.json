@@ -25,7 +25,7 @@
     // 함수형 컴포넌트 정의하는 방식 지정
     "react/function-component-definition": [
       2,
-      {"namedComponents": "arrow-function"}
+      { "namedComponents": "arrow-function" }
     ],
     // 파일에서 export가 하나인 경우 export default 사용 권장 제거
     "import/prefer-default-export": "off",

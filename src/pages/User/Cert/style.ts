@@ -66,7 +66,7 @@ export const ConDate = styled.span`
   display:block;
 `;
 export const Context = styled(ConDate)`
-  color: ${(props: any) => props.theme.brandColor};
+  color: ${(props: any) => props.theme.mainColor};
   margin-bottom: 1rem;
 `;
 export const Contitle = styled.p`

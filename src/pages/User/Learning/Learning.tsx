@@ -75,22 +75,6 @@ const Learning = () => {
             완료
           </St.Btn>
         </St.Left>
-        {/* <St.Tap $active={tapOpen === true}>
-            <St.TapLabel onClick={() => setTapOpen(!tapOpen)}>
-              {tapLists}
-            </St.TapLabel>
-            <St.Arr $active={tapOpen === true} />
-            {tapOpen && (
-              <St.TapUl>
-                {tapList.map((item) => (
-                  <St.TapLi key={item.id} onClick={() => tapOpsion(item.list)}>
-                    {item.list}
-                  </St.TapLi>
-                ))}
-              </St.TapUl>
-            )}
-          </St.Tap> */}
-        {/* </St.TapWrap> */}
         <St.LearnUl>
           {tap === 1 &&
             courses.dtolist.map((course) => (
@@ -140,7 +124,11 @@ const Learning = () => {
             ))}
         </St.LearnUl>
       </St.LearnCon>
-      <Pagination pageno={pageno} setPageno={setPageno} data={courses} />
+      <Pagination
+        pageno={pageno}
+        setPageno={setPageno}
+        totalPages={courses.totalPages}
+      />
     </section>
   );
 };

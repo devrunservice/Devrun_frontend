@@ -187,18 +187,9 @@ export const mypage = {
     const response = await authAxios.get(`/lectureQaDetailQpen`);
     return response;
   },
-  pay: (params: I.PageNo) => {
-    const response = authAxios.get(
-      `/PaymentInfo?page=${params.pageno}&size=10`
-    );
-    return response;
-  },
-  point: (params: I.PageNo) => {
-    const response = authAxios.get(`/PointHistory?page=${params}&size=10`);
-    return response;
-  },
+
   coupon: (params: I.CouponGet) => {
-    const response = authAxios.post('/coupon/registrate', params);
+    const response = authAxios.post("/coupon/registration", params);
     return response;
   },
   couponGet: () => {
@@ -213,7 +204,7 @@ export const Cart = {
     return response;
   },
   save: (params: I.bastetCheck[]) => {
-    const response = authAxios.post('/savePaymentInfo', params);
+    const response = authAxios.post("/savePaymentInfo", params);
     return response;
   },
   coupon: (params: I.LectureInfoList[]) => {
@@ -221,16 +212,20 @@ export const Cart = {
     return response;
   },
   refund: (params: I.Refund) => {
-    const response = authAxios.post('/payment', params);
+    const response = authAxios.post("/payment", params);
     return response;
   },
 
   delete: (params: I.LectureInfoList[]) => {
-    const response = authAxios.post('/cart/delete', params);
+    const response = authAxios.post("/cart/delete", params);
     return response;
   },
   list: () => {
     const response = authAxios.get(`/cart`);
+    return response;
+  },
+  add: (params: I.Curriculum) => {
+    const response = authAxios.post(`/cart/insert`,params.lectureId);
     return response;
   },
 };
@@ -330,7 +325,7 @@ export const cata = {
 export const video = {
   getCurriculum: (params: I.Curriculum) => {
     const response = authAxios.get(`/getMycoures`, {
-      params: {lectureId: params},
+      params: { lectureId: params },
     });
     return response;
   },
@@ -343,19 +338,21 @@ export const video = {
     return response;
   },
   getNote: (params: I.Curriculum) => {
-    const response = authAxios.get('/lectureNoteDetailOpen', {
-      params: {lectureId: params},
+    const response = authAxios.get("/lectureNoteDetailOpen", {
+      params: { lectureId: params },
     });
     return response;
   },
   reNote: (params: I.ReNote) => {
-    const response = authAxios.post('/lecturenoteUpdate', params);
+    const response = authAxios.post("/lecturenoteUpdate", params);
     return response;
   },
 };
 export const search = {
-  search: () => {
-    const response = baseAxios.get(`/q/lecture?bigcategory=&page=1`);
+  search: (params: I.MainList) => {
+    const response = baseAxios.get(
+      `/q/lecture?bigcategory=&page=1&order=${params.order}`
+    );
     return response;
   },
   categorySearch: (params: I.Search) => {
@@ -366,6 +363,19 @@ export const search = {
     );
     return response;
   },
+  lectureDetail: (params: I.Lectureid) => {
+    const response = baseAxios.get(`/api/lectures/${params.lectureid}`);
+    return response;
+  },
+  lectureDetailtext: (params: I.Lectureid) => {
+    const response = baseAxios.get(
+      `/api/lectures/detailtest/${params.lectureid}`
+    );
+    return response;
+  },
 };
 
+
+
 /* eslint-disable @typescript-eslint/no-unused-vars */
+

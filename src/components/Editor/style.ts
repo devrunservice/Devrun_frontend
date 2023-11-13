@@ -1,11 +1,12 @@
 import { styled } from "styled-components";
 import ReactQuill from "react-quill";
+import { Active } from "types";
 
-
-export const Editor = styled(ReactQuill)`
+export const Editor = styled(ReactQuill)<Active>`
   .ql-editor {
-    min-height: 31.25rem;
+    min-height: ${(props: any) => (props.$active ? "11.25rem" : "31.25rem")};
     padding: 1.25rem 1.25rem;
+    background: #fff;
   }
   .ql-toolbar.ql-snow,
   .ql-container.ql-snow {
@@ -42,3 +43,23 @@ export const TitleInput = styled.input`
   outline: 0;
 `;
 
+export const Toolbar = styled.div`
+  display: flex;
+  align-items: center;
+  width: auto;
+  min-height: 50px;
+  background: ${(props: any) => props.theme.bgColor};
+  overflow-y: hidden;
+  overflow-x: auto;
+  > span {
+    display: flex !important;
+  }
+  &::-webkit-scrollbar {
+    background: ${(props: any) => props.theme.bgColor};
+    height: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${(props: any) => props.theme.borderD};
+    height: 3px;
+  }
+`;

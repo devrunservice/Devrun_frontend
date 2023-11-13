@@ -42,7 +42,6 @@ authAxios.interceptors.request.use(
     return config;
   },
   (error) => {
-    console.log(error);
     return Promise.reject(error);
   }
 );
@@ -61,7 +60,6 @@ imageAxios.interceptors.request.use(
 baseAxios.interceptors.response.use(
   (response) => response,
   async (error) => {
-    console.log(error);
     const errorMessage = error.response.data;
     const errorStatus = error.response.status;
 
@@ -76,51 +74,56 @@ baseAxios.interceptors.response.use(
         break;
       case 400:
         switch (errorMessage) {
-          case 'Invalid input data':
+          case "Invalid input data":
             return Promise.reject(
-              new Error('입력한 정보가 올바르지 않습니다.')
+              new Error("입력한 정보가 올바르지 않습니다.")
             );
-          case 'information cannot be null or empty':
-            return Promise.reject(new Error('회원가입 양식을 작성해주세요.'));
-          case 'User has not agreed to the terms':
-            return Promise.reject(new Error('약관동의를 진행해주세요.'));
-          case 'Already linked to another user':
+          case "information cannot be null or empty":
+            return Promise.reject(new Error("회원가입 양식을 작성해주세요."));
+          case "User has not agreed to the terms":
+            return Promise.reject(new Error("약관동의를 진행해주세요."));
+          case "Already linked to another user":
             return Promise.reject(
-              new Error('로그인 되어있는 계정이 있습니다.')
+              new Error("로그인 되어있는 계정이 있습니다.")
             );
-          case 'Same as current password':
+          case "Same as current password":
             return Promise.reject(
               new Error(
-                '현재 사용 중인 비밀번호와 동일합니다./다른 비밀번호를 입력해주세요.'
+                "현재 사용 중인 비밀번호와 동일합니다./다른 비밀번호를 입력해주세요."
               )
             );
-          case 'Refresh token is required':
-          case 'Unauthorized request':
-          case 'Member not found':
-            return Promise.reject(new Error('알 수 없는 오류가 발생했습니다.'));
-          case 'KakaoLogin failed':
-          case 'Invalid request':
+          case "Refresh token is required":
+          case "Unauthorized request":
+          case "Member not found":
+            return Promise.reject(new Error("알 수 없는 오류가 발생했습니다."));
+          case "KakaoLogin failed":
+          case "Invalid request":
             return Promise.reject(
               new Error(
-                '카카오 로그인 과정에서 오류가 발생했습니다./처음부터 다시 시도해주세요.'
+                "카카오 로그인 과정에서 오류가 발생했습니다./처음부터 다시 시도해주세요."
               )
             );
-          case 'Either Email or Phonenumber should be provided, not both or none.':
-            return Promise.reject(new Error('모든 양식을 작성해주세요.'));
-          case 'Invalid key':
+          case "Either Email or Phonenumber should be provided, not both or none.":
+            return Promise.reject(new Error("모든 양식을 작성해주세요."));
+          case "Invalid key":
             return Promise.reject(
               new Error(
-                '알 수 없는 에러가 발생했습니다./devrun66@gmail.com로 문의 바랍니다.'
+                "알 수 없는 에러가 발생했습니다./devrun66@gmail.com로 문의 바랍니다."
               )
             );
-          case 'Verification expired':
+          case "Verification expired":
             return Promise.reject(
               new Error(
-                '이메일 인증 시간이 초과되었습니다/devrun66@gmail.com로 문의 바랍니다.'
+                "이메일 인증 시간이 초과되었습니다/devrun66@gmail.com로 문의 바랍니다."
               )
             );
           case "Can't Find Data, Check Your Request. -By DevRun":
-            return Promise.reject(new Error('정보를 찾을 수 없습니다.'));
+            return Promise.reject(new Error("정보를 찾을 수 없습니다."));
+          case "could not extract ResultSet; SQL [n/a]; nested exception is org.hibernate.exception.SQLGrammarException: could not extract ResultSet":
+            return Promise.reject(new Error("검색하신 강의가 없습니다."));
+          case "Request failed with status code 400":
+            return Promise.reject(new Error("알수없는 오류가 발생했습니다."));
+
           default:
             break;
         }
@@ -242,18 +245,25 @@ authAxios.interceptors.response.use(
     // let newRefreshToken;
 
     switch (errorStatus) {
+      case 400:
+        switch (errorMessage) {
+          case "could not extract ResultSet; SQL [n/a]; nested exception is org.hibernate.exception.SQLGrammarException: could not extract ResultSet":
+            return Promise.reject(new Error("검색하신 강의가 없습니다."));
+          default:
+            break;
+        }
+        break;
       case 401:
         switch (errorMessage) {
-          case 'Token is expired':
+          case "Token is expired":
             // response = await baseAxios.post("/token/refresh", null, {
             //   headers: { Refresh_token: `Bearer ${refreshToken}` },
             // });
 
-            response = await baseAxios.post('/authz/token/refresh');
-            console.log(response);
+            response = await baseAxios.post("/authz/token/refresh");
             newAccessToken = response.data.Access_token.substr(7);
-            setCookie('accessToken', newAccessToken, {
-              path: '/',
+            setCookie("accessToken", newAccessToken, {
+              path: "/",
               secure: true,
             });
             originalRequest.headers.Access_token = `Bearer ${newAccessToken}`;
@@ -264,16 +274,16 @@ authAxios.interceptors.response.use(
         break;
       case 403:
         switch (errorMessage) {
-          case 'Signature validation failed':
-          case 'Invalid token signature algorithm':
+          case "Signature validation failed":
+          case "Invalid token signature algorithm":
             return Promise.reject(new Error(`오류가 감지되었습니다.`));
-          case 'Access Denied':
-            return Promise.reject(new Error('알 수 없는 오류가 발생했습니다.'));
-          case 'Logout user':
-            return Promise.reject(new Error('이미 로그아웃 됐습니다.'));
-          case 'Duplicate login detected':
+          case "Access Denied":
+            return Promise.reject(new Error("알 수 없는 오류가 발생했습니다."));
+          case "Logout user":
+            return Promise.reject(new Error("이미 로그아웃 됐습니다."));
+          case "Duplicate login detected":
             return Promise.reject(
-              new Error('이미 로그인 된 다른 기기가 있습니다.')
+              new Error("이미 로그인 된 다른 기기가 있습니다.")
             );
           default:
             break;
@@ -281,8 +291,8 @@ authAxios.interceptors.response.use(
         break;
       case 409:
         switch (errorMessage) {
-          case 'This email is duplicated':
-            return Promise.reject(new Error('이메일이 중복되었습니다.'));
+          case "This email is duplicated":
+            return Promise.reject(new Error("이메일이 중복되었습니다."));
 
           default:
             break;
@@ -290,8 +300,8 @@ authAxios.interceptors.response.use(
         break;
       case 500:
         switch (errorMessage) {
-          case 'Unexpected server error occurred':
-            return Promise.reject(new Error('알 수 없는 오류가 발생했습니다.'));
+          case "Unexpected server error occurred":
+            return Promise.reject(new Error("알 수 없는 오류가 발생했습니다."));
           default:
             break;
         }

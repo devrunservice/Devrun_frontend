@@ -3,8 +3,10 @@ import React, {  useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
+import { getCookie } from "utils/cookies";
 import { useDate, useInput } from "hooks";
 import { CommentsList } from "types";
+import Grade from "components/grade/Grade";
 import { Button } from "style/Common";
 import * as St from "./style";
 
@@ -15,26 +17,32 @@ import {
   commentDelLoading,
 } from "../../redux/reducer/noticeReducer";
 
-
-interface Id {
-  id:string
+interface title {
+  text: string;
+  sub?: string;
+  path?: string;
 }
 
-const Comment = (props:Id) => {
+const Comment = ({ text, sub, path }: title) => {
   const dispatch = useDispatch();
   const param = useParams();
+  // 댓글 수정 , 기존 댓글 , 대댓글 달고난후 데이터
   const { commentRe, datas, comments } = useSelector(
     (state: RootState) => state.noticeReducer
   );
+  // 시간 hooks
+  const { time } = useDate();
+  // 유저 데이터
   const { data } = useSelector((state: RootState) => state.userReducer);
   const [comment, onChangeComment, setComment] = useInput("");
   const [commentTwo, onChangeCommentTwo, setCommentTwo] = useInput("");
   const [writes, setWrites] = useState<number | null>(null);
   const [writesTwo, setWritesTwo] = useState<number | null>(null);
+
   useEffect(() => {
     dispatch(commentGetLoading(param));
   }, [commentRe, comments]);
-  const { time } = useDate();
+
   const onComment = useCallback(async () => {
     if (comment.trim() === "") return alert("댓글을 적어주세요");
     try {
@@ -42,7 +50,7 @@ const Comment = (props:Id) => {
         commentPostLoading({
           content: comment,
           noticeNo: param.noticeNo,
-          id: props.id,
+          id: data.id,
         })
       );
       setComment("");
@@ -62,13 +70,15 @@ const Comment = (props:Id) => {
           })
         );
         setCommentTwo("");
+        setWritesTwo(null);
+        setWrites(null);
       } catch (error) {
         alert("댓글등록에 실패했습니다");
       }
     },
     [commentTwo]
   );
-    // 대댓글 달기 
+  // 대댓글 달기
   const onComments = useCallback(
     async (v: number, i: number) => {
       if (commentTwo.trim() === "") return alert("대댓글을 적어주세요");
@@ -78,30 +88,34 @@ const Comment = (props:Id) => {
             content: commentTwo,
             parentCommentNo: v,
             noticeNo: i,
-            id: props.id,
+            id: data.id,
           })
         );
         setCommentTwo("");
-        setWritesTwo(null)
+        setWritesTwo(null);
       } catch (error) {
         alert("댓글등록에 실패했습니다");
       }
     },
     [commentTwo]
   );
-
   // 댓글수정 버튼
   const onCommentsWrite = useCallback(
     (Index: number) => {
+      // 수정 클릭시 나오는 글 데이터
+      const editComment = datas.data.filter((v) => v.commentNo === Index)[0]
+        .content;
+      setCommentTwo(editComment);
+
       if (datas?.data.some((v: CommentsList) => v.commentNo === Index)) {
-         if (writes === Index) {
-           // 같은 댓글을 다시 클릭하면 닫음
-           setWrites(null);
-         } else {
-           // 다른 댓글을 클릭하면 열고 선택된 댓글 번호 저장 처음에는 index랑 writes랑 다르니까 번호를 저장하네.
-           setWritesTwo(null);
-           setWrites(Index);
-         }
+        if (writes === Index) {
+          // 같은 댓글을 다시 클릭하면 닫음
+          setWrites(null);
+        } else {
+          // 다른 댓글을 클릭하면 열고 선택된 댓글 번호 저장 처음에는 index랑 writes랑 다르니까 번호를 저장하네.
+          setWritesTwo(null);
+          setWrites(Index);
+        }
       }
     },
     [datas?.data, writes]
@@ -113,7 +127,7 @@ const Comment = (props:Id) => {
       if (datas?.data.some((v: CommentsList) => v.commentNo === Index)) {
         if (writesTwo === Index) {
           setWritesTwo(null); // 같은 댓글을 다시 클릭하면 닫음
-          setCommentTwo("")
+          setCommentTwo("");
         } else {
           setWrites(null);
           setWritesTwo(Index); // 다른 댓글을 클릭하면 열고 선택된 댓글 번호 저장
@@ -134,23 +148,40 @@ const Comment = (props:Id) => {
     },
     [writes, datas?.data, writesTwo]
   );
-  // 댓글 삭제 버튼 
+  // 댓글 삭제 버튼
   const onCommentsDel = useCallback((commentNo: number, id: string) => {
-    dispatch(commentDelLoading({ commentNo, id }));
+    if (window.confirm("댓글을 삭제하시겠습니까?")) {
+      dispatch(commentDelLoading({ commentNo, id }));
+    } else {
+      alert("취소되었습니다.");
+    }
   }, []);
 
+  // 평점
+  const [stars, setStars] = useState([false, false, false, false, false]);
   return (
     <>
       <St.CommentTitle>
-        댓글
-        <St.CommentCount>
-          총 <St.Comments>{datas?.data.length}</St.Comments>개
-        </St.CommentCount>
+        <div>
+          {text}
+          <St.CommentCount>
+            총 <St.Comments>{datas?.data.length || 0}</St.Comments>개{sub}
+          </St.CommentCount>
+        </div>
       </St.CommentTitle>
+      {path === "lectures" && (
+        <Grade stars={stars} setStars={setStars} text="별점을 선택해주세요" />
+      )}
+
       <St.CommentBox
         onChange={onChangeComment}
         maxLength={500}
         value={comment}
+        placeholder={
+          path === "lectures"
+            ? "좋은 수강평을 남겨주시면 지식공유자와 이후 배우는 사람들에게 큰 도움이 됩니다."
+            : "좋은 댓글남겨주세요."
+        }
       />
       <St.ButtonWrap>
         <St.CommentNum>{comment.length} / 500</St.CommentNum>
@@ -210,6 +241,8 @@ const Comment = (props:Id) => {
                   </St.CommentTop>
                   <St.CommentText>{v.content}</St.CommentText>
 
+                  {/* 댓글수정 */}
+
                   {writes === v.commentNo && (
                     <St.CommentWriteWrap>
                       <St.CommentBoxRe
@@ -236,7 +269,7 @@ const Comment = (props:Id) => {
                       </St.ButtonWrapCommnet>
                     </St.CommentWriteWrap>
                   )}
-
+                  {/* 대댓글달기 */}
                   {writesTwo === v.commentNo && (
                     <St.CommentWriteWrap>
                       <St.CommentBoxRe
@@ -285,10 +318,13 @@ const Comment = (props:Id) => {
                                   <St.CommentName>{q.id}</St.CommentName>
                                   <St.CommentTime>
                                     {q.modifiedDate !== null
-                                      ? `${time(q.modifiedDate)} 수정`
-                                      : time(q.createdDate)}
+                                      ? `${
+                                          time(q.modifiedDate) || "0초전"
+                                        } 수정`
+                                      : time(q.createdDate) || "0초전"}
                                   </St.CommentTime>
                                 </div>
+                                {/* 대댓글 수정 삭제 */}
                                 {data.id === q.id && (
                                   <div>
                                     <St.CommentRe
@@ -310,6 +346,7 @@ const Comment = (props:Id) => {
                               </St.CommentTop>
                               <St.CommentText>{q.content}</St.CommentText>
                             </div>
+
                             {writes === q.commentNo && (
                               <St.CommentWriteWrap>
                                 <St.CommentBoxRe

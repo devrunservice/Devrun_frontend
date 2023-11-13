@@ -27,7 +27,7 @@ export const NotButton = styled.button`
   width: 170px;
   height: 60px;
   outline: 0;
-  background: ${(props) => props.theme.brandColor};
+  background: ${(props) => props.theme.mainColor};
   border-radius: 10px;
   color: ${(props) => props.theme.textWhite};
 `;

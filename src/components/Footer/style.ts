@@ -4,9 +4,10 @@ export const FooterBg = styled.div`
     background:${(props:any)=>props.theme.bgBlack}
 `;
 export const Inner = styled.div`
-    width:1200px;
-    margin:0 auto;
-    padding:30px 0%;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 30px 0%;
 `;
 export const Top = styled.div`
     display:flex;
@@ -37,7 +38,7 @@ export const Title = styled.em`
 export const LinkLi = styled.p`
   position: relative;
   color: ${(props: any) => props.theme.borderC};
-  font-size: 0.875rem
+  font-size: 0.875rem;
   margin-right: 0.625rem;
   padding-right: 0.6875rem;
   &:last-child {

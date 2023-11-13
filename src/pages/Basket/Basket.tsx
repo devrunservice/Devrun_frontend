@@ -7,8 +7,9 @@ import React, {
 import { useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { useNavigate } from "react-router-dom";
-import { Product, UserInfo, CouponPop } from "components";
+import { Product, UserInfo, CouponPop, NoData } from "components";
 import { Cart } from "utils/api";
+import { NoSearch } from "asset";
 import * as I from "types";
 import * as S from "style/Common";
 import * as St from "./style";
@@ -161,48 +162,64 @@ const Basket = () => {
       <St.BasketForm onSubmit={basketBtn}>
         <St.BasketLeft>
           <St.Title>수강바구니</St.Title>
-          <St.SelectWarp>
-            <div>
-              <St.CheckBox
-                type="checkbox"
-                name="selectAll"
-                id="selectAll"
-                checked={checkList.length === data.lectureInfoList.length}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  e.target.checked
-                    ? setCheckList(data.lectureInfoList)
-                    : setCheckList([])
-                }
-              />
-              <St.CheckLabel htmlFor="selectAll">
-                전체선택 <span>{checkList.length}</span> / {data.lectureInfoList.length}
-              </St.CheckLabel>
-            </div>
-            <St.Right type="button" onClick={() => onDelete()}>
-              선택삭제
-              <St.Deletes />
-            </St.Right>
-          </St.SelectWarp>
-          <St.Product>
-            {data.lectureInfoList.map((v, index) => {
-              return (
-                <Product
-                  item={v}
-                  key={index}
-                  checked={checkList.some(
-                    (c) => c.lecture_name === v.lecture_name
-                  )}
-                  singleCheck={singleCheck}
-                  name={price.couponName}
-                  dis={price.discountrate}
-                />
-              );
-            })}
-          </St.Product>
+          {data.lectureInfoList.length !== 0 ? (
+            <>
+              <St.SelectWarp>
+                <div>
+                  <St.CheckBox
+                    type="checkbox"
+                    name="selectAll"
+                    id="selectAll"
+                    checked={checkList.length === data.lectureInfoList.length}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      e.target.checked
+                        ? setCheckList(data.lectureInfoList)
+                        : setCheckList([])
+                    }
+                  />
+                  <St.CheckLabel htmlFor="selectAll">
+                    전체선택 <span>{checkList.length}</span> /{" "}
+                    {data.lectureInfoList.length}
+                  </St.CheckLabel>
+                </div>
+                <St.Right type="button" onClick={() => onDelete()}>
+                  선택삭제
+                  <St.Deletes />
+                </St.Right>
+              </St.SelectWarp>
+
+              <St.Product>
+                {data.lectureInfoList.map((v, index) => {
+                  return (
+                    <Product
+                      item={v}
+                      key={index}
+                      checked={checkList.some(
+                        (c) => c.lecture_name === v.lecture_name
+                      )}
+                      singleCheck={singleCheck}
+                      name={price.couponName}
+                      dis={price.discountrate}
+                    />
+                  );
+                })}
+              </St.Product>
+            </>
+          ) : (
+            <NoData
+              title="담긴 강의가 존재하지 않습니다"
+              span="나를 성장 시켜줄 좋은 지식들을 찾아보세요."
+              img={<NoSearch />}
+            />
+          )}
         </St.BasketLeft>
         <St.BasketRight>
           <St.TitleSub>구매자 정보</St.TitleSub>
-          <UserInfo info={data.buyerInfo} />
+          <UserInfo
+            userName={data.buyerInfo.userName}
+            userEmail={data.buyerInfo.userEmail}
+            userPhonumber={data.buyerInfo.userPhonumber}
+          />
           <St.TitleSub>할인정보</St.TitleSub>
           <St.InfoWrap>
             <em>쿠폰</em>
@@ -228,7 +245,7 @@ const Basket = () => {
             <CouponPop
               setOpenCoupon={setOpenCoupon}
               checkList={checkList}
-              info={data}
+              couponListInCart={data.couponListInCart}
               setPrice={setPrice}
               price={price}
             />
@@ -239,12 +256,7 @@ const Basket = () => {
               보유 <span>{priceDot(data.buyerInfo.userPoint)}</span>
             </p>
           </St.InfoWrap>
-          <St.PointInput
-            type="text"
-            onChange={onPoint}
-            value={point}
-          />
-
+          <St.PointInput type="text" onChange={onPoint} value={point} />
           <St.Privacy>
             회원 본인은 주문내용을 확인했으며,
             <span>구매조건 및 개인정보처리방침</span>과 결제에 동의합니다.

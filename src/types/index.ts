@@ -234,6 +234,7 @@ export interface VideoType {
   file: Blob | string;
   // file: videoFileType | null | undefined
   videoTitle: string;
+  sectionTitle?: string;
 }
 export interface videoFileType {
   fileBits: BlobPart[];
@@ -332,17 +333,10 @@ declare global {
   }
 }
 
-export interface Refund {
-  merchant_uid: string;
-  amount: number;
-  name: string;
-}
-
 // 유저 쿠폰발급
 
 export interface CouponGet {
-  code: string;
-  id: string;
+  couponcode: string;
 }
 export interface UserCouponList {
   couponcode: string;
@@ -356,25 +350,11 @@ export interface UserCouponList {
 export interface UserCoupon {
   content: UserCouponList[];
 }
-// 포인트내역
-
-export interface PointList {
-  updatetime: string;
-  pointupdown: number;
-  pointno: number;
-  explanation: string;
-  productname: string;
-}
-export interface Point {
-  content: PointList[];
-  totalElements: number;
-  totalPages: number;
-}
-export interface Points {
-  mypoint?: number;
-  pointHistoryPage: Point;
-  loading?: boolean;
-  error?: Error | null;
+// 환불
+export interface Refund {
+  merchant_uid: string;
+  amount: number;
+  name: string;
 }
 
 // 구매내역
@@ -390,15 +370,6 @@ export interface ReceiptList {
   status: string;
   userpayno: number;
 }
-export interface Receipt {
-  content: ReceiptList[];
-  totalElements: number;
-  totalPages: number;
-}
-export interface Receipts {
-  data: Receipt;
-  setData: React.Dispatch<React.SetStateAction<Receipt | undefined>>;
-}
 
 // 멘토 쿠폰리스트
 export interface MentoCouponlist {
@@ -410,18 +381,6 @@ export interface MentoCouponlist {
   quantity: number;
   state: string;
   lecturename: string;
-}
-interface MentoCoupon {
-  content: MentoCouponlist[];
-  totalElements: number;
-  totalPages: number;
-}
-
-export interface MentoCoupons {
-  data: MentoCoupon;
-  loading?: boolean;
-  error?: Error | null;
-  activate?: null;
 }
 
 export interface PageNo {
@@ -442,30 +401,12 @@ export interface ActiveCoupon {
   index: number;
 }
 
-// 페이지네이션
-export interface Pagination {
-  data?:
-    | MentoCoupon
-    | Receipt
-    | Point
-    | Notice
-    | LearningWrapperType
-    | NoteLectureWrapperType
-    | NoteListWrapperType;
-  pageno: number;
-  setPageno: (page: number) => void;
-}
-
 export interface Active {
   $active: boolean;
 }
 
 export interface IPriceButton {
   active: boolean;
-}
-// 마이페이지 검색
-export interface MySearch {
-  search: string;
 }
 
 // 공지사항
@@ -480,6 +421,7 @@ export interface NoticeList {
   title: string;
   userNo: number;
   viewCount: number;
+  order: number;
 }
 export interface Notice {
   content: NoticeList[];
@@ -549,13 +491,12 @@ export interface CommentDel {
   id: string;
   commentNo: number;
 }
-
-export interface BuyerInfo {
-  userEmail: string;
-  userName: string;
-  userPhonumber: string;
-  userPoint: number;
-  userNo: number;
+export interface LectureInfoList {
+  lecture_intro: string;
+  lecture_name: string;
+  lecture_price: number;
+  lecture_thumbnail: string;
+  lecture_id?: number;
 }
 export interface CouponListInCart {
   discountrate: number;
@@ -564,41 +505,29 @@ export interface CouponListInCart {
   state: string;
   couponcode: string;
 }
-export interface LectureInfoList {
-  lecture_intro: string;
-  lecture_name: string;
-  lecture_price: number;
-  lecture_thumbnail: string;
-}
 
-export interface Cart {
-  buyerInfo: BuyerInfo;
-  couponListInCart: CouponListInCart[];
-  lectureInfoList: LectureInfoList[];
-}
 export interface Carts {
-  data: Cart;
+  data: {
+    buyerInfo: {
+      userEmail: string;
+      userName: string;
+      userPhonumber: string;
+      userPoint: number;
+      userNo: number;
+    };
+    couponListInCart: CouponListInCart[];
+    lectureInfoList: LectureInfoList[];
+  };
   couponPrice: {
     discountprice: number[];
     prices: number[];
   };
   deletes: string;
+  addCart: string;
   loading?: boolean;
   error?: Error | null;
 }
 
-export interface basketProduct {
-  name: string;
-  item: LectureInfoList;
-  dis: number;
-  checked: boolean;
-  singleCheck: (
-    lecture_name: string,
-    lecture_intro: string,
-    lecture_price: number,
-    lecture_thumbnail: string
-  ) => void;
-}
 export interface BasketState {
   price: number;
   discount: number;
@@ -620,10 +549,10 @@ export interface bastetCheck {
   receipt_url: string;
   imp_uid: string | null;
 }
-
 export interface Curriculum {
   lectureId: number;
 }
+
 export interface Videos extends Curriculum {
   videoId: number;
 }
@@ -631,6 +560,7 @@ export interface Progress {
   videoid: string;
   currenttime: number;
 }
+
 export interface VideoCurriculumVideoInfos {
   lastviewdate: string;
   progress: number;
@@ -645,6 +575,7 @@ export interface VideoCurriculumVideoInfo {
   sectionTitle: string;
   videoInfo: VideoCurriculumVideoInfos[];
 }
+
 export interface VideoCurriculum {
   lectureExpiryDate: string;
   lectureId: number;
@@ -677,11 +608,149 @@ export interface ReNote {
   noteNo: number;
   noteTitle: string;
 }
-
 // 마이페이지 검색
-export interface Search {
+
+export interface MainList {
+  order: string;
+}
+
+export interface Search extends MainList {
   page: number;
   bigcategory: string;
-  order: string;
+
   q: string;
+}
+
+export interface NotePropsType {
+  id?: number;
+  page?: number | string;
+  status?: string;
+}
+
+export interface Curriculum {
+  lectureId: number;
+}
+
+export interface Videos extends Curriculum {
+  videoId: number;
+}
+export interface Progress {
+  videoid: string;
+  currenttime: number;
+}
+
+export interface VideoCurriculumVideoInfos {
+  lastviewdate: string;
+  progress: number;
+  timecheck: number;
+  videoId: string;
+  videoTitle: string;
+  videoTotalPlayTime: number;
+}
+export interface VideoCurriculumVideoInfo {
+  sectionId: number;
+  sectionNumber: number;
+  sectionTitle: string;
+  videoInfo: VideoCurriculumVideoInfos[];
+}
+
+export interface VideoCurriculum {
+  lectureExpiryDate: string;
+  lectureId: number;
+  lectureName: string;
+  lectureRating: number;
+  lectureWholeProgess: number;
+  wholeRemainingTime: number;
+  wholeStudyTime: number;
+  sectionInfo: {
+    sectionId: number;
+    sectionNumber: number;
+    sectionTitle: string;
+    videoInfo: {
+      lastviewdate: string;
+      progress: number;
+      timecheck: number;
+      videoId: string;
+      videoTitle: string;
+      videoTotalPlayTime: number;
+    }[];
+  }[];
+}
+export interface Note {
+  noteContent: string;
+  noteTitle: string;
+  videoId: string;
+}
+export interface ReNote {
+  noteContent: string;
+  noteNo: number;
+  noteTitle: string;
+}
+// 마이페이지 검색
+
+export interface MainList {
+  order: string;
+}
+
+export interface Search extends MainList {
+  page: number;
+  bigcategory: string;
+
+  q: string;
+}
+
+export interface NotePropsType {
+  id?: number;
+  page?: number | string;
+  status?: string;
+}
+
+export interface LectureSections {
+  sectionNumber: number;
+  sectionTitle: string;
+  sectionid: number;
+  videos: {
+    fileName: null | string;
+    totalPlayTime: number;
+    uploadDate: null | string;
+    videoId: string;
+    videoLink: string;
+    videoNo: number;
+    videoTitle: string;
+  }[];
+}
+
+export interface Lectureid {
+  lectureid: number;
+}
+
+/* 디테일 */
+export interface DetailAPI {
+  lectureid: number;
+  lectureName: string;
+  lectureIntro: string;
+  lecturePrice: number;
+  lectureStart: string;
+  lectureEdit: null | string;
+  lectureDiscount: null | string;
+  lectureDiscountrate: null | string;
+  lectureDiscountstart: null | string;
+  lectureDiscountend: null | string;
+  lectureStatus: string;
+  lectureThumbnail: string;
+  lectureRating: number;
+  lectureTag: string[];
+  buyCount: number;
+
+  lectureCategory: {
+    categoryNo: number;
+    lectureBigCategory: string;
+    lectureMidCategory: string;
+  };
+  lectureSections: LectureSections[];
+  id: null | string;
+
+  mentoId: {
+    name: string;
+  };
 }

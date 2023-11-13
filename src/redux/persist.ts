@@ -9,11 +9,12 @@ import dashboardReducer from './reducer/dashboardReducer';
 import validationReducer from './reducer/validationReducer';
 import mentoCouponReducer from './reducer/mentoCouponReducer';
 import couponReducer from './reducer/couponReducer';
-import pointReducer from './reducer/pointReducer';
 import userReducer from './reducer/userReducer';
 import noticeReducer from './reducer/noticeReducer';
 import cartReducer from './reducer/cartReducer';
 import googleLoginSlice from './reducer/googleLoginReducer';
+import videoViewReducer from "./reducer/videoViewReducer";
+import learningReducer from "./reducer/learningReducer";
 
 const persistConfig = {
   key: 'root',
@@ -31,10 +32,11 @@ const rootReducer = combineReducers({
   validationReducer,
   mentoCouponReducer,
   couponReducer,
-  pointReducer,
   noticeReducer,
   cartReducer,
   googleLoginSlice,
+  videoViewReducer,
+  learningReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

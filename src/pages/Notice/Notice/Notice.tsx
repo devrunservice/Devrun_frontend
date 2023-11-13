@@ -27,7 +27,7 @@ const Notice = () => {
 
       <NoticeTable data={data} />
       {user.role === "ADMIN" && (
-        <S.ButtonWrap>
+        <S.ButtonWrap $active={false}>
           <S.Button
             $active
             type="button"
@@ -38,7 +38,11 @@ const Notice = () => {
         </S.ButtonWrap>
       )}
 
-      <Pagination pageno={pageno} setPageno={setPageno} data={data} />
+      <Pagination
+        pageno={pageno}
+        setPageno={setPageno}
+        totalPages={data.totalPages}
+      />
     </S.Inner>
   );
 };

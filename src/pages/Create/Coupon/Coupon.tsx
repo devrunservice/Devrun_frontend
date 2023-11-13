@@ -25,19 +25,19 @@ const Coupon = () => {
   }, [pageno]);
   return (
     <section>
-      {typeof data !== "undefined" && (
-        <>
-          <St.CouponTop>
-            <UserTop title="쿠폰관리" sub="전체" count={data.totalElements} />
-            <Button $active onClick={() => couponBtn()}>
-              쿠폰등록
-            </Button>
-          </St.CouponTop>
+      <St.CouponTop>
+        <UserTop title="쿠폰관리" sub="전체" count={data.totalElements} />
+        <Button $active onClick={() => couponBtn()}>
+          쿠폰등록
+        </Button>
+      </St.CouponTop>
 
-          <MentoTable data={data}  />
-          <Pagination pageno={pageno} setPageno={setPageno} data={data} />
-        </>
-      )}
+      <MentoTable data={data.content} />
+      <Pagination
+        pageno={pageno}
+        setPageno={setPageno}
+        totalPages={data.totalPages}
+      />
       {coupon && <CouponPop setCoupon={setCoupon} />}
     </section>
   );

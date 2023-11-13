@@ -4,19 +4,25 @@ import { BsArrowReturnRight } from "react-icons/bs";
 
 export const CommentTitle = styled.em`
   color: ${(props: any) => props.theme.black};
-  font-weight: 600;
-  font-size: 1.125rem;
+  font-weight: 700;
+  font-size: 1.25rem;
   display: flex;
-  align-items: flex-end;
+  
   margin-bottom: 1rem;
+  justify-content: space-between;
+  > div {
+    display: flex;
+    align-items: center;
+  }
 `;
 export const CommentCount = styled.p`
   margin-left: 0.625rem;
-  font-weight: ${(props: any) => props.theme.regular};
-  font-size: 1rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: ${(props: any) => props.theme.textColor};
 `;
 export const Comments = styled.span`
-  color: ${(props: any) => props.theme.brandColor};
+  color: ${(props: any) => props.theme.mainColor};
   font-weight: 500;
 `;
 export const CommentBox = styled.textarea`
@@ -113,7 +119,7 @@ export const CommentWrite = styled.button`
   background: none;
 `;
 export const CommentRe = styled(CommentWrite)`
-  color: ${(props: any) => props.theme.brandColor};
+  color: ${(props: any) => props.theme.mainColor};
 `;
 export const CommentRemove = styled(CommentWrite)`
   color: ${(props: any) => props.theme.textRed};
@@ -138,3 +144,4 @@ export const ReplyIcon = styled(BsArrowReturnRight)`
   top: 1.25rem;
   left: 0;
 `;
+

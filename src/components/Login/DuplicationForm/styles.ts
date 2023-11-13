@@ -35,7 +35,7 @@ export const Field = styled.div<{option?: string}>`
     width: 25%;
     height: 3rem;
     color: ${(props) => props.theme.textWhite};
-    background-color: ${(props) => props.theme.brandColor};
+    background-color: ${(props) => props.theme.mainColor};
   }
 
   & > p {

@@ -28,7 +28,7 @@ export const Input = styled.input`
   padding: 0 0.625rem;
   border: 1px solid ${(props: any) => props.theme.borderC};
   &:focus {
-    border: 1px solid ${(props: any) => props.theme.brandColor};
+    border: 1px solid ${(props: any) => props.theme.mainColor};
   }
 `;
 export const Tap = styled.div`
@@ -58,4 +58,28 @@ export const Content = styled.ul`
 `;
 export const Section = styled.section`
   min-height: 38.25rem;
+`;
+export const CodeNum = styled.div`
+  text-align: center;
+  width: 100%;
+  padding: 40px 0;
+  display: flex;
+  height: 300px;
+  flex-direction: column;
+  justify-content: center;
+  > p {
+    font-weight: 600;
+    color: 1px solid ${(props: any) => props.theme.black};
+    font-size: 1.125rem;
+    margin-bottom: 20px;
+  }
+  > span {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  > em {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: 1px solid ${(props: any) => props.theme.mainColor};
+  }
 `;

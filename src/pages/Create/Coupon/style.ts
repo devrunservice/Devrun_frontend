@@ -93,7 +93,7 @@ export const Input = styled.input`
   outline: 0;
   border-radius: 5px;
   &:focus {
-    border: 1px solid ${(props: any) => props.theme.brandColor};
+    border: 1px solid ${(props: any) => props.theme.mainColor};
   }
   ::-webkit-inner-spin-button,
   ::-webkit-outer-spin-button {

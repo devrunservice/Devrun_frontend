@@ -45,7 +45,11 @@ const Notes = () => {
         </ul>
       )}
 
-      <Pagination pageno={pageno} setPageno={setPageno} data={noteLectures} />
+      <Pagination
+        pageno={pageno}
+        setPageno={setPageno}
+        totalPages={noteLectures.totalPages}
+      />
     </section>
   );
 };

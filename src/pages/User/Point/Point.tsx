@@ -1,30 +1,44 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from 'redux/store';
-import {UserTop, Pagination, PointTable} from 'components';
-import {pointLoading} from '../../../redux/reducer/pointReducer';
+
+import React, { useState } from "react";
+import useSWR from "swr"
+import { authAxios } from "utils/instance";
+import { UserTop, Pagination, PointTable, NoData } from "components";
+import { NoSearch } from "asset";
+
 
 const Point = () => {
-  const dispatch = useDispatch();
-  const [pageno, setPageno] = useState<number>(1);
-  const {pointHistoryPage, mypoint} = useSelector(
-    (state: RootState) => state.pointReducer
-  );
-
-  useEffect(() => {
-    dispatch(pointLoading(pageno));
-  }, [pageno]);
-  return (
-    <>
-      <UserTop title="포인트" sub="총 보유포인트" count={mypoint} />
-      <PointTable pointHistoryPage={pointHistoryPage} />
-      <Pagination
-        pageno={pageno}
-        setPageno={setPageno}
-        data={pointHistoryPage}
-      />
-    </>
-  );
+    const fetcher = (url: string) => authAxios.get(url).then((res) => res.data);
+    const [pageno, setPageno] = useState<number>(1);  
+    const { data, isLoading } = useSWR(
+      `/PointHistory?page=${pageno}&size=10`,
+      fetcher
+    );
+    if (isLoading) return <div>asd</div>
+    console.log(data)
+      return (
+        <>
+          <UserTop
+            title="포인트"
+            sub="총 보유포인트"
+            count={data === "결제 정보가 없습니다." ? 0 : data.mypoint}
+          />
+          {data === "결제 정보가 없습니다." ? (
+            <NoData
+              title="적립된 포인트가 존재하지 않습니다"
+              span="강의결제 후 포인트를 적립해주세요!"
+              img={<NoSearch />}
+            />
+          ) : (
+            <>
+              <PointTable data={data?.pointHistoryPage?.content} />
+              <Pagination
+                pageno={pageno}
+                setPageno={setPageno}
+                totalPages={data?.pointHistoryPage?.totalPages}
+              />
+            </>
+          )}
+        </>
+      );
 };
 export default Point;

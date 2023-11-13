@@ -60,7 +60,7 @@ export const Field = styled.div`
   & > ${Button} {
     width: 25%;
     color: ${(props) => props.theme.textWhite};
-    background-color: ${(props) => props.theme.brandColor};
+    background-color: ${(props) => props.theme.mainColor};
   }
 `;
 
@@ -101,7 +101,7 @@ export const CancelBtn = styled(Button)`
 // 회원가입 이메일 인증 style
 export const SignupBtn = styled(Button)`
   color: ${(props) => props.theme.textWhite};
-  background-color: ${(props) => props.theme.brandColor};
+  background-color: ${(props) => props.theme.mainColor};
   padding: 0.8rem 0;
   width: 100%;
 `;
@@ -124,7 +124,7 @@ export const TextArea = styled.div`
 
 export const EmailBtn = styled(Button)`
   color: ${(props) => props.theme.textWhite};
-  background-color: ${(props) => props.theme.brandColor};
+  background-color: ${(props) => props.theme.mainColor};
   margin: 0.5rem 0;
   padding: 0.8rem 0;
   width: 100%;
@@ -138,7 +138,7 @@ export const ButtonWrapper = styled(FlexRow)`
 
 export const LoginBtn = styled(Button)`
   color: ${(props) => props.theme.textWhite};
-  background-color: ${(props) => props.theme.brandColor};
+  background-color: ${(props) => props.theme.mainColor};
   margin: 0.5rem 0;
   padding: 0.8rem 0;
   width: 45%;

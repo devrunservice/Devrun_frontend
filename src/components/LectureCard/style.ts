@@ -3,19 +3,24 @@ import { AiFillStar } from "react-icons/ai";
 
 
 export const List = styled.li`
-  cursor:pointer
+  cursor: pointer;
+  width: 17.8125rem;
 `;
 export const ListThumbnail = styled.div`
   border-radius: 10px;
-  background: #ddd;
   width: 100%;
-  min-height: 160px;
-  margin-bottom: 20px;
+  height: 10rem;
+  margin-bottom: 1.25rem;
+  overflow: hidden;
 `;
-export const ListTextArea = styled.div``;
 
-
-
+export const ListThumbnailImg = styled.img`
+  width: inherit;
+  height: inherit;
+  object-fit: cover;
+  padding: 0;
+  max-width: 100%;
+`;
 
 
 export const Progress = styled.div`
@@ -53,7 +58,7 @@ export const Price = styled.p`
   font-size: 0.875rem;
   color: ${(props) => props.theme.black};
   > span {
-    color: ${(props) => props.theme.brandColor};
+    color: ${(props) => props.theme.mainColor};
     font-size: 1.125rem;
     font-weight: 700;
   }

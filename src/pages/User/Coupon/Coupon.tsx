@@ -15,21 +15,19 @@ import {
 
 const Coupon = () => {
   const [code, onCode, setCode] = useInput("");
-  const userId = useSelector((state: RootState) => state.userReducer.data);
-  const { data } = useSelector((state: RootState) => state.couponReducer);
+  const { data, code:codePost } = useSelector((state: RootState) => state.couponReducer);
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(couponListLoading(null));
-  }, []);
-  console.log(data)
+  }, [codePost]);
   const [tap, setTap] = useState<number>(1);
   const couponBtn = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      dispatch(couponGetLoading({ code, id: userId.id }));
+      dispatch(couponGetLoading({ couponcode:code }));
       setCode("");
     },
-    [code, userId]
+    [code]
   );
   return (
     <St.Section>
@@ -60,55 +58,65 @@ const Coupon = () => {
         </St.TapBtn>
       </St.Tap>
       <St.Content>
-        {tap === 1 &&
-          data.content.map((v: UserCouponList) => {
-            return (
-              <CouponList
-                key={v.issuedno}
-                discountrate={v.discountrate}
-                lecturename={v.lecturename}
-                expirydate={v.expirydate}
-                state={v.state}
-                couponcode={v.couponcode}
-                issueddate={v.issueddate}
-                issuedno={v.issuedno}
-              />
-            );
-          })}
-        {tap === 2 &&
-          data.content
-            .filter((v) => v.state === "ACTIVE")
-            .map((v: UserCouponList) => {
-              return (
-                <CouponList
-                  key={v.issuedno}
-                  discountrate={v.discountrate}
-                  lecturename={v.lecturename}
-                  expirydate={v.expirydate}
-                  state={v.state}
-                  couponcode={v.couponcode}
-                  issueddate={v.issueddate}
-                  issuedno={v.issuedno}
-                />
-              );
-            })}
-        {tap === 3 &&
-          data.content
-            .filter((v) => v.state !== "ACTIVE")
-            .map((v: UserCouponList) => {
-              return (
-                <CouponList
-                  key={v.issuedno}
-                  discountrate={v.discountrate}
-                  lecturename={v.lecturename}
-                  expirydate={v.expirydate}
-                  state={v.state}
-                  couponcode={v.couponcode}
-                  issueddate={v.issueddate}
-                  issuedno={v.issuedno}
-                />
-              );
-            })}
+        {data.content.length !== 0 ? (
+          <>
+            {tap === 1 &&
+              data.content.map((v: UserCouponList) => {
+                return (
+                  <CouponList
+                    key={v.issuedno}
+                    discountrate={v.discountrate}
+                    lecturename={v.lecturename}
+                    expirydate={v.expirydate}
+                    state={v.state}
+                    couponcode={v.couponcode}
+                    issueddate={v.issueddate}
+                    issuedno={v.issuedno}
+                  />
+                );
+              })}
+            {tap === 2 &&
+              data.content
+                .filter((v) => v.state === "ACTIVE")
+                .map((v: UserCouponList) => {
+                  return (
+                    <CouponList
+                      key={v.issuedno}
+                      discountrate={v.discountrate}
+                      lecturename={v.lecturename}
+                      expirydate={v.expirydate}
+                      state={v.state}
+                      couponcode={v.couponcode}
+                      issueddate={v.issueddate}
+                      issuedno={v.issuedno}
+                    />
+                  );
+                })}
+            {tap === 3 &&
+              data.content
+                .filter((v) => v.state !== "ACTIVE")
+                .map((v: UserCouponList) => {
+                  return (
+                    <CouponList
+                      key={v.issuedno}
+                      discountrate={v.discountrate}
+                      lecturename={v.lecturename}
+                      expirydate={v.expirydate}
+                      state={v.state}
+                      couponcode={v.couponcode}
+                      issueddate={v.issueddate}
+                      issuedno={v.issuedno}
+                    />
+                  );
+                })}
+          </>
+        ) : (
+          <St.CodeNum>
+            <p>쿠폰함에 쿠폰이 없습니다.</p>
+            <span>쉿 우리들만의 비밀 10%할인쿠폰 받아가세요!</span>
+            <em>98492-hsBmtI4kjHil</em>
+          </St.CodeNum>
+        )}
       </St.Content>
     </St.Section>
   );

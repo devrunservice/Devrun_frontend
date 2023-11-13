@@ -57,9 +57,9 @@ export const PointTitle = styled(Text)`
 `;
 export const PointSpan = styled.span<I.TableCommon>`
   color: ${(props: any) =>
-    props.$color ? props.theme.brandColor : props.theme.textRed};
-  font-weight: 500;
-`;
+      props.$color ? props.theme.mainColor : props.theme.textRed};
+  font-weight:500;
+`
 export const PayBtn = styled(View)`
   width: 18%;
   display: flex;
@@ -69,7 +69,7 @@ export const PayBtn = styled(View)`
 
 export const Button = styled.button<I.TableCommon>`
   background: ${(props: any) =>
-    props.$color ? props.theme.textRed : props.theme.brandColor};
+    props.$color ? props.theme.textRed : props.theme.mainColor};
   border-radius: 5px;
   color: ${(props: any) => props.theme.textWhite};
   padding: 8px 10px;
@@ -96,7 +96,7 @@ export const ToggleBtn = styled.div<I.TableCommon>`
   border-radius: 50%;
   transition: 0.4s;
   background: ${(props: any) =>
-    props.$view ? props.theme.brandColor : props.theme.textColor};
+    props.$view ? props.theme.mainColor : props.theme.textColor};
   transform: ${(props: any) =>
     props.$view ? 'translateX(0px)' : 'translateX(-23px)'};
 `;

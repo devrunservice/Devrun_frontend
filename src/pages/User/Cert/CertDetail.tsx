@@ -43,7 +43,7 @@ const CertDetail = () => {
 
   return (
     <section>
-      <UserTop title="수료증" />
+      {/* <UserTop title="수료증" /> */}
 
       <St.CertWrap>
         <St.Certbox ref={pdfCon}>
@@ -98,7 +98,7 @@ const CertDetail = () => {
           </St.Bottom>
         </St.Certbox>
       </St.CertWrap>
-      <S.ButtonWrap>
+      <S.ButtonWrap $active={false}>
         <S.Button onClick={() => pdfDown()} $active={false}>
           다운로드 <FiDownload />
         </S.Button>

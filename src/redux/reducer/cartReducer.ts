@@ -13,23 +13,8 @@ const initialState: Carts = {
       userPoint: 0,
       userNo: 0,
     },
-    couponListInCart: [
-      {
-        discountrate: 0,
-        expirydate: "",
-        lecturename: "",
-        state: "",
-        couponcode: "",
-      },
-    ],
-    lectureInfoList: [
-      {
-        lecture_intro: "",
-        lecture_name: "",
-        lecture_price: 0,
-        lecture_thumbnail: "",
-      },
-    ],
+    couponListInCart: [],
+    lectureInfoList: [],
   },
   couponPrice: {
     discountprice: [],
@@ -38,6 +23,7 @@ const initialState: Carts = {
   deletes: "",
   loading: false,
   error: null,
+  addCart:"",
 };
 
 const cartReducer = createSlice({
@@ -50,7 +36,6 @@ const cartReducer = createSlice({
     },
     cartInfoSuccess: (state, action) => {
       state.loading = false;
-      state.error = null;
       state.data = action.payload.data;
     },
     cartInfoFail: (state, action) => {
@@ -64,7 +49,6 @@ const cartReducer = createSlice({
     },
     cartDeleteSuccess: (state, action) => {
       state.loading = false;
-      state.error = null;
       state.deletes = action.payload;
     },
     cartDeleteFail: (state, action) => {
@@ -78,10 +62,22 @@ const cartReducer = createSlice({
     },
     cartCouponSuccess: (state, action) => {
       state.loading = false;
-      state.error = null;
       state.couponPrice = action.payload.data;
     },
     cartCouponFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+
+    addCartLoading: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
+    addCartSuccess: (state, action) => {
+      state.loading = false;
+      state.addCart = action.payload.data;
+    },
+    addCartFail: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
@@ -97,6 +93,9 @@ export const {
   cartCouponLoading,
   cartCouponSuccess,
   cartCouponFail,
+  addCartSuccess,
+  addCartFail,
+  addCartLoading,
 } = cartReducer.actions;
 
 export default cartReducer.reducer;
