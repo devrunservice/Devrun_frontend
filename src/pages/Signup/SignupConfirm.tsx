@@ -17,7 +17,7 @@ const SignupConfirm = () => {
   // console.log(decryptedUserData);
 
   return (
-    <St.Section page="signupconfirm">
+    <St.Section $page="signupconfirm">
       <St.Container>
         <St.Image>
           <Email />

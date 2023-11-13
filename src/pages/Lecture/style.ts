@@ -70,6 +70,5 @@ export const LectureCardUl = styled.ul`
   flex-wrap: wrap;
   min-height: 934px;
   align-items: flex-start;
-  justify-content: space-between;
   align-content: flex-start;
 `;

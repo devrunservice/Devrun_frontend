@@ -3,8 +3,10 @@ import React, {  useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
+import { getCookie } from "utils/cookies";
 import { useDate, useInput } from "hooks";
 import { CommentsList } from "types";
+import Grade from "components/grade/Grade";
 import { Button } from "style/Common";
 import * as St from "./style";
 
@@ -15,9 +17,13 @@ import {
   commentDelLoading,
 } from "../../redux/reducer/noticeReducer";
 
+interface title {
+  text: string;
+  sub?: string;
+  path?: string;
+}
 
-
-const Comment = () => {
+const Comment = ({ text, sub, path }: title) => {
   const dispatch = useDispatch();
   const param = useParams();
   // 댓글 수정 , 기존 댓글 , 대댓글 달고난후 데이터
@@ -29,15 +35,14 @@ const Comment = () => {
   // 유저 데이터
   const { data } = useSelector((state: RootState) => state.userReducer);
   const [comment, onChangeComment, setComment] = useInput("");
-  const [commentTwo, onChangeCommentTwo, setCommentTwo] = useInput( ""  );
+  const [commentTwo, onChangeCommentTwo, setCommentTwo] = useInput("");
   const [writes, setWrites] = useState<number | null>(null);
   const [writesTwo, setWritesTwo] = useState<number | null>(null);
-  
-  
+
   useEffect(() => {
     dispatch(commentGetLoading(param));
   }, [commentRe, comments]);
-  
+
   const onComment = useCallback(async () => {
     if (comment.trim() === "") return alert("댓글을 적어주세요");
     try {
@@ -98,11 +103,10 @@ const Comment = () => {
   const onCommentsWrite = useCallback(
     (Index: number) => {
       // 수정 클릭시 나오는 글 데이터
-     const editComment = datas.data.filter((v) => v.commentNo === Index)[0]
-       .content;
-     setCommentTwo(editComment);
+      const editComment = datas.data.filter((v) => v.commentNo === Index)[0]
+        .content;
+      setCommentTwo(editComment);
 
-      
       if (datas?.data.some((v: CommentsList) => v.commentNo === Index)) {
         if (writes === Index) {
           // 같은 댓글을 다시 클릭하면 닫음
@@ -153,18 +157,31 @@ const Comment = () => {
     }
   }, []);
 
+  // 평점
+  const [stars, setStars] = useState([false, false, false, false, false]);
   return (
     <>
       <St.CommentTitle>
-        댓글
-        <St.CommentCount>
-          총 <St.Comments>{datas?.data.length}</St.Comments>개
-        </St.CommentCount>
+        <div>
+          {text}
+          <St.CommentCount>
+            총 <St.Comments>{datas?.data.length || 0}</St.Comments>개{sub}
+          </St.CommentCount>
+        </div>
       </St.CommentTitle>
+      {path === "lectures" && (
+        <Grade stars={stars} setStars={setStars} text="별점을 선택해주세요" />
+      )}
+
       <St.CommentBox
         onChange={onChangeComment}
         maxLength={500}
         value={comment}
+        placeholder={
+          path === "lectures"
+            ? "좋은 수강평을 남겨주시면 지식공유자와 이후 배우는 사람들에게 큰 도움이 됩니다."
+            : "좋은 댓글남겨주세요."
+        }
       />
       <St.ButtonWrap>
         <St.CommentNum>{comment.length} / 500</St.CommentNum>

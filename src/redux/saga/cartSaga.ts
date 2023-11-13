@@ -1,7 +1,7 @@
 import { all, call, fork, takeLatest,put } from "redux-saga/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { Cart } from "utils/api";
-import { LectureInfoList } from "types";
+import { Curriculum, LectureInfoList } from "types";
 import {
   cartInfoSuccess,
   cartInfoFail,
@@ -12,6 +12,9 @@ import {
   cartCouponLoading,
   cartCouponSuccess,
   cartCouponFail,
+  addCartSuccess,
+  addCartFail,
+  addCartLoading,
 } from "../reducer/cartReducer";
 
 
@@ -47,6 +50,19 @@ function* cartCoupon(
   }
 }
 
+function* addCart(
+  action: PayloadAction<Curriculum>
+): Generator<any, void, any> {
+  try {
+    const response = yield call(Cart.add, action.payload);
+    yield put(addCartSuccess(response));
+  } catch (error) {
+    yield put(addCartFail(error));
+  }
+}
+
+
+
 function* watchCartInfo(){
     yield takeLatest(cartInfoLoading, cartInfo);
 }
@@ -56,10 +72,15 @@ function* watchCartDelete() {
 function* watchCartCoupon() {
   yield takeLatest(cartCouponLoading, cartCoupon);
 }
+function* watchAddCart() {
+  yield takeLatest(addCartLoading, addCart);
+}
+
 export default function* cartSaga(){
     yield all([
       fork(watchCartInfo),
       fork(watchCartDelete),
       fork(watchCartCoupon),
+      fork(watchAddCart),
     ]);
 }

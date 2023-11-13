@@ -34,8 +34,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@testing-library/jest-dom", "npm:5.16.5"],\
             ["@testing-library/react", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:13.4.0"],\
             ["@testing-library/user-event", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:13.5.0"],\
-            ["@types/base-64", "npm:1.0.0"],\
-            ["@types/crypto-js", "npm:4.1.2"],\
+            ["@types/base-64", "npm:1.0.2"],\
+            ["@types/crypto-js", "npm:4.2.1"],\
+            ["@types/base-64", "npm:1.0.2"],\
+            ["@types/crypto-js", "npm:4.2.1"],\
             ["@types/dompurify", "npm:3.0.2"],\
             ["@types/express", "npm:4.17.20"],\
             ["@types/file-saver", "npm:2.0.5"],\
@@ -45,8 +47,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:20.4.1"],\
             ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", "npm:18.2.6"],\
-            ["@types/react-google-recaptcha", "npm:2.1.5"],\
-            ["@types/react-recaptcha-v3", "npm:1.1.2"],\
+            ["@types/react-google-recaptcha", "npm:2.1.8"],\
+            ["@types/react-recaptcha-v3", "npm:1.1.4"],\
+            ["@types/react-google-recaptcha", "npm:2.1.8"],\
+            ["@types/react-recaptcha-v3", "npm:1.1.4"],\
             ["@types/react-router-dom", "npm:5.3.3"],\
             ["@types/redux-persist", "npm:4.3.1"],\
             ["@types/styled-components", "npm:5.1.26"],\
@@ -56,8 +60,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@yarnpkg/sdks", "npm:3.0.0-rc.48"],\
             ["axios", "npm:1.4.0"],\
             ["base-64", "npm:1.0.0"],\
-            ["chart.js", "npm:4.3.0"],\
             ["crypto-js", "npm:4.1.1"],\
+            ["date-fns", "npm:2.30.0"],\
             ["dompurify", "npm:3.0.5"],\
             ["eslint", "npm:8.44.0"],\
             ["eslint-config-airbnb", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:19.0.4"],\
@@ -3141,6 +3145,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["regenerator-runtime", "npm:0.13.11"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:7.23.2", {\
+          "packageLocation": "./.yarn/cache/@babel-runtime-npm-7.23.2-d013d6cf7e-6c4df4839e.zip/node_modules/@babel/runtime/",\
+          "packageDependencies": [\
+            ["@babel/runtime", "npm:7.23.2"],\
+            ["regenerator-runtime", "npm:0.14.0"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["@babel/template", [\
@@ -4090,15 +4102,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["@kurkle/color", [\
-        ["npm:0.3.2", {\
-          "packageLocation": "./.yarn/cache/@kurkle-color-npm-0.3.2-98f2086013-79e97b31f8.zip/node_modules/@kurkle/color/",\
-          "packageDependencies": [\
-            ["@kurkle/color", "npm:0.3.2"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["@leichtgewicht/ip-codec", [\
         ["npm:2.0.4", {\
           "packageLocation": "./.yarn/cache/@leichtgewicht-ip-codec-npm-2.0.4-dd4d657af8-468de1f04d.zip/node_modules/@leichtgewicht/ip-codec/",\
@@ -4904,10 +4907,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/base-64", [\
-        ["npm:1.0.0", {\
-          "packageLocation": "./.yarn/cache/@types-base-64-npm-1.0.0-425fbc008e-bcb1b52b40.zip/node_modules/@types/base-64/",\
+        ["npm:1.0.2", {\
+          "packageLocation": "./.yarn/cache/@types-base-64-npm-1.0.2-2ab395606e-bb7593c6de.zip/node_modules/@types/base-64/",\
           "packageDependencies": [\
-            ["@types/base-64", "npm:1.0.0"]\
+            ["@types/base-64", "npm:1.0.2"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -4977,10 +4980,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/crypto-js", [\
-        ["npm:4.1.2", {\
-          "packageLocation": "./.yarn/cache/@types-crypto-js-npm-4.1.2-450346db06-9a39c66271.zip/node_modules/@types/crypto-js/",\
+        ["npm:4.2.1", {\
+          "packageLocation": "./.yarn/cache/@types-crypto-js-npm-4.2.1-e032b646fb-2111fb39a8.zip/node_modules/@types/crypto-js/",\
           "packageDependencies": [\
-            ["@types/crypto-js", "npm:4.1.2"]\
+            ["@types/crypto-js", "npm:4.2.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -5364,20 +5367,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/react-google-recaptcha", [\
-        ["npm:2.1.5", {\
-          "packageLocation": "./.yarn/cache/@types-react-google-recaptcha-npm-2.1.5-1dd3815d5d-8d0fa9e2ad.zip/node_modules/@types/react-google-recaptcha/",\
+        ["npm:2.1.8", {\
+          "packageLocation": "./.yarn/cache/@types-react-google-recaptcha-npm-2.1.8-bff70c78b7-9a19eceea4.zip/node_modules/@types/react-google-recaptcha/",\
           "packageDependencies": [\
-            ["@types/react-google-recaptcha", "npm:2.1.5"],\
+            ["@types/react-google-recaptcha", "npm:2.1.8"],\
             ["@types/react", "npm:18.2.14"]\
           ],\
           "linkType": "HARD"\
         }]\
       ]],\
       ["@types/react-recaptcha-v3", [\
-        ["npm:1.1.2", {\
-          "packageLocation": "./.yarn/cache/@types-react-recaptcha-v3-npm-1.1.2-f0720262d5-8414ffde32.zip/node_modules/@types/react-recaptcha-v3/",\
+        ["npm:1.1.4", {\
+          "packageLocation": "./.yarn/cache/@types-react-recaptcha-v3-npm-1.1.4-e61d9503e8-5892de22f0.zip/node_modules/@types/react-recaptcha-v3/",\
           "packageDependencies": [\
-            ["@types/react-recaptcha-v3", "npm:1.1.2"],\
+            ["@types/react-recaptcha-v3", "npm:1.1.4"],\
             ["@types/react", "npm:18.2.14"]\
           ],\
           "linkType": "HARD"\
@@ -7584,16 +7587,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["chart.js", [\
-        ["npm:4.3.0", {\
-          "packageLocation": "./.yarn/cache/chart.js-npm-4.3.0-8c27842bcb-157ceaa381.zip/node_modules/chart.js/",\
-          "packageDependencies": [\
-            ["chart.js", "npm:4.3.0"],\
-            ["@kurkle/color", "npm:0.3.2"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["check-types", [\
         ["npm:11.2.2", {\
           "packageLocation": "./.yarn/cache/check-types-npm-11.2.2-1f3d6117bc-61ed60d59e.zip/node_modules/check-types/",\
@@ -8687,6 +8680,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["date-fns", [\
+        ["npm:2.30.0", {\
+          "packageLocation": "./.yarn/cache/date-fns-npm-2.30.0-895c790e0f-f7be015232.zip/node_modules/date-fns/",\
+          "packageDependencies": [\
+            ["date-fns", "npm:2.30.0"],\
+            ["@babel/runtime", "npm:7.23.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["debug", [\
         ["npm:2.6.9", {\
           "packageLocation": "./.yarn/cache/debug-npm-2.6.9-7d4cb597dc-d2f51589ca.zip/node_modules/debug/",\
@@ -9007,8 +9010,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@testing-library/jest-dom", "npm:5.16.5"],\
             ["@testing-library/react", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:13.4.0"],\
             ["@testing-library/user-event", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:13.5.0"],\
-            ["@types/base-64", "npm:1.0.0"],\
-            ["@types/crypto-js", "npm:4.1.2"],\
+            ["@types/base-64", "npm:1.0.2"],\
+            ["@types/crypto-js", "npm:4.2.1"],\
             ["@types/dompurify", "npm:3.0.2"],\
             ["@types/express", "npm:4.17.20"],\
             ["@types/file-saver", "npm:2.0.5"],\
@@ -9018,8 +9021,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:20.4.1"],\
             ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", "npm:18.2.6"],\
-            ["@types/react-google-recaptcha", "npm:2.1.5"],\
-            ["@types/react-recaptcha-v3", "npm:1.1.2"],\
+            ["@types/react-google-recaptcha", "npm:2.1.8"],\
+            ["@types/react-recaptcha-v3", "npm:1.1.4"],\
             ["@types/react-router-dom", "npm:5.3.3"],\
             ["@types/redux-persist", "npm:4.3.1"],\
             ["@types/styled-components", "npm:5.1.26"],\
@@ -9029,8 +9032,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@yarnpkg/sdks", "npm:3.0.0-rc.48"],\
             ["axios", "npm:1.4.0"],\
             ["base-64", "npm:1.0.0"],\
-            ["chart.js", "npm:4.3.0"],\
             ["crypto-js", "npm:4.1.1"],\
+            ["date-fns", "npm:2.30.0"],\
             ["dompurify", "npm:3.0.5"],\
             ["eslint", "npm:8.44.0"],\
             ["eslint-config-airbnb", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:19.0.4"],\
@@ -17277,7 +17280,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-chartjs-2", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:5.2.0"],\
             ["@types/chart.js", null],\
             ["@types/react", "npm:18.2.14"],\
-            ["chart.js", "npm:4.3.0"],\
+            ["chart.js", null],\
             ["react", "npm:18.2.0"]\
           ],\
           "packagePeers": [\
@@ -17935,6 +17938,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/regenerator-runtime-npm-0.13.11-90bf536060-27481628d2.zip/node_modules/regenerator-runtime/",\
           "packageDependencies": [\
             ["regenerator-runtime", "npm:0.13.11"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:0.14.0", {\
+          "packageLocation": "./.yarn/cache/regenerator-runtime-npm-0.14.0-e060897cf7-1c977ad82a.zip/node_modules/regenerator-runtime/",\
+          "packageDependencies": [\
+            ["regenerator-runtime", "npm:0.14.0"]\
           ],\
           "linkType": "HARD"\
         }]\

@@ -50,8 +50,7 @@
     "react/destructuring-assignment": [0, "always"],
     "arrow-body-style": "off",
     "no-bitwise": "off",
-    "no-nested-ternary": "off",
-    "no-else-return": "off"
+    "no-nested-ternary": "off"
   },
 
   "settings": {

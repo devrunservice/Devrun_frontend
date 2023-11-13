@@ -5,7 +5,7 @@ import modalReducer from './reducer/modalReducer';
 import loginReducer from './reducer/loginReducer';
 import createVideoSlice from './reducer/createVideoReducer';
 import mypageReducer from './reducer/mypageReducer';
-import learningReducer from './reducer/learningReducer';
+import dashboardReducer from './reducer/dashboardReducer';
 import validationReducer from './reducer/validationReducer';
 import mentoCouponReducer from './reducer/mentoCouponReducer';
 import couponReducer from './reducer/couponReducer';
@@ -13,7 +13,8 @@ import userReducer from './reducer/userReducer';
 import noticeReducer from './reducer/noticeReducer';
 import cartReducer from './reducer/cartReducer';
 import googleLoginSlice from './reducer/googleLoginReducer';
-import VideoViewSlice from "./reducer/videoViewReducer";
+import videoViewReducer from "./reducer/videoViewReducer";
+import learningReducer from "./reducer/learningReducer";
 
 const persistConfig = {
   key: 'root',
@@ -27,14 +28,15 @@ const rootReducer = combineReducers({
   userReducer,
   createVideoSlice,
   mypageReducer,
-  learningReducer,
+  dashboardReducer,
   validationReducer,
   mentoCouponReducer,
   couponReducer,
   noticeReducer,
   cartReducer,
   googleLoginSlice,
-  VideoViewSlice,
+  videoViewReducer,
+  learningReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

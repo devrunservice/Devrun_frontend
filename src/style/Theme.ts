@@ -62,25 +62,26 @@ export const GlobalStyle = createGlobalStyle`
         font-size:0.875rem;
         color: ${({ theme }: any) => theme.textColor};
         border: 0;
+        background:none
     }
 `;
 
 export const defaultTheme: DefaultTheme = {
-  bgColor: "#fff",
-  bgGrayColor: "#f7f7f7",
-  bgBlack: "#333",
-  bgNavcolor: "#DBD3EB",
-
-  bg343a40: "#343a40",
-  bg444: "#444",
-  mainColor: "#604B8E",
-  textColor: "#676767",
-  textRed: "#F03B43",
-  textYello: "#FFC821",
-  textWhite: "#fff",
-  text999:"#999",
-  borderC: "#ccc",
-  borderD: "#ddd",
-  black: "#171717",
-  border49: "#494949",
+    bgColor: "#fff",
+    bgGrayColor: "#f7f7f7",
+    bgBlack: "#333",
+    bgNavcolor: "#DBD3EB",
+    bg1c1c1c:"#1c1c1c",
+    bg343a40: "#343a40",
+    bg444: "#444",
+    mainColor: "#604B8E",
+    textColor: "#676767",
+    textRed: "#F03B43",
+    textYello: "#FFC821",
+    textWhite: "#fff",
+    text999:"#999",
+    borderC: "#ccc",
+    borderD: "#ddd",
+    black: "#171717",
+    border49: "#494949",
 };

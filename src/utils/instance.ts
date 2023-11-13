@@ -42,7 +42,6 @@ authAxios.interceptors.request.use(
     return config;
   },
   (error) => {
-    console.log(error);
     return Promise.reject(error);
   }
 );
@@ -61,7 +60,6 @@ imageAxios.interceptors.request.use(
 baseAxios.interceptors.response.use(
   (response) => response,
   async (error) => {
-    console.log(error);
     const errorMessage = error.response.data;
     const errorStatus = error.response.status;
 

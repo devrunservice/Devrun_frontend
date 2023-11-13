@@ -132,7 +132,9 @@ export const CartTop = styled.div`
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid ${(props: any) => props.theme.borderC};
-  padding-bottom: 1.25rem;
+
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
 `;
 export const CartTitle = styled.em`
   font-weight: 600;
@@ -146,15 +148,24 @@ export const CartPrice = styled.em``;
 export const CartUl = styled.ul`
   overflow-y: auto;
   max-height: 300px;
+  &::-webkit-scrollbar {
+    background: ${(props: any) => props.theme.bgGrayColor};
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${(props: any) => props.theme.borderD};
+    width: 3px;
+  }
 `;
 export const CartLi = styled.li`
   display: flex;
   align-items: center;
   margin-top: 1.25rem;
+  cursor: pointer;
 `;
 export const ImgWrap = styled.div`
-  width: 10.625rem;
-  height: 5.9375rem;
+  width: 7rem;
+  height: 3.9375rem;
   overflow: hidden;
   border-radius: 0.3125rem;
 `;
@@ -167,7 +178,7 @@ export const Img = styled.img`
 `;
 
 export const TextWrap = styled.div`
-  width: calc(100% - 10.625rem);
+  width: calc(100% - 7rem);
   padding-left: 1.25rem;
 `;
 export const LectureTitle = styled.em`
@@ -177,22 +188,19 @@ export const LectureTitle = styled.em`
   overflow: hidden;
   white-space: nowrap;
   color: ${(props: any) => props.theme.black};
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 0.625rem;
   line-height: 1;
 `;
-export const LectureSub = styled.p`
-  width: 100%;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  margin-bottom: 1.125rem;
-  line-height: 1;
-`;
+
 export const LecturePrice = styled.p`
   color: ${(props: any) => props.theme.black};
-  font-weight: 500;
   line-height: 1;
+  font-weight:500;
+  font-size: 0.875rem;
+  > span {
+    color: ${(props: any) => props.theme.mainColor};
+  }
 `;
 export const CartButton = styled.button`
   display: block;
@@ -203,6 +211,30 @@ export const CartButton = styled.button`
   width: 100%;
   border-radius: 0.3125rem;
   height: 2.5rem;
+`;
+export const NoCart = styled.div`
+  padding: 40px 0 30px;
+  text-align: center;
+  > p {
+    font-weight: 700;
+    line-height: 1;
+    color: ${(props: any) => props.theme.black};
+  }
+  > span {
+    display: block;
+    font-size: 0.875rem;
+    margin: 10px 0 20px;
+    line-height: 1;
+  }
+  > button {
+    width: 140px;
+    height: 45px;
+    border-radius: 5px;
+    color: ${(props: any) => props.theme.mainColor};
+    border: 1px solid ${(props: any) => props.theme.mainColor};
+    background: none;
+    
+  }
 `;
 
 export const Dropdown = styled(CartHover)`

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import * as St from "./style";
 
 interface LectureData {
@@ -12,6 +13,7 @@ interface LectureData {
   lectureprice: number;
   buycount: number;
   rating: number;
+  lectureId:number
 }
 
 const LectureCard = ({
@@ -24,11 +26,14 @@ const LectureCard = ({
   lectureprice,
   buycount,
   rating,
+  lectureId
 }: LectureData) => {
   const priceDot = (num: number) =>
     num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    const navi = useNavigate()
+
   return (
-    <St.List>
+    <St.List onClick={() => navi(`/lectures/${lectureId}`)}>
       <St.ListThumbnail>
         <St.ListThumbnailImg src={lectureThumbnail} alt={lectureIntro} />
       </St.ListThumbnail>

@@ -5,13 +5,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "redux/store";
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import { getCookie } from "utils/cookies";
 import { useInput } from "hooks";
 import * as Img from "asset";
 import * as St from "./style";
 import "swiper/swiper.css";
 import { noticeListLoading } from "../../redux/reducer/noticeReducer";
-import { categorySearchLoading, mainLectureLoading } from "../../redux/reducer/learningReducer";
+import {
+  learningLoading
+} from "../../redux/reducer/dashboardReducer";
+import {
+  categorySearchLoading,
+  ratingLectureLoading,
+  buyLectureLoading,
+} from "../../redux/reducer/learningReducer";
 
 const HomePage = () => {
   const [test, setTest] = useState([1, 2, 3, 4, 1, 2, 3, 4]);
@@ -19,20 +26,21 @@ const HomePage = () => {
  
   const dispatch = useDispatch();
   const { data } = useSelector( (state: RootState) => state.noticeReducer);
-  const { lecture } = useSelector(
+  const {learningData} = useSelector( (state: RootState) => state.dashboardReducer );
+  const { lecture: buy, data: rating } = useSelector(
     (state: RootState) => state.learningReducer
   );
+  
   useEffect(() => {
     dispatch(noticeListLoading(1));
-    dispatch(mainLectureLoading(null));
+    dispatch(ratingLectureLoading({ order: "lecture_rating" }));
+    dispatch(buyLectureLoading({ order: "buy_count" }));
+    if (getCookie("accessToken")) {
+     dispatch(learningLoading({ page: "1", status: "all" }));
+    }
   }, []);
   const navigate = useNavigate();
-  const navi = useCallback(
-    (v: number) => {
-      navigate(`/notice/${v}`);
-    },
-    [navigate]
-  );
+
   const searchBtn = (e:React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault()
     if (search.trim === "") return alert("검색어를 적어주세요")
@@ -47,7 +55,10 @@ const HomePage = () => {
      navigate(`/lecture/${search}`);
      setSearch("")
   }
-  
+  const navi = (v:number)=>{
+    console.log(v)
+  }
+
   return (
     <>
       <St.EventBanner>
@@ -132,47 +143,46 @@ const HomePage = () => {
             />
           </St.Section>
         </St.ListEachArea>
-        <St.ListEachArea>
-          <St.ListTitle>학습중인 클래스</St.ListTitle>
-          <St.ListUl>
-            <St.Listli>
-              <St.ListImg>
-                <St.Img src="" alt="강의제목" />
-              </St.ListImg>
-              <St.ListTextBox>
-                <St.ListEm>제목</St.ListEm>
-                <St.ListText>
-                  <span>진도율 ( 55% )</span>
-                  <span>기한 : 2023-12-31</span>
-                  <St.Gauge>
-                    <span style={{ background: "#5F4B8B", width: "50%" }} />
-                  </St.Gauge>
-                </St.ListText>
-              </St.ListTextBox>
-            </St.Listli>
-            <St.Listli>
-              <St.ListImg>
-                <St.Img src="" alt="강의제목" />
-              </St.ListImg>
-              <St.ListTextBox>
-                <St.ListEm>제목</St.ListEm>
-                <St.ListText>
-                  <span>진도율 ( 55% )</span>
-                  <span>기한 : 2023-12-31</span>
-                  <St.Gauge>
-                    <span style={{ background: "#5F4B8B", width: "50%" }} />
-                  </St.Gauge>
-                </St.ListText>
-              </St.ListTextBox>
-            </St.Listli>
-          </St.ListUl>
-        </St.ListEachArea>
+        {learningData.dtolist.length !== 0 ? (
+          <St.ListEachArea>
+            <St.ListTitle>학습중인 클래스</St.ListTitle>
+            <St.ListUl>
+              {learningData.dtolist.slice(0, 2).map((v, index) => {
+                return (
+                  <St.Listli key={index} onClick={() => navi(v.id)}>
+                    <St.ListImg>
+                      <St.Img src={v.thumbnail} alt={v.title} />
+                    </St.ListImg>
+                    <St.ListTextBox>
+                      <St.ListEm>제목</St.ListEm>
+                      <St.ListText>
+                        <span>진도율 ( {v.progressRate}% )</span>
+                        <span>기한 : 무제한</span>
+                        <St.Gauge>
+                          <span
+                            style={{
+                              background: "#5F4B8B",
+                              width: `${v.progressRate}%`,
+                            }}
+                          />
+                        </St.Gauge>
+                      </St.ListText>
+                    </St.ListTextBox>
+                  </St.Listli>
+                );
+              })}
+            </St.ListUl>
+          </St.ListEachArea>
+        ) : (
+          ""
+        )}
+
         <St.ListEachArea>
           <St.ListTitle>실시간 인기 클래스</St.ListTitle>
           <St.SwiperBox>
             <Swiper spaceBetween={20} slidesPerView={4}>
               <St.ListWrap>
-                {lecture.dtolist.map((v, index) => (
+                {buy.dtolist.map((v, index) => (
                   <SwiperSlide key={index}>
                     <LectureCard
                       lectureBigCategory={v.lectureBigCategory}
@@ -184,6 +194,7 @@ const HomePage = () => {
                       lectureprice={v.lectureprice}
                       buycount={v.buycount}
                       rating={v.rating}
+                      lectureId={v.lectureId}
                     />
                   </SwiperSlide>
                 ))}
@@ -207,7 +218,7 @@ const HomePage = () => {
           <St.SwiperBox>
             <Swiper spaceBetween={20} slidesPerView={4}>
               <St.ListWrap>
-                {lecture.dtolist.map((v, index) => (
+                {rating.dtolist.map((v, index) => (
                   <SwiperSlide key={index}>
                     <LectureCard
                       lectureBigCategory={v.lectureBigCategory}
@@ -219,6 +230,7 @@ const HomePage = () => {
                       lectureprice={v.lectureprice}
                       buycount={v.buycount}
                       rating={v.rating}
+                      lectureId={v.lectureId}
                     />
                   </SwiperSlide>
                 ))}
@@ -235,7 +247,7 @@ const HomePage = () => {
               return (
                 <St.NoticeRightLi
                   key={v.noticeNo}
-                  onClick={() => navi(v.noticeNo)}
+                  onClick={() => navigate(`/notice/${v.noticeNo}`)}
                 >
                   <p>{v.title}</p>
                   <span>

@@ -18,7 +18,7 @@ import {
 
 const VideoView = () => {
   const dispatch = useDispatch();
-  const { data } = useSelector((state: RootState) => state.VideoViewSlice);
+  const { data } = useSelector((state: RootState) => state.videoViewReducer);
   const { videoTime } = useDate();
   useEffect(() => {
     dispatch(curriculumLoding(22));
