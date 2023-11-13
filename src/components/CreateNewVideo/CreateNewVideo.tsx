@@ -1,4 +1,4 @@
-import React, { ChangeEvent, createRef, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent,  useEffect, useState } from 'react';
 import { Close, Exclamation } from 'asset';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'redux/store';

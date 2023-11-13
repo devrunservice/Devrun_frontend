@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import Curriculum from "components/Curriculum/Curriculum";
 import { DetailAPI } from "types";
 import * as St from "components/Detail/style";
@@ -8,8 +8,6 @@ interface dataProps {
 }
 
 const DetailCurriculum:React.FC<dataProps> = ({data}) => {
-  const [test, setTest] = useState('')
-  console.log('dataP',data)
   return (
     <>
       <St.DraftArea>에디터영역</St.DraftArea>

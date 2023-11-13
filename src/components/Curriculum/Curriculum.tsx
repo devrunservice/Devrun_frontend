@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { /* ArrowBottom, */ Play } from 'asset'
+import React, { /* useState */ } from 'react';
+// import { useNavigate } from 'react-router-dom';
+import {  Play } from 'asset'
 import { DetailAPI } from 'types';
 import * as St from './style'
 
@@ -22,19 +22,17 @@ interface dataProps {
   data: DetailAPI
 }
 const Curriculum:React.FC<dataProps> = ({list}) => {
-  const [count, setCount] = useState(0)
   const listCounts = list.videos.length
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   let total = 0
   const timeCounts = () => {
-    list.videos.forEach(list=> (
-      total += parseInt(list.totalPlayTime/60)
-    ))
-  }
-  timeCounts()
+    list.videos.forEach(videoList => {
+      total += parseInt((videoList.totalPlayTime / 60).toString(), 10);
+    });
+  };
+  timeCounts();
 
   const watchVideo = (link:string) => {
-    //시청 페이지 완료시 navigate 이용
     window.location.href = link
   }
 
@@ -44,30 +42,22 @@ const Curriculum:React.FC<dataProps> = ({list}) => {
         <span>{list.sectionTitle}</span>
         <div>
           <span>{listCounts}강 · 총 {total}분</span>
-          {/* <ArrowBottom/> */}
         </div>
 
       </St.CurriculumItemHeader>
       <St.CurriculumHidden>
         <ul>
           {
-            list.videos.map((list,index)=> (
-              <St.HiddenList list={list} key={index} onClick={()=>watchVideo(list.videoLink)}>
+            list.videos.map((video, index)=> (
+              <St.HiddenList key={index} onClick={()=>watchVideo(video.videoLink)}>
                 <div>
                   <Play/>
-                  <span>{list.videoTitle}</span>
+                  <span>{video.videoTitle}</span>
                 </div>
-                <div>{parseInt(list.totalPlayTime/60)}분</div>
+                <div>{parseInt((video.totalPlayTime/60).toString(), 10)}분</div>
               </St.HiddenList>
             ))
           }
-          {/* <St.HiddenList >
-            <div>
-              <Play/>
-              <span>프론트엔드...</span>
-            </div>
-            <div>19:22</div>
-          </St.HiddenList> */}
         </ul>
       </St.CurriculumHidden>
     </St.CurriculumItem>

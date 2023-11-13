@@ -6,7 +6,7 @@ import * as St from 'components/Detail/style'
 const DetailComment = () => {
   return (
     <St.SectionAreaWrap>
-      <Comment id={'detail'}/>
+      <Comment /* id={'detail'} *//>
           {/* <St.SectionTitle>수강평</St.SectionTitle>
           <St.ReviewCreateArea>
             <textarea placeholder="수강평을 작성해 주세요." />

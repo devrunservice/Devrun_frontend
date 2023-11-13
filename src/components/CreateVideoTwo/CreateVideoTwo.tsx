@@ -140,11 +140,8 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
       // formData.append(`videoList[${index}].SectionTitle`, list.sectionTitle)
     });
     videoStore.videoList?.forEach((list, index) => {
-      const section = videoStore.lectureSectionList.find(section => section.lectureSectionId === list.lectureSectionId);
-      // if(section) {
-      //   formData.append(`videoList[${index}].SectionTitle`, list.sectionTitle)
-      // } 
-      const sectionTitle = section ? section.sectionTitle : '';
+      const sections = videoStore.lectureSectionList.find(section => section.lectureSectionId === list.lectureSectionId);
+      const sectionTitle = sections ? sections.sectionTitle : '';
       console.log(sectionTitle)
       formData.append(`videoList[${index}].SectionTitle`, sectionTitle)
       formData.append(`videoList[${index}].videoTitle`, list.videoTitle)
