@@ -555,8 +555,6 @@ export interface bastetCheck {
   receipt_url: string;
   imp_uid: string | null;
 }
-
-
 export interface Curriculum {
   lectureId: number;
 }
@@ -773,6 +771,21 @@ export interface DetailAPI {
 
   mentoId:{
     name:string
+    kakaoEmailId:null | string
+    export:null | string
+    profileimgsrc:string
+    role:string
+    signupDate:string
+    status:string
+    userNo:number
   }
-
 }
+
+
+
+
+
+
+
+
+

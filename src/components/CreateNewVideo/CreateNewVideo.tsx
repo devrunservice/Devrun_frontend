@@ -1,30 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, {
-  ChangeEvent,
-  createRef,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { Close, Exclamation } from "asset";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "redux/store";
-import Quill from "components/Quill/QuillComponent";
-import axios from "axios";
-import * as St from "./style";
-import {
-  deleteTag,
-  bigCategoryType,
-  midCategoryType,
-  setCategoryNo,
-  onImageUrl,
-  onImageFile,
-  onLectureIntro,
-  /* onLectureCategory, */ /* onLectureIntroduce, */ onLectureName,
-  onLecturePrice,
-  onLectureTag,
-} from "../../redux/reducer/createVideoReducer";
-
+import React, { ChangeEvent,  useEffect, useState } from 'react';
+import { Close, Exclamation } from 'asset';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'redux/store';
+import Quill from 'components/Quill/QuillComponent';
+import axios from 'axios';
+import { deleteTag, bigCategoryType, midCategoryType, setCategoryNo, onImageUrl, onImageFile, onLectureIntro, /* onLectureCategory, */ /* onLectureIntroduce, */ onLectureName, onLecturePrice, onLectureTag } from '../../redux/reducer/createVideoReducer';
+import * as St from './style'
 
 export interface StyledButtonProps {
   active: string;

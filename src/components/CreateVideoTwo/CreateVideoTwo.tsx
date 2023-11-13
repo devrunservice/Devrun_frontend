@@ -170,22 +170,14 @@ const CreateVideoTwo = ({ PrevPage }: { PrevPage: any }) => {
       // formData.append(`videoList[${index}].SectionTitle`, list.sectionTitle)
     });
     videoStore.videoList?.forEach((list, index) => {
-      const sec = videoStore.lectureSectionList.find(
-        (section) => section.lectureSectionId === list.lectureSectionId
-      );
-      // if(section) {
-      //   formData.append(`videoList[${index}].SectionTitle`, list.sectionTitle)
-      // }
-      const sectionTitle = sec ? sec.sectionTitle : "";
-      console.log(sectionTitle);
-      formData.append(`videoList[${index}].SectionTitle`, sectionTitle);
-      formData.append(`videoList[${index}].videoTitle`, list.videoTitle);
-      formData.append(
-        `videoList[${index}].SectionNumber`,
-        list.lectureSectionId.toString()
-      );
-      formData.append(`videoList[${index}].videofile`, list.file);
-    });
+      const sections = videoStore.lectureSectionList.find(section => section.lectureSectionId === list.lectureSectionId);
+      const sectionTitle = sections ? sections.sectionTitle : '';
+      console.log(sectionTitle)
+      formData.append(`videoList[${index}].SectionTitle`, sectionTitle)
+      formData.append(`videoList[${index}].videoTitle`, list.videoTitle)
+      formData.append(`videoList[${index}].SectionNumber`, list.lectureSectionId.toString())
+      formData.append(`videoList[${index}].videofile`, list.file)
+    })
     formData.append("accessToken", googleStore.urlToken);
     formData.append("jwtToken", token);
     axios
