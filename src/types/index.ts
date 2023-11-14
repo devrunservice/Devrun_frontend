@@ -603,7 +603,7 @@ export interface DetailAPI {
   }[]
   lectureStart: string
   lectureStatus: string
-  lectureTag:{}
+  lectureTag:string[]
   lectureThumbnail: string
   lectureid:number
   mentoId:{

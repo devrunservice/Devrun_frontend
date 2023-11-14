@@ -321,5 +321,25 @@ export const search = {
   },
 };
 
+/* 강의등록 api */
+export const createVideo = {
+  getCategoryAPI: () => {
+    const response = baseAxios.get('/lectureregist/categories')
+    return response
+  },
+  videoAPI: (params: FormData) => {
+    const response =  imageAxios.post('/lectureregitest', params)
+    return response
+  }
+}
+
+/* 디테일 api */
+export const detail = {
+  getDetailAPT: (params: any) => {
+    const response = baseAxios.post(`api/lectures/${params.id}`)
+    return response
+  }
+}
+
 /* eslint-disable @typescript-eslint/no-unused-vars */
 

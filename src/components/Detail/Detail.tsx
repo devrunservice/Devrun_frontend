@@ -3,29 +3,45 @@ import React, { useEffect, useState } from "react";
 import { /* HeartFill, */ Link } from "asset";
 import DetailCurriculum from "components/DetailCurriculum/DetailCurriculum";
 import DetailComment from "components/DetailComment/DetailComment"
-import axios from "axios";
-import { Swiper, SwiperSlide } from "swiper/react";
+// import axios from "axios";
+import { useLocation } from "react-router-dom";
+// import { Swiper, SwiperSlide } from "swiper/react";
 import { DetailAPI } from "types";
+import { detail } from "utils/api";
 import * as St from "./style";
-import "swiper/swiper.css";
+// import "swiper/swiper.css";
 
 
 const Detail = () => {
-  const [test, setTest] = useState([1, 2, 34, 1, 2, 3, 4]); // eslint-disable-line
+  // const [test, setTest] = useState([1, 2, 34, 1, 2, 3, 4]); // eslint-disable-line
   const [category, setCategory] = useState(1)
-  
+  const location = useLocation()
+  const [id, setId] = useState('')
+  // const [tag, setTag] = useState([])
   const [data, setData] = useState<DetailAPI | undefined>()
 
-  const getDetail = () => {
-    const url = 'https://devrun.site/api/lectures/22'
-    axios.get(url).then(res=> {
-      console.log('res',res.data)
-      setData({...res.data})
-    }).catch(err=>console.log(err))
+  const getDetail = async() => {
+    // const url = 'https://devrun.site/api/lectures/22'
+    // axios.get(url).then(res=> {
+    //   console.log(res)
+    //   setData({...res.data})
+    // }).catch(err=>console.log(err))
+    try {
+      const response = await detail.getDetailAPT(id)
+      setData({...response.data})
+    } catch(err) {
+      console.log(err)
+    }
   }
   useEffect(()=> {
     getDetail()
   }, [])
+
+  useEffect(()=> {
+    const path = location.pathname.split('/');
+    const pathId = path[path.length - 1]
+    setId(pathId)
+  }, [location])
   const changeCategory = (num:number) => {
     setCategory(num)
   }
@@ -33,7 +49,7 @@ const Detail = () => {
     <St.DetailWrap>
       <St.PreviewArea>
         <St.DetailThum>
-          <img src={data?.lectureThumbnail} alt="" />
+          <img src={data?.lectureThumbnail} alt="img"/>
         </St.DetailThum>
         <St.DetailInfo>
           <St.DetailInfoTitle>{data?.lectureName}</St.DetailInfoTitle>
@@ -48,13 +64,9 @@ const Detail = () => {
 
           <St.ShortSpacer />
 
-          <St.DetailHashWrap>
-            {/* {
-              data.lectuerTag.map(list=> {
-                <St.DetailHash>#{list}</St.DetailHash>
-              })
-            } */}
-          </St.DetailHashWrap>
+          {/* <St.DetailHashWrap>
+            <St.DetailHash>#{data?.lectureTag}</St.DetailHash>
+          </St.DetailHashWrap> */}
         </St.DetailInfo>
       </St.PreviewArea>
 
@@ -68,15 +80,14 @@ const Detail = () => {
         }
         <St.SectionAreaWrap>
           <St.SectionTitle>다른 강의 함께 보기</St.SectionTitle>
-          <Swiper spaceBetween={20} slidesPerView={4}>
+          {/* <Swiper spaceBetween={20} slidesPerView={4}>
             <St.ListWrap>
               {test.map((list, index) => (
                 <SwiperSlide key={index}>
-                  {/* <LectureCard  /> */}
                 </SwiperSlide>
               ))}
             </St.ListWrap>
-          </Swiper>
+          </Swiper> */}
         </St.SectionAreaWrap>
       </St.DetailMainWrap>
     </St.DetailWrap>

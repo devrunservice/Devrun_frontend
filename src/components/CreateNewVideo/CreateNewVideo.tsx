@@ -3,7 +3,7 @@ import { Close, Exclamation } from 'asset';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
 import Quill from 'components/Quill/QuillComponent';
-import axios from 'axios';
+import { createVideo } from 'utils/api'
 import { deleteTag, bigCategoryType, midCategoryType, setCategoryNo, onImageUrl, onImageFile, onLectureIntro, /* onLectureCategory, */ /* onLectureIntroduce, */ onLectureName, onLecturePrice, onLectureTag } from '../../redux/reducer/createVideoReducer';
 import * as St from './style'
 
@@ -22,12 +22,13 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
   const [priceState, setPriceState] = useState<boolean>(false)
   const [isCategory, setIsCategory] = useState<any[]>([])
 
-  const getCategory = () => {
-    const url = 'https://devrun.site/lectureregist/categories'
-    axios.get(url).then(res=>{
-      console.log('res',res)
-      setIsCategory([...res.data])
-    })
+  const getCategory = async() => {
+    try {
+      const response = await createVideo.getCategoryAPI()
+      setIsCategory([...response.data])
+    } catch(err) {
+      console.log(err)
+    }
   }
 
   useEffect(()=> {
@@ -76,7 +77,9 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
   const changeType = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(bigCategoryType(e.target.value))
     const result = isCategory.filter(list=>list.lectureBigCategory === e.target.value)[0].lectureMidCategory
+    const result2 = isCategory.filter(list=>list.lectureBigCategory === e.target.value)[0].categoryNo
     dispatch(midCategoryType(result))
+    dispatch(setCategoryNo(result2))
   }
   const changeMid = (e:React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(midCategoryType(e.target.value))
@@ -165,7 +168,7 @@ const CreateNewVideo = ({ChangePage}:{ChangePage:any}) => {
             </St.PriceBtn>
           </St.SelectPriceBtn>
           {priceState && (
-            <St.ShortInput onChange={priceInput} value={videoStore.lecturePrice} type="number" placeholder="0" />
+            <St.ShortInput onChange={priceInput} value={videoStore.lecturePrice} type="number" placeholder="0" maxLength={7} />
           )}
         </div>
       </St.CreateVideoArticle>

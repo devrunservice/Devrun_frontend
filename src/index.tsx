@@ -61,7 +61,7 @@ const router = createBrowserRouter([
         path: "lecture/:lectureBigCategory",
         element: <Route.Lecture />,
       },
-      { path: "detail", element: <Route.DetailPage /> },
+      { path: "detail/:id", element: <Route.DetailPage /> },
       { path: "createVideo", element: <Route.CreateVideo /> },
       { path: "profile", element: protectedRoute(<Route.Profile />) },
       { path: "dashboard", element: protectedRoute(<Route.Dashboard />) },

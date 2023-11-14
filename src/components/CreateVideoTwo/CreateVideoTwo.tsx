@@ -7,7 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Spinner from 'components/FullSpinner/FullSpinner';
 import CommonModal from 'components/CommonModal/CommonModal';
 import { getCookie } from 'utils/cookies';
-import axios from 'axios';
+import { createVideo } from 'utils/api';
+// import axios from 'axios';
 import {  addClass, addSection, changeTitle, setClass,  deleteClass, deleteSection, changeVideoFile, changeClassTitle } from '../../redux/reducer/createVideoReducer';
 import * as St from '../CreateNewVideo/style'
 
@@ -103,8 +104,9 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
   };
 
   /* 강의등록 */
-  const postVideo = () => {
+  const postVideo = async() => {
     const token = getCookie('accessToken')
+    // const googleToken = getCookie('googleToken')
     console.log(token)
     if (
       videoStore.lectureName === '' || 
@@ -121,17 +123,15 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
 
     setLoading(true)
     console.log('store',videoStore)
-    const url = 'https://devrun.site/lectureregitest'
+    // const url = 'https://devrun.site/lectureregitest'
     const formData = new FormData();
     formData.append("lectureName", videoStore.lectureName);
     formData.append("lectureIntro", videoStore.lectureIntro);
     formData.append("lecturePrice", videoStore.lecturePrice.toString());
-    formData.append("lectureThumbnailFile", videoStore.lectureThumbnail);
+    formData.append("lectureThumbnail", videoStore.lectureThumbnail);
     const lectureTagString = videoStore.lectureTag.join(', ')
     formData.append("lectureTag", lectureTagString);
-    // formData.append("lectureCategory.lectureBigCategory", videoStore.lectureCategory.lectureBigCategory);
     formData.append("lectureCategory.lectureBigCategory", videoStore.lectureCategory.lectureBigCategory);
-    // formData.append("lectureCategory.lectureMidCategory", videoStore.lectureCategory.lectureMidCategory);
     formData.append("lectureCategory.lectureMidCategory", videoStore.lectureCategory.lectureMidCategory);
     formData.append("lectureCategory.categoryNo", videoStore.lectureCategory.categoryNo.toString());
     videoStore.lectureSectionList.forEach((list, index) => {
@@ -142,31 +142,51 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
     videoStore.videoList?.forEach((list, index) => {
       const sections = videoStore.lectureSectionList.find(section => section.lectureSectionId === list.lectureSectionId);
       const sectionTitle = sections ? sections.sectionTitle : '';
-      console.log(sectionTitle)
       formData.append(`videoList[${index}].SectionTitle`, sectionTitle)
       formData.append(`videoList[${index}].videoTitle`, list.videoTitle)
       formData.append(`videoList[${index}].SectionNumber`, list.lectureSectionId.toString())
       formData.append(`videoList[${index}].videofile`, list.file)
     })
+    // if(googleToke === null) {
+    //   formData.append("accessToken", googleStore.urlToken);
+    // } else {
+    //   formData.append("accessToken", googleToke)
+    // }
     formData.append("accessToken", googleStore.urlToken);
     formData.append("jwtToken", token )
-    axios.post(url, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data"
-      }
-    }).then(()=>{
+
+    try {
+      const response = await createVideo.videoAPI(formData)
+      console.log(response)
       setLoading(false)
       setText('등록에 성공했습니다. 내 강의 페이지로 이동합니다')
       setFlag('success')
       setBtNum(1)
       setModal(true)
-    }).catch(()=>{
+    } catch(err) {
       setText('등록에 실패했습니다. 다시 시도해주세요')
       setBtNum(1)
       setFlag('fail')
       setModal(true)
       setLoading(false)
-    })
+    }
+    // axios.post(url, formData, {
+    //   headers: {
+    //     "Content-Type": "multipart/form-data"
+    //   }
+    // }).then(()=>{
+    //   setLoading(false)
+    //   setText('등록에 성공했습니다. 내 강의 페이지로 이동합니다')
+    //   setFlag('success')
+    //   setBtNum(1)
+    //   setModal(true)
+    // }).catch(()=>{
+    //   setText('등록에 실패했습니다. 다시 시도해주세요')
+    //   setBtNum(1)
+    //   setFlag('fail')
+    //   setModal(true)
+    //   setLoading(false)
+    // })
   }
 
   const closeModalCancel = () => {
