@@ -14,7 +14,6 @@ const modalReducer = createSlice({
   initialState,
   reducers: {
     openModal: (state, action) => {
-      console.log(action.payload);
       state.modalOpen = true;
       if (action.payload.includes('/')) {
         const message = action.payload.split('/');
@@ -30,15 +29,12 @@ const modalReducer = createSlice({
       state.modalMessage1 = '';
     },
     setSignupSuccess: (state, action) => {
-      console.log(action.payload);
       state.signupSuccess = action.payload;
     },
     setKakaoLoginSuccess: (state, action) => {
-      console.log(action.payload);
       state.kakaoLoginSuccess = action.payload;
     },
     setRecaptcha: (state, action) => {
-      console.log(action.payload);
       state.openRecaptcha = action.payload;
     },
   },

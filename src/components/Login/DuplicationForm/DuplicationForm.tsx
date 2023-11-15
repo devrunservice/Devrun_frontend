@@ -62,7 +62,6 @@ const DuplicationForm = ({
       option === 'id'
         ? await signup.getDuplicatedId({id: value})
         : await signup.getDuplicatedEmail({email: value});
-    console.log(response);
     if (response.data === 0) {
       updateMessage(
         `${option}DuplicationMessage`,
@@ -76,7 +75,6 @@ const DuplicationForm = ({
       );
       updateValid(`${option}Duplication`, false);
     }
-    console.log('hi');
   };
 
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -146,7 +144,7 @@ const DuplicationForm = ({
             <select name="domainList" onChange={handleChange}>
               <option value="type">선택</option>
               <option value="naver.com">naver.com</option>
-              <option value="gamil.com">gmail.com</option>
+              <option value="gmail.com">gmail.com</option>
               <option value="daum.net">daum.net</option>
               <option value="nate.com">nate.com</option>
               <option value="kakao.com">kakao.com</option>

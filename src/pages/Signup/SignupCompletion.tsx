@@ -15,8 +15,6 @@ const SignupCompletion = () => {
   const status = searchParams.get('status');
   const data = searchParams.get('data');
 
-  console.log(status);
-
   // const decryptedUserData = crypto.decryptedUserData(
   //   data || '',
   //   process.env.REACT_APP_CRYPTO_SECRET_KEY || ''

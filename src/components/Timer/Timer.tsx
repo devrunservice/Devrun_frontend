@@ -19,7 +19,6 @@ const Timer = ({page}: {page: string}) => {
 
     if (timeLeft <= 0) {
       clearInterval(timer);
-      console.log('타이머가 종료되었습니다.');
     }
     return () => {
       clearInterval(timer);

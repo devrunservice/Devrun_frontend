@@ -3,7 +3,6 @@ import {SignupFormType} from 'types';
 
 export const crypto = {
   encryptedUserData: (userData: SignupFormType, secretKey: string) => {
-    console.log(userData);
     if (!userData || !secretKey) {
       return null;
     }
@@ -24,7 +23,6 @@ export const crypto = {
   },
 
   decryptedUserData: (userData: string, secretKey: string) => {
-    console.log(userData);
     if (!userData || !secretKey) {
       return null;
     }
