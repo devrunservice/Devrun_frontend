@@ -155,7 +155,6 @@ export const mypage = {
   },
   getVideoId: async (params: number) => {
     const response = await authAxios.post(`/lastvideo`, params);
-    console.log(response);
     return response;
   },
   noteLecture: async (params: I.NotePropsType) => {
@@ -216,7 +215,7 @@ export const Cart = {
     return response;
   },
 
-  delete: (params: I.LectureInfoList[]) => {
+  delete: (params: I.LectureInfoList) => {
     const response = authAxios.post("/cart/delete", params);
     return response;
   },
@@ -225,7 +224,7 @@ export const Cart = {
     return response;
   },
   add: (params: I.Curriculum) => {
-    const response = authAxios.post(`/cart/insert`,params.lectureId);
+    const response = authAxios.post(`/cart/insert`, params);
     return response;
   },
 };
@@ -311,13 +310,6 @@ export const notice = {
     const response = authAxios.delete(`/comment/delete/${params.commentNo}`, {
       data: params,
     });
-    return response;
-  },
-};
-
-export const cata = {
-  getCata: () => {
-    const response = authAxios.get('/lectureregist/categories');
     return response;
   },
 };

@@ -492,12 +492,14 @@ export interface CommentDel {
   commentNo: number;
 }
 export interface LectureInfoList {
-  lecture_intro: string;
-  lecture_name: string;
-  lecture_price: number;
-  lecture_thumbnail: string;
-  lecture_id?: number;
+  lectureIntro: string;
+  lectureName: string;
+  lecturePrice: number;
+  lectureThumbnail: string;
+  lectureId: number;
 }
+
+
 export interface CouponListInCart {
   discountrate: number;
   expirydate: string;
@@ -526,6 +528,7 @@ export interface Carts {
   addCart: string;
   loading?: boolean;
   error?: Error | null;
+  saveCart: string;
 }
 
 export interface BasketState {
@@ -536,13 +539,8 @@ export interface BasketState {
   couponCode: string;
 }
 export interface bastetCheck {
-  lecture_intro: string;
   name: string;
   paid_amount: number;
-  lecture_thumbnail: string;
-  buyer_email: string;
-  buyer_name: string;
-  buyer_tel: string;
   pay_method: string;
   merchant_uid: string;
   pg_provider: string;
@@ -569,12 +567,6 @@ export interface VideoCurriculumVideoInfos {
   videoTitle: string;
   videoTotalPlayTime: number;
 }
-export interface VideoCurriculumVideoInfo {
-  sectionId: number;
-  sectionNumber: number;
-  sectionTitle: string;
-  videoInfo: VideoCurriculumVideoInfos[];
-}
 
 export interface VideoCurriculum {
   lectureExpiryDate: string;
@@ -588,14 +580,7 @@ export interface VideoCurriculum {
     sectionId: number;
     sectionNumber: number;
     sectionTitle: string;
-    videoInfo: {
-      lastviewdate: string;
-      progress: number;
-      timecheck: number;
-      videoId: string;
-      videoTitle: string;
-      videoTotalPlayTime: number;
-    }[];
+    videoInfo: VideoCurriculumVideoInfos[];
   }[];
 }
 export interface Note {

@@ -146,7 +146,7 @@ const DuplicationForm = ({
             <select name="domainList" onChange={handleChange}>
               <option value="type">선택</option>
               <option value="naver.com">naver.com</option>
-              <option value="gamil.com">gmail.com</option>
+              <option value="gmail.com">gmail.com</option>
               <option value="daum.net">daum.net</option>
               <option value="nate.com">nate.com</option>
               <option value="kakao.com">kakao.com</option>

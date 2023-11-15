@@ -9,10 +9,11 @@ interface basketProduct {
   dis: number;
   checked: boolean;
   singleCheck: (
-    lecture_name: string,
-    lecture_intro: string,
-    lecture_price: number,
-    lecture_thumbnail: string
+    lectureName: string,
+    lectureIntro: string,
+    lecturePrice: number,
+    lectureThumbnail: string,
+    lectureId: number,
   ) => void;
 }
 
@@ -23,46 +24,45 @@ const Product = ({ name, item, dis, checked, singleCheck }: basketProduct) => {
     <St.ProductLi>
       <St.CheckBox
         type="checkbox"
-        name={`${item.lecture_name}`}
-        id={`${item.lecture_name}`}
+        name={`${item.lectureName}`}
+        id={`${item.lectureName}`}
         checked={checked}
         onChange={() =>
           singleCheck(
-            item.lecture_name,
-            item.lecture_intro,
-            item.lecture_price,
-            item.lecture_thumbnail
+            item.lectureName,
+            item.lectureIntro,
+            item.lecturePrice,
+            item.lectureThumbnail,
+            item.lectureId
           )
         }
       />
-      <St.ContentBox htmlFor={`${item.lecture_name}`}>
+      <St.ContentBox htmlFor={`${item.lectureName}`}>
         <St.ImgWrap>
-          <St.Img src={item.lecture_thumbnail} alt="" />
+          <St.Img src={item.lectureThumbnail} alt="" />
         </St.ImgWrap>
         <St.TextBox>
           <St.TextLeft>
-            <St.TitleText>{item.lecture_name}</St.TitleText>
-            <St.SubText>{item.lecture_intro}</St.SubText>
+            <St.TitleText>{item.lectureName}</St.TitleText>
+            <St.SubText>{item.lectureIntro}</St.SubText>
             <St.Writer>
               강사명 · <St.Hours>무제한 수강</St.Hours>
             </St.Writer>
           </St.TextLeft>
           <St.TextRight>
-            {item.lecture_name === name ? (
+            {item.lectureName === name ? (
               <>
                 <St.Discount>{dis}%</St.Discount>
-                <St.DiscountNum>
-                  {priceDot(item.lecture_price)}원
-                </St.DiscountNum>
+                <St.DiscountNum>{priceDot(item.lecturePrice)}원</St.DiscountNum>
                 <St.Money>
                   {priceDot(
-                    item.lecture_price - (item.lecture_price * dis) / 100
+                    item.lecturePrice - (item.lecturePrice * dis) / 100
                   )}
                   원
                 </St.Money>
               </>
             ) : (
-              <St.Money>{priceDot(item.lecture_price)}원</St.Money>
+              <St.Money>{priceDot(item.lecturePrice)}원</St.Money>
             )}
           </St.TextRight>
         </St.TextBox>

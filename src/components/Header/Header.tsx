@@ -22,8 +22,12 @@ const Header = () => {
 const [search, onSearch, setSearch] = useInput("");
   const [cookie, setCookie] = useState<boolean>(false);
 
-  const {data} = useSelector((state: RootState) => state.userReducer);
-  const { data:cart } = useSelector((state: RootState) => state.cartReducer);
+  const { data, loading: userLoading } = useSelector(
+    (state: RootState) => state.userReducer
+  );
+  const { data: cart, loading:cartLoading } = useSelector(
+    (state: RootState) => state.cartReducer
+  );
   useEffect(() => {
     if (getCookie('accessToken')) {
       dispatch(userInfoLoading(null));
@@ -52,6 +56,9 @@ const [search, onSearch, setSearch] = useInput("");
   };
  const priceDot = (num: number) =>
    num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+
+   if (cartLoading || userLoading) return <div>asd</div>;
   return (
     <St.HeaderWrap>
       <Modal page="home" />
@@ -96,41 +103,43 @@ const [search, onSearch, setSearch] = useInput("");
                   <St.CartTop>
                     <St.CartTitle>
                       수강바구니{" "}
-                      <St.CartNum>{cart.lectureInfoList.length}</St.CartNum>
+                      <St.CartNum>{cart?.lectureInfoList.length}</St.CartNum>
                     </St.CartTitle>
                     <St.CartPrice>
                       총 결제금액{" "}
                       <St.CartNum>
                         {priceDot(
                           cart.lectureInfoList
-                            .map((v) => v.lecture_price)
+                            .map((v) => v.lecturePrice)
                             .reduce((a, b) => a + b, 0)
                         )}
                       </St.CartNum>
                       원
                     </St.CartPrice>
                   </St.CartTop>
-                  {cart.lectureInfoList.length !== 0 ? (
+                  {cart?.lectureInfoList.length !== 0 ? (
                     <>
                       <St.CartUl>
-                        {cart.lectureInfoList.map((v, index) => {
+                        {cart?.lectureInfoList.map((v, index) => {
                           return (
                             <St.CartLi
                               key={index}
-                              onClick={() => navigate(`/lectures/${v.lecture_id}`)}
+                              onClick={() =>
+                                navigate(`/lectures/${v.lectureId}`)
+                              }
                             >
                               <St.ImgWrap>
                                 <St.Img
-                                  src={v.lecture_thumbnail}
-                                  alt={v.lecture_intro}
+                                  src={v.lectureThumbnail}
+                                  alt={v.lectureIntro}
                                 />
                               </St.ImgWrap>
                               <St.TextWrap>
                                 <St.LectureTitle>
-                                  {v.lecture_name}
+                                  {v.lectureName}
                                 </St.LectureTitle>
                                 <St.LecturePrice>
-                                  <span>{priceDot(v.lecture_price)}</span>원
+                                  <span>{priceDot(v.lecturePrice)}</span>원
                                 </St.LecturePrice>
                               </St.TextWrap>
                             </St.CartLi>

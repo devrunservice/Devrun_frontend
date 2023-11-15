@@ -11,7 +11,6 @@ const App = () => {
   useEffect(() => {
     window.scroll(0,0)
   }, [location]);
-
   const hideHeader =
     location.pathname === "/signup" ||
     location.pathname === "/signupconfirm" ||
@@ -21,7 +20,8 @@ const App = () => {
     location.pathname === "/findaccount/id" ||
     location.pathname === "/findaccount/password" ||
     location.pathname === "/auth/kakao/callback" ||
-    location.pathname === `/videoView/${params.lectureId}`;
+    location.pathname ===
+      `/videoView/${params.lectureId}/${params.videoId}`;
 
   const hideFooter =
     location.pathname === "/signup" ||
@@ -32,7 +32,10 @@ const App = () => {
     location.pathname === "/findaccount/id" ||
     location.pathname === "/findaccount/password" ||
     location.pathname === "/auth/kakao/callback" ||
-    location.pathname === `/videoView/${params.lectureId}`;
+    location.pathname ===
+      `/videoView/${params.lectureId}/${
+        params.videoId
+      }`;
 
   const myPage =
     location.pathname === "/profile" ||

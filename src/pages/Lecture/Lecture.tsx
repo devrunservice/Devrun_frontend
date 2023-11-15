@@ -112,8 +112,8 @@ const Lecture = () => {
                   lectureThumbnail={v.lectureThumbnail}
                   lectureMidCategory={v.lectureMidCategory}
                   mentoId={v.mentoId}
-                  lectureprice={v.lectureprice}
-                  buycount={v.buycount}
+                  lecturePrice={v.lecturePrice}
+                  buyCount={v.buyCount}
                   rating={v.rating}
                   lectureId={v.lectureId}
                 />

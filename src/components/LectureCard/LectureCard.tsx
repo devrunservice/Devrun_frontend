@@ -10,8 +10,8 @@ interface LectureData {
   lectureThumbnail: string;
   lectureMidCategory: string;
   mentoId: string;
-  lectureprice: number;
-  buycount: number;
+  lecturePrice: number;
+  buyCount: number;
   rating: number;
   lectureId:number
 }
@@ -23,14 +23,14 @@ const LectureCard = ({
   lectureThumbnail,
   lectureMidCategory,
   mentoId,
-  lectureprice,
-  buycount,
+  lecturePrice,
+  buyCount,
   rating,
-  lectureId
+  lectureId,
 }: LectureData) => {
   const priceDot = (num: number) =>
     num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    const navi = useNavigate()
+  const navi = useNavigate();
 
   return (
     <St.List onClick={() => navi(`/lectures/${lectureId}`)}>
@@ -48,15 +48,15 @@ const LectureCard = ({
             </span>
           </St.ListTeacher>
           <St.Price>
-            <span>{priceDot(lectureprice)}</span>원
+            <span>{priceDot(lecturePrice)}</span>원
           </St.Price>
         </St.ListText>
         <St.ListViewCount>{lectureBigCategory}</St.ListViewCount>
         <St.ListViewCount>{lectureMidCategory}</St.ListViewCount>
-        {buycount === 0 ? (
+        {buyCount === 0 ? (
           ""
         ) : (
-          <St.ListViewCount>{priceDot(buycount)}명 수강</St.ListViewCount>
+          <St.ListViewCount>{priceDot(buyCount)}명 수강</St.ListViewCount>
         )}
       </div>
     </St.List>
