@@ -3,8 +3,9 @@ import React, { useCallback, useState, useEffect } from "react";
 import YouTube from "react-youtube";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
+import { useParams } from "react-router-dom";
 import { Curriculum, Note } from "components";
-import { video } from "utils/api";
+
 import { useDate } from "hooks";
 import { VideoCurriculumVideoInfos } from "types";
 import { PiArrowLineLeftBold, PiArrowLineRightBold } from "react-icons/pi";
@@ -16,8 +17,10 @@ import {
   progressLoding,
 } from "../../redux/reducer/videoViewReducer";
 
+
 const VideoView = () => {
   const dispatch = useDispatch();
+  const param = useParams()
   const { data } = useSelector((state: RootState) => state.videoViewReducer);
   const { videoTime } = useDate();
   useEffect(() => {
@@ -27,13 +30,16 @@ const VideoView = () => {
     curriculumOpen: false,
     note: false,
   });
+  const name = data.sectionInfo
+    .find((v) => v.videoInfo)
+    ?.videoInfo.find((k) => k.videoId === param.videoId);
   const [lecture, setLecture] = useState<VideoCurriculumVideoInfos>({
-    lastviewdate: "",
-    progress: 0,
-    timecheck: 10,
-    videoId: "",
-    videoTitle: "",
-    videoTotalPlayTime: 0,
+    lastviewdate: name?.lastviewdate || "",
+    progress: name?.progress || 0,
+    timecheck: name?.timecheck || 0,
+    videoId: param.videoId || "",
+    videoTitle: name?.videoTitle || "",
+    videoTotalPlayTime: name?.videoTotalPlayTime || 0,
   });
 
   // 현재 내위치값
@@ -193,7 +199,14 @@ const VideoView = () => {
       )}
       {open.note && (
         <St.CurriculumWrap>
-          <Note onNote={onNote} videoid={lecture.videoId} lectureId ={data.lectureId} sectionNumber={data.sectionInfo[currentSectionInfoIndex].sectionNumber}/>
+          <Note
+            onNote={onNote}
+            videoid={lecture.videoId}
+            lectureId={data.lectureId}
+            sectionNumber={
+              data.sectionInfo[currentSectionInfoIndex].sectionNumber
+            }
+          />
         </St.CurriculumWrap>
       )}
     </St.VideoViewWrap>

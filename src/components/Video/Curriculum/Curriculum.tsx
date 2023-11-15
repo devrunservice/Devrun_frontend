@@ -2,8 +2,9 @@
 import React, { useCallback, useEffect } from "react";
 import {  useSelector } from "react-redux";
 import { RootState } from "redux/store";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDate } from "hooks";
-import { VideoCurriculumVideoInfo, VideoCurriculumVideoInfos } from "types";
+import { VideoCurriculumVideoInfos } from "types";
 import * as St from "./style";
 
 
@@ -16,10 +17,12 @@ interface ICurriculum {
 const Curriculum = ({ onCurriculum, setLecture, lecture }: ICurriculum) => {
   const { data } = useSelector((state: RootState) => state.videoViewReducer);
   const { videoTime } = useDate();
+  const param = useParams();
+  const navigate = useNavigate();
   const onVideoPlay = useCallback((l: VideoCurriculumVideoInfos) => {
+    navigate(`/videoView/${param.lectureId}/${l.videoId}`);
     setLecture(l);
   }, []);
-  console.log(data);
   return (
     <>
       <St.Top>
@@ -51,7 +54,7 @@ const Curriculum = ({ onCurriculum, setLecture, lecture }: ICurriculum) => {
         </St.Gauge>
       </St.Top>
       <St.Bottom>
-        {data.sectionInfo.map((v: VideoCurriculumVideoInfo) => {
+        {data.sectionInfo.map((v) => {
           return (
             <div key={v.sectionId}>
               <St.SectionTitle>
@@ -69,12 +72,12 @@ const Curriculum = ({ onCurriculum, setLecture, lecture }: ICurriculum) => {
                 <em>{v.sectionTitle}</em>
               </St.SectionTitle>
               <St.SectionCon>
-                {v.videoInfo.map((l: VideoCurriculumVideoInfos) => {
+                {v.videoInfo.map((l) => {
                   return (
                     <St.SectionConLi
                       key={l.videoId}
                       onClick={() => onVideoPlay(l)}
-                      $active={l.videoTitle === lecture.videoTitle}
+                      $active={l.videoId === lecture.videoTitle}
                     >
                       <St.SectionIcon>
                         {l.timecheck === l.videoTotalPlayTime ? (
