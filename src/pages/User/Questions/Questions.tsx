@@ -2,9 +2,9 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
-import {LectureTable, SearchBar, Pagination} from 'components';
+import {List, SearchBar, Pagination} from 'components';
 import {TitleWrapper} from '../Notes/styles';
-import {questionLectureLoading} from '../../../redux/reducer/dashboardReducer';
+import {questionListLoading} from '../../../redux/reducer/dashboardReducer';
 
 const Notes = () => {
   const dispatch = useDispatch();
@@ -12,11 +12,11 @@ const Notes = () => {
   const [pageno, setPageno] = useState<number>(1);
 
   useEffect(() => {
-    dispatch(questionLectureLoading({page: pageno}));
+    dispatch(questionListLoading({page: pageno}));
   }, []);
 
-  const questionLectures = useSelector(
-    (state: RootState) => state.dashboardReducer.questionLectureData
+  const questionList = useSelector(
+    (state: RootState) => state.dashboardReducer.questionListData
   );
 
   return (
@@ -25,18 +25,21 @@ const Notes = () => {
         <h1>작성한 질문</h1>
         {/* <SearchBar /> */}
       </TitleWrapper>
-      {questionLectures.dtolist.map((lecture) => (
-        <LectureTable
-          key={lecture.lectureId}
-          lectureId={lecture.lectureId}
-          lectureTitle={lecture.lectureTitle}
-          lectureThumbnail={lecture.lectureThumbnail}
-          lastStudyDate={lecture.lastStudyDate}
-          count={lecture.count}
+      {/* {questionList.dtolist.map((question) => (
+        <List
+          key={1}
+          page="questions"
+          category="questioin"
+          questionId={2}
+          questionLectureTitle="hi"
+          questionTitle="hello"
+          questionContentPreview="previewpreview"
+          questionDate="2023-06-15"
+          questionCount={1}
         />
-      ))}
+      ))} */}
 
-      {/* <Pagination pageno={pageno} setPageno={setPageno} data={questionLectures} /> */}
+      {/* <Pagination pageno={pageno} setPageno={setPageno} totalPages={questionList.totalPages} /> */}
     </section>
   );
 };
