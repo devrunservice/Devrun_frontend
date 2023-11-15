@@ -24,15 +24,22 @@ const VideoView = () => {
   const { data } = useSelector((state: RootState) => state.videoViewReducer);
   const { videoTime } = useDate();
   useEffect(() => {
-    dispatch(curriculumLoding(22));
+    dispatch(curriculumLoding(param.lectureId));
   }, []);
   const [open, setOpen] = useState({
     curriculumOpen: false,
     note: false,
   });
+  
   const name = data.sectionInfo
     .find((v) => v.videoInfo)
     ?.videoInfo.find((k) => k.videoId === param.videoId);
+    // console.log(
+    //   data.sectionInfo
+    //     .find((v) => v.sectionId === param.lectureId)
+    //     ?.videoInfo.find((k) => k.videoId === param.videoId)
+    // );
+    console.log(param.lectureId);
   const [lecture, setLecture] = useState<VideoCurriculumVideoInfos>({
     lastviewdate: name?.lastviewdate || "",
     progress: name?.progress || 0,

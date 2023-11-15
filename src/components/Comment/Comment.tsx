@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {  useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { getCookie } from "utils/cookies";
@@ -26,6 +26,7 @@ interface title {
 const Comment = ({ text, sub, path }: title) => {
   const dispatch = useDispatch();
   const param = useParams();
+  const navigate = useNavigate()
   // 댓글 수정 , 기존 댓글 , 대댓글 달고난후 데이터
   const { commentRe, datas, comments } = useSelector(
     (state: RootState) => state.noticeReducer
@@ -156,7 +157,10 @@ const Comment = ({ text, sub, path }: title) => {
       alert("취소되었습니다.");
     }
   }, []);
-
+  const onLogin = ()=>{
+    alert("로그인 페이지로 이동합니다.")
+    navigate("/login")
+  }
   // 평점
   const [stars, setStars] = useState([false, false, false, false, false]);
   return (
@@ -172,17 +176,25 @@ const Comment = ({ text, sub, path }: title) => {
       {path === "lectures" && (
         <Grade stars={stars} setStars={setStars} text="별점을 선택해주세요" />
       )}
+      {getCookie("accessToken") ? (
+        <St.CommentBox
+          onChange={onChangeComment}
+          maxLength={500}
+          value={comment}
+          placeholder={
+            path === "lectures"
+              ? "좋은 수강평을 남겨주시면 지식공유자와 이후 배우는 사람들에게 큰 도움이 됩니다."
+              : "좋은 댓글남겨주세요."
+          }
+        />
+      ) : (
+        <St.CommentBox
+          maxLength={500}
+          onClick={() => onLogin()}
+          placeholder="회원가입후 작성해주세요"
+        />
+      )}
 
-      <St.CommentBox
-        onChange={onChangeComment}
-        maxLength={500}
-        value={comment}
-        placeholder={
-          path === "lectures"
-            ? "좋은 수강평을 남겨주시면 지식공유자와 이후 배우는 사람들에게 큰 도움이 됩니다."
-            : "좋은 댓글남겨주세요."
-        }
-      />
       <St.ButtonWrap>
         <St.CommentNum>{comment.length} / 500</St.CommentNum>
         <Button $active={false} onClick={() => setComment("")} type="button">
@@ -250,6 +262,7 @@ const Comment = ({ text, sub, path }: title) => {
                         maxLength={500}
                         value={commentTwo !== "" ? commentTwo : v.content}
                       />
+
                       <St.ButtonWrapCommnet>
                         <St.CommentNum>{commentTwo.length} / 500</St.CommentNum>
                         <Button
@@ -272,11 +285,26 @@ const Comment = ({ text, sub, path }: title) => {
                   {/* 대댓글달기 */}
                   {writesTwo === v.commentNo && (
                     <St.CommentWriteWrap>
-                      <St.CommentBoxRe
-                        onChange={onChangeCommentTwo}
-                        maxLength={500}
-                        value={commentTwo}
-                      />
+
+                      {getCookie("accessToken") ? (
+                        <St.CommentBoxRe
+                          onChange={onChangeCommentTwo}
+                          maxLength={500}
+                          value={commentTwo}
+                          placeholder={
+                            path === "lectures"
+                              ? "좋은 수강평을 남겨주시면 지식공유자와 이후 배우는 사람들에게 큰 도움이 됩니다."
+                              : "좋은 댓글남겨주세요."
+                          }
+                        />
+                      ) : (
+                        <St.CommentBox
+                          maxLength={500}
+                          onClick={() => onLogin()}
+                          placeholder="회원가입후 작성해주세요"
+                        />
+                      )}
+
                       <St.ButtonWrapCommnet>
                         <St.CommentNum>{commentTwo.length} / 500</St.CommentNum>
                         <Button

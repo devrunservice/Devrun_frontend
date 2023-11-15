@@ -6,9 +6,8 @@ const useDate = () => {
   const getdate = new Date().getDate();
   const videoTime = (total: number) => {
     const hours = Math.floor(total / 3600);
-    const min = Math.floor((total & 3600) / 60);
+    const min = Math.floor((total % 3600) / 60);
     const sec = total % 60;
-
     if (hours > 0) return `${hours}시간 ${min}분 ${sec}초`;
     if (min > 0) return `${min}분 ${sec}초`;
     return `${sec}초`;

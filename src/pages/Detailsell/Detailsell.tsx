@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RootState } from 'redux/store';
@@ -31,18 +31,15 @@ const Detailsell = () => {
     dispatch(LectureDetailTextLoading({ lectureid: 25 }));
   }, [param.lectureId]);
   const [tapNum, setTapNum] = useState<number>(0);
-  const onTap = useCallback(
-    (k: number) => {
-      if (k === tapNum) return setTapNum(0);
-      if (lectureDetail.lectureSections.find((v) => v.sectionNumber === k))
+  const onTap = (k: number) => {
+     if (k === tapNum) return setTapNum(0);
+     if (lectureDetail.lectureSections.find((v) => v.sectionNumber === k))
        return setTapNum(k);
-    },
-    [tapNum]
-  );
+  };
   const onBasket = ()=>{
     if (getCookie('accessToken')) { 
-      
       dispatch(addCartLoading(lectureDetail.lectureid));
+      alert("강의가 장바구니에 담겼습니다.");
       navi("/basket")
     }else{
       alert("로그인 후 결제해주세요")
@@ -51,7 +48,7 @@ const Detailsell = () => {
   }
   const onBaskets = () => {
     if (getCookie("accessToken")) {
-      console.log(lectureDetail.lectureid);
+      alert("강의가 장바구니에 담겼습니다.")
       dispatch(addCartLoading(lectureDetail.lectureid));
     } else {
       alert("로그인 후 결제해주세요");

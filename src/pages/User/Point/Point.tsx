@@ -14,7 +14,6 @@ const Point = () => {
       fetcher
     );
     if (isLoading) return <div>asd</div>
-    console.log(data)
       return (
         <>
           <UserTop

@@ -22,19 +22,19 @@ const Header = () => {
 const [search, onSearch, setSearch] = useInput("");
   const [cookie, setCookie] = useState<boolean>(false);
 
-  const { data, loading: userLoading } = useSelector(
+  const { data } = useSelector(
     (state: RootState) => state.userReducer
   );
-  const { data: cart, loading:cartLoading } = useSelector(
+  const { data: cart,addCart } = useSelector(
     (state: RootState) => state.cartReducer
   );
   useEffect(() => {
-    if (getCookie('accessToken')) {
+    if (getCookie("accessToken")) {
       dispatch(userInfoLoading(null));
       dispatch(cartInfoLoading(null));
       setCookie(true);
     }
-  }, []);
+  }, [addCart]);
 
   const handleLogout = () => {
     dispatch(logoutLoading());
@@ -58,7 +58,6 @@ const [search, onSearch, setSearch] = useInput("");
    num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
 
-   if (cartLoading || userLoading) return <div>asd</div>;
   return (
     <St.HeaderWrap>
       <Modal page="home" />
