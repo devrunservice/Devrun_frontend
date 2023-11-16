@@ -11,6 +11,7 @@ import { createVideo } from 'utils/api';
 // import axios from 'axios';
 import {  addClass, addSection, changeTitle, setClass,  deleteClass, deleteSection, changeVideoFile, changeClassTitle } from '../../redux/reducer/createVideoReducer';
 import * as St from '../CreateNewVideo/style'
+// import axios from 'axios';
 
 const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
   const dispatch = useDispatch()
@@ -106,8 +107,6 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
   /* 강의등록 */
   const postVideo = async() => {
     const token = getCookie('accessToken')
-    // const googleToken = getCookie('googleToken')
-    console.log(token)
     if (
       videoStore.lectureName === '' || 
       videoStore.lectureThumbnail === '' ||
@@ -123,7 +122,6 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
 
     setLoading(true)
     console.log('store',videoStore)
-    // const url = 'https://devrun.site/lectureregitest'
     const formData = new FormData();
     formData.append("lectureName", videoStore.lectureName);
     formData.append("lectureIntro", videoStore.lectureIntro);
@@ -137,7 +135,6 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
     videoStore.lectureSectionList.forEach((list, index) => {
       formData.append(`lectureSectionList[${index}].SectionNumber`, list.lectureSectionId.toString());
       formData.append(`lectureSectionList[${index}].SectionTitle`, list.sectionTitle);
-      // formData.append(`videoList[${index}].SectionTitle`, list.sectionTitle)
     });
     videoStore.videoList?.forEach((list, index) => {
       const sections = videoStore.lectureSectionList.find(section => section.lectureSectionId === list.lectureSectionId);
@@ -147,14 +144,14 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
       formData.append(`videoList[${index}].SectionNumber`, list.lectureSectionId.toString())
       formData.append(`videoList[${index}].videofile`, list.file)
     })
-    // if(googleToke === null) {
-    //   formData.append("accessToken", googleStore.urlToken);
-    // } else {
-    //   formData.append("accessToken", googleToke)
-    // }
-    formData.append("accessToken", googleStore.urlToken);
+    formData.append("oauth2", googleStore.urlToken);
     formData.append("jwtToken", token )
 
+    // axios.post('https://devrun.site/lectureregitest', formData, {
+    //   headers: {
+    //     'Content-Type': 'multipart/form-data',
+    //   }
+    // }).then(res=>console.log(res)).catch(err=>console.log(err))
     try {
       const response = await createVideo.videoAPI(formData)
       console.log(response)
@@ -170,23 +167,6 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
       setModal(true)
       setLoading(false)
     }
-    // axios.post(url, formData, {
-    //   headers: {
-    //     "Content-Type": "multipart/form-data"
-    //   }
-    // }).then(()=>{
-    //   setLoading(false)
-    //   setText('등록에 성공했습니다. 내 강의 페이지로 이동합니다')
-    //   setFlag('success')
-    //   setBtNum(1)
-    //   setModal(true)
-    // }).catch(()=>{
-    //   setText('등록에 실패했습니다. 다시 시도해주세요')
-    //   setBtNum(1)
-    //   setFlag('fail')
-    //   setModal(true)
-    //   setLoading(false)
-    // })
   }
 
   const closeModalCancel = () => {

@@ -361,7 +361,7 @@ export const search = {
 /* 강의등록 api */
 export const createVideo = {
   getCategoryAPI: () => {
-    const response = baseAxios.get('/lectureregist/categories');
+    const response = authAxios.get('/lectureregist/categories');
     return response;
   },
   videoAPI: (params: FormData) => {
@@ -373,7 +373,7 @@ export const createVideo = {
 /* 디테일 api */
 export const detail = {
   getDetailAPT: (params: any) => {
-    const response = baseAxios.post(`api/lectures/${params.id}`);
+    const response = authAxios.get(`api/lectures/${params}`);
     return response;
   },
 };
