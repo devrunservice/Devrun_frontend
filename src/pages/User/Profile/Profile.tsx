@@ -51,7 +51,6 @@ const Profile = () => {
         dispatch(openModal('이미지 용량을 초과하였습니다.'));
         // alert('이미지 용량을 초과하였습니다.');
       } else {
-        console.log('이미지 업로드');
         dispatch(updateValidState({name: 'profileImage', value: true}));
         setProfileForm({
           ...profileForm,
@@ -81,7 +80,6 @@ const Profile = () => {
     };
 
     if (validState.emailDuplication) {
-      console.log('이메일 수정 완료');
       const updateFields = [
         {name: 'email', value: false},
         {name: 'emailDuplication', value: false},
@@ -89,7 +87,6 @@ const Profile = () => {
       dispatch(updateEmailLoading({email: profileForm.email}));
       updateValidFields(updateFields);
     } else if (validState.checkCodeBtn) {
-      console.log('휴대폰 번호 수정 완료');
       const updateFields = [
         {name: 'phonenumber', value: false},
         {name: 'code', value: false},
@@ -107,9 +104,6 @@ const Profile = () => {
     } else if (validState.profileImage) {
       const formData = new FormData();
       formData.append('editimg', profileForm.profileImage as unknown as Blob);
-      formData.forEach((value) => {
-        console.log(value);
-      });
       dispatch(updateProfileImageLoading(formData));
       updateValidFields([{name: 'profileImage', value: false}]);
     }

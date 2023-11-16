@@ -1,5 +1,4 @@
 import {styled, css} from 'styled-components';
-import {Arrow} from 'asset';
 import * as I from 'types';
 
 export const Table = styled.ul`
@@ -57,9 +56,9 @@ export const PointTitle = styled(Text)`
 `;
 export const PointSpan = styled.span<I.TableCommon>`
   color: ${(props: any) =>
-      props.$color ? props.theme.mainColor : props.theme.textRed};
-  font-weight:500;
-`
+    props.$color ? props.theme.mainColor : props.theme.textRed};
+  font-weight: 500;
+`;
 export const PayBtn = styled(View)`
   width: 18%;
   display: flex;
@@ -101,62 +100,7 @@ export const ToggleBtn = styled.div<I.TableCommon>`
     props.$view ? 'translateX(0px)' : 'translateX(-23px)'};
 `;
 
-// 노트 테이블
-// 강의 노트
-export const LectureLi = styled.li`
-  display: flex;
-  align-items: center;
-  padding: 16px;
-  margin-bottom: 16px;
-  border-bottom: ${(props) => `1px solid ${props.theme.borderD}`};
-  padding: 8px;
-  cursor: pointer;
-
-  &:last-child {
-    border-bottom: none;
-  }
-`;
-
-export const ImageWrapper = styled.div`
-  width: 120px;
-  height: 80px;
-  background-color: ${(props) => props.theme.bgGrayColor};
-  border-radius: 16px;
-`;
-
-export const Image = styled.img`
-  width: 100%;
-  height: 100%;
-  max-width: 100%;
-  max-height: 100%;
-`;
-
-export const NoteWrapper = styled.div`
-  flex: 1 1 auto;
-  margin-left: 32px;
-`;
-
-export const LectureTitle = styled.div`
-  /* font-size: 18px; */
-  font-weight: 600;
-`;
-
-export const InfoWrapper = styled.div`
-  display: flex;
-
-  & > div:nth-child(2) {
-    margin-left: 16px;
-  }
-`;
-
-export const RightArrow = styled(Arrow)`
-  width: 16px;
-  height: 16px;
-  transform: rotate(270deg);
-  filter: invert(73%) sepia(100%) saturate(0%) hue-rotate(104deg)
-    brightness(91%);
-`;
-
+// 노트 카드
 export const NoteCard = styled.li`
   width: 280px;
   height: 267px;

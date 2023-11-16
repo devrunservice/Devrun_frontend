@@ -60,7 +60,7 @@ const Learning = () => {
     <section>
       <St.Top>
         <St.Title>내 학습 관리</St.Title>
-        <SearchBar />
+        {/* <SearchBar /> */}
       </St.Top>
       <St.LearnCon>
         {/* <St.TapWrap> */}
@@ -76,7 +76,7 @@ const Learning = () => {
           </St.Btn>
         </St.Left>
         <St.LearnUl>
-          {tap === 1 &&
+          {(tap === 1 || tap === 2) && courses.dtolist.length > 0 ? (
             courses.dtolist.map((course) => (
               <Learn
                 key={course.id}
@@ -89,8 +89,8 @@ const Learning = () => {
                 lastViewDate={course.lastViewDate}
                 expiryDate={course.expiryDate}
               />
-            ))}
-          {tap === 2 &&
+            ))
+          ) : tap === 3 && courses.dtolist.length > 0 ? (
             courses.dtolist.map((course) => (
               <Learn
                 key={course.id}
@@ -103,25 +103,14 @@ const Learning = () => {
                 lastViewDate={course.lastViewDate}
                 expiryDate={course.expiryDate}
               />
-            ))}
-          {tap === 3 &&
-            (courses.dtolist.length > 0 ? (
-              courses.dtolist.map((course, index) => (
-                <Learn
-                  key={course.id}
-                  id={course.id}
-                  title={course.title}
-                  mentoName={course.mentoName}
-                  thumbnail={course.thumbnail}
-                  progressRate={course.progressRate}
-                  rating={course.rating}
-                  lastViewDate={course.lastViewDate}
-                  expiryDate={course.expiryDate}
-                />
-              ))
-            ) : (
-              <St.ErrorMessage>완료한 강의가 없습니다.</St.ErrorMessage>
-            ))}
+            ))
+          ) : (
+            <St.ErrorMessage>
+              {tap === 1 || tap === 2
+                ? '수강한 강의가 없습니다.'
+                : '완료한 강의가 없습니다.'}
+            </St.ErrorMessage>
+          )}
         </St.LearnUl>
       </St.LearnCon>
       <Pagination

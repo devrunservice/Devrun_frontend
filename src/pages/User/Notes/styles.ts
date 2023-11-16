@@ -15,6 +15,10 @@ export const TitleWrapper = styled.div`
   }
 `;
 
+export const NoteListUl = styled.div`
+  min-height: 53.8125rem;
+`;
+
 export const ErrorMessage = styled.div`
   text-align: center;
   margin-top: 32px;

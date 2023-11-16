@@ -89,7 +89,6 @@ const Signup = () => {
         privacyConsent: signupForm.privacyConsent,
         marketConsent: signupForm.marketConsent,
       });
-      console.log(response);
       if (response.status === 200) {
         // dispatch(setSignupSuccess(true));
         // dispatch(openModal('회원가입이 완료되었습니다.'));
@@ -118,7 +117,6 @@ const Signup = () => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('비밀번호 수정');
     const {name, value} = e.target;
     setSignupForm({...signupForm, [name]: value});
   };

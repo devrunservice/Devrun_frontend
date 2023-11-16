@@ -16,12 +16,12 @@ import {
   noteDetailLoading,
   noteDetailSuccess,
   noteDetailFail,
-  questionLectureLoading,
-  questionLectureSuccess,
-  questionLectureFail,
-  questionLoading,
-  questionSuccess,
-  questionFail,
+  questionListLoading,
+  questionListSuccess,
+  questionListFail,
+  questionDetailLoading,
+  questionDetailSuccess,
+  questionDetailFail,
 } from '../reducer/dashboardReducer';
 
 function* learning(
@@ -68,23 +68,23 @@ function* noteDetail(
   }
 }
 
-function* questionLecture(
+function* questionList(
   action: PayloadAction<NotePropsType>
 ): Generator<any, void, any> {
   try {
-    const response = yield call(mypage.questionLecture, action.payload);
-    yield put(questionLectureSuccess(response));
+    const response = yield call(mypage.questionList);
+    yield put(questionListSuccess(response));
   } catch (error: any) {
-    yield put(questionLectureFail(error));
+    yield put(questionListFail(error));
   }
 }
 
-function* question(): Generator<any, void, any> {
+function* questionDetail(): Generator<any, void, any> {
   try {
-    const response = yield call(mypage.question);
-    yield put(questionSuccess(response));
+    const response = yield call(mypage.questionDetail);
+    yield put(questionDetailSuccess(response));
   } catch (error: any) {
-    yield put(questionFail(error));
+    yield put(questionDetailFail(error));
   }
 }
 
@@ -104,12 +104,12 @@ export function* watchNoteDetailSaga() {
   yield takeLatest(noteDetailLoading.type, noteDetail);
 }
 
-export function* watchQuestionLectureSaga() {
-  yield takeLatest(questionLectureLoading.type, noteLecture);
+export function* watchQuestionListSaga() {
+  yield takeLatest(questionListLoading.type, questionList);
 }
 
-export function* watchQuestionSaga() {
-  yield takeLatest(questionLoading.type, question);
+export function* watchQuestionDetailSaga() {
+  yield takeLatest(questionDetailLoading.type, questionDetail);
 }
 
 export default function* dashboardSaga() {
@@ -118,7 +118,7 @@ export default function* dashboardSaga() {
     fork(watchNoteLectureSaga),
     fork(watchNoteListSaga),
     fork(watchNoteDetailSaga),
-    fork(watchQuestionLectureSaga),
-    fork(watchQuestionSaga),
+    fork(watchQuestionListSaga),
+    fork(watchQuestionDetailSaga),
   ]);
 }

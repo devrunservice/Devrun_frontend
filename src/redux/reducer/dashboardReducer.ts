@@ -8,8 +8,8 @@ export interface DashboardReducerType {
   noteLectureData: I.NoteLectureWrapperType;
   noteListData: I.NoteListWrapperType;
   noteDetailData: I.NoteDetailType;
-  questionLectureData: I.QuestionLectureWrapperType;
-  questionData: I.QuestionType[];
+  questionListData: I.QuestionListWrapperType;
+  questionDetailData: I.QuestionDetailType;
   error: Error | null;
 }
 
@@ -17,15 +17,15 @@ const initialState: DashboardReducerType = {
   loading: false,
   learningData: {
     dtolist: [],
-    totalPages: 0,
+    totalPages: 1,
   },
   noteLectureData: {
     dtolist: [],
-    totalPages: 0,
+    totalPages: 1,
   },
   noteListData: {
     dtolist: [],
-    totalPages: 0,
+    totalPages: 1,
   },
   noteDetailData: {
     noteId: 0,
@@ -36,11 +36,18 @@ const initialState: DashboardReducerType = {
     date: '',
     content: '',
   },
-  questionLectureData: {
+  questionListData: {
     dtolist: [],
-    totalPages: 0,
+    totalPages: 1,
   },
-  questionData: [],
+  questionDetailData: {
+    questionId: 0,
+    lectureId: 0,
+    videoId: '',
+    date: '',
+    questionTitle: '',
+    content: '',
+  },
   error: null,
 };
 
@@ -66,6 +73,7 @@ const dashboardReducer = createSlice({
     },
     noteLectureSuccess: (state, action) => {
       state.loading = false;
+      console.log(action.payload.data);
       state.noteLectureData = action.payload.data;
     },
     noteLectureFail: (state, action) => {
@@ -95,25 +103,25 @@ const dashboardReducer = createSlice({
       state.error = action.payload;
     },
     // 강의 질문
-    questionLectureLoading: (state, action) => {
+    questionListLoading: (state, action) => {
       state.loading = true;
     },
-    questionLectureSuccess: (state, action) => {
+    questionListSuccess: (state, action) => {
       state.loading = false;
       state.noteLectureData = action.payload.data;
     },
-    questionLectureFail: (state, action) => {
+    questionListFail: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
-    questionLoading: (state) => {
+    questionDetailLoading: (state) => {
       state.loading = true;
     },
-    questionSuccess: (state, action) => {
+    questionDetailSuccess: (state, action) => {
       state.loading = false;
-      state.questionData = action.payload.data;
+      state.questionDetailData = action.payload.data;
     },
-    questionFail: (state, action) => {
+    questionDetailFail: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
@@ -133,12 +141,12 @@ export const {
   noteDetailLoading,
   noteDetailSuccess,
   noteDetailFail,
-  questionLectureLoading,
-  questionLectureSuccess,
-  questionLectureFail,
-  questionLoading,
-  questionSuccess,
-  questionFail,
+  questionListLoading,
+  questionListSuccess,
+  questionListFail,
+  questionDetailLoading,
+  questionDetailSuccess,
+  questionDetailFail,
 } = dashboardReducer.actions;
 
 export default dashboardReducer.reducer;

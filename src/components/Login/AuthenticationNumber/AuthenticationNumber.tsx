@@ -58,13 +58,11 @@ const AuthenticationNumber = ({
     });
   }, [option]);
 
-  // console.log(isValid);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAuthenticationForm({
       ...authenticationForm,
       [e.target.name]: e.target.value,
     });
-    // setIsValid((prev) => ({ ...prev, code: true }));
   };
 
   // 인증번호 받기
@@ -80,13 +78,11 @@ const AuthenticationNumber = ({
               email: value,
             });
       if (response.status === 200) {
-        console.log('인증번호 요청 완료');
         updateMessage('phonenumberMessage', '인증번호가 요청되었습니다.');
         updateValid('phonenumber', true);
         updateValid('codeBtn', true);
       }
     } catch (error) {
-      console.log('휴대폰 인증번호 요청 실패');
       updateMessage('phonenumberMessage', '인증번호 요청에 실패했습니다.');
       updateValid('phonenumber', false);
       updateValid('codeBtn', false);
@@ -101,15 +97,12 @@ const AuthenticationNumber = ({
         const response = await signup.getDuplicatedPhonnumber({
           phonenumber: authenticationForm.phonenumber || '',
         });
-        console.log(response);
         if (response.data === 0) {
           getAuthenticationNumber(authenticationForm.phonenumber || '');
         } else {
           if (page === 'signup') {
-            console.log('현재 가입된 번호');
             updateMessage('phonenumberMessage', '현재 가입된 번호입니다.');
           } else if (page === 'profileUpdate') {
-            console.log('사용할 수 없는 번호');
             updateMessage('phonenumberMessage', '사용 불가능한 번호입니다.');
           }
           updateValid('phonenumber', false);
@@ -133,18 +126,15 @@ const AuthenticationNumber = ({
           }
         } else if (findOption === 'password') {
           if (option === 'phonenumber') {
-            console.log('휴대폰 번호로 비밀번호 찾기');
             // 휴대폰으로 비밀번호 찾기일 때
             if (id) {
               const response = await findAccount.checkIdPhonenumberMatched(id, {
                 phonenumber: authenticationForm.phonenumber || '',
               });
-              console.log(response);
               // 아이디와 비밀번호가 일치하면
               if (response.data === true) {
                 getAuthenticationNumber(authenticationForm.phonenumber || '');
               } else if (response.data === false) {
-                console.log(response);
                 dispatch(openModal('정보가 등록된 계정과 일치하지 않습니다.'));
                 // updateMessage(
                 //   'phonenumberMessage',
@@ -157,12 +147,10 @@ const AuthenticationNumber = ({
               dispatch(openModal('아이디를 입력해주세요.'));
             }
           } else if (option === 'email') {
-            console.log('이메일로 비밀번호 찾기');
             if (id) {
               const response = await findAccount.checkIdEmailMatched(id, {
                 email: authenticationForm.email || '',
               });
-              console.log(response);
               if (response.data === true) {
                 getAuthenticationNumber(authenticationForm.email || '');
               } else if (response.data === false) {
@@ -198,14 +186,12 @@ const AuthenticationNumber = ({
               email: authenticationForm.email || '',
               code: authenticationForm.code || '',
             });
-      console.log(response);
       if (response.status === 200) {
         updateMessage('codeMessage', '인증 완료 되었습니다.');
         updateValid('code', true);
         updateValid('checkCodeBtn', true);
       }
     } catch (error: any) {
-      console.log(error);
       if (error.message === '새로운 인증번호를 받아주세요') {
         updateMessage('codeMessage', error.message);
       } else {

@@ -57,5 +57,10 @@ export const NoteQuestionWrapper = styled.div`
 `;
 
 export const ErrorMessage = styled.div`
+  width: 100%;
   text-align: center;
+`;
+
+export const CalenderWrapper = styled.div`
+  margin-top: 48px;
 `;
