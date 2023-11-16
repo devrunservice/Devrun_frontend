@@ -53,7 +53,6 @@ export const verificationAPI = {
   // 이메일 인증번호 받기
   getAuthenticationNumberByEmail: async (params: I.SignupFormType) => {
     const response = await baseAxios.post('/auth/email', params);
-    console.log(params);
     return response;
   },
   // 이메일 인증번호 확인
@@ -70,7 +69,6 @@ export const login = {
   },
   checkLogout: async () => {
     const response = await baseAxios.post('/authz/logout');
-    console.log(response);
     return response;
   },
   refreshAccessToken: async () => {
@@ -92,7 +90,6 @@ export const login = {
 export const findAccount = {
   // 휴대폰 번호로 아이디 찾기
   findIdByPhonenumber: async (params: I.SignupFormType) => {
-    console.log(params);
     const response = await baseAxios.post('/find-id/send-phone', params);
     return response;
   },
@@ -110,12 +107,10 @@ export const findAccount = {
   },
   checkIdPhonenumberMatched: async (id: string, params: I.SignupFormType) => {
     const response = await baseAxios.post(`/users/${id}/verify/phone`, params);
-    console.log(response);
     return response;
   },
   checkIdEmailMatched: async (id: string, params: I.SignupFormType) => {
     const response = await baseAxios.post(`/users/${id}/verify/email`, params);
-    console.log(response);
     return response;
   },
 };
@@ -150,7 +145,6 @@ export const mypage = {
     const response = await authAxios.get(
       `/mylecturelist?status=${params.status}&page=${params.page}`
     );
-    console.log(response);
     return response;
   },
   getVideoId: async (params: number) => {
@@ -161,7 +155,6 @@ export const mypage = {
     const response = await authAxios.get(
       `/lectureNoteOpen?page=${params.page}`
     );
-    console.log(response);
     return response;
   },
   noteList: async (params: I.NotePropsType) => {
@@ -176,19 +169,17 @@ export const mypage = {
     );
     return response;
   },
-  questionLecture: async (params: I.NotePropsType) => {
-    const response = await authAxios.get(
-      `/lectureQaDetailQpen?page=${params.page}`
-    );
+  questionList: async () => {
+    const response = await authAxios.get(`/`);
     return response;
   },
-  question: async () => {
-    const response = await authAxios.get(`/lectureQaDetailQpen`);
+  questionDetail: async () => {
+    const response = await authAxios.get(`/`);
     return response;
   },
 
   coupon: (params: I.CouponGet) => {
-    const response = authAxios.post("/coupon/registration", params);
+    const response = authAxios.post('/coupon/registration', params);
     return response;
   },
   couponGet: () => {
@@ -203,7 +194,7 @@ export const Cart = {
     return response;
   },
   save: (params: I.bastetCheck[]) => {
-    const response = authAxios.post("/savePaymentInfo", params);
+    const response = authAxios.post('/savePaymentInfo', params);
     return response;
   },
   coupon: (params: I.LectureInfoList[]) => {
@@ -211,12 +202,12 @@ export const Cart = {
     return response;
   },
   refund: (params: I.Refund) => {
-    const response = authAxios.post("/payment", params);
+    const response = authAxios.post('/payment', params);
     return response;
   },
 
   delete: (params: I.LectureInfoList) => {
-    const response = authAxios.post("/cart/delete", params);
+    const response = authAxios.post('/cart/delete', params);
     return response;
   },
   list: () => {
@@ -317,7 +308,7 @@ export const notice = {
 export const video = {
   getCurriculum: (params: I.Curriculum) => {
     const response = authAxios.get(`/getMycoures`, {
-      params: { lectureId: params },
+      params: {lectureId: params},
     });
     return response;
   },
@@ -330,13 +321,13 @@ export const video = {
     return response;
   },
   getNote: (params: I.Curriculum) => {
-    const response = authAxios.get("/lectureNoteDetailOpen", {
-      params: { lectureId: params },
+    const response = authAxios.get('/lectureNoteDetailOpen', {
+      params: {lectureId: params},
     });
     return response;
   },
   reNote: (params: I.ReNote) => {
-    const response = authAxios.post("/lecturenoteUpdate", params);
+    const response = authAxios.post('/lecturenoteUpdate', params);
     return response;
   },
 };
@@ -367,7 +358,24 @@ export const search = {
   },
 };
 
+/* 강의등록 api */
+export const createVideo = {
+  getCategoryAPI: () => {
+    const response = baseAxios.get('/lectureregist/categories');
+    return response;
+  },
+  videoAPI: (params: FormData) => {
+    const response = imageAxios.post('/lectureregitest', params);
+    return response;
+  },
+};
 
+/* 디테일 api */
+export const detail = {
+  getDetailAPT: (params: any) => {
+    const response = baseAxios.post(`api/lectures/${params.id}`);
+    return response;
+  },
+};
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
-

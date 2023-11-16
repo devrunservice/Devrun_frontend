@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
-import {Arrow} from 'asset';
 import * as I from 'types';
-import {FlexColumn} from 'style/Common';
 import * as St from './styles';
 
 const List: React.FC<I.LectureType> = ({
+  page,
   category,
   lectureId,
   lectureTitle,
+  lectureThumbnail,
   lastStudyDate,
   count,
 }) => {
@@ -20,20 +20,21 @@ const List: React.FC<I.LectureType> = ({
   };
 
   return (
-    <St.DashboardLi onClick={handleClick}>
-      <FlexColumn>
+    <St.ListLi onClick={() => handleClick()}>
+      {page === 'notes' && (
+        <St.ImageWrapper>
+          <St.Image src={lectureThumbnail} alt="thumbnail" />
+        </St.ImageWrapper>
+      )}
+      <St.InfoWrapper $page={page}>
         <St.LectureTitle>{lectureTitle}</St.LectureTitle>
-        {category === 'notes' && (
-          <p>
-            노트 개수 {count} · 작성일 {lastStudyDate}
-          </p>
+        {category === 'note' && (
+          <div>{`노트수 ${count} ∙ 작성일 : ${lastStudyDate}`}</div>
         )}
-        {category === 'questions' && <p>작성일 {lastStudyDate}</p>}
-      </FlexColumn>
-      <St.ArrowBtn>
-        <Arrow />
-      </St.ArrowBtn>
-    </St.DashboardLi>
+        {category === 'question' && <div>{`작성일 : ${lastStudyDate}`}</div>}
+      </St.InfoWrapper>
+      <St.RightArrow />
+    </St.ListLi>
   );
 };
 

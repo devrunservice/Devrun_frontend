@@ -68,7 +68,6 @@ const FindAccount = ({findOption}: {findOption: string}) => {
         email: '',
       });
     }
-    console.log(findAccountForm);
   };
 
   // 휴대폰 번호 및 인증번호 값 가져오기
@@ -91,7 +90,6 @@ const FindAccount = ({findOption}: {findOption: string}) => {
     const {name, value} = e.target;
 
     setFindAccountForm({...findAccountForm, [name]: value});
-    console.log(findAccountForm);
   };
 
   // pushing values to server
@@ -110,7 +108,6 @@ const FindAccount = ({findOption}: {findOption: string}) => {
                 email: findAccountForm.email,
                 code: findAccountForm.code,
               });
-        console.log(response);
         if (response.status === 200) {
           if (option === 'phonenumber') {
             dispatch(openModal('휴대폰 번호로 아이디가 전송되었습니다.'));
@@ -120,7 +117,6 @@ const FindAccount = ({findOption}: {findOption: string}) => {
           navigate('/login');
         }
       } catch (error: any) {
-        console.log(error);
         dispatch(openModal(error.message));
       }
     } else if (name === 'findPasswordBtn') {
@@ -144,7 +140,6 @@ const FindAccount = ({findOption}: {findOption: string}) => {
                     code: findAccountForm.code,
                   }
                 );
-          console.log(response);
           if (response.status === 200) {
             dispatch(
               openModal('비밀번호 변경이 완료되었습니다./다시 로그인 해주세요')
@@ -153,7 +148,6 @@ const FindAccount = ({findOption}: {findOption: string}) => {
           }
         }
       } catch (error: any) {
-        console.log(error.message);
         dispatch(openModal(error.message));
       }
     }

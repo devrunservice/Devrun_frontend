@@ -16,7 +16,6 @@ const EmailVerification = ({
 
   const handleClick = async () => {
     const response = await signup.sendVerificationEmail(userData);
-    console.log(response);
     if (response.status === 200) {
       dispatch(openModal('인증 이메일이 다시 전송되었습니다.'));
     }

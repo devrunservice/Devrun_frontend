@@ -2,7 +2,7 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
-import {LectureTable, SearchBar, Pagination} from 'components';
+import {SearchBar, Pagination, List} from 'components';
 import * as St from './styles';
 import {noteLectureLoading} from '../../../redux/reducer/dashboardReducer';
 
@@ -20,6 +20,8 @@ const Notes = () => {
     (state: RootState) => state.dashboardReducer.noteLectureData
   );
 
+  console.log(noteLectures);
+
   return (
     <section>
       <St.TitleWrapper>
@@ -31,10 +33,12 @@ const Notes = () => {
       ) : noteLectures.dtolist.every((lecture) => lecture.count === 0) ? (
         <St.ErrorMessage>작성한 노트가 없습니다.</St.ErrorMessage>
       ) : (
-        <ul>
+        <St.NoteListUl>
           {noteLectures.dtolist.map((lecture) => (
-            <LectureTable
+            <List
               key={lecture.lectureId}
+              page="notes"
+              category="note"
               lectureId={lecture.lectureId}
               lectureTitle={lecture.lectureTitle}
               lectureThumbnail={lecture.lectureThumbnail}
@@ -42,7 +46,7 @@ const Notes = () => {
               count={lecture.count}
             />
           ))}
-        </ul>
+        </St.NoteListUl>
       )}
 
       <Pagination

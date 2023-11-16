@@ -100,18 +100,35 @@ export interface LearningType {
   lastViewDate: string;
   expiryDate: string;
 }
+export interface NoteQuestionListType {
+  key: number;
+  page: string;
+  category: string;
+  lectureId?: number;
+  lectureTitle?: string;
+  lastStudyDate?: string;
+  lectureThumbnail?: string;
+  count?: number;
+  questionId?: number;
+  questionLectureTitle?: string;
+  questionTitle?: string;
+  questionContentPreview?: string;
+  questionDate?: string;
+  questionCount?: number;
+}
 export interface NoteLectureWrapperType {
   dtolist: LectureType[];
   totalPages: number;
 }
 export interface LectureType {
-  key?: number;
+  key: number;
+  page: string;
+  category: string;
   lectureId: number;
   lectureTitle: string;
   lastStudyDate: string;
-  lectureThumbnail?: string;
+  lectureThumbnail: string;
   count: number;
-  category?: string;
 }
 export interface NoteListWrapperType {
   dtolist: NoteListType[];
@@ -141,17 +158,28 @@ export interface NoteDetailType {
   date: string;
   content: string;
 }
-export interface QuestionLectureWrapperType {
-  dtolist: LectureType[];
+export interface QuestionListWrapperType {
+  dtolist: QuestionListType[];
   totalPages: number;
 }
-export interface QuestionType {
-  lectureQaNo: number;
+export interface QuestionListType {
+  key: number;
+  page: string;
+  category: string;
+  questionId: number;
   lectureTitle: string;
-  mentoId: string;
-  questionContent: string;
-  questionDate: string;
   questionTitle: string;
+  questionContentPreview: string;
+  questionDate: string;
+  count: number;
+}
+export interface QuestionDetailType {
+  questionId: number;
+  lectureId: number;
+  videoId: string;
+  date: string;
+  questionTitle: string;
+  content: string;
 }
 export interface CalenderHeaderType {
   currentMonth: Date;
@@ -711,31 +739,59 @@ export interface Lectureid {
 
 /* 디테일 */
 export interface DetailAPI {
-  lectureid: number;
-  lectureName: string;
-  lectureIntro: string;
-  lecturePrice: number;
-  lectureStart: string;
-  lectureEdit: null | string;
-  lectureDiscount: null | string;
-  lectureDiscountrate: null | string;
-  lectureDiscountstart: null | string;
-  lectureDiscountend: null | string;
-  lectureStatus: string;
-  lectureThumbnail: string;
-  lectureRating: number;
-  lectureTag: string[];
-  buyCount: number;
-
-  lectureCategory: {
-    categoryNo: number;
-    lectureBigCategory: string;
-    lectureMidCategory: string;
-  };
-  lectureSections: LectureSections[];
-  id: null | string;
-
-  mentoId: {
-    name: string;
-  };
+  id: null | string
+  lectureCategory:{
+    categoryNo:number
+    lectureBigCategory: string
+    lectureMidCategory: string
+  },
+  lectureDiscount:null | string
+  lectureDiscountend:null | string
+  lectureDiscountrate:null | string
+  lectureDiscountstart:null | string
+  lectureEdit:null | string
+  lectureIntro: string
+  lectureName: string
+  lecturePrice:number
+  lectureRating:number
+  lectureSections:{
+    sectionNumber:number
+    sectionTitle:string
+    sectionid:number
+    videos:{
+      fileName:null | string
+      totalPlayTime:number
+      uploadDate:null | string
+      videoId: string
+      videoLink: string
+      videoNo:number
+      videoTitle: string
+    }[]
+  }[]
+  lectureStart: string
+  lectureStatus: string
+  lectureTag:string[]
+  lectureThumbnail: string
+  lectureid:number
+  mentoId:{
+    birthday:string
+    id:string
+    name:string
+    kakaoEmailId:null | string
+    export:null | string
+    profileimgsrc:string
+    role:string
+    signupDate:string
+    status:string
+    userNo:number
+  }
 }
+
+
+
+
+
+
+
+
+
