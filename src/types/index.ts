@@ -520,12 +520,14 @@ export interface CommentDel {
   commentNo: number;
 }
 export interface LectureInfoList {
-  lecture_intro: string;
-  lecture_name: string;
-  lecture_price: number;
-  lecture_thumbnail: string;
-  lecture_id?: number;
+  lectureIntro: string;
+  lectureName: string;
+  lecturePrice: number;
+  lectureThumbnail: string;
+  lectureId: number;
 }
+
+
 export interface CouponListInCart {
   discountrate: number;
   expirydate: string;
@@ -554,6 +556,7 @@ export interface Carts {
   addCart: string;
   loading?: boolean;
   error?: Error | null;
+  saveCart: string;
 }
 
 export interface BasketState {
@@ -564,13 +567,8 @@ export interface BasketState {
   couponCode: string;
 }
 export interface bastetCheck {
-  lecture_intro: string;
   name: string;
   paid_amount: number;
-  lecture_thumbnail: string;
-  buyer_email: string;
-  buyer_name: string;
-  buyer_tel: string;
   pay_method: string;
   merchant_uid: string;
   pg_provider: string;
@@ -597,12 +595,6 @@ export interface VideoCurriculumVideoInfos {
   videoTitle: string;
   videoTotalPlayTime: number;
 }
-export interface VideoCurriculumVideoInfo {
-  sectionId: number;
-  sectionNumber: number;
-  sectionTitle: string;
-  videoInfo: VideoCurriculumVideoInfos[];
-}
 
 export interface VideoCurriculum {
   lectureExpiryDate: string;
@@ -616,14 +608,7 @@ export interface VideoCurriculum {
     sectionId: number;
     sectionNumber: number;
     sectionTitle: string;
-    videoInfo: {
-      lastviewdate: string;
-      progress: number;
-      timecheck: number;
-      videoId: string;
-      videoTitle: string;
-      videoTotalPlayTime: number;
-    }[];
+    videoInfo: VideoCurriculumVideoInfos[];
   }[];
 }
 export interface Note {
@@ -754,31 +739,59 @@ export interface Lectureid {
 
 /* 디테일 */
 export interface DetailAPI {
-  lectureid: number;
-  lectureName: string;
-  lectureIntro: string;
-  lecturePrice: number;
-  lectureStart: string;
-  lectureEdit: null | string;
-  lectureDiscount: null | string;
-  lectureDiscountrate: null | string;
-  lectureDiscountstart: null | string;
-  lectureDiscountend: null | string;
-  lectureStatus: string;
-  lectureThumbnail: string;
-  lectureRating: number;
-  lectureTag: string[];
-  buyCount: number;
-
-  lectureCategory: {
-    categoryNo: number;
-    lectureBigCategory: string;
-    lectureMidCategory: string;
-  };
-  lectureSections: LectureSections[];
-  id: null | string;
-
-  mentoId: {
-    name: string;
-  };
+  id: null | string
+  lectureCategory:{
+    categoryNo:number
+    lectureBigCategory: string
+    lectureMidCategory: string
+  },
+  lectureDiscount:null | string
+  lectureDiscountend:null | string
+  lectureDiscountrate:null | string
+  lectureDiscountstart:null | string
+  lectureEdit:null | string
+  lectureIntro: string
+  lectureName: string
+  lecturePrice:number
+  lectureRating:number
+  lectureSections:{
+    sectionNumber:number
+    sectionTitle:string
+    sectionid:number
+    videos:{
+      fileName:null | string
+      totalPlayTime:number
+      uploadDate:null | string
+      videoId: string
+      videoLink: string
+      videoNo:number
+      videoTitle: string
+    }[]
+  }[]
+  lectureStart: string
+  lectureStatus: string
+  lectureTag:string[]
+  lectureThumbnail: string
+  lectureid:number
+  mentoId:{
+    birthday:string
+    id:string
+    name:string
+    kakaoEmailId:null | string
+    export:null | string
+    profileimgsrc:string
+    role:string
+    signupDate:string
+    status:string
+    userNo:number
+  }
 }
+
+
+
+
+
+
+
+
+

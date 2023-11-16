@@ -9,9 +9,9 @@ interface Data {
     lectureMidCategory: string;
     lectureName: string;
     lectureThumbnail: string;
-    lectureprice: number;
+    lecturePrice: number;
     mentoId: string;
-    buycount: number;
+    buyCount: number;
     rating: number;
     lectureId: number;
   }[];

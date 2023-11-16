@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { CreateNewVideo,CreateVideoTwo } from 'components';
-import { useDispatch/* , useSelector */ } from 'react-redux';
-// import { RootState } from 'redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'redux/store';
 import GoogleLoginButton from 'components/GoogleLogin/GoogleLogin';
-import { getCookie, setCookie } from 'utils/cookies';
+// import googleLoginReducer from '../../redux/reducer/googleLoginReducer';
+import { /* getCookie, */ setCookie } from 'utils/cookies';
 import { /* setGoogleLogin, getGoogleToken, */ setUrlToken} from '../../redux/reducer/googleLoginReducer'
 
 export interface ButtonProps {
@@ -13,7 +14,7 @@ export interface ButtonProps {
 
 const CreateVideo = () => {
   const dispatch = useDispatch();
-  // const googleStore = useSelector((state:RootState)=>state.googleLoginSlice)
+  const googleStore = useSelector((state:RootState)=>state.googleLoginSlice)
   const [createPage, setCreatePage] = useState<number>(1);
   const ChangePage = () => {
     setCreatePage(2);
@@ -47,7 +48,7 @@ const CreateVideo = () => {
     dispatch(setUrlToken(accessToken))
   },[])
 
-  const hasToken = !! getCookie('googleToken')
+  // const hasToken = !! getCookie('googleToken')
   
   const showComponent = () => {
     if (createPage === 1) return <CreateNewVideo ChangePage={ChangePage} />;
@@ -55,7 +56,7 @@ const CreateVideo = () => {
   };
   return (
     <div>
-      {!hasToken ? (
+      {!googleStore.urlToken ? (
         <GoogleLoginButton successGoogleLogin={successGoogleLogin} />
       ) : (
         showComponent()

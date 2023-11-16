@@ -206,7 +206,7 @@ export const Cart = {
     return response;
   },
 
-  delete: (params: I.LectureInfoList[]) => {
+  delete: (params: I.LectureInfoList) => {
     const response = authAxios.post('/cart/delete', params);
     return response;
   },
@@ -215,7 +215,7 @@ export const Cart = {
     return response;
   },
   add: (params: I.Curriculum) => {
-    const response = authAxios.post(`/cart/insert`, params.lectureId);
+    const response = authAxios.post(`/cart/insert`, params);
     return response;
   },
 };
@@ -305,13 +305,6 @@ export const notice = {
   },
 };
 
-export const cata = {
-  getCata: () => {
-    const response = authAxios.get('/lectureregist/categories');
-    return response;
-  },
-};
-
 export const video = {
   getCurriculum: (params: I.Curriculum) => {
     const response = authAxios.get(`/getMycoures`, {
@@ -361,6 +354,26 @@ export const search = {
     const response = baseAxios.get(
       `/api/lectures/detailtest/${params.lectureid}`
     );
+    return response;
+  },
+};
+
+/* 강의등록 api */
+export const createVideo = {
+  getCategoryAPI: () => {
+    const response = baseAxios.get('/lectureregist/categories');
+    return response;
+  },
+  videoAPI: (params: FormData) => {
+    const response = imageAxios.post('/lectureregitest', params);
+    return response;
+  },
+};
+
+/* 디테일 api */
+export const detail = {
+  getDetailAPT: (params: any) => {
+    const response = baseAxios.post(`api/lectures/${params.id}`);
     return response;
   },
 };

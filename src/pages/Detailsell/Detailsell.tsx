@@ -41,6 +41,7 @@ const Detailsell = () => {
   );
   const onBasket = ()=>{
     if (getCookie('accessToken')) { 
+      
       dispatch(addCartLoading(lectureDetail.lectureid));
       navi("/basket")
     }else{
@@ -50,6 +51,7 @@ const Detailsell = () => {
   }
   const onBaskets = () => {
     if (getCookie("accessToken")) {
+      console.log(lectureDetail.lectureid);
       dispatch(addCartLoading(lectureDetail.lectureid));
     } else {
       alert("로그인 후 결제해주세요");

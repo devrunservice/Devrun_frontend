@@ -4,7 +4,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { RootState } from "redux/store";
 import { useNavigate } from "react-router-dom";
 import { Product, UserInfo, CouponPop, NoData } from "components";
@@ -13,11 +13,12 @@ import { NoSearch } from "asset";
 import * as I from "types";
 import * as S from "style/Common";
 import * as St from "./style";
-
+import { cartDeleteLoading } from "../../redux/reducer/cartReducer";
 
 
 const Basket = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const priceDot = (num: number) =>
     num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   const { data,couponPrice } = useSelector((state: RootState) => state.cartReducer)
@@ -25,17 +26,24 @@ const Basket = () => {
   
   const [checkList, setCheckList] = useState<I.LectureInfoList[]>(data.lectureInfoList); 
   const singleCheck = (
-    lecture_name: string,
-    lecture_intro: string,
-    lecture_price: number,
-    lecture_thumbnail: string
+    lectureName: string,
+    lectureIntro: string,
+    lecturePrice: number,
+    lectureThumbnail: string,
+    lectureId: number,
   ) => {
     setCheckList((prev) =>
-      prev.some((item) => item.lecture_name === lecture_name)
-        ? prev.filter((item) => item.lecture_name !== lecture_name)
+      prev.some((item) => item.lectureName === lectureName)
+        ? prev.filter((item) => item.lectureName !== lectureName)
         : [
             ...prev,
-            { lecture_name, lecture_intro, lecture_price, lecture_thumbnail },
+            {
+              lectureName,
+              lectureIntro,
+              lecturePrice,
+              lectureThumbnail,
+              lectureId,
+            },
           ]
     );
   };
@@ -44,7 +52,7 @@ const Basket = () => {
     setCheckList(data.lectureInfoList);
   }, [data.lectureInfoList]);
 
-  const total = checkList.reduce((current, account) => current + account.lecture_price, 0);
+  const total = checkList.reduce((current, account) => current + account.lecturePrice, 0);
 
   const [price, setPrice] = useState<I.BasketState>({
     price: total,
@@ -53,7 +61,7 @@ const Basket = () => {
     couponCode: "",
     discountrate: 0,
   });
-    const couponList = checkList.some((c) => c.lecture_name === price.couponName ); 
+    const couponList = checkList.some((c) => c.lectureName === price.couponName ); 
   // 가격
   useEffect(() => {
     setPrice({ ...price, price: total });
@@ -85,12 +93,13 @@ const Basket = () => {
   useEffect(() => {
     if (price.couponName !== "" || checkList.length < 0) setPoint(0);
   }, [price.couponName, checkList]);
-
+  
   // 삭제 
   const onDelete = useCallback(async() => {
     if (window.confirm("해당강의를 삭제하시겠습니까?")) {
-      const response = await Cart.delete(checkList);
-      alert(response);
+       const payload = checkList.map((v) => v.lectureId);
+      dispatch(cartDeleteLoading(payload));
+      alert("삭제되었습니다.");
     }else{
       alert("취소되었습니다.");
     }
@@ -103,13 +112,8 @@ const Basket = () => {
 
     const payload: I.bastetCheck[] = checkList.map((item, index) => {
       const baseData = {
-        lecture_intro: item.lecture_intro,
-        lecture_thumbnail: item.lecture_thumbnail,
-        name: item.lecture_name,
-        paid_amount: item.lecture_price,
-        buyer_email: response.buyer_email || "",
-        buyer_name: response.buyer_name || "",
-        buyer_tel: response.buyer_tel || "",
+        name: item.lectureName,
+        paid_amount: item.lecturePrice,
         pay_method: response.pay_method || "",
         merchant_uid: response.merchant_uid || "",
         pg_provider: response.pg_provider || "",
@@ -135,6 +139,7 @@ const Basket = () => {
   };
 
   const basketBtn = (e: React.FormEvent<HTMLFormElement>) => {
+    if (checkList.length === 0) return alert("장바구니에 강의가 없습니다.") 
     e.preventDefault();
     // 가맹점 식별코드
     if (!window.IMP) return;
@@ -148,8 +153,8 @@ const Basket = () => {
       amount: price.price - point - price.discount, // 결제금액
       name:
         checkList.length > 1
-          ? `${checkList[0].lecture_name} 외 ${checkList.length - 1}개`
-          : ` ${checkList[0].lecture_name}`, // 주문명
+          ? `${checkList[0].lectureName} 외 ${checkList.length - 1}개`
+          : ` ${checkList[0].lectureName}`, // 주문명
       buyer_name: data.buyerInfo.userName, // 구매자 이름
       buyer_tel: data.buyerInfo.userPhonumber, // 구매자 전화번호
       buyer_email: data.buyerInfo.userEmail, // 구매자 이메일
@@ -195,7 +200,7 @@ const Basket = () => {
                       item={v}
                       key={index}
                       checked={checkList.some(
-                        (c) => c.lecture_name === v.lecture_name
+                        (c) => c.lectureName === v.lectureName
                       )}
                       singleCheck={singleCheck}
                       name={price.couponName}
@@ -231,7 +236,7 @@ const Basket = () => {
                     (v) =>
                       v.state === "ACTIVE" &&
                       checkList.some(
-                        (list) => list.lecture_name === v.lecturename
+                        (list) => list.lectureName === v.lecturename
                       )
                   ).length
                 }

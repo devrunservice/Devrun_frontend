@@ -64,7 +64,7 @@ const CouponPop = ({
                   couponListInCart.filter(
                     (v) =>
                       v.state === "ACTIVE" &&
-                      checkList.some((l) => l.lecture_name === v.lecturename)
+                      checkList.some((l) => l.lectureName === v.lecturename)
                   ).length
                 }
               </span>
@@ -72,7 +72,7 @@ const CouponPop = ({
             {couponListInCart.filter(
               (v) =>
                 v.state === "ACTIVE" &&
-                checkList.some((l) => l.lecture_name === v.lecturename)
+                checkList.some((l) => l.lectureName === v.lecturename)
             ).length > 0 ? (
               <ul>
                 <St.CouponList>
@@ -97,7 +97,7 @@ const CouponPop = ({
                   .filter(
                     (v) =>
                       v.state === "ACTIVE" &&
-                      checkList.some((l) => l.lecture_name === v.lecturename)
+                      checkList.some((l) => l.lectureName === v.lecturename)
                   )
                   .map((c) => {
                     return (
@@ -151,9 +151,7 @@ const CouponPop = ({
                   couponListInCart.filter(
                     (v) =>
                       v.state === "ACTIVE" &&
-                      !checkList.some(
-                        (c) => c.lecture_name === v.lecturename
-                      ) &&
+                      !checkList.some((c) => c.lectureName === v.lecturename) &&
                       couponListInCart.some(
                         (i) => i.lecturename === v.lecturename
                       )
@@ -166,7 +164,7 @@ const CouponPop = ({
                 .filter(
                   (v) =>
                     v.state === "ACTIVE" &&
-                    !checkList.some((c) => c.lecture_name === v.lecturename) &&
+                    !checkList.some((c) => c.lectureName === v.lecturename) &&
                     couponListInCart.some(
                       (i) => i.lecturename === v.lecturename
                     )
