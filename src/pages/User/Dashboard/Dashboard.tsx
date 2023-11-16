@@ -22,7 +22,7 @@ const Dashboard = () => {
     dispatch(myInfoLoading({id: userId}));
     dispatch(learningLoading({page: '1', status: 'all'}));
     dispatch(noteLectureLoading({page: 1}));
-    dispatch(questionListLoading({page: 1}));
+    // dispatch(questionListLoading({page: 1}));
   }, []);
 
   const userInfo = useSelector((state: RootState) => state.mypageReducer.data);
@@ -48,7 +48,7 @@ const Dashboard = () => {
     }
   };
 
-  console.log(noteLectures.dtolist);
+  console.log(noteLectures);
 
   return (
     <section>
@@ -146,9 +146,9 @@ const Dashboard = () => {
         </div>
       </St.NoteQuestionWrapper>
       {/* 월간 학습 달력 */}
-      <St.CalenderWrapper>
+      {/* <St.CalenderWrapper>
         <Calender />
-      </St.CalenderWrapper>
+      </St.CalenderWrapper> */}
     </section>
   );
 };
