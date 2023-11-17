@@ -21,7 +21,8 @@ const Dashboard = () => {
     const userId = decode('accessToken');
     dispatch(myInfoLoading({id: userId}));
     dispatch(learningLoading({page: '1', status: 'all'}));
-    dispatch(noteLectureLoading({page: Number(1)}));
+    dispatch(noteLectureLoading({page: 1}));
+    // dispatch(questionListLoading({page: 1}));
   }, []);
 
   const userInfo = useSelector((state: RootState) => state.mypageReducer.data);
@@ -42,6 +43,7 @@ const Dashboard = () => {
       navigate('/questions');
     }
   };
+
 
   return (
     <section>

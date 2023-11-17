@@ -733,31 +733,60 @@ export interface Lectureid {
 
 /* 디테일 */
 export interface DetailAPI {
-  lectureid: number;
-  lectureName: string;
-  lectureIntro: string;
-  lecturePrice: number;
-  lectureStart: string;
-  lectureEdit: null | string;
-  lectureDiscount: null | string;
-  lectureDiscountrate: null | string;
-  lectureDiscountstart: null | string;
-  lectureDiscountend: null | string;
-  lectureStatus: string;
-  lectureThumbnail: string;
-  lectureRating: number;
-  lectureTag: string[];
-  buyCount: number;
-
+  id: null | string;
   lectureCategory: {
     categoryNo: number;
     lectureBigCategory: string;
     lectureMidCategory: string;
   };
-  lectureSections: LectureSections[];
-  id: null | string;
-
+  lectureDiscount: null | string;
+  lectureDiscountend: null | string;
+  lectureDiscountrate: null | string;
+  lectureDiscountstart: null | string;
+  lectureEdit: null | string;
+  lectureIntro: string;
+  lectureName: string;
+  lecturePrice: number;
+  lectureRating: number;
+  lectureSections: {
+    sectionNumber: number;
+    sectionTitle: string;
+    sectionid: number;
+    videos: {
+      fileName: null | string;
+      totalPlayTime: number;
+      uploadDate: null | string;
+      videoId: string;
+      videoLink: string;
+      videoNo: number;
+      videoTitle: string;
+    }[];
+  }[];
+  lectureStart: string;
+  lectureStatus: string;
+  lectureTag: string[];
+  lectureThumbnail: string;
+  buyCount: number;
+  lectureid: number;
   mentoId: {
+    birthday: string;
+    id: string;
     name: string;
+    kakaoEmailId: null | string;
+    export: null | string;
+    profileimgsrc: string;
+    role: string;
+    signupDate: string;
+    status: string;
+    userNo: number;
   };
 }
+
+
+
+
+
+
+
+
+

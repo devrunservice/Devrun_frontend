@@ -20,7 +20,7 @@ const Notes = () => {
     (state: RootState) => state.dashboardReducer.noteLectureData
   );
 
-  console.log(noteLectures.dtolist);
+  console.log(noteLectures);
 
   return (
     <section>

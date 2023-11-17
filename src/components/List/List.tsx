@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
-import {Arrow} from 'asset';
 import * as I from 'types';
-import {FlexColumn} from 'style/Common';
 import * as St from './styles';
 
 const List: React.FC<I.NoteQuestionListType> = ({
