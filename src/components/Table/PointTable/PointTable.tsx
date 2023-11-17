@@ -50,7 +50,7 @@ const PointTable = ({data}: point) => (
             )}
             {v.explanation === "회원가입시 얻은 포인트" && (
               <>
-                {v.productname} 회원가입 축하기념 {" "}
+                {v.productname} 기념 {" "}
                 <St.PointSpan $color>{v.pointupdown}</St.PointSpan>{" "}
                 포인트 적립되셨습니다.
               </>

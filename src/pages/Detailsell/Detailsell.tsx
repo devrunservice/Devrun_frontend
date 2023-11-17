@@ -13,7 +13,7 @@ import {
   LectureDetailLoading,
   LectureDetailTextLoading,
 } from "../../redux/reducer/learningReducer";
-import { addCartLoading } from "../../redux/reducer/cartReducer";
+import { addCartLoading, freeCartLoading } from "../../redux/reducer/cartReducer";
 
 
 
@@ -38,9 +38,15 @@ const Detailsell = () => {
   };
   const onBasket = ()=>{
     if (getCookie('accessToken')) { 
-      dispatch(addCartLoading(lectureDetail.lectureid));
-      alert("강의가 장바구니에 담겼습니다.");
-      navi("/basket")
+      if (lectureDetail.lecturePrice === 0){
+        dispatch(freeCartLoading({ lectureName: lectureDetail.lectureName }));
+        alert("강의구매가 완료되었습니다.");
+        navi("/learning");
+      }else{
+        dispatch(addCartLoading(lectureDetail.lectureid));
+        alert("강의가 장바구니에 담겼습니다.");
+        navi("/basket");
+      }
     }else{
       alert("로그인 후 결제해주세요")
       navi("/login");
@@ -48,8 +54,14 @@ const Detailsell = () => {
   }
   const onBaskets = () => {
     if (getCookie("accessToken")) {
-      alert("강의가 장바구니에 담겼습니다.")
-      dispatch(addCartLoading(lectureDetail.lectureid));
+      if (lectureDetail.lecturePrice === 0) {
+        dispatch(freeCartLoading({ lectureName: lectureDetail.lectureName }));
+        alert("강의구매가 완료되었습니다.");
+      }else{
+        alert("강의가 장바구니에 담겼습니다.");
+        dispatch(addCartLoading(lectureDetail.lectureid));
+      } 
+      
     } else {
       alert("로그인 후 결제해주세요");
       navi("/login");
@@ -101,7 +113,7 @@ const Detailsell = () => {
           {lectureDetail.lectureTag.map((v) => {
             return (
               <St.DetailHashli key={v}>
-                <button>{v}</button>
+                {v}
               </St.DetailHashli>
             );
           })}

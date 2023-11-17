@@ -218,6 +218,10 @@ export const Cart = {
     const response = authAxios.post(`/cart/insert`, params);
     return response;
   },
+  free:(params:I.lectureName)=>{
+    const response = authAxios.post(`/Free`, params);
+    return response;
+  }
 };
 
 export const create = {

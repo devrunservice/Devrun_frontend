@@ -513,9 +513,14 @@ export interface CommentDel {
   id: string;
   commentNo: number;
 }
-export interface LectureInfoList {
-  lectureIntro: string;
+
+export interface lectureName {
   lectureName: string;
+}
+
+export interface LectureInfoList extends lectureName {
+  lectureIntro: string;
+
   lecturePrice: number;
   lectureThumbnail: string;
   lectureId: number;
@@ -551,6 +556,7 @@ export interface Carts {
   loading?: boolean;
   error?: Error | null;
   saveCart: string;
+  freeCart: string;
 }
 
 export interface BasketState {
