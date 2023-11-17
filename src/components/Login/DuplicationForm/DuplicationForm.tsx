@@ -62,7 +62,6 @@ const DuplicationForm = ({
       option === 'id'
         ? await signup.getDuplicatedId({id: value})
         : await signup.getDuplicatedEmail({email: value});
-    console.log(response);
     if (response.data === 0) {
       updateMessage(
         `${option}DuplicationMessage`,
@@ -76,7 +75,6 @@ const DuplicationForm = ({
       );
       updateValid(`${option}Duplication`, false);
     }
-    console.log('hi');
   };
 
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {

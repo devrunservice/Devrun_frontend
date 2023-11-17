@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import {useState, useCallback} from 'react';
 
 interface CheckboxState {
   [key: string]: boolean;
@@ -16,13 +16,12 @@ const useCheckbox = (initialState: CheckboxState): CheckboxGroup => {
   const handleCheckAll = useCallback(
     (checked: boolean) => {
       const updatedCheckboxes: CheckboxState = {};
-      console.log(updatedCheckboxes);
       Object.keys(checkboxes).forEach((key) => {
         updatedCheckboxes[key] = checked;
       });
       setCheckboxes(updatedCheckboxes);
     },
-    [checkboxes],
+    [checkboxes]
   );
 
   const handleCheckSingle = useCallback((name: string, checked: boolean) => {
@@ -33,7 +32,7 @@ const useCheckbox = (initialState: CheckboxState): CheckboxGroup => {
       };
 
       updatedCheckboxes.allChecked = Object.keys(updatedCheckboxes)
-        .filter((key) => key !== "allChecked")
+        .filter((key) => key !== 'allChecked')
         .every((key) => updatedCheckboxes[key] === true);
 
       return updatedCheckboxes;

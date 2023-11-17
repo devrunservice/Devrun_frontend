@@ -27,14 +27,13 @@ const HomePage = () => {
   const [search, onSearch,setSearch] = useInput("");
  
   const dispatch = useDispatch();
-  const { data,loading:noticeLoading } = useSelector( (state: RootState) => state.noticeReducer);
-  const { learningData, loading: dashboardLoading } = useSelector(
+  const { data } = useSelector( (state: RootState) => state.noticeReducer);
+  const { learningData} = useSelector(
     (state: RootState) => state.dashboardReducer
   );
   const {
     lecture: buy,
     data: rating,
-    loading: learnLoading,
   } = useSelector((state: RootState) => state.learningReducer);
   
   useEffect(() => {
@@ -45,6 +44,7 @@ const HomePage = () => {
      dispatch(learningLoading({ page: "1", status: "all" }));
     }
   }, []);
+  console.log(learningData);
   const navigate = useNavigate();
 
   const searchBtn = (e:React.FormEvent<HTMLFormElement>)=>{
@@ -65,7 +65,6 @@ const HomePage = () => {
     const response = await mypage.getVideoId(id);
     navigate(`/videoView/${id}/${response.data}`);
   };
-  if (noticeLoading || learnLoading || dashboardLoading) return <div>asd</div>;
     return (
       <>
         <St.EventBanner>

@@ -10,7 +10,7 @@ import {myInfoLoading} from '../../../redux/reducer/mypageReducer';
 import {
   learningLoading,
   noteLectureLoading,
-  questionLectureLoading,
+  questionListLoading,
 } from '../../../redux/reducer/dashboardReducer';
 
 const Dashboard = () => {
@@ -21,20 +21,15 @@ const Dashboard = () => {
     const userId = decode('accessToken');
     dispatch(myInfoLoading({id: userId}));
     dispatch(learningLoading({page: '1', status: 'all'}));
-    dispatch(noteLectureLoading({page: 1}));
-    dispatch(questionLectureLoading({page: 1}));
+    dispatch(noteLectureLoading({page: Number(1)}));
   }, []);
 
   const userInfo = useSelector((state: RootState) => state.mypageReducer.data);
-  const courses = useSelector(
-    (state: RootState) => state.dashboardReducer.learningData
-  );
-  const noteLectures = useSelector(
-    (state: RootState) => state.dashboardReducer.noteLectureData
-  );
-  const noteQuestions = useSelector(
-    (state: RootState) => state.dashboardReducer.questionLectureData
-  );
+  const {
+    learningData: courses,
+    noteLectureData: noteLectures,
+   } = useSelector((state: RootState) => state.dashboardReducer);
+
 
   const handleMoreBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
     const {name} = e.target as HTMLButtonElement;
@@ -47,8 +42,6 @@ const Dashboard = () => {
       navigate('/questions');
     }
   };
-
-  console.log(courses);
 
   return (
     <section>
@@ -66,21 +59,25 @@ const Dashboard = () => {
             더보기
           </St.MoreBtn>
         </St.TitleWrapper>
-        <St.ListWrapper>
-          {courses.dtolist.slice(0, 3).map((course) => (
-            <Learn
-              key={course.id}
-              id={course.id}
-              title={course.title}
-              mentoName={course.mentoName}
-              thumbnail={course.thumbnail}
-              progressRate={course.progressRate}
-              rating={course.rating}
-              lastViewDate={course.lastViewDate}
-              expiryDate={course.expiryDate}
-            />
-          ))}
-        </St.ListWrapper>
+        {courses.dtolist.length > 0 ? (
+          <St.ListWrapper>
+            {courses.dtolist.slice(0, 3).map((course) => (
+              <Learn
+                key={course.id}
+                id={course.id}
+                title={course.title}
+                mentoName={course.mentoName}
+                thumbnail={course.thumbnail}
+                progressRate={course.progressRate}
+                rating={course.rating}
+                lastViewDate={course.lastViewDate}
+                expiryDate={course.expiryDate}
+              />
+            ))}
+          </St.ListWrapper>
+        ) : (
+          <St.ErrorMessage>수강한 강의가 없습니다.</St.ErrorMessage>
+        )}
       </St.LearningWrapper>
 
       {/* 강의 노트 & 작성한 질문 */}
@@ -98,12 +95,14 @@ const Dashboard = () => {
             <St.ErrorMessage>작성한 노트가 없습니다.</St.ErrorMessage>
           ) : (
             <ul>
-              {noteLectures.dtolist.slice(0, 3).map((lecture) => (
+              {noteLectures.dtolist.map((lecture) => (
                 <List
                   key={lecture.lectureId}
-                  category="notes"
+                  page="notes"
+                  category="note"
                   lectureId={lecture.lectureId}
                   lectureTitle={lecture.lectureTitle}
+                  lectureThumbnail={lecture.lectureThumbnail}
                   lastStudyDate={lecture.lastStudyDate}
                   count={lecture.count}
                 />
@@ -122,20 +121,27 @@ const Dashboard = () => {
               더보기
             </St.MoreBtn>
           </St.TitleWrapper>
-          <ul>
-            {/* {noteQuestions.slice(0, 3).map((question, index) => (
+          {/* <ul>
+            {questionList.dtolist.slice(0, 3).map((question) => (
               <List
-                key={index}
-                category="questions"
-                title={question.questionTitle}
-                date={question.date}
+                key={question.questionId}
+                page={question.page}
+                category={question.category}
+                questionId={question.questionId}
+                lectureTitle={question.lectureTitle}
+                questionTitle={question.questionTitle}
+                questionContentPreview={question.questionContentPreview}
+                questionDate={question.questionDate}
+                count={question.count}
               />
-            ))} */}
-          </ul>
+            ))}
+          </ul> */}
         </div>
       </St.NoteQuestionWrapper>
       {/* 월간 학습 달력 */}
-      <Calender />
+      {/* <St.CalenderWrapper>
+        <Calender />
+      </St.CalenderWrapper> */}
     </section>
   );
 };

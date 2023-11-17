@@ -39,7 +39,6 @@ const mypageReduer = createSlice({
       state.data.profilePreview = action.payload.data.profileimgsrc;
     },
     myInfoFail: (state, action) => {
-      console.log('Fail to get user data');
       state.loading = false;
       state.error = action.payload;
     },

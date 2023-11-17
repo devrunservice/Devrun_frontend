@@ -100,19 +100,30 @@ export interface LearningType {
   lastViewDate: string;
   expiryDate: string;
 }
+
 export interface NoteLectureWrapperType {
   dtolist: LectureType[];
   totalPages: number;
 }
 export interface LectureType {
-  key?: number;
+  key: number;
+  page: string;
+  category: string;
   lectureId: number;
   lectureTitle: string;
-  lastStudyDate: string;
+  lastStudyDate?: string;
   lectureThumbnail?: string;
   count: number;
-  category?: string;
 }
+export interface NoteQuestionListType extends LectureType {
+  questionId?: number;
+  questionLectureTitle?: string;
+  questionTitle?: string;
+  questionContentPreview?: string;
+  questionDate?: string;
+  questionCount?: number;
+}
+
 export interface NoteListWrapperType {
   dtolist: NoteListType[];
   totalPages: number;
@@ -141,17 +152,28 @@ export interface NoteDetailType {
   date: string;
   content: string;
 }
-export interface QuestionLectureWrapperType {
-  dtolist: LectureType[];
+export interface QuestionListWrapperType {
+  dtolist: QuestionListType[];
   totalPages: number;
 }
-export interface QuestionType {
-  lectureQaNo: number;
+export interface QuestionListType {
+  key: number;
+  page: string;
+  category: string;
+  questionId: number;
   lectureTitle: string;
-  mentoId: string;
-  questionContent: string;
-  questionDate: string;
   questionTitle: string;
+  questionContentPreview: string;
+  questionDate: string;
+  count: number;
+}
+export interface QuestionDetailType {
+  questionId: number;
+  lectureId: number;
+  videoId: string;
+  date: string;
+  questionTitle: string;
+  content: string;
 }
 export interface CalenderHeaderType {
   currentMonth: Date;
