@@ -1,10 +1,8 @@
-import { styled } from "styled-components";
-import { TitleWrapper } from "../styles";
+import {styled} from 'styled-components';
 
 export const Section = styled.section`
   width: 60%;
 `;
-export const Title = styled(TitleWrapper)``;
 
 export const InputField = styled.div`
   display: flex;

@@ -16,12 +16,18 @@ import {
   noteDetailLoading,
   noteDetailSuccess,
   noteDetailFail,
+  noteDeleteLoading,
+  noteDeleteSuccess,
+  noteDeleteFail,
   questionListLoading,
   questionListSuccess,
   questionListFail,
   questionDetailLoading,
   questionDetailSuccess,
   questionDetailFail,
+  questionDeleteLoading,
+  questionDeleteSuccess,
+  questionDeleteFail,
 } from '../reducer/dashboardReducer';
 
 function* learning(
@@ -68,23 +74,46 @@ function* noteDetail(
   }
 }
 
+function* noteDelete(action: PayloadAction<number>): Generator<any, void, any> {
+  try {
+    yield call(mypage.noteDelete, action.payload);
+    yield put(noteDeleteSuccess(true));
+  } catch (error: any) {
+    yield put(noteDeleteFail(error));
+  }
+}
+
 function* questionList(
   action: PayloadAction<NotePropsType>
 ): Generator<any, void, any> {
   try {
-    const response = yield call(mypage.questionList);
+    const response = yield call(mypage.questionList, action.payload);
+    console.log(response);
     yield put(questionListSuccess(response));
   } catch (error: any) {
     yield put(questionListFail(error));
   }
 }
 
-function* questionDetail(): Generator<any, void, any> {
+function* questionDetail(
+  action: PayloadAction<NotePropsType>
+): Generator<any, void, any> {
   try {
-    const response = yield call(mypage.questionDetail);
+    const response = yield call(mypage.questionDetail, action.payload);
     yield put(questionDetailSuccess(response));
   } catch (error: any) {
     yield put(questionDetailFail(error));
+  }
+}
+
+function* questionDelete(
+  action: PayloadAction<NotePropsType>
+): Generator<any, void, any> {
+  try {
+    yield call(mypage.questionDelete, action.payload);
+    yield put(questionDeleteSuccess(true));
+  } catch (error: any) {
+    yield put(noteDeleteFail(error));
   }
 }
 
@@ -104,6 +133,10 @@ export function* watchNoteDetailSaga() {
   yield takeLatest(noteDetailLoading.type, noteDetail);
 }
 
+export function* watchNoteDeletelSaga() {
+  yield takeLatest(noteDeleteLoading.type, noteDelete);
+}
+
 export function* watchQuestionListSaga() {
   yield takeLatest(questionListLoading.type, questionList);
 }
@@ -112,13 +145,19 @@ export function* watchQuestionDetailSaga() {
   yield takeLatest(questionDetailLoading.type, questionDetail);
 }
 
+export function* watchQuestionDeleteSaga() {
+  yield takeLatest(questionDeleteLoading.type, questionDelete);
+}
+
 export default function* dashboardSaga() {
   yield all([
     fork(watchLearningSaga),
     fork(watchNoteLectureSaga),
     fork(watchNoteListSaga),
     fork(watchNoteDetailSaga),
+    fork(watchNoteDeletelSaga),
     fork(watchQuestionListSaga),
     fork(watchQuestionDetailSaga),
+    fork(watchQuestionDeleteSaga),
   ]);
 }

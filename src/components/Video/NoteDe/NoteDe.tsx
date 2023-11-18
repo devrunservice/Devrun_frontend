@@ -1,32 +1,32 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useCallback, useState } from "react";
-import DOMPurify from "dompurify";
-import { Editor } from "components";
+import React, {useCallback, useState} from 'react';
+import {Editor, Content} from 'components';
 
-import * as St from "./style";
+import * as St from './style';
 
 interface Note {
   onNote: () => void;
   id: number;
   setNoteBoolean: React.Dispatch<React.SetStateAction<boolean>>;
-  getNote: { chapter: number; content: string; date: string; noteId: number; noteTitle: string; subHeading: string; }[]
+  getNote: {
+    chapter: number;
+    content: string;
+    date: string;
+    noteId: number;
+    noteTitle: string;
+    subHeading: string;
+  }[];
 }
 
-
-const NoteDe = ({
-  onNote,
-  id,
-  getNote,
-  setNoteBoolean,
-}: Note) => {
+const NoteDe = ({onNote, id, getNote, setNoteBoolean}: Note) => {
   const onExitNote = useCallback(() => {
     setNoteBoolean(false);
   }, []);
-  const [hide,setHide] = useState(false)
+  const [hide, setHide] = useState(false);
   const [noteData, setNoteData] = useState({
-    title: "",
-    content: "",
-    id:0,
+    title: '',
+    content: '',
+    id: 0,
   });
   const onReNote = useCallback(
     (noteId: number, content: string, title: string) => {
@@ -70,11 +70,9 @@ const NoteDe = ({
                   </div>
                 </div>
                 <em>{v.noteTitle}</em>
-                <St.Contents
-                  dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(v.content),
-                  }}
-                />
+                <St.Contents>
+                  <Content content={v.content} />
+                </St.Contents>
               </>
             );
           })}

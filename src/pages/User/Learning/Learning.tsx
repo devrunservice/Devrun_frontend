@@ -2,16 +2,17 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
-import {Learn, SearchBar, Pagination} from 'components';
+import {NoSearch} from 'asset';
+import {UserTop, Learn, NoData, Pagination} from 'components';
 import * as St from './style';
 import {learningLoading} from '../../../redux/reducer/dashboardReducer';
 
 const Learning = () => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(learningLoading({page: '1', status: 'all'}));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(learningLoading({page: '1', status: 'all'}));
+  // }, []);
 
   const courses = useSelector(
     (state: RootState) => state.dashboardReducer.learningData
@@ -19,17 +20,6 @@ const Learning = () => {
 
   const [pageno, setPageno] = useState<number>(1);
   const [tap, setTap] = useState<number>(1);
-  // const tapList = [
-  //   {id: 0, list: '학습순'},
-  //   {id: 1, list: '신청순'},
-  //   {id: 2, list: '제목순'},
-  // ];
-  // const [tapOpen, setTapOpen] = useState<boolean>(false);
-  // const [tapLists, setTaplists] = useState(tapList[0].list);
-  // const tapOpsion = (item: string) => {
-  //   setTaplists(item);
-  //   setTapOpen(false);
-  // };
 
   useEffect(() => {
     if (tap === 1) {
@@ -58,10 +48,7 @@ const Learning = () => {
 
   return (
     <section>
-      <St.Top>
-        <St.Title>내 학습 관리</St.Title>
-        {/* <SearchBar /> */}
-      </St.Top>
+      <UserTop title="내 학습 관리" />
       <St.LearnCon>
         {/* <St.TapWrap> */}
         <St.Left>
@@ -104,20 +91,30 @@ const Learning = () => {
                 expiryDate={course.expiryDate}
               />
             ))
+          ) : tap === 1 || tap === 2 ? (
+            <NoData
+              title="수강한 강의가 존재하지 않습니다"
+              span="강의를 구매해주세요"
+              tag
+              img={<NoSearch />}
+            />
           ) : (
-            <St.ErrorMessage>
-              {tap === 1 || tap === 2
-                ? '수강한 강의가 없습니다.'
-                : '완료한 강의가 없습니다.'}
-            </St.ErrorMessage>
+            <NoData
+              title="완료한 강의가 존재하지 않습니다"
+              span="언제든지 새로운 지식을 습득할 수 있도록 강의를 들으며 즐겁게 학습해 보세요!"
+              tag={false}
+              img={<NoSearch />}
+            />
           )}
         </St.LearnUl>
       </St.LearnCon>
-      <Pagination
-        pageno={pageno}
-        setPageno={setPageno}
-        totalPages={courses.totalPages}
-      />
+      {courses.dtolist.length > 0 && (
+        <Pagination
+          pageno={pageno}
+          setPageno={setPageno}
+          totalPages={courses.totalPages}
+        />
+      )}
     </section>
   );
 };

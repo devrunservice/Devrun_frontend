@@ -22,15 +22,13 @@ const Dashboard = () => {
     dispatch(myInfoLoading({id: userId}));
     dispatch(learningLoading({page: '1', status: 'all'}));
     dispatch(noteLectureLoading({page: 1}));
-    // dispatch(questionListLoading({page: 1}));
+    dispatch(questionListLoading({page: 1, status: 'answer'}));
   }, []);
 
   const userInfo = useSelector((state: RootState) => state.mypageReducer.data);
-  const {
-    learningData: courses,
-    noteLectureData: noteLectures,
-   } = useSelector((state: RootState) => state.dashboardReducer);
-
+  const {learningData: courses, noteLectureData: noteLectures} = useSelector(
+    (state: RootState) => state.dashboardReducer
+  );
 
   const handleMoreBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
     const {name} = e.target as HTMLButtonElement;
@@ -43,7 +41,6 @@ const Dashboard = () => {
       navigate('/questions');
     }
   };
-
 
   return (
     <section>
@@ -97,7 +94,7 @@ const Dashboard = () => {
             <St.ErrorMessage>작성한 노트가 없습니다.</St.ErrorMessage>
           ) : (
             <ul>
-              {noteLectures.dtolist.map((lecture) => (
+              {noteLectures.dtolist.slice(0, 3).map((lecture) => (
                 <List
                   key={lecture.lectureId}
                   page="notes"
@@ -123,8 +120,8 @@ const Dashboard = () => {
               더보기
             </St.MoreBtn>
           </St.TitleWrapper>
-          {/* <ul>
-            {questionList.dtolist.slice(0, 3).map((question) => (
+          <ul>
+            {/* {questionList.dtolist.slice(0, 3).map((question) => (
               <List
                 key={question.questionId}
                 page={question.page}
@@ -136,8 +133,8 @@ const Dashboard = () => {
                 questionDate={question.questionDate}
                 count={question.count}
               />
-            ))}
-          </ul> */}
+            ))} */}
+          </ul>
         </div>
       </St.NoteQuestionWrapper>
       {/* 월간 학습 달력 */}

@@ -1,72 +1,66 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
-import { RootState } from 'redux/store';
-import YouTube from "react-youtube";
-import DOMPurify from "dompurify";
-import { getCookie } from "utils/cookies";
-import { useDate } from "hooks";
-import { Comment } from "components";
-import {  Play } from "asset";
-import * as St from "./style";
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {useNavigate, useParams} from 'react-router-dom';
+import {RootState} from 'redux/store';
+import YouTube from 'react-youtube';
+import {getCookie} from 'utils/cookies';
+import {useDate} from 'hooks';
+import {Comment, Content} from 'components';
+import {Play} from 'asset';
+import * as St from './style';
 import {
   LectureDetailLoading,
   LectureDetailTextLoading,
-} from "../../redux/reducer/learningReducer";
-import { addCartLoading, freeCartLoading } from "../../redux/reducer/cartReducer";
-
-
-
+} from '../../redux/reducer/learningReducer';
+import {addCartLoading, freeCartLoading} from '../../redux/reducer/cartReducer';
 
 const Detailsell = () => {
   const dispatch = useDispatch();
-  const navi = useNavigate()
+  const navi = useNavigate();
   const param = useParams();
-  const { videoTime } = useDate();
-  const { lectureDetail, content } = useSelector(
+  const {videoTime} = useDate();
+  const {lectureDetail, content} = useSelector(
     (state: RootState) => state.learningReducer
   );
   useEffect(() => {
-    dispatch(LectureDetailLoading({ lectureid: param.lectureId }));
-    dispatch(LectureDetailTextLoading({ lectureid: 25 }));
+    dispatch(LectureDetailLoading({lectureid: param.lectureId}));
+    dispatch(LectureDetailTextLoading({lectureid: 25}));
   }, [param.lectureId]);
   const [tapNum, setTapNum] = useState<number>(0);
   const onTap = (k: number) => {
-     if (k === tapNum) return setTapNum(0);
-     if (lectureDetail.lectureSections.find((v) => v.sectionNumber === k))
-       return setTapNum(k);
+    if (k === tapNum) return setTapNum(0);
+    if (lectureDetail.lectureSections.find((v) => v.sectionNumber === k))
+      return setTapNum(k);
   };
-  const onBasket = ()=>{
-    if (getCookie('accessToken')) { 
-      if (lectureDetail.lecturePrice === 0){
-        dispatch(freeCartLoading({ lectureName: lectureDetail.lectureName }));
-        alert("강의구매가 완료되었습니다.");
-        navi("/learning");
-      }else{
-        dispatch(addCartLoading(lectureDetail.lectureid));
-        alert("강의가 장바구니에 담겼습니다.");
-        navi("/basket");
-      }
-    }else{
-      alert("로그인 후 결제해주세요")
-      navi("/login");
-    }
-  }
-  const onBaskets = () => {
-    if (getCookie("accessToken")) {
+  const onBasket = () => {
+    if (getCookie('accessToken')) {
       if (lectureDetail.lecturePrice === 0) {
-        dispatch(freeCartLoading({ lectureName: lectureDetail.lectureName }));
-        alert("강의구매가 완료되었습니다.");
-      }else{
-        alert("강의가 장바구니에 담겼습니다.");
+        dispatch(freeCartLoading({lectureName: lectureDetail.lectureName}));
+        alert('강의구매가 완료되었습니다.');
+        navi('/learning');
+      } else {
         dispatch(addCartLoading(lectureDetail.lectureid));
-      } 
-      
+        alert('강의가 장바구니에 담겼습니다.');
+        navi('/basket');
+      }
     } else {
-      alert("로그인 후 결제해주세요");
-      navi("/login");
+      alert('로그인 후 결제해주세요');
+      navi('/login');
     }
-    
+  };
+  const onBaskets = () => {
+    if (getCookie('accessToken')) {
+      if (lectureDetail.lecturePrice === 0) {
+        dispatch(freeCartLoading({lectureName: lectureDetail.lectureName}));
+        alert('강의구매가 완료되었습니다.');
+      } else {
+        alert('강의가 장바구니에 담겼습니다.');
+        dispatch(addCartLoading(lectureDetail.lectureid));
+      }
+    } else {
+      alert('로그인 후 결제해주세요');
+      navi('/login');
+    }
   };
   return (
     <St.DetailWrap>
@@ -111,11 +105,7 @@ const Detailsell = () => {
 
         <St.DetailHash>
           {lectureDetail.lectureTag.map((v) => {
-            return (
-              <St.DetailHashli key={v}>
-                {v}
-              </St.DetailHashli>
-            );
+            return <St.DetailHashli key={v}>{v}</St.DetailHashli>;
           })}
         </St.DetailHash>
       </St.PreviewArea>
@@ -126,22 +116,18 @@ const Detailsell = () => {
       </St.DetailTab>
       <St.DetailMainWrap>
         <St.LeftWrap>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(content),
-            }}
-          />
+          <Content content={content} />
           <St.Curriculum>
             <St.CurriculumTitle>
               커리큘럼
               <St.CurriculumCount>
-                총{" "}
+                총{' '}
                 <St.Curriculums>
                   {lectureDetail.lectureSections
                     .map((v) => v.videos.length)
                     .reduce((a, b) => a + b, 0)}
                 </St.Curriculums>
-                개 ·{" "}
+                개 ·{' '}
                 <St.Curriculums>
                   {videoTime(
                     lectureDetail.lectureSections
@@ -165,7 +151,7 @@ const Detailsell = () => {
                         섹션 {v.sectionNumber}. {v.sectionTitle}
                       </em>
                       <p>
-                        {v.videos.length}강 ·{" "}
+                        {v.videos.length}강 ·{' '}
                         {videoTime(
                           v.videos
                             .map((k) => k.totalPlayTime)
@@ -224,7 +210,7 @@ const Detailsell = () => {
                 지식공유자 : {lectureDetail.mentoId.name}
               </St.ButtomLi>
               <St.ButtomLi>
-                총{" "}
+                총{' '}
                 {lectureDetail.lectureSections
                   .map((v) => v.videos.length)
                   .reduce((a, b) => a + b, 0)}
