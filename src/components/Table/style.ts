@@ -129,3 +129,9 @@ export const NoteDate = styled.p`
 export const NotePreview = styled.p`
   margin: 16px 0;
 `;
+
+// Table Header
+export const With15 = styled.div`
+  width: 15%;
+  ${common}
+`;

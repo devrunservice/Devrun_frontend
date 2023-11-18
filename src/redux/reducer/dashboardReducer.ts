@@ -8,8 +8,10 @@ export interface DashboardReducerType {
   noteLectureData: I.NoteLectureWrapperType;
   noteListData: I.NoteListWrapperType;
   noteDetailData: I.NoteDetailType;
+  noteDeleteData: boolean;
   questionListData: I.QuestionListWrapperType;
   questionDetailData: I.QuestionDetailType;
+  questionDeleteData: boolean;
   error: Error | null;
 }
 
@@ -36,8 +38,10 @@ const initialState: DashboardReducerType = {
     date: '',
     content: '',
   },
+  noteDeleteData: false,
   questionListData: {
     dtolist: [],
+    questionCount: 0,
     totalPages: 1,
   },
   questionDetailData: {
@@ -47,7 +51,9 @@ const initialState: DashboardReducerType = {
     date: '',
     questionTitle: '',
     content: '',
+    answer: '',
   },
+  questionDeleteData: false,
   error: null,
 };
 
@@ -102,19 +108,30 @@ const dashboardReducer = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    noteDeleteLoading: (state, action) => {
+      state.loading = true;
+    },
+    noteDeleteSuccess: (state, action) => {
+      state.loading = false;
+      state.noteDeleteData = action.payload;
+    },
+    noteDeleteFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
     // 강의 질문
     questionListLoading: (state, action) => {
       state.loading = true;
     },
     questionListSuccess: (state, action) => {
       state.loading = false;
-      state.noteLectureData = action.payload.data;
+      state.questionListData = action.payload.data;
     },
     questionListFail: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
-    questionDetailLoading: (state) => {
+    questionDetailLoading: (state, action) => {
       state.loading = true;
     },
     questionDetailSuccess: (state, action) => {
@@ -122,6 +139,17 @@ const dashboardReducer = createSlice({
       state.questionDetailData = action.payload.data;
     },
     questionDetailFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    questionDeleteLoading: (state, action) => {
+      state.loading = true;
+    },
+    questionDeleteSuccess: (state, action) => {
+      state.loading = false;
+      state.questionDeleteData = action.payload;
+    },
+    questionDeleteFail: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
@@ -141,12 +169,18 @@ export const {
   noteDetailLoading,
   noteDetailSuccess,
   noteDetailFail,
+  noteDeleteLoading,
+  noteDeleteSuccess,
+  noteDeleteFail,
   questionListLoading,
   questionListSuccess,
   questionListFail,
   questionDetailLoading,
   questionDetailSuccess,
   questionDetailFail,
+  questionDeleteLoading,
+  questionDeleteSuccess,
+  questionDeleteFail,
 } = dashboardReducer.actions;
 
 export default dashboardReducer.reducer;

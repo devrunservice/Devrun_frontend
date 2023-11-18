@@ -100,7 +100,22 @@ export interface LearningType {
   lastViewDate: string;
   expiryDate: string;
 }
-
+export interface NoteQuestionListType {
+  key: number;
+  page: string;
+  category: string;
+  lectureId?: number;
+  lectureTitle?: string;
+  lastStudyDate?: string;
+  lectureThumbnail?: string;
+  count?: number;
+  questionId?: number;
+  questionLectureTitle?: string;
+  questionTitle?: string;
+  questionContentPreview?: string;
+  questionDate?: string;
+  questionCount?: number;
+}
 export interface NoteLectureWrapperType {
   dtolist: LectureType[];
   totalPages: number;
@@ -115,15 +130,6 @@ export interface LectureType {
   lectureThumbnail?: string;
   count: number;
 }
-export interface NoteQuestionListType extends LectureType {
-  questionId?: number;
-  questionLectureTitle?: string;
-  questionTitle?: string;
-  questionContentPreview?: string;
-  questionDate?: string;
-  questionCount?: number;
-}
-
 export interface NoteListWrapperType {
   dtolist: NoteListType[];
   totalPages: number;
@@ -154,18 +160,20 @@ export interface NoteDetailType {
 }
 export interface QuestionListWrapperType {
   dtolist: QuestionListType[];
+  questionCount: number;
   totalPages: number;
 }
 export interface QuestionListType {
   key: number;
+  no: number;
   page: string;
   category: string;
+  questionLectureTitle: string;
   questionId: number;
-  lectureTitle: string;
   questionTitle: string;
   questionContentPreview: string;
   questionDate: string;
-  count: number;
+  answer: number;
 }
 export interface QuestionDetailType {
   questionId: number;
@@ -174,6 +182,20 @@ export interface QuestionDetailType {
   date: string;
   questionTitle: string;
   content: string;
+  answer: string;
+}
+export interface NoteQuestionListType {
+  key: number;
+  page: string;
+  category: string;
+  lectureId?: number;
+  lectureTitle?: string;
+  lastStudyDate?: string;
+  lectureThumbnail?: string;
+  count?: number;
+  questionId?: number;
+  questionTitle?: string;
+  questionDate?: string;
 }
 export interface CalenderHeaderType {
   currentMonth: Date;
@@ -526,7 +548,6 @@ export interface LectureInfoList extends lectureName {
   lectureId: number;
 }
 
-
 export interface CouponListInCart {
   discountrate: number;
   expirydate: string;
@@ -787,12 +808,3 @@ export interface DetailAPI {
     userNo: number;
   };
 }
-
-
-
-
-
-
-
-
-

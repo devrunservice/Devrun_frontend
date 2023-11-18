@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {Recaptcha} from 'components';
@@ -8,29 +8,24 @@ import {getCookie} from 'utils/cookies';
 import * as St from './styles';
 import {closeModal} from '../../../redux/reducer/modalReducer';
 import {logoutLoading} from '../../../redux/reducer/loginReducer';
+import {
+  noteDeleteLoading,
+  questionDeleteLoading,
+} from '../../../redux/reducer/dashboardReducer';
 
 const Modal = ({page}: {page?: string}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const {questionId, noteId} = useParams();
 
-  const modalOpen = useSelector(
-    (state: RootState) => state.modalReducer.modalOpen
-  );
-  const modalMessage1 = useSelector(
-    (state: RootState) => state.modalReducer.modalMessage1
-  );
-  const modalMessage2 = useSelector(
-    (state: RootState) => state.modalReducer.modalMessage2
-  );
-  const signupSuccess = useSelector(
-    (state: RootState) => state.modalReducer.signupSuccess
-  );
-  const kakaoLoginSuccess = useSelector(
-    (state: RootState) => state.modalReducer.kakaoLoginSuccess
-  );
-  const openRecaptcha = useSelector(
-    (state: RootState) => state.modalReducer.openRecaptcha
-  );
+  const {
+    modalOpen,
+    modalMessage1,
+    modalMessage2,
+    signupSuccess,
+    kakaoLoginSuccess,
+    openRecaptcha,
+  } = useSelector((state: RootState) => state.modalReducer);
 
   const handleKeyUp = (e: KeyboardEvent) => {
     if (e.key === 'Escape' || e.key === 'Enter') {
@@ -42,8 +37,8 @@ const Modal = ({page}: {page?: string}) => {
     // 기본적으로 모달에서 확인을 누를 경우 모달이 닫힘
     dispatch(closeModal());
 
-    // 회원가입 성공 시
-    if (signupSuccess === true) {
+    // 회원가입, 카카오 로그인 성공 시
+    if (kakaoLoginSuccess === true || signupSuccess === true) {
       navigate('/login');
     }
 
@@ -53,11 +48,10 @@ const Modal = ({page}: {page?: string}) => {
       modalMessage1 === '오류가 감지되었습니다.'
     ) {
       dispatch(logoutLoading());
-    }
-
-    // 카카오 로그인 성공 시
-    if (kakaoLoginSuccess === true) {
-      navigate('/login');
+    } else if (modalMessage1 === '해당 질문을 삭제하시겠습니까?') {
+      dispatch(questionDeleteLoading({id: Number(questionId)}));
+    } else if (modalMessage1 === '해당 노트를 삭제하시겠습니까?') {
+      dispatch(noteDeleteLoading(Number(noteId)));
     }
   };
 

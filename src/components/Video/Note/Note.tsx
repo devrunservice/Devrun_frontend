@@ -1,33 +1,30 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "redux/store";
-import DOMPurify from "dompurify";
-import { Editor, NoteDe } from "components";
+import React, {useCallback, useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from 'redux/store';
+import {Editor, NoteDe, Content} from 'components';
 
-import * as St from "./style";
-import { getNoteLoding } from "../../../redux/reducer/videoViewReducer";
+import * as St from './style';
+import {getNoteLoding} from '../../../redux/reducer/videoViewReducer';
 
 interface INote {
   onNote: () => void;
   videoid: string;
   lectureId: number;
-  sectionNumber:number;
+  sectionNumber: number;
 }
 
-
-
-const Note = ({ onNote, videoid, lectureId, sectionNumber }: INote) => {
+const Note = ({onNote, videoid, lectureId, sectionNumber}: INote) => {
   const dispatch = useDispatch();
-  const { getNote, reNote } = useSelector(
+  const {getNote, reNote} = useSelector(
     (state: RootState) => state.videoViewReducer
   );
   useEffect(() => {
     dispatch(getNoteLoding(lectureId));
   }, [reNote]);
   const [noteId, setNoteId] = useState(0);
-  const [noteBoolean,setNoteBoolean] = useState(false)
+  const [noteBoolean, setNoteBoolean] = useState(false);
   const onNoteDe = useCallback(
-    ( id: number) => {
+    (id: number) => {
       setNoteId(id);
       setNoteBoolean(true);
     },
@@ -57,11 +54,9 @@ const Note = ({ onNote, videoid, lectureId, sectionNumber }: INote) => {
                 return (
                   <St.NoteCon key={v.noteId} onClick={() => onNoteDe(v.noteId)}>
                     <em>{v.noteTitle}</em>
-                    <St.Contents
-                      dangerouslySetInnerHTML={{
-                        __html: DOMPurify.sanitize(v.content),
-                      }}
-                    />
+                    <St.Contents>
+                      <Content content={v.content} />
+                    </St.Contents>
                     <span> 작성일 : {v.date} </span>
                   </St.NoteCon>
                 );
