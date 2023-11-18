@@ -1,26 +1,24 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useState } from "react";
-import { useDispatch,useSelector } from "react-redux";
-import { RootState } from "redux/store";
-import { useParams } from "react-router-dom";
-import { Pagination, LectureCard, NoData } from "components";
-import {NoSearch} from "asset";
-import * as St from "./style";
-import { categorySearchLoading } from "../../redux/reducer/learningReducer";
-
-
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from 'redux/store';
+import {useParams} from 'react-router-dom';
+import {Pagination, LectureCard, NoData} from 'components';
+import {NoSearch} from 'asset';
+import * as St from './style';
+import {categorySearchLoading} from '../../redux/reducer/learningReducer';
 
 const Lecture = () => {
-   const param = useParams();
-  const dispatch = useDispatch()
-  const { lecture } = useSelector( (state: RootState) => state.learningReducer );
+  const param = useParams();
+  const dispatch = useDispatch();
+  const {lecture} = useSelector((state: RootState) => state.learningReducer);
   const [pageno, setPageno] = useState<number>(1);
   const [lectureName, setlectureName] = useState(param.lectureBigCategory);
   const tapList = [
-    { list: "등록순", order: "lecture_start" },
-    { list: "가격순", order: "lecture_Price" },
-    { list: "평점순", order: "lecture_rating" },
-    { list: "구매순", order: "buy_count" },
+    {list: '등록순', order: 'lecture_start'},
+    {list: '가격순', order: 'lecture_Price'},
+    {list: '평점순', order: 'lecture_rating'},
+    {list: '구매순', order: 'buy_count'},
   ];
   const [tapOpen, setTapOpen] = useState<boolean>(false);
   const [option, setOption] = useState({
@@ -28,23 +26,23 @@ const Lecture = () => {
     order: tapList[0].order,
   });
   const tapOpsion = (list: string, order: string) => {
-    setOption({ ...option, list: list, order: order });
+    setOption({...option, list: list, order: order});
     setTapOpen(false);
   };
   const validCategories = [
-    "개발기초",
-    "전체강의",
-    "프론트엔드",
-    "데이터",
-    "백엔드",
-    "모바일",
-    "보안",
-    "게임개발",
-    "데브옵스",
-    "AI",
-    "블록체인",
-    "자격증",
-    "코딩테스트",
+    '개발기초',
+    '전체강의',
+    '프론트엔드',
+    '데이터',
+    '백엔드',
+    '모바일',
+    '보안',
+    '게임개발',
+    '데브옵스',
+    'AI',
+    '블록체인',
+    '자격증',
+    '코딩테스트',
   ];
   useEffect(() => {
     if (lectureName !== param.lectureBigCategory) {
@@ -52,16 +50,16 @@ const Lecture = () => {
       setlectureName(param.lectureBigCategory);
     }
 
-    if (validCategories.includes(param.lectureBigCategory ?? "")) {
+    if (validCategories.includes(param.lectureBigCategory ?? '')) {
       dispatch(
         categorySearchLoading({
           page: pageno,
           bigcategory:
-            param.lectureBigCategory === "전체강의"
-              ? ""
+            param.lectureBigCategory === '전체강의'
+              ? ''
               : param.lectureBigCategory,
           order: option.order,
-          q: "",
+          q: '',
         })
       );
     }
@@ -70,7 +68,7 @@ const Lecture = () => {
     <>
       <St.Top>
         <St.Title>
-          {lecture.message !== "Resource not exists" ? (
+          {lecture.message !== 'Resource not exists' ? (
             <>
               <span>{lecture.totalelements}</span>개의 강의
             </>
@@ -99,7 +97,7 @@ const Lecture = () => {
           )}
         </St.Tap>
       </St.Top>
-      {lecture.message !== "Resource not exists" ? (
+      {lecture.message !== 'Resource not exists' ? (
         <>
           <St.LectureCardUl>
             {lecture.dtolist.map((v, index) => {
@@ -130,6 +128,7 @@ const Lecture = () => {
         <NoData
           title="해당 강의가 존재하지 않습니다"
           span="다른 검색어를 입력해주세요"
+          tag
           img={<NoSearch />}
         />
       )}
