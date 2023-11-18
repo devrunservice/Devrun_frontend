@@ -22,7 +22,7 @@ const Dashboard = () => {
     dispatch(myInfoLoading({id: userId}));
     dispatch(learningLoading({page: '1', status: 'all'}));
     dispatch(noteLectureLoading({page: 1}));
-    // dispatch(questionListLoading({page: 1}));
+    dispatch(questionListLoading({page: 1, status: 'answer'}));
   }, []);
 
   const userInfo = useSelector((state: RootState) => state.mypageReducer.data);
@@ -47,8 +47,6 @@ const Dashboard = () => {
       navigate('/questions');
     }
   };
-
-  console.log(noteLectures);
 
   return (
     <section>
@@ -102,7 +100,7 @@ const Dashboard = () => {
             <St.ErrorMessage>작성한 노트가 없습니다.</St.ErrorMessage>
           ) : (
             <ul>
-              {noteLectures.dtolist.map((lecture) => (
+              {noteLectures.dtolist.slice(0, 3).map((lecture) => (
                 <List
                   key={lecture.lectureId}
                   page="notes"
@@ -129,19 +127,22 @@ const Dashboard = () => {
             </St.MoreBtn>
           </St.TitleWrapper>
           <ul>
-            {/* {questionList.dtolist.slice(0, 3).map((question) => (
-              <List
-                key={question.questionId}
-                page={question.page}
-                category={question.category}
-                questionId={question.questionId}
-                lectureTitle={question.lectureTitle}
-                questionTitle={question.questionTitle}
-                questionContentPreview={question.questionContentPreview}
-                questionDate={question.questionDate}
-                count={question.count}
-              />
-            ))} */}
+            {questionList.questionCount === 0 ? (
+              <St.ErrorMessage>작성한 질문이 없습니다.</St.ErrorMessage>
+            ) : (
+              questionList.dtolist
+                .slice(0, 3)
+                .map((question) => (
+                  <List
+                    key={question.questionId}
+                    page="questions"
+                    category="question"
+                    questionId={question.questionId}
+                    questionTitle={question.questionTitle}
+                    questionDate={question.questionDate}
+                  />
+                ))
+            )}
           </ul>
         </div>
       </St.NoteQuestionWrapper>

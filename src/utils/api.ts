@@ -169,15 +169,28 @@ export const mypage = {
     );
     return response;
   },
-  questionList: async () => {
-    const response = await authAxios.get(`/`);
+  noteDelete: async (params: number) => {
+    const response = await authAxios.post(`lecturenoteDelete`, params);
     return response;
   },
-  questionDetail: async () => {
-    const response = await authAxios.get(`/`);
+  questionList: async (params: I.NotePropsType) => {
+    const response = await authAxios.get(
+      `/mylectureQalistOpen?status=${params.status}&page=${params.page}`
+    );
     return response;
   },
-
+  questionDetail: async (params: I.NotePropsType) => {
+    const response = await authAxios.get(
+      `/lectureQaDetailOpen?questionId=${params.id}`
+    );
+    return response;
+  },
+  questionDelete: async (params: I.NotePropsType) => {
+    const response = await authAxios.delete(
+      `/lectureQa/delete?questionId=${params.id}`
+    );
+    return response;
+  },
   coupon: (params: I.CouponGet) => {
     const response = authAxios.post('/coupon/registration', params);
     return response;

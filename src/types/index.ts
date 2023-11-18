@@ -100,22 +100,6 @@ export interface LearningType {
   lastViewDate: string;
   expiryDate: string;
 }
-export interface NoteQuestionListType {
-  key: number;
-  page: string;
-  category: string;
-  lectureId?: number;
-  lectureTitle?: string;
-  lastStudyDate?: string;
-  lectureThumbnail?: string;
-  count?: number;
-  questionId?: number;
-  questionLectureTitle?: string;
-  questionTitle?: string;
-  questionContentPreview?: string;
-  questionDate?: string;
-  questionCount?: number;
-}
 export interface NoteLectureWrapperType {
   dtolist: LectureType[];
   totalPages: number;
@@ -160,18 +144,20 @@ export interface NoteDetailType {
 }
 export interface QuestionListWrapperType {
   dtolist: QuestionListType[];
+  questionCount: number;
   totalPages: number;
 }
 export interface QuestionListType {
   key: number;
+  no: number;
   page: string;
   category: string;
+  questionLectureTitle: string;
   questionId: number;
-  lectureTitle: string;
   questionTitle: string;
   questionContentPreview: string;
   questionDate: string;
-  count: number;
+  answer: number;
 }
 export interface QuestionDetailType {
   questionId: number;
@@ -180,6 +166,20 @@ export interface QuestionDetailType {
   date: string;
   questionTitle: string;
   content: string;
+  answer: string;
+}
+export interface NoteQuestionListType {
+  key: number;
+  page: string;
+  category: string;
+  lectureId?: number;
+  lectureTitle?: string;
+  lastStudyDate?: string;
+  lectureThumbnail?: string;
+  count?: number;
+  questionId?: number;
+  questionTitle?: string;
+  questionDate?: string;
 }
 export interface CalenderHeaderType {
   currentMonth: Date;
@@ -527,7 +527,6 @@ export interface LectureInfoList {
   lectureId: number;
 }
 
-
 export interface CouponListInCart {
   discountrate: number;
   expirydate: string;
@@ -739,59 +738,50 @@ export interface Lectureid {
 
 /* 디테일 */
 export interface DetailAPI {
-  id: null | string
-  lectureCategory:{
-    categoryNo:number
-    lectureBigCategory: string
-    lectureMidCategory: string
-  },
-  lectureDiscount:null | string
-  lectureDiscountend:null | string
-  lectureDiscountrate:null | string
-  lectureDiscountstart:null | string
-  lectureEdit:null | string
-  lectureIntro: string
-  lectureName: string
-  lecturePrice:number
-  lectureRating:number
-  lectureSections:{
-    sectionNumber:number
-    sectionTitle:string
-    sectionid:number
-    videos:{
-      fileName:null | string
-      totalPlayTime:number
-      uploadDate:null | string
-      videoId: string
-      videoLink: string
-      videoNo:number
-      videoTitle: string
-    }[]
-  }[]
-  lectureStart: string
-  lectureStatus: string
-  lectureTag:string[]
-  lectureThumbnail: string
-  lectureid:number
-  mentoId:{
-    birthday:string
-    id:string
-    name:string
-    kakaoEmailId:null | string
-    export:null | string
-    profileimgsrc:string
-    role:string
-    signupDate:string
-    status:string
-    userNo:number
-  }
+  id: null | string;
+  lectureCategory: {
+    categoryNo: number;
+    lectureBigCategory: string;
+    lectureMidCategory: string;
+  };
+  lectureDiscount: null | string;
+  lectureDiscountend: null | string;
+  lectureDiscountrate: null | string;
+  lectureDiscountstart: null | string;
+  lectureEdit: null | string;
+  lectureIntro: string;
+  lectureName: string;
+  lecturePrice: number;
+  lectureRating: number;
+  lectureSections: {
+    sectionNumber: number;
+    sectionTitle: string;
+    sectionid: number;
+    videos: {
+      fileName: null | string;
+      totalPlayTime: number;
+      uploadDate: null | string;
+      videoId: string;
+      videoLink: string;
+      videoNo: number;
+      videoTitle: string;
+    }[];
+  }[];
+  lectureStart: string;
+  lectureStatus: string;
+  lectureTag: string[];
+  lectureThumbnail: string;
+  lectureid: number;
+  mentoId: {
+    birthday: string;
+    id: string;
+    name: string;
+    kakaoEmailId: null | string;
+    export: null | string;
+    profileimgsrc: string;
+    role: string;
+    signupDate: string;
+    status: string;
+    userNo: number;
+  };
 }
-
-
-
-
-
-
-
-
-

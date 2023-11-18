@@ -4,6 +4,7 @@ import * as I from 'types';
 
 export const LearnCon = styled.div`
   width: 100%;
+  margin-top: 1.875rem;
 `;
 // export const TapWrap = styled.div`
 //   display: flex;
@@ -60,7 +61,7 @@ export const TapUl = styled.ul`
   left: -1px;
 `;
 export const TapLi = styled.li`
-  font-size: 0.875rem
+  font-size: 0.875rem;
   cursor: pointer;
   height: 2rem;
   line-height: 2rem;
@@ -73,22 +74,6 @@ export const LearnUl = styled.div`
   align-content: flex-start;
   gap: 1.875rem;
   min-height: 53.8125rem;
-`;
-
-export const Top = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  align-items: center;
-  margin-bottom: 1.875rem;
-`;
-export const Title = styled.h4`
-  line-height: 1;
-  font-size: 1.5625rem;
-  font-weight: 700;
-  color: ${(props: any) => props.theme.black};
-  display: flex;
-  align-items: flex-end;
 `;
 
 export const ErrorMessage = styled.div`
