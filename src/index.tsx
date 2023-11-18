@@ -43,7 +43,6 @@ const router = createBrowserRouter([
       {path: 'findaccount/id', element: <Route.FindId />},
       {path: 'findaccount/password', element: <Route.FindPassword />},
       {path: 'basket', element: protectedRoute(<Route.Basket />)},
-
       {
         path: 'noticeWrite',
         element: protectedRoute(<Route.NoticeWrite />),
@@ -66,6 +65,11 @@ const router = createBrowserRouter([
       {path: 'profile', element: protectedRoute(<Route.Profile />)},
       {path: 'dashboard', element: protectedRoute(<Route.Dashboard />)},
       {path: 'notes', element: protectedRoute(<Route.Notes />)},
+      {path: 'notes/:lectureId', element: protectedRoute(<Route.Note />)},
+      {
+        path: 'notes/:lectureId/:noteId',
+        element: protectedRoute(<Route.NoteDetail />),
+      },
       {path: 'questions', element: protectedRoute(<Route.Questions />)},
       {
         path: 'questions/:questionId',
@@ -82,35 +86,10 @@ const router = createBrowserRouter([
         path: 'lectures/:lectureId',
         element: <Route.Detailsell />,
       },
-      {path: 'createVideo', element: <Route.CreateVideo />},
-      {path: 'profile', element: protectedRoute(<Route.Profile />)},
-
-      {path: 'cert', element: protectedRoute(<Route.Cert />)},
-      {path: 'certDetail', element: protectedRoute(<Route.CertDetail />)},
-      {path: 'coupon', element: protectedRoute(<Route.Coupon />)},
-      {path: 'receipt', element: <Route.Receipt />},
-      {path: 'learning', element: protectedRoute(<Route.Learning />)},
-      {path: 'point', element: protectedRoute(<Route.Point />)},
-      {path: 'createcoupon', element: protectedRoute(<Route.CreateCoupon />)},
+      {path: 'createVideo', element: protectedRoute(<Route.CreateVideo />)},
       {
         path: 'videoView/:lectureId/:videoId',
         element: protectedRoute(<Route.VideoView />),
-      },
-      {path: 'dashboard', element: protectedRoute(<Route.Dashboard />)},
-      {path: 'notes', element: protectedRoute(<Route.Notes />)},
-      {path: 'notes/:lectureId', element: protectedRoute(<Route.Note />)},
-      {
-        path: 'notes/:lectureId/:noteId',
-        element: protectedRoute(<Route.NoteDetail />),
-      },
-      {path: 'questions', element: protectedRoute(<Route.Questions />)},
-      {
-        path: 'createVideo',
-        element: ACCESS_TOKEN ? (
-          <Route.CreateVideo />
-        ) : (
-          <Navigate replace to="/login" />
-        ),
       },
     ],
   },

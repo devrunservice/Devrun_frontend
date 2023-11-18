@@ -26,14 +26,8 @@ const Dashboard = () => {
   }, []);
 
   const userInfo = useSelector((state: RootState) => state.mypageReducer.data);
-  const courses = useSelector(
-    (state: RootState) => state.dashboardReducer.learningData
-  );
-  const noteLectures = useSelector(
-    (state: RootState) => state.dashboardReducer.noteLectureData
-  );
-  const questionList = useSelector(
-    (state: RootState) => state.dashboardReducer.questionListData
+  const {learningData: courses, noteLectureData: noteLectures} = useSelector(
+    (state: RootState) => state.dashboardReducer
   );
 
   const handleMoreBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -127,22 +121,19 @@ const Dashboard = () => {
             </St.MoreBtn>
           </St.TitleWrapper>
           <ul>
-            {questionList.questionCount === 0 ? (
-              <St.ErrorMessage>작성한 질문이 없습니다.</St.ErrorMessage>
-            ) : (
-              questionList.dtolist
-                .slice(0, 3)
-                .map((question) => (
-                  <List
-                    key={question.questionId}
-                    page="questions"
-                    category="question"
-                    questionId={question.questionId}
-                    questionTitle={question.questionTitle}
-                    questionDate={question.questionDate}
-                  />
-                ))
-            )}
+            {/* {questionList.dtolist.slice(0, 3).map((question) => (
+              <List
+                key={question.questionId}
+                page={question.page}
+                category={question.category}
+                questionId={question.questionId}
+                lectureTitle={question.lectureTitle}
+                questionTitle={question.questionTitle}
+                questionContentPreview={question.questionContentPreview}
+                questionDate={question.questionDate}
+                count={question.count}
+              />
+            ))} */}
           </ul>
         </div>
       </St.NoteQuestionWrapper>

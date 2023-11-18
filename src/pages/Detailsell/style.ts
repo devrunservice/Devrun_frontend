@@ -100,6 +100,7 @@ export const DetailHash = styled.ul`
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  gap:5px;
   
 `;
 export const DetailHashli = styled.li`
@@ -107,16 +108,10 @@ export const DetailHashli = styled.li`
 
   background: ${(props: any) => props.theme.bgBlack};
   border-radius: 5px;
-  margin-right: 5px;
-  &:last-child {
-    margin-right: 0;
-  }
-  > button {
-    padding: 10px 15px;
-    border-radius:5px;
-    color: ${(props: any) => props.theme.textWhite};
-    font-size: 0.875rem;
-  }
+  padding: 10px 15px;
+  border-radius: 5px;
+  color: ${(props: any) => props.theme.textWhite};
+  font-size: 0.875rem;
 `;
 
 

@@ -20,10 +20,8 @@ const Header = () => {
   const [search, onSearch, setSearch] = useInput('');
   const [cookie, setCookie] = useState<boolean>(false);
 
-  const {data, loading: userLoading} = useSelector(
-    (state: RootState) => state.userReducer
-  );
-  const {data: cart, loading: cartLoading} = useSelector(
+  const {data} = useSelector((state: RootState) => state.userReducer);
+  const {data: cart, addCart} = useSelector(
     (state: RootState) => state.cartReducer
   );
   const logoutSuccess = useSelector(
@@ -36,7 +34,7 @@ const Header = () => {
       dispatch(cartInfoLoading(null));
       setCookie(true);
     }
-  }, []);
+  }, [addCart]);
 
   const handleLogout = () => {
     dispatch(logoutLoading());
@@ -60,8 +58,6 @@ const Header = () => {
 
   const priceDot = (num: number) =>
     num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-
-  if (cartLoading || userLoading) return <Spinner />;
 
   return (
     <St.HeaderWrap>

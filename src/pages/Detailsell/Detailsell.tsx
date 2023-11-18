@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigate, useParams} from 'react-router-dom';
 import {RootState} from 'redux/store';
@@ -12,7 +12,7 @@ import {
   LectureDetailLoading,
   LectureDetailTextLoading,
 } from '../../redux/reducer/learningReducer';
-import {addCartLoading} from '../../redux/reducer/cartReducer';
+import {addCartLoading, freeCartLoading} from '../../redux/reducer/cartReducer';
 
 const Detailsell = () => {
   const dispatch = useDispatch();
@@ -27,18 +27,22 @@ const Detailsell = () => {
     dispatch(LectureDetailTextLoading({lectureid: 25}));
   }, [param.lectureId]);
   const [tapNum, setTapNum] = useState<number>(0);
-  const onTap = useCallback(
-    (k: number) => {
-      if (k === tapNum) return setTapNum(0);
-      if (lectureDetail.lectureSections.find((v) => v.sectionNumber === k))
-        return setTapNum(k);
-    },
-    [tapNum]
-  );
+  const onTap = (k: number) => {
+    if (k === tapNum) return setTapNum(0);
+    if (lectureDetail.lectureSections.find((v) => v.sectionNumber === k))
+      return setTapNum(k);
+  };
   const onBasket = () => {
     if (getCookie('accessToken')) {
-      dispatch(addCartLoading(lectureDetail.lectureid));
-      navi('/basket');
+      if (lectureDetail.lecturePrice === 0) {
+        dispatch(freeCartLoading({lectureName: lectureDetail.lectureName}));
+        alert('강의구매가 완료되었습니다.');
+        navi('/learning');
+      } else {
+        dispatch(addCartLoading(lectureDetail.lectureid));
+        alert('강의가 장바구니에 담겼습니다.');
+        navi('/basket');
+      }
     } else {
       alert('로그인 후 결제해주세요');
       navi('/login');
@@ -46,8 +50,13 @@ const Detailsell = () => {
   };
   const onBaskets = () => {
     if (getCookie('accessToken')) {
-      console.log(lectureDetail.lectureid);
-      dispatch(addCartLoading(lectureDetail.lectureid));
+      if (lectureDetail.lecturePrice === 0) {
+        dispatch(freeCartLoading({lectureName: lectureDetail.lectureName}));
+        alert('강의구매가 완료되었습니다.');
+      } else {
+        alert('강의가 장바구니에 담겼습니다.');
+        dispatch(addCartLoading(lectureDetail.lectureid));
+      }
     } else {
       alert('로그인 후 결제해주세요');
       navi('/login');
@@ -96,11 +105,7 @@ const Detailsell = () => {
 
         <St.DetailHash>
           {lectureDetail.lectureTag.map((v) => {
-            return (
-              <St.DetailHashli key={v}>
-                <button>{v}</button>
-              </St.DetailHashli>
-            );
+            return <St.DetailHashli key={v}>{v}</St.DetailHashli>;
           })}
         </St.DetailHash>
       </St.PreviewArea>

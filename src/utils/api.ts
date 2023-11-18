@@ -220,7 +220,7 @@ export const Cart = {
   },
 
   delete: (params: I.LectureInfoList) => {
-    const response = authAxios.post('/cart/delete', params);
+    const response = authAxios.post("/cart/delete", params);
     return response;
   },
   list: () => {
@@ -231,6 +231,10 @@ export const Cart = {
     const response = authAxios.post(`/cart/insert`, params);
     return response;
   },
+  free:(params:I.lectureName)=>{
+    const response = authAxios.post(`/Free`, params);
+    return response;
+  }
 };
 
 export const create = {
@@ -374,7 +378,7 @@ export const search = {
 /* 강의등록 api */
 export const createVideo = {
   getCategoryAPI: () => {
-    const response = baseAxios.get('/lectureregist/categories');
+    const response = authAxios.get('/lectureregist/categories');
     return response;
   },
   videoAPI: (params: FormData) => {
@@ -386,7 +390,7 @@ export const createVideo = {
 /* 디테일 api */
 export const detail = {
   getDetailAPT: (params: any) => {
-    const response = baseAxios.post(`api/lectures/${params.id}`);
+    const response = authAxios.get(`api/lectures/${params}`);
     return response;
   },
 };

@@ -12,21 +12,20 @@ import * as St from './style';
 // import "swiper/swiper.css";
 
 const Detail = () => {
-  // const [test, setTest] = useState([1, 2, 34, 1, 2, 3, 4]); // eslint-disable-line
   const [category, setCategory] = useState(1);
   const location = useLocation();
-  const [id, setId] = useState('');
-  // const [tag, setTag] = useState([])
+  const [id, setId] = useState(1);
   const [data, setData] = useState<DetailAPI | undefined>();
 
   const getDetail = async () => {
-    // const url = 'https://devrun.site/api/lectures/22'
+    // const url = `https://devrun.site/api/lectures/${id}`
     // axios.get(url).then(res=> {
     //   console.log(res)
     //   setData({...res.data})
     // }).catch(err=>console.log(err))
     try {
       const response = await detail.getDetailAPT(id);
+      console.log(response);
       setData({...response.data});
     } catch (err) {
       console.log(err);
@@ -39,7 +38,7 @@ const Detail = () => {
   useEffect(() => {
     const path = location.pathname.split('/');
     const pathId = path[path.length - 1];
-    setId(pathId);
+    setId(Number(pathId));
   }, [location]);
   const changeCategory = (num: number) => {
     setCategory(num);
@@ -58,16 +57,18 @@ const Detail = () => {
             </St.DetailUtilsItem>
             <St.DetailUtilsItem>{data?.mentoId.name}</St.DetailUtilsItem>
             <St.DetailUtilsItem>
-              <LinkImg href="/" />
+              <LinkImg />
               공유하기
             </St.DetailUtilsItem>
           </St.DetailUtils>
 
           <St.ShortSpacer />
 
-          {/* <St.DetailHashWrap>
-            <St.DetailHash>#{data?.lectureTag}</St.DetailHash>
-          </St.DetailHashWrap> */}
+          <St.DetailHashWrap>
+            {data?.lectureTag.map((list, index) => {
+              return <St.DetailHash key={index}>#{list}</St.DetailHash>;
+            })}
+          </St.DetailHashWrap>
         </St.DetailInfo>
       </St.PreviewArea>
 

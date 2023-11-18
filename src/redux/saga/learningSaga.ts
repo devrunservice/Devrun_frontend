@@ -72,6 +72,8 @@ function* detailtext(action: PayloadAction<Lectureid>): Generator<any, void, any
 }
 
 
+
+
 export function* watchCategorySearchSaga() {
   yield takeLatest(categorySearchLoading, cateSearch);
 }

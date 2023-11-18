@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useState, useEffect} from 'react';
-import {LectureCard, MainCategory, Spinner} from 'components';
+import {LectureCard, MainCategory} from 'components';
 import {useDispatch, useSelector} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 import {RootState} from 'redux/store';
@@ -24,17 +24,13 @@ const HomePage = () => {
   const [search, onSearch, setSearch] = useInput('');
 
   const dispatch = useDispatch();
-  const {data, loading: noticeLoading} = useSelector(
-    (state: RootState) => state.noticeReducer
-  );
-  const {learningData, loading: dashboardLoading} = useSelector(
+  const {data} = useSelector((state: RootState) => state.noticeReducer);
+  const {learningData} = useSelector(
     (state: RootState) => state.dashboardReducer
   );
-  const {
-    lecture: buy,
-    data: rating,
-    loading: learnLoading,
-  } = useSelector((state: RootState) => state.learningReducer);
+  const {lecture: buy, data: rating} = useSelector(
+    (state: RootState) => state.learningReducer
+  );
 
   useEffect(() => {
     dispatch(noticeListLoading(1));
@@ -44,6 +40,7 @@ const HomePage = () => {
       dispatch(learningLoading({page: '1', status: 'all'}));
     }
   }, []);
+  console.log(learningData);
   const navigate = useNavigate();
 
   const searchBtn = (e: React.FormEvent<HTMLFormElement>) => {
@@ -64,7 +61,6 @@ const HomePage = () => {
     const response = await mypage.getVideoId(id);
     navigate(`/videoView/${id}/${response.data}`);
   };
-  if (noticeLoading || learnLoading || dashboardLoading) return <Spinner />;
   return (
     <>
       <St.EventBanner>

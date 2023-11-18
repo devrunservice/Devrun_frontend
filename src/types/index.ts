@@ -100,6 +100,22 @@ export interface LearningType {
   lastViewDate: string;
   expiryDate: string;
 }
+export interface NoteQuestionListType {
+  key: number;
+  page: string;
+  category: string;
+  lectureId?: number;
+  lectureTitle?: string;
+  lastStudyDate?: string;
+  lectureThumbnail?: string;
+  count?: number;
+  questionId?: number;
+  questionLectureTitle?: string;
+  questionTitle?: string;
+  questionContentPreview?: string;
+  questionDate?: string;
+  questionCount?: number;
+}
 export interface NoteLectureWrapperType {
   dtolist: LectureType[];
   totalPages: number;
@@ -110,8 +126,8 @@ export interface LectureType {
   category: string;
   lectureId: number;
   lectureTitle: string;
-  lastStudyDate: string;
-  lectureThumbnail: string;
+  lastStudyDate?: string;
+  lectureThumbnail?: string;
   count: number;
 }
 export interface NoteListWrapperType {
@@ -519,9 +535,14 @@ export interface CommentDel {
   id: string;
   commentNo: number;
 }
-export interface LectureInfoList {
-  lectureIntro: string;
+
+export interface lectureName {
   lectureName: string;
+}
+
+export interface LectureInfoList extends lectureName {
+  lectureIntro: string;
+
   lecturePrice: number;
   lectureThumbnail: string;
   lectureId: number;
@@ -556,6 +577,7 @@ export interface Carts {
   loading?: boolean;
   error?: Error | null;
   saveCart: string;
+  freeCart: string;
 }
 
 export interface BasketState {
@@ -771,6 +793,7 @@ export interface DetailAPI {
   lectureStatus: string;
   lectureTag: string[];
   lectureThumbnail: string;
+  buyCount: number;
   lectureid: number;
   mentoId: {
     birthday: string;

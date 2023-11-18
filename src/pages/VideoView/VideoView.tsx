@@ -3,7 +3,7 @@ import React, { useCallback, useState, useEffect } from "react";
 import YouTube from "react-youtube";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Curriculum, Note } from "components";
 
 import { useDate } from "hooks";
@@ -21,27 +21,42 @@ import {
 const VideoView = () => {
   const dispatch = useDispatch();
   const param = useParams()
+  const navigate = useNavigate();
   const { data } = useSelector((state: RootState) => state.videoViewReducer);
   const { videoTime } = useDate();
   useEffect(() => {
-    dispatch(curriculumLoding(22));
+    dispatch(curriculumLoding(param.lectureId));
   }, []);
   const [open, setOpen] = useState({
     curriculumOpen: false,
     note: false,
   });
-  const name = data.sectionInfo
-    .find((v) => v.videoInfo)
-    ?.videoInfo.find((k) => k.videoId === param.videoId);
-  const [lecture, setLecture] = useState<VideoCurriculumVideoInfos>({
-    lastviewdate: name?.lastviewdate || "",
-    progress: name?.progress || 0,
-    timecheck: name?.timecheck || 0,
-    videoId: param.videoId || "",
-    videoTitle: name?.videoTitle || "",
-    videoTotalPlayTime: name?.videoTotalPlayTime || 0,
-  });
+  
 
+  
+  const [lecture, setLecture] = useState<VideoCurriculumVideoInfos>({
+    lastviewdate: "",
+    progress: 0,
+    timecheck: 0,
+    videoId: "",
+    videoTitle: "",
+    videoTotalPlayTime: 0,
+  });
+  const name = data.sectionInfo
+    .flatMap((v) => v.videoInfo)
+    .find((c) => c.videoId === param.videoId);
+  useEffect(() => {
+    if (name !== undefined)
+      return setLecture({
+        ...lecture,
+        lastviewdate: name.lastviewdate,
+        progress: name.progress,
+        timecheck: name.timecheck,
+        videoId: name.videoId,
+        videoTitle: name.videoTitle,
+        videoTotalPlayTime: name.videoTotalPlayTime,
+      });
+  }, [name]);
   // 현재 내위치값
   const currentIndex = () => {
     let currentSectionInfoIndex = 0;
@@ -67,12 +82,14 @@ const VideoView = () => {
         data.sectionInfo[currentSectionInfoIndex - 1].videoInfo[
           data.sectionInfo[currentSectionInfoIndex].videoInfo.length - 1
         ];
+        navigate(`/videoView/${param.lectureId}/${prevInfo.videoId}`);
       setLecture(prevInfo);
     } else {
       const prevInfo =
         data.sectionInfo[currentSectionInfoIndex].videoInfo[
           currentVideoinfoIndex - 1
         ];
+        navigate(`/videoView/${param.lectureId}/${prevInfo.videoId}`);
       setLecture(prevInfo);
     }
   }, [lecture]);
@@ -83,13 +100,16 @@ const VideoView = () => {
     ) {
       const nextInfo =
         data.sectionInfo[currentSectionInfoIndex + 1].videoInfo[0];
-      setLecture(nextInfo);
+        navigate(`/videoView/${param.lectureId}/${nextInfo.videoId}`);
+        setLecture(nextInfo);
     } else {
       const nextInfo =
         data.sectionInfo[currentSectionInfoIndex].videoInfo[
           currentVideoinfoIndex + 1
         ];
+        navigate(`/videoView/${param.lectureId}/${nextInfo.videoId}`);
       setLecture(nextInfo);
+      
     }
   }, [lecture]);
   const onCurriculum = useCallback(() => {
@@ -120,7 +140,6 @@ const VideoView = () => {
       })
     );
   }, [time, lecture.videoId]);
-  
   return (
     <St.VideoViewWrap>
       <St.Left>
@@ -153,6 +172,7 @@ const VideoView = () => {
                 autoplay: 1,
                 rel: 0,
                 modestbranding: 1,
+                start: lecture.timecheck,
               },
             }}
             // 이벤트 리스너
@@ -163,19 +183,30 @@ const VideoView = () => {
           />
         </St.Center>
         <St.Bottom>
-          <button onClick={() => onPrev()}>
-            <PiArrowLineLeftBold />
-            이전 강의
-          </button>
+          {data.sectionInfo.find((v) => v.sectionId === 1)?.videoInfo[0]
+            .videoId === param.videoId ? (
+            ""
+          ) : (
+            <button onClick={() => onPrev()}>
+              <PiArrowLineLeftBold />
+              이전 강의
+            </button>
+          )}
 
           <button>
             <BiLike />
             좋아요
           </button>
-          <button onClick={() => onNext()}>
-            다음 강의
-            <PiArrowLineRightBold />
-          </button>
+          {data.sectionInfo[data.sectionInfo.length - 1].videoInfo[
+            data.sectionInfo[data.sectionInfo.length - 1].videoInfo.length - 1
+          ].videoId === param.videoId ? (
+            ""
+          ) : (
+            <button onClick={() => onNext()}>
+              다음 강의
+              <PiArrowLineRightBold />
+            </button>
+          )}
         </St.Bottom>
       </St.Left>
       <St.Right>
@@ -190,11 +221,7 @@ const VideoView = () => {
       </St.Right>
       {open.curriculumOpen && (
         <St.CurriculumWrap>
-          <Curriculum
-            onCurriculum={onCurriculum}
-            setLecture={setLecture}
-            lecture={lecture}
-          />
+          <Curriculum onCurriculum={onCurriculum} data={data} />
         </St.CurriculumWrap>
       )}
       {open.note && (
