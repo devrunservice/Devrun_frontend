@@ -159,7 +159,7 @@ const Editor = (props: path) => {
     const Note: I.Note = {
       noteContent: content,
       noteTitle: title,
-      videoId: props.tap,
+      videoId: props.videoid || "",
     };
     const NoteRe = {
       noteContent: content || props.con,
@@ -194,14 +194,14 @@ const Editor = (props: path) => {
         type="text"
         placeholder="제목을 128자 이내로 작성해주세요"
         onChange={onTitle}
-        value={title || props.tit}
+        value={props.tap === "NoteRe" ? props.tit : title}
       />
       <QuillToolbar />
       <St.Editor
         placeholder="내용을 적어주세요"
         theme="snow"
         ref={quillRef}
-        value={content || props.con}
+        value={props.tap === "NoteRe" ? props.con : content}
         onChange={setContent}
         modules={modules}
         formats={formats}

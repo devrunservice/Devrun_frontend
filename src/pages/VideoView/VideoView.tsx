@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import React, { useCallback, useState, useEffect } from "react";
 import YouTube from "react-youtube";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,7 +9,7 @@ import { Curriculum, Note } from "components";
 import { useDate } from "hooks";
 import { VideoCurriculumVideoInfos } from "types";
 import { PiArrowLineLeftBold, PiArrowLineRightBold } from "react-icons/pi";
-import { BiLike } from "react-icons/bi";
+// import { BiLike } from "react-icons/bi";
 import { LuFolderEdit, LuStickyNote } from "react-icons/lu";
 import * as St from "./style";
 import {
@@ -184,7 +184,7 @@ const VideoView = () => {
         </St.Center>
         <St.Bottom>
           {data.sectionInfo.find((v) => v.sectionId === 1)?.videoInfo[0]
-            .videoId === param.videoId ? (
+            ?.videoId === param.videoId ? (
             ""
           ) : (
             <button onClick={() => onPrev()}>
@@ -193,13 +193,13 @@ const VideoView = () => {
             </button>
           )}
 
-          <button>
+          {/* <button>
             <BiLike />
             좋아요
-          </button>
-          {data.sectionInfo[data.sectionInfo.length - 1].videoInfo[
+          </button> */}
+          {data.sectionInfo[data.sectionInfo.length - 1]?.videoInfo[
             data.sectionInfo[data.sectionInfo.length - 1].videoInfo.length - 1
-          ].videoId === param.videoId ? (
+          ]?.videoId === param.videoId ? (
             ""
           ) : (
             <button onClick={() => onNext()}>
@@ -230,9 +230,6 @@ const VideoView = () => {
             onNote={onNote}
             videoid={lecture.videoId}
             lectureId={data.lectureId}
-            sectionNumber={
-              data.sectionInfo[currentSectionInfoIndex].sectionNumber
-            }
           />
         </St.CurriculumWrap>
       )}

@@ -13,6 +13,9 @@ import {
   categorySearchSuccess,
   categorySearchFail,
   categorySearchLoading,
+  categorySearchSuccessTwo,
+  categorySearchFailTwo,
+  categorySearchLoadingTwo,
   LectureDetailSuccess,
   LectureDetailFail,
   LectureDetailLoading,
@@ -52,6 +55,16 @@ function* cateSearch(action: PayloadAction<Search>): Generator<any, void, any> {
     yield put(categorySearchFail(error.message));
   }
 }
+function* cateSearchTwo(
+  action: PayloadAction<Search>
+): Generator<any, void, any> {
+  try {
+    const response = yield call(search.categorySearch, action.payload);
+    yield put(categorySearchSuccessTwo(response));
+  } catch (error: any) {
+    yield put(categorySearchFailTwo(error.message));
+  }
+}
 
 function* detail(action: PayloadAction<Lectureid>): Generator<any, void, any> {
   try {
@@ -77,6 +90,9 @@ function* detailtext(action: PayloadAction<Lectureid>): Generator<any, void, any
 export function* watchCategorySearchSaga() {
   yield takeLatest(categorySearchLoading, cateSearch);
 }
+export function* watchCategorySearchSagaTwo() {
+  yield takeLatest(categorySearchLoadingTwo, cateSearchTwo);
+}
 export function* watchRatingLectureSaga() {
   yield takeLatest(ratingLectureLoading, ratingLecture);
 }
@@ -92,6 +108,7 @@ export function* watchLectureDetaiTextlSaga() {
 export default function* learningSaga() {
   yield all([
     fork(watchRatingLectureSaga),
+    fork(watchCategorySearchSagaTwo),
     fork(watchCategorySearchSaga),
     fork(watchBuyLectureSaga),
     fork(watchLectureDetailSaga),

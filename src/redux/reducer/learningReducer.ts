@@ -126,7 +126,18 @@ const learningReducer = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-
+    categorySearchLoadingTwo: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
+    categorySearchSuccessTwo: (state, action) => {
+      state.loading = false;
+      state.data = action.payload.data;
+    },
+    categorySearchFailTwo: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
     LectureDetailLoading: (state, action) => {
       state.loading = true;
       state.error = null;
@@ -171,6 +182,9 @@ export const {
   LectureDetailTextSuccess,
   LectureDetailTextFail,
   LectureDetailTextLoading,
+  categorySearchSuccessTwo,
+  categorySearchFailTwo,
+  categorySearchLoadingTwo,
 } = learningReducer.actions;
 
 export default learningReducer.reducer;

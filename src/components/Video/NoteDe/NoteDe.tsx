@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useCallback, useState } from "react";
-import DOMPurify from "dompurify";
 import { Editor } from "components";
 
 import * as St from "./style";
@@ -9,14 +8,12 @@ interface Note {
   onNote: () => void;
   id: number;
   setNoteBoolean: React.Dispatch<React.SetStateAction<boolean>>;
-  getNote: { chapter: number; content: string; date: string; noteId: number; noteTitle: string; subHeading: string; }[]
 }
 
 
 const NoteDe = ({
   onNote,
   id,
-  getNote,
   setNoteBoolean,
 }: Note) => {
   const onExitNote = useCallback(() => {
@@ -52,7 +49,7 @@ const NoteDe = ({
         </St.Title>
       </St.Top>
       <St.Center $active={hide === true}>
-        {getNote
+        {/* {getNote
           .filter((k) => k.noteId === id)
           .map((v) => {
             return (
@@ -77,7 +74,8 @@ const NoteDe = ({
                 />
               </>
             );
-          })}
+          })} */}
+          asd
       </St.Center>
       {hide && (
         <St.Bottom>

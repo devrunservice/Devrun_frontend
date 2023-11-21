@@ -11,6 +11,7 @@ export interface DashboardReducerType {
   questionListData: I.QuestionListWrapperType;
   questionDetailData: I.QuestionDetailType;
   error: Error | null;
+  hasMoreNote: boolean;
 }
 
 const initialState: DashboardReducerType = {
@@ -29,12 +30,12 @@ const initialState: DashboardReducerType = {
   },
   noteDetailData: {
     noteId: 0,
-    noteTitle: '',
-    videoId: '',
-    chapter: '',
-    subHeading: '',
-    date: '',
-    content: '',
+    noteTitle: "",
+    videoId: "",
+    chapter: "",
+    subHeading: "",
+    date: "",
+    content: "",
   },
   questionListData: {
     dtolist: [],
@@ -43,12 +44,13 @@ const initialState: DashboardReducerType = {
   questionDetailData: {
     questionId: 0,
     lectureId: 0,
-    videoId: '',
-    date: '',
-    questionTitle: '',
-    content: '',
+    videoId: "",
+    date: "",
+    questionTitle: "",
+    content: "",
   },
   error: null,
+  hasMoreNote:false
 };
 
 const dashboardReducer = createSlice({
@@ -86,6 +88,7 @@ const dashboardReducer = createSlice({
     noteListSuccess: (state, action) => {
       state.loading = false;
       state.noteListData = action.payload.data;
+
     },
     noteListFail: (state, action) => {
       state.loading = false;

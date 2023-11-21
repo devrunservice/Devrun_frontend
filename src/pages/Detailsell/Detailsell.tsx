@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RootState } from 'redux/store';
@@ -6,12 +6,14 @@ import YouTube from "react-youtube";
 import DOMPurify from "dompurify";
 import { getCookie } from "utils/cookies";
 import { useDate } from "hooks";
-import { Comment } from "components";
+import { Comment, LectureCard } from "components";
 import {  Play } from "asset";
 import * as St from "./style";
 import {
+  categorySearchLoading,
   LectureDetailLoading,
   LectureDetailTextLoading,
+  categorySearchLoadingTwo,
 } from "../../redux/reducer/learningReducer";
 import { addCartLoading, freeCartLoading } from "../../redux/reducer/cartReducer";
 
@@ -23,13 +25,34 @@ const Detailsell = () => {
   const navi = useNavigate()
   const param = useParams();
   const { videoTime } = useDate();
-  const { lectureDetail, content } = useSelector(
-    (state: RootState) => state.learningReducer
-  );
+  const {
+    lectureDetail,
+    content,
+    lecture: mento,
+    data: lectureBig,
+  } = useSelector((state: RootState) => state.learningReducer);
+  
   useEffect(() => {
     dispatch(LectureDetailLoading({ lectureid: param.lectureId }));
     dispatch(LectureDetailTextLoading({ lectureid: 25 }));
+    dispatch(
+      categorySearchLoading({
+        page: 1,
+        bigcategory: "",
+        order: "lecture_start",
+        q: lectureDetail.mentoId.id,
+      })
+    );
+    dispatch(
+      categorySearchLoadingTwo({
+        page: 1,
+        bigcategory: lectureDetail.lectureCategory.lectureBigCategory,
+        order: "lecture_start",
+        q: "",
+      })
+    );
   }, [param.lectureId]);
+  console.log(lectureDetail);
   const [tapNum, setTapNum] = useState<number>(0);
   const onTap = (k: number) => {
      if (k === tapNum) return setTapNum(0);
@@ -68,6 +91,11 @@ const Detailsell = () => {
     }
     
   };
+  const commentRef = useRef<HTMLDivElement>(null)
+  const commentScroll = ()=>{
+    if(commentRef.current)
+    commentRef.current.scrollIntoView({ behavior: "smooth" });
+  }
   return (
     <St.DetailWrap>
       <St.PreviewArea>
@@ -111,18 +139,16 @@ const Detailsell = () => {
 
         <St.DetailHash>
           {lectureDetail.lectureTag.map((v) => {
-            return (
-              <St.DetailHashli key={v}>
-                {v}
-              </St.DetailHashli>
-            );
+            return <St.DetailHashli key={v}>{v}</St.DetailHashli>;
           })}
         </St.DetailHash>
       </St.PreviewArea>
       <St.DetailTab>
         <St.DetailTabItem>강의소개</St.DetailTabItem>
         <St.DetailTabItem>커리큘럼</St.DetailTabItem>
-        <St.DetailTabItem>수강평</St.DetailTabItem>
+        <St.DetailTabItem onClick={() => commentScroll()}>
+          수강평
+        </St.DetailTabItem>
       </St.DetailTab>
       <St.DetailMainWrap>
         <St.LeftWrap>
@@ -194,11 +220,13 @@ const Detailsell = () => {
               })}
             </St.CurriculumUl>
           </St.Curriculum>
-          <Comment
-            text="수강평"
-            sub=" · 수강생분들이 직접 작성하신 수강평입니다."
-            path="lectures"
-          />
+          <div ref={commentRef}>
+            <Comment
+              text="수강평"
+              sub=" · 수강생분들이 직접 작성하신 수강평입니다."
+              path="lectures"
+            />
+          </div>
         </St.LeftWrap>
         <St.RightWrap>
           <St.Top>
@@ -247,6 +275,66 @@ const Detailsell = () => {
           </St.Bottom>
         </St.RightWrap>
       </St.DetailMainWrap>
+      <St.OtherWrap>
+        <div>
+          <div>
+            <St.CurriculumTitle>
+              {lectureDetail.mentoId.name}님의 다른강의
+              <St.CurriculumCount>
+                지식공유자님의 다른 강의를 만나보세요!
+              </St.CurriculumCount>
+            </St.CurriculumTitle>
+            <St.ListWrap>
+              {mento &&
+                mento?.dtolist
+                  ?.slice(0, 4)
+                  .map((v, index) => (
+                    <LectureCard
+                      key={index}
+                      lectureBigCategory={v.lectureBigCategory}
+                      lectureName={v.lectureName}
+                      lectureIntro={v.lectureIntro}
+                      lectureThumbnail={v.lectureThumbnail}
+                      lectureMidCategory={v.lectureMidCategory}
+                      mentoId={v.mentoId}
+                      lecturePrice={v.lecturePrice}
+                      buyCount={v.buyCount}
+                      rating={v.rating}
+                      lectureId={v.lectureId}
+                    />
+                  ))}
+            </St.ListWrap>
+          </div>
+          <div>
+            <St.CurriculumTitle>
+              비슷한 강의
+              <St.CurriculumCount>
+                같은 분야의 다른 강의를 만나보세요!
+              </St.CurriculumCount>
+            </St.CurriculumTitle>
+            <St.ListWrap>
+              {lectureBig &&
+                lectureBig?.dtolist
+                  ?.slice(0, 4)
+                  .map((v, index) => (
+                    <LectureCard
+                      key={index}
+                      lectureBigCategory={v.lectureBigCategory}
+                      lectureName={v.lectureName}
+                      lectureIntro={v.lectureIntro}
+                      lectureThumbnail={v.lectureThumbnail}
+                      lectureMidCategory={v.lectureMidCategory}
+                      mentoId={v.mentoId}
+                      lecturePrice={v.lecturePrice}
+                      buyCount={v.buyCount}
+                      rating={v.rating}
+                      lectureId={v.lectureId}
+                    />
+                  ))}
+            </St.ListWrap>
+          </div>
+        </div>
+      </St.OtherWrap>
     </St.DetailWrap>
   );
 };

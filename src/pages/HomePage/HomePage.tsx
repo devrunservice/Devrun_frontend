@@ -44,7 +44,6 @@ const HomePage = () => {
      dispatch(learningLoading({ page: "1", status: "all" }));
     }
   }, []);
-  console.log(learningData);
   const navigate = useNavigate();
 
   const searchBtn = (e:React.FormEvent<HTMLFormElement>)=>{
