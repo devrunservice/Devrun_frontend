@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
+import {useDate} from 'hooks';
 import * as I from 'types';
 import * as St from './styles';
 
@@ -17,6 +18,8 @@ const List: React.FC<I.NoteQuestionListType> = ({
   questionDate,
 }) => {
   const navigate = useNavigate();
+
+  const {formattedDate} = useDate();
 
   const handleClick = () => {
     if (category === 'note') {
@@ -40,7 +43,9 @@ const List: React.FC<I.NoteQuestionListType> = ({
         {category === 'note' && (
           <div>{`노트수 ${count} ∙ 작성일 : ${lastStudyDate}`}</div>
         )}
-        {category === 'question' && <div>{`작성일 : ${questionDate}`}</div>}
+        {category === 'question' && (
+          <div>{`작성일 : ${formattedDate(questionDate || '')}`}</div>
+        )}
       </St.InfoWrapper>
       <St.RightArrow />
     </St.ListLi>

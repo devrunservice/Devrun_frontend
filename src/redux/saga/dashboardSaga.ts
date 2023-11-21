@@ -88,7 +88,6 @@ function* questionList(
 ): Generator<any, void, any> {
   try {
     const response = yield call(mypage.questionList, action.payload);
-    console.log(response);
     yield put(questionListSuccess(response));
   } catch (error: any) {
     yield put(questionListFail(error));

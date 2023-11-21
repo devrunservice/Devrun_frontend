@@ -3,7 +3,7 @@ import React, {useEffect} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
-import {mypage} from 'utils/api';
+import {useDate} from 'hooks';
 import {Comment, Content} from 'components';
 import {Button} from 'style/Common';
 import * as St from './styles';
@@ -17,6 +17,8 @@ const QuestionDetail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {questionId} = useParams();
+
+  const {formattedDate} = useDate();
 
   const {
     questionDetailData: questionDetail,
@@ -52,7 +54,9 @@ const QuestionDetail = () => {
       <St.QuestionDetailWrapper>
         <St.QuestionTitle>{questionDetail.questionTitle}</St.QuestionTitle>
         <St.LectureTitle>파이썬</St.LectureTitle>
-        <St.QuestionDate>{`작성일 : ${questionDetail.date}`}</St.QuestionDate>
+        <St.QuestionDate>{`작성일 : ${formattedDate(
+          questionDetail.date || ''
+        )}`}</St.QuestionDate>
       </St.QuestionDetailWrapper>
       <St.QuestionContent>
         <Content content={questionDetail.content} />

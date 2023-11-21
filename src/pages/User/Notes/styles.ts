@@ -42,6 +42,7 @@ export const NoteDate = styled.p`
 export const NoteContent = styled.div`
   padding-top: 32px;
   margin-bottom: 32px;
+  min-height: 31.25rem;
   border-bottom: 1px solid ${(props) => props.theme.borderC};
 `;
 

@@ -170,19 +170,23 @@ export const mypage = {
     return response;
   },
   noteDelete: async (params: number) => {
-    const response = await authAxios.post(`lecturenoteDelete`, params);
+    const response = await authAxios.delete(
+      `lecturenoteDelete?noteNo=${params}`
+    );
     return response;
   },
   questionList: async (params: I.NotePropsType) => {
     const response = await authAxios.get(
       `/mylectureQalistOpen?status=${params.status}&page=${params.page}`
     );
+    console.log(response);
     return response;
   },
   questionDetail: async (params: I.NotePropsType) => {
     const response = await authAxios.get(
       `/lectureQaDetailOpen?questionId=${params.id}`
     );
+    console.log(response);
     return response;
   },
   questionDelete: async (params: I.NotePropsType) => {
@@ -220,7 +224,7 @@ export const Cart = {
   },
 
   delete: (params: I.LectureInfoList) => {
-    const response = authAxios.post("/cart/delete", params);
+    const response = authAxios.post('/cart/delete', params);
     return response;
   },
   list: () => {
@@ -231,10 +235,10 @@ export const Cart = {
     const response = authAxios.post(`/cart/insert`, params);
     return response;
   },
-  free:(params:I.lectureName)=>{
+  free: (params: I.lectureName) => {
     const response = authAxios.post(`/Free`, params);
     return response;
-  }
+  },
 };
 
 export const create = {
