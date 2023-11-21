@@ -1,5 +1,3 @@
-
-
 const useDate = () => {
   const getYear = new Date().getFullYear();
   const getMonth = new Date().getMonth() + 1;
@@ -12,6 +10,7 @@ const useDate = () => {
     if (min > 0) return `${min}분 ${sec}초`;
     return `${sec}초`;
   };
+
   const Dday = (createdDate: string) => {
     const currentTime = new Date();
     const creatTime = new Date(createdDate);
@@ -23,6 +22,7 @@ const useDate = () => {
     const daysDifference = Math.floor(hoursDifference / 24);
     if (daysDifference > 0) return `D-${daysDifference}`;
   };
+
   const time = (createdDate: string) => {
     const currentTime = new Date();
     const creatTime = new Date(createdDate);
@@ -37,6 +37,19 @@ const useDate = () => {
     if (minutesDifference > 0) return `${minutesDifference}분 전`;
     if (secondsDifference > 0) return `${secondsDifference}초 전`;
   };
-  return { getYear, getMonth, getdate, Dday, time, videoTime };
+
+  const formattedDate = (date: string) => {
+    const dateObject = new Date(date);
+
+    const padZero = (number: number) => {
+      return number < 10 ? `0${number}` : number;
+    };
+
+    return `${dateObject.getFullYear()}-${padZero(
+      dateObject.getMonth() + 1
+    )}-${padZero(dateObject.getDate())}`;
+  };
+
+  return {getYear, getMonth, getdate, Dday, time, videoTime, formattedDate};
 };
 export default useDate;
