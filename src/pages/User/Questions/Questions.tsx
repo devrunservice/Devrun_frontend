@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {NoSearch} from 'asset';
+import {useDate} from 'hooks';
 import {UserTop, NoData, TableHeader, TableBody, Pagination} from 'components';
 import * as St from './styles';
 import {questionListLoading} from '../../../redux/reducer/dashboardReducer';
@@ -27,9 +28,11 @@ const Questions = () => {
     (state: RootState) => state.dashboardReducer.questionListData
   );
 
+  const {formattedDate} = useDate();
+
   useEffect(() => {
     if (tapLists === '전체') {
-      dispatch(questionListLoading({page: pageno, status: 'answer'}));
+      dispatch(questionListLoading({page: pageno, status: 'all'}));
     } else if (tapLists === '답변 대기') {
       dispatch(questionListLoading({page: pageno, status: 'waiting'}));
     } else {
@@ -44,19 +47,24 @@ const Questions = () => {
         sub="전체"
         count={questionList.questionCount}
       />
-      <St.Sort $active={tapOpen === true} onClick={() => setTapOpen(!tapOpen)}>
-        <St.SortLabel>{tapLists}</St.SortLabel>
-        <St.Arr $active={tapOpen === true} />
-        {tapOpen && (
-          <St.SortUl>
-            {tapList.map((item) => (
-              <St.SortLi key={item.id} onClick={() => tapOpsion(item.list)}>
-                {item.list}
-              </St.SortLi>
-            ))}
-          </St.SortUl>
-        )}
-      </St.Sort>
+      <St.SortWrapper>
+        <St.Sort
+          $active={tapOpen === true}
+          onClick={() => setTapOpen(!tapOpen)}
+        >
+          <St.SortLabel>{tapLists}</St.SortLabel>
+          <St.Arr $active={tapOpen === true} />
+          {tapOpen && (
+            <St.SortUl>
+              {tapList.map((item) => (
+                <St.SortLi key={item.id} onClick={() => tapOpsion(item.list)}>
+                  {item.list}
+                </St.SortLi>
+              ))}
+            </St.SortUl>
+          )}
+        </St.Sort>
+      </St.SortWrapper>
       <St.Table>
         <TableHeader />
         {questionList.questionCount === 0 ? (
@@ -77,7 +85,7 @@ const Questions = () => {
               questionLectureTitle={question.questionLectureTitle}
               questionTitle={question.questionTitle}
               questionContentPreview={question.questionContentPreview}
-              questionDate={question.questionDate}
+              questionDate={formattedDate(question.questionDate || '')}
               answer={question.answer}
             />
           ))

@@ -110,11 +110,8 @@ export interface NoteQuestionListType {
   lectureThumbnail?: string;
   count?: number;
   questionId?: number;
-  questionLectureTitle?: string;
   questionTitle?: string;
-  questionContentPreview?: string;
   questionDate?: string;
-  questionCount?: number;
 }
 export interface NoteLectureWrapperType {
   dtolist: LectureType[];

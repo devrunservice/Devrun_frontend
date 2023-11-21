@@ -79,7 +79,6 @@ const dashboardReducer = createSlice({
     },
     noteLectureSuccess: (state, action) => {
       state.loading = false;
-      console.log(action.payload.data);
       state.noteLectureData = action.payload.data;
     },
     noteLectureFail: (state, action) => {

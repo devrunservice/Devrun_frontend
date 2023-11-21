@@ -26,9 +26,11 @@ const Dashboard = () => {
   }, []);
 
   const userInfo = useSelector((state: RootState) => state.mypageReducer.data);
-  const {learningData: courses, noteLectureData: noteLectures} = useSelector(
-    (state: RootState) => state.dashboardReducer
-  );
+  const {
+    learningData: courses,
+    noteLectureData: noteLectures,
+    questionListData: questionList,
+  } = useSelector((state: RootState) => state.dashboardReducer);
 
   const handleMoreBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
     const {name} = e.target as HTMLButtonElement;
@@ -97,7 +99,7 @@ const Dashboard = () => {
               {noteLectures.dtolist.slice(0, 3).map((lecture) => (
                 <List
                   key={lecture.lectureId}
-                  page="notes"
+                  page="dashboard"
                   category="note"
                   lectureId={lecture.lectureId}
                   lectureTitle={lecture.lectureTitle}
@@ -121,19 +123,16 @@ const Dashboard = () => {
             </St.MoreBtn>
           </St.TitleWrapper>
           <ul>
-            {/* {questionList.dtolist.slice(0, 3).map((question) => (
+            {questionList.dtolist.slice(0, 3).map((question) => (
               <List
                 key={question.questionId}
-                page={question.page}
-                category={question.category}
+                page="dashboard"
+                category="question"
                 questionId={question.questionId}
-                lectureTitle={question.lectureTitle}
                 questionTitle={question.questionTitle}
-                questionContentPreview={question.questionContentPreview}
                 questionDate={question.questionDate}
-                count={question.count}
               />
-            ))} */}
+            ))}
           </ul>
         </div>
       </St.NoteQuestionWrapper>
