@@ -3,7 +3,12 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {decode} from 'utils/decode';
-import {AuthenticationNumber, DuplicationForm, Modal} from 'components';
+import {
+  AuthenticationNumber,
+  DuplicationForm,
+  Modal,
+  UserTop,
+} from 'components';
 import {MypageType, ProfileInputType, ValidFieldType} from 'types';
 import {Exclamation} from 'asset';
 import {Title} from 'style/Common';
@@ -130,7 +135,7 @@ const Profile = () => {
 
   return (
     <St.Section>
-      <St.Title>프로필</St.Title>
+      <UserTop title="프로필" />
       <St.InputField>
         {!isInput.profileImageBtn ? (
           <St.InputWrapper>

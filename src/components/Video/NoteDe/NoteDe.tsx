@@ -2,7 +2,7 @@
 import React, { useCallback, useState } from "react";
 import { Editor } from "components";
 
-import * as St from "./style";
+import * as St from './style';
 
 interface Note {
   onNote: () => void;
@@ -19,11 +19,11 @@ const NoteDe = ({
   const onExitNote = useCallback(() => {
     setNoteBoolean(false);
   }, []);
-  const [hide,setHide] = useState(false)
+  const [hide, setHide] = useState(false);
   const [noteData, setNoteData] = useState({
-    title: "",
-    content: "",
-    id:0,
+    title: '',
+    content: '',
+    id: 0,
   });
   const onReNote = useCallback(
     (noteId: number, content: string, title: string) => {
@@ -67,11 +67,9 @@ const NoteDe = ({
                   </div>
                 </div>
                 <em>{v.noteTitle}</em>
-                <St.Contents
-                  dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(v.content),
-                  }}
-                />
+                <St.Contents>
+                  <Content content={v.content} />
+                </St.Contents>
               </>
             );
           })} */}

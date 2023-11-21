@@ -1,35 +1,17 @@
 import {styled} from 'styled-components';
 
-export const TitleWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-  font-size: 1.5625rem;
-  font-weight: 700;
-  color: ${(props: any) => props.theme.black};
-  padding-bottom: 1rem;
-
-  & > h1 {
-    width: 60%;
-  }
-`;
-
 export const NoteListUl = styled.div`
   min-height: 53.8125rem;
-`;
-
-export const ErrorMessage = styled.div`
-  text-align: center;
-  margin-top: 32px;
+  margin-top: 1.875rem;
 `;
 
 export const NoteUl = styled.ul`
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
-  gap: 1.875rem;
   min-height: 53.8125rem;
+  gap: 1.875rem;
+  margin-top: 1.875rem;
 `;
 
 export const NoteDetailSection = styled.section`
@@ -60,13 +42,19 @@ export const NoteDate = styled.p`
 export const NoteContent = styled.div`
   padding-top: 32px;
   margin-bottom: 32px;
+  min-height: 31.25rem;
   border-bottom: 1px solid ${(props) => props.theme.borderC};
 `;
 
-export const NoteEditBtn = styled.div`
+export const NoteBtn = styled.div`
   text-align: right;
 
-  & > button:nth-child(1) {
-    margin-right: 8px;
+  & > button:nth-child(2) {
+    margin: 0 8px;
+  }
+
+  & > button:last-child {
+    background: ${(props: any) => props.theme.textRed};
+    color: ${(props: any) => props.theme.textWhite};
   }
 `;

@@ -2,7 +2,8 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
-import {SearchBar, Pagination, List} from 'components';
+import {NoSearch} from 'asset';
+import {SearchBar, Pagination, List, UserTop, NoData} from 'components';
 import * as St from './styles';
 import {noteLectureLoading} from '../../../redux/reducer/dashboardReducer';
 
@@ -24,14 +25,21 @@ const Notes = () => {
 
   return (
     <section>
-      <St.TitleWrapper>
-        <h1>강의 노트</h1>
-        {/* <SearchBar /> */}
-      </St.TitleWrapper>
+      <UserTop title="강의 노트" />
       {noteLectures.dtolist.length === 0 ? (
-        <St.ErrorMessage>수강한 강의가 없습니다.</St.ErrorMessage>
+        <NoData
+          title="수강한 강의가 존재하지 않습니다"
+          span="강의를 구매해주세요"
+          tag
+          img={<NoSearch />}
+        />
       ) : noteLectures.dtolist.every((lecture) => lecture.count === 0) ? (
-        <St.ErrorMessage>작성한 노트가 없습니다.</St.ErrorMessage>
+        <NoData
+          title="작성한 노트가 존재하지 않습니다"
+          span="첫 노트를 작성해보세요"
+          tag={false}
+          img={<NoSearch />}
+        />
       ) : (
         <St.NoteListUl>
           {noteLectures.dtolist.map((lecture) => (
@@ -49,11 +57,14 @@ const Notes = () => {
         </St.NoteListUl>
       )}
 
-      <Pagination
-        pageno={pageno}
-        setPageno={setPageno}
-        totalPages={noteLectures.totalPages}
-      />
+      {noteLectures.dtolist.length > 0 &&
+        noteLectures.dtolist.every((lecture) => lecture.count > 0) && (
+          <Pagination
+            pageno={pageno}
+            setPageno={setPageno}
+            totalPages={noteLectures.totalPages}
+          />
+        )}
     </section>
   );
 };

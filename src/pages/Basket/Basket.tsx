@@ -1,36 +1,35 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, {
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
-import { useSelector,useDispatch } from "react-redux";
-import { RootState } from "redux/store";
-import { useNavigate } from "react-router-dom";
-import { Product, UserInfo, CouponPop, NoData } from "components";
-import { Cart } from "utils/api";
-import { NoSearch } from "asset";
-import * as I from "types";
-import * as S from "style/Common";
-import * as St from "./style";
-import { cartDeleteLoading } from "../../redux/reducer/cartReducer";
-
+import React, {useCallback, useEffect, useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {RootState} from 'redux/store';
+import {useNavigate} from 'react-router-dom';
+import {Product, UserInfo, CouponPop, NoData} from 'components';
+import {Cart} from 'utils/api';
+import {NoSearch} from 'asset';
+import * as I from 'types';
+import * as S from 'style/Common';
+import * as St from './style';
+import {cartDeleteLoading} from '../../redux/reducer/cartReducer';
 
 const Basket = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const priceDot = (num: number) =>
-    num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  const { data,couponPrice } = useSelector((state: RootState) => state.cartReducer)
-  const [openCoupon, setOpenCoupon] = useState(false)
-  
-  const [checkList, setCheckList] = useState<I.LectureInfoList[]>(data.lectureInfoList); 
+    num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const {data, couponPrice} = useSelector(
+    (state: RootState) => state.cartReducer
+  );
+  const [openCoupon, setOpenCoupon] = useState(false);
+
+  const [checkList, setCheckList] = useState<I.LectureInfoList[]>(
+    data.lectureInfoList
+  );
   const singleCheck = (
     lectureName: string,
     lectureIntro: string,
     lecturePrice: number,
     lectureThumbnail: string,
-    lectureId: number,
+    lectureId: number
   ) => {
     setCheckList((prev) =>
       prev.some((item) => item.lectureName === lectureName)
@@ -52,21 +51,24 @@ const Basket = () => {
     setCheckList(data.lectureInfoList);
   }, [data.lectureInfoList]);
 
-  const total = checkList.reduce((current, account) => current + account.lecturePrice, 0);
+  const total = checkList.reduce(
+    (current, account) => current + account.lecturePrice,
+    0
+  );
 
   const [price, setPrice] = useState<I.BasketState>({
     price: total,
     discount: 0,
-    couponName: "",
-    couponCode: "",
+    couponName: '',
+    couponCode: '',
     discountrate: 0,
   });
-    const couponList = checkList.some((c) => c.lectureName === price.couponName ); 
+  const couponList = checkList.some((c) => c.lectureName === price.couponName);
   // 가격
   useEffect(() => {
-    setPrice({ ...price, price: total });
-    if (price.couponName === "" || !couponList) {
-      setPrice({ ...price, price: total, discount: 0, couponName: "" });
+    setPrice({...price, price: total});
+    if (price.couponName === '' || !couponList) {
+      setPrice({...price, price: total, discount: 0, couponName: ''});
     } else if (couponPrice.discountprice) {
       setPrice({
         ...price,
@@ -79,7 +81,7 @@ const Basket = () => {
   const [point, setPoint] = useState(0);
   const onPoint = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      const value = parseFloat(e.target.value.replace(/[^\d.]/g, ""));
+      const value = parseFloat(e.target.value.replace(/[^\d.]/g, ''));
       const v = isNaN(value)
         ? 0
         : Math.min(
@@ -91,64 +93,62 @@ const Basket = () => {
     [price.price, price.discount, data]
   );
   useEffect(() => {
-    if (price.couponName !== "" || checkList.length < 0) setPoint(0);
+    if (price.couponName !== '' || checkList.length < 0) setPoint(0);
   }, [price.couponName, checkList]);
-  
-  // 삭제 
-  const onDelete = useCallback(async() => {
-    if (window.confirm("해당강의를 삭제하시겠습니까?")) {
-       const payload = checkList.map((v) => v.lectureId);
+
+  // 삭제
+  const onDelete = useCallback(async () => {
+    if (window.confirm('해당강의를 삭제하시겠습니까?')) {
+      const payload = checkList.map((v) => v.lectureId);
       dispatch(cartDeleteLoading(payload));
-      alert("삭제되었습니다.");
-    }else{
-      alert("취소되었습니다.");
+      alert('삭제되었습니다.');
+    } else {
+      alert('취소되었습니다.');
     }
   }, [checkList]);
 
-
   // 콜백 함수 정의
   const callback = async (response: I.RequestPayResponse) => {
-    const { imp_uid, paid_amount, success } = response;
+    const {imp_uid, paid_amount, success} = response;
 
     const payload: I.bastetCheck[] = checkList.map((item, index) => {
       const baseData = {
         name: item.lectureName,
         paid_amount: item.lecturePrice,
-        pay_method: response.pay_method || "",
-        merchant_uid: response.merchant_uid || "",
-        pg_provider: response.pg_provider || "",
-        receipt_url: response.receipt_url || "",
-        imp_uid: response.imp_uid || "",
+        pay_method: response.pay_method || '',
+        merchant_uid: response.merchant_uid || '',
+        pg_provider: response.pg_provider || '',
+        receipt_url: response.receipt_url || '',
+        imp_uid: response.imp_uid || '',
         userno: data.buyerInfo.userNo,
-        couponCode: price.couponCode || "",
+        couponCode: price.couponCode || '',
       };
-      return index === 0 ? { ...baseData, mypoint: point } : baseData;
+      return index === 0 ? {...baseData, mypoint: point} : baseData;
     });
-    const res = await Cart.callbak({ imp_uid });
+    const res = await Cart.callbak({imp_uid});
     if (paid_amount === res.data.response.amount && success) {
       try {
-         await Cart.save(payload);
-         navigate("/learning");
+        await Cart.save(payload);
+        navigate('/learning');
       } catch (error) {
-         alert("결제를 실패했습니다.");
+        alert('결제를 실패했습니다.');
       }
-
     } else {
-      alert("결제를 취소했습니다.");
+      alert('결제를 취소했습니다.');
     }
   };
 
   const basketBtn = (e: React.FormEvent<HTMLFormElement>) => {
-    if (checkList.length === 0) return alert("장바구니에 강의가 없습니다.") 
+    if (checkList.length === 0) return alert('장바구니에 강의가 없습니다.');
     e.preventDefault();
     // 가맹점 식별코드
     if (!window.IMP) return;
-    const { IMP } = window;
-    IMP.init("imp75220550");
+    const {IMP} = window;
+    IMP.init('imp75220550');
     /* 2. 결제 데이터 정의하기 */
     const payload: I.RequestPayParams = {
-      pg: "html5_inicis", // PG사
-      pay_method: "card", // 결제수단
+      pg: 'html5_inicis', // PG사
+      pay_method: 'card', // 결제수단
       merchant_uid: `merchant_${new Date().getTime()}`, // 주문번호
       amount: price.price - point - price.discount, // 결제금액
       name:
@@ -183,7 +183,7 @@ const Basket = () => {
                     }
                   />
                   <St.CheckLabel htmlFor="selectAll">
-                    전체선택 <span>{checkList.length}</span> /{" "}
+                    전체선택 <span>{checkList.length}</span> /{' '}
                     {data.lectureInfoList.length}
                   </St.CheckLabel>
                 </div>
@@ -214,6 +214,7 @@ const Basket = () => {
             <NoData
               title="담긴 강의가 존재하지 않습니다"
               span="나를 성장 시켜줄 좋은 지식들을 찾아보세요."
+              tag
               img={<NoSearch />}
             />
           )}
@@ -229,12 +230,12 @@ const Basket = () => {
           <St.InfoWrap>
             <em>쿠폰</em>
             <p>
-              사용가능{" "}
+              사용가능{' '}
               <span>
                 {
                   data.couponListInCart.filter(
                     (v) =>
-                      v.state === "ACTIVE" &&
+                      v.state === 'ACTIVE' &&
                       checkList.some(
                         (list) => list.lectureName === v.lecturename
                       )
@@ -244,7 +245,7 @@ const Basket = () => {
             </p>
           </St.InfoWrap>
           <St.Coupon onClick={() => setOpenCoupon(true)} type="button">
-            {price.couponName || "쿠폰을 선택해주세요"}
+            {price.couponName || '쿠폰을 선택해주세요'}
           </St.Coupon>
           {openCoupon && (
             <CouponPop

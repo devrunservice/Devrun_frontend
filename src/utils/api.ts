@@ -169,15 +169,32 @@ export const mypage = {
     );
     return response;
   },
-  questionList: async () => {
-    const response = await authAxios.get(`/`);
+  noteDelete: async (params: number) => {
+    const response = await authAxios.delete(
+      `lecturenoteDelete?noteNo=${params}`
+    );
     return response;
   },
-  questionDetail: async () => {
-    const response = await authAxios.get(`/`);
+  questionList: async (params: I.NotePropsType) => {
+    const response = await authAxios.get(
+      `/mylectureQalistOpen?status=${params.status}&page=${params.page}`
+    );
+    console.log(response);
     return response;
   },
-
+  questionDetail: async (params: I.NotePropsType) => {
+    const response = await authAxios.get(
+      `/lectureQaDetailOpen?questionId=${params.id}`
+    );
+    console.log(response);
+    return response;
+  },
+  questionDelete: async (params: I.NotePropsType) => {
+    const response = await authAxios.delete(
+      `/lectureQa/delete?questionId=${params.id}`
+    );
+    return response;
+  },
   coupon: (params: I.CouponGet) => {
     const response = authAxios.post('/coupon/registration', params);
     return response;
@@ -207,7 +224,7 @@ export const Cart = {
   },
 
   delete: (params: I.LectureInfoList) => {
-    const response = authAxios.post("/cart/delete", params);
+    const response = authAxios.post('/cart/delete', params);
     return response;
   },
   list: () => {
@@ -218,10 +235,10 @@ export const Cart = {
     const response = authAxios.post(`/cart/insert`, params);
     return response;
   },
-  free:(params:I.lectureName)=>{
+  free: (params: I.lectureName) => {
     const response = authAxios.post(`/Free`, params);
     return response;
-  }
+  },
 };
 
 export const create = {

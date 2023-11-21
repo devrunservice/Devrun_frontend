@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
+import {useDate} from 'hooks';
 import * as I from 'types';
 import * as St from './styles';
 
@@ -12,26 +13,39 @@ const List: React.FC<I.NoteQuestionListType> = ({
   lectureThumbnail,
   lastStudyDate,
   count,
+  questionId,
+  questionTitle,
+  questionDate,
 }) => {
   const navigate = useNavigate();
 
+  const {formattedDate} = useDate();
+
   const handleClick = () => {
-    navigate(`/notes/${lectureId}`);
+    if (category === 'note') {
+      navigate(`/notes/${lectureId}`);
+    } else {
+      navigate(`/questions/${questionId}`);
+    }
   };
 
   return (
     <St.ListLi onClick={() => handleClick()}>
-      {page === "notes" && (
+      {page === 'notes' && (
         <St.ImageWrapper>
           <St.Image src={lectureThumbnail} alt="thumbnail" />
         </St.ImageWrapper>
       )}
       <St.InfoWrapper $page={page}>
-        <St.LectureTitle>{lectureTitle}</St.LectureTitle>
-        {category === "note" && (
+        <St.LectureTitle>
+          {category === 'note' ? lectureTitle : questionTitle}
+        </St.LectureTitle>
+        {category === 'note' && (
           <div>{`노트수 ${count} ∙ 작성일 : ${lastStudyDate}`}</div>
         )}
-        {category === "question" && <div>{`작성일 : ${lastStudyDate}`}</div>}
+        {category === 'question' && (
+          <div>{`작성일 : ${formattedDate(questionDate || '')}`}</div>
+        )}
       </St.InfoWrapper>
       <St.RightArrow />
     </St.ListLi>
