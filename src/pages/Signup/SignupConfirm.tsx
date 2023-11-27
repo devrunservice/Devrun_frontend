@@ -38,7 +38,7 @@ const SignupConfirm = () => {
           <St.HomeBtn onClick={() => redirect('/home')}>메인화면</St.HomeBtn>
         </St.ButtonWrapper>
       </St.Container>
-      <Modal page="signupconfirm" />
+      <Modal />
     </St.Section>
   );
 };

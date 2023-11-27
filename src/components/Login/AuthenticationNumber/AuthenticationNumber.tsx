@@ -233,7 +233,6 @@ const AuthenticationNumber = ({
             !validState.codeBtn && (
               <ErrorMessage>{messageState.phonenumberMessage}</ErrorMessage>
             )}
-          <Modal page="findPassword" />
           {validState.codeBtn && (
             <St.Field option="authenticationInput">
               <Input

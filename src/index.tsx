@@ -91,6 +91,7 @@ const router = createBrowserRouter([
         path: 'videoView/:lectureId/:videoId',
         element: protectedRoute(<Route.VideoView />),
       },
+      {path: 'details', element: <Route.DetailPage />},
     ],
   },
 ]);

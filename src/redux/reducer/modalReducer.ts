@@ -4,9 +4,6 @@ const initialState = {
   modalOpen: false,
   modalMessage1: '',
   modalMessage2: '',
-  signupSuccess: false,
-  kakaoLoginSuccess: false,
-  openRecaptcha: false,
 };
 
 const modalReducer = createSlice({
@@ -27,25 +24,11 @@ const modalReducer = createSlice({
     closeModal: (state) => {
       state.modalOpen = false;
       state.modalMessage1 = '';
-    },
-    setSignupSuccess: (state, action) => {
-      state.signupSuccess = action.payload;
-    },
-    setKakaoLoginSuccess: (state, action) => {
-      state.kakaoLoginSuccess = action.payload;
-    },
-    setRecaptcha: (state, action) => {
-      state.openRecaptcha = action.payload;
+      state.modalMessage2 = '';
     },
   },
 });
 
-export const {
-  openModal,
-  closeModal,
-  setSignupSuccess,
-  setKakaoLoginSuccess,
-  setRecaptcha,
-} = modalReducer.actions;
+export const {openModal, closeModal} = modalReducer.actions;
 
 export default modalReducer.reducer;
