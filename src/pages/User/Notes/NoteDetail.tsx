@@ -8,7 +8,7 @@ import {Content, Modal} from 'components';
 import {Button} from 'style/Common';
 import * as St from './styles';
 import {
-  noteDeleteSuccess,
+  noteDeleteLoading,
   noteDetailLoading,
 } from '../../../redux/reducer/dashboardReducer';
 import {openModal} from '../../../redux/reducer/modalReducer';
@@ -21,6 +21,10 @@ const NoteDetail = () => {
   const {noteDetailData: noteDetail, noteDeleteData: noteDelete} = useSelector(
     (state: RootState) => state.dashboardReducer
   );
+
+  useEffect(() => {
+    dispatch(noteDetailLoading({id: noteId}));
+  }, []);
 
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const {name} = e.target as HTMLButtonElement;
@@ -35,14 +39,14 @@ const NoteDetail = () => {
     }
   };
 
-  useEffect(() => {
-    dispatch(noteDetailLoading({id: noteId}));
-
-    if (noteDelete) {
+  const handleConfirm = () => {
+    try {
+      dispatch(noteDeleteLoading(Number(noteId)));
       navigate(`/notes/${lectureId}`);
-      dispatch(noteDeleteSuccess(false));
+    } catch (error) {
+      console.log(error);
     }
-  }, [noteDelete]);
+  };
 
   return (
     <St.NoteDetailSection>
@@ -70,7 +74,7 @@ const NoteDetail = () => {
           삭제
         </Button>
       </St.NoteBtn>
-      <Modal />
+      <Modal logicActive onConfirm={handleConfirm} />
     </St.NoteDetailSection>
   );
 };

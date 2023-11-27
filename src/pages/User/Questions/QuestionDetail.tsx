@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {useDate} from 'hooks';
-import {Comment, Content} from 'components';
+import {Comment, Content, Modal} from 'components';
 import {Button} from 'style/Common';
 import * as St from './styles';
 import {
-  questionDeleteSuccess,
+  questionDeleteLoading,
   questionDetailLoading,
 } from '../../../redux/reducer/dashboardReducer';
 import {openModal} from '../../../redux/reducer/modalReducer';
@@ -20,21 +20,13 @@ const QuestionDetail = () => {
 
   const {formattedDate} = useDate();
 
-  const {
-    questionDetailData: questionDetail,
-    questionDeleteData: questionDelete,
-  } = useSelector((state: RootState) => state.dashboardReducer);
+  const {questionDetailData: questionDetail} = useSelector(
+    (state: RootState) => state.dashboardReducer
+  );
 
   useEffect(() => {
     dispatch(questionDetailLoading({id: questionId}));
   }, []);
-
-  useEffect(() => {
-    if (questionDelete) {
-      navigate('/questions');
-      dispatch(questionDeleteSuccess(false));
-    }
-  }, [questionDelete]);
 
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const {name} = e.target as HTMLButtonElement;
@@ -46,6 +38,15 @@ const QuestionDetail = () => {
       );
     } else {
       await dispatch(openModal('해당 질문을 삭제하시겠습니까?'));
+    }
+  };
+
+  const handleConfirm = () => {
+    try {
+      dispatch(questionDeleteLoading({id: Number(questionId)}));
+      navigate('/questions');
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -82,7 +83,8 @@ const QuestionDetail = () => {
           삭제
         </Button>
       </St.QuestionBtn>
-      <Comment text="댓글" />
+      <Comment text="댓글" path="/questions" />
+      <Modal logicActive onConfirm={handleConfirm} />
     </section>
   );
 };

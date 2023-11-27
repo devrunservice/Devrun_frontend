@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { createSlice } from "@reduxjs/toolkit";
-import { Notices,CommentsList } from "types";
+import {createSlice} from '@reduxjs/toolkit';
+import {Notices, CommentsList} from 'types';
 
 const initialState: Notices = {
   // 리스트
   data: {
     content: [
       {
-        content: "",
-        createdDate: "",
-        id: "",
-        modifiedDate: "",
+        content: '',
+        createdDate: '',
+        id: '',
+        modifiedDate: '',
         noticeNo: 0,
-        status: "",
-        title: "",
+        status: '',
+        title: '',
         userNo: 0,
         viewCount: 0,
         order: 0,
@@ -24,13 +24,13 @@ const initialState: Notices = {
   },
   // 뷰 페이지
   content: {
-    content: "",
-    createdDate: "",
-    id: "",
-    modifiedDate: "",
+    content: '',
+    createdDate: '',
+    id: '',
+    modifiedDate: '',
     noticeNo: 0,
-    status: "",
-    title: "",
+    status: '',
+    title: '',
     userNo: 0,
     viewCount: 0,
     order: 0,
@@ -40,13 +40,13 @@ const initialState: Notices = {
     data: [
       {
         commentNo: 0,
-        content: "",
-        createdDate: "",
-        id: "",
-        modifiedDate: "",
+        content: '',
+        createdDate: '',
+        id: '',
+        modifiedDate: '',
         noticeNo: 0,
         parentCommentNo: 0,
-        profileimgsrc: "",
+        profileimgsrc: '',
         userNo: 0,
       },
     ],
@@ -54,34 +54,34 @@ const initialState: Notices = {
   // 댓글 처음 작성
   comments: {
     commentNo: 0,
-    content: "",
-    createdDate: "",
-    id: "",
-    modifiedDate: "",
+    content: '',
+    createdDate: '',
+    id: '',
+    modifiedDate: '',
     noticeNo: 0,
     parentCommentNo: 0,
-    profileimgsrc: "",
+    profileimgsrc: '',
     userNo: 0,
   },
   commentRe: {
     commentNo: 0,
-    content: "",
-    createdDate: "",
-    id: "",
-    modifiedDate: "",
+    content: '',
+    createdDate: '',
+    id: '',
+    modifiedDate: '',
     noticeNo: 0,
     parentCommentNo: 0,
-    profileimgsrc: "",
+    profileimgsrc: '',
     userNo: 0,
   },
-  del: "",
-  write: "",
+  del: '',
+  write: '',
   loading: false,
   error: null,
 };
 
 const noticeReducer = createSlice({
-  name: "noticeReducer",
+  name: 'noticeReducer',
   initialState,
   reducers: {
     noticeListLoading: (state, action) => {
@@ -173,6 +173,8 @@ const noticeReducer = createSlice({
     commentGetSuccess: (state, action) => {
       state.loading = false;
       state.datas = action.payload;
+      console.log(action.payload);
+      console.log(state.datas);
       return state;
     },
     commentGetFail: (state, action) => {
