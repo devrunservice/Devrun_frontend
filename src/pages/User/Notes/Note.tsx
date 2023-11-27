@@ -15,13 +15,13 @@ const Note = () => {
 
   const [pageno, setPageno] = useState<number>(1);
 
-  const noteList = useSelector(
-    (state: RootState) => state.dashboardReducer.noteListData
+  const {noteListData: noteList, noteDeleteData: noteDelete} = useSelector(
+    (state: RootState) => state.dashboardReducer
   );
 
   useEffect(() => {
     dispatch(noteListLoading({page: pageno, id: lectureId}));
-  }, [pageno]);
+  }, [pageno, noteDelete]);
 
   return (
     <section>
