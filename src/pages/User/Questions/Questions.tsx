@@ -24,9 +24,8 @@ const Questions = () => {
     setTapOpen(false);
   };
 
-  const questionList = useSelector(
-    (state: RootState) => state.dashboardReducer.questionListData
-  );
+  const {questionListData: questionList, questionDeleteData: questionDelete} =
+    useSelector((state: RootState) => state.dashboardReducer);
 
   const {formattedDate} = useDate();
 
@@ -38,16 +37,16 @@ const Questions = () => {
     } else {
       dispatch(questionListLoading({page: pageno, status: 'completed'}));
     }
-  }, [pageno, tapLists]);
+  }, [pageno, tapLists, questionDelete]);
 
   return (
     <section>
-      <UserTop
-        title="작성한 질문"
-        sub="전체"
-        count={questionList.questionCount}
-      />
-      <St.SortWrapper>
+      <St.Wrapper>
+        <UserTop
+          title="작성한 질문"
+          sub="전체"
+          count={questionList.questionCount}
+        />
         <St.Sort
           $active={tapOpen === true}
           onClick={() => setTapOpen(!tapOpen)}
@@ -64,18 +63,18 @@ const Questions = () => {
             </St.SortUl>
           )}
         </St.Sort>
-      </St.SortWrapper>
-      <St.Table>
-        <TableHeader />
-        {questionList.questionCount === 0 ? (
-          <NoData
-            title="작성한 질문이 존재하지 않습니다"
-            span="강의를 즐기시는 동안 궁금한 점이 있거나 이해가 안 가는 부분이 있다면 언제든지 질문해 주세요"
-            tag={false}
-            img={<NoSearch />}
-          />
-        ) : (
-          questionList.dtolist.map((question, index) => (
+      </St.Wrapper>
+      {questionList.questionCount === 0 ? (
+        <NoData
+          title="작성한 질문이 존재하지 않습니다"
+          span="강의를 즐기시는 동안 궁금한 점이 있으시면 언제든지 질문해 주세요"
+          tag={false}
+          img={<NoSearch />}
+        />
+      ) : (
+        <St.Table>
+          <TableHeader />
+          {questionList.dtolist.map((question, index) => (
             <TableBody
               key={index}
               no={index + 1 + (pageno - 1) * 10}
@@ -88,9 +87,9 @@ const Questions = () => {
               questionDate={formattedDate(question.questionDate || '')}
               answer={question.answer}
             />
-          ))
-        )}
-      </St.Table>
+          ))}
+        </St.Table>
+      )}
 
       {questionList.questionCount > 0 && (
         <Pagination

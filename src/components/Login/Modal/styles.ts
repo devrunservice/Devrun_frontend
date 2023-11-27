@@ -1,4 +1,4 @@
-import { styled, keyframes } from "styled-components";
+import {styled, keyframes} from 'styled-components';
 
 const modalShow = keyframes`
   from {
@@ -33,6 +33,21 @@ export const Modal = styled.div`
   animation: ${modalShow} 0.3s;
 `;
 
+export const BtnWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+
+  & > button:nth-child(1) {
+    margin-right: 0.5rem;
+    color: ${(props) => props.theme.textColor};
+    background-color: ${(props) => props.theme.bgGrayColor};
+  }
+
+  /* & > button:nth-child(2) {
+    color: ${(props) => props.theme.textWhite};
+    background-color: ${(props) => props.theme.mainColor};
+  } */
+`;
 export const Button = styled.button`
   padding: 0.5rem 1rem;
   margin-top: 0.5rem;

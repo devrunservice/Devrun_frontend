@@ -2,7 +2,7 @@
 import {call, put, takeLatest, all, fork} from 'redux-saga/effects';
 import {PayloadAction} from '@reduxjs/toolkit';
 import {mypage} from 'utils/api';
-import {NotePropsType} from 'types';
+import * as I from 'types';
 import {
   learningLoading,
   learningSuccess,
@@ -28,10 +28,23 @@ import {
   questionDeleteLoading,
   questionDeleteSuccess,
   questionDeleteFail,
+  answerForQuestionLoading,
+  answerForQuestionSuccess,
+  answerForQuestionFail,
+  replyAnswerLoading,
+  replyAnswerSuccess,
+  replyAnswerFail,
+  deleteAnswerLoading,
+  deleteAnswerSuccess,
+  deleteAnswerFail,
+  editAnswerLoading,
+  editAnswerSuccess,
+  editAnswerFail,
 } from '../reducer/dashboardReducer';
+import {openModal} from '../reducer/modalReducer';
 
 function* learning(
-  action: PayloadAction<NotePropsType>
+  action: PayloadAction<I.NotePropsType>
 ): Generator<any, void, any> {
   try {
     const response = yield call(mypage.learning, action.payload);
@@ -42,7 +55,7 @@ function* learning(
 }
 
 function* noteLecture(
-  action: PayloadAction<NotePropsType>
+  action: PayloadAction<I.NotePropsType>
 ): Generator<any, void, any> {
   try {
     const response = yield call(mypage.noteLecture, action.payload);
@@ -53,7 +66,7 @@ function* noteLecture(
 }
 
 function* noteList(
-  action: PayloadAction<NotePropsType>
+  action: PayloadAction<I.NotePropsType>
 ): Generator<any, void, any> {
   try {
     const response = yield call(mypage.noteList, action.payload);
@@ -64,7 +77,7 @@ function* noteList(
 }
 
 function* noteDetail(
-  action: PayloadAction<NotePropsType>
+  action: PayloadAction<I.NotePropsType>
 ): Generator<any, void, any> {
   try {
     const response = yield call(mypage.noteDetail, action.payload);
@@ -84,7 +97,7 @@ function* noteDelete(action: PayloadAction<number>): Generator<any, void, any> {
 }
 
 function* questionList(
-  action: PayloadAction<NotePropsType>
+  action: PayloadAction<I.NotePropsType>
 ): Generator<any, void, any> {
   try {
     const response = yield call(mypage.questionList, action.payload);
@@ -95,7 +108,7 @@ function* questionList(
 }
 
 function* questionDetail(
-  action: PayloadAction<NotePropsType>
+  action: PayloadAction<I.NotePropsType>
 ): Generator<any, void, any> {
   try {
     const response = yield call(mypage.questionDetail, action.payload);
@@ -106,13 +119,59 @@ function* questionDetail(
 }
 
 function* questionDelete(
-  action: PayloadAction<NotePropsType>
+  action: PayloadAction<I.NotePropsType>
 ): Generator<any, void, any> {
   try {
     yield call(mypage.questionDelete, action.payload);
     yield put(questionDeleteSuccess(true));
   } catch (error: any) {
-    yield put(noteDeleteFail(error));
+    yield put(questionDeleteFail(error));
+  }
+}
+
+function* answerForQuestion(
+  action: PayloadAction<I.NotePropsType>
+): Generator<any, void, any> {
+  try {
+    const response = yield call(mypage.answerForQuestion, action.payload);
+    yield put(answerForQuestionSuccess(response));
+  } catch (error: any) {
+    yield put(answerForQuestionFail(error));
+  }
+}
+
+function* replyForAnswer(
+  action: PayloadAction<I.QuestionReplyType>
+): Generator<any, void, any> {
+  try {
+    const response = yield call(mypage.replyForAnswer, action.payload);
+    yield put(replyAnswerSuccess(response));
+  } catch (error: any) {
+    yield put(replyAnswerFail(error));
+  }
+}
+
+function* deleteAnswer(
+  action: PayloadAction<I.NotePropsType>
+): Generator<any, void, any> {
+  try {
+    yield call(mypage.deleteAnswer, action.payload);
+    yield put(deleteAnswerSuccess(action.payload));
+  } catch (error: any) {
+    yield put(deleteAnswerFail(error));
+  }
+}
+
+function* editAnswer(
+  action: PayloadAction<I.NotePropsType>
+): Generator<any, void, any> {
+  try {
+    console.log('댓글 수정 사가 실행');
+    const response = yield call(mypage.editAnswer, action.payload);
+    console.log(response);
+    yield put(editAnswerSuccess(response));
+  } catch (error: any) {
+    yield put(editAnswerFail(error));
   }
 }
 
@@ -148,6 +207,22 @@ export function* watchQuestionDeleteSaga() {
   yield takeLatest(questionDeleteLoading.type, questionDelete);
 }
 
+export function* watchAnswerForQuestionSaga() {
+  yield takeLatest(answerForQuestionLoading.type, answerForQuestion);
+}
+
+export function* watchReplyForAnswerSaga() {
+  yield takeLatest(replyAnswerLoading.type, replyForAnswer);
+}
+
+export function* watchDeleteAnswerSaga() {
+  yield takeLatest(deleteAnswerLoading.type, deleteAnswer);
+}
+
+export function* watchEditAnswerSaga() {
+  yield takeLatest(editAnswerLoading.type, editAnswer);
+}
+
 export default function* dashboardSaga() {
   yield all([
     fork(watchLearningSaga),
@@ -158,5 +233,9 @@ export default function* dashboardSaga() {
     fork(watchQuestionListSaga),
     fork(watchQuestionDetailSaga),
     fork(watchQuestionDeleteSaga),
+    fork(watchAnswerForQuestionSaga),
+    fork(watchReplyForAnswerSaga),
+    fork(watchDeleteAnswerSaga),
+    fork(watchEditAnswerSaga),
   ]);
 }

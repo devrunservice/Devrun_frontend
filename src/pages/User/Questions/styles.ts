@@ -3,11 +3,11 @@ import {Arrow} from 'asset';
 import * as I from 'types';
 
 // 질문 리스트
-export const SortWrapper = styled.div`
+export const Wrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
 `;
 
 export const Sort = styled.div<I.Active>`

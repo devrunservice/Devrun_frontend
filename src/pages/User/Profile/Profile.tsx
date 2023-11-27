@@ -291,7 +291,7 @@ const Profile = () => {
           />
         </St.EditInput>
       )}
-      <Modal page="profile" />
+      <Modal />
     </St.Section>
   );
 };

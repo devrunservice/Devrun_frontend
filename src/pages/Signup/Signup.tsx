@@ -17,7 +17,7 @@ import {
 import {SignupFormType} from 'types';
 import {Title, ErrorMessage, Input} from 'style/Common';
 import * as St from './styles';
-import {openModal, setSignupSuccess} from '../../redux/reducer/modalReducer';
+import {openModal} from '../../redux/reducer/modalReducer';
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -90,8 +90,6 @@ const Signup = () => {
         marketConsent: signupForm.marketConsent,
       });
       if (response.status === 200) {
-        // dispatch(setSignupSuccess(true));
-        // dispatch(openModal('회원가입이 완료되었습니다.'));
         const params = crypto.encryptedUserData(
           {
             id: signupForm.id,
@@ -318,7 +316,7 @@ const Signup = () => {
             메인화면
           </St.CancelBtn>
         </form>
-        <Modal page="signup" />
+        <Modal />
       </St.Container>
     </St.Section>
   );
