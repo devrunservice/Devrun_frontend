@@ -96,6 +96,7 @@ export const CancelBtn = styled(Button)`
   padding: 0.8rem 0;
   margin-top: 0.5rem;
   width: 100%;
+  background-color: ${(props) => props.theme.bgGrayColor};
 `;
 
 // 회원가입 이메일 인증 style

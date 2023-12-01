@@ -27,8 +27,10 @@ const Modal = ({
       dispatch(closeModal());
     }
   };
-  
-  const handleClick = () => {
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const {name} = e.target as HTMLButtonElement;
+
     dispatch(closeModal());
     if (typeof onConfirm === 'function') {
       onConfirm();
