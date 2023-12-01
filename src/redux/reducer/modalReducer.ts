@@ -7,7 +7,7 @@ const initialState = {
 };
 
 const modalReducer = createSlice({
-  name: 'modaReducer',
+  name: 'modalReducer',
   initialState,
   reducers: {
     openModal: (state, action) => {

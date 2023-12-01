@@ -45,6 +45,7 @@ const Header = () => {
       modalMessage1 === '이미 로그인 된 다른 기기가 있습니다.' ||
       modalMessage1 === '오류가 감지되었습니다.'
     ) {
+      console.log('다른 기기');
       dispatch(logoutLoading());
     }
   };

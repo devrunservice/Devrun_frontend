@@ -141,6 +141,10 @@ export const mypage = {
     const response = await imageAxios.post(`/edit/profileimg`, params);
     return response;
   },
+  deleteAccount: async () => {
+    const response = await authAxios.delete(`/member/leave`);
+    return response;
+  },
   learning: async (params: I.NotePropsType) => {
     const response = await authAxios.get(
       `/mylecturelist?status=${params.status}&page=${params.page}`
