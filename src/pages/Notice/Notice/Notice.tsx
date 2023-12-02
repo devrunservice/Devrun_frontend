@@ -15,7 +15,7 @@ const Notice = () => {
   const { data, write } = useSelector(
     (state: RootState) => state.noticeReducer
   );
-  const user = useSelector((state: RootState) => state.userReducer.data);
+  const {data:user} = useSelector((state: RootState) => state.userReducer);
 
   const [pageno, setPageno] = useState<number>(1);
   useEffect(() => {

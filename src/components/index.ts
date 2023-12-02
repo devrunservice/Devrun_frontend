@@ -40,6 +40,7 @@ export {default as CurriculumSection} from './CurriculumSection/CurriculumSectio
 export {default as Curriculum} from './Video/Curriculum/Curriculum';
 export {default as Note} from './Video/Note/Note';
 export {default as NoteDe} from './Video/NoteDe/NoteDe';
+export { default as Community } from "./Video/Community/Community";
 export {default as MainCategory} from './MainIcon/MainIcon';
 export {default as NoData} from './NoData/NoData';
 

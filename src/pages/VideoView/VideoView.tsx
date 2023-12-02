@@ -4,13 +4,12 @@ import YouTube from "react-youtube";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { useNavigate, useParams } from "react-router-dom";
-import { Curriculum, Note } from "components";
+import { Curriculum, Note, Community } from "components";
 
 import { useDate } from "hooks";
 import { VideoCurriculumVideoInfos } from "types";
 import { PiArrowLineLeftBold, PiArrowLineRightBold } from "react-icons/pi";
-// import { BiLike } from "react-icons/bi";
-import { LuFolderEdit, LuStickyNote } from "react-icons/lu";
+import { LuFolderEdit, LuStickyNote, LuSubtitles } from "react-icons/lu";
 import * as St from "./style";
 import {
   curriculumLoding,
@@ -28,11 +27,12 @@ const VideoView = () => {
     dispatch(curriculumLoding(param.lectureId));
   }, []);
   const [open, setOpen] = useState({
-    curriculumOpen: false,
+    curriculum: false,
     note: false,
+    community: false,
   });
   
-
+  
   
   const [lecture, setLecture] = useState<VideoCurriculumVideoInfos>({
     lastviewdate: "",
@@ -113,12 +113,14 @@ const VideoView = () => {
     }
   }, [lecture]);
   const onCurriculum = useCallback(() => {
-    setOpen({ ...open, curriculumOpen: !open.curriculumOpen, note: false });
+    setOpen({ ...open,  curriculum: !open.curriculum,  note: false, community: false, });
   }, [open]);
   const onNote = useCallback(() => {
-    setOpen({ ...open, curriculumOpen: false, note: !open.note });
+    setOpen({ ...open,curriculum: false,note: !open.note, community: false,});
   }, [open]);
-
+  const onCommunity = useCallback(() => {
+    setOpen({ ...open, curriculum: false, note: false, community:!open.community});
+  }, [open]);
   const [time, setTime] = useState<number>(0);
   const onPlayTime = (e: any) => {
     const postTime = setInterval(() => {
@@ -192,11 +194,6 @@ const VideoView = () => {
               이전 강의
             </button>
           )}
-
-          {/* <button>
-            <BiLike />
-            좋아요
-          </button> */}
           {data.sectionInfo[data.sectionInfo.length - 1]?.videoInfo[
             data.sectionInfo[data.sectionInfo.length - 1].videoInfo.length - 1
           ]?.videoId === param.videoId ? (
@@ -214,14 +211,27 @@ const VideoView = () => {
           <LuFolderEdit />
           <p>커리큘럼</p>
         </St.Button>
+        <St.Button onClick={() => onCommunity()}>
+          <LuSubtitles />
+          <p>커뮤니티</p>
+        </St.Button>
         <St.Button onClick={() => onNote()}>
           <LuStickyNote />
           <p>노트</p>
         </St.Button>
       </St.Right>
-      {open.curriculumOpen && (
+      {open.curriculum && (
         <St.CurriculumWrap>
           <Curriculum onCurriculum={onCurriculum} data={data} />
+        </St.CurriculumWrap>
+      )}
+      {open.community && (
+        <St.CurriculumWrap>
+          <Community
+            onCommunity={onCommunity}
+            videoid={lecture.videoId}
+            lectureId={data.lectureId}
+          />
         </St.CurriculumWrap>
       )}
       {open.note && (

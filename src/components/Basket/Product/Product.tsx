@@ -14,6 +14,7 @@ interface basketProduct {
     lecturePrice: number,
     lectureThumbnail: string,
     lectureId: number,
+    cartId: number
   ) => void;
 }
 
@@ -33,7 +34,8 @@ const Product = ({ name, item, dis, checked, singleCheck }: basketProduct) => {
             item.lectureIntro,
             item.lecturePrice,
             item.lectureThumbnail,
-            item.lectureId
+            item.lectureId,
+            item.cartId
           )
         }
       />

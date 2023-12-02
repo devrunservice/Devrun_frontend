@@ -19,7 +19,6 @@ const Detail = () => {
   const {content, write} = useSelector(
     (state: RootState) => state.noticeReducer
   );
-  console.log(content);
   const {data} = useSelector((state: RootState) => state.userReducer);
   useEffect(() => {
     dispatch(noticeDetailLoading(noticeNo));

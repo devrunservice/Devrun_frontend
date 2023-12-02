@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {call, put, takeLatest, all, fork} from 'redux-saga/effects';
 import {PayloadAction} from '@reduxjs/toolkit';
-import {mypage} from 'utils/api';
-import {NotePropsType} from 'types';
+import { mypage, video } from "utils/api";
+import {Note, NotePropsType, ReNote} from 'types';
 import {
   learningLoading,
   learningSuccess,
@@ -28,7 +28,13 @@ import {
   questionDeleteLoading,
   questionDeleteSuccess,
   questionDeleteFail,
-} from '../reducer/dashboardReducer';
+  saveNoteSuccess,
+  saveNoteFail,
+  saveNoteLoding,
+  reNoteLoding,
+  reNoteSuccess,
+  reNoteFail,
+} from "../reducer/dashboardReducer";
 
 function* learning(
   action: PayloadAction<NotePropsType>
@@ -57,7 +63,8 @@ function* noteList(
 ): Generator<any, void, any> {
   try {
     const response = yield call(mypage.noteList, action.payload);
-    yield put(noteListSuccess(response));
+    const { page } = action.payload;
+    yield put(noteListSuccess({ response, page }));
   } catch (error: any) {
     yield put(noteListFail(error));
   }
@@ -82,6 +89,26 @@ function* noteDelete(action: PayloadAction<number>): Generator<any, void, any> {
     yield put(noteDeleteFail(error));
   }
 }
+
+function* saveNotes(action: PayloadAction<Note>): Generator<any, void, any> {
+  try {
+    const response = yield call(video.saveNote, action.payload);
+    yield put(saveNoteSuccess(response));
+  } catch (error) {
+    yield put(saveNoteFail(error));
+  }
+}
+
+function* reNotes(action: PayloadAction<ReNote>): Generator<any, void, any> {
+  try {
+    const response = yield call(video.reNote, action.payload);
+    const { noteNo } = action.payload;
+    yield put(reNoteSuccess({ noteNo, response }));
+  } catch (error) {
+    yield put(reNoteFail(error));
+  }
+}
+
 
 function* questionList(
   action: PayloadAction<NotePropsType>
@@ -147,6 +174,14 @@ export function* watchQuestionDetailSaga() {
 export function* watchQuestionDeleteSaga() {
   yield takeLatest(questionDeleteLoading.type, questionDelete);
 }
+function* watchSaveNote() {
+  yield takeLatest(saveNoteLoding, saveNotes);
+}
+
+function* watchReNote() {
+  yield takeLatest(reNoteLoding, reNotes);
+}
+
 
 export default function* dashboardSaga() {
   yield all([
@@ -158,5 +193,7 @@ export default function* dashboardSaga() {
     fork(watchQuestionListSaga),
     fork(watchQuestionDetailSaga),
     fork(watchQuestionDeleteSaga),
+    fork(watchSaveNote),
+    fork(watchReNote),
   ]);
 }

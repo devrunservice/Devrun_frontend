@@ -51,7 +51,11 @@ const cartReducer = createSlice({
     },
     cartDeleteSuccess: (state, action) => {
       state.loading = false;
-      state.deletes = action.payload;
+      console.log(action.payload.cartId);
+      state.data.lectureInfoList = state.data.lectureInfoList.filter(
+        (v) => !action.payload.cartId.includes(v.cartId)
+      );
+      return state;
     },
     cartDeleteFail: (state, action) => {
       state.loading = false;

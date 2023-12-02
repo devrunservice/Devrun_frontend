@@ -1,24 +1,30 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
-import { Notices,CommentsList } from "types";
+import { NoticeList, CommentsList } from "types";
+
+
+interface Notices {
+  data: {
+    content: NoticeList[];
+    totalElements: number;
+    totalPages: number;
+  };
+  loading?: boolean;
+  error?: Error | null;
+  content: NoticeList;
+  write: string;
+  datas: {
+    data: CommentsList[];
+  };
+  comments: CommentsList;
+  commentRe: CommentsList;
+}
+
 
 const initialState: Notices = {
   // 리스트
   data: {
-    content: [
-      {
-        content: "",
-        createdDate: "",
-        id: "",
-        modifiedDate: "",
-        noticeNo: 0,
-        status: "",
-        title: "",
-        userNo: 0,
-        viewCount: 0,
-        order: 0,
-      },
-    ],
+    content: [],
     totalElements: 0,
     totalPages: 0,
   },
@@ -74,7 +80,6 @@ const initialState: Notices = {
     profileimgsrc: "",
     userNo: 0,
   },
-  del: "",
   write: "",
   loading: false,
   error: null,
@@ -144,7 +149,9 @@ const noticeReducer = createSlice({
     },
     noticeDelSuccess: (state, action) => {
       state.loading = false;
-      state.del = action.payload.del;
+      state.data.content = state.data.content.filter(
+        (v) => v.noticeNo !== Number(action.payload.data.split(":")[1])
+      );
       return state;
     },
     noticeDelFail: (state, action) => {
