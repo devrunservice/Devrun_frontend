@@ -31,7 +31,6 @@ const HomePage = () => {
   const {lecture: buy, data: rating} = useSelector(
     (state: RootState) => state.learningReducer
   );
-
   useEffect(() => {
     dispatch(noticeListLoading(1));
     dispatch(ratingLectureLoading({order: 'lecture_rating'}));
@@ -156,7 +155,7 @@ const HomePage = () => {
                         <St.Img src={v.thumbnail} alt={v.title} />
                       </St.ListImg>
                       <St.ListTextBox>
-                        <St.ListEm>제목</St.ListEm>
+                        <St.ListEm>{v.title}</St.ListEm>
                         <St.ListText>
                           <span>진도율 ( {v.progressRate}% )</span>
                           <span>기한 : 무제한</span>

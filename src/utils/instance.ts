@@ -14,7 +14,9 @@ export const authAxios = axios.create({
 });
 export const imageTypeAxios = axios.create({
   withCredentials: true,
-  headers: {'Content-Type': 'image/*'},
+  validateStatus: null,
+  maxRedirects: 5,
+  method: "put",
 });
 export const imageAxios = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}`,

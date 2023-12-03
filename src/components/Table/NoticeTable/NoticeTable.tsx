@@ -1,10 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import * as I from "types";
+import { NoticeList } from "types";
 import * as St from "../style";
 
-const NoticeTable = (props: I.NoticesTabel) => {
+interface NoticesTabel {
+  data: {
+    content: NoticeList[];
+    totalElements: number;
+    totalPages: number;
+  };
+}
+
+
+const NoticeTable = (props:NoticesTabel) => {
   const navigate = useNavigate();
   const navi = useCallback(
     (v: number) => {

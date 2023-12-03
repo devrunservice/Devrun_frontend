@@ -18,7 +18,7 @@ export const Deletes = styled(Delete)`
   cursor: pointer;
 `;
 export const SubTitle = styled.em`
-display:block;
+  display:block;
   margin: 1.25rem 0 0.75rem;
   font-size: 1.125rem;
   font-weight: 500;

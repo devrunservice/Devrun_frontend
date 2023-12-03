@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
-import * as I from "types"
+import { UserCouponList } from "types";
 
 interface UserCoupons {
-  data: I.UserCoupon;
+  data: {
+    content: UserCouponList[]
+  };
   loading: boolean;
   error: null;
-  code:string
+  code: string;
 }
 
 const initialState: UserCoupons = {

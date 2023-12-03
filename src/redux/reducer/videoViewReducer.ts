@@ -5,19 +5,33 @@ import { VideoCurriculum } from "types";
 
 interface Video {
   data: VideoCurriculum;
-  note: string;
-  getNote: {
-    chapter: number;
-    content: string;
-    date: string;
-    noteId: number;
-    noteTitle: string;
-    subHeading: string;
-  }[];
   progress: string;
   loading: boolean;
   error: null;
-  reNote: number;
+  quest: {
+    dtolist: {
+      answer: number;
+      questionContentPreview: string;
+      questionDate: string;
+      questionId: number;
+      questionLectureTitle: string;
+      questionTitle: string;
+      studentId: string;
+    }[];
+    message:string
+    questionCount: number;
+    totalPages: number;
+  };
+  qusetDetail: {
+    content: string;
+    date: string;
+    lectureId: number;
+    lectureTitle: string;
+    questionId: number;
+    questionTitle: string;
+    studentId: string;
+    videoId: string;
+  };
 }
 
 const initialState: Video = {
@@ -34,9 +48,22 @@ const initialState: Video = {
   loading: false,
   error: null,
   progress: "",
-  note: "",
-  getNote: [],
-  reNote: 0,
+  quest: {
+    dtolist: [],
+    message: "",
+    questionCount: 0,
+    totalPages: 0,
+  },
+  qusetDetail: {
+    content: "",
+    date: "",
+    lectureId: 0,
+    lectureTitle: "",
+    questionId: 0,
+    questionTitle: "",
+    studentId: "",
+    videoId: "",
+  },
 };
 
 const VideoViewReducer = createSlice({
@@ -69,43 +96,29 @@ const VideoViewReducer = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    saveNoteLoding: (state, action) => {
+    getQuestLoding: (state, action) => {
       state.loading = true;
       state.error = null;
     },
-    saveNoteSuccess: (state, action) => {
+    getQuestSuccess: (state, action) => {
       state.loading = false;
       state.error = null;
-      state.note = action.payload.data;
+      state.quest = action.payload.response.data;
     },
-    saveNoteFail: (state, action) => {
+    getQuestFail: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
-    getNoteLoding: (state, action) => {
+    getQuestDetailLoding: (state, action) => {
       state.loading = true;
       state.error = null;
     },
-    getNoteSuccess: (state, action) => {
+    getQuestDetailSuccess: (state, action) => {
       state.loading = false;
       state.error = null;
-      state.getNote = action.payload.data;
+      state.qusetDetail = action.payload.data;
     },
-    getNoteFail: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    },
-
-    reNoteLoding: (state, action) => {
-      state.loading = true;
-      state.error = null;
-    },
-    reNoteSuccess: (state, action) => {
-      state.loading = false;
-      state.error = null;
-      state.reNote = action.payload.noteNo;
-    },
-    reNoteFail: (state, action) => {
+    getQuestDetailFail: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
@@ -119,15 +132,12 @@ export const {
   progressSuccess,
   progressFail,
   progressLoding,
-  saveNoteSuccess,
-  saveNoteFail,
-  saveNoteLoding,
-  getNoteSuccess,
-  getNoteFail,
-  getNoteLoding,
-  reNoteLoding,
-  reNoteSuccess,
-  reNoteFail,
+  getQuestSuccess,
+  getQuestFail,
+  getQuestLoding,
+  getQuestDetailSuccess,
+  getQuestDetailFail,
+  getQuestDetailLoding,
 } = VideoViewReducer.actions;
 
 export default VideoViewReducer.reducer;

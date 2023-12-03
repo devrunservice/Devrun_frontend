@@ -5,7 +5,7 @@ import { RootState } from 'redux/store';
 import YouTube from "react-youtube";
 import { getCookie } from "utils/cookies";
 import { useDate } from "hooks";
-import { Comment, LectureCard ,Content} from "components";
+import { Comment, LectureCard, Content } from "components";
 import {  Play } from "asset";
 import * as St from "./style";
 import {
@@ -30,7 +30,7 @@ const Detailsell = () => {
     lecture: mento,
     data: lectureBig,
   } = useSelector((state: RootState) => state.learningReducer);
-  
+  console.log(lectureDetail);
   useEffect(() => {
     dispatch(LectureDetailLoading({ lectureid: param.lectureId }));
     dispatch(LectureDetailTextLoading({ lectureid: 25 }));
@@ -51,7 +51,6 @@ const Detailsell = () => {
       })
     );
   }, [param.lectureId]);
-  console.log(lectureDetail);
   const [tapNum, setTapNum] = useState<number>(0);
   const onTap = (k: number) => {
     if (k === tapNum) return setTapNum(0);

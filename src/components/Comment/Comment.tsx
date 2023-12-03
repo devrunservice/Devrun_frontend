@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, {useCallback, useEffect, useState} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from 'redux/store';
-import {getCookie} from 'utils/cookies';
-import {useDate, useInput} from 'hooks';
-import {CommentsList} from 'types';
-import Grade from 'components/grade/Grade';
-import {Button} from 'style/Common';
-import * as St from './style';
+import React, {  useCallback, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "redux/store";
+import { getCookie } from "utils/cookies";
+import { useDate, useInput } from "hooks";
+import Grade from "components/grade/Grade";
+import { Button } from "style/Common";
+import * as St from "./style";
 
 import {
   commentPostLoading,
@@ -171,7 +170,7 @@ const Comment = ({text, sub, path}: title) => {
         .content;
       setCommentTwo(editComment);
 
-      if (datas?.data.some((v: CommentsList) => v.commentNo === Index)) {
+      if (datas?.data.some((v) => v.commentNo === Index)) {
         if (writes === Index) {
           // 같은 댓글을 다시 클릭하면 닫음
           setWrites(null);
@@ -188,7 +187,7 @@ const Comment = ({text, sub, path}: title) => {
   // 대댓글 버튼
   const onCommentsBtn = useCallback(
     (Index: number) => {
-      if (datas?.data.some((v: CommentsList) => v.commentNo === Index)) {
+      if (datas?.data.some((v) => v.commentNo === Index)) {
         if (writesTwo === Index) {
           setWritesTwo(null); // 같은 댓글을 다시 클릭하면 닫음
           setCommentTwo('');
@@ -279,15 +278,15 @@ const Comment = ({text, sub, path}: title) => {
       <St.CommentUl>
         {datas &&
           datas.data
-            .filter((i: CommentsList) => i.parentCommentNo === 0)
-            .map((v: CommentsList) => {
+            .filter((i) => i.parentCommentNo === 0)
+            .map((v) => {
               return (
                 <St.CommentLi key={v.commentNo}>
                   <St.CommentTop>
                     <div>
                       <St.CommentImgBox>
                         <St.CommentImg
-                          src={v.profileimgsrc}
+                          src={`${v.profileimgsrc}`}
                           alt="유저 이미지"
                         />
                       </St.CommentImgBox>
@@ -397,9 +396,9 @@ const Comment = ({text, sub, path}: title) => {
                   <ul>
                     {datas?.data
                       .filter(
-                        (k: CommentsList) => k.parentCommentNo === v.commentNo
+                        (k) => k.parentCommentNo === v.commentNo
                       )
-                      .map((q: CommentsList) => {
+                      .map((q) => {
                         return (
                           <St.Reply key={q.commentNo}>
                             <St.ReplyIcon />
@@ -408,7 +407,7 @@ const Comment = ({text, sub, path}: title) => {
                                 <div>
                                   <St.CommentImgBox>
                                     <St.CommentImg
-                                      src={q.profileimgsrc}
+                                      src={`${q.profileimgsrc}`}
                                       alt="유저 이미지"
                                     />
                                   </St.CommentImgBox>
