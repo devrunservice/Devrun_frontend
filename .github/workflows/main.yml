@@ -16,7 +16,7 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@master
 
-      # 실행 속도를 빠르게 하기 위해 설치된 Node 모듈을 캐시하도록 설정합니다
+      # 실행 속도를 빠르게 하기 위해 설치된 Node 모듈을 캐시하도록 설정합니다.
       - name: Cache node modules
         uses: actions/cache@v2
         with:
