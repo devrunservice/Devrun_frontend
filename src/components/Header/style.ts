@@ -134,7 +134,6 @@ export const CartTop = styled.div`
   border-bottom: 1px solid ${(props: any) => props.theme.borderC};
 
   padding-bottom: 1rem;
-  margin-bottom: 1rem;
 `;
 export const CartTitle = styled.em`
   font-weight: 600;

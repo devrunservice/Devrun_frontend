@@ -24,12 +24,14 @@ const Basket = () => {
   const [checkList, setCheckList] = useState<I.LectureInfoList[]>(
     data.lectureInfoList
   );
+
   const singleCheck = (
     lectureName: string,
     lectureIntro: string,
     lecturePrice: number,
     lectureThumbnail: string,
-    lectureId: number
+    lectureId: number,
+    cartId:number,
   ) => {
     setCheckList((prev) =>
       prev.some((item) => item.lectureName === lectureName)
@@ -42,6 +44,7 @@ const Basket = () => {
               lecturePrice,
               lectureThumbnail,
               lectureId,
+              cartId,
             },
           ]
     );
@@ -49,7 +52,7 @@ const Basket = () => {
   // 무조건 전체 선택
   useEffect(() => {
     setCheckList(data.lectureInfoList);
-  }, [data.lectureInfoList]);
+  }, []);
 
   const total = checkList.reduce(
     (current, account) => current + account.lecturePrice,
@@ -99,7 +102,8 @@ const Basket = () => {
   // 삭제
   const onDelete = useCallback(async () => {
     if (window.confirm('해당강의를 삭제하시겠습니까?')) {
-      const payload = checkList.map((v) => v.lectureId);
+      const payload = checkList.map((v) => v.cartId);
+      setCheckList([]);
       dispatch(cartDeleteLoading(payload));
       alert('삭제되었습니다.');
     } else {

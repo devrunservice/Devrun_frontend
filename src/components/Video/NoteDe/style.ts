@@ -31,9 +31,9 @@ export const Title = styled.div`
   justify-content: space-between;
 `;
 export const Center = styled.div<Active>`
-  height: ${(props: any) => (props.$active ? "calc(100% - 470px)" : "100%")};
-  overflow-y: auto;
-  overflow-x: hidden;
+flex:1 1 0%;
+  overflow-y: scroll;
+
   padding: 25px 25px;
   &::-webkit-scrollbar {
     background: ${(props: any) => props.theme.bgColor};
@@ -48,17 +48,15 @@ export const Center = styled.div<Active>`
     font-size: 1.125rem;
     font-weight: 600;
     color: ${(props: any) => props.theme.black};
-    margin: 15px 0 20px;
+    margin: 15px 0 10px;
     word-break: break-all;
   }
-  > div {
-    display: flex;
-    font-size: 0.875rem;
-    line-height: 1;
-    align-items: center;
-    justify-content: space-between;
-    word-break: break-all;
-  }
+`;
+export const Date = styled.div`
+  display: flex;
+  font-size: 0.875rem;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export const Buttons = styled.button<Active>`

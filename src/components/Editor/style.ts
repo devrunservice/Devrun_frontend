@@ -49,10 +49,12 @@ export const Toolbar = styled.div`
   width: auto;
   min-height: 50px;
   background: ${(props: any) => props.theme.bgColor};
-  overflow-y: hidden;
-  overflow-x: auto;
+
   > span {
     display: flex !important;
+    gap:5px;
+    flex-wrap:wrap;
+    font-size:0;
   }
   &::-webkit-scrollbar {
     background: ${(props: any) => props.theme.bgColor};
