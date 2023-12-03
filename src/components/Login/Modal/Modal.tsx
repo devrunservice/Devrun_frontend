@@ -1,31 +1,26 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useEffect} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {Recaptcha} from 'components';
-import {getCookie} from 'utils/cookies';
 import * as St from './styles';
 import {closeModal} from '../../../redux/reducer/modalReducer';
-import {logoutLoading} from '../../../redux/reducer/loginReducer';
-import {
-  noteDeleteLoading,
-  questionDeleteLoading,
-} from '../../../redux/reducer/dashboardReducer';
 
-const Modal = ({page}: {page?: string}) => {
-  const navigate = useNavigate();
+const Modal = ({
+  logicActive,
+  onConfirm,
+}: {
+  logicActive?: boolean;
+  onConfirm?: () => void;
+}) => {
   const dispatch = useDispatch();
-  const {questionId, noteId} = useParams();
 
-  const {
-    modalOpen,
-    modalMessage1,
-    modalMessage2,
-    signupSuccess,
-    kakaoLoginSuccess,
-    openRecaptcha,
-  } = useSelector((state: RootState) => state.modalReducer);
+  const {modalOpen, modalMessage1, modalMessage2} = useSelector(
+    (state: RootState) => state.modalReducer
+  );
+  const isRecaptcha = useSelector(
+    (state: RootState) => state.loginReducer.isRecaptcha
+  );
 
   const handleKeyUp = (e: KeyboardEvent) => {
     if (e.key === 'Escape' || e.key === 'Enter') {
@@ -33,25 +28,12 @@ const Modal = ({page}: {page?: string}) => {
     }
   };
 
-  const handleClick = () => {
-    // 기본적으로 모달에서 확인을 누를 경우 모달이 닫힘
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const {name} = e.target as HTMLButtonElement;
+
     dispatch(closeModal());
-
-    // 회원가입, 카카오 로그인 성공 시
-    if (kakaoLoginSuccess === true || signupSuccess === true) {
-      navigate('/login');
-    }
-
-    if (
-      modalMessage1 === '알 수 없는 오류가 발생했습니다.' ||
-      modalMessage1 === '이미 로그인 된 다른 기기가 있습니다.' ||
-      modalMessage1 === '오류가 감지되었습니다.'
-    ) {
-      dispatch(logoutLoading());
-    } else if (modalMessage1 === '해당 질문을 삭제하시겠습니까?') {
-      dispatch(questionDeleteLoading({id: Number(questionId)}));
-    } else if (modalMessage1 === '해당 노트를 삭제하시겠습니까?') {
-      dispatch(noteDeleteLoading(Number(noteId)));
+    if (typeof onConfirm === 'function') {
+      onConfirm();
     }
   };
 
@@ -73,7 +55,7 @@ const Modal = ({page}: {page?: string}) => {
 
   return (
     <St.Section>
-      {openRecaptcha ? (
+      {isRecaptcha ? (
         <St.Modal>
           <p>{modalMessage1}</p>
           <Recaptcha />
@@ -82,7 +64,20 @@ const Modal = ({page}: {page?: string}) => {
         <St.Modal>
           <p>{modalMessage1}</p>
           <p>{modalMessage2}</p>
-          <St.Button onClick={handleClick}>확인</St.Button>
+          {logicActive ? (
+            <St.BtnWrapper>
+              <St.Button name="cancel" onClick={handleClick}>
+                취소
+              </St.Button>
+              <St.Button name="ok" onClick={handleClick}>
+                확인
+              </St.Button>
+            </St.BtnWrapper>
+          ) : (
+            <St.Button name="cancel" onClick={handleClick}>
+              확인
+            </St.Button>
+          )}
         </St.Modal>
       )}
     </St.Section>

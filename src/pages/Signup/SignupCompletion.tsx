@@ -6,7 +6,6 @@ import {SignupSuccess, SignupFailure} from 'asset';
 import {redirect} from 'utils/redirect';
 import {EmailVerification} from 'components';
 import * as St from './styles';
-import {setSignupSuccess} from '../../redux/reducer/modalReducer';
 
 const SignupCompletion = () => {
   const [searchParams] = useSearchParams();
@@ -20,10 +19,6 @@ const SignupCompletion = () => {
   //   process.env.REACT_APP_CRYPTO_SECRET_KEY || ''
   // );
   // console.log(decryptedUserData);
-
-  if (status === 'success') {
-    dispatch(setSignupSuccess(true));
-  }
 
   return (
     <St.Section $page="signupCompletion">

@@ -13,7 +13,7 @@ export const HeaderSection = styled.div`
 `;
 
 export const Month = styled.span`
-  color: ${(props) => props.theme.brandColor};
+  color: ${(props) => props.theme.mainColor};
   font-size: 18px;
   font-weight: bold;
   margin-right: 8px;

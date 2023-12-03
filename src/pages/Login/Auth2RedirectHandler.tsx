@@ -1,18 +1,24 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {Spinner, Modal} from 'components';
 import {kakaoLoading} from '../../redux/reducer/loginReducer';
 
 const Auth2RedirectHandler = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const code = new URL(window.location.href).searchParams.get('code');
 
-  const kakaoLoginSuccess = useSelector(
-    (state: RootState) => state.modalReducer.kakaoLoginSuccess
+  const isKakaoLogin = useSelector(
+    (state: RootState) => state.loginReducer.iskakaoLogin
   );
+
+  const handleConfirm = () => {
+    navigate('/login');
+  };
 
   useEffect(() => {
     dispatch(kakaoLoading(code));
@@ -20,8 +26,8 @@ const Auth2RedirectHandler = () => {
 
   return (
     <>
-      {!kakaoLoginSuccess && <Spinner />}
-      {kakaoLoginSuccess && <Modal />}
+      {!isKakaoLogin && <Spinner />}
+      {isKakaoLogin && <Modal onConfirm={handleConfirm} />}
     </>
   );
 };

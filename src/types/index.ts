@@ -61,7 +61,6 @@ export interface LoginFormType {
   id: string;
   password?: string;
   recaptcha?: string;
-  loginTime?: Date | number;
 }
 
 // 마이페이지 타입
@@ -135,6 +134,7 @@ export interface NotePropsType {
   id?: number;
   page?: number | string;
   status?: string;
+  content?: string;
 }
 export interface NoteListType {
   key: number;
@@ -180,6 +180,11 @@ export interface QuestionDetailType {
   questionTitle: string;
   content: string;
   answer: string;
+}
+// 질문 답변
+export interface QuestionReplyType {
+  content: string;
+  questionId: number;
 }
 export interface NoteQuestionListType {
   key: number;

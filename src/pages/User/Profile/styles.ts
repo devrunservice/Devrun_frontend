@@ -28,7 +28,6 @@ export const Imgbox = styled.div`
   width: 110px;
   height: 110px;
   border-radius: 50%;
-  /* background: ${(props: any) => props.theme.brandColor}; */
   overflow: hidden;
   img {
     width: inherit;
@@ -94,7 +93,7 @@ export const EditBtn = styled.div`
 `;
 
 export const ChangeBtn = styled.button`
-  color: ${(props: any) => props.theme.brandColor};
+  color: ${(props: any) => props.theme.mainColor};
   border: none;
   outline: none;
   background: transparent;
@@ -113,4 +112,14 @@ export const Hr = styled.hr`
   margin-top: 0.2rem;
   margin-bottom: 1rem;
   color: ${(props) => props.theme.borderC};
+`;
+
+export const DeleteBtnWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+export const DeleteBtn = styled.button`
+  margin-top: 2rem;
+  color: ${(props: any) => props.theme.mainColor};
 `;

@@ -141,6 +141,10 @@ export const mypage = {
     const response = await imageAxios.post(`/edit/profileimg`, params);
     return response;
   },
+  deleteAccount: async () => {
+    const response = await authAxios.delete(`/member/leave`);
+    return response;
+  },
   learning: async (params: I.NotePropsType) => {
     const response = await authAxios.get(
       `/mylecturelist?status=${params.status}&page=${params.page}`
@@ -185,13 +189,36 @@ export const mypage = {
     const response = await authAxios.get(
       `/lectureQaDetailOpen?questionId=${params.id}`
     );
-    console.log(response);
     return response;
   },
   questionDelete: async (params: I.NotePropsType) => {
     const response = await authAxios.delete(
       `/lectureQa/delete?questionId=${params.id}`
     );
+    return response;
+  },
+  answerForQuestion: async (params: I.NotePropsType) => {
+    const response = await authAxios.get(
+      `/lectureQaCommentDetailOpen?questionId=${params.id}`
+    );
+    return response;
+  },
+  replyForAnswer: async (params: I.QuestionReplyType) => {
+    const response = await authAxios.post(`/lectureQaComment`, params);
+    return response;
+  },
+  deleteAnswer: async (params: I.NotePropsType) => {
+    const response = await authAxios.delete(
+      `/lectureQa/comment/delete/${params.id}`
+    );
+    return response;
+  },
+  editAnswer: async (params: I.NotePropsType) => {
+    const response = await authAxios.post(
+      `/lectureQa/comment/edit/${params.id}`,
+      {content: params.content}
+    );
+    console.log(response);
     return response;
   },
   coupon: (params: I.CouponGet) => {

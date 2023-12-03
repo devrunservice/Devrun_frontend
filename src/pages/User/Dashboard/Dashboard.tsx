@@ -122,18 +122,22 @@ const Dashboard = () => {
               더보기
             </St.MoreBtn>
           </St.TitleWrapper>
-          <ul>
-            {questionList.dtolist.slice(0, 3).map((question) => (
-              <List
-                key={question.questionId}
-                page="dashboard"
-                category="question"
-                questionId={question.questionId}
-                questionTitle={question.questionTitle}
-                questionDate={question.questionDate}
-              />
-            ))}
-          </ul>
+          {questionList.dtolist.length === 0 ? (
+            <St.ErrorMessage>작성한 질문이 없습니다.</St.ErrorMessage>
+          ) : (
+            <ul>
+              {questionList.dtolist.slice(0, 3).map((question) => (
+                <List
+                  key={question.questionId}
+                  page="dashboard"
+                  category="question"
+                  questionId={question.questionId}
+                  questionTitle={question.questionTitle}
+                  questionDate={question.questionDate}
+                />
+              ))}
+            </ul>
+          )}
         </div>
       </St.NoteQuestionWrapper>
       {/* 월간 학습 달력 */}

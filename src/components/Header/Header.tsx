@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {getCookie} from 'utils/cookies';
 import Logo from 'asset/images/Logo.png';
-import {Modal, Spinner} from 'components';
+import {Modal} from 'components';
 import {useInput} from 'hooks';
 import {Button} from 'style/Common';
 import * as St from './style';
@@ -24,9 +24,7 @@ const Header = () => {
   const {data: cart, addCart} = useSelector(
     (state: RootState) => state.cartReducer
   );
-  const logoutSuccess = useSelector(
-    (state: RootState) => state.loginReducer.isLogin
-  );
+  const {modalMessage1} = useSelector((state: RootState) => state.modalReducer);
 
   useEffect(() => {
     if (getCookie('accessToken')) {
@@ -39,6 +37,17 @@ const Header = () => {
   const handleLogout = () => {
     dispatch(logoutLoading());
     setCookie(false);
+  };
+
+  const handleConfirm = () => {
+    if (
+      modalMessage1 === '알 수 없는 오류가 발생했습니다.' ||
+      modalMessage1 === '이미 로그인 된 다른 기기가 있습니다.' ||
+      modalMessage1 === '오류가 감지되었습니다.'
+    ) {
+      console.log('다른 기기');
+      dispatch(logoutLoading());
+    }
   };
 
   const searchBtn = (e: React.FormEvent<HTMLFormElement>) => {
@@ -61,7 +70,7 @@ const Header = () => {
 
   return (
     <St.HeaderWrap>
-      <Modal page="home" />
+      <Modal onConfirm={handleConfirm} />
       <St.InnerHeader>
         <St.NavWrap>
           <St.LogoIcon onClick={() => navigate('/')}>
