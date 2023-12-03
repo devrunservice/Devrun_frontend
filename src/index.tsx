@@ -19,7 +19,7 @@ const protectedRoute = (component: ReactNode) =>
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "home",
     element: <App />,
     errorElement: <Route.NotFound />,
     children: [
