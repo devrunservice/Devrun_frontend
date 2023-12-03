@@ -197,7 +197,7 @@ const Header = () => {
             </St.NavWrap>
           ) : (
             <St.ButtonWrap>
-              <Button onClick={() => navigate('/login')} type="button" $active>
+              <Button onClick={() =>  navigate('/login')} type="button" $active>
                 로그인
               </Button>
               <Button
