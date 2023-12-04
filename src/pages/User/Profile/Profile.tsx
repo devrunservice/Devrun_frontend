@@ -119,9 +119,7 @@ const Profile = () => {
   const handleDelete = async () => {
     setModalLogic(true);
     await dispatch(
-      openModal(
-        '회원을 탈퇴하면 동일한 아이디로 재가입 할 수 없습니다./탈퇴 하시겠습니까?'
-      )
+      openModal('회원을 탈퇴하면 재가입 할 수 없습니다./탈퇴 하시겠습니까?')
     );
   };
 
