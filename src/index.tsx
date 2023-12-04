@@ -17,6 +17,9 @@ const ACCESS_TOKEN = getCookie('accessToken');
 const protectedRoute = (component: ReactNode) =>
   ACCESS_TOKEN ? component : <Navigate replace to="/login" />;
 
+const expiredRoute = (component: ReactNode) =>
+  ACCESS_TOKEN ? <Navigate replace to="/home" /> : component;
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -26,13 +29,10 @@ const router = createBrowserRouter([
       {index: true, element: <Route.HomePage />},
       {
         path: 'home',
-        element: ACCESS_TOKEN ? (
-          <Route.HomePage />
-        ) : (
-          <Navigate replace to="/login" />
-        ),
+        element: protectedRoute(<Route.HomePage />),
       },
-      {path: 'login', element: <Route.Login />},
+      {path: 'login', element: expiredRoute(<Route.Login />)},
+      {path: 'kakaologin', element: expiredRoute(<Route.Login />)},
       {path: 'auth/kakao/callback', element: <Route.Auth2RedirectHandler />},
       {path: 'signup', element: <Route.Signup />},
       {path: 'signupconfirm', element: <Route.SignupConfirm />},

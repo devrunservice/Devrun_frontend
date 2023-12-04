@@ -3,6 +3,7 @@ import React, {useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
+import {redirect} from 'utils/redirect';
 import {Spinner, Modal} from 'components';
 import {kakaoLoading} from '../../redux/reducer/loginReducer';
 
@@ -17,7 +18,7 @@ const Auth2RedirectHandler = () => {
   );
 
   const handleConfirm = () => {
-    navigate('/login');
+    redirect('/kakaologin');
   };
 
   useEffect(() => {
