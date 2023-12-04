@@ -40,7 +40,8 @@ function* cartDelete(
 ): Generator<any, void, any> {
   try {
     const response = yield call(Cart.delete, action.payload);
-    yield put(cartDeleteSuccess(response));
+    const cartId  = action.payload;
+    yield put(cartDeleteSuccess({ response, cartId }));
   } catch (error) {
     yield put(cartDeleteFail(error));
   }

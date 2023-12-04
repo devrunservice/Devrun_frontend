@@ -82,7 +82,7 @@ const Header = () => {
                 navigate(`/lecture/${encodeURIComponent('전체강의')}`)
               }
             >
-              강의
+              전체강의
             </St.CategoryLi>
             <St.CategoryLi onClick={() => navigate('/notice')}>
               공지사항
@@ -197,7 +197,7 @@ const Header = () => {
             </St.NavWrap>
           ) : (
             <St.ButtonWrap>
-              <Button onClick={() => navigate('/login')} type="button" $active>
+              <Button onClick={() =>  navigate('/login')} type="button" $active>
                 로그인
               </Button>
               <Button

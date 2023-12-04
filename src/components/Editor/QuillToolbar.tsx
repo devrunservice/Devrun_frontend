@@ -51,32 +51,26 @@ const QuillToolbar = () => (
     <span className="ql-formats">
       <select className="ql-font" defaultValue="Nanum">
         {FontFamily.whitelist.map((v: string) => (
-          <option value={v} key={v} selected={v === "Nanum"}>
+          <option value={v} key={v} defaultValue="Nanum">
             {v}
           </option>
         ))}
       </select>
       <select className="ql-size">
         {fontSize.whitelist.map((v: string) => (
-          <option value={v} key={v} selected={v === "16px"}>
+          <option value={v} key={v} defaultValue="16px">
             {v}
           </option>
         ))}
       </select>
-    </span>
-    <span className="ql-formats">
       <button className="ql-bold">asd</button>
       <button className="ql-italic">asd</button>
       <button className="ql-underline">asd</button>
       <button className="ql-strike">asd</button>
       <button className="ql-blockquote">asd</button>
-    </span>
-    <span className="ql-formats">
       <select className="ql-align">asd</select>
       <select className="ql-color">asd</select>
       <select className="ql-background">asd</select>
-    </span>
-    <span className="ql-formats">
       <button className="ql-list" value="ordered">
         asd
       </button>
@@ -89,8 +83,6 @@ const QuillToolbar = () => (
       <button className="ql-indent" value="+1">
         asd
       </button>
-    </span>
-    <span className="ql-formats">
       <button className="ql-image">asd</button>
     </span>
   </St.Toolbar>
