@@ -22,7 +22,7 @@ const ImageUploader = ({
     }
   };
 
-  const uploadImg = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {files} = e.target;
     if (!files) {
       return;
@@ -51,7 +51,7 @@ const ImageUploader = ({
       <St.UploadVideoWrap $page={page}>
         <div>
           <St.ShortInput
-            onChange={uploadImg}
+            onChange={handleChange}
             accept="image/*"
             id="uploader"
             type="file"
