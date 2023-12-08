@@ -2,13 +2,16 @@
 import React, {useState} from 'react';
 import {useSearchParams} from 'react-router-dom';
 import {Email} from 'asset';
+import {usePreventGoBack} from 'hooks';
 import {redirect} from 'utils/redirect';
-import {Modal, EmailVerification} from 'components';
+import {BasicModal, EmailVerification} from 'components';
 import * as St from './styles';
 
 const SignupConfirm = () => {
   const [searchParams] = useSearchParams();
   const data = searchParams.get('data');
+
+  usePreventGoBack();
 
   // const decryptedUserData = crypto.decryptedUserData(
   //   data || '',
@@ -38,7 +41,7 @@ const SignupConfirm = () => {
           <St.HomeBtn onClick={() => redirect('/home')}>메인화면</St.HomeBtn>
         </St.ButtonWrapper>
       </St.Container>
-      <Modal />
+      <BasicModal />
     </St.Section>
   );
 };

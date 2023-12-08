@@ -1,40 +1,54 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from "react";
-import { PropsType } from "types";
-import { Exclamation } from "asset";
-import * as St from "./styles";
+import React, {useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {Exclamation} from 'asset';
+import * as St from './styles';
+import {openModal} from '../../redux/reducer/modalReducer';
 
-const ImageUploader: React.FC<PropsType> = ({ page }) => {
-  const [imgUrl, setImgUrl] = useState("");
+const ImageUploader = ({
+  page,
+  onUpLoadImg,
+}: {
+  page: string;
+  onUpLoadImg: (file: File) => void;
+}) => {
+  const dispatch = useDispatch();
+
+  const [imgUrl, setImgUrl] = useState('');
+
+  const handleUpLoadImg = (file: File) => {
+    if (typeof onUpLoadImg === 'function') {
+      onUpLoadImg(file);
+    }
+  };
 
   const uploadImg = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { files } = e.target;
+    const {files} = e.target;
     if (!files) {
       return;
     }
     if (files.length > 0) {
-      console.log(files);
       const file = files[0];
       if (file.size > 1024 * 1024 * 2) {
-        alert("이미지 용량을 초과하였습니다.");
-        return;
+        dispatch(openModal('이미지 용량을 초과하였습니다.'));
       }
       const url = URL.createObjectURL(file);
       setImgUrl(url);
-      // getImage(imgUrl || "");
+      handleUpLoadImg(file);
     }
   };
+
   return (
-    <St.UploadArea>
-      {page === "profileUpdate" && (
+    <St.UploadArea $page={page}>
+      {page === 'profileUpdate' && (
         <St.Imgbox>
           {imgUrl && <img src={imgUrl} alt="updated profile" />}
         </St.Imgbox>
       )}
-      {page === "createVideo" && (
+      {page === 'createVideo' && (
         <St.ImageWrap>{imgUrl && <img src={imgUrl} alt="" />}</St.ImageWrap>
       )}
-      <St.UploadVideoWrap page={page}>
+      <St.UploadVideoWrap $page={page}>
         <div>
           <St.ShortInput
             onChange={uploadImg}
