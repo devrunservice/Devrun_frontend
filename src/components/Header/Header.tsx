@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {getCookie} from 'utils/cookies';
 import Logo from 'asset/images/Logo.png';
-import {Modal} from 'components';
+import {BasicModal} from 'components';
 import {useInput} from 'hooks';
 import {Button} from 'style/Common';
 import * as St from './style';
@@ -29,11 +29,14 @@ const Header = () => {
   useEffect(() => {
     if (getCookie('accessToken')) {
       dispatch(userInfoLoading(null));
-      dispatch(cartInfoLoading(null));
       setCookie(true);
     }
+  }, []);  
+  useEffect(() => {
+    if (getCookie("accessToken")) {
+      dispatch(cartInfoLoading(null));
+    }
   }, [addCart]);
-
   const handleLogout = () => {
     dispatch(logoutLoading());
     setCookie(false);
@@ -45,7 +48,6 @@ const Header = () => {
       modalMessage1 === '이미 로그인 된 다른 기기가 있습니다.' ||
       modalMessage1 === '오류가 감지되었습니다.'
     ) {
-      console.log('다른 기기');
       dispatch(logoutLoading());
     }
   };
@@ -70,7 +72,7 @@ const Header = () => {
 
   return (
     <St.HeaderWrap>
-      <Modal onConfirm={handleConfirm} />
+      <BasicModal onConfirm={handleConfirm} />
       <St.InnerHeader>
         <St.NavWrap>
           <St.LogoIcon onClick={() => navigate('/')}>

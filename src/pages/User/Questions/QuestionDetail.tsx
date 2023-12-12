@@ -4,7 +4,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {useDate} from 'hooks';
-import {Comment, Content, Modal} from 'components';
+import {Comment, Content, BasicModal} from 'components';
 import {Button} from 'style/Common';
 import * as St from './styles';
 import {
@@ -84,7 +84,7 @@ const QuestionDetail = () => {
         </Button>
       </St.QuestionBtn>
       <Comment text="댓글" path="/questions" />
-      <Modal logicActive onConfirm={handleConfirm} />
+      <BasicModal logicActive onConfirm={handleConfirm} />
     </section>
   );
 };

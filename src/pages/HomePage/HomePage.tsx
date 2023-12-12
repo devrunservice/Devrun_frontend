@@ -72,7 +72,7 @@ const HomePage = () => {
       </St.EventBanner>
       <St.MainBg>
         <St.ListEachArea>
-          <St.SearchTitle>원하시는 강의를 찾아보세요!</St.SearchTitle>
+          <St.SearchTitle>원하시는 강의를 찾아보세요!!</St.SearchTitle>
           <St.SearchBox onSubmit={searchBtn}>
             <St.SearchInput
               type="text"

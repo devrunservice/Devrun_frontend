@@ -67,6 +67,7 @@ function* kakaoLoginSaga(
       setCookie('easyLoginToken', easyLoginToken.substr(7), {
         path: '/kakaologin',
         secure: true,
+        maxAge: 900,
       });
       yield put(kakaoSuccess(true));
       yield put(

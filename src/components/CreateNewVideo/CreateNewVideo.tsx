@@ -232,7 +232,6 @@ const CreateNewVideo = ({ ChangePage }: { ChangePage: any }) => {
           </St.CategorySelect>
         </div>
       </St.CreateVideoArticle>
-      <div>{videoStore.lectureCategory.lectureMidCategory}</div>
       <St.CreateVideoArticle>
         <St.MBThirty>
           <St.ArticleTitle>태그</St.ArticleTitle>

@@ -7,12 +7,12 @@ import {getCookie} from 'utils/cookies';
 import {redirect} from 'utils/redirect';
 import {BrandLogo, Kakao, Naver, Google} from 'asset';
 import {LoginFormType} from 'types';
-import {PasswordInput, Modal} from 'components';
+import {PasswordInput, BasicModal} from 'components';
 import {Input} from 'style/Common';
 import * as St from './styles';
 import {loginLoading} from '../../redux/reducer/loginReducer';
 
-const LoginForm = () => {
+const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -90,7 +90,7 @@ const LoginForm = () => {
           </St.InputField>
           <St.LoginBtn disabled={!isFormValid}>로그인</St.LoginBtn>
         </form>
-        {loginErrorMessage !== '로그인 횟수를 초과했습니다.' && <Modal />}
+        {loginErrorMessage !== '로그인 횟수를 초과했습니다.' && <BasicModal />}
 
         {/* 아이디, 비밀번호 찾기 및 회원가입 */}
         <St.Finder>
@@ -143,5 +143,5 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default Login;
 /* eslint-disable @typescript-eslint/no-unused-vars */
