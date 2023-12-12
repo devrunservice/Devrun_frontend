@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { CreateNewVideo,CreateVideoTwo } from 'components';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'redux/store';
-import GoogleLoginButton from 'components/GoogleLogin/GoogleLogin';
+import GoogleLoginButton from 'components/Login/GoogleLogin/GoogleLogin';
 // import googleLoginReducer from '../../redux/reducer/googleLoginReducer';
 import { /* getCookie, */ setCookie } from 'utils/cookies';
 import { /* setGoogleLogin, getGoogleToken, */ setUrlToken} from '../../redux/reducer/googleLoginReducer'

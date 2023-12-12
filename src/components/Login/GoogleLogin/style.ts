@@ -6,3 +6,4 @@ export const GoogleLoginWrap = styled.div`
   align-items: center;
   justify-content: center;
 `
+

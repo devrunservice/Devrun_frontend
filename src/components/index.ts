@@ -49,5 +49,5 @@ export {default as RenderHeader} from './Calender/RenderHeader';
 export {default as RenderDays} from './Calender/RenderDays';
 export {default as RenderDates} from './Calender/RenderDates';
 export {default as AsideBtn} from './MypageNav/AsideBtn';
-export {default as FullSpinner} from './FullSpinner/FullSpinner';
-export {default as CommonModal} from './CommonModal/CommonModal';
+export {default as FullSpinner} from './Modal/DisableModal';
+// export {default as CommonModal} from './CommonModal/CommonModal';
