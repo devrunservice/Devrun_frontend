@@ -1,5 +1,5 @@
-import React from "react";
-import * as St from "./styles";
+import React from 'react';
+import * as St from './styles';
 
 const Spinner = () => (
   <St.Section>

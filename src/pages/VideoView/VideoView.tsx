@@ -1,16 +1,15 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import React, { useCallback, useState, useEffect } from "react";
 import YouTube from "react-youtube";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
-import { useParams } from "react-router-dom";
-import { Curriculum, Note } from "components";
+import { useNavigate, useParams } from "react-router-dom";
+import { Curriculum, Note, Community } from "components";
 
 import { useDate } from "hooks";
 import { VideoCurriculumVideoInfos } from "types";
 import { PiArrowLineLeftBold, PiArrowLineRightBold } from "react-icons/pi";
-import { BiLike } from "react-icons/bi";
-import { LuFolderEdit, LuStickyNote } from "react-icons/lu";
+import { LuFolderEdit, LuStickyNote, LuSubtitles } from "react-icons/lu";
 import * as St from "./style";
 import {
   curriculumLoding,
@@ -21,27 +20,43 @@ import {
 const VideoView = () => {
   const dispatch = useDispatch();
   const param = useParams()
+  const navigate = useNavigate();
   const { data } = useSelector((state: RootState) => state.videoViewReducer);
   const { videoTime } = useDate();
   useEffect(() => {
-    dispatch(curriculumLoding(22));
+    dispatch(curriculumLoding(param.lectureId));
   }, []);
   const [open, setOpen] = useState({
-    curriculumOpen: false,
+    curriculum: false,
     note: false,
+    community: false,
+  });
+  
+  
+  
+  const [lecture, setLecture] = useState<VideoCurriculumVideoInfos>({
+    lastviewdate: "",
+    progress: 0,
+    timecheck: 0,
+    videoId: "",
+    videoTitle: "",
+    videoTotalPlayTime: 0,
   });
   const name = data.sectionInfo
-    .find((v) => v.videoInfo)
-    ?.videoInfo.find((k) => k.videoId === param.videoId);
-  const [lecture, setLecture] = useState<VideoCurriculumVideoInfos>({
-    lastviewdate: name?.lastviewdate || "",
-    progress: name?.progress || 0,
-    timecheck: name?.timecheck || 0,
-    videoId: param.videoId || "",
-    videoTitle: name?.videoTitle || "",
-    videoTotalPlayTime: name?.videoTotalPlayTime || 0,
-  });
-
+    .flatMap((v) => v.videoInfo)
+    .find((c) => c.videoId === param.videoId);
+  useEffect(() => {
+    if (name !== undefined)
+      return setLecture({
+        ...lecture,
+        lastviewdate: name.lastviewdate,
+        progress: name.progress,
+        timecheck: name.timecheck,
+        videoId: name.videoId,
+        videoTitle: name.videoTitle,
+        videoTotalPlayTime: name.videoTotalPlayTime,
+      });
+  }, [name]);
   // 현재 내위치값
   const currentIndex = () => {
     let currentSectionInfoIndex = 0;
@@ -67,12 +82,14 @@ const VideoView = () => {
         data.sectionInfo[currentSectionInfoIndex - 1].videoInfo[
           data.sectionInfo[currentSectionInfoIndex].videoInfo.length - 1
         ];
+        navigate(`/videoView/${param.lectureId}/${prevInfo.videoId}`);
       setLecture(prevInfo);
     } else {
       const prevInfo =
         data.sectionInfo[currentSectionInfoIndex].videoInfo[
           currentVideoinfoIndex - 1
         ];
+        navigate(`/videoView/${param.lectureId}/${prevInfo.videoId}`);
       setLecture(prevInfo);
     }
   }, [lecture]);
@@ -83,22 +100,27 @@ const VideoView = () => {
     ) {
       const nextInfo =
         data.sectionInfo[currentSectionInfoIndex + 1].videoInfo[0];
-      setLecture(nextInfo);
+        navigate(`/videoView/${param.lectureId}/${nextInfo.videoId}`);
+        setLecture(nextInfo);
     } else {
       const nextInfo =
         data.sectionInfo[currentSectionInfoIndex].videoInfo[
           currentVideoinfoIndex + 1
         ];
+        navigate(`/videoView/${param.lectureId}/${nextInfo.videoId}`);
       setLecture(nextInfo);
+      
     }
   }, [lecture]);
   const onCurriculum = useCallback(() => {
-    setOpen({ ...open, curriculumOpen: !open.curriculumOpen, note: false });
+    setOpen({ ...open,  curriculum: !open.curriculum,  note: false, community: false, });
   }, [open]);
   const onNote = useCallback(() => {
-    setOpen({ ...open, curriculumOpen: false, note: !open.note });
+    setOpen({ ...open,curriculum: false,note: !open.note, community: false,});
   }, [open]);
-
+  const onCommunity = useCallback(() => {
+    setOpen({ ...open, curriculum: false, note: false, community:!open.community});
+  }, [open]);
   const [time, setTime] = useState<number>(0);
   const onPlayTime = (e: any) => {
     const postTime = setInterval(() => {
@@ -120,7 +142,6 @@ const VideoView = () => {
       })
     );
   }, [time, lecture.videoId]);
-  
   return (
     <St.VideoViewWrap>
       <St.Left>
@@ -153,6 +174,7 @@ const VideoView = () => {
                 autoplay: 1,
                 rel: 0,
                 modestbranding: 1,
+                start: lecture.timecheck,
               },
             }}
             // 이벤트 리스너
@@ -163,19 +185,25 @@ const VideoView = () => {
           />
         </St.Center>
         <St.Bottom>
-          <button onClick={() => onPrev()}>
-            <PiArrowLineLeftBold />
-            이전 강의
-          </button>
-
-          <button>
-            <BiLike />
-            좋아요
-          </button>
-          <button onClick={() => onNext()}>
-            다음 강의
-            <PiArrowLineRightBold />
-          </button>
+          {data.sectionInfo.find((v) => v.sectionId === 1)?.videoInfo[0]
+            ?.videoId === param.videoId ? (
+            ""
+          ) : (
+            <button onClick={() => onPrev()}>
+              <PiArrowLineLeftBold />
+              이전 강의
+            </button>
+          )}
+          {data.sectionInfo[data.sectionInfo.length - 1]?.videoInfo[
+            data.sectionInfo[data.sectionInfo.length - 1].videoInfo.length - 1
+          ]?.videoId === param.videoId ? (
+            ""
+          ) : (
+            <button onClick={() => onNext()}>
+              다음 강의
+              <PiArrowLineRightBold />
+            </button>
+          )}
         </St.Bottom>
       </St.Left>
       <St.Right>
@@ -183,17 +211,26 @@ const VideoView = () => {
           <LuFolderEdit />
           <p>커리큘럼</p>
         </St.Button>
+        <St.Button onClick={() => onCommunity()}>
+          <LuSubtitles />
+          <p>커뮤니티</p>
+        </St.Button>
         <St.Button onClick={() => onNote()}>
           <LuStickyNote />
           <p>노트</p>
         </St.Button>
       </St.Right>
-      {open.curriculumOpen && (
+      {open.curriculum && (
         <St.CurriculumWrap>
-          <Curriculum
-            onCurriculum={onCurriculum}
-            setLecture={setLecture}
-            lecture={lecture}
+          <Curriculum onCurriculum={onCurriculum} data={data} />
+        </St.CurriculumWrap>
+      )}
+      {open.community && (
+        <St.CurriculumWrap>
+          <Community
+            onCommunity={onCommunity}
+            videoid={lecture.videoId}
+            lectureId={data.lectureId}
           />
         </St.CurriculumWrap>
       )}
@@ -203,9 +240,6 @@ const VideoView = () => {
             onNote={onNote}
             videoid={lecture.videoId}
             lectureId={data.lectureId}
-            sectionNumber={
-              data.sectionInfo[currentSectionInfoIndex].sectionNumber
-            }
           />
         </St.CurriculumWrap>
       )}

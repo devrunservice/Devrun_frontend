@@ -100,6 +100,7 @@ export const DetailHash = styled.ul`
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  gap:5px;
   
 `;
 export const DetailHashli = styled.li`
@@ -107,16 +108,10 @@ export const DetailHashli = styled.li`
 
   background: ${(props: any) => props.theme.bgBlack};
   border-radius: 5px;
-  margin-right: 5px;
-  &:last-child {
-    margin-right: 0;
-  }
-  > button {
-    padding: 10px 15px;
-    border-radius:5px;
-    color: ${(props: any) => props.theme.textWhite};
-    font-size: 0.875rem;
-  }
+  padding: 10px 15px;
+  border-radius: 5px;
+  color: ${(props: any) => props.theme.textWhite};
+  font-size: 0.875rem;
 `;
 
 
@@ -176,7 +171,6 @@ export const Curriculums = styled.span`
 
 
 
-
 export const CurriculumUl = styled.ul`
   width: 100%;
   display: flex;
@@ -188,6 +182,7 @@ export const CurriculumLi = styled.li`
   border: 1px solid ${(props: any) => props.theme.borderD};
   border-radius: 5px;
   overflow:hidden;
+  cursor:pointer;
 `;
 export const CurriculumTop = styled.div`
   display: flex;
@@ -314,5 +309,31 @@ export const ButtomLi = styled.li`
     position: absolute;
     border-radius:5px;
     background: ${(props: any) => props.theme.mainColor};
+  }
+`;
+
+
+
+export const OtherWrap = styled.div`
+  width: 100%;
+  background: ${(props: any) => props.theme.bgGrayColor};
+  padding: 80px 0;
+  margin-top: 80px;
+  > div {
+    width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+  }
+`;
+export const ListWrap = styled.ul`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  > li {
+    background: ${(props: any) => props.theme.bgColor};
+    padding: 25px 25px;
+    border: 1px solid ${(props: any) => props.theme.borderD};
   }
 `;

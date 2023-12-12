@@ -1,27 +1,22 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useCallback, useEffect } from "react";
-import {  useSelector } from "react-redux";
-import { RootState } from "redux/store";
+import React, { useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDate } from "hooks";
-import { VideoCurriculumVideoInfos } from "types";
+import {  VideoCurriculum } from "types";
 import * as St from "./style";
 
 
 interface ICurriculum {
   onCurriculum: () => void;
-  setLecture: React.Dispatch<React.SetStateAction<VideoCurriculumVideoInfos>>;
-  lecture: VideoCurriculumVideoInfos;
+  data: VideoCurriculum;
 }
 
-const Curriculum = ({ onCurriculum, setLecture, lecture }: ICurriculum) => {
-  const { data } = useSelector((state: RootState) => state.videoViewReducer);
+const Curriculum = ({ onCurriculum, data }: ICurriculum) => {
   const { videoTime } = useDate();
   const param = useParams();
   const navigate = useNavigate();
-  const onVideoPlay = useCallback((l: VideoCurriculumVideoInfos) => {
-    navigate(`/videoView/${param.lectureId}/${l.videoId}`);
-    setLecture(l);
+  const onVideoPlay = useCallback((l: string) => {
+    navigate(`/videoView/${param.lectureId}/${l}`);
   }, []);
   return (
     <>
@@ -76,16 +71,14 @@ const Curriculum = ({ onCurriculum, setLecture, lecture }: ICurriculum) => {
                   return (
                     <St.SectionConLi
                       key={l.videoId}
-                      onClick={() => onVideoPlay(l)}
-                      $active={l.videoId === lecture.videoTitle}
+                      onClick={() => onVideoPlay(l.videoId)}
+                      $active={l.videoId === param.videoId}
                     >
                       <St.SectionIcon>
                         {l.timecheck === l.videoTotalPlayTime ? (
                           <St.Check />
                         ) : (
-                          <St.Play
-                            $active={l.videoTitle === lecture.videoTitle}
-                          />
+                          <St.Play $active={l.videoId === param.videoId} />
                         )}
                       </St.SectionIcon>
                       <St.SectionText>

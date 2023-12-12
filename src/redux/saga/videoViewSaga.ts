@@ -1,7 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { fork, takeLatest, all, put, call } from "redux-saga/effects";
 import { video } from "utils/api";
-import { Videos, Progress, Note, Curriculum, ReNote } from "types";
+import { Videos, Progress, GetQuest } from "types";
 import {
   curriculumLoding,
   curriculumSuccess,
@@ -9,15 +9,12 @@ import {
   progressSuccess,
   progressFail,
   progressLoding,
-  saveNoteSuccess,
-  saveNoteFail,
-  saveNoteLoding,
-  getNoteSuccess,
-  getNoteFail,
-  getNoteLoding,
-  reNoteLoding,
-  reNoteSuccess,
-  reNoteFail,
+  getQuestSuccess,
+  getQuestFail,
+  getQuestLoding,
+  getQuestDetailSuccess,
+  getQuestDetailFail,
+  getQuestDetailLoding,
 } from "../reducer/videoViewReducer";
 
 function* curriculum(action: PayloadAction<Videos>): Generator<any, void, any> {
@@ -39,34 +36,32 @@ function* saveProgress(
   }
 }
 
-function* saveNotes(action: PayloadAction<Note>): Generator<any, void, any> {
+function* getQuest(action: PayloadAction<GetQuest>): Generator<any, void, any> {
   try {
-    const response = yield call(video.saveNote, action.payload);
-    yield put(saveNoteSuccess(response));
+    const response = yield call(video.getQuest, action.payload);
+    const {page} = action.payload
+    yield put(getQuestSuccess({ response, page }));
   } catch (error) {
-    yield put(saveNoteFail(error));
+    yield put(getQuestFail(error));
   }
 }
-function* getNotes(
-  action: PayloadAction<Curriculum>
+function* getQuestDetail(
+  action: PayloadAction<number>
 ): Generator<any, void, any> {
   try {
-    const response = yield call(video.getNote, action.payload);
-    yield put(getNoteSuccess(response));
+    const response = yield call(video.getQuestDetail, action.payload);
+    yield put(getQuestDetailSuccess(response));
   } catch (error) {
-    yield put(getNoteFail(error));
-  }
-}
-function* reNotes(action: PayloadAction<ReNote>): Generator<any, void, any> {
-  try {
-    const response = yield call(video.reNote, action.payload);
-    const {noteNo} = action.payload
-    yield put(reNoteSuccess({ noteNo, response }));
-  } catch (error) {
-    yield put(reNoteFail(error));
+    yield put(getQuestDetailFail(error));
   }
 }
 
+function* watchGetQuest() {
+  yield takeLatest(getQuestLoding, getQuest);
+}
+function* watchGetQuestDetail() {
+  yield takeLatest(getQuestDetailLoding, getQuestDetail);
+}
 
 
 function* watchCurriculum() {
@@ -75,23 +70,14 @@ function* watchCurriculum() {
 function* watchProgress() {
   yield takeLatest(progressLoding, saveProgress);
 }
-function* watchSaveNote() {
-  yield takeLatest(saveNoteLoding, saveNotes);
-}
-function* watchGetNote() {
-  yield takeLatest(getNoteLoding, getNotes);
-}
-function* watchReNote() {
-  yield takeLatest(reNoteLoding, reNotes);
-}
+
 
 
 export default function* viewSaga() {
   yield all([
     fork(watchCurriculum),
     fork(watchProgress),
-    fork(watchSaveNote),
-    fork(watchGetNote),
-    fork(watchReNote),
+    fork(watchGetQuest),
+    fork(watchGetQuestDetail),
   ]);
 }

@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Outlet, useLocation, useParams } from "react-router-dom";
+import React, {useEffect} from 'react';
+import {Outlet, useLocation, useParams} from 'react-router-dom';
 import {Footer, Header, MypageNav} from 'components';
 import MetaTag from 'MetaTag';
 import * as St from 'style/Common';
@@ -9,55 +9,49 @@ const App = () => {
 
   const location = useLocation();
   useEffect(() => {
-    window.scroll(0,0)
+    window.scroll(0, 0);
   }, [location]);
   const hideHeader =
-    location.pathname === "/signup" ||
-    location.pathname === "/signupconfirm" ||
-    location.pathname === "/signupcompletion" ||
-    location.pathname === "/login" ||
-    location.pathname === "/auth/kakao/callback/login" ||
-    location.pathname === "/findaccount/id" ||
-    location.pathname === "/findaccount/password" ||
-    location.pathname === "/auth/kakao/callback" ||
-    location.pathname ===
-      `/videoView/${params.lectureId}/${params.videoId}`;
+    location.pathname === '/signup' ||
+    location.pathname === '/signupconfirm' ||
+    location.pathname === '/signupcompletion' ||
+    location.pathname === '/login' ||
+    location.pathname === '/auth/kakao/callback' ||
+    location.pathname === '/kakaologin' ||
+    location.pathname === '/findaccount/id' ||
+    location.pathname === '/findaccount/password' ||
+    location.pathname === `/videoView/${params.lectureId}/${params.videoId}`;
 
   const hideFooter =
-    location.pathname === "/signup" ||
-    location.pathname === "/signupconfirm" ||
-    location.pathname === "/signupcompletion" ||
-    location.pathname === "/login" ||
-    location.pathname === "/auth/kakao/callback/login" ||
-    location.pathname === "/findaccount/id" ||
-    location.pathname === "/findaccount/password" ||
-    location.pathname === "/auth/kakao/callback" ||
-    location.pathname ===
-      `/videoView/${params.lectureId}/${
-        params.videoId
-      }`;
+    location.pathname === '/signup' ||
+    location.pathname === '/signupconfirm' ||
+    location.pathname === '/signupcompletion' ||
+    location.pathname === '/login' ||
+    location.pathname === '/auth/kakao/callback' ||
+    location.pathname === '/kakaologin' ||
+    location.pathname === '/findaccount/id' ||
+    location.pathname === '/findaccount/password' ||
+    location.pathname === `/videoView/${params.lectureId}/${params.videoId}`;
 
   const myPage =
-    location.pathname === "/profile" ||
-    location.pathname === "/profileupdate" ||
-    location.pathname === "/cert" ||
-    location.pathname === "/CertDetail" ||
-    location.pathname === "/dashboard" ||
-    location.pathname === "/learning" ||
+    location.pathname === '/profile' ||
+    location.pathname === '/profileupdate' ||
+    location.pathname === '/cert' ||
+    location.pathname === '/CertDetail' ||
+    location.pathname === '/dashboard' ||
+    location.pathname === '/learning' ||
     location.pathname === '/notes' ||
     location.pathname === `/notes/${params.lectureId}` ||
     location.pathname === `/notes/${params.lectureId}/${params.noteId}` ||
-    location.pathname === "/questions" ||
-    location.pathname === "/coupon" ||
-    location.pathname === "/receipt" ||
-    location.pathname === "/createcoupon" ||
-    location.pathname === "/point" ||
-    location.pathname === "/createVideo" ||
+    location.pathname === '/questions' ||
+    location.pathname === `/questions/${params.questionId}` ||
+    location.pathname === '/coupon' ||
+    location.pathname === '/receipt' ||
+    location.pathname === '/createcoupon' ||
+    location.pathname === '/point' ||
+    location.pathname === '/createVideo' ||
     location.pathname ===
       `/lecture/${encodeURIComponent(`${params.lectureBigCategory}`)}`;
-
-
-
 
   return (
     <>
@@ -73,7 +67,7 @@ const App = () => {
         <Outlet />
       ) : (
         <St.AppSection>
-          <div >
+          <div>
             <MypageNav />
           </div>
           <div>

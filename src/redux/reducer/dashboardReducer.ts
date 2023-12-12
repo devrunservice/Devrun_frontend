@@ -2,14 +2,37 @@
 import {createSlice} from '@reduxjs/toolkit';
 import * as I from 'types';
 
+
+
+
 export interface DashboardReducerType {
   loading: boolean;
   learningData: I.LearningWrapperType;
   noteLectureData: I.NoteLectureWrapperType;
   noteListData: I.NoteListWrapperType;
+  noteList: I.NoteListWrapperType;
   noteDetailData: I.NoteDetailType;
+  noteDeleteData: boolean;
   questionListData: I.QuestionListWrapperType;
   questionDetailData: I.QuestionDetailType;
+  questionDeleteData: boolean;
+  answerData: {
+    data: I.CommentsList[];
+  };
+  replyAnswerData: I.CommentsList;
+  deleteAnswerData: boolean;
+  editAnswerData: I.CommentsList;
+
+  note: string;
+  reNote: {
+    chapter: number;
+    content: string;
+    date: string;
+    noteId: number;
+    noteTitle: string;
+    subHeading: string;
+    videoId: string;
+  };
   error: Error | null;
 }
 
@@ -27,6 +50,10 @@ const initialState: DashboardReducerType = {
     dtolist: [],
     totalPages: 1,
   },
+  noteList: {
+    dtolist: [],
+    totalPages: 1,
+  },
   noteDetailData: {
     noteId: 0,
     noteTitle: '',
@@ -36,23 +63,63 @@ const initialState: DashboardReducerType = {
     date: '',
     content: '',
   },
+  noteDeleteData: false,
+  note:"",
+  reNote: {
+    chapter: 0,
+    content:"",
+    date: "",
+    noteId: 0,
+    noteTitle:"",
+    subHeading: "",
+    videoId: "",
+  },
   questionListData: {
     dtolist: [],
+    questionCount: 0,
     totalPages: 1,
   },
   questionDetailData: {
     questionId: 0,
     lectureId: 0,
-    videoId: '',
-    date: '',
-    questionTitle: '',
+    videoId: "",
+    date: "",
+    questionTitle: "",
+    content: "",
+    answer: "",
+  },
+  questionDeleteData: false,
+  answerData: {
+    data:[]
+  },
+  replyAnswerData: {
+    commentNo: 0,
     content: '',
+    createdDate: '',
+    id: '',
+    modifiedDate: '',
+    noticeNo: 0,
+    parentCommentNo: 0,
+    profileimgsrc: '',
+    userNo: 0,
+  },
+  deleteAnswerData: false,
+  editAnswerData: {
+    commentNo: 0,
+    content: '',
+    createdDate: '',
+    id: '',
+    modifiedDate: '',
+    noticeNo: 0,
+    parentCommentNo: 0,
+    profileimgsrc: '',
+    userNo: 0,
   },
   error: null,
 };
 
 const dashboardReducer = createSlice({
-  name: 'dashboardReducer',
+  name: "dashboardReducer",
   initialState,
   reducers: {
     // 내 학습 관리
@@ -73,7 +140,6 @@ const dashboardReducer = createSlice({
     },
     noteLectureSuccess: (state, action) => {
       state.loading = false;
-      console.log(action.payload.data);
       state.noteLectureData = action.payload.data;
     },
     noteLectureFail: (state, action) => {
@@ -85,7 +151,24 @@ const dashboardReducer = createSlice({
     },
     noteListSuccess: (state, action) => {
       state.loading = false;
-      state.noteListData = action.payload.data;
+      const { response, page } = action.payload;
+      state.noteListData = response.data;
+
+      if (page === 1) {
+        const newData = response.data.dtolist.filter(
+          (v: I.NoteListType) =>
+            !state.noteListData.dtolist.some((c) => c.noteId === v.noteId)
+        );
+        state.noteList = {
+          dtolist: [...state.noteListData.dtolist, ...newData],
+          totalPages: page,
+        };
+      } else {
+        state.noteList = {
+          dtolist: [...state.noteList.dtolist, ...response.data.dtolist],
+          totalPages: page,
+        };
+      }
     },
     noteListFail: (state, action) => {
       state.loading = false;
@@ -102,19 +185,58 @@ const dashboardReducer = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    noteDeleteLoading: (state, action) => {
+      state.loading = true;
+    },
+    noteDeleteSuccess: (state, action) => {
+      state.loading = false;
+      state.noteDeleteData = action.payload;
+    },
+    noteDeleteFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    saveNoteLoding: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
+    saveNoteSuccess: (state, action) => {
+      state.loading = false;
+      state.error = null;
+      state.note = action.payload.data;
+    },
+    saveNoteFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+
+    reNoteLoding: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
+    reNoteSuccess: (state, action) => {
+      state.loading = false;
+      state.error = null;
+      state.reNote = action.payload.data;
+    },
+    reNoteFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+
     // 강의 질문
     questionListLoading: (state, action) => {
       state.loading = true;
     },
     questionListSuccess: (state, action) => {
       state.loading = false;
-      state.noteLectureData = action.payload.data;
+      state.questionListData = action.payload.data;
     },
     questionListFail: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
-    questionDetailLoading: (state) => {
+    questionDetailLoading: (state, action) => {
       state.loading = true;
     },
     questionDetailSuccess: (state, action) => {
@@ -122,6 +244,66 @@ const dashboardReducer = createSlice({
       state.questionDetailData = action.payload.data;
     },
     questionDetailFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    questionDeleteLoading: (state, action) => {
+      state.loading = true;
+      state.questionDeleteData = false;
+    },
+    questionDeleteSuccess: (state, action) => {
+      state.loading = false;
+      state.questionDeleteData = action.payload;
+    },
+    questionDeleteFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    answerForQuestionLoading: (state, action) => {
+      state.loading = true;
+    },
+    answerForQuestionSuccess: (state, action) => {
+      state.loading = false;
+      state.answerData = action.payload;
+    },
+    answerForQuestionFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    replyAnswerLoading: (state, action) => {
+      state.loading = true;
+    },
+    replyAnswerSuccess: (state, action) => {
+      state.loading = false;
+      state.replyAnswerData = action.payload;
+    },
+    replyAnswerFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    deleteAnswerLoading: (state, action) => {
+      state.loading = true;
+      state.deleteAnswerData = false;
+    },
+    deleteAnswerSuccess: (state, action) => {
+      state.loading = false;
+      state.deleteAnswerData = true;
+      state.answerData.data = state.answerData?.data.filter(
+        (answer) => answer.commentNo !== action.payload.id
+      );
+    },
+    deleteAnswerFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    editAnswerLoading: (state, action) => {
+      state.loading = true;
+    },
+    editAnswerSuccess: (state, action) => {
+      state.loading = false;
+      state.editAnswerData = action.payload;
+    },
+    editAnswerFail: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
@@ -141,12 +323,37 @@ export const {
   noteDetailLoading,
   noteDetailSuccess,
   noteDetailFail,
+  noteDeleteLoading,
+  noteDeleteSuccess,
+  noteDeleteFail,
+  saveNoteSuccess,
+  saveNoteFail,
+  saveNoteLoding,
+  reNoteLoding,
+  reNoteSuccess,
+  reNoteFail,
+
   questionListLoading,
   questionListSuccess,
   questionListFail,
   questionDetailLoading,
   questionDetailSuccess,
   questionDetailFail,
+  questionDeleteLoading,
+  questionDeleteSuccess,
+  questionDeleteFail,
+  answerForQuestionLoading,
+  answerForQuestionSuccess,
+  answerForQuestionFail,
+  replyAnswerLoading,
+  replyAnswerSuccess,
+  replyAnswerFail,
+  deleteAnswerLoading,
+  deleteAnswerSuccess,
+  deleteAnswerFail,
+  editAnswerLoading,
+  editAnswerSuccess,
+  editAnswerFail,
 } = dashboardReducer.actions;
 
 export default dashboardReducer.reducer;

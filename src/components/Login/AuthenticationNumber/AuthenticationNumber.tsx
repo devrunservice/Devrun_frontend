@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import useValid from 'hooks/useValid';
 import {findAccount, signup, verificationAPI} from 'utils/api';
-import {Modal, Timer} from 'components';
+import {BasicModal, Timer} from 'components';
 import {ErrorMessage, Input, SuccessMessage} from 'style/Common';
 import {SignupFormType} from 'types';
 import {openModal} from '../../../redux/reducer/modalReducer';
@@ -233,7 +233,6 @@ const AuthenticationNumber = ({
             !validState.codeBtn && (
               <ErrorMessage>{messageState.phonenumberMessage}</ErrorMessage>
             )}
-          <Modal page="findPassword" />
           {validState.codeBtn && (
             <St.Field option="authenticationInput">
               <Input
@@ -319,7 +318,7 @@ const AuthenticationNumber = ({
           )}
         </>
       )}
-      <Modal />
+      <BasicModal />
     </St.InputField>
   );
 };

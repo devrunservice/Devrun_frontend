@@ -2,11 +2,19 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
-import {decode} from 'utils/decode';
-import {AuthenticationNumber, DuplicationForm, Modal} from 'components';
-import {MypageType, ProfileInputType, ValidFieldType} from 'types';
 import {Exclamation} from 'asset';
+import * as I from 'types';
+import {mypage} from 'utils/api';
+import {decode} from 'utils/decode';
+import {
+  AuthenticationNumber,
+  DuplicationForm,
+  BasicModal,
+  UserTop,
+  ImageUploader,
+} from 'components';
 import {Title} from 'style/Common';
+import * as St from './styles';
 import {
   myInfoLoading,
   updateEmailLoading,
@@ -18,17 +26,20 @@ import {
   updateValidState,
 } from '../../../redux/reducer/validationReducer';
 import {openModal} from '../../../redux/reducer/modalReducer';
-import * as St from './styles';
+import {logoutLoading} from '../../../redux/reducer/loginReducer';
 
 const Profile = () => {
   const dispatch = useDispatch();
+
+  const [modalLogic, setModalLogic] = useState(false);
+  const [deleteAccount, setDeleteAccount] = useState(false);
 
   const userInfo = useSelector((state: RootState) => state.mypageReducer.data);
   const validState = useSelector(
     (state: RootState) => state.validationReducer.validState
   );
 
-  const [profileForm, setProfileForm] = useState<MypageType>({
+  const [profileForm, setProfileForm] = useState<I.MypageType>({
     profileImage: undefined,
     profilePreview: '',
     email: '',
@@ -37,43 +48,48 @@ const Profile = () => {
   });
 
   // 수정 및 저장 버튼
-  const [isInput, setIsInput] = useState<ProfileInputType>({
+  const [isInput, setIsInput] = useState<I.ProfileInputType>({
     profileImageBtn: false,
     emailBtn: false,
     phonenumberBtn: false,
   });
 
   // 이미지
-  const handleChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const file = e.target.files[0];
-      if (file.size > 1024 * 1024 * 1) {
-        dispatch(openModal('이미지 용량을 초과하였습니다.'));
-        // alert('이미지 용량을 초과하였습니다.');
-      } else {
-        dispatch(updateValidState({name: 'profileImage', value: true}));
-        setProfileForm({
-          ...profileForm,
-          profileImage: file,
-          profilePreview: URL.createObjectURL(file),
-        });
-      }
-    }
+  // const handleUpLoadImg = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (e.target.files) {
+  //     const file = e.target.files[0];
+  //     if (file.size > 1024 * 1024 * 1) {
+  //       dispatch(openModal('이미지 용량을 초과하였습니다.'));
+  //       // alert('이미지 용량을 초과하였습니다.');
+  //     } else {
+  //       dispatch(updateValidState({name: 'profileImage', value: true}));
+  //       setProfileForm({
+  //         ...profileForm,
+  //         profileImage: file,
+  //         profilePreview: URL.createObjectURL(file),
+  //       });
+  //     }
+  //   }
+  // };
+  const handleUpLoadImg = (file: File) => {
+    dispatch(updateValidState({name: 'profileImage', value: true}));
+    setProfileForm({
+      ...profileForm,
+      profileImage: file,
+      profilePreview: URL.createObjectURL(file),
+    });
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const {name, id} = e.target as HTMLButtonElement;
-    // setTimeout(
-    //   () => setIsInput((prev) => ({...prev, [name]: !prev[name]})),
-    //   3000
-    // );
+    setModalLogic(false);
     setIsInput((prev) => ({...prev, [name]: !prev[name]}));
 
     if (id === 'cancelBtn') {
       setIsInput((prev) => ({...prev, [name]: false}));
     }
 
-    const updateValidFields = (list: ValidFieldType[]) => {
+    const updateValidFields = (list: I.ValidFieldType[]) => {
       list.forEach((field) => {
         dispatch(updateValidState(field));
       });
@@ -109,12 +125,40 @@ const Profile = () => {
     }
   };
 
-  const getAuthenticationForm = (values: MypageType) => {
+  const handleDelete = async () => {
+    setModalLogic(true);
+    await dispatch(
+      openModal('회원을 탈퇴하면 재가입 할 수 없습니다./탈퇴 하시겠습니까?')
+    );
+  };
+
+  const handleConfirm = async () => {
+    if (modalLogic) {
+      setModalLogic(false);
+      try {
+        const response = await mypage.deleteAccount();
+        if (response.status === 200) {
+          dispatch(openModal('탈퇴가 완료 되었습니다.'));
+          setDeleteAccount(true);
+          handleConfirm();
+        }
+      } catch (error) {
+        dispatch(
+          openModal('알 수 없는 에러가 발생했습니다./다시 시도해주세요.')
+        );
+      }
+    }
+    if (deleteAccount) {
+      dispatch(logoutLoading());
+    }
+  };
+
+  const getAuthenticationForm = (values: I.MypageType) => {
     profileForm.phonenumber = values.phonenumber;
     profileForm.code = values.code;
   };
 
-  const getDuplicationForm = (value: MypageType) => {
+  const getDuplicationForm = (value: I.MypageType) => {
     profileForm.email = value.email;
     // setProfileForm((prev) => ({ ...prev, email: value }));
   };
@@ -126,11 +170,15 @@ const Profile = () => {
       ...prev,
       profilePreview: userInfo.profilePreview,
     }));
-  }, [userInfo]);
+
+    // if (deleteAccount) {
+    //   dispatch(logoutLoading());
+    // }
+  }, [userInfo, deleteAccount]);
 
   return (
     <St.Section>
-      <St.Title>프로필</St.Title>
+      <UserTop title="프로필" />
       <St.InputField>
         {!isInput.profileImageBtn ? (
           <St.InputWrapper>
@@ -143,8 +191,8 @@ const Profile = () => {
           </St.InputWrapper>
         ) : (
           <>
-            {/* <ImageUploader page="profileUpdate" /> */}
-            <St.UploadArea>
+            <ImageUploader page="profileUpdate" onUpLoadImg={handleUpLoadImg} />
+            {/* <St.UploadArea>
               <St.Imgbox>
                 <img src={profileForm.profilePreview} alt="updated profile" />
               </St.Imgbox>
@@ -159,14 +207,14 @@ const Profile = () => {
                 <St.ImageBtn htmlFor="uploader">파일선택</St.ImageBtn>
                 <St.InputNotice>
                   <Exclamation />
-                  최대 2MB까지 업로드 가능합니다.
+                  최대 1MB까지 업로드 가능합니다.
                 </St.InputNotice>
                 <St.InputNotice>
                   <Exclamation />
                   528 X 297 픽셀 이미지 사용
                 </St.InputNotice>
               </div>
-            </St.UploadArea>
+            </St.UploadArea> */}
 
             <St.EditBtn>
               <St.CancelBtn
@@ -286,7 +334,10 @@ const Profile = () => {
           />
         </St.EditInput>
       )}
-      <Modal page="profile" />
+      <St.DeleteBtnWrapper>
+        <St.DeleteBtn onClick={handleDelete}>회원 탈퇴</St.DeleteBtn>
+      </St.DeleteBtnWrapper>
+      <BasicModal logicActive={modalLogic} onConfirm={handleConfirm} />
     </St.Section>
   );
 };

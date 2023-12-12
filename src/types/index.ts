@@ -61,7 +61,6 @@ export interface LoginFormType {
   id: string;
   password?: string;
   recaptcha?: string;
-  loginTime?: Date | number;
 }
 
 // 마이페이지 타입
@@ -110,11 +109,8 @@ export interface NoteQuestionListType {
   lectureThumbnail?: string;
   count?: number;
   questionId?: number;
-  questionLectureTitle?: string;
   questionTitle?: string;
-  questionContentPreview?: string;
   questionDate?: string;
-  questionCount?: number;
 }
 export interface NoteLectureWrapperType {
   dtolist: LectureType[];
@@ -126,8 +122,8 @@ export interface LectureType {
   category: string;
   lectureId: number;
   lectureTitle: string;
-  lastStudyDate: string;
-  lectureThumbnail: string;
+  lastStudyDate?: string;
+  lectureThumbnail?: string;
   count: number;
 }
 export interface NoteListWrapperType {
@@ -138,6 +134,7 @@ export interface NotePropsType {
   id?: number;
   page?: number | string;
   status?: string;
+  content?: string;
 }
 export interface NoteListType {
   key: number;
@@ -160,18 +157,20 @@ export interface NoteDetailType {
 }
 export interface QuestionListWrapperType {
   dtolist: QuestionListType[];
+  questionCount: number;
   totalPages: number;
 }
 export interface QuestionListType {
   key: number;
+  no: number;
   page: string;
   category: string;
+  questionLectureTitle: string;
   questionId: number;
-  lectureTitle: string;
   questionTitle: string;
   questionContentPreview: string;
   questionDate: string;
-  count: number;
+  answer: number;
 }
 export interface QuestionDetailType {
   questionId: number;
@@ -180,6 +179,25 @@ export interface QuestionDetailType {
   date: string;
   questionTitle: string;
   content: string;
+  answer: string;
+}
+// 질문 답변
+export interface QuestionReplyType {
+  content: string;
+  questionId: number;
+}
+export interface NoteQuestionListType {
+  key: number;
+  page: string;
+  category: string;
+  lectureId?: number;
+  lectureTitle?: string;
+  lastStudyDate?: string;
+  lectureThumbnail?: string;
+  count?: number;
+  questionId?: number;
+  questionTitle?: string;
+  questionDate?: string;
 }
 export interface CalenderHeaderType {
   currentMonth: Date;
@@ -192,15 +210,13 @@ export interface CalenderDateType {
   onDateClick: (date: Date) => void;
 }
 
-export interface UserInfoList {
-  id: string;
-  role: string;
-  userNo: number;
-}
-
 export interface Userinfo {
   loading: boolean;
-  data: UserInfoList;
+  data: {
+    id: string;
+    role: string;
+    userNo: number;
+  };
   error: string | null | undefined;
 }
 
@@ -271,7 +287,6 @@ export interface videoFileType {
   name: string;
 }
 
-export interface RefType {}
 
 export interface TableCommon {
   $cursor?: boolean;
@@ -279,11 +294,7 @@ export interface TableCommon {
   $view?: boolean;
 }
 
-// 없앨꺼
-export interface Coupon {
-  couponCode: string;
-  amount: number;
-}
+
 
 // 결제창
 export interface RequestPayAdd {
@@ -375,9 +386,7 @@ export interface UserCouponList {
   lecturename: string;
   state: string;
 }
-export interface UserCoupon {
-  content: UserCouponList[];
-}
+
 // 환불
 export interface Refund {
   merchant_uid: string;
@@ -451,11 +460,7 @@ export interface NoticeList {
   viewCount: number;
   order: number;
 }
-export interface Notice {
-  content: NoticeList[];
-  totalElements: number;
-  totalPages: number;
-}
+
 export interface CommentsList {
   commentNo: number;
   content: string;
@@ -467,24 +472,7 @@ export interface CommentsList {
   profileimgsrc: string;
   userNo: number;
 }
-export interface Comments {
-  data: CommentsList[];
-}
 
-export interface Notices {
-  data: Notice;
-  loading?: boolean;
-  error?: Error | null;
-  content: NoticeList;
-  write: string;
-  datas: Comments;
-  del: '';
-  comments: CommentsList;
-  commentRe: CommentsList;
-}
-export interface NoticesTabel {
-  data: Notice;
-}
 export interface NoticeNum {
   noticeNo: number;
 }
@@ -496,7 +484,8 @@ export interface NoticeUrl {
 }
 export interface NoticePostUrl {
   url: string;
-  file?: File;
+  file: File;
+  fileExt: string;
 }
 
 export interface NoticeWrite {
@@ -519,14 +508,23 @@ export interface CommentDel {
   id: string;
   commentNo: number;
 }
-export interface LectureInfoList {
-  lectureIntro: string;
+
+export interface GetQuest {
+  lectureId: number;
+  page: number;
+}
+
+export interface lectureName {
   lectureName: string;
+}
+
+export interface LectureInfoList extends lectureName {
+  lectureIntro: string;
+  cartId:number;
   lecturePrice: number;
   lectureThumbnail: string;
   lectureId: number;
 }
-
 
 export interface CouponListInCart {
   discountrate: number;
@@ -557,6 +555,7 @@ export interface Carts {
   loading?: boolean;
   error?: Error | null;
   saveCart: string;
+  freeCart: string;
 }
 
 export interface BasketState {
@@ -575,70 +574,9 @@ export interface bastetCheck {
   receipt_url: string;
   imp_uid: string | null;
 }
-export interface Curriculum {
-  lectureId: number;
-}
 
-export interface Videos extends Curriculum {
-  videoId: number;
-}
-export interface Progress {
-  videoid: string;
-  currenttime: number;
-}
-
-export interface VideoCurriculumVideoInfos {
-  lastviewdate: string;
-  progress: number;
-  timecheck: number;
-  videoId: string;
-  videoTitle: string;
-  videoTotalPlayTime: number;
-}
-
-export interface VideoCurriculum {
-  lectureExpiryDate: string;
-  lectureId: number;
-  lectureName: string;
-  lectureRating: number;
-  lectureWholeProgess: number;
-  wholeRemainingTime: number;
-  wholeStudyTime: number;
-  sectionInfo: {
-    sectionId: number;
-    sectionNumber: number;
-    sectionTitle: string;
-    videoInfo: VideoCurriculumVideoInfos[];
-  }[];
-}
-export interface Note {
-  noteContent: string;
-  noteTitle: string;
-  videoId: string;
-}
-export interface ReNote {
-  noteContent: string;
-  noteNo: number;
-  noteTitle: string;
-}
 // 마이페이지 검색
 
-export interface MainList {
-  order: string;
-}
-
-export interface Search extends MainList {
-  page: number;
-  bigcategory: string;
-
-  q: string;
-}
-
-export interface NotePropsType {
-  id?: number;
-  page?: number | string;
-  status?: string;
-}
 
 export interface Curriculum {
   lectureId: number;
@@ -679,16 +617,10 @@ export interface VideoCurriculum {
     sectionId: number;
     sectionNumber: number;
     sectionTitle: string;
-    videoInfo: {
-      lastviewdate: string;
-      progress: number;
-      timecheck: number;
-      videoId: string;
-      videoTitle: string;
-      videoTotalPlayTime: number;
-    }[];
+    videoInfo: VideoCurriculumVideoInfos[];
   }[];
 }
+
 export interface Note {
   noteContent: string;
   noteTitle: string;
@@ -739,59 +671,51 @@ export interface Lectureid {
 
 /* 디테일 */
 export interface DetailAPI {
-  id: null | string
-  lectureCategory:{
-    categoryNo:number
-    lectureBigCategory: string
-    lectureMidCategory: string
-  },
-  lectureDiscount:null | string
-  lectureDiscountend:null | string
-  lectureDiscountrate:null | string
-  lectureDiscountstart:null | string
-  lectureEdit:null | string
-  lectureIntro: string
-  lectureName: string
-  lecturePrice:number
-  lectureRating:number
-  lectureSections:{
-    sectionNumber:number
-    sectionTitle:string
-    sectionid:number
-    videos:{
-      fileName:null | string
-      totalPlayTime:number
-      uploadDate:null | string
-      videoId: string
-      videoLink: string
-      videoNo:number
-      videoTitle: string
-    }[]
-  }[]
-  lectureStart: string
-  lectureStatus: string
-  lectureTag:string[]
-  lectureThumbnail: string
-  lectureid:number
-  mentoId:{
-    birthday:string
-    id:string
-    name:string
-    kakaoEmailId:null | string
-    export:null | string
-    profileimgsrc:string
-    role:string
-    signupDate:string
-    status:string
-    userNo:number
-  }
+  id: null | string;
+  lectureCategory: {
+    categoryNo: number;
+    lectureBigCategory: string;
+    lectureMidCategory: string;
+  };
+  lectureDiscount: null | string;
+  lectureDiscountend: null | string;
+  lectureDiscountrate: null | string;
+  lectureDiscountstart: null | string;
+  lectureEdit: null | string;
+  lectureIntro: string;
+  lectureName: string;
+  lecturePrice: number;
+  lectureRating: number;
+  lectureSections: {
+    sectionNumber: number;
+    sectionTitle: string;
+    sectionid: number;
+    videos: {
+      fileName: null | string;
+      totalPlayTime: number;
+      uploadDate: null | string;
+      videoId: string;
+      videoLink: string;
+      videoNo: number;
+      videoTitle: string;
+    }[];
+  }[];
+  lectureStart: string;
+  lectureStatus: string;
+  lectureTag: string[];
+  lectureThumbnail: string;
+  buyCount: number;
+  lectureid: number;
+  mentoId: {
+    birthday: string;
+    id: string;
+    name: string;
+    kakaoEmailId: null | string;
+    export: null | string;
+    profileimgsrc: string;
+    role: string;
+    signupDate: string;
+    status: string;
+    userNo: number;
+  };
 }
-
-
-
-
-
-
-
-
-

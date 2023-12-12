@@ -24,7 +24,8 @@ const initialState: Carts = {
   loading: false,
   error: null,
   addCart:"",
-  saveCart:""
+  saveCart:"",
+  freeCart:""
 };
 
 const cartReducer = createSlice({
@@ -50,7 +51,11 @@ const cartReducer = createSlice({
     },
     cartDeleteSuccess: (state, action) => {
       state.loading = false;
-      state.deletes = action.payload;
+      console.log(action.payload.cartId);
+      state.data.lectureInfoList = state.data.lectureInfoList.filter(
+        (v) => !action.payload.cartId.includes(v.cartId)
+      );
+      return state;
     },
     cartDeleteFail: (state, action) => {
       state.loading = false;
@@ -95,6 +100,19 @@ const cartReducer = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+
+    freeCartLoading: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
+    freeCartSuccess: (state, action) => {
+      state.loading = false;
+      state.freeCart = action.payload.data;
+    },
+    freeCartFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 export const {
@@ -113,6 +131,9 @@ export const {
   saveCartSuccess,
   saveCartFail,
   saveCartLoading,
+  freeCartLoading,
+  freeCartSuccess,
+  freeCartFail,
 } = cartReducer.actions;
 
 export default cartReducer.reducer;

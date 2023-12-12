@@ -1,40 +1,53 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useCallback, useState } from "react";
-import DOMPurify from "dompurify";
-import { Editor } from "components";
+import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "redux/store";
+import { Editor, Content } from "components";
+import * as St from './style';
+import {
+  noteDeleteSuccess,
+  noteDetailLoading,
+} from "../../../redux/reducer/dashboardReducer";
 
-import * as St from "./style";
 
 interface Note {
   onNote: () => void;
-  id: number;
+  noteId: number;
   setNoteBoolean: React.Dispatch<React.SetStateAction<boolean>>;
-  getNote: { chapter: number; content: string; date: string; noteId: number; noteTitle: string; subHeading: string; }[]
 }
 
 
-const NoteDe = ({
-  onNote,
-  id,
-  getNote,
-  setNoteBoolean,
-}: Note) => {
+const NoteDe = ({ onNote, setNoteBoolean, noteId }: Note) => {
+  const dispatch = useDispatch();
+  const {
+    noteDetailData: noteDetail,
+    noteDeleteData: noteDelete,
+    reNote,
+  } = useSelector((state: RootState) => state.dashboardReducer);
+  useEffect(() => {
+    dispatch(noteDetailLoading({ id: noteId }));
+
+    if (noteDelete) {
+      dispatch(noteDeleteSuccess(false));
+    }
+  }, [noteDelete, reNote]);
   const onExitNote = useCallback(() => {
     setNoteBoolean(false);
   }, []);
-  const [hide,setHide] = useState(false)
+  const [hide, setHide] = useState(false);
   const [noteData, setNoteData] = useState({
     title: "",
     content: "",
-    id:0,
+    id: 0,
   });
+
   const onReNote = useCallback(
-    (noteId: number, content: string, title: string) => {
+    (noteIds: number, content: string, title: string) => {
       setNoteData({
         ...noteData,
         title: title,
         content: content,
-        id: noteId,
+        id: noteIds,
       });
       setHide((prev) => !prev);
     },
@@ -52,32 +65,28 @@ const NoteDe = ({
         </St.Title>
       </St.Top>
       <St.Center $active={hide === true}>
-        {getNote
-          .filter((k) => k.noteId === id)
-          .map((v) => {
-            return (
-              <>
-                <div>
-                  작성일 : {v.date}
-                  <div>
-                    <St.Buttons
-                      $active
-                      onClick={() => onReNote(v.noteId, v.content, v.noteTitle)}
-                    >
-                      수정
-                    </St.Buttons>
-                    <St.Buttons $active={false}>삭제</St.Buttons>
-                  </div>
-                </div>
-                <em>{v.noteTitle}</em>
-                <St.Contents
-                  dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(v.content),
-                  }}
-                />
-              </>
-            );
-          })}
+        <St.Date>
+          작성일 : {noteDetail.date}
+          <div>
+            <St.Buttons
+              $active
+              onClick={() =>
+                onReNote(
+                  noteDetail.noteId,
+                  noteDetail.content,
+                  noteDetail.noteTitle
+                )
+              }
+            >
+              수정
+            </St.Buttons>
+            <St.Buttons $active={false}>삭제</St.Buttons>
+          </div>
+        </St.Date>
+        <em>{noteDetail.noteTitle}</em>
+        <St.Contents>
+          <Content content={noteDetail.content} />
+        </St.Contents>
       </St.Center>
       {hide && (
         <St.Bottom>

@@ -1,13 +1,12 @@
 import {styled} from 'styled-components';
 import {Input} from 'style/Common';
-import {PropsType} from 'types';
 
 // p 태그
-export const P = styled.p<PropsType>`
+export const P = styled.p<{$page?: string}>`
   color: ${(props) => props.theme.black};
   margin-bottom: 0.6rem;
   font-weight: ${(props) =>
-    props.page === 'profileUpdate' && props.theme.semiBold};
+    props.$page === 'profileUpdate' && props.theme.semiBold};
 `;
 
 export const Button = styled.button`

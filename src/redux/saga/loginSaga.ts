@@ -5,11 +5,7 @@ import {login} from 'utils/api';
 import {removeCookie, setCookie} from 'utils/cookies';
 import {redirect} from 'utils/redirect';
 import {LoginFormType} from 'types';
-import {
-  openModal,
-  setKakaoLoginSuccess,
-  setRecaptcha,
-} from '../reducer/modalReducer';
+import {openModal} from '../reducer/modalReducer';
 import {
   kakaoFail,
   kakaoLoading,
@@ -20,6 +16,7 @@ import {
   logoutFail,
   logoutLoading,
   logoutSuccess,
+  openRecaptcha,
 } from '../reducer/loginReducer';
 
 function* loginSaga(
@@ -34,14 +31,14 @@ function* loginSaga(
       // https 일때만 통신할 수 있는 것 https일때 true로 바꿔줄것!
       secure: true,
     });
-    removeCookie('easyLoginToken', {path: '/', secure: true});
+    removeCookie('easyLoginToken', {path: '/kakaologin', secure: true});
     yield put(loginSuccess(response));
     yield call(redirect, '/home');
   } catch (error: any) {
     yield put(loginFail(error));
     if (error.message === '로그인 횟수를 초과했습니다.') {
       yield put(openModal(error.message));
-      yield put(setRecaptcha(true));
+      yield put(openRecaptcha(true));
     } else {
       yield put(openModal(error.message));
     }
@@ -68,11 +65,11 @@ function* kakaoLoginSaga(
     const easyLoginToken = response.data.Easylogin_token;
     if (easyLoginToken) {
       setCookie('easyLoginToken', easyLoginToken.substr(7), {
-        path: '/',
+        path: '/kakaologin',
         secure: true,
+        maxAge: 900,
       });
-      yield put(kakaoSuccess(response));
-      yield put(setKakaoLoginSuccess(true));
+      yield put(kakaoSuccess(true));
       yield put(
         openModal(
           '간편 로그인이 완료되었습니다./로그인을 진행하여 기존 계정과 연동해주세요.'

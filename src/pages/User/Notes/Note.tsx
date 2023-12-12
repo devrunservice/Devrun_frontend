@@ -3,7 +3,8 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useParams} from 'react-router-dom';
 import {RootState} from 'redux/store';
-import {NoteCard, Pagination, SearchBar} from 'components';
+import {NoSearch} from 'asset';
+import {UserTop, NoData, NoteCard, Pagination, SearchBar} from 'components';
 import * as St from './styles';
 import {noteListLoading} from '../../../redux/reducer/dashboardReducer';
 
@@ -14,24 +15,24 @@ const Note = () => {
 
   const [pageno, setPageno] = useState<number>(1);
 
-  useEffect(() => {
-    dispatch(noteListLoading({page: pageno, id: lectureId}));
-  }, [pageno]);
-
-  const noteList = useSelector(
-    (state: RootState) => state.dashboardReducer.noteListData
+  const {noteListData: noteList, noteDeleteData: noteDelete} = useSelector(
+    (state: RootState) => state.dashboardReducer
   );
 
-  console.log(noteList);
+  useEffect(() => {
+    dispatch(noteListLoading({page: pageno, id: lectureId}));
+  }, [pageno, noteDelete]);
 
   return (
     <section>
-      <St.TitleWrapper>
-        <h1>강의 노트</h1>
-        {/* <SearchBar /> */}
-      </St.TitleWrapper>
+      <UserTop title="강의 노트" />
       {noteList.dtolist.length === 0 ? (
-        <St.ErrorMessage>작성한 노트가 없습니다.</St.ErrorMessage>
+        <NoData
+          title="작성한 노트가 존재하지 않습니다"
+          span="첫 노트를 작성해보세요"
+          tag={false}
+          img={<NoSearch />}
+        />
       ) : (
         <St.NoteUl>
           {noteList.dtolist.map((note) => (

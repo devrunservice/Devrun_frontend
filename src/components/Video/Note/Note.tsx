@@ -1,47 +1,66 @@
-import React, { useCallback, useEffect, useState } from "react";
+
+import React, {  useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
-import DOMPurify from "dompurify";
 import { Editor, NoteDe } from "components";
-
 import * as St from "./style";
-import { getNoteLoding } from "../../../redux/reducer/videoViewReducer";
+import { noteListLoading } from "../../../redux/reducer/dashboardReducer";
 
 interface INote {
   onNote: () => void;
   videoid: string;
   lectureId: number;
-  sectionNumber:number;
 }
 
 
 
-const Note = ({ onNote, videoid, lectureId, sectionNumber }: INote) => {
+const Note = ({ onNote, videoid, lectureId }: INote) => {
   const dispatch = useDispatch();
-  const { getNote, reNote } = useSelector(
-    (state: RootState) => state.videoViewReducer
-  );
-  useEffect(() => {
-    dispatch(getNoteLoding(lectureId));
-  }, [reNote]);
+  
+  const [noteBoolean, setNoteBoolean] = useState(false);
   const [noteId, setNoteId] = useState(0);
-  const [noteBoolean,setNoteBoolean] = useState(false)
-  const onNoteDe = useCallback(
-    ( id: number) => {
-      setNoteId(id);
-      setNoteBoolean(true);
-    },
-    [reNote]
+  const { noteListData, noteList, reNote } = useSelector(
+    (state: RootState) => state.dashboardReducer
   );
+  const scrollRef = useRef<HTMLDivElement>(null)
+   useEffect(() => {
+     dispatch(noteListLoading({ page: 1, id: lectureId }));
+   }, [reNote]);
+  useEffect(() => {
+    const onScroll = () => {
+      if (
+        scrollRef.current !== null &&
+        scrollRef.current.scrollTop + scrollRef.current.clientHeight >=
+          scrollRef.current.scrollHeight - 100
+      ) {
+        if (noteList.totalPages !== noteListData.totalPages) {
+          dispatch(
+            noteListLoading({ page: noteList.totalPages + 1, id: lectureId })
+          );
+        }
+      }
+    };
+    if (scrollRef.current !== null)
+      scrollRef.current.addEventListener("scroll", onScroll);
+
+    return () => {
+      if (scrollRef.current !== null)
+        scrollRef.current.removeEventListener("scroll", onScroll);
+    };
+  }, [noteList.totalPages, noteListData.totalPages]);
+
+  const onNoteDe = (v:number)=>{
+    setNoteBoolean(true)
+    setNoteId(v)
+  }
 
   return (
     <St.NoteWrap>
       {noteBoolean ? (
         <NoteDe
-          onNote={onNote}
-          id={noteId}
-          getNote={getNote}
           setNoteBoolean={setNoteBoolean}
+          onNote={onNote}
+          noteId={noteId}
         />
       ) : (
         <>
@@ -50,22 +69,16 @@ const Note = ({ onNote, videoid, lectureId, sectionNumber }: INote) => {
               노트 <St.Deletes onClick={() => onNote()} />
             </St.Title>
           </St.Top>
-          <St.Center>
-            {getNote
-              .filter((k) => k.chapter === sectionNumber)
-              .map((v) => {
-                return (
-                  <St.NoteCon key={v.noteId} onClick={() => onNoteDe(v.noteId)}>
-                    <em>{v.noteTitle}</em>
-                    <St.Contents
-                      dangerouslySetInnerHTML={{
-                        __html: DOMPurify.sanitize(v.content),
-                      }}
-                    />
-                    <span> 작성일 : {v.date} </span>
-                  </St.NoteCon>
-                );
-              })}
+          <St.Center ref={scrollRef}>
+            {noteList.dtolist.map((v) => {
+              return (
+                <St.NoteCon key={v.noteId} onClick={() => onNoteDe(v.noteId)}>
+                  <em>{v.noteTitle}</em>
+                  <p>{v.contentPreview}</p>
+                  <span> 작성일 : {v.date} </span>
+                </St.NoteCon>
+              );
+            })}
           </St.Center>
           <St.Bottom>
             <Editor path="lecture_note" tap="Note" videoid={videoid} />

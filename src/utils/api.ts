@@ -141,6 +141,10 @@ export const mypage = {
     const response = await imageAxios.post(`/edit/profileimg`, params);
     return response;
   },
+  deleteAccount: async () => {
+    const response = await authAxios.delete(`/member/leave`);
+    return response;
+  },
   learning: async (params: I.NotePropsType) => {
     const response = await authAxios.get(
       `/mylecturelist?status=${params.status}&page=${params.page}`
@@ -169,15 +173,54 @@ export const mypage = {
     );
     return response;
   },
-  questionList: async () => {
-    const response = await authAxios.get(`/`);
+  noteDelete: async (params: number) => {
+    const response = await authAxios.delete(
+      `lecturenoteDelete?noteNo=${params}`
+    );
     return response;
   },
-  questionDetail: async () => {
-    const response = await authAxios.get(`/`);
+  questionList: async (params: I.NotePropsType) => {
+    const response = await authAxios.get(
+      `/mylectureQalistOpen?status=${params.status}&page=${params.page}`
+    );
     return response;
   },
-
+  questionDetail: async (params: I.NotePropsType) => {
+    const response = await authAxios.get(
+      `/lectureQaDetailOpen?questionId=${params.id}`
+    );
+    return response;
+  },
+  questionDelete: async (params: I.NotePropsType) => {
+    const response = await authAxios.delete(
+      `/lectureQa/delete?questionId=${params.id}`
+    );
+    return response;
+  },
+  answerForQuestion: async (params: I.NotePropsType) => {
+    const response = await authAxios.get(
+      `/lectureQaCommentDetailOpen?questionId=${params.id}`
+    );
+    return response;
+  },
+  replyForAnswer: async (params: I.QuestionReplyType) => {
+    const response = await authAxios.post(`/lectureQaComment`, params);
+    return response;
+  },
+  deleteAnswer: async (params: I.NotePropsType) => {
+    const response = await authAxios.delete(
+      `/lectureQa/comment/delete/${params.id}`
+    );
+    return response;
+  },
+  editAnswer: async (params: I.NotePropsType) => {
+    const response = await authAxios.post(
+      `/lectureQa/comment/edit/${params.id}`,
+      {content: params.content}
+    );
+    console.log(response);
+    return response;
+  },
   coupon: (params: I.CouponGet) => {
     const response = authAxios.post('/coupon/registration', params);
     return response;
@@ -218,6 +261,10 @@ export const Cart = {
     const response = authAxios.post(`/cart/insert`, params);
     return response;
   },
+  free: (params: I.lectureName) => {
+    const response = authAxios.post(`/Free`, params);
+    return response;
+  },
 };
 
 export const create = {
@@ -237,9 +284,6 @@ export const create = {
   },
 };
 
-const headers = {
-  'Content-Type': 'image/*',
-};
 export const notice = {
   getUrl: (params: I.NoticeUrl) => {
     const response = authAxios.post(`/${params.path}/presignurl`, {
@@ -251,12 +295,9 @@ export const notice = {
 
   postUrl: (params: I.NoticePostUrl) => {
     const response = imageTypeAxios.request({
-      method: 'put',
       url: params.url,
       data: params.file,
-      maxRedirects: 5,
-      validateStatus: null,
-      headers: headers,
+      headers: { "Content-Type": `image/${params.fileExt}` },
     });
     return response;
   },
@@ -308,7 +349,7 @@ export const notice = {
 export const video = {
   getCurriculum: (params: I.Curriculum) => {
     const response = authAxios.get(`/getMycoures`, {
-      params: {lectureId: params},
+      params: { lectureId: params },
     });
     return response;
   },
@@ -321,13 +362,24 @@ export const video = {
     return response;
   },
   getNote: (params: I.Curriculum) => {
-    const response = authAxios.get('/lectureNoteDetailOpen', {
-      params: {lectureId: params},
+    const response = authAxios.get("/lectureNoteDetailOpen", {
+      params: { lectureId: params },
     });
     return response;
   },
   reNote: (params: I.ReNote) => {
-    const response = authAxios.post('/lecturenoteUpdate', params);
+    const response = authAxios.post("/lecturenoteUpdate", params);
+    return response;
+  },
+
+  getQuest: (params: I.GetQuest) => {
+    const response = authAxios.get(
+      `/lectureQalistOpen?lectureId=${params.lectureId}&page=${params.page}`
+    );
+    return response;
+  },
+  getQuestDetail: (params: number) => {
+    const response = authAxios.get(`/lectureQaDetailOpen?questionId=${params}`);
     return response;
   },
 };
@@ -373,7 +425,7 @@ export const createVideo = {
 /* 디테일 api */
 export const detail = {
   getDetailAPT: (params: any) => {
-    const response = authAxios.get(`api/lectures/${params}`);
+    const response = authAxios.get(`/api/lectures/${params}`);
     return response;
   },
 };

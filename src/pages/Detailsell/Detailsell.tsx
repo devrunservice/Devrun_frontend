@@ -1,64 +1,97 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RootState } from 'redux/store';
 import YouTube from "react-youtube";
-import DOMPurify from "dompurify";
 import { getCookie } from "utils/cookies";
 import { useDate } from "hooks";
-import { Comment } from "components";
+import { Comment, LectureCard, Content } from "components";
 import {  Play } from "asset";
 import * as St from "./style";
 import {
+  categorySearchLoading,
   LectureDetailLoading,
   LectureDetailTextLoading,
+  categorySearchLoadingTwo,
 } from "../../redux/reducer/learningReducer";
-import { addCartLoading } from "../../redux/reducer/cartReducer";
+import { addCartLoading, freeCartLoading } from "../../redux/reducer/cartReducer";
 
 
 
 
 const Detailsell = () => {
   const dispatch = useDispatch();
-  const navi = useNavigate()
+  const navi = useNavigate();
   const param = useParams();
   const { videoTime } = useDate();
-  const { lectureDetail, content } = useSelector(
-    (state: RootState) => state.learningReducer
-  );
+  const {
+    lectureDetail,
+    content,
+    lecture: mento,
+    data: lectureBig,
+  } = useSelector((state: RootState) => state.learningReducer);
+  console.log(lectureDetail);
   useEffect(() => {
     dispatch(LectureDetailLoading({ lectureid: param.lectureId }));
     dispatch(LectureDetailTextLoading({ lectureid: 25 }));
+    dispatch(
+      categorySearchLoading({
+        page: 1,
+        bigcategory: "",
+        order: "lecture_start",
+        q: lectureDetail.mentoId.id,
+      })
+    );
+    dispatch(
+      categorySearchLoadingTwo({
+        page: 1,
+        bigcategory: lectureDetail.lectureCategory.lectureBigCategory,
+        order: "lecture_start",
+        q: "",
+      })
+    );
   }, [param.lectureId]);
   const [tapNum, setTapNum] = useState<number>(0);
-  const onTap = useCallback(
-    (k: number) => {
-      if (k === tapNum) return setTapNum(0);
-      if (lectureDetail.lectureSections.find((v) => v.sectionNumber === k))
-       return setTapNum(k);
-    },
-    [tapNum]
-  );
-  const onBasket = ()=>{
-    if (getCookie('accessToken')) { 
-      
-      dispatch(addCartLoading(lectureDetail.lectureid));
-      navi("/basket")
-    }else{
-      alert("로그인 후 결제해주세요")
-      navi("/login");
-    }
-  }
-  const onBaskets = () => {
-    if (getCookie("accessToken")) {
-      console.log(lectureDetail.lectureid);
-      dispatch(addCartLoading(lectureDetail.lectureid));
-    } else {
-      alert("로그인 후 결제해주세요");
-      navi("/login");
-    }
-    
+  const onTap = (k: number) => {
+    if (k === tapNum) return setTapNum(0);
+    if (lectureDetail.lectureSections.find((v) => v.sectionNumber === k))
+      return setTapNum(k);
   };
+  const onBasket = () => {
+    if (getCookie('accessToken')) {
+      if (lectureDetail.lecturePrice === 0) {
+        dispatch(freeCartLoading({lectureName: lectureDetail.lectureName}));
+        alert('강의구매가 완료되었습니다.');
+        navi('/learning');
+      } else {
+        dispatch(addCartLoading(lectureDetail.lectureid));
+        alert('강의가 장바구니에 담겼습니다.');
+        navi('/basket');
+      }
+    } else {
+      alert('로그인 후 결제해주세요');
+      navi('/login');
+    }
+  };
+  const onBaskets = () => {
+    if (getCookie('accessToken')) {
+      if (lectureDetail.lecturePrice === 0) {
+        dispatch(freeCartLoading({lectureName: lectureDetail.lectureName}));
+        alert('강의구매가 완료되었습니다.');
+      } else {
+        alert('강의가 장바구니에 담겼습니다.');
+        dispatch(addCartLoading(lectureDetail.lectureid));
+      }
+    } else {
+      alert('로그인 후 결제해주세요');
+      navi('/login');
+    }
+  };
+  const commentRef = useRef<HTMLDivElement>(null)
+  const commentScroll = ()=>{
+    if(commentRef.current)
+    commentRef.current.scrollIntoView({ behavior: "smooth" });
+  }
   return (
     <St.DetailWrap>
       <St.PreviewArea>
@@ -102,37 +135,31 @@ const Detailsell = () => {
 
         <St.DetailHash>
           {lectureDetail.lectureTag.map((v) => {
-            return (
-              <St.DetailHashli key={v}>
-                <button>{v}</button>
-              </St.DetailHashli>
-            );
+            return <St.DetailHashli key={v}>{v}</St.DetailHashli>;
           })}
         </St.DetailHash>
       </St.PreviewArea>
       <St.DetailTab>
         <St.DetailTabItem>강의소개</St.DetailTabItem>
         <St.DetailTabItem>커리큘럼</St.DetailTabItem>
-        <St.DetailTabItem>수강평</St.DetailTabItem>
+        <St.DetailTabItem onClick={() => commentScroll()}>
+          수강평
+        </St.DetailTabItem>
       </St.DetailTab>
       <St.DetailMainWrap>
         <St.LeftWrap>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(content),
-            }}
-          />
+          <Content content={content} />
           <St.Curriculum>
             <St.CurriculumTitle>
               커리큘럼
               <St.CurriculumCount>
-                총{" "}
+                총{' '}
                 <St.Curriculums>
                   {lectureDetail.lectureSections
                     .map((v) => v.videos.length)
                     .reduce((a, b) => a + b, 0)}
                 </St.Curriculums>
-                개 ·{" "}
+                개 ·{' '}
                 <St.Curriculums>
                   {videoTime(
                     lectureDetail.lectureSections
@@ -156,7 +183,7 @@ const Detailsell = () => {
                         섹션 {v.sectionNumber}. {v.sectionTitle}
                       </em>
                       <p>
-                        {v.videos.length}강 ·{" "}
+                        {v.videos.length}강 ·{' '}
                         {videoTime(
                           v.videos
                             .map((k) => k.totalPlayTime)
@@ -185,11 +212,13 @@ const Detailsell = () => {
               })}
             </St.CurriculumUl>
           </St.Curriculum>
-          <Comment
-            text="수강평"
-            sub=" · 수강생분들이 직접 작성하신 수강평입니다."
-            path="lectures"
-          />
+          <div ref={commentRef}>
+            <Comment
+              text="수강평"
+              sub=" · 수강생분들이 직접 작성하신 수강평입니다."
+              path="lectures"
+            />
+          </div>
         </St.LeftWrap>
         <St.RightWrap>
           <St.Top>
@@ -215,7 +244,7 @@ const Detailsell = () => {
                 지식공유자 : {lectureDetail.mentoId.name}
               </St.ButtomLi>
               <St.ButtomLi>
-                총{" "}
+                총{' '}
                 {lectureDetail.lectureSections
                   .map((v) => v.videos.length)
                   .reduce((a, b) => a + b, 0)}
@@ -238,6 +267,66 @@ const Detailsell = () => {
           </St.Bottom>
         </St.RightWrap>
       </St.DetailMainWrap>
+      <St.OtherWrap>
+        <div>
+          <div>
+            <St.CurriculumTitle>
+              {lectureDetail.mentoId.name}님의 다른강의
+              <St.CurriculumCount>
+                지식공유자님의 다른 강의를 만나보세요!
+              </St.CurriculumCount>
+            </St.CurriculumTitle>
+            <St.ListWrap>
+              {mento &&
+                mento?.dtolist
+                  ?.slice(0, 4)
+                  .map((v, index) => (
+                    <LectureCard
+                      key={index}
+                      lectureBigCategory={v.lectureBigCategory}
+                      lectureName={v.lectureName}
+                      lectureIntro={v.lectureIntro}
+                      lectureThumbnail={v.lectureThumbnail}
+                      lectureMidCategory={v.lectureMidCategory}
+                      mentoId={v.mentoId}
+                      lecturePrice={v.lecturePrice}
+                      buyCount={v.buyCount}
+                      rating={v.rating}
+                      lectureId={v.lectureId}
+                    />
+                  ))}
+            </St.ListWrap>
+          </div>
+          <div>
+            <St.CurriculumTitle>
+              비슷한 강의
+              <St.CurriculumCount>
+                같은 분야의 다른 강의를 만나보세요!
+              </St.CurriculumCount>
+            </St.CurriculumTitle>
+            <St.ListWrap>
+              {lectureBig &&
+                lectureBig?.dtolist
+                  ?.slice(0, 4)
+                  .map((v, index) => (
+                    <LectureCard
+                      key={index}
+                      lectureBigCategory={v.lectureBigCategory}
+                      lectureName={v.lectureName}
+                      lectureIntro={v.lectureIntro}
+                      lectureThumbnail={v.lectureThumbnail}
+                      lectureMidCategory={v.lectureMidCategory}
+                      mentoId={v.mentoId}
+                      lecturePrice={v.lecturePrice}
+                      buyCount={v.buyCount}
+                      rating={v.rating}
+                      lectureId={v.lectureId}
+                    />
+                  ))}
+            </St.ListWrap>
+          </div>
+        </div>
+      </St.OtherWrap>
     </St.DetailWrap>
   );
 };

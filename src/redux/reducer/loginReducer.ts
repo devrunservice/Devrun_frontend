@@ -1,21 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {createSlice} from '@reduxjs/toolkit';
-import {LoginFormType} from 'types';
 
 export interface LoginReducerType {
   loading: boolean;
   isLogin: boolean;
-  data: LoginFormType;
+  iskakaoLogin: boolean;
+  isRecaptcha: boolean;
   error: Error | null;
 }
 
 const initialState: LoginReducerType = {
   loading: false,
   isLogin: false,
-  data: {
-    id: '',
-    loginTime: 0,
-  },
+  iskakaoLogin: false,
+  isRecaptcha: false,
   error: null,
 };
 
@@ -30,8 +28,6 @@ const loginReducer = createSlice({
     loginSuccess: (state, action) => {
       state.loading = false;
       state.isLogin = true;
-      state.data = action.payload;
-      state.data.loginTime = new Date();
       return state;
     },
     loginFail: (state, action) => {
@@ -46,8 +42,6 @@ const loginReducer = createSlice({
     logoutSuccess: (state, action) => {
       state.loading = false;
       state.isLogin = false;
-      state.data.id = '';
-      state.data.loginTime = 0;
     },
     logoutFail: (state, action) => {
       state.loading = false;
@@ -56,16 +50,19 @@ const loginReducer = createSlice({
     },
     kakaoLoading: (state, action) => {
       state.loading = true;
-      state.isLogin = false;
+      state.iskakaoLogin = false;
     },
     kakaoSuccess: (state, action) => {
       state.loading = false;
-      state.isLogin = false;
+      state.iskakaoLogin = action.payload;
     },
     kakaoFail: (state, action) => {
       state.loading = false;
-      state.isLogin = false;
+      state.iskakaoLogin = false;
       state.error = action.payload;
+    },
+    openRecaptcha: (state, action) => {
+      state.isRecaptcha = action.payload;
     },
   },
 });
@@ -80,6 +77,7 @@ export const {
   kakaoLoading,
   kakaoSuccess,
   kakaoFail,
+  openRecaptcha,
 } = loginReducer.actions;
 
 export default loginReducer.reducer;

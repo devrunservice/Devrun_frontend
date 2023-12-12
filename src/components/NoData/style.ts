@@ -32,6 +32,7 @@ export const Lectures = styled.ul`
 export const Lectureli = styled.li`
   border-radius: 50px;
   width: 113px;
+  overflow:hidden;
   background: ${(props: any) => props.theme.bgGrayColor};
   > button {
     justify-content: center;

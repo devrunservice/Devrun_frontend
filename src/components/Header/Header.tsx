@@ -6,79 +6,90 @@ import {RootState} from 'redux/store';
 import {getCookie} from 'utils/cookies';
 import Logo from 'asset/images/Logo.png';
 import {Modal} from 'components';
-import { useInput } from "hooks";
+import {useInput} from 'hooks';
 import {Button} from 'style/Common';
 import * as St from './style';
-import { userInfoLoading } from "../../redux/reducer/userReducer";
-import { logoutLoading } from "../../redux/reducer/loginReducer";
-import { cartInfoLoading } from "../../redux/reducer/cartReducer";
-import {
-  categorySearchLoading,
-} from "../../redux/reducer/learningReducer";
+import {userInfoLoading} from '../../redux/reducer/userReducer';
+import {logoutLoading} from '../../redux/reducer/loginReducer';
+import {cartInfoLoading} from '../../redux/reducer/cartReducer';
+import {categorySearchLoading} from '../../redux/reducer/learningReducer';
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-const [search, onSearch, setSearch] = useInput("");
+  const [search, onSearch, setSearch] = useInput('');
   const [cookie, setCookie] = useState<boolean>(false);
 
-  const { data, loading: userLoading } = useSelector(
-    (state: RootState) => state.userReducer
-  );
-  const { data: cart, loading:cartLoading } = useSelector(
+  const {data} = useSelector((state: RootState) => state.userReducer);
+  const {data: cart, addCart} = useSelector(
     (state: RootState) => state.cartReducer
   );
+  const {modalMessage1} = useSelector((state: RootState) => state.modalReducer);
+
   useEffect(() => {
     if (getCookie('accessToken')) {
       dispatch(userInfoLoading(null));
-      dispatch(cartInfoLoading(null));
       setCookie(true);
     }
-  }, []);
-
+  }, []);  
+  useEffect(() => {
+    if (getCookie("accessToken")) {
+      dispatch(cartInfoLoading(null));
+    }
+  }, [addCart]);
   const handleLogout = () => {
     dispatch(logoutLoading());
     setCookie(false);
   };
+
+  const handleConfirm = () => {
+    if (
+      modalMessage1 === '알 수 없는 오류가 발생했습니다.' ||
+      modalMessage1 === '이미 로그인 된 다른 기기가 있습니다.' ||
+      modalMessage1 === '오류가 감지되었습니다.'
+    ) {
+      dispatch(logoutLoading());
+    }
+  };
+
   const searchBtn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (search.trim === "") return alert("검색어를 적어주세요");
+    if (search.trim === '') return alert('검색어를 적어주세요');
     dispatch(
       categorySearchLoading({
         page: 1,
-        bigcategory: "",
-        order: "lecture_start",
+        bigcategory: '',
+        order: 'lecture_start',
         q: search,
       })
     );
     navigate(`/lecture/${search}`);
-    setSearch("");
+    setSearch('');
   };
- const priceDot = (num: number) =>
-   num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
+  const priceDot = (num: number) =>
+    num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
-   if (cartLoading || userLoading) return <div>asd</div>;
   return (
     <St.HeaderWrap>
-      <Modal page="home" />
+      <Modal onConfirm={handleConfirm} />
       <St.InnerHeader>
         <St.NavWrap>
-          <St.LogoIcon onClick={() => navigate("/")}>
+          <St.LogoIcon onClick={() => navigate('/')}>
             <img src={Logo} alt="로고" />
           </St.LogoIcon>
           <St.CategoryWrap>
             <St.CategoryLi
               onClick={() =>
-                navigate(`/lecture/${encodeURIComponent("전체강의")}`)
+                navigate(`/lecture/${encodeURIComponent('전체강의')}`)
               }
             >
-              강의
+              전체강의
             </St.CategoryLi>
-            <St.CategoryLi onClick={() => navigate("/notice")}>
+            <St.CategoryLi onClick={() => navigate('/notice')}>
               공지사항
             </St.CategoryLi>
-            <St.CategoryLi onClick={() => navigate("/createVideo")}>
+            <St.CategoryLi onClick={() => navigate('/createVideo')}>
               강의 등록
             </St.CategoryLi>
           </St.CategoryWrap>
@@ -96,17 +107,17 @@ const [search, onSearch, setSearch] = useInput("");
           {cookie ? (
             <St.NavWrap>
               <St.HeaderIcon>
-                <St.Icon onClick={() => navigate("/basket")}>
+                <St.Icon onClick={() => navigate('/basket')}>
                   <St.Cart />
                 </St.Icon>
                 <St.CartHover>
                   <St.CartTop>
                     <St.CartTitle>
-                      수강바구니{" "}
+                      수강바구니{' '}
                       <St.CartNum>{cart?.lectureInfoList.length}</St.CartNum>
                     </St.CartTitle>
                     <St.CartPrice>
-                      총 결제금액{" "}
+                      총 결제금액{' '}
                       <St.CartNum>
                         {priceDot(
                           cart.lectureInfoList
@@ -146,7 +157,7 @@ const [search, onSearch, setSearch] = useInput("");
                           );
                         })}
                       </St.CartUl>
-                      <St.CartButton onClick={() => navigate("/basket")}>
+                      <St.CartButton onClick={() => navigate('/basket')}>
                         장바구니에서 전체보기
                       </St.CartButton>
                     </>
@@ -156,7 +167,7 @@ const [search, onSearch, setSearch] = useInput("");
                       <span>나를 성장 시켜줄 좋은 지식들을 찾아보세요.</span>
                       <button
                         onClick={() =>
-                          navigate(`/lecture/${encodeURIComponent("전체강의")}`)
+                          navigate(`/lecture/${encodeURIComponent('전체강의')}`)
                         }
                       >
                         전체강의 보기
@@ -173,7 +184,7 @@ const [search, onSearch, setSearch] = useInput("");
                   <St.DropdownTop>
                     <St.DropdownItemWrapper>
                       <St.DropdownItemBtn
-                        onClick={() => navigate("/dashboard")}
+                        onClick={() => navigate('/dashboard')}
                       >
                         {data.id}
                       </St.DropdownItemBtn>
@@ -188,11 +199,11 @@ const [search, onSearch, setSearch] = useInput("");
             </St.NavWrap>
           ) : (
             <St.ButtonWrap>
-              <Button onClick={() => navigate("/login")} type="button" $active>
+              <Button onClick={() =>  navigate('/login')} type="button" $active>
                 로그인
               </Button>
               <Button
-                onClick={() => navigate("/signup")}
+                onClick={() => navigate('/signup')}
                 type="button"
                 $active={false}
               >
