@@ -1,9 +1,7 @@
 export {ReactComponent as SildeImg} from './images/SildeImg.svg';
-export {ReactComponent as Delete} from './images/Delete.svg';
 export {ReactComponent as Arrow} from './images/Arrow.svg';
 export {ReactComponent as Coupon} from './images/Coupon.svg';
 export {ReactComponent as FooterLogo} from './images/FooterLogo.svg';
-export {ReactComponent as StarFill} from './images/StarFill.svg';
 export {ReactComponent as PageNext} from './images/PageNext.svg';
 export {ReactComponent as PagePrev} from './images/PagePrev.svg';
 export {ReactComponent as Logo} from './images/Logo.svg';
@@ -43,5 +41,3 @@ export { ReactComponent as BlockIcon } from "./images/BlockIcon.svg";
 export { ReactComponent as DevIcon } from "./images/DevIcon.svg";
 export { ReactComponent as ScureIcon } from "./images/ScureIcon.svg";
 export { ReactComponent as NoSearch } from "./images/NoSearch.svg";
-export { ReactComponent as StarOn } from "./images/star_on.svg";
-export { ReactComponent as StarOff } from "./images/star_off.svg";

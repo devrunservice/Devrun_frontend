@@ -62,7 +62,8 @@ export const GlobalStyle = createGlobalStyle`
         font-size:0.875rem;
         color: ${({ theme }: any) => theme.textColor};
         border: 0;
-        background:none
+        background:none;
+        outline: 0;
     }
 `;
 

@@ -33,7 +33,7 @@ const Detailsell = () => {
   console.log(lectureDetail);
   useEffect(() => {
     dispatch(LectureDetailLoading({ lectureid: param.lectureId }));
-    dispatch(LectureDetailTextLoading({ lectureid: 25 }));
+    dispatch(LectureDetailTextLoading({ lectureid: param.lectureId }));
     dispatch(
       categorySearchLoading({
         page: 1,

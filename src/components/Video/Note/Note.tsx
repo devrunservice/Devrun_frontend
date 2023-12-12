@@ -2,7 +2,7 @@
 import React, {  useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
-import { Editor, NoteDe } from "components";
+import { Editor, NoteDe, VideoTop } from "components";
 import * as St from "./style";
 import { noteListLoading } from "../../../redux/reducer/dashboardReducer";
 
@@ -19,13 +19,13 @@ const Note = ({ onNote, videoid, lectureId }: INote) => {
   
   const [noteBoolean, setNoteBoolean] = useState(false);
   const [noteId, setNoteId] = useState(0);
-  const { noteListData, noteList, reNote } = useSelector(
+  const { noteListData, noteList, reNote,note } = useSelector(
     (state: RootState) => state.dashboardReducer
   );
   const scrollRef = useRef<HTMLDivElement>(null)
    useEffect(() => {
      dispatch(noteListLoading({ page: 1, id: lectureId }));
-   }, [reNote]);
+   }, [reNote, note.noteContent, note.noteTitle]);
   useEffect(() => {
     const onScroll = () => {
       if (
@@ -47,13 +47,15 @@ const Note = ({ onNote, videoid, lectureId }: INote) => {
       if (scrollRef.current !== null)
         scrollRef.current.removeEventListener("scroll", onScroll);
     };
-  }, [noteList.totalPages, noteListData.totalPages]);
+  }, [
+    noteList.totalPages,
+    noteListData.totalPages,
+  ]);
 
   const onNoteDe = (v:number)=>{
     setNoteBoolean(true)
     setNoteId(v)
   }
-
   return (
     <St.NoteWrap>
       {noteBoolean ? (
@@ -64,11 +66,8 @@ const Note = ({ onNote, videoid, lectureId }: INote) => {
         />
       ) : (
         <>
-          <St.Top>
-            <St.Title>
-              노트 <St.Deletes onClick={() => onNote()} />
-            </St.Title>
-          </St.Top>
+          <VideoTop text="노트" onButton={onNote}  />
+          
           <St.Center ref={scrollRef}>
             {noteList.dtolist.map((v) => {
               return (

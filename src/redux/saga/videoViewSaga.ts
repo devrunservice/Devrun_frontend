@@ -1,7 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { fork, takeLatest, all, put, call } from "redux-saga/effects";
 import { video } from "utils/api";
-import { Videos, Progress, GetQuest } from "types";
+import { Videos, Progress, GetQuest, SaveQuest, ReQuest } from "types";
 import {
   curriculumLoding,
   curriculumSuccess,
@@ -12,9 +12,12 @@ import {
   getQuestSuccess,
   getQuestFail,
   getQuestLoding,
-  getQuestDetailSuccess,
-  getQuestDetailFail,
-  getQuestDetailLoding,
+  saveQuestLoding,
+  saveQuestSuccess,
+  saveQuestFail,
+  reQuestLoding,
+  reQuestSuccess,
+  reQuestFail,
 } from "../reducer/videoViewReducer";
 
 function* curriculum(action: PayloadAction<Videos>): Generator<any, void, any> {
@@ -40,27 +43,33 @@ function* getQuest(action: PayloadAction<GetQuest>): Generator<any, void, any> {
   try {
     const response = yield call(video.getQuest, action.payload);
     const {page} = action.payload
-    yield put(getQuestSuccess({ response, page }));
+    yield put(getQuestSuccess({page, response  }));
   } catch (error) {
     yield put(getQuestFail(error));
   }
 }
-function* getQuestDetail(
-  action: PayloadAction<number>
+
+
+function* saveQuest(
+  action: PayloadAction<SaveQuest>
 ): Generator<any, void, any> {
   try {
-    const response = yield call(video.getQuestDetail, action.payload);
-    yield put(getQuestDetailSuccess(response));
+    const response = yield call(video.saveQuest, action.payload);
+    yield put(saveQuestSuccess(response));
   } catch (error) {
-    yield put(getQuestDetailFail(error));
+    yield put(saveQuestFail(error));
   }
 }
-
+function* reQuest(action: PayloadAction<ReQuest>): Generator<any, void, any> {
+  try {
+    const response = yield call(video.reQuest, action.payload);
+    yield put(reQuestSuccess(response));
+  } catch (error) {
+    yield put(reQuestFail(error));
+  }
+}
 function* watchGetQuest() {
   yield takeLatest(getQuestLoding, getQuest);
-}
-function* watchGetQuestDetail() {
-  yield takeLatest(getQuestDetailLoding, getQuestDetail);
 }
 
 
@@ -70,6 +79,12 @@ function* watchCurriculum() {
 function* watchProgress() {
   yield takeLatest(progressLoding, saveProgress);
 }
+function* watchSaveQuest() {
+  yield takeLatest(saveQuestLoding, saveQuest);
+}
+function* watchReQuest() {
+  yield takeLatest(reQuestLoding, reQuest);
+}
 
 
 
@@ -78,6 +93,7 @@ export default function* viewSaga() {
     fork(watchCurriculum),
     fork(watchProgress),
     fork(watchGetQuest),
-    fork(watchGetQuestDetail),
+    fork(watchSaveQuest),
+    fork(watchReQuest),
   ]);
 }

@@ -58,7 +58,7 @@ const Comment = ({text, sub, path}: title) => {
       : useSelector((state: RootState) => state.noticeReducer.commentRe);
 
   // 시간 hooks
-  const {time} = useDate();
+  const { calculateTimeDifference } = useDate();
 
   // 유저 데이터
   const {data} = useSelector((state: RootState) => state.userReducer);
@@ -69,14 +69,12 @@ const Comment = ({text, sub, path}: title) => {
 
   useEffect(() => {
     if (path === '/questions') {
-      console.log('데이터 반영');
       dispatch(answerForQuestionLoading({id: param.questionId}));
     } else {
       dispatch(commentGetLoading(param));
     }
   }, [commentRe, comments]);
 
-  console.log(commentRe);
 
   const onComment = useCallback(async () => {
     if (comment.trim() === '') return alert('댓글을 적어주세요');
@@ -294,8 +292,10 @@ const Comment = ({text, sub, path}: title) => {
                       <St.CommentName>{v.id}</St.CommentName>
                       <St.CommentTime>
                         {v.modifiedDate !== null
-                          ? `${time(v.modifiedDate) || '0초전'} 수정`
-                          : time(v.createdDate) || '0초전'}
+                          ? `${
+                              calculateTimeDifference(v.modifiedDate) || "0초전"
+                            } 수정`
+                          : calculateTimeDifference(v.createdDate) || "0초전"}
                       </St.CommentTime>
                     </div>
                     <div>
@@ -330,7 +330,7 @@ const Comment = ({text, sub, path}: title) => {
                       <St.CommentBoxRe
                         onChange={onChangeCommentTwo}
                         maxLength={500}
-                        value={commentTwo !== '' ? commentTwo : v.content}
+                        value={commentTwo !== "" ? commentTwo : v.content}
                       />
 
                       <St.ButtonWrapCommnet>
@@ -355,15 +355,15 @@ const Comment = ({text, sub, path}: title) => {
                   {/* 대댓글달기 */}
                   {writesTwo === v.commentNo && (
                     <St.CommentWriteWrap>
-                      {getCookie('accessToken') ? (
+                      {getCookie("accessToken") ? (
                         <St.CommentBoxRe
                           onChange={onChangeCommentTwo}
                           maxLength={500}
                           value={commentTwo}
                           placeholder={
-                            path === 'lectures'
-                              ? '좋은 수강평을 남겨주시면 지식공유자와 이후 배우는 사람들에게 큰 도움이 됩니다.'
-                              : '좋은 댓글남겨주세요.'
+                            path === "lectures"
+                              ? "좋은 수강평을 남겨주시면 지식공유자와 이후 배우는 사람들에게 큰 도움이 됩니다."
+                              : "좋은 댓글남겨주세요."
                           }
                         />
                       ) : (
@@ -395,9 +395,7 @@ const Comment = ({text, sub, path}: title) => {
                   )}
                   <ul>
                     {datas?.data
-                      .filter(
-                        (k) => k.parentCommentNo === v.commentNo
-                      )
+                      .filter((k) => k.parentCommentNo === v.commentNo)
                       .map((q) => {
                         return (
                           <St.Reply key={q.commentNo}>
@@ -416,9 +414,13 @@ const Comment = ({text, sub, path}: title) => {
                                   <St.CommentTime>
                                     {q.modifiedDate !== null
                                       ? `${
-                                          time(q.modifiedDate) || '0초전'
+                                          calculateTimeDifference(
+                                            q.modifiedDate
+                                          ) || "0초전"
                                         } 수정`
-                                      : time(q.createdDate) || '0초전'}
+                                      : calculateTimeDifference(
+                                          q.createdDate
+                                        ) || "0초전"}
                                   </St.CommentTime>
                                 </div>
                                 {/* 대댓글 수정 삭제 */}
@@ -450,7 +452,7 @@ const Comment = ({text, sub, path}: title) => {
                                   onChange={onChangeCommentTwo}
                                   maxLength={500}
                                   value={
-                                    commentTwo !== '' ? commentTwo : q.content
+                                    commentTwo !== "" ? commentTwo : q.content
                                   }
                                 />
                                 <St.ButtonWrapCommnet>

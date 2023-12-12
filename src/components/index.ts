@@ -51,3 +51,7 @@ export {default as RenderDates} from './Calender/RenderDates';
 export {default as AsideBtn} from './MypageNav/AsideBtn';
 export {default as FullSpinner} from './FullSpinner/FullSpinner';
 export {default as CommonModal} from './CommonModal/CommonModal';
+
+export { default as VideoTop } from "./Video/VideoTop/VideoTop";
+export { default as CommunityDe } from "./Video/CommunityDe/CommunityDe";
+export { default as Btn } from "./Btn/Btn";

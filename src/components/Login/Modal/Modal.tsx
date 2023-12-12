@@ -18,8 +18,8 @@ const Modal = ({
   const {modalOpen, modalMessage1, modalMessage2} = useSelector(
     (state: RootState) => state.modalReducer
   );
-  const isRecaptcha = useSelector(
-    (state: RootState) => state.loginReducer.isRecaptcha
+  const {isRecaptcha} = useSelector(
+    (state: RootState) => state.loginReducer
   );
 
   const handleKeyUp = (e: KeyboardEvent) => {

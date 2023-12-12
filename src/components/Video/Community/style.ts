@@ -1,5 +1,4 @@
 import { styled } from "styled-components";
-import { Delete } from "asset";
 
 
 
@@ -8,23 +7,8 @@ export const CommunityWrap = styled.div`
   flex-direction: column;
   height:100%;
 `;
-export const Top = styled.div`
-  padding: 20px 25px;
-  border-bottom: 1px solid ${(props: any) => props.theme.borderD};
-`;
-export const Title = styled.strong`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: ${(props: any) => props.theme.black};
-`;
-export const Deletes = styled(Delete)`
-  cursor: pointer;
-`;
 
-export const Center = styled.ul`
+export const Center = styled.div`
   display: flex;
   flex: 1 1 0%;
   flex-direction: column;
@@ -40,22 +24,20 @@ export const Center = styled.ul`
     background: ${(props: any) => props.theme.borderD};
     width: 3px;
   }
-  > li {
-    border: 1px solid ${(props: any) => props.theme.borderD};
-    border-radius: 5px;
-    box-shadow: rgba(23, 39, 75, 0.02) 0px 6px 7px -6px,
-      rgba(23, 39, 75, 0.05) 0px 8px 18px -6px;
-    transition: transform 0.15s linear 0s;
-    cursor: pointer;
-  }
-  > li:hover {
-    transform: translateY(-5px);
-  }
 `;
 export const Button = styled.button`
   width: 100%;
   padding: 0;
   text-align: left;
+  border: 1px solid ${(props: any) => props.theme.borderD};
+  border-radius: 5px;
+  box-shadow: rgba(23, 39, 75, 0.02) 0px 6px 7px -6px,
+    rgba(23, 39, 75, 0.05) 0px 8px 18px -6px;
+  transition: transform 0.15s linear 0s;
+  cursor: pointer;
+  &:hover {
+    transform: translateY(-5px);
+  }
 `;
 export const BtnTop = styled.div`
   padding: 12px;
@@ -98,13 +80,6 @@ export const BtnBtm = styled.div`
 export const Write = styled.div`
   background: ${(props: any) => props.theme.bgColor};
   padding: 20px 20px;
-  > button {
-    background: ${(props: any) => props.theme.mainColor};
-    color: ${(props: any) => props.theme.textWhite};
-    width: 100%;
-    border-radius: 5px;
-    line-height: 50px;
-  }
 `;
 
 export const NoQuest = styled.p`

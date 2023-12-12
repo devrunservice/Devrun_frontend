@@ -106,7 +106,8 @@ function* noteDelete(action: PayloadAction<number>): Generator<any, void, any> {
 function* saveNotes(action: PayloadAction<I.Note>): Generator<any, void, any> {
   try {
     const response = yield call(video.saveNote, action.payload);
-    yield put(saveNoteSuccess(response));
+    const { noteContent, noteTitle } = action.payload;
+    yield put(saveNoteSuccess({ noteContent,noteTitle, response }));
   } catch (error) {
     yield put(saveNoteFail(error));
   }
@@ -115,8 +116,7 @@ function* saveNotes(action: PayloadAction<I.Note>): Generator<any, void, any> {
 function* reNotes(action: PayloadAction<I.ReNote>): Generator<any, void, any> {
   try {
     const response = yield call(video.reNote, action.payload);
-    const { noteNo } = action.payload;
-    yield put(reNoteSuccess({ noteNo, response }));
+    yield put(reNoteSuccess(response));
   } catch (error) {
     yield put(reNoteFail(error));
   }

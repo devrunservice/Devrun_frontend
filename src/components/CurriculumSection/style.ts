@@ -39,10 +39,8 @@ export const CurriculumMain = styled.li`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* padding: 14px 20px; */
   border-bottom: 1px dashed #ddd;
   margin: 0 18px;
-  /* margin-bottom: 15px; */
   padding: 15px 0;
   svg {
     margin-left: 20px;
@@ -50,6 +48,9 @@ export const CurriculumMain = styled.li`
   }
   p {
     font-size: 12px;
+  }
+  >div > input{
+    width:600px;
   }
 `
 export const FlexLine = styled.div`

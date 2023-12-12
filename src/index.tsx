@@ -61,7 +61,6 @@ const router = createBrowserRouter([
         element: <Route.Lecture />,
       },
       { path: "detail/:id", element: <Route.Detailsell /> },
-      { path: "details", element: <Route.DetailPage /> },
       { path: "createVideo", element: <Route.CreateVideo /> },
       { path: "profile", element: protectedRoute(<Route.Profile />) },
       { path: "dashboard", element: protectedRoute(<Route.Dashboard />) },
@@ -91,8 +90,7 @@ const router = createBrowserRouter([
       {
         path: "videoView/:lectureId/:videoId",
         element: protectedRoute(<Route.VideoView />),
-      },
-      {path: 'details', element: <Route.DetailPage />},
+      }
     ],
   },
 ]);

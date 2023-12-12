@@ -23,7 +23,10 @@ export interface DashboardReducerType {
   deleteAnswerData: boolean;
   editAnswerData: I.CommentsList;
 
-  note: string;
+  note: {
+    noteTitle: string;
+    noteContent: string;
+  };
   reNote: {
     chapter: number;
     content: string;
@@ -56,21 +59,24 @@ const initialState: DashboardReducerType = {
   },
   noteDetailData: {
     noteId: 0,
-    noteTitle: '',
-    videoId: '',
-    chapter: '',
-    subHeading: '',
-    date: '',
-    content: '',
+    noteTitle: "",
+    videoId: "",
+    chapter: "",
+    subHeading: "",
+    date: "",
+    content: "",
   },
   noteDeleteData: false,
-  note:"",
+  note: {
+    noteTitle: "",
+    noteContent: "",
+  },
   reNote: {
     chapter: 0,
-    content:"",
+    content: "",
     date: "",
     noteId: 0,
-    noteTitle:"",
+    noteTitle: "",
     subHeading: "",
     videoId: "",
   },
@@ -87,32 +93,33 @@ const initialState: DashboardReducerType = {
     questionTitle: "",
     content: "",
     answer: "",
+    studentId: "",
   },
   questionDeleteData: false,
   answerData: {
-    data:[]
+    data: [],
   },
   replyAnswerData: {
     commentNo: 0,
-    content: '',
-    createdDate: '',
-    id: '',
-    modifiedDate: '',
+    content: "",
+    createdDate: "",
+    id: "",
+    modifiedDate: "",
     noticeNo: 0,
     parentCommentNo: 0,
-    profileimgsrc: '',
+    profileimgsrc: "",
     userNo: 0,
   },
   deleteAnswerData: false,
   editAnswerData: {
     commentNo: 0,
-    content: '',
-    createdDate: '',
-    id: '',
-    modifiedDate: '',
+    content: "",
+    createdDate: "",
+    id: "",
+    modifiedDate: "",
     noticeNo: 0,
     parentCommentNo: 0,
-    profileimgsrc: '',
+    profileimgsrc: "",
     userNo: 0,
   },
   error: null,
@@ -203,7 +210,11 @@ const dashboardReducer = createSlice({
     saveNoteSuccess: (state, action) => {
       state.loading = false;
       state.error = null;
-      state.note = action.payload.data;
+      const { noteContent, noteTitle } = action.payload;
+      state.note = {
+        noteTitle: noteTitle,
+        noteContent: noteContent,
+      };
     },
     saveNoteFail: (state, action) => {
       state.loading = false;
