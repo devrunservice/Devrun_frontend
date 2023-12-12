@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {redirect} from 'utils/redirect';
-import {Spinner, Modal} from 'components';
+import {Spinner, BasicModal} from 'components';
 import {kakaoLoading} from '../../redux/reducer/loginReducer';
 
 const Auth2RedirectHandler = () => {
@@ -28,7 +28,7 @@ const Auth2RedirectHandler = () => {
   return (
     <>
       {!isKakaoLogin && <Spinner />}
-      {isKakaoLogin && <Modal onConfirm={handleConfirm} />}
+      {isKakaoLogin && <BasicModal onConfirm={handleConfirm} />}
     </>
   );
 };

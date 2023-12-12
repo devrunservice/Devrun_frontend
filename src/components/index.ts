@@ -13,7 +13,7 @@ export {default as AgreementContents} from './Signup/AgreementContents';
 export {default as PasswordInput} from './Login/PasswordInput/PasswordInput';
 export {default as AuthenticationNumber} from './Login/AuthenticationNumber/AuthenticationNumber';
 export {default as DuplicationForm} from './Login/DuplicationForm/DuplicationForm';
-export {default as Modal} from './Login/Modal/Modal';
+export {default as BasicModal} from './Modal/BasicModal';
 export {default as Recaptcha} from './Login/Recaptcha/Recaptcha';
 export {default as MypageNav} from './MypageNav/MypageNav';
 export {default as List} from './List/List';
@@ -40,7 +40,7 @@ export {default as CurriculumSection} from './CurriculumSection/CurriculumSectio
 export {default as Curriculum} from './Video/Curriculum/Curriculum';
 export {default as Note} from './Video/Note/Note';
 export {default as NoteDe} from './Video/NoteDe/NoteDe';
-export { default as Community } from "./Video/Community/Community";
+export {default as Community} from './Video/Community/Community';
 export {default as MainCategory} from './MainIcon/MainIcon';
 export {default as NoData} from './NoData/NoData';
 
@@ -49,5 +49,11 @@ export {default as RenderHeader} from './Calender/RenderHeader';
 export {default as RenderDays} from './Calender/RenderDays';
 export {default as RenderDates} from './Calender/RenderDates';
 export {default as AsideBtn} from './MypageNav/AsideBtn';
-export {default as FullSpinner} from './FullSpinner/FullSpinner';
-export {default as CommonModal} from './CommonModal/CommonModal';
+
+
+export { default as VideoTop } from "./Video/VideoTop/VideoTop";
+export { default as CommunityDe } from "./Video/CommunityDe/CommunityDe";
+export { default as Btn } from "./Btn/Btn";
+export { default as DisableModal } from "./Modal/DisableModal";
+export { default as Grade } from "./Grade/Grade";
+;

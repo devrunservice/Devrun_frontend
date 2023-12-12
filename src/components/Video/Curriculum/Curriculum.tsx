@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDate } from "hooks";
 import {  VideoCurriculum } from "types";
 import * as St from "./style";
+import VideoTop from "../VideoTop/VideoTop";
 
 
 interface ICurriculum {
@@ -15,15 +16,13 @@ const Curriculum = ({ onCurriculum, data }: ICurriculum) => {
   const { videoTime } = useDate();
   const param = useParams();
   const navigate = useNavigate();
-  const onVideoPlay = useCallback((l: string) => {
+  const onVideoPlay = (l: string) => {
     navigate(`/videoView/${param.lectureId}/${l}`);
-  }, []);
+  };
   return (
     <>
+      <VideoTop text="커리큘럼" onButton={onCurriculum} />
       <St.Top>
-        <St.Title>
-          커리큘럼 <St.Deletes onClick={() => onCurriculum()} />
-        </St.Title>
         <St.SubTitle>{data.lectureName}</St.SubTitle>
         <St.SubContent>
           <p>
@@ -42,7 +41,6 @@ const Curriculum = ({ onCurriculum, data }: ICurriculum) => {
         <St.Gauge>
           <span
             style={{
-              background: "#5F4B8B",
               width: `${data.lectureWholeProgess}%`,
             }}
           />

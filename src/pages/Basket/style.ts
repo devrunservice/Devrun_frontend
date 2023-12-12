@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { Delete } from "asset";
+import { Close } from "asset";
 import Checked from "asset/images/Checked.png";
 
 export const BasketForm = styled.form`
@@ -62,7 +62,7 @@ export const Right = styled.button`
   border: 1px solid ${(props: any) => props.theme.borderC};
   color: ${(props: any) => props.theme.black};
 `;
-export const Deletes = styled(Delete)`
+export const Deletes = styled(Close)`
   margin-left: 5px;
 `;
 export const Product = styled.ul`

@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { Button } from "style/Common";
 import { Active } from "types";
-import { Delete } from "asset";
+import { Close } from "asset";
 
 export const PopupWrap = styled.div`
   position: fixed;
@@ -42,7 +42,7 @@ export const Btn = styled(Button)`
   width: 100%;
   margin-top: 1.5rem;
 `;
-export const Deletes = styled(Delete)`
+export const Deletes = styled(Close)`
   cursor: pointer;
 `;
 

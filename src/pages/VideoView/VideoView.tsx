@@ -148,7 +148,7 @@ const VideoView = () => {
         <St.Top>
           <St.TopLeft>
             <St.Back>
-              <St.BiArrow />
+              <St.BiArrow onClick={() => navigate("/learning")} />
             </St.Back>
             <St.Title>{lecture.videoTitle}</St.Title>
           </St.TopLeft>

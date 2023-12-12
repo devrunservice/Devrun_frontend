@@ -60,13 +60,12 @@ const router = createBrowserRouter([
         path: 'lecture/:lectureBigCategory',
         element: <Route.Lecture />,
       },
-      {path: 'detail/:id', element: <Route.Detailsell />},
-      {path: 'details', element: <Route.DetailPage />},
-      {path: 'createVideo', element: <Route.CreateVideo />},
-      {path: 'profile', element: protectedRoute(<Route.Profile />)},
-      {path: 'dashboard', element: protectedRoute(<Route.Dashboard />)},
-      {path: 'notes', element: protectedRoute(<Route.Notes />)},
-      {path: 'notes/:lectureId', element: protectedRoute(<Route.Note />)},
+      { path: "detail/:id", element: <Route.Detailsell /> },
+      { path: "createVideo", element: <Route.CreateVideo /> },
+      { path: "profile", element: protectedRoute(<Route.Profile />) },
+      { path: "dashboard", element: protectedRoute(<Route.Dashboard />) },
+      { path: "notes", element: protectedRoute(<Route.Notes />) },
+      { path: "notes/:lectureId", element: protectedRoute(<Route.Note />) },
       {
         path: 'notes/:lectureId/:noteId',
         element: protectedRoute(<Route.NoteDetail />),
@@ -91,8 +90,7 @@ const router = createBrowserRouter([
       {
         path: 'videoView/:lectureId/:videoId',
         element: protectedRoute(<Route.VideoView />),
-      },
-      {path: 'details', element: <Route.DetailPage />},
+      }
     ],
   },
 ]);

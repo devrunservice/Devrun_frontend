@@ -4,7 +4,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {useDate} from 'hooks';
-import {Comment, Content, Modal} from 'components';
+import {Comment, Content, BasicModal} from 'components';
 import {Button} from 'style/Common';
 import * as St from './styles';
 import {
@@ -56,7 +56,7 @@ const QuestionDetail = () => {
         <St.QuestionTitle>{questionDetail.questionTitle}</St.QuestionTitle>
         <St.LectureTitle>파이썬</St.LectureTitle>
         <St.QuestionDate>{`작성일 : ${formattedDate(
-          questionDetail.date || ''
+          questionDetail.date || ""
         )}`}</St.QuestionDate>
       </St.QuestionDetailWrapper>
       <St.QuestionContent>
@@ -83,8 +83,8 @@ const QuestionDetail = () => {
           삭제
         </Button>
       </St.QuestionBtn>
-      <Comment text="댓글" path="/questions" />
-      <Modal logicActive onConfirm={handleConfirm} />
+      <Comment text="댓글" path="/questions" paramId={Number(questionId)} />
+      <BasicModal logicActive onConfirm={handleConfirm} />
     </section>
   );
 };

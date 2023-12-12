@@ -1,22 +1,11 @@
 import { styled } from "styled-components";
-import { Delete } from "asset";
 import { BiPlay, BiCheck } from "react-icons/bi";
 import { Active } from "types";
 
 export const Top = styled.div`
   padding: 20px 25px;
 `;
-export const Title = styled.strong`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: ${(props: any) => props.theme.black};
-`;
-export const Deletes = styled(Delete)`
-  cursor: pointer;
-`;
+
 export const SubTitle = styled.em`
   display:block;
   margin: 1.25rem 0 0.75rem;
@@ -50,6 +39,7 @@ export const Gauge = styled.div`
     bottom: 0;
     left: 0;
     position: absolute;
+    background: ${(props: any) => props.theme.mainColor};
   }
 `;
 
