@@ -19,9 +19,12 @@ const Note = ({ onNote, videoid, lectureId }: INote) => {
   
   const [noteBoolean, setNoteBoolean] = useState(false);
   const [noteId, setNoteId] = useState(0);
-  const { noteListData, noteList, reNote,note } = useSelector(
-    (state: RootState) => state.dashboardReducer
-  );
+  const {
+    noteListData,
+    noteList,
+    reNote,
+    note,
+  } = useSelector((state: RootState) => state.dashboardReducer);
   const scrollRef = useRef<HTMLDivElement>(null)
    useEffect(() => {
      dispatch(noteListLoading({ page: 1, id: lectureId }));

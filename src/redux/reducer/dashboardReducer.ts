@@ -197,7 +197,12 @@ const dashboardReducer = createSlice({
     },
     noteDeleteSuccess: (state, action) => {
       state.loading = false;
-      state.noteDeleteData = action.payload;
+      state.noteListData.dtolist = state.noteListData.dtolist.filter(
+        (v) => v.noteId !== action.payload
+      );
+      state.noteList.dtolist = state.noteListData.dtolist.filter(
+        (v) => v.noteId !== action.payload
+      );
     },
     noteDeleteFail: (state, action) => {
       state.loading = false;

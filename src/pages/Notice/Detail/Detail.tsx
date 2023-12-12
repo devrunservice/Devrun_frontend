@@ -35,7 +35,7 @@ const Detail = () => {
   return (
     <S.Inner>
       <St.Title>공지사항</St.Title>
-      {typeof content !== 'undefined' && (
+      {typeof content !== "undefined" && (
         <>
           <St.Top>
             <St.Left>{content.title}</St.Left>
@@ -61,7 +61,7 @@ const Detail = () => {
             >
               목록
             </S.Button>
-            {data.role === 'ADMIN' && (
+            {data.role === "ADMIN" && (
               <>
                 <S.Button
                   $active
@@ -78,7 +78,7 @@ const Detail = () => {
               </>
             )}
           </St.BtnWrap>
-          <Comment text="댓글" />
+          <Comment text="댓글" path="/notice" />
         </>
       )}
     </S.Inner>

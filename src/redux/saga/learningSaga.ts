@@ -2,7 +2,7 @@
 import {call, put, takeLatest, all, fork} from 'redux-saga/effects';
 import {PayloadAction} from '@reduxjs/toolkit';
 import {search} from 'utils/api';
-import {  Lectureid, MainList, Search } from "types";
+import {  Lectureid, MainList, Reviewrating, Search } from "types";
 import {
   ratingLectureSuccess,
   ratingLectureFail,
@@ -22,6 +22,12 @@ import {
   LectureDetailTextSuccess,
   LectureDetailTextFail,
   LectureDetailTextLoading,
+  LectureDetailCommentSuccess,
+  LectureDetailCommentFail,
+  LectureDetailCommentLoading,
+  LectureDetailCommentGetSuccess,
+  LectureDetailCommentGetFail,
+  LectureDetailCommentGetLoading,
 } from "../reducer/learningReducer";
 
 
@@ -84,7 +90,28 @@ function* detailtext(action: PayloadAction<Lectureid>): Generator<any, void, any
   }
 }
 
+function* lectureDetailComment(
+  action: PayloadAction<Reviewrating>
+): Generator<any, void, any> {
+  try {
+    const response = yield call(search.lectureDetailComment, action.payload);
+    yield put(LectureDetailCommentSuccess(response));
+  } catch (error: any) {
+    yield put(LectureDetailCommentFail(error.message));
+  }
+}
 
+function* lectureDetailGetComment(
+  action: PayloadAction<Lectureid>
+): Generator<any, void, any> {
+  try {
+    const response = yield call(search.lectureDetailGetComment, action.payload);
+    console.log(response);
+    yield put(LectureDetailCommentGetSuccess(response));
+  } catch (error: any) {
+    yield put(LectureDetailCommentGetFail(error.message));
+  }
+}
 
 
 export function* watchCategorySearchSaga() {
@@ -105,6 +132,13 @@ export function* watchLectureDetailSaga() {
 export function* watchLectureDetaiTextlSaga() {
   yield takeLatest(LectureDetailTextLoading, detailtext);
 }
+export function* watchLectureDetailCommentlSaga() {
+  yield takeLatest(LectureDetailCommentLoading, lectureDetailComment);
+}
+export function* watchLectureDetailGetCommentlSaga() {
+  yield takeLatest(LectureDetailCommentGetLoading, lectureDetailGetComment);
+}
+
 export default function* learningSaga() {
   yield all([
     fork(watchRatingLectureSaga),
@@ -113,5 +147,7 @@ export default function* learningSaga() {
     fork(watchBuyLectureSaga),
     fork(watchLectureDetailSaga),
     fork(watchLectureDetaiTextlSaga),
+    fork(watchLectureDetailCommentlSaga),
+    fork(watchLectureDetailGetCommentlSaga),
   ]);
 }

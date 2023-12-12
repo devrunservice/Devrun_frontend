@@ -9,8 +9,9 @@ import {decode} from 'utils/decode';
 import {
   AuthenticationNumber,
   DuplicationForm,
-  Modal,
+  BasicModal,
   UserTop,
+  ImageUploader,
 } from 'components';
 import {Title} from 'style/Common';
 import * as St from './styles';
@@ -54,21 +55,29 @@ const Profile = () => {
   });
 
   // 이미지
-  const handleChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const file = e.target.files[0];
-      if (file.size > 1024 * 1024 * 1) {
-        dispatch(openModal('이미지 용량을 초과하였습니다.'));
-        // alert('이미지 용량을 초과하였습니다.');
-      } else {
-        dispatch(updateValidState({name: 'profileImage', value: true}));
-        setProfileForm({
-          ...profileForm,
-          profileImage: file,
-          profilePreview: URL.createObjectURL(file),
-        });
-      }
-    }
+  // const handleUpLoadImg = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (e.target.files) {
+  //     const file = e.target.files[0];
+  //     if (file.size > 1024 * 1024 * 1) {
+  //       dispatch(openModal('이미지 용량을 초과하였습니다.'));
+  //       // alert('이미지 용량을 초과하였습니다.');
+  //     } else {
+  //       dispatch(updateValidState({name: 'profileImage', value: true}));
+  //       setProfileForm({
+  //         ...profileForm,
+  //         profileImage: file,
+  //         profilePreview: URL.createObjectURL(file),
+  //       });
+  //     }
+  //   }
+  // };
+  const handleUpLoadImg = (file: File) => {
+    dispatch(updateValidState({name: 'profileImage', value: true}));
+    setProfileForm({
+      ...profileForm,
+      profileImage: file,
+      profilePreview: URL.createObjectURL(file),
+    });
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -119,9 +128,7 @@ const Profile = () => {
   const handleDelete = async () => {
     setModalLogic(true);
     await dispatch(
-      openModal(
-        '회원을 탈퇴하면 동일한 아이디로 재가입 할 수 없습니다./탈퇴 하시겠습니까?'
-      )
+      openModal('회원을 탈퇴하면 재가입 할 수 없습니다./탈퇴 하시겠습니까?')
     );
   };
 
@@ -184,8 +191,8 @@ const Profile = () => {
           </St.InputWrapper>
         ) : (
           <>
-            {/* <ImageUploader page="profileUpdate" /> */}
-            <St.UploadArea>
+            <ImageUploader page="profileUpdate" onUpLoadImg={handleUpLoadImg} />
+            {/* <St.UploadArea>
               <St.Imgbox>
                 <img src={profileForm.profilePreview} alt="updated profile" />
               </St.Imgbox>
@@ -207,7 +214,7 @@ const Profile = () => {
                   528 X 297 픽셀 이미지 사용
                 </St.InputNotice>
               </div>
-            </St.UploadArea>
+            </St.UploadArea> */}
 
             <St.EditBtn>
               <St.CancelBtn
@@ -330,7 +337,7 @@ const Profile = () => {
       <St.DeleteBtnWrapper>
         <St.DeleteBtn onClick={handleDelete}>회원 탈퇴</St.DeleteBtn>
       </St.DeleteBtnWrapper>
-      <Modal logicActive={modalLogic} onConfirm={handleConfirm} />
+      <BasicModal logicActive={modalLogic} onConfirm={handleConfirm} />
     </St.Section>
   );
 };

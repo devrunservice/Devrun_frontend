@@ -97,7 +97,7 @@ function* noteDetail(
 function* noteDelete(action: PayloadAction<number>): Generator<any, void, any> {
   try {
     yield call(mypage.noteDelete, action.payload);
-    yield put(noteDeleteSuccess(true));
+    yield put(noteDeleteSuccess(action.payload));
   } catch (error: any) {
     yield put(noteDeleteFail(error));
   }

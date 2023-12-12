@@ -1,7 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { fork, takeLatest, all, put, call } from "redux-saga/effects";
-import { video } from "utils/api";
-import { Videos, Progress, GetQuest, SaveQuest, ReQuest } from "types";
+import { mypage, video } from "utils/api";
+import { Videos, Progress, GetQuest, SaveQuest, ReQuest, NotePropsType } from "types";
 import {
   curriculumLoding,
   curriculumSuccess,
@@ -18,6 +18,9 @@ import {
   reQuestLoding,
   reQuestSuccess,
   reQuestFail,
+  questionDeleteLoading,
+  questionDeleteSuccess,
+  questionDeleteFail,
 } from "../reducer/videoViewReducer";
 
 function* curriculum(action: PayloadAction<Videos>): Generator<any, void, any> {
@@ -68,6 +71,24 @@ function* reQuest(action: PayloadAction<ReQuest>): Generator<any, void, any> {
     yield put(reQuestFail(error));
   }
 }
+function* questionDelete(
+  action: PayloadAction<NotePropsType>
+): Generator<any, void, any> {
+  try {
+    yield call(mypage.questionDelete, action.payload);
+    yield put(questionDeleteSuccess(action.payload));
+  } catch (error: any) {
+    yield put(questionDeleteFail(error));
+  }
+}
+
+
+
+
+
+
+
+
 function* watchGetQuest() {
   yield takeLatest(getQuestLoding, getQuest);
 }
@@ -85,7 +106,9 @@ function* watchSaveQuest() {
 function* watchReQuest() {
   yield takeLatest(reQuestLoding, reQuest);
 }
-
+function* watchQuestionDeleteSaga() {
+  yield takeLatest(questionDeleteLoading, questionDelete);
+}
 
 
 export default function* viewSaga() {
@@ -95,5 +118,6 @@ export default function* viewSaga() {
     fork(watchGetQuest),
     fork(watchSaveQuest),
     fork(watchReQuest),
+    fork(watchQuestionDeleteSaga),
   ]);
 }

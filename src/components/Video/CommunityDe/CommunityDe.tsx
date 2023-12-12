@@ -2,14 +2,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
-import { Btn, Content, Editor, VideoTop } from "components";
+import { BasicModal, Btn, Comment, Content, Editor, VideoTop } from "components";
 import * as St from "./style";
 
 import {
-  questionDeleteLoading,
   questionDetailLoading,
 } from "../../../redux/reducer/dashboardReducer";
+import { questionDeleteLoading } from "../../../redux/reducer/videoViewReducer";
 import { userInfoLoading } from "../../../redux/reducer/userReducer";
+import { openModal } from "../../../redux/reducer/modalReducer";
+
 
 interface communutiy {
   setQuestionId: React.Dispatch<
@@ -32,6 +34,7 @@ const CommunityDe = ({
      const { questionDetailData: questionDetail } = useSelector(
        (state: RootState) => state.dashboardReducer
      );
+     console.log(questionDetail);
      const { saveQuest: reQuest } = useSelector(
        (state: RootState) => state.videoViewReducer
      );
@@ -44,11 +47,22 @@ const CommunityDe = ({
      }, []);
      const [hide, setHide] = useState(false);
      const onHide = () => setHide((prev)=>!prev)
-     const onDelet = () => {
-      console.log("asd")
-     }
+
+     const onDelet = () => dispatch(openModal("해당 질문을 삭제하시겠습니까?"));
+
+     const handleConfirm = () => {
+       try {
+         dispatch(
+           questionDeleteLoading({ id: questionDetail.questionId })
+         );
+         setQuestionId({ ...questionId, questionIdBoolean: false });
+       } catch (error) {
+         dispatch(openModal("질문삭제에 실패했습니다."));
+       }
+     };
   return (
     <>
+      <BasicModal logicActive onConfirm={handleConfirm} />
       <VideoTop
         text="커뮤니티"
         onButton={onCommunity}
@@ -84,6 +98,11 @@ const CommunityDe = ({
             <li>{questionDetail.date.slice(0, 10)}</li>
           </ul>
           <Content content={questionDetail.content} />
+          <Comment
+            text="답변"
+            path="/questions"
+            paramId={questionDetail.questionId}
+          />
         </St.ContentWrap>
       )}
     </>

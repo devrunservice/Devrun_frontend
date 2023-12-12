@@ -10,7 +10,7 @@ import {crypto} from 'utils/crypto';
 import {
   PasswordInput,
   AuthenticationNumber,
-  Modal,
+  BasicModal,
   DuplicationForm,
   Agreement,
 } from 'components';
@@ -316,7 +316,7 @@ const Signup = () => {
             메인화면
           </St.CancelBtn>
         </form>
-        <Modal />
+        <BasicModal />
       </St.Container>
     </St.Section>
   );

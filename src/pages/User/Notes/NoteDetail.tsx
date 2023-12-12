@@ -4,7 +4,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {mypage} from 'utils/api';
-import {Content, Modal} from 'components';
+import {Content, BasicModal} from 'components';
 import {Button} from 'style/Common';
 import * as St from './styles';
 import {
@@ -74,7 +74,7 @@ const NoteDetail = () => {
           삭제
         </Button>
       </St.NoteBtn>
-      <Modal logicActive onConfirm={handleConfirm} />
+      <BasicModal logicActive onConfirm={handleConfirm} />
     </St.NoteDetailSection>
   );
 };

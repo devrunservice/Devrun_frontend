@@ -679,8 +679,13 @@ export interface LectureSections {
 
 export interface Lectureid {
   lectureid: number;
+  pageNumber: number;
 }
-
+export interface Reviewrating {
+  lectureId: number;
+  reviewContent: string;
+  reviewRating: number;
+}
 /* 디테일 */
 export interface DetailAPI {
   id: null | string;

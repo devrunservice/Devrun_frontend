@@ -31,7 +31,7 @@ function* loginSaga(
       // https 일때만 통신할 수 있는 것 https일때 true로 바꿔줄것!
       secure: true,
     });
-    removeCookie('easyLoginToken', {path: '/', secure: true});
+    removeCookie('easyLoginToken', {path: '/kakaologin', secure: true});
     yield put(loginSuccess(response));
     yield call(redirect, '/home');
   } catch (error: any) {
@@ -65,8 +65,9 @@ function* kakaoLoginSaga(
     const easyLoginToken = response.data.Easylogin_token;
     if (easyLoginToken) {
       setCookie('easyLoginToken', easyLoginToken.substr(7), {
-        path: '/',
+        path: '/kakaologin',
         secure: true,
+        maxAge: 900,
       });
       yield put(kakaoSuccess(true));
       yield put(

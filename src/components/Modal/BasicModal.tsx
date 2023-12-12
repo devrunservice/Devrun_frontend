@@ -4,9 +4,9 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {Recaptcha} from 'components';
 import * as St from './styles';
-import {closeModal} from '../../../redux/reducer/modalReducer';
+import {closeModal} from '../../redux/reducer/modalReducer';
 
-const Modal = ({
+const BasicModal = ({
   logicActive,
   onConfirm,
 }: {
@@ -84,5 +84,5 @@ const Modal = ({
   );
 };
 
-export default Modal;
+export default BasicModal;
 /* eslint-disable @typescript-eslint/no-unused-vars */

@@ -349,7 +349,7 @@ export const notice = {
 export const video = {
   getCurriculum: (params: I.Curriculum) => {
     const response = authAxios.get(`/getMycoures`, {
-      params: { lectureId: params },
+      params: { lectureId: params.lectureId },
     });
     return response;
   },
@@ -405,6 +405,16 @@ export const search = {
   lectureDetailtext: (params: I.Lectureid) => {
     const response = baseAxios.get(
       `/api/lectures/detailtest/${params.lectureid}`
+    );
+    return response;
+  },
+  lectureDetailComment: (params: I.Reviewrating) => {
+    const response = authAxios.post(`/reviewrating`, params);
+    return response;
+  },
+  lectureDetailGetComment: (params: I.Lectureid) => {
+    const response = baseAxios.get(
+      `/review/${params.lectureid}/${params.pageNumber}`
     );
     return response;
   },

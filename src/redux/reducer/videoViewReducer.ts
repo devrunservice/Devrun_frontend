@@ -188,6 +188,22 @@ const VideoViewReducer = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+
+    questionDeleteLoading: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
+    questionDeleteSuccess: (state, action) => {
+      state.loading = false;
+      console.log(action.payload.id);
+      state.quest.dtolist = state.quest.dtolist.filter(
+        (v) => v.questionId !== action.payload.id
+      );
+    },
+    questionDeleteFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 
@@ -210,6 +226,9 @@ export const {
   reQuestLoding,
   reQuestSuccess,
   reQuestFail,
+  questionDeleteLoading,
+  questionDeleteSuccess,
+  questionDeleteFail,
 } = VideoViewReducer.actions;
 
 export default VideoViewReducer.reducer;

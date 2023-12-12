@@ -1,10 +1,10 @@
-import { BasicInput } from "components/CreateNewVideo/style";
-import { styled } from "styled-components";
-import { PropsType } from "types";
+import {BasicInput} from 'components/CreateNewVideo/style';
+import {styled} from 'styled-components';
 
-export const UploadArea = styled.div`
+export const UploadArea = styled.div<{$page: string}>`
   display: flex;
   align-items: center;
+  margin: ${(props) => (props.$page === 'profileUpdate' ? '2rem' : '0')} 0;
 `;
 
 export const ImageWrap = styled.div`
@@ -38,9 +38,9 @@ export const Imgbox = styled.div`
   }
 `;
 
-export const UploadVideoWrap = styled.div<PropsType>`
+export const UploadVideoWrap = styled.div<{$page: string}>`
   width: ${(props) =>
-    props.page === "profileUpdate" ? "calc(100%-110px)" : "50%"};
+    props.$page === 'profileUpdate' ? 'calc(100%-110px)' : '50%'};
   align-self: self-start;
   > div {
     display: flex;

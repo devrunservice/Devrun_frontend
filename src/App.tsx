@@ -16,10 +16,10 @@ const App = () => {
     location.pathname === '/signupconfirm' ||
     location.pathname === '/signupcompletion' ||
     location.pathname === '/login' ||
-    location.pathname === '/auth/kakao/callback/login' ||
+    location.pathname === '/auth/kakao/callback' ||
+    location.pathname === '/kakaologin' ||
     location.pathname === '/findaccount/id' ||
     location.pathname === '/findaccount/password' ||
-    location.pathname === '/auth/kakao/callback' ||
     location.pathname === `/videoView/${params.lectureId}/${params.videoId}`;
 
   const hideFooter =
@@ -27,10 +27,10 @@ const App = () => {
     location.pathname === '/signupconfirm' ||
     location.pathname === '/signupcompletion' ||
     location.pathname === '/login' ||
-    location.pathname === '/auth/kakao/callback/login' ||
+    location.pathname === '/auth/kakao/callback' ||
+    location.pathname === '/kakaologin' ||
     location.pathname === '/findaccount/id' ||
     location.pathname === '/findaccount/password' ||
-    location.pathname === '/auth/kakao/callback' ||
     location.pathname === `/videoView/${params.lectureId}/${params.videoId}`;
 
   const myPage =

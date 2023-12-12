@@ -9,6 +9,8 @@ export const Button = styled.button<{ color: string }>`
     switch (props.color) {
       case "full":
         return "100%";
+      case "full2":
+        return "100%";
       case "main":
         return "auto";
       case "red":
@@ -23,8 +25,6 @@ export const Button = styled.button<{ color: string }>`
         return props.theme.textWhite;
       case "full":
         return props.theme.textWhite;
-      case "main":
-        return props.theme.mainColor;
       case "red":
         return props.theme.textRed;
       default:
