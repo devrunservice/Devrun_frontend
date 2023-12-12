@@ -23,7 +23,7 @@ const CouponPop = ({
   couponListInCart,
 }: Coupon) => {
   const dispatch = useDispatch();
-  const { Dday } = useDate();
+  const { calculateTimeDifference } = useDate();
   const closeBtn = useCallback(() => {
     setOpenCoupon(false);
   }, []);
@@ -124,7 +124,7 @@ const CouponPop = ({
                             {c.discountrate}%
                           </St.CouponDiscountrate>
                           <St.CouponExpirydate>
-                            {Dday(c.expirydate)}
+                            {calculateTimeDifference(c.expirydate)}
                           </St.CouponExpirydate>
                           <St.CouponName>{c.lecturename}</St.CouponName>
                         </St.CouponLabel>
@@ -183,7 +183,7 @@ const CouponPop = ({
                           {l.discountrate}%
                         </St.CouponDiscountrate>
                         <St.CouponExpirydate>
-                          {Dday(l.expirydate)}
+                          {calculateTimeDifference(l.expirydate)}
                         </St.CouponExpirydate>
                         <St.CouponName>{l.lecturename}</St.CouponName>
                       </St.CouponLabel>

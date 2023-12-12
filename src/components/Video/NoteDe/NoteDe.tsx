@@ -2,12 +2,13 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
-import { Editor, Content } from "components";
+import { Editor, Content, VideoTop, Btn, BasicModal } from "components";
 import * as St from './style';
 import {
-  noteDeleteSuccess,
+  noteDeleteLoading,
   noteDetailLoading,
 } from "../../../redux/reducer/dashboardReducer";
+import { openModal } from "../../../redux/reducer/modalReducer";
 
 
 interface Note {
@@ -21,19 +22,11 @@ const NoteDe = ({ onNote, setNoteBoolean, noteId }: Note) => {
   const dispatch = useDispatch();
   const {
     noteDetailData: noteDetail,
-    noteDeleteData: noteDelete,
     reNote,
   } = useSelector((state: RootState) => state.dashboardReducer);
   useEffect(() => {
     dispatch(noteDetailLoading({ id: noteId }));
-
-    if (noteDelete) {
-      dispatch(noteDeleteSuccess(false));
-    }
-  }, [noteDelete, reNote]);
-  const onExitNote = useCallback(() => {
-    setNoteBoolean(false);
-  }, []);
+  }, [reNote]);
   const [hide, setHide] = useState(false);
   const [noteData, setNoteData] = useState({
     title: "",
@@ -41,59 +34,51 @@ const NoteDe = ({ onNote, setNoteBoolean, noteId }: Note) => {
     id: 0,
   });
 
-  const onReNote = useCallback(
-    (noteIds: number, content: string, title: string) => {
-      setNoteData({
-        ...noteData,
-        title: title,
-        content: content,
-        id: noteIds,
-      });
-      setHide((prev) => !prev);
-    },
-    [noteData]
-  );
+  const onReNote = useCallback(() => {
+    setNoteData({
+      ...noteData,
+      title: noteDetail.noteTitle,
+      content: noteDetail.content,
+      id: noteDetail.noteId,
+    });
+    setHide((prev) => !prev);
+  }, [noteData, noteDetail]);
+ const onDelet = () => dispatch(openModal("해당 노트을 삭제하시겠습니까?"));
+
+
+  const handleConfirm = () => {
+    try {
+      dispatch(noteDeleteLoading(noteDetail.noteId));
+      setNoteBoolean(false);    
+    }catch (error) {
+      dispatch(openModal("노트삭제에 실패했습니다."));
+    }
+  };
   return (
     <>
-      <St.Top>
-        <St.Title>
-          <St.TopButton onClick={() => onExitNote()}>
-            <St.Arr />
-            섹션노트 모두보기
-          </St.TopButton>
-          <St.Deletes onClick={() => onNote()} />
-        </St.Title>
-      </St.Top>
-      <St.Center $active={hide === true}>
+      <BasicModal logicActive onConfirm={handleConfirm} />
+      <VideoTop
+        text="섹션노트 모두보기"
+        onExit={() => setNoteBoolean(false)}
+        onButton={onNote}
+      />
+      <St.Center>
         <St.Date>
           작성일 : {noteDetail.date}
           <div>
-            <St.Buttons
-              $active
-              onClick={() =>
-                onReNote(
-                  noteDetail.noteId,
-                  noteDetail.content,
-                  noteDetail.noteTitle
-                )
-              }
-            >
-              수정
-            </St.Buttons>
-            <St.Buttons $active={false}>삭제</St.Buttons>
+            <Btn text="수정" color="main" onBtn={onReNote} />
+            <Btn text="삭제" color="red" onBtn={onDelet} />
           </div>
         </St.Date>
         <em>{noteDetail.noteTitle}</em>
-        <St.Contents>
-          <Content content={noteDetail.content} />
-        </St.Contents>
+        <Content content={noteDetail.content} />
       </St.Center>
       {hide && (
         <St.Bottom>
           <Editor
             path="lecture_note"
             tap="NoteRe"
-            noteid={noteData.id}
+            id={noteData.id}
             tit={noteData.title}
             con={noteData.content}
             setHide={setHide}
@@ -104,3 +89,7 @@ const NoteDe = ({ onNote, setNoteBoolean, noteId }: Note) => {
   );
 };
 export default NoteDe;
+
+
+
+

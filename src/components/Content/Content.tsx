@@ -1,5 +1,6 @@
 import React from 'react';
 import DOMPurify from 'dompurify';
+import * as St from "./style";
 
 interface ContentType {
   content: string;
@@ -7,7 +8,7 @@ interface ContentType {
 
 const Content: React.FC<ContentType> = ({content}) => {
   return (
-    <div
+    <St.Con
       dangerouslySetInnerHTML={{
         __html: DOMPurify.sanitize(content),
       }}

@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { Button } from "style/Common";
 import * as I from "types";
-import { Delete, Arrow } from "asset";
+import { Close, Arrow } from "asset";
 
 
 export const CouponTop = styled.div`
@@ -46,7 +46,7 @@ export const Title = styled.h4`
   justify-content: space-between;
   line-height: 1;
 `;
-export const Deletes = styled(Delete)`
+export const Deletes = styled(Close)`
   cursor: pointer;
 `;
 export const PopCon = styled.form`

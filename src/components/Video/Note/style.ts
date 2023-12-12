@@ -1,5 +1,4 @@
 import { styled } from "styled-components";
-import { Delete } from "asset";
 
 export const NoteWrap = styled.div`
   height: 100vh;
@@ -7,21 +6,6 @@ export const NoteWrap = styled.div`
   flex-direction: column;
 `;
 
-export const Top = styled.div`
-  padding: 20px 25px;
-  border-bottom: 1px solid ${(props: any) => props.theme.borderD};
-`;
-export const Title = styled.strong`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: ${(props: any) => props.theme.black};
-`;
-export const Deletes = styled(Delete)`
-  cursor: pointer;
-`;
 export const Center = styled.div`
   flex: 1 1 0%;
   overflow-y: scroll;
@@ -81,7 +65,7 @@ export const NoteCon = styled.button`
 
 export const Bottom = styled.div`
   background: ${(props: any) => props.theme.bgGrayColor};
-  padding: 25px 25px;
+  padding: 20px 20px;
 `;
 
 

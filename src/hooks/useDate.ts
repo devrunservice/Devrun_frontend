@@ -1,7 +1,9 @@
 const useDate = () => {
+
   const getYear = new Date().getFullYear();
   const getMonth = new Date().getMonth() + 1;
   const getdate = new Date().getDate();
+
   const videoTime = (total: number) => {
     const hours = Math.floor(total / 3600);
     const min = Math.floor((total % 3600) / 60);
@@ -11,28 +13,15 @@ const useDate = () => {
     return `${sec}초`;
   };
 
-  const Dday = (createdDate: string) => {
+  const calculateTimeDifference = (createdDate: string) => {
     const currentTime = new Date();
-    const creatTime = new Date(createdDate);
-    const differenTime = creatTime.getTime() - currentTime.getTime();
-    // 밀리초를 분, 일 등으로 변환
-    const secondsDifference = Math.floor(differenTime / 1000);
+    const createTime = new Date(createdDate);
+    const timeDifference = currentTime.getTime() - createTime.getTime();
+    const secondsDifference = Math.floor(timeDifference / 1000);
     const minutesDifference = Math.floor(secondsDifference / 60);
     const hoursDifference = Math.floor(minutesDifference / 60);
     const daysDifference = Math.floor(hoursDifference / 24);
     if (daysDifference > 0) return `D-${daysDifference}`;
-  };
-
-  const time = (createdDate: string) => {
-    const currentTime = new Date();
-    const creatTime = new Date(createdDate);
-    const differenTime = currentTime.getTime() - creatTime.getTime();
-    // 밀리초를 분, 일 등으로 변환
-    const secondsDifference = Math.floor(differenTime / 1000);
-    const minutesDifference = Math.floor(secondsDifference / 60);
-    const hoursDifference = Math.floor(minutesDifference / 60);
-    const daysDifference = Math.floor(hoursDifference / 24);
-    if (daysDifference > 0) return `${daysDifference}일 전`;
     if (hoursDifference > 0) return `${hoursDifference}시간 전`;
     if (minutesDifference > 0) return `${minutesDifference}분 전`;
     if (secondsDifference > 0) return `${secondsDifference}초 전`;
@@ -50,6 +39,13 @@ const useDate = () => {
     )}-${padZero(dateObject.getDate())}`;
   };
 
-  return {getYear, getMonth, getdate, Dday, time, videoTime, formattedDate};
+  return {
+    getYear,
+    getMonth,
+    getdate,
+    calculateTimeDifference,
+    videoTime,
+    formattedDate,
+  };
 };
 export default useDate;

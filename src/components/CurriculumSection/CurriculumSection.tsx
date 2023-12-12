@@ -45,7 +45,6 @@ const CurriculumSection:React.FC<curriculumPropsType> = ({list, index, changeCla
               <p>제목</p>
               <input 
                 type="text" 
-                style={{width:'600px'}} 
                 placeholder="수업 제목"
                 value={item.videoTitle||''}
                 onChange={(event)=>changeClassTitles(event, item.videoNo)}
@@ -57,7 +56,6 @@ const CurriculumSection:React.FC<curriculumPropsType> = ({list, index, changeCla
                 type="file" 
                 name="url" 
                 accept="video/*"
-                style={{width:'600px'}}
               /> 
             </div>
             <St.FlexLine>

@@ -17,11 +17,10 @@ const Pagination = ({ totalPages, pageno, setPageno }: Paginations) => {
     },
     [pageno]
   );
-  const itemsPerPage = 10;
-  const currentGroup = Math.ceil(pageno / itemsPerPage);
-  const firstPageInGroup = (currentGroup - 1) * itemsPerPage + 1;
+  const currentGroup = Math.ceil(pageno / 10);
+  const firstPageInGroup = (currentGroup - 1) * 10 + 1;
   const lastPageInGroup = Math.min(
-    currentGroup * itemsPerPage,
+    currentGroup * 10,
     totalPages || 0
   );
   return (

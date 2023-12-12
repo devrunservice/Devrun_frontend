@@ -261,19 +261,10 @@ export const TitleSub = styled.div`
   }
 `;
 
-export const Button = styled.button<Active>`
-  width: 100%;
-  border-radius: 5px;
-  height: 50px;
-  margin-top: 10px;
-  display: block;
-  font-size: 0.875rem;
-  color: ${(props: any) =>
-    props.$active ? props.theme.mainColor : props.theme.textWhite};
-  background: ${(props: any) =>
-    props.$active ? props.theme.bgColor : props.theme.mainColor};
-  border: 1px solid
-    ${(props: any) => (props.$active ? props.theme.mainColor : "")};
+export const Btn = styled.div`
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
 `;
 
 

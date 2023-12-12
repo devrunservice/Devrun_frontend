@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "redux/store";
 import { getCookie } from "utils/cookies";
 import { useDate, useInput } from "hooks";
-import Grade from "components/grade/Grade";
+import { CommentsList } from "types";
+import { Grade } from "components";
 import { Button } from "style/Common";
 import * as St from "./style";
 
@@ -21,72 +22,75 @@ import {
   editAnswerLoading,
   replyAnswerLoading,
 } from '../../redux/reducer/dashboardReducer';
+import { LectureDetailCommentGetLoading, LectureDetailCommentLoading } from "../../redux/reducer/learningReducer";
+
+
 
 interface title {
   text: string;
   sub?: string;
   path?: string;
+  paramId?:number
 }
 
-const Comment = ({text, sub, path}: title) => {
+const Comment = ({ text, sub, path, paramId }: title) => {
   const dispatch = useDispatch();
   const param = useParams();
   const navigate = useNavigate();
-
-  // 댓글 수정 , 기존 댓글 , 대댓글 달고난후 데이터
-  // const {commentRe, datas, comments} = useSelector(
-  //   (state: RootState) => state.noticeReducer
-  // );
-
-  // const {datas: answerData} = useSelector(
-  //   (state: RootState) => state.dashboardReducer
-  // );
-
-  const datas =
-    path === '/questions'
-      ? useSelector((state: RootState) => state.dashboardReducer.answerData)
-      : useSelector((state: RootState) => state.noticeReducer.datas);
-  const comments =
-    path === '/questions'
-      ? useSelector(
-          (state: RootState) => state.dashboardReducer.replyAnswerData
-        )
-      : useSelector((state: RootState) => state.noticeReducer.comments);
-  const commentRe =
-    path === '/questions'
-      ? useSelector((state: RootState) => state.dashboardReducer.editAnswerData)
-      : useSelector((state: RootState) => state.noticeReducer.commentRe);
-
-  // 시간 hooks
-  const {time} = useDate();
-
+  const { calculateTimeDifference } = useDate();
+  // 평점
+  const [stars, setStars] = useState([false, false, false, false, false]);
+  // 기존 데이터
+  let datas: { data: CommentsList[] } = { data: [] };
+  let comments;
+  let commentRe;
+  if (path === "/questions") {
+    datas = useSelector(
+      (state: RootState) => state.dashboardReducer.answerData
+    );
+    commentRe = useSelector(
+      (state: RootState) => state.dashboardReducer.editAnswerData
+    );
+  } else if (path === "/notice") {
+    datas = useSelector((state: RootState) => state.noticeReducer.datas);
+    comments = useSelector((state: RootState) => state.noticeReducer.comments);
+    commentRe = useSelector(
+      (state: RootState) => state.noticeReducer.commentRe
+    );
+  } 
   // 유저 데이터
-  const {data} = useSelector((state: RootState) => state.userReducer);
-  const [comment, onChangeComment, setComment] = useInput('');
-  const [commentTwo, onChangeCommentTwo, setCommentTwo] = useInput('');
+  const { data: user } = useSelector((state: RootState) => state.userReducer);
+  const [comment, onChangeComment, setComment] = useInput("");
+  const [commentTwo, onChangeCommentTwo, setCommentTwo] = useInput("");
   const [writes, setWrites] = useState<number | null>(null);
   const [writesTwo, setWritesTwo] = useState<number | null>(null);
-
   useEffect(() => {
-    if (path === '/questions') {
-      console.log('데이터 반영');
-      dispatch(answerForQuestionLoading({id: param.questionId}));
-    } else {
+    if (path === "/questions") {
+      dispatch(answerForQuestionLoading({ id: paramId }));
+    } else if (path === "/notice") {
       dispatch(commentGetLoading(param));
+    } else if (path === "/lectures") {
+      dispatch(
+        LectureDetailCommentGetLoading({ lectureid: paramId, pageNumber: 1 })
+      );
     }
-  }, [commentRe, comments]);
-
-  console.log(commentRe);
-
+  }, [commentRe, comments, paramId]);
   const onComment = useCallback(async () => {
-    if (comment.trim() === '') return alert('댓글을 적어주세요');
+    if (comment.trim() === "") return alert("댓글을 적어주세요");
     try {
-      if (path === '/questions') {
-        console.log('질문 디스패치');
+      if (path === "/questions") {
         await dispatch(
           replyAnswerLoading({
-            questionId: param.questionId,
+            questionId: paramId,
             content: comment,
+          })
+        );
+      } else if (path === "/lectures") {
+        await dispatch(
+          LectureDetailCommentLoading({
+            lectureId: paramId,
+            reviewContent: comment,
+            reviewRating: stars.filter((v) => v === true).length,
           })
         );
       } else {
@@ -94,24 +98,23 @@ const Comment = ({text, sub, path}: title) => {
           commentPostLoading({
             content: comment,
             noticeNo: param.noticeNo,
-            id: data.id,
+            id: user.id,
           })
         );
       }
-      setComment('');
+      setComment("");
     } catch (error) {
-      alert('댓글등록에 실패했습니다');
+      alert("댓글등록에 실패했습니다");
     }
-  }, [comment]);
+  }, [comment, stars]);
 
   // 댓글 수정데이터 날라가는거
   const onCommentRe = useCallback(
     async (v: number) => {
-      if (commentTwo.trim() === '') return alert('수정할 댓글을 적어주세요');
+      if (commentTwo.trim() === "") return alert("수정할 댓글을 적어주세요");
       try {
-        if (path === '/questions') {
-          console.log('댓글 수정');
-          await dispatch(editAnswerLoading({id: v, content: commentTwo}));
+        if (path === "/questions") {
+          await dispatch(editAnswerLoading({ id: v, content: commentTwo }));
         } else {
           await dispatch(
             commentRetouchLoading({
@@ -120,11 +123,11 @@ const Comment = ({text, sub, path}: title) => {
             })
           );
         }
-        setCommentTwo('');
+        setCommentTwo("");
         setWritesTwo(null);
         setWrites(null);
       } catch (error) {
-        alert('댓글등록에 실패했습니다');
+        alert("댓글등록에 실패했습니다");
       }
     },
     [commentTwo]
@@ -133,12 +136,12 @@ const Comment = ({text, sub, path}: title) => {
   // 대댓글 달기
   const onComments = useCallback(
     async (v: number, i: number) => {
-      if (commentTwo.trim() === '') return alert('대댓글을 적어주세요');
+      if (commentTwo.trim() === "") return alert("대댓글을 적어주세요");
       try {
-        if (path === '/questions') {
+        if (path === "/questions") {
           await dispatch(
             replyAnswerLoading({
-              questionId: param.questionId,
+              questionId: paramId,
               content: commentTwo,
             })
           );
@@ -148,15 +151,15 @@ const Comment = ({text, sub, path}: title) => {
               content: commentTwo,
               parentCommentNo: v,
               noticeNo: i,
-              id: data.id,
+              id: user.id,
             })
           );
         }
 
-        setCommentTwo('');
+        setCommentTwo("");
         setWritesTwo(null);
       } catch (error) {
-        alert('댓글등록에 실패했습니다');
+        alert("댓글등록에 실패했습니다");
       }
     },
     [commentTwo]
@@ -190,11 +193,11 @@ const Comment = ({text, sub, path}: title) => {
       if (datas?.data.some((v) => v.commentNo === Index)) {
         if (writesTwo === Index) {
           setWritesTwo(null); // 같은 댓글을 다시 클릭하면 닫음
-          setCommentTwo('');
+          setCommentTwo("");
         } else {
           setWrites(null);
           setWritesTwo(Index); // 다른 댓글을 클릭하면 열고 선택된 댓글 번호 저장
-          setCommentTwo('');
+          setCommentTwo("");
         }
       }
     },
@@ -207,7 +210,7 @@ const Comment = ({text, sub, path}: title) => {
       if (datas?.data.some((v) => v.commentNo === Index)) {
         setWritesTwo(null);
         setWrites(null);
-        setCommentTwo('');
+        setCommentTwo("");
       }
     },
     [writes, datas?.data, writesTwo]
@@ -215,24 +218,22 @@ const Comment = ({text, sub, path}: title) => {
 
   // 댓글 삭제 버튼
   const onCommentsDel = useCallback((commentNo: number, id: string) => {
-    if (window.confirm('댓글을 삭제하시겠습니까?')) {
-      if (path === '/questions') {
-        dispatch(deleteAnswerLoading({id: commentNo}));
+    if (window.confirm("댓글을 삭제하시겠습니까?")) {
+      if (path === "/questions") {
+        dispatch(deleteAnswerLoading({ id: commentNo }));
       } else {
-        dispatch(commentDelLoading({commentNo, id}));
+        dispatch(commentDelLoading({ commentNo, id }));
       }
     } else {
-      alert('취소되었습니다.');
+      alert("취소되었습니다.");
     }
   }, []);
 
   const onLogin = () => {
-    alert('로그인 페이지로 이동합니다.');
-    navigate('/login');
+    alert("로그인 페이지로 이동합니다.");
+    navigate("/login");
   };
 
-  // 평점
-  const [stars, setStars] = useState([false, false, false, false, false]);
   return (
     <>
       <St.CommentTitle>
@@ -243,18 +244,18 @@ const Comment = ({text, sub, path}: title) => {
           </St.CommentCount>
         </div>
       </St.CommentTitle>
-      {path === 'lectures' && (
+      {path === "/lectures" && (
         <Grade stars={stars} setStars={setStars} text="별점을 선택해주세요" />
       )}
-      {getCookie('accessToken') ? (
+      {getCookie("accessToken") ? (
         <St.CommentBox
           onChange={onChangeComment}
           maxLength={500}
           value={comment}
           placeholder={
-            path === 'lectures'
-              ? '좋은 수강평을 남겨주시면 지식공유자와 이후 배우는 사람들에게 큰 도움이 됩니다.'
-              : '좋은 댓글남겨주세요.'
+            path === "lectures"
+              ? "좋은 수강평을 남겨주시면 지식공유자와 이후 배우는 사람들에게 큰 도움이 됩니다."
+              : "좋은 댓글남겨주세요."
           }
         />
       ) : (
@@ -267,17 +268,16 @@ const Comment = ({text, sub, path}: title) => {
 
       <St.ButtonWrap>
         <St.CommentNum>{comment.length} / 500</St.CommentNum>
-        <Button $active={false} onClick={() => setComment('')} type="button">
+        <Button $active={false} onClick={() => setComment("")} type="button">
           취소
         </Button>
         <Button $active type="button" onClick={onComment}>
           등록
         </Button>
       </St.ButtonWrap>
-
-      <St.CommentUl>
-        {datas &&
-          datas.data
+      {datas.data.length !== 0 && (
+        <St.CommentUl>
+          {datas.data
             .filter((i) => i.parentCommentNo === 0)
             .map((v) => {
               return (
@@ -294,12 +294,14 @@ const Comment = ({text, sub, path}: title) => {
                       <St.CommentName>{v.id}</St.CommentName>
                       <St.CommentTime>
                         {v.modifiedDate !== null
-                          ? `${time(v.modifiedDate) || '0초전'} 수정`
-                          : time(v.createdDate) || '0초전'}
+                          ? `${
+                              calculateTimeDifference(v.modifiedDate) || "0초전"
+                            } 수정`
+                          : calculateTimeDifference(v.createdDate) || "0초전"}
                       </St.CommentTime>
                     </div>
                     <div>
-                      {data.id === v.id && (
+                      {user.id === v.id && (
                         <>
                           <St.CommentRe
                             onClick={() => onCommentsWrite(v.commentNo)}
@@ -313,12 +315,13 @@ const Comment = ({text, sub, path}: title) => {
                           </St.CommentRemove>
                         </>
                       )}
-
-                      <St.CommentWrite
-                        onClick={() => onCommentsBtn(v.commentNo)}
-                      >
-                        댓글달기
-                      </St.CommentWrite>
+                      {path === "/notice" && (
+                        <St.CommentWrite
+                          onClick={() => onCommentsBtn(v.commentNo)}
+                        >
+                          댓글달기
+                        </St.CommentWrite>
+                      )}
                     </div>
                   </St.CommentTop>
                   <St.CommentText>{v.content}</St.CommentText>
@@ -330,7 +333,7 @@ const Comment = ({text, sub, path}: title) => {
                       <St.CommentBoxRe
                         onChange={onChangeCommentTwo}
                         maxLength={500}
-                        value={commentTwo !== '' ? commentTwo : v.content}
+                        value={commentTwo !== "" ? commentTwo : v.content}
                       />
 
                       <St.ButtonWrapCommnet>
@@ -355,15 +358,15 @@ const Comment = ({text, sub, path}: title) => {
                   {/* 대댓글달기 */}
                   {writesTwo === v.commentNo && (
                     <St.CommentWriteWrap>
-                      {getCookie('accessToken') ? (
+                      {getCookie("accessToken") ? (
                         <St.CommentBoxRe
                           onChange={onChangeCommentTwo}
                           maxLength={500}
                           value={commentTwo}
                           placeholder={
-                            path === 'lectures'
-                              ? '좋은 수강평을 남겨주시면 지식공유자와 이후 배우는 사람들에게 큰 도움이 됩니다.'
-                              : '좋은 댓글남겨주세요.'
+                            path === "lectures"
+                              ? "좋은 수강평을 남겨주시면 지식공유자와 이후 배우는 사람들에게 큰 도움이 됩니다."
+                              : "좋은 댓글남겨주세요."
                           }
                         />
                       ) : (
@@ -395,9 +398,7 @@ const Comment = ({text, sub, path}: title) => {
                   )}
                   <ul>
                     {datas?.data
-                      .filter(
-                        (k) => k.parentCommentNo === v.commentNo
-                      )
+                      .filter((k) => k.parentCommentNo === v.commentNo)
                       .map((q) => {
                         return (
                           <St.Reply key={q.commentNo}>
@@ -416,13 +417,17 @@ const Comment = ({text, sub, path}: title) => {
                                   <St.CommentTime>
                                     {q.modifiedDate !== null
                                       ? `${
-                                          time(q.modifiedDate) || '0초전'
+                                          calculateTimeDifference(
+                                            q.modifiedDate
+                                          ) || "0초전"
                                         } 수정`
-                                      : time(q.createdDate) || '0초전'}
+                                      : calculateTimeDifference(
+                                          q.createdDate
+                                        ) || "0초전"}
                                   </St.CommentTime>
                                 </div>
                                 {/* 대댓글 수정 삭제 */}
-                                {data.id === q.id && (
+                                {user.id === q.id && (
                                   <div>
                                     <St.CommentRe
                                       onClick={() =>
@@ -450,7 +455,7 @@ const Comment = ({text, sub, path}: title) => {
                                   onChange={onChangeCommentTwo}
                                   maxLength={500}
                                   value={
-                                    commentTwo !== '' ? commentTwo : q.content
+                                    commentTwo !== "" ? commentTwo : q.content
                                   }
                                 />
                                 <St.ButtonWrapCommnet>
@@ -481,7 +486,8 @@ const Comment = ({text, sub, path}: title) => {
                 </St.CommentLi>
               );
             })}
-      </St.CommentUl>
+        </St.CommentUl>
+      )}
     </>
   );
 };

@@ -349,7 +349,7 @@ export const notice = {
 export const video = {
   getCurriculum: (params: I.Curriculum) => {
     const response = authAxios.get(`/getMycoures`, {
-      params: { lectureId: params },
+      params: { lectureId: params.lectureId },
     });
     return response;
   },
@@ -361,12 +361,7 @@ export const video = {
     const response = authAxios.post(`/lecturenote`, params);
     return response;
   },
-  getNote: (params: I.Curriculum) => {
-    const response = authAxios.get("/lectureNoteDetailOpen", {
-      params: { lectureId: params },
-    });
-    return response;
-  },
+
   reNote: (params: I.ReNote) => {
     const response = authAxios.post("/lecturenoteUpdate", params);
     return response;
@@ -378,8 +373,13 @@ export const video = {
     );
     return response;
   },
-  getQuestDetail: (params: number) => {
-    const response = authAxios.get(`/lectureQaDetailOpen?questionId=${params}`);
+
+  saveQuest: (params: I.SaveQuest) => {
+    const response = authAxios.post(`/lectureQa`, params);
+    return response;
+  },
+  reQuest: (params: I.ReQuest) => {
+    const response = authAxios.post(`/lectureQa/update`, params);
     return response;
   },
 };
@@ -405,6 +405,16 @@ export const search = {
   lectureDetailtext: (params: I.Lectureid) => {
     const response = baseAxios.get(
       `/api/lectures/detailtest/${params.lectureid}`
+    );
+    return response;
+  },
+  lectureDetailComment: (params: I.Reviewrating) => {
+    const response = authAxios.post(`/reviewrating`, params);
+    return response;
+  },
+  lectureDetailGetComment: (params: I.Lectureid) => {
+    const response = baseAxios.get(
+      `/review/${params.lectureid}/${params.pageNumber}`
     );
     return response;
   },

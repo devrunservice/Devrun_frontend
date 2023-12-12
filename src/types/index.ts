@@ -180,6 +180,7 @@ export interface QuestionDetailType {
   questionTitle: string;
   content: string;
   answer: string;
+  studentId: string;
 }
 // 질문 답변
 export interface QuestionReplyType {
@@ -513,6 +514,17 @@ export interface GetQuest {
   lectureId: number;
   page: number;
 }
+export interface SaveQuest {
+  lectureId: number;
+  questionContent: string;
+  questionTitle: string;
+  videoId: number;
+}
+export interface ReQuest {
+  questionContent: string;
+  questionId: number;
+  questionTitle: string;
+}
 
 export interface lectureName {
   lectureName: string;
@@ -667,8 +679,13 @@ export interface LectureSections {
 
 export interface Lectureid {
   lectureid: number;
+  pageNumber: number;
 }
-
+export interface Reviewrating {
+  lectureId: number;
+  reviewContent: string;
+  reviewRating: number;
+}
 /* 디테일 */
 export interface DetailAPI {
   id: null | string;
