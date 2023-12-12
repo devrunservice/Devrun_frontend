@@ -7,7 +7,10 @@ interface GoogleProps {
 }
 
 const GoogleLoginButton:React.FC<GoogleProps> = ({successGoogleLogin}) => {
-    const clientId = '385481592077-6irgmtusl13jsreqis43b8e76pck582a.apps.googleusercontent.com'
+    const clientId = '60963937574-035jatefceoccdlunp4b8komlcur6jt7.apps.googleusercontent.com'
+    
+    // const clientId = process.env.GOOGLE_CLIENT_KEY as string
+    // console.log('clientId',clientId)
     return (
         <div>
             <St.GoogleLoginWrap>

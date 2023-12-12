@@ -40,5 +40,4 @@ export const SpinnerIcon = styled.div`
   width: 40px;
   height: 40px;
   animation: ${spinAnimation} 1s linear infinite;
-  
 `;

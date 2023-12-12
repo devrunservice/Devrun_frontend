@@ -24,7 +24,6 @@ export const imageAxios = axios.create({
 
 baseAxios.interceptors.request.use(
   (config) => {
-    console.log('con',config)
     const easyLoginToken = getCookie('easyLoginToken');
     if (easyLoginToken) {
       config.headers.Easylogin_token = `Bearer ${easyLoginToken}`;

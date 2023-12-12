@@ -127,6 +127,7 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
     formData.append("lectureIntro", videoStore.lectureIntro);
     formData.append("lecturePrice", videoStore.lecturePrice.toString());
     formData.append("lectureThumbnail", videoStore.lectureThumbnail);
+    formData.append("lectureFullIntro", 'lectureFullIntrolectureFullIntrolectureFullIntro')
     const lectureTagString = videoStore.lectureTag.join(', ')
     formData.append("lectureTag", lectureTagString);
     formData.append("lectureCategory.lectureBigCategory", videoStore.lectureCategory.lectureBigCategory);
