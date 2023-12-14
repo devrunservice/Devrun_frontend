@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {getCookie} from 'utils/cookies';
 import Logo from 'asset/images/Logo.png';
-import {Modal} from 'components';
+import {BasicModal} from 'components';
 import {useInput} from 'hooks';
 import {Button} from 'style/Common';
 import * as St from './style';
@@ -26,14 +26,16 @@ const Header = () => {
   );
   const {modalMessage1} = useSelector((state: RootState) => state.modalReducer);
 
+  const accessToken = getCookie('accessToken');
+
   useEffect(() => {
-    if (getCookie('accessToken')) {
+    if (accessToken) {
       dispatch(userInfoLoading(null));
       setCookie(true);
     }
-  }, []);  
+  }, []);
   useEffect(() => {
-    if (getCookie("accessToken")) {
+    if (getCookie('accessToken')) {
       dispatch(cartInfoLoading(null));
     }
   }, [addCart]);
@@ -72,10 +74,12 @@ const Header = () => {
 
   return (
     <St.HeaderWrap>
-      <Modal onConfirm={handleConfirm} />
+      <BasicModal onConfirm={handleConfirm} />
       <St.InnerHeader>
         <St.NavWrap>
-          <St.LogoIcon onClick={() => navigate('/')}>
+          <St.LogoIcon
+            onClick={() => (accessToken ? navigate('/home') : navigate('/'))}
+          >
             <img src={Logo} alt="로고" />
           </St.LogoIcon>
           <St.CategoryWrap>
@@ -199,7 +203,7 @@ const Header = () => {
             </St.NavWrap>
           ) : (
             <St.ButtonWrap>
-              <Button onClick={() =>  navigate('/login')} type="button" $active>
+              <Button onClick={() => navigate('/login')} type="button" $active>
                 로그인
               </Button>
               <Button

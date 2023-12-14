@@ -2,7 +2,6 @@
 import React, {useState} from 'react';
 import {useSearchParams} from 'react-router-dom';
 import {Email} from 'asset';
-import {usePreventGoBack} from 'hooks';
 import {redirect} from 'utils/redirect';
 import {BasicModal, EmailVerification} from 'components';
 import * as St from './styles';
@@ -10,8 +9,6 @@ import * as St from './styles';
 const SignupConfirm = () => {
   const [searchParams] = useSearchParams();
   const data = searchParams.get('data');
-
-  usePreventGoBack();
 
   // const decryptedUserData = crypto.decryptedUserData(
   //   data || '',
