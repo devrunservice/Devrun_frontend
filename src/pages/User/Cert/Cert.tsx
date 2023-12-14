@@ -1,24 +1,20 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, {  useState } from "react";
-import useSWR from "swr";
-import { authAxios } from "utils/instance";
+import React, { useState } from "react";
 import { Pagination, CertTable, UserTop } from "components";
 
 const Cert = () => {
-const fetcher = (url: string) => authAxios.get(url).then((res) => res.data);
-// const [pageno, setPageno] = useState<number>(1);
-// const { data, isLoading } = useSWR(`/Certificates/${pageno}`, fetcher);
-// if (isLoading) return <div>asd</div>;
-// console.log(data);
+  const [pageno, setPageno] = useState<number>(1);
+
   return (
     <section>
       <UserTop title="수료증" sub="전체" />
       <CertTable />
 
-      {/* <Pagination
+      <Pagination
         pageno={pageno}
         setPageno={setPageno}
-      /> */}
+        totalPages={10}
+      />
     </section>
   );
 };
