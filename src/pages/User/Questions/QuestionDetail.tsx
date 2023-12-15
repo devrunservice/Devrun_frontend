@@ -56,7 +56,7 @@ const QuestionDetail = () => {
         <St.QuestionTitle>{questionDetail.questionTitle}</St.QuestionTitle>
         <St.LectureTitle>파이썬</St.LectureTitle>
         <St.QuestionDate>{`작성일 : ${formattedDate(
-          questionDetail.date || ''
+          questionDetail.date || ""
         )}`}</St.QuestionDate>
       </St.QuestionDetailWrapper>
       <St.QuestionContent>
@@ -83,7 +83,7 @@ const QuestionDetail = () => {
           삭제
         </Button>
       </St.QuestionBtn>
-      <Comment text="댓글" path="/questions" />
+      <Comment text="댓글" path="/questions" paramId={Number(questionId)} />
       <BasicModal logicActive onConfirm={handleConfirm} />
     </section>
   );

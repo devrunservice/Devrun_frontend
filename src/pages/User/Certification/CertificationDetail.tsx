@@ -1,19 +1,29 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import html2canvas from "html2canvas";
-import JsPDF from "jspdf";
-import Logo from "asset/images/Logo.png";
-import { FiDownload } from "react-icons/fi";
-import { UserTop } from "components";
-import * as S from "style/Common";
-import * as St from "./style";
+import React, {useEffect, useRef} from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from 'redux/store';
+import html2canvas from 'html2canvas';
+import JsPDF from 'jspdf';
+import Logo from 'asset/images/Logo.png';
+import {FiDownload} from 'react-icons/fi';
+import {UserTop} from 'components';
+import * as S from 'style/Common';
+import * as St from './style';
+import {certificationDetailLoading} from '../../../redux/reducer/certificationReducer';
 
-const CertDetail = () => {
-  const Navigate = useNavigate();
+const CertificationDetail = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const {lectureId} = useParams();
+
   const pdfCon = useRef<HTMLDivElement>(null);
 
-  const pdfDown = async() => {
+  const certificationDetail = useSelector(
+    (state: RootState) => state.certificationReducer.certificationDetail
+  );
+
+  const pdfDown = async () => {
     if (!pdfCon.current) return;
 
     // 이미지로 저장할때.
@@ -30,16 +40,21 @@ const CertDetail = () => {
     // }
     // PDF로 저장할때.
     html2canvas(pdfCon.current).then((canvas) => {
-      const img = canvas.toDataURL("image/png", "images-FiDownload.png");
+      const img = canvas.toDataURL('image/png', 'images-FiDownload.png');
       const pdf = new JsPDF();
       const imgProps = pdf.getImageProperties(img);
       const width = pdf.internal.pageSize.getWidth();
       const height = (imgProps.height * width) / imgProps.width;
-      pdf.addImage(img, "png", 0, 0, width, height);
-      pdf.save("제목.pdf");
+      pdf.addImage(img, 'png', 0, 0, width, height);
+      pdf.save('수료증.pdf');
     });
   };
-      
+
+  useEffect(() => {
+    dispatch(certificationDetailLoading({lectureId: lectureId}));
+  }, []);
+
+  console.log(certificationDetail);
 
   return (
     <section>
@@ -58,19 +73,19 @@ const CertDetail = () => {
             <St.Content>
               <St.ContentLi>
                 <St.Context>이름</St.Context>
-                <St.Contitle>김이름</St.Contitle>
+                <St.Contitle>{certificationDetail.userName}</St.Contitle>
               </St.ContentLi>
               <St.ContentLi>
                 <St.Context>생년월일</St.Context>
-                <St.Contitle>2023.07.31</St.Contitle>
+                <St.Contitle>{certificationDetail.birthday}</St.Contitle>
               </St.ContentLi>
               <St.ContentLi>
                 <St.Context>우수 수료 과정명</St.Context>
-                <St.Contitle>뭔지모름요 ㅈㅅㅈㅅㅈㅅ</St.Contitle>
+                <St.Contitle>{certificationDetail.lectureName}</St.Contitle>
               </St.ContentLi>
               <St.ContentLi>
                 <St.Context>기간</St.Context>
-                <St.Contitle>2023.07.31 ~ 2023.07.31</St.Contitle>
+                <St.Contitle>{`${certificationDetail.start} ~ ${certificationDetail.end}`}</St.Contitle>
               </St.ContentLi>
               <St.ContentLi>
                 <St.Contitle>
@@ -79,7 +94,7 @@ const CertDetail = () => {
                 </St.Contitle>
               </St.ContentLi>
               <St.ContentLi>
-                <St.ConDate>2023.07.31</St.ConDate>
+                <St.ConDate>{certificationDetail.end}</St.ConDate>
               </St.ContentLi>
             </St.Content>
           </St.Top>
@@ -88,9 +103,9 @@ const CertDetail = () => {
               <St.CopyText>
                 (주) 데브런
                 <br />
-                서울시 강남구 어딘가 가고 싶다
+                서울시 강남구
                 <br />
-                http://devrun.s3-website.ap-northeast-2.amazonaws.com/
+                http://devrun.net
               </St.CopyText>
               <img src={Logo} alt="로고" />
             </St.LogoIcon>
@@ -102,12 +117,12 @@ const CertDetail = () => {
         <S.Button onClick={() => pdfDown()} $active={false}>
           다운로드 <FiDownload />
         </S.Button>
-        <S.Button onClick={() => Navigate("/cert")} $active>
+        <S.Button onClick={() => navigate('/certifications')} $active>
           목록
         </S.Button>
       </S.ButtonWrap>
     </section>
   );
 };
-export default CertDetail;
+export default CertificationDetail;
 /* eslint-disable @typescript-eslint/no-unused-vars */

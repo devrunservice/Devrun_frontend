@@ -4,8 +4,8 @@ import { PlusCircle } from 'asset';
 import { RootState } from 'redux/store';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Spinner from 'components/FullSpinner/FullSpinner';
-import CommonModal from 'components/CommonModal/CommonModal';
+// import Spinner from 'components/Modal/DisableModal';
+import DisableModal from 'components/Modal/DisableModal';
 import { getCookie } from 'utils/cookies';
 import { createVideo } from 'utils/api';
 // import axios from 'axios';
@@ -121,12 +121,14 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
       } 
 
     setLoading(true)
+    setModal(true)
     console.log('store',videoStore)
     const formData = new FormData();
     formData.append("lectureName", videoStore.lectureName);
     formData.append("lectureIntro", videoStore.lectureIntro);
     formData.append("lecturePrice", videoStore.lecturePrice.toString());
     formData.append("lectureThumbnail", videoStore.lectureThumbnail);
+    formData.append("lectureFullIntro", 'lectureFullIntrolectureFullIntrolectureFullIntro')
     const lectureTagString = videoStore.lectureTag.join(', ')
     formData.append("lectureTag", lectureTagString);
     formData.append("lectureCategory.lectureBigCategory", videoStore.lectureCategory.lectureBigCategory);
@@ -159,7 +161,7 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
       setText('등록에 성공했습니다. 내 강의 페이지로 이동합니다')
       setFlag('success')
       setBtNum(1)
-      setModal(true)
+      // setModal(true)
     } catch(err) {
       setText('등록에 실패했습니다. 다시 시도해주세요')
       setBtNum(1)
@@ -209,8 +211,8 @@ const CreateVideoTwo = ({PrevPage}:{PrevPage:any}) => {
           <St.NextCreateBtn onClick={postVideo}>등록</St.NextCreateBtn>
         </div>
       </St.CreateVideoArticle>
-      { modal && <CommonModal text={text} btNum={btNum} flag={flag} closeModalAccept={closeModalAccept} closeModalCancel={closeModalCancel}/> }
-      {loading && <Spinner />}
+      { modal && <DisableModal text={text} btNum={btNum} flag={flag} loading={loading} closeModalAccept={closeModalAccept} closeModalCancel={closeModalCancel}/> }
+      {/* {loading && <Spinner />} */}
     </St.CreateVideoWrap>
   );
 };

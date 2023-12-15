@@ -176,6 +176,7 @@ export interface QuestionDetailType {
   questionTitle: string;
   content: string;
   answer: string;
+  studentId: string;
 }
 // 질문 답변
 export interface QuestionReplyType {
@@ -195,6 +196,31 @@ export interface NoteQuestionListType {
   questionTitle?: string;
   questionDate?: string;
 }
+
+export interface CertificationWrapperType {
+  dtolist: CertificationType[];
+  totalPages: number;
+}
+
+export interface CertificationType {
+  expiryDate: string;
+  id: number;
+  lastViewDate: string;
+  mentoName: string;
+  progressRate: number;
+  rating: number;
+  thumbnail: string;
+  title: string;
+}
+
+export interface CertificationDetailType {
+  birthday: string;
+  end: string;
+  lectureName: string;
+  start: string;
+  userName: string;
+}
+
 export interface CalenderHeaderType {
   currentMonth: Date;
   prevMonth: () => void;
@@ -506,6 +532,17 @@ export interface GetQuest {
   lectureId: number;
   page: number;
 }
+export interface SaveQuest {
+  lectureId: number;
+  questionContent: string;
+  questionTitle: string;
+  videoId: number;
+}
+export interface ReQuest {
+  questionContent: string;
+  questionId: number;
+  questionTitle: string;
+}
 
 export interface lectureName {
   lectureName: string;
@@ -659,8 +696,13 @@ export interface LectureSections {
 
 export interface Lectureid {
   lectureid: number;
+  pageNumber: number;
 }
-
+export interface Reviewrating {
+  lectureId: number;
+  reviewContent: string;
+  reviewRating: number;
+}
 /* 디테일 */
 export interface DetailAPI {
   id: null | string;

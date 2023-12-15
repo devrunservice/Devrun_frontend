@@ -61,7 +61,6 @@ const router = createBrowserRouter([
         element: <Route.Lecture />,
       },
       {path: 'detail/:id', element: <Route.Detailsell />},
-      {path: 'details', element: <Route.DetailPage />},
       {path: 'createVideo', element: <Route.CreateVideo />},
       {path: 'profile', element: protectedRoute(<Route.Profile />)},
       {path: 'dashboard', element: protectedRoute(<Route.Dashboard />)},
@@ -76,8 +75,14 @@ const router = createBrowserRouter([
         path: 'questions/:questionId',
         element: protectedRoute(<Route.QuestionDetail />),
       },
-      {path: 'cert', element: protectedRoute(<Route.Cert />)},
-      {path: 'certDetail', element: protectedRoute(<Route.CertDetail />)},
+      {
+        path: 'certifications',
+        element: protectedRoute(<Route.Certifications />),
+      },
+      {
+        path: 'certifications/:lectureId',
+        element: protectedRoute(<Route.CertificationDetail />),
+      },
       {path: 'coupon', element: protectedRoute(<Route.Coupon />)},
       {path: 'receipt', element: <Route.Receipt />},
       {path: 'learning', element: protectedRoute(<Route.Learning />)},
@@ -92,7 +97,6 @@ const router = createBrowserRouter([
         path: 'videoView/:lectureId/:videoId',
         element: protectedRoute(<Route.VideoView />),
       },
-      {path: 'details', element: <Route.DetailPage />},
     ],
   },
 ]);

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice } from '@reduxjs/toolkit';
-import { DetailAPI } from 'types';
+import { CommentsList, DetailAPI } from 'types';
 
 interface Data {
   dtolist: {
@@ -19,6 +19,7 @@ interface Data {
   totalpages: number;
   code: string;
   message: string;
+  
 }
 
 interface LearningReducerType {
@@ -27,7 +28,11 @@ interface LearningReducerType {
   data: Data;
   lecture: Data;
   lectureDetail: DetailAPI;
-  content:string
+  content: string;
+  comment: string;
+  getCommtent: {
+    data: CommentsList[];
+  };
 }
 
 const initialState: LearningReducerType = {
@@ -84,6 +89,8 @@ const initialState: LearningReducerType = {
     },
   },
   content: "",
+  comment: "",
+  getCommtent:{data:[]}
 };
 
 const learningReducer = createSlice({
@@ -163,6 +170,32 @@ const learningReducer = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+
+    LectureDetailCommentLoading: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
+    LectureDetailCommentSuccess: (state, action) => {
+      state.loading = false;
+      state.comment = action.payload.data;
+    },
+    LectureDetailCommentFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+
+    LectureDetailCommentGetLoading: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
+    LectureDetailCommentGetSuccess: (state, action) => {
+      state.loading = false;
+      state.getCommtent = action.payload;
+    },
+    LectureDetailCommentGetFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 
@@ -185,6 +218,12 @@ export const {
   categorySearchSuccessTwo,
   categorySearchFailTwo,
   categorySearchLoadingTwo,
+  LectureDetailCommentSuccess,
+  LectureDetailCommentFail,
+  LectureDetailCommentLoading,
+  LectureDetailCommentGetSuccess,
+  LectureDetailCommentGetFail,
+  LectureDetailCommentGetLoading,
 } = learningReducer.actions;
 
 export default learningReducer.reducer;
