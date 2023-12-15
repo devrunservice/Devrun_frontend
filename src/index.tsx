@@ -60,12 +60,12 @@ const router = createBrowserRouter([
         path: 'lecture/:lectureBigCategory',
         element: <Route.Lecture />,
       },
-      { path: "detail/:id", element: <Route.Detailsell /> },
-      { path: "createVideo", element: <Route.CreateVideo /> },
-      { path: "profile", element: protectedRoute(<Route.Profile />) },
-      { path: "dashboard", element: protectedRoute(<Route.Dashboard />) },
-      { path: "notes", element: protectedRoute(<Route.Notes />) },
-      { path: "notes/:lectureId", element: protectedRoute(<Route.Note />) },
+      {path: 'detail/:id', element: <Route.Detailsell />},
+      {path: 'createVideo', element: <Route.CreateVideo />},
+      {path: 'profile', element: protectedRoute(<Route.Profile />)},
+      {path: 'dashboard', element: protectedRoute(<Route.Dashboard />)},
+      {path: 'notes', element: protectedRoute(<Route.Notes />)},
+      {path: 'notes/:lectureId', element: protectedRoute(<Route.Note />)},
       {
         path: 'notes/:lectureId/:noteId',
         element: protectedRoute(<Route.NoteDetail />),
@@ -75,8 +75,14 @@ const router = createBrowserRouter([
         path: 'questions/:questionId',
         element: protectedRoute(<Route.QuestionDetail />),
       },
-      {path: 'cert', element: protectedRoute(<Route.Cert />)},
-      {path: 'certDetail', element: protectedRoute(<Route.CertDetail />)},
+      {
+        path: 'certifications',
+        element: protectedRoute(<Route.Certifications />),
+      },
+      {
+        path: 'certifications/:lectureId',
+        element: protectedRoute(<Route.CertificationDetail />),
+      },
       {path: 'coupon', element: protectedRoute(<Route.Coupon />)},
       {path: 'receipt', element: <Route.Receipt />},
       {path: 'learning', element: protectedRoute(<Route.Learning />)},
@@ -90,7 +96,7 @@ const router = createBrowserRouter([
       {
         path: 'videoView/:lectureId/:videoId',
         element: protectedRoute(<Route.VideoView />),
-      }
+      },
     ],
   },
 ]);

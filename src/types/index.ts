@@ -64,10 +64,6 @@ export interface LoginFormType {
 }
 
 // 마이페이지 타입
-export interface PropsType {
-  page?: string;
-  getImage?: void;
-}
 export interface MypageType {
   id?: string;
   name?: string;
@@ -200,6 +196,31 @@ export interface NoteQuestionListType {
   questionTitle?: string;
   questionDate?: string;
 }
+
+export interface CertificationWrapperType {
+  dtolist: CertificationType[];
+  totalPages: number;
+}
+
+export interface CertificationType {
+  expiryDate: string;
+  id: number;
+  lastViewDate: string;
+  mentoName: string;
+  progressRate: number;
+  rating: number;
+  thumbnail: string;
+  title: string;
+}
+
+export interface CertificationDetailType {
+  birthday: string;
+  end: string;
+  lectureName: string;
+  start: string;
+  userName: string;
+}
+
 export interface CalenderHeaderType {
   currentMonth: Date;
   prevMonth: () => void;
@@ -288,14 +309,11 @@ export interface videoFileType {
   name: string;
 }
 
-
 export interface TableCommon {
   $cursor?: boolean;
   $color?: boolean;
   $view?: boolean;
 }
-
-
 
 // 결제창
 export interface RequestPayAdd {
@@ -532,7 +550,7 @@ export interface lectureName {
 
 export interface LectureInfoList extends lectureName {
   lectureIntro: string;
-  cartId:number;
+  cartId: number;
   lecturePrice: number;
   lectureThumbnail: string;
   lectureId: number;
@@ -588,7 +606,6 @@ export interface bastetCheck {
 }
 
 // 마이페이지 검색
-
 
 export interface Curriculum {
   lectureId: number;

@@ -4,8 +4,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {mypage} from 'utils/api';
-import {Content, BasicModal} from 'components';
-import {Button} from 'style/Common';
+import {Content, BasicModal, Button} from 'components';
 import * as St from './styles';
 import {
   noteDeleteLoading,
@@ -26,9 +25,7 @@ const NoteDetail = () => {
     dispatch(noteDetailLoading({id: noteId}));
   }, []);
 
-  const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    const {name} = e.target as HTMLButtonElement;
-
+  const handleClick = async (name: string) => {
     if (name === 'noteList') {
       navigate('/questions');
     } else if (name === 'noteEdit') {
@@ -60,19 +57,26 @@ const NoteDetail = () => {
       </St.NoteContent>
       <St.NoteBtn>
         <Button
-          $active={false}
           name="noteList"
-          type="button"
-          onClick={handleClick}
-        >
-          목록
-        </Button>
-        <Button $active type="button" name="noteEdit" onClick={handleClick}>
-          수정
-        </Button>
-        <Button $active type="button" name="noteDelete" onClick={handleClick}>
-          삭제
-        </Button>
+          text="목록"
+          onBtn={handleClick}
+          backgroundColor="transparent"
+          border="main"
+        />
+        <Button
+          name="noteEdit"
+          text="수정"
+          onBtn={handleClick}
+          color="white"
+          backgroundColor="main"
+        />
+        <Button
+          name="noteDelete"
+          text="삭제"
+          onBtn={handleClick}
+          color="white"
+          backgroundColor="red"
+        />
       </St.NoteBtn>
       <BasicModal logicActive onConfirm={handleConfirm} />
     </St.NoteDetailSection>

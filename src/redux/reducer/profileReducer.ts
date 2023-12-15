@@ -22,8 +22,8 @@ const initialState: MypageReducerType = {
   error: null,
 };
 
-const mypageReduer = createSlice({
-  name: 'mypageReducer',
+const profileReduer = createSlice({
+  name: 'profileReducer',
   initialState,
   reducers: {
     myInfoLoading: (state, action) => {
@@ -92,6 +92,6 @@ export const {
   updateProfileImageLoading,
   updateProfileImageSuccess,
   updateProfileImageFail,
-} = mypageReduer.actions;
+} = profileReduer.actions;
 
-export default mypageReduer.reducer;
+export default profileReduer.reducer;

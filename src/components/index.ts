@@ -24,7 +24,7 @@ export {default as NoteCard} from './Table/NoteCard/NoteCard';
 export {default as ReceiptTable} from './Table/ReceiptTable/ReceiptTable';
 export {default as MentoTable} from './Table/MentoTable/MentoTable';
 export {default as NoticeTable} from './Table/NoticeTable/NoticeTable';
-export {default as CertTable} from './Table/CertTable/CertTable';
+export {default as CertificationTable} from './Table/CertificationTable/CertificationTable';
 export {default as PointTable} from './Table/PointTable/PointTable';
 export {default as TableHeader} from './Table/QuestionTable/TableHeader';
 export {default as TableBody} from './Table/QuestionTable/TableBody';
@@ -43,17 +43,13 @@ export {default as NoteDe} from './Video/NoteDe/NoteDe';
 export {default as Community} from './Video/Community/Community';
 export {default as MainCategory} from './MainIcon/MainIcon';
 export {default as NoData} from './NoData/NoData';
-
 export {default as Calender} from './Calender/Calender';
 export {default as RenderHeader} from './Calender/RenderHeader';
 export {default as RenderDays} from './Calender/RenderDays';
 export {default as RenderDates} from './Calender/RenderDates';
 export {default as AsideBtn} from './MypageNav/AsideBtn';
-
-
-export { default as VideoTop } from "./Video/VideoTop/VideoTop";
-export { default as CommunityDe } from "./Video/CommunityDe/CommunityDe";
-export { default as Btn } from "./Btn/Btn";
-export { default as DisableModal } from "./Modal/DisableModal";
-export { default as Grade } from "./Grade/Grade";
-;
+export {default as VideoTop} from './Video/VideoTop/VideoTop';
+export {default as CommunityDe} from './Video/CommunityDe/CommunityDe';
+export {default as Button} from './Button/Button';
+export {default as DisableModal} from './Modal/DisableModal';
+export {default as Grade} from './Grade/Grade';

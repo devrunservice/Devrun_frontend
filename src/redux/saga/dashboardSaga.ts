@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {call, put, takeLatest, all, fork} from 'redux-saga/effects';
 import {PayloadAction} from '@reduxjs/toolkit';
-import { mypage, video } from "utils/api";
+import {mypage, video} from 'utils/api';
 import * as I from 'types';
 import {
   learningLoading,
@@ -46,8 +46,7 @@ import {
   editAnswerLoading,
   editAnswerSuccess,
   editAnswerFail,
-} from "../reducer/dashboardReducer";
-import {openModal} from '../reducer/modalReducer';
+} from '../reducer/dashboardReducer';
 
 function* learning(
   action: PayloadAction<I.NotePropsType>
@@ -76,8 +75,8 @@ function* noteList(
 ): Generator<any, void, any> {
   try {
     const response = yield call(mypage.noteList, action.payload);
-    const { page } = action.payload;
-    yield put(noteListSuccess({ response, page }));
+    const {page} = action.payload;
+    yield put(noteListSuccess({response, page}));
   } catch (error: any) {
     yield put(noteListFail(error));
   }
@@ -106,8 +105,8 @@ function* noteDelete(action: PayloadAction<number>): Generator<any, void, any> {
 function* saveNotes(action: PayloadAction<I.Note>): Generator<any, void, any> {
   try {
     const response = yield call(video.saveNote, action.payload);
-    const { noteContent, noteTitle } = action.payload;
-    yield put(saveNoteSuccess({ noteContent,noteTitle, response }));
+    const {noteContent, noteTitle} = action.payload;
+    yield put(saveNoteSuccess({noteContent, noteTitle, response}));
   } catch (error) {
     yield put(saveNoteFail(error));
   }
@@ -121,7 +120,6 @@ function* reNotes(action: PayloadAction<I.ReNote>): Generator<any, void, any> {
     yield put(reNoteFail(error));
   }
 }
-
 
 function* questionList(
   action: PayloadAction<I.NotePropsType>
@@ -240,7 +238,6 @@ function* watchSaveNote() {
 function* watchReNote() {
   yield takeLatest(reNoteLoding, reNotes);
 }
-
 
 export function* watchAnswerForQuestionSaga() {
   yield takeLatest(answerForQuestionLoading.type, answerForQuestion);
