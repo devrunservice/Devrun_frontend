@@ -19,19 +19,8 @@ export interface DashboardReducerType {
   replyAnswerData: I.CommentsList;
   deleteAnswerData: boolean;
   editAnswerData: I.CommentsList;
-  note: {
-    noteTitle: string;
-    noteContent: string;
-  };
-  reNote: {
-    chapter: number;
-    content: string;
-    date: string;
-    noteId: number;
-    noteTitle: string;
-    subHeading: string;
-    videoId: string;
-  };
+  note: I.INote;
+  reNote: I.IReNote;
   error: Error | null;
 }
 

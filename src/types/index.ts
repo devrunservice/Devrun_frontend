@@ -753,3 +753,18 @@ export interface DetailAPI {
     userNo: number;
   };
 }
+
+
+export interface INote {
+  noteTitle: string;
+  noteContent: string;
+}
+export interface IReNote {
+  chapter: number;
+  content: string;
+  date: string;
+  noteId: number;
+  noteTitle: string;
+  subHeading: string;
+  videoId: string;
+}

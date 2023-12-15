@@ -47,6 +47,7 @@ const Detailsell = () => {
       })
     );
   }, []);
+  console.log(lectureDetail);
   const [tapNum, setTapNum] = useState<number>(0);
   const onTap = (k: number) => {
     if (k === tapNum) return setTapNum(0);
