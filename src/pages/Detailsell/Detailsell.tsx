@@ -1,29 +1,26 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
-import { RootState } from 'redux/store';
-import YouTube from "react-youtube";
-import { getCookie } from "utils/cookies";
-import { useDate } from "hooks";
-import { Comment, LectureCard, Content, Btn } from "components";
-import {  Play } from "asset";
-import * as St from "./style";
+import React, {useEffect, useRef, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {useNavigate, useParams} from 'react-router-dom';
+import {RootState} from 'redux/store';
+import YouTube from 'react-youtube';
+import {getCookie} from 'utils/cookies';
+import {useDate} from 'hooks';
+import {Comment, LectureCard, Content, Button} from 'components';
+import {Play} from 'asset';
+import * as St from './style';
 import {
   categorySearchLoading,
   LectureDetailLoading,
   LectureDetailTextLoading,
   categorySearchLoadingTwo,
-} from "../../redux/reducer/learningReducer";
-import { addCartLoading, freeCartLoading } from "../../redux/reducer/cartReducer";
-
-
-
+} from '../../redux/reducer/learningReducer';
+import {addCartLoading, freeCartLoading} from '../../redux/reducer/cartReducer';
 
 const Detailsell = () => {
   const dispatch = useDispatch();
   const navi = useNavigate();
   const param = useParams();
-  const { videoTime } = useDate();
+  const {videoTime} = useDate();
   const {
     lectureDetail,
     content,
@@ -31,13 +28,13 @@ const Detailsell = () => {
     data: lectureBig,
   } = useSelector((state: RootState) => state.learningReducer);
   useEffect(() => {
-    dispatch(LectureDetailLoading({ lectureid: param.lectureId }));
-    dispatch(LectureDetailTextLoading({ lectureid: param.lectureId }));
+    dispatch(LectureDetailLoading({lectureid: param.lectureId}));
+    dispatch(LectureDetailTextLoading({lectureid: param.lectureId}));
     dispatch(
       categorySearchLoading({
         page: 1,
-        bigcategory: "",
-        order: "lecture_start",
+        bigcategory: '',
+        order: 'lecture_start',
         q: lectureDetail.mentoId.id,
       })
     );
@@ -45,11 +42,12 @@ const Detailsell = () => {
       categorySearchLoadingTwo({
         page: 1,
         bigcategory: lectureDetail.lectureCategory.lectureBigCategory,
-        order: "lecture_start",
-        q: "",
+        order: 'lecture_start',
+        q: '',
       })
     );
   }, []);
+  console.log(lectureDetail);
   const [tapNum, setTapNum] = useState<number>(0);
   const onTap = (k: number) => {
     if (k === tapNum) return setTapNum(0);
@@ -74,21 +72,21 @@ const Detailsell = () => {
   };
   const onBaskets = () => {
     if (getCookie('accessToken')) {
-      alert("강의가 장바구니에 담겼습니다.");
+      alert('강의가 장바구니에 담겼습니다.');
       dispatch(addCartLoading(lectureDetail.lectureid));
     } else {
       alert('로그인 후 결제해주세요');
       navi('/login');
     }
   };
-  const commentRef = useRef<HTMLDivElement>(null)
+  const commentRef = useRef<HTMLDivElement>(null);
   const curriculumRef = useRef<HTMLDivElement>(null);
   const commentScroll = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const { name } = e.target as HTMLButtonElement;
-    if (name === "comment" && commentRef.current)
-      commentRef.current.scrollIntoView({ behavior: "smooth" });
-    if (name === "curriculum" && curriculumRef.current)
-      curriculumRef.current.scrollIntoView({ behavior: "smooth" });
+    const {name} = e.target as HTMLButtonElement;
+    if (name === 'comment' && commentRef.current)
+      commentRef.current.scrollIntoView({behavior: 'smooth'});
+    if (name === 'curriculum' && curriculumRef.current)
+      curriculumRef.current.scrollIntoView({behavior: 'smooth'});
   };
   return (
     <St.DetailWrap>
@@ -153,13 +151,13 @@ const Detailsell = () => {
             <St.CurriculumTitle>
               커리큘럼
               <St.CurriculumCount>
-                총{" "}
+                총{' '}
                 <St.Curriculums>
                   {lectureDetail.lectureSections
                     .map((v) => v.videos.length)
                     .reduce((a, b) => a + b, 0)}
                 </St.Curriculums>
-                개 ·{" "}
+                개 ·{' '}
                 <St.Curriculums>
                   {videoTime(
                     lectureDetail.lectureSections
@@ -183,7 +181,7 @@ const Detailsell = () => {
                         섹션 {v.sectionNumber}. {v.sectionTitle}
                       </em>
                       <p>
-                        {v.videos.length}강 ·{" "}
+                        {v.videos.length}강 ·{' '}
                         {videoTime(
                           v.videos
                             .map((k) => k.totalPlayTime)
@@ -233,9 +231,13 @@ const Detailsell = () => {
               )}
             </St.TitleSub>
             <St.Btn>
-              <Btn text="수강신청 하기" color="full" onBtn={onBasket} />
+              <Button text="수강신청 하기" color="full" onBtn={onBasket} />
               {lectureDetail.lecturePrice !== 0 && (
-                <Btn text="장바구니에 담기" color="full2" onBtn={onBaskets} />
+                <Button
+                  text="장바구니에 담기"
+                  color="full2"
+                  onBtn={onBaskets}
+                />
               )}
             </St.Btn>
           </St.Top>
@@ -245,7 +247,7 @@ const Detailsell = () => {
                 지식공유자 : {lectureDetail.mentoId.name}
               </St.ButtomLi>
               <St.ButtomLi>
-                총{" "}
+                총{' '}
                 {lectureDetail.lectureSections
                   .map((v) => v.videos.length)
                   .reduce((a, b) => a + b, 0)}

@@ -2,9 +2,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import * as I from 'types';
 
-
-
-
 export interface DashboardReducerType {
   loading: boolean;
   learningData: I.LearningWrapperType;
@@ -22,20 +19,8 @@ export interface DashboardReducerType {
   replyAnswerData: I.CommentsList;
   deleteAnswerData: boolean;
   editAnswerData: I.CommentsList;
-
-  note: {
-    noteTitle: string;
-    noteContent: string;
-  };
-  reNote: {
-    chapter: number;
-    content: string;
-    date: string;
-    noteId: number;
-    noteTitle: string;
-    subHeading: string;
-    videoId: string;
-  };
+  note: I.INote;
+  reNote: I.IReNote;
   error: Error | null;
 }
 
@@ -59,26 +44,26 @@ const initialState: DashboardReducerType = {
   },
   noteDetailData: {
     noteId: 0,
-    noteTitle: "",
-    videoId: "",
-    chapter: "",
-    subHeading: "",
-    date: "",
-    content: "",
+    noteTitle: '',
+    videoId: '',
+    chapter: '',
+    subHeading: '',
+    date: '',
+    content: '',
   },
   noteDeleteData: false,
   note: {
-    noteTitle: "",
-    noteContent: "",
+    noteTitle: '',
+    noteContent: '',
   },
   reNote: {
     chapter: 0,
-    content: "",
-    date: "",
+    content: '',
+    date: '',
     noteId: 0,
-    noteTitle: "",
-    subHeading: "",
-    videoId: "",
+    noteTitle: '',
+    subHeading: '',
+    videoId: '',
   },
   questionListData: {
     dtolist: [],
@@ -88,12 +73,12 @@ const initialState: DashboardReducerType = {
   questionDetailData: {
     questionId: 0,
     lectureId: 0,
-    videoId: "",
-    date: "",
-    questionTitle: "",
-    content: "",
-    answer: "",
-    studentId: "",
+    videoId: '',
+    date: '',
+    questionTitle: '',
+    content: '',
+    answer: '',
+    studentId: '',
   },
   questionDeleteData: false,
   answerData: {
@@ -101,32 +86,32 @@ const initialState: DashboardReducerType = {
   },
   replyAnswerData: {
     commentNo: 0,
-    content: "",
-    createdDate: "",
-    id: "",
-    modifiedDate: "",
+    content: '',
+    createdDate: '',
+    id: '',
+    modifiedDate: '',
     noticeNo: 0,
     parentCommentNo: 0,
-    profileimgsrc: "",
+    profileimgsrc: '',
     userNo: 0,
   },
   deleteAnswerData: false,
   editAnswerData: {
     commentNo: 0,
-    content: "",
-    createdDate: "",
-    id: "",
-    modifiedDate: "",
+    content: '',
+    createdDate: '',
+    id: '',
+    modifiedDate: '',
     noticeNo: 0,
     parentCommentNo: 0,
-    profileimgsrc: "",
+    profileimgsrc: '',
     userNo: 0,
   },
   error: null,
 };
 
 const dashboardReducer = createSlice({
-  name: "dashboardReducer",
+  name: 'dashboardReducer',
   initialState,
   reducers: {
     // 내 학습 관리
@@ -158,7 +143,7 @@ const dashboardReducer = createSlice({
     },
     noteListSuccess: (state, action) => {
       state.loading = false;
-      const { response, page } = action.payload;
+      const {response, page} = action.payload;
       state.noteListData = response.data;
 
       if (page === 1) {
@@ -215,7 +200,7 @@ const dashboardReducer = createSlice({
     saveNoteSuccess: (state, action) => {
       state.loading = false;
       state.error = null;
-      const { noteContent, noteTitle } = action.payload;
+      const {noteContent, noteTitle} = action.payload;
       state.note = {
         noteTitle: noteTitle,
         noteContent: noteContent,

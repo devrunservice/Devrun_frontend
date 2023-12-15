@@ -20,10 +20,12 @@ import {
 } from '../../redux/reducer/learningReducer';
 
 const HomePage = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [test, setTest] = useState([1, 2, 3, 4, 1, 2, 3, 4]);
   const [search, onSearch, setSearch] = useInput('');
 
-  const dispatch = useDispatch();
   const {data} = useSelector((state: RootState) => state.noticeReducer);
   const {learningData} = useSelector(
     (state: RootState) => state.dashboardReducer
@@ -31,15 +33,17 @@ const HomePage = () => {
   const {lecture: buy, data: rating} = useSelector(
     (state: RootState) => state.learningReducer
   );
+
+  const accessToken = getCookie('accessToken');
+
   useEffect(() => {
     dispatch(noticeListLoading(1));
     dispatch(ratingLectureLoading({order: 'lecture_rating'}));
     dispatch(buyLectureLoading({order: 'buy_count'}));
-    if (getCookie('accessToken')) {
+    if (accessToken) {
       dispatch(learningLoading({page: '1', status: 'all'}));
     }
   }, []);
-  const navigate = useNavigate();
 
   const searchBtn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

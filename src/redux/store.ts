@@ -4,30 +4,32 @@ import {configureStore} from '@reduxjs/toolkit';
 import {persistStore} from 'redux-persist';
 import rootReducer from './persist';
 import authSaga from './saga/loginSaga';
-import mypageSaga from './saga/mypageSaga';
+import profileSaga from './saga/profileSaga';
 import mentoCouponSaga from './saga/mentoCouponSaga';
 import couponSaga from './saga/couponSaga';
 import userInfoSaga from './saga/userSaga';
 import noticeSaga from './saga/noticeSaga';
 import cartSaga from './saga/cartSaga';
-import videoViewSaga from "./saga/videoViewSaga";
-import learningSaga from "./saga/learningSaga";
+import videoViewSaga from './saga/videoViewSaga';
+import learningSaga from './saga/learningSaga';
 import dashboardSaga from './saga/dashboardSaga';
+import certificationSaga from './saga/certificationSaga';
 
 const sagaMiddleware = createSagaMiddleware();
 
 export function* rootSaga() {
   yield all([
     authSaga(),
-    mypageSaga(),
+    profileSaga(),
     dashboardSaga(),
     userInfoSaga(),
+    certificationSaga(),
     mentoCouponSaga(),
     couponSaga(),
     noticeSaga(),
     cartSaga(),
     videoViewSaga(),
-    learningSaga()
+    learningSaga(),
   ]);
 }
 

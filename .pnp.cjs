@@ -28,14 +28,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {\
           "packageLocation": "./",\
           "packageDependencies": [\
-            ["@looop/quill-image-resize-module-react", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:3.1.5"],\
             ["@react-oauth/google", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:0.11.1"],\
             ["@reduxjs/toolkit", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:1.9.5"],\
             ["@testing-library/jest-dom", "npm:5.16.5"],\
             ["@testing-library/react", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:13.4.0"],\
             ["@testing-library/user-event", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:13.5.0"],\
-            ["@types/base-64", "npm:1.0.2"],\
-            ["@types/crypto-js", "npm:4.2.1"],\
             ["@types/base-64", "npm:1.0.2"],\
             ["@types/crypto-js", "npm:4.2.1"],\
             ["@types/dompurify", "npm:3.0.2"],\
@@ -47,8 +44,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:20.4.1"],\
             ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", "npm:18.2.6"],\
-            ["@types/react-google-recaptcha", "npm:2.1.8"],\
-            ["@types/react-recaptcha-v3", "npm:1.1.4"],\
             ["@types/react-google-recaptcha", "npm:2.1.8"],\
             ["@types/react-recaptcha-v3", "npm:1.1.4"],\
             ["@types/react-router-dom", "npm:5.3.3"],\
@@ -75,9 +70,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["express", "npm:4.18.2"],\
             ["file-saver", "npm:2.0.5"],\
             ["html2canvas", "npm:1.4.1"],\
-            ["http-proxy-middleware", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:2.0.6"],\
             ["jspdf", "npm:2.5.1"],\
-            ["quill-image-resize-module", "npm:3.0.0"],\
             ["quill-image-resize-module-react", "npm:3.0.0"],\
             ["react", "npm:18.2.0"],\
             ["react-app", "npm:1.1.2"],\
@@ -4107,32 +4100,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@leichtgewicht-ip-codec-npm-2.0.4-dd4d657af8-468de1f04d.zip/node_modules/@leichtgewicht/ip-codec/",\
           "packageDependencies": [\
             ["@leichtgewicht/ip-codec", "npm:2.0.4"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["@looop/quill-image-resize-module-react", [\
-        ["npm:3.1.5", {\
-          "packageLocation": "./.yarn/cache/@looop-quill-image-resize-module-react-npm-3.1.5-7a7afd9595-6ae6c12ba8.zip/node_modules/@looop/quill-image-resize-module-react/",\
-          "packageDependencies": [\
-            ["@looop/quill-image-resize-module-react", "npm:3.1.5"]\
-          ],\
-          "linkType": "SOFT"\
-        }],\
-        ["virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:3.1.5", {\
-          "packageLocation": "./.yarn/__virtual__/@looop-quill-image-resize-module-react-virtual-a3ab39a1eb/0/cache/@looop-quill-image-resize-module-react-npm-3.1.5-7a7afd9595-6ae6c12ba8.zip/node_modules/@looop/quill-image-resize-module-react/",\
-          "packageDependencies": [\
-            ["@looop/quill-image-resize-module-react", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:3.1.5"],\
-            ["@types/lodash", null],\
-            ["@types/quill", null],\
-            ["lodash", null],\
-            ["quill", null]\
-          ],\
-          "packagePeers": [\
-            "@types/lodash",\
-            "@types/quill",\
-            "lodash",\
-            "quill"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -9004,7 +8971,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["devrun_frontend", "workspace:."],\
-            ["@looop/quill-image-resize-module-react", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:3.1.5"],\
             ["@react-oauth/google", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:0.11.1"],\
             ["@reduxjs/toolkit", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:1.9.5"],\
             ["@testing-library/jest-dom", "npm:5.16.5"],\
@@ -9047,9 +9013,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["express", "npm:4.18.2"],\
             ["file-saver", "npm:2.0.5"],\
             ["html2canvas", "npm:1.4.1"],\
-            ["http-proxy-middleware", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:2.0.6"],\
             ["jspdf", "npm:2.5.1"],\
-            ["quill-image-resize-module", "npm:3.0.0"],\
             ["quill-image-resize-module-react", "npm:3.0.0"],\
             ["react", "npm:18.2.0"],\
             ["react-app", "npm:1.1.2"],\
@@ -11868,22 +11832,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["http-proxy-middleware", "virtual:a245a1cc5a8e1078cba5856332f5e79d805e749a44e6c0d7c14cb571326a258e7ebce8b0da8cd566bed2537430570bfe188d5878dd771302df84dbc035af364e#npm:2.0.6"],\
             ["@types/express", "npm:4.17.17"],\
-            ["@types/http-proxy", "npm:1.17.11"],\
-            ["http-proxy", "npm:1.18.1"],\
-            ["is-glob", "npm:4.0.3"],\
-            ["is-plain-obj", "npm:3.0.0"],\
-            ["micromatch", "npm:4.0.5"]\
-          ],\
-          "packagePeers": [\
-            "@types/express"\
-          ],\
-          "linkType": "HARD"\
-        }],\
-        ["virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:2.0.6", {\
-          "packageLocation": "./.yarn/__virtual__/http-proxy-middleware-virtual-6ca3629b0f/0/cache/http-proxy-middleware-npm-2.0.6-3bb17658ee-2ee85bc878.zip/node_modules/http-proxy-middleware/",\
-          "packageDependencies": [\
-            ["http-proxy-middleware", "virtual:ca84a0fc9f9543066dc0715cf1b320c878fcf5e895d52ea5ac0ab15dc5728abd16455e7aba9c6d66690a4d8b04d17499c16bdc31e6c4187b807c0031e3af0be7#npm:2.0.6"],\
-            ["@types/express", "npm:4.17.20"],\
             ["@types/http-proxy", "npm:1.17.11"],\
             ["http-proxy", "npm:1.18.1"],\
             ["is-glob", "npm:4.0.3"],\
@@ -17118,18 +17066,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["deep-equal", "npm:1.1.1"],\
             ["extend", "npm:3.0.2"],\
             ["fast-diff", "npm:1.1.2"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["quill-image-resize-module", [\
-        ["npm:3.0.0", {\
-          "packageLocation": "./.yarn/cache/quill-image-resize-module-npm-3.0.0-99809f38e6-2ebf085907.zip/node_modules/quill-image-resize-module/",\
-          "packageDependencies": [\
-            ["quill-image-resize-module", "npm:3.0.0"],\
-            ["lodash", "npm:4.17.21"],\
-            ["quill", "npm:1.3.7"],\
-            ["raw-loader", "npm:0.5.1"]\
           ],\
           "linkType": "HARD"\
         }]\

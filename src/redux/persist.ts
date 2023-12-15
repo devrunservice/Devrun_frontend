@@ -4,7 +4,7 @@ import {combineReducers} from '@reduxjs/toolkit';
 import modalReducer from './reducer/modalReducer';
 import loginReducer from './reducer/loginReducer';
 import createVideoSlice from './reducer/createVideoReducer';
-import mypageReducer from './reducer/mypageReducer';
+import profileReducer from './reducer/profileReducer';
 import dashboardReducer from './reducer/dashboardReducer';
 import validationReducer from './reducer/validationReducer';
 import mentoCouponReducer from './reducer/mentoCouponReducer';
@@ -13,8 +13,9 @@ import userReducer from './reducer/userReducer';
 import noticeReducer from './reducer/noticeReducer';
 import cartReducer from './reducer/cartReducer';
 import googleLoginSlice from './reducer/googleLoginReducer';
-import videoViewReducer from "./reducer/videoViewReducer";
-import learningReducer from "./reducer/learningReducer";
+import videoViewReducer from './reducer/videoViewReducer';
+import learningReducer from './reducer/learningReducer';
+import certificationReducer from './reducer/certificationReducer';
 
 const persistConfig = {
   key: 'root',
@@ -27,8 +28,9 @@ const rootReducer = combineReducers({
   loginReducer,
   userReducer,
   createVideoSlice,
-  mypageReducer,
+  profileReducer,
   dashboardReducer,
+  certificationReducer,
   validationReducer,
   mentoCouponReducer,
   couponReducer,

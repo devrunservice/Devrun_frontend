@@ -36,8 +36,8 @@ const App = () => {
   const myPage =
     location.pathname === '/profile' ||
     location.pathname === '/profileupdate' ||
-    location.pathname === '/cert' ||
-    location.pathname === '/CertDetail' ||
+    location.pathname === '/certifications' ||
+    location.pathname === `/certifications/${params.lectureId}` ||
     location.pathname === '/dashboard' ||
     location.pathname === '/learning' ||
     location.pathname === '/notes' ||
