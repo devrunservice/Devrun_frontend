@@ -1,8 +1,5 @@
-import styled from 'styled-components'
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-
-
-
+import styled from 'styled-components';
+import {AiFillStar, AiOutlineStar} from 'react-icons/ai';
 
 export const GradeWrap = styled.div`
   display: flex;
@@ -22,7 +19,7 @@ export const GradeWrap = styled.div`
     font-size: 0;
   }
   > p {
-    font-size: 0.875rem
+    font-size: 0.875rem;
   }
 `;
 
@@ -34,5 +31,4 @@ export const StarOn = styled(AiFillStar)`
 export const StarOff = styled(AiOutlineStar)`
   fill: ${(props: any) => props.theme.textYello};
   font-size: 30px;
-  
 `;

@@ -6,7 +6,7 @@ import {RootState} from 'redux/store';
 import {decode} from 'utils/decode';
 import {Calender, Learn, List} from 'components';
 import * as St from './style';
-import {myInfoLoading} from '../../../redux/reducer/mypageReducer';
+import {myInfoLoading} from '../../../redux/reducer/profileReducer';
 import {
   learningLoading,
   noteLectureLoading,
@@ -25,7 +25,7 @@ const Dashboard = () => {
     dispatch(questionListLoading({page: 1, status: 'answer'}));
   }, []);
 
-  const userInfo = useSelector((state: RootState) => state.mypageReducer.data);
+  const userInfo = useSelector((state: RootState) => state.profileReducer.data);
   const {
     learningData: courses,
     noteLectureData: noteLectures,

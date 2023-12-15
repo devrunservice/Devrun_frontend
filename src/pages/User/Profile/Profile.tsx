@@ -20,7 +20,7 @@ import {
   updateEmailLoading,
   updatePhonenumberLoading,
   updateProfileImageLoading,
-} from '../../../redux/reducer/mypageReducer';
+} from '../../../redux/reducer/profileReducer';
 import {
   updateMessageState,
   updateValidState,
@@ -34,7 +34,7 @@ const Profile = () => {
   const [modalLogic, setModalLogic] = useState(false);
   const [deleteAccount, setDeleteAccount] = useState(false);
 
-  const userInfo = useSelector((state: RootState) => state.mypageReducer.data);
+  const userInfo = useSelector((state: RootState) => state.profileReducer.data);
   const validState = useSelector(
     (state: RootState) => state.validationReducer.validState
   );

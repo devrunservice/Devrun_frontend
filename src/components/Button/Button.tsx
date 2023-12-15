@@ -1,5 +1,5 @@
-import React from "react"
-import * as St from "./style"
+import React from 'react';
+import * as St from './style';
 
 interface IBtn {
   onBtn: () => void;
@@ -7,10 +7,10 @@ interface IBtn {
   text: string;
 }
 
-const Btn = ({ onBtn, color, text }: IBtn) => (
+const Button = ({onBtn, color, text}: IBtn) => (
   <St.Button onClick={() => onBtn()} color={color}>
     {text}
   </St.Button>
-)
+);
 
-export default Btn
+export default Button;
