@@ -18,9 +18,7 @@ const BasicModal = ({
   const {modalOpen, modalMessage1, modalMessage2} = useSelector(
     (state: RootState) => state.modalReducer
   );
-  const {isRecaptcha} = useSelector(
-    (state: RootState) => state.loginReducer
-  );
+  const {isRecaptcha} = useSelector((state: RootState) => state.loginReducer);
 
   const handleKeyUp = (e: KeyboardEvent) => {
     if (e.key === 'Escape' || e.key === 'Enter') {
@@ -32,7 +30,7 @@ const BasicModal = ({
     const {name} = e.target as HTMLButtonElement;
 
     dispatch(closeModal());
-    if (typeof onConfirm === 'function') {
+    if (typeof onConfirm === 'function' && name === 'ok') {
       onConfirm();
     }
   };

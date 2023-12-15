@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useCallback} from 'react';
 import {useNavigate} from 'react-router-dom';
+import {Button} from 'components';
 import * as I from 'types';
 import * as St from '../style';
 
@@ -11,7 +12,7 @@ interface CertificationsType {
 const CertificationTable = ({certifications}: CertificationsType) => {
   const navigate = useNavigate();
 
-  const navi = useCallback((lectureId: number) => {
+  const handleClick = useCallback((lectureId: number) => {
     navigate(`/certifications/${lectureId}`);
   }, []);
 
@@ -32,9 +33,12 @@ const CertificationTable = ({certifications}: CertificationsType) => {
           <St.CommonLi>수료 완료</St.CommonLi>
           <St.CommonLi>{certification.lastViewDate}</St.CommonLi>
           <St.View $view>
-            <St.Button $color={false} onClick={() => navi(certification.id)}>
-              수료증보기
-            </St.Button>
+            <Button
+              name="noteDelete"
+              text="수료증보기"
+              onBtn={() => handleClick(certification.id)}
+              color="main"
+            />
           </St.View>
         </St.TableLi>
       ))}

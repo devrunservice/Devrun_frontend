@@ -12,6 +12,7 @@ import {
   BasicModal,
   UserTop,
   ImageUploader,
+  Button,
 } from 'components';
 import {Title} from 'style/Common';
 import * as St from './styles';
