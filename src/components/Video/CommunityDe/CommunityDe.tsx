@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {
-  BasicModal,
+  ConfirmModal,
   Button,
   Comment,
   Content,
@@ -59,7 +59,7 @@ const CommunityDe = ({setQuestionId, questionId, onCommunity}: communutiy) => {
   };
   return (
     <>
-      <BasicModal logicActive onConfirm={handleConfirm} />
+      <ConfirmModal onConfirm={handleConfirm} />
       <VideoTop
         text="커뮤니티"
         onButton={onCommunity}

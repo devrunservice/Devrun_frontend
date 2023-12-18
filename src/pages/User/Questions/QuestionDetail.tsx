@@ -4,7 +4,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {useDate} from 'hooks';
-import {Comment, Content, BasicModal, Button} from 'components';
+import {Comment, Content, ConfirmModal, Button} from 'components';
 import * as St from './style';
 import {
   questionDeleteLoading,
@@ -84,7 +84,7 @@ const QuestionDetail = () => {
         />
       </St.QuestionBtn>
       <Comment text="댓글" path="/questions" paramId={Number(questionId)} />
-      <BasicModal logicActive onConfirm={handleConfirm} />
+      <ConfirmModal onConfirm={handleConfirm} />
     </section>
   );
 };

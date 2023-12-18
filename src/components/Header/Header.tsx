@@ -45,6 +45,7 @@ const Header = () => {
   };
 
   const handleConfirm = () => {
+    console.log('중복로그인');
     if (
       modalMessage1 === '알 수 없는 오류가 발생했습니다.' ||
       modalMessage1 === '이미 로그인 된 다른 기기가 있습니다.' ||
