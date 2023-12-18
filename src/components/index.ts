@@ -14,6 +14,7 @@ export {default as PasswordInput} from './Login/PasswordInput/PasswordInput';
 export {default as AuthenticationNumber} from './Login/AuthenticationNumber/AuthenticationNumber';
 export {default as DuplicationForm} from './Login/DuplicationForm/DuplicationForm';
 export {default as BasicModal} from './Modal/BasicModal';
+export {default as ConfirmModal} from './Modal/ConfirmModal';
 export {default as DisableModal} from './Modal/DisableModal';
 export {default as Recaptcha} from './Login/Recaptcha/Recaptcha';
 export {default as MypageNav} from './MypageNav/MypageNav';

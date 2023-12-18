@@ -9,7 +9,7 @@ import {decode} from 'utils/decode';
 import {
   AuthenticationNumber,
   DuplicationForm,
-  BasicModal,
+  ConfirmModal,
   UserTop,
   ImageUploader,
   Button,
@@ -338,7 +338,7 @@ const Profile = () => {
       <St.DeleteBtnWrapper>
         <St.DeleteBtn onClick={handleDelete}>회원 탈퇴</St.DeleteBtn>
       </St.DeleteBtnWrapper>
-      <BasicModal logicActive={modalLogic} onConfirm={handleConfirm} />
+      <ConfirmModal onConfirm={handleConfirm} />
     </St.Section>
   );
 };
