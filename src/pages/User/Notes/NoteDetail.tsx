@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {mypage} from 'utils/api';
 import {Content, BasicModal, Button} from 'components';
-import * as St from './styles';
+import * as St from './style';
 import {
   noteDeleteLoading,
   noteDetailLoading,

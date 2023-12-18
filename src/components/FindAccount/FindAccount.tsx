@@ -8,7 +8,7 @@ import {useValid} from 'hooks';
 import {AuthenticationNumber, PasswordInput} from 'components';
 import {SignupFormType} from 'types';
 import {Input, ErrorMessage} from 'style/Common';
-import * as St from './styles';
+import * as St from './style';
 import {openModal} from '../../redux/reducer/modalReducer';
 
 const FindAccount = ({findOption}: {findOption: string}) => {

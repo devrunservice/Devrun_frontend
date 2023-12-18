@@ -2,7 +2,7 @@ import React from 'react';
 import {format} from 'date-fns';
 import {Arrow} from 'asset';
 import {CalenderHeaderType} from 'types';
-import * as St from './styles';
+import * as St from './style';
 
 const RenderHeader: React.FC<CalenderHeaderType> = ({
   currentMonth,

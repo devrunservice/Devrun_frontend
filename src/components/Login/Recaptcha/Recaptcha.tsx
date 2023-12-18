@@ -1,6 +1,6 @@
 import React from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
-import * as St from './styles';
+import * as St from './style';
 
 const Recaptcha = () => {
   const onChange = (value: any) => {
