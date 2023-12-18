@@ -5,7 +5,7 @@ import {RootState} from 'redux/store';
 import {NoSearch} from 'asset';
 import {useDate} from 'hooks';
 import {UserTop, NoData, TableHeader, TableBody, Pagination} from 'components';
-import * as St from './styles';
+import * as St from './style';
 import {questionListLoading} from '../../../redux/reducer/dashboardReducer';
 
 const Questions = () => {

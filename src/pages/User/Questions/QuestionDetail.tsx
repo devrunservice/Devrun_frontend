@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {useDate} from 'hooks';
 import {Comment, Content, BasicModal, Button} from 'components';
-import * as St from './styles';
+import * as St from './style';
 import {
   questionDeleteLoading,
   questionDetailLoading,

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {AiOutlineEye, AiOutlineEyeInvisible} from 'react-icons/ai';
 import {Input} from 'style/Common';
-import * as St from './styles';
+import * as St from './style';
 
 interface PasswordInputProps {
   name?: string;

@@ -3,7 +3,7 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {Recaptcha} from 'components';
-import * as St from './styles';
+import * as St from './style';
 import {closeModal} from '../../redux/reducer/modalReducer';
 
 const BasicModal = ({

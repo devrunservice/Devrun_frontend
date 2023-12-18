@@ -13,7 +13,7 @@ import {
 } from 'date-fns';
 import {CalenderDateType} from 'types';
 import {FlexColumn, FlexRow} from 'style/Common';
-import * as St from './styles';
+import * as St from './style';
 
 const RenderDays: React.FC<CalenderDateType> = ({
   currentMonth,

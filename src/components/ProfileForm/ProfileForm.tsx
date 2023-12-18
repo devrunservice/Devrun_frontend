@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import React, { useState } from "react";
-import { Title } from "style/Common";
-import * as St from "./styles";
+import React, {useState} from 'react';
+import {Title} from 'style/Common';
+import * as St from './style';
 
 interface ProfileType {
   id: string;
@@ -15,7 +15,7 @@ const ProfileForm = (key: number, userData: string) => {
   const [isInput, setIsInput] = useState(false);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const { name } = e.target as HTMLButtonElement;
+    const {name} = e.target as HTMLButtonElement;
     setIsInput((prev) => !prev);
   };
 
