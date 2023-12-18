@@ -1,6 +1,6 @@
 import React from 'react';
 import {Spinner} from 'components';
-import * as St from './styles';
+import * as St from './style';
 
 interface ModalTypeArea {
   text: string;

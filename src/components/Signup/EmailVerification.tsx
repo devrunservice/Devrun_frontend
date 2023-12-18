@@ -2,7 +2,7 @@ import React from 'react';
 import {useDispatch} from 'react-redux';
 import {signup} from 'utils/api';
 // import {SignupFormType} from 'types';
-import * as St from './styles';
+import * as St from './style';
 import {openModal} from '../../redux/reducer/modalReducer';
 
 const EmailVerification = ({

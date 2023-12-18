@@ -1,5 +1,5 @@
 import React from 'react';
-import * as St from './styles';
+import * as St from './style';
 
 const RenderDates = () => {
   const date = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];

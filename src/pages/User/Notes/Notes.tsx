@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {NoSearch} from 'asset';
 import {SearchBar, Pagination, List, UserTop, NoData} from 'components';
-import * as St from './styles';
+import * as St from './style';
 import {noteLectureLoading} from '../../../redux/reducer/dashboardReducer';
 
 // 강의 노트 1단계

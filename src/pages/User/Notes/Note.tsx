@@ -5,7 +5,7 @@ import {useParams} from 'react-router-dom';
 import {RootState} from 'redux/store';
 import {NoSearch} from 'asset';
 import {UserTop, NoData, NoteCard, Pagination, SearchBar} from 'components';
-import * as St from './styles';
+import * as St from './style';
 import {noteListLoading} from '../../../redux/reducer/dashboardReducer';
 
 // 강의 노트 2단계

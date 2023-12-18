@@ -15,7 +15,7 @@ import {
   Button,
 } from 'components';
 import {Title} from 'style/Common';
-import * as St from './styles';
+import * as St from './style';
 import {
   myInfoLoading,
   updateEmailLoading,

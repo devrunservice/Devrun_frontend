@@ -3,7 +3,7 @@ import React from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useDate} from 'hooks';
 import * as I from 'types';
-import * as St from './styles';
+import * as St from './style';
 
 const List: React.FC<I.NoteQuestionListType> = ({
   page,
