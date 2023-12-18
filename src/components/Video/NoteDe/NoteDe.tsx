@@ -2,7 +2,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
-import {Editor, Content, VideoTop, Button, BasicModal} from 'components';
+import {Editor, Content, VideoTop, Button, ConfirmModal} from 'components';
 import * as St from './style';
 import {
   noteDeleteLoading,
@@ -52,7 +52,7 @@ const NoteDe = ({onNote, setNoteBoolean, noteId}: Note) => {
   };
   return (
     <>
-      <BasicModal logicActive onConfirm={handleConfirm} />
+      <ConfirmModal onConfirm={handleConfirm} />
       <VideoTop
         text="섹션노트 모두보기"
         onExit={() => setNoteBoolean(false)}

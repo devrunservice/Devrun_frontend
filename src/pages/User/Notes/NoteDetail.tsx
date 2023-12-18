@@ -4,7 +4,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {mypage} from 'utils/api';
-import {Content, BasicModal, Button} from 'components';
+import {Content, ConfirmModal, Button} from 'components';
 import * as St from './style';
 import {
   noteDeleteLoading,
@@ -78,7 +78,7 @@ const NoteDetail = () => {
           backgroundColor="red"
         />
       </St.NoteBtn>
-      <BasicModal logicActive onConfirm={handleConfirm} />
+      <ConfirmModal onConfirm={handleConfirm} />
     </St.NoteDetailSection>
   );
 };
