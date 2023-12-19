@@ -3,6 +3,10 @@ import React, {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
+import {BsBell} from 'react-icons/bs';
+import {VscPieChart} from 'react-icons/vsc';
+import {PiBooks, PiNotePencil} from 'react-icons/pi';
+import {RiQuestionAnswerLine} from 'react-icons/ri';
 import {getCookie} from 'utils/cookies';
 import Logo from 'asset/images/Logo.png';
 import {BasicModal} from 'components';
@@ -193,12 +197,33 @@ const Header = () => {
                       >
                         {data.id}
                       </St.DropdownItemBtn>
-                      <p>{data.role}</p>
+                      <p className="role">{data.role}</p>
                     </St.DropdownItemWrapper>
+                    <BsBell size="18px" color="#676767" />
+                  </St.DropdownTop>
+                  <St.Ul>
+                    <St.Li onClick={() => navigate('/dashboard')}>
+                      <VscPieChart size="24px" color="#676767" />
+                      <p>대시보드</p>
+                    </St.Li>
+                    <St.Li onClick={() => navigate('/learning')}>
+                      <PiBooks size="24px" color="#676767" />
+                      <p>내 학습</p>
+                    </St.Li>
+                    <St.Li onClick={() => navigate('/notes')}>
+                      <PiNotePencil size="24px" color="#676767" />
+                      <p>강의 노트</p>
+                    </St.Li>
+                    <St.Li onClick={() => navigate('/questions')}>
+                      <RiQuestionAnswerLine size="24px" color="#676767" />
+                      <p>강의 질문</p>
+                    </St.Li>
+                  </St.Ul>
+                  <St.LogoutBtn>
                     <St.DropdownItemBtn onClick={handleLogout}>
                       로그아웃
                     </St.DropdownItemBtn>
-                  </St.DropdownTop>
+                  </St.LogoutBtn>
                 </St.Dropdown>
               </St.HeaderIcon>
             </St.NavWrap>

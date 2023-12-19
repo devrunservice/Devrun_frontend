@@ -1,9 +1,7 @@
-import styled, { css } from "styled-components";
-import { Inner } from "style/Common";
-
-import { BsCart3, BsPerson } from "react-icons/bs";
-import { Category, Search } from "asset";
-
+import styled, {css} from 'styled-components';
+import {Inner} from 'style/Common';
+import {BsCart3, BsPerson} from 'react-icons/bs';
+import {Category, Search} from 'asset';
 
 export const HeaderWrap = styled.div`
   border-bottom: 1px solid ${(props: any) => props.theme.borderC};
@@ -66,7 +64,6 @@ export const ButtonWrap = styled.div`
   gap: 0.625rem;
 `;
 
-
 export const HeaderIcon = styled.div`
   width: 3.125rem;
   position: relative;
@@ -99,7 +96,7 @@ const common = css`
   height: 0;
   border-width: 0 0.9375rem 0.8125rem 0.9375rem;
   border-style: solid;
-  content: "";
+  content: '';
   position: absolute;
   right: 0.5rem;
 `;
@@ -195,7 +192,7 @@ export const LectureTitle = styled.em`
 export const LecturePrice = styled.p`
   color: ${(props: any) => props.theme.black};
   line-height: 1;
-  font-weight:500;
+  font-weight: 500;
   font-size: 0.875rem;
   > span {
     color: ${(props: any) => props.theme.mainColor};
@@ -232,7 +229,6 @@ export const NoCart = styled.div`
     color: ${(props: any) => props.theme.mainColor};
     border: 1px solid ${(props: any) => props.theme.mainColor};
     background: none;
-    
   }
 `;
 
@@ -240,20 +236,8 @@ export const Dropdown = styled(CartHover)`
   visibility: hidden;
   width: 15.625rem;
 
-  & button:nth-child(1) {
-    font-size: ${(props) => props.theme.size18};
-  }
-
-  & button:nth-child(1):hover {
-    text-decoration: underline;
-  }
-
-  & button:nth-child(2) {
-    color: ${(props) => props.theme.mainColor};
-  }
-
-  & p {
-    font-size:0.75rem;;
+  .role {
+    font-size: 0.75rem;
   }
 `;
 
@@ -265,9 +249,45 @@ export const DropdownTop = styled(CartTop)`
 export const DropdownItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
+
+  & button:nth-child(1) {
+    font-size: 18px;
+  }
+
+  & button:nth-child(1):hover {
+    text-decoration: underline;
+  }
 `;
 
 export const DropdownItemBtn = styled.button`
   background-color: transparent;
   padding: 0;
+`;
+
+export const Ul = styled.ul`
+  padding: 1rem 0;
+  border-bottom: 1px solid ${(props: any) => props.theme.borderC};
+
+  & li {
+    margin: 0.6rem 0;
+    cursor: pointer;
+  }
+`;
+
+export const Li = styled.li`
+  display: flex;
+  align-items: center;
+
+  & p {
+    margin-left: 1rem;
+  }
+`;
+
+export const LogoutBtn = styled.div`
+  text-align: right;
+  & button {
+    text-align: right;
+    color: ${(props) => props.theme.mainColor};
+    margin-top: 1rem;
+  }
 `;
