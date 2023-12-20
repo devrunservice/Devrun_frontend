@@ -14,12 +14,11 @@ const Coupon = () => {
   const dispatch = useDispatch();  
   const [pageno, setPageno] = useState<number>(1);
   const [coupon, setCoupon] = useState<boolean>(false);
-  const couponBtn = useCallback(() => {
-    setCoupon(true);
-  }, []);
+  const couponBtn = () => setCoupon(true);
   const { data } = useSelector(
     (state: RootState) => state.mentoCouponReducer
   );
+  console.log(data);
   useEffect(() => {
     dispatch(couponLoading({ pageno }));
   }, [pageno]);
