@@ -2,7 +2,7 @@
 import React, {useState} from 'react';
 import {addMonths, subMonths} from 'date-fns';
 import {RenderHeader, RenderDates, RenderDays} from 'components';
-import * as St from './styles';
+import * as St from './style';
 
 const Calender = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());

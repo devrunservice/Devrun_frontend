@@ -5,7 +5,7 @@ import {useDispatch} from 'react-redux';
 import {SignupSuccess, SignupFailure} from 'asset';
 import {redirect} from 'utils/redirect';
 import {EmailVerification} from 'components';
-import * as St from './styles';
+import * as St from './style';
 
 const SignupCompletion = () => {
   const [searchParams] = useSearchParams();

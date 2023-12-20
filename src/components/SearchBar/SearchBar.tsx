@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import * as St from "./styles";
+import React, {useRef} from 'react';
+import * as St from './style';
 
 const SearchBar = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -14,7 +14,7 @@ const SearchBar = () => {
   };
 
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       handleSearch();
     }
   };

@@ -221,6 +221,16 @@ export const mypage = {
     console.log(response);
     return response;
   },
+  certificationList: async (params: {page: number}) => {
+    const response = await authAxios.get(`/certificates?page=${params.page}`);
+    return response;
+  },
+  certificationDetail: async (params: {lectureId: number}) => {
+    const response = await authAxios.get(
+      `/certificates/print?lectureId=${params.lectureId}`
+    );
+    return response;
+  },
   coupon: (params: I.CouponGet) => {
     const response = authAxios.post('/coupon/registration', params);
     return response;
@@ -297,7 +307,7 @@ export const notice = {
     const response = imageTypeAxios.request({
       url: params.url,
       data: params.file,
-      headers: { "Content-Type": `image/${params.fileExt}` },
+      headers: {'Content-Type': `image/${params.fileExt}`},
     });
     return response;
   },
@@ -349,7 +359,7 @@ export const notice = {
 export const video = {
   getCurriculum: (params: I.Curriculum) => {
     const response = authAxios.get(`/getMycoures`, {
-      params: { lectureId: params.lectureId },
+      params: {lectureId: params.lectureId},
     });
     return response;
   },
@@ -363,7 +373,7 @@ export const video = {
   },
 
   reNote: (params: I.ReNote) => {
-    const response = authAxios.post("/lecturenoteUpdate", params);
+    const response = authAxios.post('/lecturenoteUpdate', params);
     return response;
   },
 

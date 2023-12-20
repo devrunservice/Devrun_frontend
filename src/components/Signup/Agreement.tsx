@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {AgreementContents} from 'components';
-import * as St from './styles';
+import * as St from './style';
 
 const Agreement = ({title}: {title: string}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   let content = '';
-  
+
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const {name} = e.target as HTMLButtonElement;
     if (name === 'termsOfService') {

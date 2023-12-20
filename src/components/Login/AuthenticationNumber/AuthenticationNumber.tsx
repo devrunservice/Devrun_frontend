@@ -7,7 +7,7 @@ import {BasicModal, Timer} from 'components';
 import {ErrorMessage, Input, SuccessMessage} from 'style/Common';
 import {SignupFormType} from 'types';
 import {openModal} from '../../../redux/reducer/modalReducer';
-import * as St from './styles';
+import * as St from './style';
 
 const AuthenticationNumber = ({
   findOption,

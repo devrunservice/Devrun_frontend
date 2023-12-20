@@ -26,14 +26,16 @@ const Header = () => {
   );
   const {modalMessage1} = useSelector((state: RootState) => state.modalReducer);
 
+  const accessToken = getCookie('accessToken');
+
   useEffect(() => {
-    if (getCookie('accessToken')) {
+    if (accessToken) {
       dispatch(userInfoLoading(null));
       setCookie(true);
     }
-  }, []);  
+  }, []);
   useEffect(() => {
-    if (getCookie("accessToken")) {
+    if (getCookie('accessToken')) {
       dispatch(cartInfoLoading(null));
     }
   }, [addCart]);
@@ -43,6 +45,7 @@ const Header = () => {
   };
 
   const handleConfirm = () => {
+    console.log('중복로그인');
     if (
       modalMessage1 === '알 수 없는 오류가 발생했습니다.' ||
       modalMessage1 === '이미 로그인 된 다른 기기가 있습니다.' ||
@@ -75,7 +78,9 @@ const Header = () => {
       <BasicModal onConfirm={handleConfirm} />
       <St.InnerHeader>
         <St.NavWrap>
-          <St.LogoIcon onClick={() => navigate('/')}>
+          <St.LogoIcon
+            onClick={() => (accessToken ? navigate('/home') : navigate('/'))}
+          >
             <img src={Logo} alt="로고" />
           </St.LogoIcon>
           <St.CategoryWrap>
@@ -199,7 +204,7 @@ const Header = () => {
             </St.NavWrap>
           ) : (
             <St.ButtonWrap>
-              <Button onClick={() =>  navigate('/login')} type="button" $active>
+              <Button onClick={() => navigate('/login')} type="button" $active>
                 로그인
               </Button>
               <Button

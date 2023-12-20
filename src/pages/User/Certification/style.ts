@@ -1,8 +1,6 @@
-import { styled } from "styled-components";
-import {  Stamp } from "asset";
-import CertBg from "asset/images/CertBg.png";
-
-
+import {styled} from 'styled-components';
+import {Stamp} from 'asset';
+import CertBg from 'asset/images/CertBg.png';
 
 export const CertWrap = styled.div`
   width: 100%;
@@ -10,16 +8,16 @@ export const CertWrap = styled.div`
   border: 1px solid ${(props: any) => props.theme.borderC};
 `;
 export const Certbox = styled.div`
-  margin:0 auto;
+  margin: 0 auto;
   width: 21cm;
   min-height: 29.7cm;
-  padding: 2cm 1.5cm ;
+  padding: 2cm 1.5cm;
   box-sizing: border-box;
   position: relative;
   display: flex;
   flex-wrap: wrap;
   align-content: space-between;
-  background: url("${CertBg}") no-repeat center center;
+  background: url('${CertBg}') no-repeat center center;
 `;
 export const Top = styled.div`
   width: 100%;
@@ -35,13 +33,13 @@ export const SubTitle = styled.p`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.875rem
-  line-height:1;
+  font-size: 0.875rem;
+  line-height: 1;
 `;
 export const Dot = styled.span`
   color: ${(props: any) => props.theme.textYello};
-  font-size: 1.25rem
-  font-weight: 600
+  font-size: 1.25rem;
+  font-weight: 600;
 `;
 export const Title = styled.strong`
   color: ${(props: any) => props.theme.black};
@@ -52,18 +50,18 @@ export const Title = styled.strong`
   display: block;
 `;
 export const Content = styled.ul`
-  position:relative;
-  z-index:1;
+  position: relative;
+  z-index: 1;
 `;
 export const ContentLi = styled.li`
   margin-top: 3.125rem;
 `;
 export const ConDate = styled.span`
   color: ${(props: any) => props.theme.black};
-  font-weight:600;
+  font-weight: 600;
   font-size: 0.875rem;
   line-height: 1;
-  display:block;
+  display: block;
 `;
 export const Context = styled(ConDate)`
   color: ${(props: any) => props.theme.mainColor};
@@ -89,6 +87,5 @@ export const Right = styled.div`
 export const StampIcon = styled(Stamp)`
   width: 7.5rem;
   height: 7.5rem;
-  font-size:0;
-  
+  font-size: 0;
 `;

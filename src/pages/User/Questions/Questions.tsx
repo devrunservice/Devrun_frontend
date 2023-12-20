@@ -5,7 +5,7 @@ import {RootState} from 'redux/store';
 import {NoSearch} from 'asset';
 import {useDate} from 'hooks';
 import {UserTop, NoData, TableHeader, TableBody, Pagination} from 'components';
-import * as St from './styles';
+import * as St from './style';
 import {questionListLoading} from '../../../redux/reducer/dashboardReducer';
 
 const Questions = () => {
@@ -72,31 +72,30 @@ const Questions = () => {
           img={<NoSearch />}
         />
       ) : (
-        <St.Table>
-          <TableHeader />
-          {questionList.dtolist.map((question, index) => (
-            <TableBody
-              key={index}
-              no={index + 1 + (pageno - 1) * 10}
-              page="questions"
-              category="question"
-              questionId={question.questionId}
-              questionLectureTitle={question.questionLectureTitle}
-              questionTitle={question.questionTitle}
-              questionContentPreview={question.questionContentPreview}
-              questionDate={formattedDate(question.questionDate || '')}
-              answer={question.answer}
-            />
-          ))}
-        </St.Table>
-      )}
-
-      {questionList.questionCount > 0 && (
-        <Pagination
-          pageno={pageno}
-          setPageno={setPageno}
-          totalPages={questionList.totalPages}
-        />
+        <>
+          <St.Table>
+            <TableHeader />
+            {questionList.dtolist.map((question, index) => (
+              <TableBody
+                key={index}
+                no={index + 1 + (pageno - 1) * 10}
+                page="questions"
+                category="question"
+                questionId={question.questionId}
+                questionLectureTitle={question.questionLectureTitle}
+                questionTitle={question.questionTitle}
+                questionContentPreview={question.questionContentPreview}
+                questionDate={formattedDate(question.questionDate || '')}
+                answer={question.answer}
+              />
+            ))}
+          </St.Table>
+          <Pagination
+            pageno={pageno}
+            setPageno={setPageno}
+            totalPages={questionList.totalPages}
+          />
+        </>
       )}
     </section>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 // import {BrandLogo} from 'asset';
 import {useNavigate} from 'react-router-dom';
 import FindAccount from 'components/FindAccount/FindAccount';
-import * as St from './styles';
+import * as St from './style';
 
 const FindId = () => {
   const navigate = useNavigate();

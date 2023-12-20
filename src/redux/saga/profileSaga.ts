@@ -16,7 +16,7 @@ import {
   updateProfileImageLoading,
   updateProfileImageSuccess,
   updateProfileImageFail,
-} from '../reducer/mypageReducer';
+} from '../reducer/profileReducer';
 import {openModal} from '../reducer/modalReducer';
 
 function* myInfo(action: PayloadAction<MypageType>): Generator<any, void, any> {
@@ -80,7 +80,7 @@ export function* watchUpdateProfileImageSaga() {
   yield takeLatest(updateProfileImageLoading.type, updateProfileImageSaga);
 }
 
-export default function* mypageSaga() {
+export default function* profileSaga() {
   yield all([
     fork(watchgetUserDataSaga),
     fork(watchUpdateEmailSaga),

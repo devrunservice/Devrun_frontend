@@ -4,9 +4,8 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {useDate} from 'hooks';
-import {Comment, Content, BasicModal} from 'components';
-import {Button} from 'style/Common';
-import * as St from './styles';
+import {Comment, Content, ConfirmModal, Button} from 'components';
+import * as St from './style';
 import {
   questionDeleteLoading,
   questionDetailLoading,
@@ -28,8 +27,7 @@ const QuestionDetail = () => {
     dispatch(questionDetailLoading({id: questionId}));
   }, []);
 
-  const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    const {name} = e.target as HTMLButtonElement;
+  const handleClick = async (name: string) => {
     if (name === 'questionList') {
       navigate('/questions');
     } else if (name === 'questionEdit') {
@@ -56,7 +54,7 @@ const QuestionDetail = () => {
         <St.QuestionTitle>{questionDetail.questionTitle}</St.QuestionTitle>
         <St.LectureTitle>파이썬</St.LectureTitle>
         <St.QuestionDate>{`작성일 : ${formattedDate(
-          questionDetail.date || ""
+          questionDetail.date || ''
         )}`}</St.QuestionDate>
       </St.QuestionDetailWrapper>
       <St.QuestionContent>
@@ -64,27 +62,29 @@ const QuestionDetail = () => {
       </St.QuestionContent>
       <St.QuestionBtn>
         <Button
-          $active={false}
           name="questionList"
-          type="button"
-          onClick={handleClick}
-        >
-          목록
-        </Button>
-        <Button $active type="button" name="questionEdit" onClick={handleClick}>
-          수정
-        </Button>
+          text="목록"
+          onBtn={handleClick}
+          backgroundColor="transparent"
+          border="main"
+        />
         <Button
-          $active
-          type="button"
+          name="questionEdit"
+          text="수정"
+          onBtn={handleClick}
+          color="white"
+          backgroundColor="main"
+        />
+        <Button
           name="questionDelete"
-          onClick={handleClick}
-        >
-          삭제
-        </Button>
+          text="삭제"
+          onBtn={handleClick}
+          color="white"
+          backgroundColor="red"
+        />
       </St.QuestionBtn>
       <Comment text="댓글" path="/questions" paramId={Number(questionId)} />
-      <BasicModal logicActive onConfirm={handleConfirm} />
+      <ConfirmModal onConfirm={handleConfirm} />
     </section>
   );
 };

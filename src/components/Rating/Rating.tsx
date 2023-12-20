@@ -1,13 +1,13 @@
-import React from 'react'
-import * as St from './style'
+import React from 'react';
+import * as St from './style';
 
 interface star {
   stars: boolean[];
   setStars: React.Dispatch<React.SetStateAction<boolean[]>>;
-  text:string
+  text: string;
 }
 
-const Grade = ({ stars, setStars, text }: star) => {
+const Grade = ({stars, setStars, text}: star) => {
   const handleStarClick = (index: number) => {
     setStars((prevState) => prevState.map((_, i) => i < index + 1));
   };
@@ -25,4 +25,4 @@ const Grade = ({ stars, setStars, text }: star) => {
     </St.GradeWrap>
   );
 };
-export default Grade
+export default Grade;

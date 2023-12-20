@@ -1,11 +1,10 @@
+import React, {useCallback, useEffect, useRef, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from 'redux/store';
+import {Button, CommunityDe, Editor, VideoTop} from 'components';
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "redux/store";
-import { Btn, CommunityDe, Editor, VideoTop } from "components";
-
-import * as St from "./style";
-import { getQuestLoding } from "../../../redux/reducer/videoViewReducer";
+import * as St from './style';
+import {getQuestLoding} from '../../../redux/reducer/videoViewReducer';
 
 interface Communitys {
   onCommunity: () => void;
@@ -13,20 +12,20 @@ interface Communitys {
   videoid: string;
 }
 
-const Community = ({ onCommunity, lectureId, videoid }: Communitys) => {
+const Community = ({onCommunity, lectureId, videoid}: Communitys) => {
   const [hide, setHide] = useState(false);
   const onHide = () => setHide((prev) => !prev);
   const [questionId, setQuestionId] = useState({
     questionId: 0,
-    questionIdBoolean:false,
+    questionIdBoolean: false,
   });
   const dispatch = useDispatch();
   const scrollRef = useRef<HTMLDivElement>(null);
-  const { quest, saveQuest, questPage } = useSelector(
+  const {quest, saveQuest, questPage} = useSelector(
     (state: RootState) => state.videoViewReducer
   );
   useEffect(() => {
-    dispatch(getQuestLoding({ page: 1, lectureId: lectureId }));
+    dispatch(getQuestLoding({page: 1, lectureId: lectureId}));
   }, [saveQuest]);
   useEffect(() => {
     const onScroll = () => {
@@ -36,23 +35,28 @@ const Community = ({ onCommunity, lectureId, videoid }: Communitys) => {
           scrollRef.current.scrollHeight - 100
       ) {
         if (questPage !== quest.totalPages) {
-          dispatch(
-            getQuestLoding({ page: questPage + 1, lectureId: lectureId })
-          );
+          dispatch(getQuestLoding({page: questPage + 1, lectureId: lectureId}));
         }
       }
     };
 
     if (scrollRef.current !== null)
-      scrollRef.current.addEventListener("scroll", onScroll);
+      scrollRef.current.addEventListener('scroll', onScroll);
     return () => {
       if (scrollRef.current !== null)
-        scrollRef.current.removeEventListener("scroll", onScroll);
+        scrollRef.current.removeEventListener('scroll', onScroll);
     };
   }, [questPage, quest.totalPages]);
-  const onQuest = useCallback((v:number) => {
-    setQuestionId({ ...questionId, questionId: v, questionIdBoolean:!questionId.questionIdBoolean});
-  }, [questionId]);
+  const onQuest = useCallback(
+    (v: number) => {
+      setQuestionId({
+        ...questionId,
+        questionId: v,
+        questionIdBoolean: !questionId.questionIdBoolean,
+      });
+    },
+    [questionId]
+  );
   return (
     <St.CommunityWrap>
       {questionId.questionIdBoolean ? (
@@ -67,7 +71,7 @@ const Community = ({ onCommunity, lectureId, videoid }: Communitys) => {
             <>
               <VideoTop text="커뮤니티" onButton={onCommunity} />
               <St.Center ref={scrollRef}>
-                {quest.message === "Resource not exists" ? (
+                {quest.message === 'Resource not exists' ? (
                   <St.NoQuest>해당강의에 질문이 없습니다.</St.NoQuest>
                 ) : (
                   quest.dtolist?.map((v) => {
@@ -83,7 +87,7 @@ const Community = ({ onCommunity, lectureId, videoid }: Communitys) => {
                         </St.BtnTop>
                         <St.BtnBtm>
                           <p>
-                            {v.studentId} ·{" "}
+                            {v.studentId} ·{' '}
                             <span>{v.questionDate.slice(0, 10)}</span>
                           </p>
                           <em>답변수 : {v.answer}</em>
@@ -94,7 +98,7 @@ const Community = ({ onCommunity, lectureId, videoid }: Communitys) => {
                 )}
               </St.Center>
               <St.Write>
-                <Btn onBtn={onHide} color="full" text="글 작성하기" />
+                <Button onBtn={onHide} color="full" text="글 작성하기" />
               </St.Write>
             </>
           )}

@@ -9,18 +9,19 @@ import {decode} from 'utils/decode';
 import {
   AuthenticationNumber,
   DuplicationForm,
-  BasicModal,
+  ConfirmModal,
   UserTop,
   ImageUploader,
+  Button,
 } from 'components';
 import {Title} from 'style/Common';
-import * as St from './styles';
+import * as St from './style';
 import {
   myInfoLoading,
   updateEmailLoading,
   updatePhonenumberLoading,
   updateProfileImageLoading,
-} from '../../../redux/reducer/mypageReducer';
+} from '../../../redux/reducer/profileReducer';
 import {
   updateMessageState,
   updateValidState,
@@ -34,7 +35,7 @@ const Profile = () => {
   const [modalLogic, setModalLogic] = useState(false);
   const [deleteAccount, setDeleteAccount] = useState(false);
 
-  const userInfo = useSelector((state: RootState) => state.mypageReducer.data);
+  const userInfo = useSelector((state: RootState) => state.profileReducer.data);
   const validState = useSelector(
     (state: RootState) => state.validationReducer.validState
   );
@@ -337,7 +338,7 @@ const Profile = () => {
       <St.DeleteBtnWrapper>
         <St.DeleteBtn onClick={handleDelete}>회원 탈퇴</St.DeleteBtn>
       </St.DeleteBtnWrapper>
-      <BasicModal logicActive={modalLogic} onConfirm={handleConfirm} />
+      <ConfirmModal onConfirm={handleConfirm} />
     </St.Section>
   );
 };

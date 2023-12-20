@@ -1,7 +1,7 @@
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
 import FindAccount from 'components/FindAccount/FindAccount';
-import * as St from './styles';
+import * as St from './style';
 
 const FindPassword = () => {
   const navigate = useNavigate();

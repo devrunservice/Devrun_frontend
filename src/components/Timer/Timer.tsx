@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import * as St from './styles';
+import * as St from './style';
 
 const Timer = ({page}: {page: string}) => {
   const MINUTES_IN_MS = 5 * 60 * 1000;

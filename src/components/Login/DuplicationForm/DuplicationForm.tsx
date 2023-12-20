@@ -6,7 +6,7 @@ import {signup} from 'utils/api';
 import useValid from 'hooks/useValid';
 import {SignupFormType} from 'types';
 import {ErrorMessage, Input, SuccessMessage, Title} from 'style/Common';
-import * as St from './styles';
+import * as St from './style';
 
 const DuplicationForm = ({
   title,

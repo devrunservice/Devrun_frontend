@@ -6,13 +6,12 @@ import {Recaptcha} from 'components';
 import * as St from './style';
 import {closeModal} from '../../redux/reducer/modalReducer';
 
-const BasicModal = ({onConfirm}: {onConfirm?: () => void}) => {
+const ConfirmModal = ({onConfirm}: {onConfirm: () => void}) => {
   const dispatch = useDispatch();
 
   const {modalOpen, modalMessage1, modalMessage2} = useSelector(
     (state: RootState) => state.modalReducer
   );
-  const {isRecaptcha} = useSelector((state: RootState) => state.loginReducer);
 
   const handleKeyUp = (e: KeyboardEvent) => {
     if (e.key === 'Escape' || e.key === 'Enter') {
@@ -21,8 +20,10 @@ const BasicModal = ({onConfirm}: {onConfirm?: () => void}) => {
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const {name} = e.target as HTMLButtonElement;
+
     dispatch(closeModal());
-    if (typeof onConfirm === 'function') {
+    if (name === 'ok') {
       onConfirm();
     }
   };
@@ -45,23 +46,21 @@ const BasicModal = ({onConfirm}: {onConfirm?: () => void}) => {
 
   return (
     <St.Section>
-      {isRecaptcha ? (
-        <St.Modal>
-          <p>{modalMessage1}</p>
-          <Recaptcha />
-        </St.Modal>
-      ) : (
-        <St.Modal>
-          <p>{modalMessage1}</p>
-          <p>{modalMessage2}</p>
+      <St.Modal>
+        <p>{modalMessage1}</p>
+        <p>{modalMessage2}</p>
+        <St.BtnWrapper>
           <St.Button name="cancel" onClick={handleClick}>
+            취소
+          </St.Button>
+          <St.Button name="ok" onClick={handleClick}>
             확인
           </St.Button>
-        </St.Modal>
-      )}
+        </St.BtnWrapper>
+      </St.Modal>
     </St.Section>
   );
 };
 
-export default BasicModal;
+export default ConfirmModal;
 /* eslint-disable @typescript-eslint/no-unused-vars */

@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import {NoSearch} from 'asset';
 import {SearchBar, Pagination, List, UserTop, NoData} from 'components';
-import * as St from './styles';
+import * as St from './style';
 import {noteLectureLoading} from '../../../redux/reducer/dashboardReducer';
 
 // 강의 노트 1단계
@@ -20,8 +20,6 @@ const Notes = () => {
   const noteLectures = useSelector(
     (state: RootState) => state.dashboardReducer.noteLectureData
   );
-
-  console.log(noteLectures);
 
   return (
     <section>
@@ -41,30 +39,28 @@ const Notes = () => {
           img={<NoSearch />}
         />
       ) : (
-        <St.NoteListUl>
-          {noteLectures.dtolist.map((lecture) => (
-            <List
-              key={lecture.lectureId}
-              page="notes"
-              category="note"
-              lectureId={lecture.lectureId}
-              lectureTitle={lecture.lectureTitle}
-              lectureThumbnail={lecture.lectureThumbnail}
-              lastStudyDate={lecture.lastStudyDate}
-              count={lecture.count}
-            />
-          ))}
-        </St.NoteListUl>
-      )}
-
-      {noteLectures.dtolist.length > 0 &&
-        noteLectures.dtolist.every((lecture) => lecture.count > 0) && (
+        <>
+          <St.NoteListUl>
+            {noteLectures.dtolist.map((lecture) => (
+              <List
+                key={lecture.lectureId}
+                page="notes"
+                category="note"
+                lectureId={lecture.lectureId}
+                lectureTitle={lecture.lectureTitle}
+                lectureThumbnail={lecture.lectureThumbnail}
+                lastStudyDate={lecture.lastStudyDate}
+                count={lecture.count}
+              />
+            ))}
+          </St.NoteListUl>
           <Pagination
             pageno={pageno}
             setPageno={setPageno}
             totalPages={noteLectures.totalPages}
           />
-        )}
+        </>
+      )}
     </section>
   );
 };
