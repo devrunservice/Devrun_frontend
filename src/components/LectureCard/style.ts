@@ -54,7 +54,6 @@ export const ListText = styled.div`
   align-items: flex-end;
 `;
 export const Price = styled.p`
-
   font-size: 0.875rem;
   color: ${(props) => props.theme.black};
   > span {

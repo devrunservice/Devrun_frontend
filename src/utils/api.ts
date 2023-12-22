@@ -279,13 +279,17 @@ export const Cart = {
 
 export const create = {
   coupon: (params: I.CreateCoupon) => {
-    const response = authAxios.post('/coupon/publish', params);
+    const response = authAxios.post("/coupon/publish", params);
     return response;
   },
   couponGet: (params: I.PageNo) => {
     const response = authAxios.get(
       `/coupon/mento/couponmanaging/${params.pageno}`
     );
+    return response;
+  },
+  lecture: () => {
+    const response = authAxios.get(`/coupon/mento/lecture`);
     return response;
   },
   couponActive: (params: I.ActiveCoupon) => {
@@ -358,9 +362,7 @@ export const notice = {
 
 export const video = {
   getCurriculum: (params: I.Curriculum) => {
-    const response = authAxios.get(`/getMycoures`, {
-      params: {lectureId: params.lectureId},
-    });
+    const response = authAxios.get(`/getMycoures?lectureId=${params.lectureId}`);
     return response;
   },
   progress: (params: I.Progress) => {
@@ -400,8 +402,22 @@ export const search = {
     );
     return response;
   },
+  searchTwo: (params: I.MainList) => {
+    const response = authAxios.get(
+      `/q/lecture?bigcategory=&page=1&order=${params.order}`
+    );
+    return response;
+  },
   categorySearch: (params: I.Search) => {
     const response = baseAxios.get(
+      `/q/lecture?bigcategory=${params.bigcategory}&page=${params.page}&order=${
+        params.order
+      }&q=${String(params.q)}`
+    );
+    return response;
+  },
+  categorySearchTwo: (params: I.Search) => {
+    const response = authAxios.get(
       `/q/lecture?bigcategory=${params.bigcategory}&page=${params.page}&order=${
         params.order
       }&q=${String(params.q)}`

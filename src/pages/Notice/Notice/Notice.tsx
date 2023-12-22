@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "redux/store";
-import { Pagination, UserTop, NoticeTable } from "components";
+import { Pagination, UserTop, NoticeTable, Button } from "components";
 import * as S from "style/Common";
 
 import { noticeListLoading } from "../../../redux/reducer/noticeReducer";
@@ -28,13 +28,13 @@ const Notice = () => {
       <NoticeTable data={data} />
       {user.role === "ADMIN" && (
         <S.ButtonWrap $active={false}>
-          <S.Button
-            $active
-            type="button"
-            onClick={() => navigate("/noticeWrite")}
-          >
-            글쓰기
-          </S.Button>
+          <Button
+            text="글쓰기"
+            name="text"
+            color="white"
+            backgroundColor="main"
+            onBtn={() => navigate("/noticeWrite")}
+          />
         </S.ButtonWrap>
       )}
 

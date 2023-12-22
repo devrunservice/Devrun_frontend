@@ -4,6 +4,7 @@ import  { useState, useRef, useEffect, useCallback } from "react";
 interface Selet {
   seletsBoolean: boolean;
   seletes: string;
+  seletName: string;
 }
 
 
@@ -15,6 +16,7 @@ const useSelet = () => {
   const [selets, setSelets] = useState<Selet>({
     seletsBoolean: false,
     seletes: "",
+    seletName:"",
   });
   const couponOut = useCallback(
     (e: { target: any }) => {
@@ -28,6 +30,7 @@ const useSelet = () => {
           ...selets,
           seletsBoolean: false,
           seletes: selets.seletes,
+          seletName: selets.seletName
         });
       }
     },

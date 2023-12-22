@@ -45,7 +45,6 @@ const Header = () => {
   };
 
   const handleConfirm = () => {
-    console.log('중복로그인');
     if (
       modalMessage1 === '알 수 없는 오류가 발생했습니다.' ||
       modalMessage1 === '이미 로그인 된 다른 기기가 있습니다.' ||
@@ -57,7 +56,7 @@ const Header = () => {
 
   const searchBtn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (search.trim === '') return alert('검색어를 적어주세요');
+    if (search.trim() === '') return alert('검색어를 적어주세요');
     dispatch(
       categorySearchLoading({
         page: 1,

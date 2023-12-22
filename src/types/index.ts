@@ -444,12 +444,9 @@ export interface PageNo {
 }
 export interface CreateCoupon {
   discountrate: number;
-  issueduser: number;
-  issueddate: string;
   expirydate: string;
   quantity: number;
-  coupontype: string;
-  target: string;
+  lectureId: string;
 }
 
 export interface ActiveCoupon {

@@ -3,7 +3,7 @@ import React, {useCallback, useEffect} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
-import {Comment, Content} from 'components';
+import { Comment, Content, Button } from "components";
 import * as S from 'style/Common';
 import * as St from './style';
 import {
@@ -54,27 +54,29 @@ const Detail = () => {
             <Content content={content.content} />
           </St.Content>
           <St.BtnWrap $active={false}>
-            <S.Button
-              $active={false}
-              type="button"
-              onClick={() => navigate(`/notice`)}
-            >
-              목록
-            </S.Button>
+            <Button
+              text="목록"
+              name="list"
+              color="main"
+              border="main"
+              onBtn={() => navigate(`/notice/${noticeNo.noticeNo}/retouch`)}
+            />
             {data.role === "ADMIN" && (
               <>
-                <S.Button
-                  $active
-                  type="button"
-                  onClick={() =>
-                    navigate(`/notice/${noticeNo.noticeNo}/retouch`)
-                  }
-                >
-                  수정하기
-                </S.Button>
-                <St.DelButton type="button" onClick={() => delButton()}>
-                  삭제하기
-                </St.DelButton>
+                <Button
+                  text="수정하기"
+                  name="re"
+                  color="white"
+                  backgroundColor="main"
+                  onBtn={() => navigate(`/notice/${noticeNo.noticeNo}/retouch`)}
+                />
+                <Button
+                  text="삭제하기"
+                  name="del"
+                  color="white"
+                  backgroundColor="red"
+                  onBtn={() => delButton()}
+                />
               </>
             )}
           </St.BtnWrap>

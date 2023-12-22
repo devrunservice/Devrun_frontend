@@ -62,8 +62,20 @@ const NoteDe = ({onNote, setNoteBoolean, noteId}: Note) => {
         <St.Date>
           작성일 : {noteDetail.date}
           <div>
-            <Button text="수정" color="main" onBtn={onReNote} />
-            <Button text="삭제" color="red" onBtn={onDelet} />
+            <Button
+              text="수정"
+              name="re"
+              color="main"
+              width="auto"
+              onBtn={onReNote}
+            />
+            <Button
+              text="삭제"
+              name="del"
+              color="red"
+              width="auto"
+              onBtn={onDelet}
+            />
           </div>
         </St.Date>
         <em>{noteDetail.noteTitle}</em>

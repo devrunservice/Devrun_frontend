@@ -13,7 +13,8 @@ interface LectureData {
   lecturePrice: number;
   buyCount: number;
   rating: number;
-  lectureId:number
+  lectureId: number;
+  purchaseStatus:boolean
 }
 
 const LectureCard = ({
@@ -27,6 +28,7 @@ const LectureCard = ({
   buyCount,
   rating,
   lectureId,
+  purchaseStatus,
 }: LectureData) => {
   const priceDot = (num: number) =>
     num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -48,7 +50,13 @@ const LectureCard = ({
             </span>
           </St.ListTeacher>
           <St.Price>
-            <span>{priceDot(lecturePrice)}</span>원
+            {purchaseStatus ? (
+              <span>수강중</span>
+            ) : (
+              <>
+                <span>{priceDot(lecturePrice)}</span>원
+              </>
+            )}
           </St.Price>
         </St.ListText>
         <St.ListViewCount>{lectureBigCategory}</St.ListViewCount>

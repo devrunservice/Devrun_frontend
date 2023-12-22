@@ -17,7 +17,9 @@ import {
   categorySearchLoading,
   ratingLectureLoading,
   buyLectureLoading,
-} from '../../redux/reducer/learningReducer';
+  ratingLectureTwoLoading,
+  buyLectureTwoLoading,
+} from "../../redux/reducer/learningReducer";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -33,21 +35,25 @@ const HomePage = () => {
   const {lecture: buy, data: rating} = useSelector(
     (state: RootState) => state.learningReducer
   );
-
+    
   const accessToken = getCookie('accessToken');
 
   useEffect(() => {
-    dispatch(noticeListLoading(1));
-    dispatch(ratingLectureLoading({order: 'lecture_rating'}));
-    dispatch(buyLectureLoading({order: 'buy_count'}));
-    if (accessToken) {
-      dispatch(learningLoading({page: '1', status: 'all'}));
+    if (accessToken !== undefined) {
+      dispatch(ratingLectureTwoLoading({ order: "lecture_rating" }));
+      dispatch(buyLectureTwoLoading({ order: "buy_count" }));
+      dispatch(learningLoading({ page: "1", status: "all" }));
+    }else{
+      
+      dispatch(ratingLectureLoading({ order: "lecture_rating" }));
+      dispatch(buyLectureLoading({ order: "buy_count" }));
     }
-  }, []);
+    dispatch(noticeListLoading(1));
+  }, [accessToken]);
 
   const searchBtn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (search.trim === '') return alert('검색어를 적어주세요');
+    if (search.trim() === '') return alert('검색어를 적어주세요');
     dispatch(
       categorySearchLoading({
         page: 1,
@@ -166,7 +172,7 @@ const HomePage = () => {
                           <St.Gauge>
                             <span
                               style={{
-                                background: '#5F4B8B',
+                                background: "#5F4B8B",
                                 width: `${v.progressRate}%`,
                               }}
                             />
@@ -179,7 +185,7 @@ const HomePage = () => {
             </St.ListUl>
           </St.ListEachArea>
         ) : (
-          ''
+          ""
         )}
 
         <St.ListEachArea>
@@ -201,6 +207,7 @@ const HomePage = () => {
                         buyCount={v.buyCount}
                         rating={v.rating}
                         lectureId={v.lectureId}
+                        purchaseStatus={v.purchaseStatus}
                       />
                     </SwiperSlide>
                   ))}
@@ -237,6 +244,7 @@ const HomePage = () => {
                       buyCount={v.buyCount}
                       rating={v.rating}
                       lectureId={v.lectureId}
+                      purchaseStatus={v.purchaseStatus}
                     />
                   </SwiperSlide>
                 ))}

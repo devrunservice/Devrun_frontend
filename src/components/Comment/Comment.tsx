@@ -6,8 +6,7 @@ import {RootState} from 'redux/store';
 import {getCookie} from 'utils/cookies';
 import {useDate, useInput} from 'hooks';
 import {CommentsList} from 'types';
-import {Rating} from 'components';
-import {Button} from 'style/Common';
+import { Rating, Button } from "components";
 import * as St from './style';
 
 import {
@@ -245,18 +244,18 @@ const Comment = ({text, sub, path, paramId}: title) => {
           </St.CommentCount>
         </div>
       </St.CommentTitle>
-      {path === '/lectures' && (
+      {path === "/lectures" && (
         <Rating stars={stars} setStars={setStars} text="별점을 선택해주세요" />
       )}
-      {getCookie('accessToken') ? (
+      {getCookie("accessToken") ? (
         <St.CommentBox
           onChange={onChangeComment}
           maxLength={500}
           value={comment}
           placeholder={
-            path === 'lectures'
-              ? '좋은 수강평을 남겨주시면 지식공유자와 이후 배우는 사람들에게 큰 도움이 됩니다.'
-              : '좋은 댓글남겨주세요.'
+            path === "lectures"
+              ? "좋은 수강평을 남겨주시면 지식공유자와 이후 배우는 사람들에게 큰 도움이 됩니다."
+              : "좋은 댓글남겨주세요."
           }
         />
       ) : (
@@ -269,12 +268,20 @@ const Comment = ({text, sub, path, paramId}: title) => {
 
       <St.ButtonWrap>
         <St.CommentNum>{comment.length} / 500</St.CommentNum>
-        <Button $active={false} onClick={() => setComment('')} type="button">
-          취소
-        </Button>
-        <Button $active type="button" onClick={onComment}>
-          등록
-        </Button>
+        <Button
+          text="취소"
+          name="No"
+          color="main"
+          border="main"
+          onBtn={() => setComment("")}
+        />
+        <Button
+          text="등록"
+          name="Yes"
+          color="white"
+          backgroundColor="main"
+          onBtn={onComment}
+        />
       </St.ButtonWrap>
       {datas.data.length !== 0 && (
         <St.CommentUl>
@@ -296,32 +303,38 @@ const Comment = ({text, sub, path, paramId}: title) => {
                       <St.CommentTime>
                         {v.modifiedDate !== null
                           ? `${
-                              calculateTimeDifference(v.modifiedDate) || '0초전'
+                              calculateTimeDifference(v.modifiedDate) || "0초전"
                             } 수정`
-                          : calculateTimeDifference(v.createdDate) || '0초전'}
+                          : calculateTimeDifference(v.createdDate) || "0초전"}
                       </St.CommentTime>
                     </div>
                     <div>
                       {user.id === v.id && (
                         <>
-                          <St.CommentRe
-                            onClick={() => onCommentsWrite(v.commentNo)}
-                          >
-                            수정
-                          </St.CommentRe>
-                          <St.CommentRemove
-                            onClick={() => onCommentsDel(v.commentNo, v.id)}
-                          >
-                            삭제
-                          </St.CommentRemove>
+                          <Button
+                            text="수정"
+                            name="re"
+                            color="main"
+                            width="auto"
+                            onBtn={() => onCommentsWrite(v.commentNo)}
+                          />
+                          <Button
+                            text="삭제"
+                            name="del"
+                            color="red"
+                            width="auto"
+                            onBtn={() => onCommentsDel(v.commentNo, v.id)}
+                          />
+                         
                         </>
                       )}
-                      {path === '/notice' && (
-                        <St.CommentWrite
-                          onClick={() => onCommentsBtn(v.commentNo)}
-                        >
-                          댓글달기
-                        </St.CommentWrite>
+                      {path === "/notice" && (
+                        <Button
+                            text="댓글달기"
+                            name="comment"
+                            width="auto"
+                            onBtn={() => onCommentsBtn(v.commentNo)}
+                          />
                       )}
                     </div>
                   </St.CommentTop>
@@ -334,40 +347,40 @@ const Comment = ({text, sub, path, paramId}: title) => {
                       <St.CommentBoxRe
                         onChange={onChangeCommentTwo}
                         maxLength={500}
-                        value={commentTwo !== '' ? commentTwo : v.content}
+                        value={commentTwo !== "" ? commentTwo : v.content}
                       />
 
                       <St.ButtonWrapCommnet>
                         <St.CommentNum>{commentTwo.length} / 500</St.CommentNum>
                         <Button
-                          $active={false}
-                          onClick={() => onCommentClose(v.commentNo)}
-                          type="button"
-                        >
-                          취소
-                        </Button>
+                          text="취소"
+                          name="No"
+                          color="main"
+                          border="main"
+                          onBtn={() => onCommentClose(v.commentNo)}
+                        />
                         <Button
-                          $active
-                          onClick={() => onCommentRe(v.commentNo)}
-                          type="button"
-                        >
-                          등록
-                        </Button>
+                          text="등록"
+                          name="Yes"
+                          color="white"
+                          backgroundColor="main"
+                          onBtn={() => onCommentRe(v.commentNo)}
+                        />
                       </St.ButtonWrapCommnet>
                     </St.CommentWriteWrap>
                   )}
                   {/* 대댓글달기 */}
                   {writesTwo === v.commentNo && (
                     <St.CommentWriteWrap>
-                      {getCookie('accessToken') ? (
+                      {getCookie("accessToken") ? (
                         <St.CommentBoxRe
                           onChange={onChangeCommentTwo}
                           maxLength={500}
                           value={commentTwo}
                           placeholder={
-                            path === 'lectures'
-                              ? '좋은 수강평을 남겨주시면 지식공유자와 이후 배우는 사람들에게 큰 도움이 됩니다.'
-                              : '좋은 댓글남겨주세요.'
+                            path === "lectures"
+                              ? "좋은 수강평을 남겨주시면 지식공유자와 이후 배우는 사람들에게 큰 도움이 됩니다."
+                              : "좋은 댓글남겨주세요."
                           }
                         />
                       ) : (
@@ -380,20 +393,21 @@ const Comment = ({text, sub, path, paramId}: title) => {
 
                       <St.ButtonWrapCommnet>
                         <St.CommentNum>{commentTwo.length} / 500</St.CommentNum>
+
                         <Button
-                          $active={false}
-                          onClick={() => onCommentClose(v.commentNo)}
-                          type="button"
-                        >
-                          취소
-                        </Button>
+                          text="취소"
+                          name="No"
+                          color="main"
+                          border="main"
+                          onBtn={() => onCommentClose(v.commentNo)}
+                        />
                         <Button
-                          $active
-                          onClick={() => onComments(v.commentNo, v.noticeNo)}
-                          type="button"
-                        >
-                          등록
-                        </Button>
+                          text="등록"
+                          name="Yes"
+                          color="white"
+                          backgroundColor="main"
+                          onBtn={() => onComments(v.commentNo, v.noticeNo)}
+                        />
                       </St.ButtonWrapCommnet>
                     </St.CommentWriteWrap>
                   )}
@@ -420,30 +434,32 @@ const Comment = ({text, sub, path, paramId}: title) => {
                                       ? `${
                                           calculateTimeDifference(
                                             q.modifiedDate
-                                          ) || '0초전'
+                                          ) || "0초전"
                                         } 수정`
                                       : calculateTimeDifference(
                                           q.createdDate
-                                        ) || '0초전'}
+                                        ) || "0초전"}
                                   </St.CommentTime>
                                 </div>
                                 {/* 대댓글 수정 삭제 */}
                                 {user.id === q.id && (
                                   <div>
-                                    <St.CommentRe
-                                      onClick={() =>
-                                        onCommentsWrite(q.commentNo)
-                                      }
-                                    >
-                                      수정
-                                    </St.CommentRe>
-                                    <St.CommentRemove
-                                      onClick={() =>
+                                    <Button
+                                      text="수정"
+                                      name="re"
+                                      color="main"
+                                      width="auto"
+                                      onBtn={() => onCommentsWrite(q.commentNo)}
+                                    />
+                                    <Button
+                                      text="삭제"
+                                      name="del"
+                                      color="red"
+                                      width="auto"
+                                      onBtn={() =>
                                         onCommentsDel(q.commentNo, q.id)
                                       }
-                                    >
-                                      삭제
-                                    </St.CommentRemove>
+                                    />
                                   </div>
                                 )}
                               </St.CommentTop>
@@ -456,27 +472,28 @@ const Comment = ({text, sub, path, paramId}: title) => {
                                   onChange={onChangeCommentTwo}
                                   maxLength={500}
                                   value={
-                                    commentTwo !== '' ? commentTwo : q.content
+                                    commentTwo !== "" ? commentTwo : q.content
                                   }
                                 />
                                 <St.ButtonWrapCommnet>
                                   <St.CommentNum>
                                     {commentTwo.length} / 500
                                   </St.CommentNum>
+
                                   <Button
-                                    $active={false}
-                                    onClick={() => onCommentClose(q.commentNo)}
-                                    type="button"
-                                  >
-                                    취소
-                                  </Button>
+                                    text="취소"
+                                    name="No"
+                                    color="main"
+                                    border="main"
+                                    onBtn={() => onCommentClose(q.commentNo)}
+                                  />
                                   <Button
-                                    $active
-                                    onClick={() => onCommentRe(q.commentNo)}
-                                    type="button"
-                                  >
-                                    등록
-                                  </Button>
+                                    text="등록"
+                                    name="Yes"
+                                    color="white"
+                                    backgroundColor="main"
+                                    onBtn={() => onCommentRe(q.commentNo)}
+                                  />
                                 </St.ButtonWrapCommnet>
                               </St.CommentWriteWrap>
                             )}

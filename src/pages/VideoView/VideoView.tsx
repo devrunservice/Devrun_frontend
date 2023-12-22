@@ -24,7 +24,7 @@ const VideoView = () => {
   const { data } = useSelector((state: RootState) => state.videoViewReducer);
   const { videoTime } = useDate();
   useEffect(() => {
-    dispatch(curriculumLoding(param.lectureId));
+    dispatch(curriculumLoding({ lectureId: param.lectureId }));
   }, []);
   const [open, setOpen] = useState({
     curriculum: false,
@@ -134,14 +134,13 @@ const VideoView = () => {
     };
   };
   useEffect(() => {
-    
     dispatch(
       progressLoding({
         currenttime: Math.floor(time),
-        videoid: lecture.videoId,
+        videoid: param.videoId,
       })
     );
-  }, [time, lecture.videoId]);
+  }, [time, param.videoId]);
   return (
     <St.VideoViewWrap>
       <St.Left>

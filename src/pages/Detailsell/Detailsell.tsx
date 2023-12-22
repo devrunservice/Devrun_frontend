@@ -13,11 +13,14 @@ import {
   LectureDetailLoading,
   LectureDetailTextLoading,
   categorySearchLoadingTwo,
-} from '../../redux/reducer/learningReducer';
+  categorySearchLoadingFour,
+  categorySearchLoadingThr,
+} from "../../redux/reducer/learningReducer";
 import {addCartLoading, freeCartLoading} from '../../redux/reducer/cartReducer';
 
 const Detailsell = () => {
   const dispatch = useDispatch();
+  const accessToken = getCookie("accessToken");
   const navi = useNavigate();
   const param = useParams();
   const {videoTime} = useDate();
@@ -30,24 +33,45 @@ const Detailsell = () => {
   useEffect(() => {
     dispatch(LectureDetailLoading({lectureid: param.lectureId}));
     dispatch(LectureDetailTextLoading({lectureid: param.lectureId}));
-    dispatch(
-      categorySearchLoading({
-        page: 1,
-        bigcategory: '',
-        order: 'lecture_start',
-        q: lectureDetail.mentoId.id,
-      })
-    );
-    dispatch(
-      categorySearchLoadingTwo({
-        page: 1,
-        bigcategory: lectureDetail.lectureCategory.lectureBigCategory,
-        order: 'lecture_start',
-        q: '',
-      })
-    );
+    
   }, []);
-  console.log(lectureDetail);
+  useEffect(()=>{
+    if(accessToken){
+      dispatch(
+        categorySearchLoadingThr({
+          page: 1,
+          bigcategory: "",
+          order: "lecture_start",
+          q: lectureDetail.mentoId.id,
+        })
+      );
+      dispatch(
+        categorySearchLoadingFour({
+          page: 1,
+          bigcategory: lectureDetail.lectureCategory.lectureBigCategory,
+          order: "lecture_start",
+          q: "",
+        })
+      );
+    }else{
+      dispatch(
+        categorySearchLoading({
+          page: 1,
+          bigcategory: "",
+          order: "lecture_start",
+          q: lectureDetail.mentoId.id,
+        })
+      );
+      dispatch(
+        categorySearchLoadingTwo({
+          page: 1,
+          bigcategory: lectureDetail.lectureCategory.lectureBigCategory,
+          order: "lecture_start",
+          q: "",
+        })
+      );
+    }
+  },[accessToken])
   const [tapNum, setTapNum] = useState<number>(0);
   const onTap = (k: number) => {
     if (k === tapNum) return setTapNum(0);
@@ -151,13 +175,13 @@ const Detailsell = () => {
             <St.CurriculumTitle>
               커리큘럼
               <St.CurriculumCount>
-                총{' '}
+                총{" "}
                 <St.Curriculums>
                   {lectureDetail.lectureSections
                     .map((v) => v.videos.length)
                     .reduce((a, b) => a + b, 0)}
                 </St.Curriculums>
-                개 ·{' '}
+                개 ·{" "}
                 <St.Curriculums>
                   {videoTime(
                     lectureDetail.lectureSections
@@ -181,7 +205,7 @@ const Detailsell = () => {
                         섹션 {v.sectionNumber}. {v.sectionTitle}
                       </em>
                       <p>
-                        {v.videos.length}강 ·{' '}
+                        {v.videos.length}강 ·{" "}
                         {videoTime(
                           v.videos
                             .map((k) => k.totalPlayTime)
@@ -231,11 +255,21 @@ const Detailsell = () => {
               )}
             </St.TitleSub>
             <St.Btn>
-              <Button text="수강신청 하기" color="full" onBtn={onBasket} />
+              <Button
+                text="수강신청 하기"
+                name="buy"
+                color="white"
+                width="full"
+                backgroundColor="main"
+                onBtn={onBasket}
+              />
               {lectureDetail.lecturePrice !== 0 && (
                 <Button
                   text="장바구니에 담기"
-                  color="full2"
+                  name="basket"
+                  color="main"
+                  width="full"
+                  border="main"
                   onBtn={onBaskets}
                 />
               )}
@@ -247,7 +281,7 @@ const Detailsell = () => {
                 지식공유자 : {lectureDetail.mentoId.name}
               </St.ButtomLi>
               <St.ButtomLi>
-                총{' '}
+                총{" "}
                 {lectureDetail.lectureSections
                   .map((v) => v.videos.length)
                   .reduce((a, b) => a + b, 0)}
@@ -296,6 +330,7 @@ const Detailsell = () => {
                       buyCount={v.buyCount}
                       rating={v.rating}
                       lectureId={v.lectureId}
+                      purchaseStatus={v.purchaseStatus}
                     />
                   ))}
             </St.ListWrap>
@@ -324,6 +359,7 @@ const Detailsell = () => {
                       buyCount={v.buyCount}
                       rating={v.rating}
                       lectureId={v.lectureId}
+                      purchaseStatus={v.purchaseStatus}
                     />
                   ))}
             </St.ListWrap>

@@ -26,6 +26,7 @@ import {
 function* curriculum(action: PayloadAction<Videos>): Generator<any, void, any> {
   try {
     const response = yield call(video.getCurriculum, action.payload);
+    console.log(response);
     yield put(curriculumSuccess(response));
   } catch (error) {
     yield put(curriculumFail(error));

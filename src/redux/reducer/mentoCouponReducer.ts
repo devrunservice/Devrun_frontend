@@ -22,6 +22,16 @@ interface MentoCoupons {
   loading?: boolean;
   error?: Error | null;
   activate?: null;
+  lecture: {
+    lectureId: string;
+    lectureName: string;
+  }[];
+  coupon: {
+    discountrate: number;
+    expirydate: string;
+    lectureId: number;
+    quantity: number;
+  };
 }
 
 const initialState: MentoCoupons = {
@@ -33,6 +43,13 @@ const initialState: MentoCoupons = {
   activate: null,
   loading: false,
   error: null,
+  lecture:[],
+  coupon: {
+    discountrate: 0,
+    expirydate:"",
+    lectureId: 0,
+    quantity:  0,
+  },
 };
 
 const mentoCouponReducer = createSlice({
@@ -46,7 +63,6 @@ const mentoCouponReducer = createSlice({
     couponSuccess: (state, action) => {
       state.loading = false;
       state.data = action.payload.data;
-      return state;
     },
     couponFail: (state, action) => {
       state.loading = false;
@@ -76,10 +92,22 @@ const mentoCouponReducer = createSlice({
     },
     createCouponSuccess: (state, action) => {
       state.loading = false;
-      state.data = action.payload.data;
-      return state;
+      state.coupon = action.payload.data;
     },
     createCouponFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+
+    createlectureLoading: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
+    createlectureSuccess: (state, action) => {
+      state.loading = false;
+      state.lecture = action.payload.data;
+    },
+    createlectureFail: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
@@ -96,6 +124,9 @@ export const {
   createCouponSuccess,
   createCouponFail,
   createCouponLoading,
+  createlectureLoading,
+  createlectureSuccess,
+  createlectureFail,
 } = mentoCouponReducer.actions;
 
 export default mentoCouponReducer.reducer;
