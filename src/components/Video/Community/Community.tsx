@@ -71,7 +71,7 @@ const Community = ({onCommunity, lectureId, videoid}: Communitys) => {
             <>
               <VideoTop text="커뮤니티" onButton={onCommunity} />
               <St.Center ref={scrollRef}>
-                {quest.message === 'Resource not exists' ? (
+                {quest.message === "Resource not exists" ? (
                   <St.NoQuest>해당강의에 질문이 없습니다.</St.NoQuest>
                 ) : (
                   quest.dtolist?.map((v) => {
@@ -87,7 +87,7 @@ const Community = ({onCommunity, lectureId, videoid}: Communitys) => {
                         </St.BtnTop>
                         <St.BtnBtm>
                           <p>
-                            {v.studentId} ·{' '}
+                            {v.studentId} ·{" "}
                             <span>{v.questionDate.slice(0, 10)}</span>
                           </p>
                           <em>답변수 : {v.answer}</em>
@@ -98,7 +98,14 @@ const Community = ({onCommunity, lectureId, videoid}: Communitys) => {
                 )}
               </St.Center>
               <St.Write>
-                <Button onBtn={onHide} color="full" text="글 작성하기" />
+                <Button
+                  onBtn={onHide}
+                  width="full"
+                  color="white"
+                  backgroundColor="main"
+                  text="글 작성하기"
+                  name="write"
+                />
               </St.Write>
             </>
           )}

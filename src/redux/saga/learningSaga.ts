@@ -10,6 +10,12 @@ import {
   buyLectureSuccess,
   buyLectureFail,
   buyLectureLoading,
+  ratingLectureTwoSuccess,
+  ratingLectureTwoFail,
+  ratingLectureTwoLoading,
+  buyLectureTwoSuccess,
+  buyLectureTwoFail,
+  buyLectureTwoLoading,
   categorySearchSuccess,
   categorySearchFail,
   categorySearchLoading,
@@ -28,6 +34,12 @@ import {
   LectureDetailCommentGetSuccess,
   LectureDetailCommentGetFail,
   LectureDetailCommentGetLoading,
+  categorySearchLoadingThr,
+  categorySearchSuccessThr,
+  categorySearchFailThr,
+  categorySearchLoadingFour,
+  categorySearchSuccessFour,
+  categorySearchFailFour
 } from "../reducer/learningReducer";
 
 
@@ -53,6 +65,27 @@ function* buyLecture(
   }
 }
 
+function* ratingLectureTwo(
+  action: PayloadAction<MainList>
+): Generator<any, void, any> {
+  try {
+    const response = yield call(search.searchTwo, action.payload);
+    yield put(ratingLectureTwoSuccess(response));
+  } catch (error: any) {
+    yield put(ratingLectureTwoFail(error));
+  }
+}
+function* buyLectureTwo(
+  action: PayloadAction<MainList>
+): Generator<any, void, any> {
+  try {
+    const response = yield call(search.searchTwo, action.payload);
+    yield put(buyLectureTwoSuccess(response));
+  } catch (error: any) {
+    yield put(buyLectureTwoFail(error));
+  }
+}
+
 function* cateSearch(action: PayloadAction<Search>): Generator<any, void, any> {
   try {
     const response = yield call(search.categorySearch, action.payload);
@@ -71,7 +104,26 @@ function* cateSearchTwo(
     yield put(categorySearchFailTwo(error.message));
   }
 }
-
+function* cateSearchThr(
+  action: PayloadAction<Search>
+): Generator<any, void, any> {
+  try {
+    const response = yield call(search.categorySearchTwo, action.payload);
+    yield put(categorySearchSuccessThr(response));
+  } catch (error: any) {
+    yield put(categorySearchFailThr(error.message));
+  }
+}
+function* cateSearchFour(
+  action: PayloadAction<Search>
+): Generator<any, void, any> {
+  try {
+    const response = yield call(search.categorySearchTwo, action.payload);
+    yield put(categorySearchSuccessFour(response));
+  } catch (error: any) {
+    yield put(categorySearchFailFour(error.message));
+  }
+}
 function* detail(action: PayloadAction<Lectureid>): Generator<any, void, any> {
   try {
     const response = yield call(search.lectureDetail, action.payload);
@@ -106,7 +158,6 @@ function* lectureDetailGetComment(
 ): Generator<any, void, any> {
   try {
     const response = yield call(search.lectureDetailGetComment, action.payload);
-    console.log(response);
     yield put(LectureDetailCommentGetSuccess(response));
   } catch (error: any) {
     yield put(LectureDetailCommentGetFail(error.message));
@@ -120,9 +171,22 @@ export function* watchCategorySearchSaga() {
 export function* watchCategorySearchSagaTwo() {
   yield takeLatest(categorySearchLoadingTwo, cateSearchTwo);
 }
+export function* watchCategorySearchSagaThr() {
+  yield takeLatest(categorySearchLoadingThr, cateSearchThr);
+}
+export function* watchCategorySearchSagaFour() {
+  yield takeLatest(categorySearchLoadingFour, cateSearchFour);
+}
 export function* watchRatingLectureSaga() {
   yield takeLatest(ratingLectureLoading, ratingLecture);
 }
+export function* watchRatingLectureTwoSaga() {
+  yield takeLatest(ratingLectureTwoLoading, ratingLectureTwo);
+}
+export function* watchBuyLectureTwoSaga() {
+  yield takeLatest(buyLectureTwoLoading, buyLectureTwo);
+}
+
 export function* watchBuyLectureSaga() {
   yield takeLatest(buyLectureLoading, buyLecture);
 }
@@ -141,10 +205,14 @@ export function* watchLectureDetailGetCommentlSaga() {
 
 export default function* learningSaga() {
   yield all([
+    fork(watchBuyLectureTwoSaga),
+    fork(watchRatingLectureTwoSaga),
+    fork(watchBuyLectureSaga),
     fork(watchRatingLectureSaga),
+    fork(watchCategorySearchSagaThr),
+    fork(watchCategorySearchSagaFour),
     fork(watchCategorySearchSagaTwo),
     fork(watchCategorySearchSaga),
-    fork(watchBuyLectureSaga),
     fork(watchLectureDetailSaga),
     fork(watchLectureDetaiTextlSaga),
     fork(watchLectureDetailCommentlSaga),

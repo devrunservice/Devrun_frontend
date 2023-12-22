@@ -5,13 +5,14 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from 'redux/store';
 import ReactQuill, {Quill} from 'react-quill';
 import ImageResize from 'quill-image-resize-module-react';
+import QuillImageCompress from "quill-image-compress";
 import {notice} from 'utils/api';
 import {Button} from 'components';
 import 'react-quill/dist/quill.snow.css';
 import * as S from 'style/Common';
 import * as St from './style';
-
 import QuillToolbar, {formats} from './QuillToolbar';
+
 import {
   noticeWriteLoading,
   noticeRetouchLoading,
@@ -26,6 +27,7 @@ import {
 } from '../../redux/reducer/videoViewReducer';
 
 Quill.register('modules/imageResize', ImageResize);
+Quill.register("modules/imageCompress", QuillImageCompress);
 
 interface path {
   path: string;
@@ -55,6 +57,7 @@ const Editor = (props: path) => {
 
     input.onchange = async () => {
       const file = input.files;
+      console.log(file);
       if (file !== null) {
         if (file[0].size > 1024 * 1024 * 2) {
           alert('이미지 용량을 초과하였습니다.');
@@ -100,14 +103,21 @@ const Editor = (props: path) => {
   const modules = useMemo(
     () => ({
       toolbar: {
-        container: '#toolbar',
+        container: "#toolbar",
         handlers: {
           image: onImage,
         },
       },
       imageResize: {
-        parchment: Quill.import('parchment'),
-        modules: ['Resize', 'DisplaySize', 'Toolbar'],
+        parchment: Quill.import("parchment"),
+        modules: ["Resize", "DisplaySize", "Toolbar"],
+      },
+      imageCompress: {
+        quality: 0.7, // 이미지 압축 품질 설정 (0.1 ~ 1 사이의 값)
+        maxWidth: 1200, // 이미지 최대 너비 설정
+        maxHeight: 800, // 이미지 최대 높이 설정
+        imageType: ["image/jpeg", "image/png", "image/svg", "image/jpg"], // 이미지 타입 설정
+        debug: true, // 디버그 모드 설정 (선택 사항)
       },
     }),
     []
@@ -210,6 +220,7 @@ const Editor = (props: path) => {
   const onHide = () => {
     if (props.setHide !== undefined) props.setHide(false);
   };
+  
   return (
     <>
       <St.TitleInput
@@ -227,23 +238,53 @@ const Editor = (props: path) => {
         onChange={setContent}
         modules={modules}
         formats={formats}
-        $active={props.path === 'lecture_note'}
+        $active={props.path === "lecture_note"}
       />
 
-      <S.ButtonWrap $active={props.tap !== ('공지작성' || '공지수정')}>
-        {(props.tap === 'NoteRe' || props.tap === 'CommunityRe') && (
+      <S.ButtonWrap $active={props.tap !== ("공지작성" || "공지수정")}>
+        {(props.tap === "NoteRe" || props.tap === "CommunityRe") && (
           <>
-            <Button text="취소" onBtn={onHide} color="No" />
-            <Button text="글수정" onBtn={onNoteWrite} color="yes" />
+            <Button
+              text="취소"
+              name="No"
+              color="main"
+              border="main"
+              onBtn={onHide}
+            />
+            <Button
+              text="글수정"
+              name="Yes"
+              color="white"
+              backgroundColor="main"
+              onBtn={onNoteWrite}
+            />
           </>
         )}
-        {(props.tap === 'Note' || props.tap === 'Community') && (
-          <Button text="글쓰기" onBtn={onNoteWrite} color="yes" />
+        {(props.tap === "Note" || props.tap === "Community") && (
+          <Button
+            text="글쓰기"
+            name="Yes"
+            color="white"
+            backgroundColor="main"
+            onBtn={onNoteWrite}
+          />
         )}
-        {(props.tap === '공지작성' || props.tap === '공지수정') && (
+        {(props.tap === "공지작성" || props.tap === "공지수정") && (
           <>
-            <Button text="나가기" onBtn={onExit} color="No" />
-            <Button text="글쓰기" onBtn={onWrite} color="yes" />
+            <Button
+              text="취소"
+              name="No"
+              color="main"
+              border="main"
+              onBtn={onExit}
+            />
+            <Button
+              text="글쓰기"
+              name="Yes"
+              color="white"
+              backgroundColor="main"
+              onBtn={onWrite}
+            />
           </>
         )}
       </S.ButtonWrap>

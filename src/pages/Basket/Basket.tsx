@@ -187,7 +187,7 @@ const Basket = () => {
                     }
                   />
                   <St.CheckLabel htmlFor="selectAll">
-                    전체선택 <span>{checkList.length}</span> /{' '}
+                    전체선택 <span>{checkList.length}</span> /{" "}
                     {data.lectureInfoList.length}
                   </St.CheckLabel>
                 </div>
@@ -234,12 +234,12 @@ const Basket = () => {
           <St.InfoWrap>
             <em>쿠폰</em>
             <p>
-              사용가능{' '}
+              사용가능{" "}
               <span>
                 {
                   data.couponListInCart.filter(
                     (v) =>
-                      v.state === 'ACTIVE' &&
+                      v.state === "ACTIVE" &&
                       checkList.some(
                         (list) => list.lectureName === v.lecturename
                       )
@@ -249,7 +249,7 @@ const Basket = () => {
             </p>
           </St.InfoWrap>
           <St.Coupon onClick={() => setOpenCoupon(true)} type="button">
-            {price.couponName || '쿠폰을 선택해주세요'}
+            {price.couponName || "쿠폰을 선택해주세요"}
           </St.Coupon>
           {openCoupon && (
             <CouponPop
@@ -287,6 +287,7 @@ const Basket = () => {
             <span>{priceDot(price.price - price.discount - point)}원</span>
           </St.TotalPrice>
           <St.Button>결제하기</St.Button>
+
         </St.BasketRight>
       </St.BasketForm>
     </S.Inner>

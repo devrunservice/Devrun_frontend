@@ -12,6 +12,9 @@ import {
   createCouponSuccess,
   createCouponFail,
   createCouponLoading,
+  createlectureLoading,
+  createlectureSuccess,
+  createlectureFail,
 } from "../reducer/mentoCouponReducer";
 
 
@@ -19,6 +22,7 @@ import {
 function* coupon(action: PayloadAction<PageNo>): Generator<any, void, any> {
   try {
     const response = yield call(create.couponGet, action.payload);
+    console.log(response);
     yield put(couponSuccess(response));
   } catch (error) {
     yield put(couponFail(error));
@@ -46,12 +50,22 @@ function* createCoupon(
     yield put(createCouponFail(error));
   }
 }
-
+function* lecture(): Generator<any, void, any> {
+  try {
+    const response = yield call(create.lecture);
+    yield put(createlectureSuccess(response));
+  } catch (error) {
+    yield put(createlectureFail(error));
+  }
+}
 function* watchCouponActive(){
     yield takeLatest(couponActiveLoading, couponActive);
 }
 function* watchCoupon() {
   yield takeLatest(couponLoading, coupon);
+}
+function* watchLecture() {
+  yield takeLatest(createlectureLoading, lecture);
 }
 function* watchCreateCoupon() {
   yield takeLatest(createCouponLoading, createCoupon);
@@ -61,5 +75,6 @@ export default function* mentoCouponSaga(){
       fork(watchCoupon),
       fork(watchCreateCoupon),
       fork(watchCouponActive),
+      fork(watchLecture),
     ]);
 }

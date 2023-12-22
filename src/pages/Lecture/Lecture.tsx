@@ -5,11 +5,14 @@ import {RootState} from 'redux/store';
 import {useParams} from 'react-router-dom';
 import {Pagination, LectureCard, NoData} from 'components';
 import {NoSearch} from 'asset';
+import { getCookie } from "utils/cookies";
 import * as St from './style';
-import {categorySearchLoading} from '../../redux/reducer/learningReducer';
+import {categorySearchLoading, categorySearchLoadingThr} from '../../redux/reducer/learningReducer';
+
 
 const Lecture = () => {
   const param = useParams();
+  const accessToken = getCookie("accessToken");
   const dispatch = useDispatch();
   const {lecture} = useSelector((state: RootState) => state.learningReducer);
   const [pageno, setPageno] = useState<number>(1);
@@ -49,21 +52,36 @@ const Lecture = () => {
       setPageno(1);
       setlectureName(param.lectureBigCategory);
     }
-
-    if (validCategories.includes(param.lectureBigCategory ?? '')) {
-      dispatch(
-        categorySearchLoading({
-          page: pageno,
-          bigcategory:
-            param.lectureBigCategory === '전체강의'
-              ? ''
-              : param.lectureBigCategory,
-          order: option.order,
-          q: '',
-        })
-      );
+    if (validCategories.includes(param.lectureBigCategory ?? "")) {
+      if (accessToken) {
+        dispatch(
+          categorySearchLoadingThr({
+            page: pageno,
+            bigcategory:
+              param.lectureBigCategory === "전체강의"
+                ? ""
+                : param.lectureBigCategory,
+            order: option.order,
+            q: "",
+          })
+        );
+      }else{
+        dispatch(
+          categorySearchLoading({
+            page: pageno,
+            bigcategory:
+              param.lectureBigCategory === "전체강의"
+                ? ""
+                : param.lectureBigCategory,
+            order: option.order,
+            q: "",
+          })
+        );
+      }
     }
-  }, [param.lectureBigCategory, pageno, option.order]);
+    
+      
+  }, [param.lectureBigCategory, pageno, option.order, accessToken]);
   return (
     <>
       <St.Top>
@@ -114,6 +132,7 @@ const Lecture = () => {
                   buyCount={v.buyCount}
                   rating={v.rating}
                   lectureId={v.lectureId}
+                  purchaseStatus={v.purchaseStatus}
                 />
               );
             })}

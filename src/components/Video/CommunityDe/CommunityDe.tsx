@@ -63,7 +63,9 @@ const CommunityDe = ({setQuestionId, questionId, onCommunity}: communutiy) => {
       <VideoTop
         text="커뮤니티"
         onButton={onCommunity}
-        onExit={() => setQuestionId({...questionId, questionIdBoolean: false})}
+        onExit={() =>
+          setQuestionId({ ...questionId, questionIdBoolean: false })
+        }
       />
       {hide ? (
         <St.Editor>
@@ -82,8 +84,20 @@ const CommunityDe = ({setQuestionId, questionId, onCommunity}: communutiy) => {
             <span>수업질문</span>
             {data.id === questionDetail.studentId && (
               <div>
-                <Button text="수정" color="main" onBtn={onHide} />
-                <Button text="삭제" color="red" onBtn={onDelet} />
+                <Button
+                  text="수정"
+                  name="re"
+                  color="main"
+                  width="auto"
+                  onBtn={onHide}
+                />
+                <Button
+                  text="삭제"
+                  name="del"
+                  color="red"
+                  width="auto"
+                  onBtn={onDelet}
+                />
               </div>
             )}
           </div>

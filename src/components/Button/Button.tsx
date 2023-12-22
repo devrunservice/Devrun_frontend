@@ -37,6 +37,7 @@ const Button = ({
       width={width}
       border={border}
       lineHeight={lineHeight}
+      type="button"
     >
       {text}
     </St.Button>

@@ -113,17 +113,6 @@ export const CommentText = styled.p`
 `;
 
 
-export const CommentWrite = styled.button`
-  font-weight: 500;
-  color: ${(props: any) => props.theme.black};
-  background: none;
-`;
-export const CommentRe = styled(CommentWrite)`
-  color: ${(props: any) => props.theme.mainColor};
-`;
-export const CommentRemove = styled(CommentWrite)`
-  color: ${(props: any) => props.theme.textRed};
-`;
 export const CommentWriteWrap = styled.form`
   margin: 1.875rem 0;
   position: relative;

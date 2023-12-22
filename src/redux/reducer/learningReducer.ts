@@ -4,6 +4,7 @@ import { CommentsList, DetailAPI } from 'types';
 
 interface Data {
   dtolist: {
+    purchaseStatus: boolean;
     lectureBigCategory: string;
     lectureIntro: string;
     lectureMidCategory: string;
@@ -121,6 +122,31 @@ const learningReducer = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    ratingLectureTwoLoading: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
+    ratingLectureTwoSuccess: (state, action) => {
+      state.loading = false;
+      state.data = action.payload.data;
+    },
+    ratingLectureTwoFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    buyLectureTwoLoading: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
+    buyLectureTwoSuccess: (state, action) => {
+      state.loading = false;
+      state.lecture = action.payload.data;
+    },
+    buyLectureTwoFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+
     categorySearchLoading: (state, action) => {
       state.loading = true;
       state.error = null;
@@ -145,6 +171,32 @@ const learningReducer = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+
+    categorySearchLoadingThr: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
+    categorySearchSuccessThr: (state, action) => {
+      state.loading = false;
+      state.lecture = action.payload.data;
+    },
+    categorySearchFailThr: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    categorySearchLoadingFour: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
+    categorySearchSuccessFour: (state, action) => {
+      state.loading = false;
+      state.data = action.payload.data;
+    },
+    categorySearchFailFour: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+
     LectureDetailLoading: (state, action) => {
       state.loading = true;
       state.error = null;
@@ -224,6 +276,18 @@ export const {
   LectureDetailCommentGetSuccess,
   LectureDetailCommentGetFail,
   LectureDetailCommentGetLoading,
+  ratingLectureTwoSuccess,
+  ratingLectureTwoFail,
+  ratingLectureTwoLoading,
+  buyLectureTwoSuccess,
+  buyLectureTwoFail,
+  buyLectureTwoLoading,
+  categorySearchLoadingThr,
+  categorySearchSuccessThr,
+  categorySearchFailThr,
+  categorySearchLoadingFour,
+  categorySearchSuccessFour,
+  categorySearchFailFour,
 } = learningReducer.actions;
 
 export default learningReducer.reducer;

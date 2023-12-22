@@ -60,7 +60,7 @@ export const Button = styled.button<{
       case '0px':
         return '0px';
       default:
-        return '50px';
+        return '45px';
     }
   }};
 `;

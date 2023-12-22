@@ -110,6 +110,8 @@ export const Btn = styled(Button)`
 export const SelectTitle = styled.label<I.Active>`
   width: 100%;
   border: 1px solid ${(props: any) => props.theme.borderC};
+  border-bottom: 1px solid
+    ${(props: any) => (props.$active ? "transparent" : props.theme.borderC)};
   font-size: 0.875rem;
   border-radius: ${(props: any) => (props.$active ? "5px 5px 0 0" : "5px")};
   display: block;
@@ -129,7 +131,6 @@ export const Arr = styled(Arrow)<I.Active>`
   transition: all 0.3s;
 `;
 export const SelectBox = styled.div`
-  margin: 1rem 0 2.5rem;
   position: relative;
 `;
 export const SelectBoxUi = styled.ul`
@@ -142,11 +143,21 @@ export const SelectBoxUi = styled.ul`
   padding: 1rem 1rem;
   top: 2.4375rem;
   border-radius: 0 0 5px 5px;
+  max-height: 250px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    background: ${(props: any) => props.theme.bgGrayColor};
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${(props: any) => props.theme.borderD};
+    width: 3px;
+  }
 `;
 
 export const SelectBoxLi = styled.li`
   margin-bottom: 13px;
-  font-size: 0.875rem
+  font-size: 0.875rem;
   cursor: pointer;
   color: ${(props: any) => props.theme.black};
   &:last-child {

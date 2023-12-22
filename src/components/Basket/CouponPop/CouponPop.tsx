@@ -1,6 +1,7 @@
 import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useDate } from "hooks";
+import { Button } from "components";
 import * as I from "types";
 import * as St from "./style";
 import { cartCouponLoading } from "../../../redux/reducer/cartReducer";
@@ -193,9 +194,15 @@ const CouponPop = ({
                 })}
             </ul>
           </div>
-          <St.Btn $active onClick={() => closeBtn()} type="button">
-            확인
-          </St.Btn>
+
+          <Button
+            text="확인"
+            name="Yes"
+            color="white"
+            width="full"
+            backgroundColor="main"
+            onBtn={() => closeBtn()}
+          />
         </St.PopCon>
       </St.Popup>
 

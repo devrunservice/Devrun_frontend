@@ -71,6 +71,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["file-saver", "npm:2.0.5"],\
             ["html2canvas", "npm:1.4.1"],\
             ["jspdf", "npm:2.5.1"],\
+            ["quill-image-compress", "npm:1.2.30"],\
             ["quill-image-resize-module-react", "npm:3.0.0"],\
             ["react", "npm:18.2.0"],\
             ["react-app", "npm:1.1.2"],\
@@ -9014,6 +9015,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["file-saver", "npm:2.0.5"],\
             ["html2canvas", "npm:1.4.1"],\
             ["jspdf", "npm:2.5.1"],\
+            ["quill-image-compress", "npm:1.2.30"],\
             ["quill-image-resize-module-react", "npm:3.0.0"],\
             ["react", "npm:18.2.0"],\
             ["react-app", "npm:1.1.2"],\
@@ -17066,6 +17068,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["deep-equal", "npm:1.1.1"],\
             ["extend", "npm:3.0.2"],\
             ["fast-diff", "npm:1.1.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["quill-image-compress", [\
+        ["npm:1.2.30", {\
+          "packageLocation": "./.yarn/cache/quill-image-compress-npm-1.2.30-f7d59964f7-3d39b15a49.zip/node_modules/quill-image-compress/",\
+          "packageDependencies": [\
+            ["quill-image-compress", "npm:1.2.30"],\
+            ["quill", "npm:1.3.7"]\
           ],\
           "linkType": "HARD"\
         }]\
