@@ -1,18 +1,22 @@
-import React, {ReactNode} from 'react';
-import ReactDOM from 'react-dom/client';
-import {createBrowserRouter, RouterProvider, Navigate} from 'react-router-dom';
-import {ThemeProvider} from 'styled-components';
-import {HelmetProvider} from 'react-helmet-async';
-import {GlobalStyle, defaultTheme} from 'style/Theme';
-import {getCookie} from 'utils/cookies';
-import {Provider} from 'react-redux';
-import {PersistGate} from 'redux-persist/integration/react';
-import * as Route from 'pages';
-import store, {persistor} from './redux/store';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, { ReactNode } from "react";
+import ReactDOM from "react-dom/client";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
+import { ThemeProvider } from "styled-components";
+import { HelmetProvider } from "react-helmet-async";
+import { GlobalStyle, defaultTheme } from "style/Theme";
+import { getCookie } from "utils/cookies";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import * as Route from "pages";
+import store, { persistor } from "./redux/store";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 
-const ACCESS_TOKEN = getCookie('accessToken');
+const ACCESS_TOKEN = getCookie("accessToken");
 
 const protectedRoute = (component: ReactNode) =>
   ACCESS_TOKEN ? component : <Navigate replace to="/login" />;
@@ -22,86 +26,86 @@ const expiredRoute = (component: ReactNode) =>
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <App />,
     errorElement: <Route.NotFound />,
     children: [
-      {index: true, element: <Route.HomePage />},
+      { index: true, element: <Route.HomePage /> },
       {
-        path: 'home',
+        path: "home",
         element: protectedRoute(<Route.HomePage />),
       },
-      {path: 'login', element: expiredRoute(<Route.Login />)},
-      {path: 'kakaologin', element: expiredRoute(<Route.Login />)},
-      {path: 'auth/kakao/callback', element: <Route.Auth2RedirectHandler />},
-      {path: 'signup', element: <Route.Signup />},
-      {path: 'signupconfirm', element: <Route.SignupConfirm />},
+      { path: "login", element: expiredRoute(<Route.Login />) },
+      { path: "kakaologin", element: expiredRoute(<Route.Login />) },
+      { path: "auth/kakao/callback", element: <Route.Auth2RedirectHandler /> },
+      { path: "signup", element: <Route.Signup /> },
+      { path: "signupconfirm", element: <Route.SignupConfirm /> },
       {
-        path: 'signupcompletion',
+        path: "signupcompletion",
         element: <Route.SignupCompletion />,
       },
-      {path: 'findaccount/id', element: <Route.FindId />},
-      {path: 'findaccount/password', element: <Route.FindPassword />},
-      {path: 'basket', element: protectedRoute(<Route.Basket />)},
+      { path: "findaccount/id", element: <Route.FindId /> },
+      { path: "findaccount/password", element: <Route.FindPassword /> },
+      { path: "basket", element: protectedRoute(<Route.Basket />) },
       {
-        path: 'noticeWrite',
+        path: "noticeWrite",
         element: protectedRoute(<Route.NoticeWrite />),
       },
-      {path: 'notice', element: <Route.Notice />},
+      { path: "notice", element: <Route.Notice /> },
       {
-        path: 'notice/:noticeNo',
+        path: "notice/:noticeNo",
         element: <Route.NoticeDetail />,
       },
       {
-        path: 'notice/:noticeNo/retouch',
+        path: "notice/:noticeNo/retouch",
         element: protectedRoute(<Route.NoticeRetouch />),
       },
       {
-        path: 'lecture/:lectureBigCategory',
+        path: "lecture/:lectureBigCategory",
         element: <Route.Lecture />,
       },
-      {path: 'detail/:id', element: <Route.Detailsell />},
-      {path: 'createVideo', element: <Route.CreateVideo />},
-      {path: 'profile', element: protectedRoute(<Route.Profile />)},
-      {path: 'dashboard', element: protectedRoute(<Route.Dashboard />)},
-      {path: 'notes', element: protectedRoute(<Route.Notes />)},
-      {path: 'notes/:lectureId', element: protectedRoute(<Route.Note />)},
+      { path: "detail/:id", element: <Route.Detailsell /> },
+      { path: "createVideo", element: <Route.CreateVideo /> },
+      { path: "profile", element: protectedRoute(<Route.Profile />) },
+      { path: "dashboard", element: protectedRoute(<Route.Dashboard />) },
+      { path: "notes", element: protectedRoute(<Route.Notes />) },
+      { path: "notes/:lectureId", element: protectedRoute(<Route.Note />) },
       {
-        path: 'notes/:lectureId/:noteId',
+        path: "notes/:lectureId/:noteId",
         element: protectedRoute(<Route.NoteDetail />),
       },
-      {path: 'questions', element: protectedRoute(<Route.Questions />)},
+      { path: "questions", element: protectedRoute(<Route.Questions />) },
       {
-        path: 'questions/:questionId',
+        path: "questions/:questionId",
         element: protectedRoute(<Route.QuestionDetail />),
       },
       {
-        path: 'certifications',
+        path: "certifications",
         element: protectedRoute(<Route.Certifications />),
       },
       {
-        path: 'certifications/:lectureId',
+        path: "certifications/:lectureId",
         element: protectedRoute(<Route.CertificationDetail />),
       },
-      {path: 'coupon', element: protectedRoute(<Route.Coupon />)},
-      {path: 'receipt', element: <Route.Receipt />},
-      {path: 'learning', element: protectedRoute(<Route.Learning />)},
-      {path: 'point', element: protectedRoute(<Route.Point />)},
-      {path: 'createcoupon', element: protectedRoute(<Route.CreateCoupon />)},
+      { path: "coupon", element: protectedRoute(<Route.Coupon />) },
+      { path: "receipt", element: <Route.Receipt /> },
+      { path: "learning", element: protectedRoute(<Route.Learning />) },
+      { path: "point", element: protectedRoute(<Route.Point />) },
+      { path: "createcoupon", element: protectedRoute(<Route.CreateCoupon />) },
       {
-        path: 'lectures/:lectureId',
+        path: "lectures/:lectureId",
         element: <Route.Detailsell />,
       },
-      {path: 'createVideo', element: protectedRoute(<Route.CreateVideo />)},
+      { path: "createVideo", element: protectedRoute(<Route.CreateVideo />) },
       {
-        path: 'videoView/:lectureId/:videoId',
+        path: "videoView/:lectureId/:videoId",
         element: protectedRoute(<Route.VideoView />),
       },
     ],
   },
 ]);
 
-const rootElement = document.getElementById('root') as HTMLElement;
+const rootElement = document.getElementById("root") as HTMLElement;
 
 const element = (
   <ThemeProvider theme={defaultTheme}>

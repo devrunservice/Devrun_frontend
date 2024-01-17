@@ -25,9 +25,7 @@ import {
   LectureDetailSuccess,
   LectureDetailFail,
   LectureDetailLoading,
-  LectureDetailTextSuccess,
-  LectureDetailTextFail,
-  LectureDetailTextLoading,
+
   LectureDetailCommentSuccess,
   LectureDetailCommentFail,
   LectureDetailCommentLoading,
@@ -133,15 +131,6 @@ function* detail(action: PayloadAction<Lectureid>): Generator<any, void, any> {
   }
 }
 
-function* detailtext(action: PayloadAction<Lectureid>): Generator<any, void, any> {
-  try {
-    const response = yield call(search.lectureDetailtext, action.payload);
-    yield put(LectureDetailTextSuccess(response));
-  } catch (error: any) {
-    yield put(LectureDetailTextFail(error.message));
-  }
-}
-
 function* lectureDetailComment(
   action: PayloadAction<Reviewrating>
 ): Generator<any, void, any> {
@@ -193,9 +182,7 @@ export function* watchBuyLectureSaga() {
 export function* watchLectureDetailSaga() {
   yield takeLatest(LectureDetailLoading, detail);
 }
-export function* watchLectureDetaiTextlSaga() {
-  yield takeLatest(LectureDetailTextLoading, detailtext);
-}
+
 export function* watchLectureDetailCommentlSaga() {
   yield takeLatest(LectureDetailCommentLoading, lectureDetailComment);
 }
@@ -214,7 +201,6 @@ export default function* learningSaga() {
     fork(watchCategorySearchSagaTwo),
     fork(watchCategorySearchSaga),
     fork(watchLectureDetailSaga),
-    fork(watchLectureDetaiTextlSaga),
     fork(watchLectureDetailCommentlSaga),
     fork(watchLectureDetailGetCommentlSaga),
   ]);

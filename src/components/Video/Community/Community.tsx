@@ -102,7 +102,7 @@ const Community = ({onCommunity, lectureId, videoid}: Communitys) => {
                   onBtn={onHide}
                   width="full"
                   color="white"
-                  backgroundColor="main"
+                  backgroundcolor="main"
                   text="글 작성하기"
                   name="write"
                 />

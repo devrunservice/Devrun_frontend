@@ -32,7 +32,7 @@ const Notice = () => {
             text="글쓰기"
             name="text"
             color="white"
-            backgroundColor="main"
+            backgroundcolor="main"
             onBtn={() => navigate("/noticeWrite")}
           />
         </S.ButtonWrap>
