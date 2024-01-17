@@ -2,7 +2,7 @@ import {styled} from 'styled-components';
 
 export const Button = styled.button<{
   color?: string;
-  backgroundColor?: string;
+  backgroundcolor?: string;
   border?: string;
   width?: string;
   lineHeight?: string;
@@ -34,10 +34,10 @@ export const Button = styled.button<{
   }};
 
   background: ${(props) => {
-    switch (props.backgroundColor) {
-      case 'main':
+    switch (props.backgroundcolor) {
+      case "main":
         return props.theme.mainColor;
-      case 'red':
+      case "red":
         return props.theme.textRed;
       default:
         return props.theme.bgColor;

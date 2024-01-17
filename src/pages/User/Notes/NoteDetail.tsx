@@ -60,7 +60,7 @@ const NoteDetail = () => {
           name="noteList"
           text="목록"
           onBtn={handleClick}
-          backgroundColor="transparent"
+          backgroundcolor="transparent"
           border="main"
         />
         <Button
@@ -68,14 +68,14 @@ const NoteDetail = () => {
           text="수정"
           onBtn={handleClick}
           color="white"
-          backgroundColor="main"
+          backgroundcolor="main"
         />
         <Button
           name="noteDelete"
           text="삭제"
           onBtn={handleClick}
           color="white"
-          backgroundColor="red"
+          backgroundcolor="red"
         />
       </St.NoteBtn>
       <ConfirmModal onConfirm={handleConfirm} />

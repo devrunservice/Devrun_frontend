@@ -4,7 +4,7 @@ import * as St from './style';
 interface IBtn {
   name?: string;
   color?: string;
-  backgroundColor?: string;
+  backgroundcolor?: string;
   border?: string;
   width?: string;
   lineHeight?: string;
@@ -16,7 +16,7 @@ const Button = ({
   name,
   text,
   color,
-  backgroundColor,
+  backgroundcolor,
   border,
   width,
   lineHeight,
@@ -33,7 +33,7 @@ const Button = ({
       name={name}
       onClick={handleClick}
       color={color}
-      backgroundColor={backgroundColor}
+      backgroundcolor={backgroundcolor}
       width={width}
       border={border}
       lineHeight={lineHeight}

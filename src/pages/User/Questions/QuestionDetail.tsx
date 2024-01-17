@@ -65,7 +65,7 @@ const QuestionDetail = () => {
           name="questionList"
           text="목록"
           onBtn={handleClick}
-          backgroundColor="transparent"
+          backgroundcolor="transparent"
           border="main"
         />
         <Button
@@ -73,14 +73,14 @@ const QuestionDetail = () => {
           text="수정"
           onBtn={handleClick}
           color="white"
-          backgroundColor="main"
+          backgroundcolor="main"
         />
         <Button
           name="questionDelete"
           text="삭제"
           onBtn={handleClick}
           color="white"
-          backgroundColor="red"
+          backgroundcolor="red"
         />
       </St.QuestionBtn>
       <Comment text="댓글" path="/questions" paramId={Number(questionId)} />

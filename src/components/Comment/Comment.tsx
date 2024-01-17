@@ -279,7 +279,7 @@ const Comment = ({text, sub, path, paramId}: title) => {
           text="등록"
           name="Yes"
           color="white"
-          backgroundColor="main"
+          backgroundcolor="main"
           onBtn={onComment}
         />
       </St.ButtonWrap>
@@ -363,7 +363,7 @@ const Comment = ({text, sub, path, paramId}: title) => {
                           text="등록"
                           name="Yes"
                           color="white"
-                          backgroundColor="main"
+                          backgroundcolor="main"
                           onBtn={() => onCommentRe(v.commentNo)}
                         />
                       </St.ButtonWrapCommnet>
@@ -405,7 +405,7 @@ const Comment = ({text, sub, path, paramId}: title) => {
                           text="등록"
                           name="Yes"
                           color="white"
-                          backgroundColor="main"
+                          backgroundcolor="main"
                           onBtn={() => onComments(v.commentNo, v.noticeNo)}
                         />
                       </St.ButtonWrapCommnet>
@@ -491,7 +491,7 @@ const Comment = ({text, sub, path, paramId}: title) => {
                                     text="등록"
                                     name="Yes"
                                     color="white"
-                                    backgroundColor="main"
+                                    backgroundcolor="main"
                                     onBtn={() => onCommentRe(q.commentNo)}
                                   />
                                 </St.ButtonWrapCommnet>

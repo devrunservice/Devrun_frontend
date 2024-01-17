@@ -67,14 +67,14 @@ const Detail = () => {
                   text="수정하기"
                   name="re"
                   color="white"
-                  backgroundColor="main"
+                  backgroundcolor="main"
                   onBtn={() => navigate(`/notice/${noticeNo.noticeNo}/retouch`)}
                 />
                 <Button
                   text="삭제하기"
                   name="del"
                   color="white"
-                  backgroundColor="red"
+                  backgroundcolor="red"
                   onBtn={() => delButton()}
                 />
               </>
