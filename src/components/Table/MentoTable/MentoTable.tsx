@@ -55,3 +55,4 @@ const Table = ({ data }: Coupon) => {
   );
 };
 export default Table;
+

@@ -26,6 +26,6 @@
     "**/*.tsx",
     "src",
     "asset/custom.d.ts"
-  ],
+, "server/index.js"  ],
   "use": ["@svg/webpack"]
 }

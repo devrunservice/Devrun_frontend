@@ -57,7 +57,6 @@ const Editor = (props: path) => {
 
     input.onchange = async () => {
       const file = input.files;
-      console.log(file);
       if (file !== null) {
         if (file[0].size > 1024 * 1024 * 2) {
           alert('이미지 용량을 초과하였습니다.');
@@ -255,7 +254,7 @@ const Editor = (props: path) => {
               text="글수정"
               name="Yes"
               color="white"
-              backgroundColor="main"
+              backgroundcolor="main"
               onBtn={onNoteWrite}
             />
           </>
@@ -265,7 +264,7 @@ const Editor = (props: path) => {
             text="글쓰기"
             name="Yes"
             color="white"
-            backgroundColor="main"
+            backgroundcolor="main"
             onBtn={onNoteWrite}
           />
         )}
@@ -282,7 +281,7 @@ const Editor = (props: path) => {
               text="글쓰기"
               name="Yes"
               color="white"
-              backgroundColor="main"
+              backgroundcolor="main"
               onBtn={onWrite}
             />
           </>

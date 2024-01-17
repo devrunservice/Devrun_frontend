@@ -428,12 +428,7 @@ export const search = {
     const response = baseAxios.get(`/api/lectures/${params.lectureid}`);
     return response;
   },
-  lectureDetailtext: (params: I.Lectureid) => {
-    const response = baseAxios.get(
-      `/api/lectures/detailtest/${params.lectureid}`
-    );
-    return response;
-  },
+
   lectureDetailComment: (params: I.Reviewrating) => {
     const response = authAxios.post(`/reviewrating`, params);
     return response;

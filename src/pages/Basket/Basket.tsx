@@ -115,7 +115,7 @@ const Basket = () => {
   const callback = async (response: I.RequestPayResponse) => {
     const {imp_uid, paid_amount, success} = response;
 
-    const payload: I.bastetCheck[] = checkList.map((item, index) => {
+    const payload = checkList.map((item, index) => {
       const baseData = {
         name: item.lectureName,
         paid_amount: item.lecturePrice,

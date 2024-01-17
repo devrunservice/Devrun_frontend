@@ -200,7 +200,7 @@ const CouponPop = ({
             name="Yes"
             color="white"
             width="full"
-            backgroundColor="main"
+            backgroundcolor="main"
             onBtn={() => closeBtn()}
           />
         </St.PopCon>

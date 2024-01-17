@@ -26,7 +26,6 @@ const Detailsell = () => {
   const {videoTime} = useDate();
   const {
     lectureDetail,
-    content,
     lecture: mento,
     data: lectureBig,
   } = useSelector((state: RootState) => state.learningReducer);
@@ -35,6 +34,7 @@ const Detailsell = () => {
     dispatch(LectureDetailTextLoading({lectureid: param.lectureId}));
     
   }, []);
+  console.log(lectureDetail);
   useEffect(()=>{
     if(accessToken){
       dispatch(
@@ -42,7 +42,7 @@ const Detailsell = () => {
           page: 1,
           bigcategory: "",
           order: "lecture_start",
-          q: lectureDetail.mentoId.id,
+          q: lectureDetail.lecture.mentoId,
         })
       );
       dispatch(
@@ -59,7 +59,7 @@ const Detailsell = () => {
           page: 1,
           bigcategory: "",
           order: "lecture_start",
-          q: lectureDetail.mentoId.id,
+          q: lectureDetail.lecture.mentoId,
         })
       );
       dispatch(
@@ -80,14 +80,16 @@ const Detailsell = () => {
   };
   const onBasket = () => {
     if (getCookie('accessToken')) {
-      if (lectureDetail.lecturePrice === 0) {
-        dispatch(freeCartLoading({lectureName: lectureDetail.lectureName}));
-        alert('강의구매가 완료되었습니다.');
-        navi('/learning');
+      if (lectureDetail.lecture.lecturePrice === 0) {
+        dispatch(
+          freeCartLoading({ lectureName: lectureDetail.lecture.lectureName })
+        );
+        alert("강의구매가 완료되었습니다.");
+        navi("/learning");
       } else {
-        dispatch(addCartLoading(lectureDetail.lectureid));
-        alert('강의가 장바구니에 담겼습니다.');
-        navi('/basket');
+        dispatch(addCartLoading(lectureDetail.lecture.lectureId));
+        alert("강의가 장바구니에 담겼습니다.");
+        navi("/basket");
       }
     } else {
       alert('로그인 후 결제해주세요');
@@ -97,7 +99,7 @@ const Detailsell = () => {
   const onBaskets = () => {
     if (getCookie('accessToken')) {
       alert('강의가 장바구니에 담겼습니다.');
-      dispatch(addCartLoading(lectureDetail.lectureid));
+      dispatch(addCartLoading(lectureDetail.lecture.lectureId));
     } else {
       alert('로그인 후 결제해주세요');
       navi('/login');
@@ -133,19 +135,21 @@ const Detailsell = () => {
           />
         </St.DetailThum>
         <St.DetailInfoTitle>
-          <span>{lectureDetail.lectureIntro}</span>
-          <em>{lectureDetail.lectureName}</em>
+          <span>{lectureDetail.lecture.lectureIntro}</span>
+          <em>{lectureDetail.lecture.lectureName}</em>
         </St.DetailInfoTitle>
         <St.DetailUtils>
           <St.DetailUtilsItem>
             {lectureDetail.lectureCategory.lectureBigCategory}
           </St.DetailUtilsItem>
-          <St.DetailUtilsItem>{lectureDetail.mentoId.name}</St.DetailUtilsItem>
           <St.DetailUtilsItem>
-            <span>{lectureDetail.buyCount}명의 수강생</span>
+            {lectureDetail.lecture.mentoId}
           </St.DetailUtilsItem>
           <St.DetailUtilsItem>
-            {lectureDetail.lectureRating}의 평점
+            <span>{lectureDetail.lecture.buyCount}명의 수강생</span>
+          </St.DetailUtilsItem>
+          <St.DetailUtilsItem>
+            {lectureDetail.lecture.lectureRating}의 평점
           </St.DetailUtilsItem>
           {/* <St.DetailUtilsItem>
             <LinkImg />
@@ -154,9 +158,7 @@ const Detailsell = () => {
         </St.DetailUtils>
 
         <St.DetailHash>
-          {lectureDetail.lectureTag.map((v) => {
-            return <St.DetailHashli key={v}>{v}</St.DetailHashli>;
-          })}
+          <St.DetailHashli>{lectureDetail.lectureCategory.lectureBigCategory}</St.DetailHashli>
         </St.DetailHash>
       </St.PreviewArea>
       <St.DetailTab>
@@ -170,7 +172,7 @@ const Detailsell = () => {
       </St.DetailTab>
       <St.DetailMainWrap>
         <St.LeftWrap>
-          <Content content={content} />
+          <Content content={lectureDetail.lecture.lectureFullIntro} />
           <St.Curriculum ref={curriculumRef}>
             <St.CurriculumTitle>
               커리큘럼
@@ -246,13 +248,7 @@ const Detailsell = () => {
         <St.RightWrap>
           <St.Top>
             <St.TitleSub>
-              {lectureDetail.lectureDiscountrate && (
-                <p>{lectureDetail.lectureDiscountrate} %</p>
-              )}
-              <em>{lectureDetail.lecturePrice}원</em>
-              {lectureDetail.lectureDiscount && (
-                <span>{lectureDetail.lectureDiscount}원</span>
-              )}
+              <em>{lectureDetail.lecture.lecturePrice}원</em>
             </St.TitleSub>
             <St.Btn>
               <Button
@@ -260,10 +256,10 @@ const Detailsell = () => {
                 name="buy"
                 color="white"
                 width="full"
-                backgroundColor="main"
+                backgroundcolor="main"
                 onBtn={onBasket}
               />
-              {lectureDetail.lecturePrice !== 0 && (
+              {lectureDetail.lecture.lecturePrice !== 0 && (
                 <Button
                   text="장바구니에 담기"
                   name="basket"
@@ -278,7 +274,7 @@ const Detailsell = () => {
           <St.Bottom>
             <ul>
               <St.ButtomLi>
-                지식공유자 : {lectureDetail.mentoId.name}
+                지식공유자 : {lectureDetail.lecture.mentoId}
               </St.ButtomLi>
               <St.ButtomLi>
                 총{" "}
@@ -308,7 +304,7 @@ const Detailsell = () => {
         <div>
           <div>
             <St.CurriculumTitle>
-              {lectureDetail.mentoId.name}님의 다른강의
+              {lectureDetail.lecture.mentoId}님의 다른강의
               <St.CurriculumCount>
                 지식공유자님의 다른 강의를 만나보세요!
               </St.CurriculumCount>
